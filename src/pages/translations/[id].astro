@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const translations = await getCollection('translations');
+  return translations.map(translation => ({
+    params: { id: translation.id },
+    props: { translation },
+  }));
+}
+
+const { translation } = Astro.props;
+const { Content } = await render(translation);
+const { title, artist, youtubeId, publishDate, tags, coverImage } = translation.data;
+
+// 使用可選鏈確保類型安全
+const description = `${artist} 的「${title}」日文歌曲翻譯。${tags?.slice(0, 3).join('、') ?? ''}`;
+const image = coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg` : undefined);
+---
+
+<BaseLayout
+  title={`${title} - ${artist}`}
+  description={description}
+  image={image}
+  article={true}
+  publishDate={new Date(publishDate)}
+>
+  <article class="max-w-4xl mx-auto">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold mb-2" style="font-family: 'Noto Sans JP', sans-serif;">{title}</h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">{artist}</p>
+      <div class="flex gap-2 mb-4">
+        {tags.map(tag => (
+          <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
+            {tag}
+          </span>
+        ))}
+      </div>
+      <time class="text-gray-500">
+        {new Date(publishDate).toLocaleDateString('zh-TW')}
+      </time>
+    </header>
+
+    {youtubeId && (
+      <div class="aspect-video mb-8">
+        <iframe
+          width="100%"
+          height="100%"
+          src={`https://www.youtube.com/embed/${youtubeId}`}
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          class="rounded-lg"
+        ></iframe>
+      </div>
+    )}
+
+    <div class="prose max-w-none">
+      <Content />
+    </div>
+
+    <div class="mt-12">
+      <a href="/translations" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+        ← 返回翻譯列表
+      </a>
+    </div>
+  </article>
+</BaseLayout>

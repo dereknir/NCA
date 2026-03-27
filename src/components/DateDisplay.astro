@@ -1,0 +1,35 @@
+---
+/**
+ * DateDisplay 組件 - 格式化顯示日期
+ * @param date - 日期物件或字串
+ * @param format - 顯示格式：'short' | 'long' | 'full'
+ * @param showIcon - 是否顯示日曆圖標
+ */
+interface Props {
+  date: Date | string;
+  format?: 'short' | 'long' | 'full';
+  showIcon?: boolean;
+  class?: string;
+}
+
+const { date, format = 'long', showIcon = false, class: className = '' } = Astro.props;
+
+const dateObj = typeof date === 'string' ? new Date(date) : date;
+
+const formatOptions: Record<string, Intl.DateTimeFormatOptions> = {
+  short: { year: 'numeric', month: 'numeric', day: 'numeric' },
+  long: { year: 'numeric', month: 'long', day: 'numeric' },
+  full: { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' },
+};
+
+const formattedDate = dateObj.toLocaleDateString('zh-TW', formatOptions[format]);
+---
+
+<time datetime={dateObj.toISOString()} class={`inline-flex items-center gap-2 ${className}`}>
+  {showIcon && (
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+    </svg>
+  )}
+  <span>{formattedDate}</span>
+</time>

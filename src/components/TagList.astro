@@ -1,0 +1,38 @@
+---
+/**
+ * TagList 組件 - 顯示標籤列表
+ * @param tags - 標籤陣列
+ * @param variant - 顯示樣式：'primary' | 'secondary' | 'minimal'
+ * @param size - 大小：'sm' | 'md' | 'lg'
+ */
+interface Props {
+  tags: string[];
+  variant?: 'primary' | 'secondary' | 'minimal';
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { tags, variant = 'primary', size = 'md' } = Astro.props;
+
+const variantClasses = {
+  primary: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
+  secondary: 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200',
+  minimal: 'bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400',
+};
+
+const sizeClasses = {
+  sm: 'px-2 py-0.5 text-xs',
+  md: 'px-3 py-1 text-sm',
+  lg: 'px-4 py-2 text-base',
+};
+
+const baseClasses = 'inline-block rounded-full font-medium';
+const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]}`;
+---
+
+<div class="flex flex-wrap gap-2">
+  {tags?.map(tag => (
+    <span class={classes}>
+      {tag}
+    </span>
+  ))}
+</div>

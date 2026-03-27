@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allTranslations = (await getCollection('translations'))
+  .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf());
+
+// Group by artist
+const byArtist = allTranslations.reduce((acc, translation) => {
+  const artist = translation.data.artist;
+  if (!acc[artist]) acc[artist] = [];
+  acc[artist].push(translation);
+  return acc;
+}, {} as Record<string, typeof allTranslations>);
+---
+
+<BaseLayout title="日文歌翻譯" description="日文歌曲中文翻譯收藏">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-4">日文歌翻譯</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-8">收錄我喜愛的日文歌曲翻譯，包含原文與中文對照</p>
+
+    {allTranslations.length === 0 && (
+      <p class="text-gray-500 text-center py-12">還沒有翻譯文章，敬請期待！</p>
+    )}
+
+    {Object.entries(byArtist).map(([artist, translations]) => (
+      <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4 text-blue-600 dark:text-blue-400">{artist}</h2>
+        <div class="space-y-4">
+          {translations.map(translation => (
+            <a href={`/translations/${translation.id}`}
+               class="block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="text-xl font-medium mb-2">{translation.data.title}</h3>
+                  <div class="flex gap-2">
+                    {translation.data.tags.map(tag => (
+                      <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <time class="text-sm text-gray-500 shrink-0">
+                  {new Date(translation.data.publishDate).toLocaleDateString('zh-TW')}
+                </time>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+</BaseLayout>

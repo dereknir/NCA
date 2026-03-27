@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { title, description, coverImage, demoUrl, githubUrl, techStack, publishDate } = project.data;
+
+// 使用可選鏈確保類型安全
+const fullDescription = `${description} 使用技術：${techStack?.slice(0, 4).join('、') ?? ''}${(techStack?.length ?? 0) > 4 ? ' 等' : ''}。`;
+---
+
+<BaseLayout
+  title={title}
+  description={fullDescription}
+  image={coverImage}
+  article={true}
+  publishDate={new Date(publishDate)}
+>
+  <article class="max-w-5xl mx-auto">
+    {coverImage && (
+      coverImage.startsWith('http') ? (
+        <img src={coverImage} alt={title} class="w-full h-96 object-cover rounded-lg mb-8" />
+      ) : (
+        <Image
+          src={coverImage}
+          alt={title}
+          width={1200}
+          height={384}
+          class="w-full h-96 object-cover rounded-lg mb-8"
+          loading="eager"
+        />
+      )
+    )}
+
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold mb-4">{title}</h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">{description}</p>
+
+      <div class="flex gap-4 mb-6">
+        {demoUrl && (
+          <a href={demoUrl} target="_blank" rel="noopener noreferrer"
+             class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            查看 Demo
+          </a>
+        )}
+        {githubUrl && (
+          <a href={githubUrl} target="_blank" rel="noopener noreferrer"
+             class="px-6 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+            GitHub 原始碼
+          </a>
+        )}
+      </div>
+
+      <div>
+        <h3 class="text-sm font-semibold text-gray-500 mb-2">技術棧</h3>
+        <div class="flex flex-wrap gap-2">
+          {techStack.map(tech => (
+            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <time class="block mt-4 text-sm text-gray-500">
+        發布於 {new Date(publishDate).toLocaleDateString('zh-TW')}
+      </time>
+    </header>
+
+    <div class="prose max-w-none">
+      <Content />
+    </div>
+
+    <div class="mt-12">
+      <a href="/projects" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+        ← 返回作品集
+      </a>
+    </div>
+  </article>
+</BaseLayout>

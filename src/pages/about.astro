@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="關於我" description="認識 Derek">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8">關於我</h1>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
+      <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+        <!-- Avatar placeholder -->
+        <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-4xl font-bold shrink-0">
+          D
+        </div>
+
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Derek Ni</h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+            嗨！我是 Derek，一個喜歡日文歌、程式設計和寫日記的人。
+          </p>
+          <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+            這個網站是我的個人空間，用來記錄我翻譯的日文歌曲、分享程式作品，以及記錄日常生活的點滴。
+          </p>
+        </div>
+      </div>
+
+      <hr class="my-8 border-gray-200 dark:border-gray-700">
+
+      <!-- Interests -->
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="text-center p-4">
+          <div class="text-3xl mb-2">🎵</div>
+          <h3 class="font-semibold mb-2">日文歌翻譯</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">喜歡日文歌，享受翻譯歌詞的過程</p>
+        </div>
+        <div class="text-center p-4">
+          <div class="text-3xl mb-2">💻</div>
+          <h3 class="font-semibold mb-2">程式開發</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">熱愛寫程式，持續學習新技術</p>
+        </div>
+        <div class="text-center p-4">
+          <div class="text-3xl mb-2">📝</div>
+          <h3 class="font-semibold mb-2">寫日記</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400">用文字記錄生活中的美好時刻</p>
+        </div>
+      </div>
+
+      <hr class="my-8 border-gray-200 dark:border-gray-700">
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-xl font-bold mb-4">聯絡我</h3>
+        <div class="flex flex-wrap gap-4">
+          <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+             class="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition">
+            GitHub
+          </a>
+          <a href="mailto:your@email.com"
+             class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            Email
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

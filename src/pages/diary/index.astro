@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allDiary = (await getCollection('diary'))
+  .filter(entry => !entry.data.isPrivate)
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
+---
+
+<BaseLayout title="日記" description="生活記錄與心情日記">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-4xl font-bold mb-4">日記</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-8">生活的點點滴滴</p>
+
+    {allDiary.length === 0 && (
+      <p class="text-gray-500 text-center py-12">還沒有日記，敬請期待！</p>
+    )}
+
+    <div class="space-y-6">
+      {allDiary.map(entry => (
+        <a href={`/diary/${entry.id}`}
+           class="block p-6 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
+          <div class="flex items-center gap-3 mb-3">
+            {entry.data.mood && <span class="text-3xl">{entry.data.mood}</span>}
+            <div>
+              <time class="text-sm text-gray-500">
+                {new Date(entry.data.date).toLocaleDateString('zh-TW', {
+                  year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
+                })}
+              </time>
+              {entry.data.weather && (
+                <span class="ml-2 text-sm text-gray-400">{entry.data.weather}</span>
+              )}
+            </div>
+          </div>
+          <h2 class="text-xl font-semibold mb-2">{entry.data.title}</h2>
+          <div class="flex flex-wrap gap-2">
+            {entry.data.tags.map(tag => (
+              <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs rounded">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

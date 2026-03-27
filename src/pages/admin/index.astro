@@ -1,0 +1,646 @@
+---
+// Admin 頁面：純靜態 HTML + 客戶端 JavaScript
+// 所有動態功能（登入、編輯）都在瀏覽器端執行
+---
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - 文章管理</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+    h1 { margin-bottom: 20px; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+    .tab { padding: 8px 16px; border: 1px solid #ddd; background: #fff; border-radius: 6px; cursor: pointer; font-size: 14px; }
+    .tab.active { background: #2563eb; color: white; border-color: #2563eb; }
+    .card { background: #fff; border-radius: 8px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; font-family: inherit;
+    }
+    .form-group textarea { min-height: 300px; font-family: 'Consolas', 'Monaco', monospace; line-height: 1.6; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600; }
+    .btn-primary { background: #2563eb; color: white; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-secondary { background: #e5e7eb; color: #333; }
+    .btn-danger { background: #ef4444; color: white; }
+    .btn-danger:hover { background: #dc2626; }
+    .actions { display: flex; gap: 8px; justify-content: flex-end; }
+    .login-box { max-width: 400px; margin: 100px auto; }
+    .file-list { list-style: none; }
+    .file-list li { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid #eee; }
+    .file-list li:last-child { border-bottom: none; }
+    .file-list .filename { font-weight: 500; cursor: pointer; color: #2563eb; }
+    .file-list .filename:hover { text-decoration: underline; }
+    .file-list .meta { font-size: 12px; color: #999; }
+    .alert { padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-size: 14px; }
+    .alert-success { background: #d1fae5; color: #065f46; }
+    .alert-error { background: #fee2e2; color: #991b1b; }
+    .hidden { display: none; }
+    .preview { padding: 20px; border: 1px solid #ddd; border-radius: 6px; min-height: 200px; line-height: 1.8; }
+    .preview h2 { font-size: 1.5em; margin: 1em 0 0.5em; }
+    .preview h3 { font-size: 1.2em; margin: 0.8em 0 0.4em; }
+    .preview p { margin: 0.5em 0; }
+    .preview ul, .preview ol { padding-left: 1.5em; margin: 0.5em 0; }
+    .help-text { font-size: 12px; color: #666; margin-top: 4px; }
+    .toolbar { display: flex; gap: 4px; margin-bottom: 8px; flex-wrap: wrap; }
+    .toolbar button { padding: 4px 8px; background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .toolbar button:hover { background: #e5e7eb; }
+  </style>
+</head>
+<body>
+
+<div id="app" class="container">
+  <!-- Login Screen -->
+  <div id="login-screen" class="login-box">
+    <div class="card">
+      <h1>Admin 登入</h1>
+      <p style="margin-bottom:16px;color:#666;font-size:14px;">請輸入 GitHub Personal Access Token 來管理文章</p>
+      <div class="form-group">
+        <label>GitHub Token</label>
+        <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxx">
+        <p class="help-text">需要 repo 權限。前往 GitHub Settings → Developer settings → Personal access tokens 建立</p>
+      </div>
+      <div class="form-group">
+        <label>Repository（擁有者/名稱）</label>
+        <input type="text" id="github-repo" placeholder="username/my-personal-site" value="">
+      </div>
+      <div class="form-group">
+        <label>Branch</label>
+        <input type="text" id="github-branch" value="main">
+      </div>
+      <button class="btn btn-primary" onclick="login()">登入</button>
+    </div>
+  </div>
+
+  <!-- Main Admin Panel -->
+  <div id="admin-panel" class="hidden">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+      <h1>文章管理</h1>
+      <div style="display:flex;gap:8px;">
+        <a href="/" class="btn btn-secondary">← 回到網站</a>
+        <button class="btn btn-secondary" onclick="logout()">登出</button>
+      </div>
+    </div>
+
+    <div id="alert-area"></div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchCollection('translations')">日文歌翻譯</button>
+      <button class="tab" onclick="switchCollection('diary')">日記</button>
+      <button class="tab" onclick="switchCollection('projects')">程式作品</button>
+    </div>
+
+    <!-- File List View -->
+    <div id="list-view">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h2 id="collection-title">日文歌翻譯</h2>
+        <button class="btn btn-primary" onclick="showEditor(null)">+ 新增文章</button>
+      </div>
+      <div class="card">
+        <ul class="file-list" id="file-list">
+          <li>載入中...</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Editor View -->
+    <div id="editor-view" class="hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h2 id="editor-title">新增文章</h2>
+        <button class="btn btn-secondary" onclick="showList()">← 返回列表</button>
+      </div>
+      <div class="card">
+        <div class="form-group">
+          <label>檔案名稱</label>
+          <input type="text" id="file-name" placeholder="my-article.md">
+          <p class="help-text">使用英文小寫、連字號分隔，例如：yoasobi-idol.md</p>
+        </div>
+
+        <!-- Dynamic frontmatter fields -->
+        <div id="frontmatter-fields"></div>
+
+        <div class="form-group">
+          <label>文章內容 (Markdown)</label>
+          <div class="toolbar">
+            <button onclick="insertMd('## ', '')">H2</button>
+            <button onclick="insertMd('### ', '')">H3</button>
+            <button onclick="insertMd('**', '**')">粗體</button>
+            <button onclick="insertMd('*', '*')">斜體</button>
+            <button onclick="insertMd('- ', '')">列表</button>
+            <button onclick="insertMd('1. ', '')">編號</button>
+            <button onclick="insertMd('[', '](url)')">連結</button>
+            <button onclick="insertMd('```\n', '\n```')">程式碼</button>
+            <button onclick="insertLyrics()">歌詞對照</button>
+          </div>
+          <textarea id="content-body" placeholder="在此輸入 Markdown 內容..."></textarea>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-secondary" onclick="showList()">取消</button>
+          <button class="btn btn-danger hidden" id="delete-btn" onclick="deleteFile()">刪除</button>
+          <button class="btn btn-primary" onclick="saveFile()">儲存並發布</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  // State
+  let state = {
+    token: '',
+    repo: '',
+    branch: 'main',
+    collection: 'translations',
+    files: [],
+    editingFile: null, // null = new, string = existing path
+    editingSha: null,
+  };
+
+  const collectionConfig = {
+    translations: {
+      title: '日文歌翻譯',
+      path: 'src/content/translations',
+      fields: [
+        { name: 'title', label: '歌曲名稱', type: 'text', required: true },
+        { name: 'artist', label: '歌手', type: 'text', required: true },
+        { name: 'youtubeId', label: 'YouTube ID', type: 'text', required: false, help: '例如 URL 中 v= 後面的部分' },
+        { name: 'publishDate', label: '發布日期', type: 'date', required: true },
+        { name: 'tags', label: '標籤（逗號分隔）', type: 'tags', required: true },
+      ]
+    },
+    diary: {
+      title: '日記',
+      path: 'src/content/diary',
+      fields: [
+        { name: 'title', label: '標題', type: 'text', required: true },
+        { name: 'date', label: '日期', type: 'date', required: true },
+        { name: 'mood', label: '心情 (emoji)', type: 'text', required: false },
+        { name: 'weather', label: '天氣', type: 'text', required: false },
+        { name: 'tags', label: '標籤（逗號分隔）', type: 'tags', required: true },
+        { name: 'isPrivate', label: '私密日記', type: 'checkbox', required: false },
+      ]
+    },
+    projects: {
+      title: '程式作品',
+      path: 'src/content/projects',
+      fields: [
+        { name: 'title', label: '專案名稱', type: 'text', required: true },
+        { name: 'description', label: '簡短描述', type: 'text', required: true },
+        { name: 'publishDate', label: '發布日期', type: 'date', required: true },
+        { name: 'coverImage', label: '封面圖片 URL', type: 'text', required: false },
+        { name: 'demoUrl', label: 'Demo 網址', type: 'text', required: false },
+        { name: 'githubUrl', label: 'GitHub 網址', type: 'text', required: false },
+        { name: 'techStack', label: '技術棧（逗號分隔）', type: 'tags', required: true },
+        { name: 'featured', label: '精選作品', type: 'checkbox', required: false },
+      ]
+    }
+  };
+
+  // 恢復已保存的憑證（使用 sessionStorage 提升安全性）
+  const saved = sessionStorage.getItem('admin-creds');
+  if (saved) {
+    try {
+      const creds = JSON.parse(saved);
+      // 檢查憑證是否過期（2 小時）
+      const expiryTime = creds.expiry || 0;
+      if (Date.now() < expiryTime) {
+        state.token = creds.token;
+        state.repo = creds.repo;
+        state.branch = creds.branch || 'main';
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('admin-panel').classList.remove('hidden');
+        loadFiles();
+      } else {
+        // Token 已過期，清除
+        sessionStorage.removeItem('admin-creds');
+        console.log('Token 已過期，請重新登入');
+      }
+    } catch (e) {
+      // 如果解析失敗，清除損壞的數據
+      sessionStorage.removeItem('admin-creds');
+      console.error('無法解析憑證:', e);
+    }
+  }
+
+  async function login() {
+    state.token = document.getElementById('github-token').value.trim();
+    state.repo = document.getElementById('github-repo').value.trim();
+    state.branch = document.getElementById('github-branch').value.trim() || 'main';
+
+    // 驗證輸入
+    if (!state.token || !state.repo) {
+      alert('請填入 GitHub Token 和 Repository');
+      return;
+    }
+
+    // 驗證 token 格式
+    if (!state.token.startsWith('ghp_') && !state.token.startsWith('github_pat_')) {
+      alert('Token 格式錯誤。GitHub Personal Access Token 應該以 ghp_ 或 github_pat_ 開頭');
+      return;
+    }
+
+    // 驗證 repo 格式
+    if (!state.repo.includes('/') || state.repo.split('/').length !== 2) {
+      alert('Repository 格式應為：擁有者/倉庫名稱（例如：username/my-site）');
+      return;
+    }
+
+    // 測試 token 是否有效
+    try {
+      const loginBtn = document.querySelector('#login-screen button');
+      loginBtn.textContent = '驗證中...';
+      loginBtn.disabled = true;
+
+      await ghFetch(`/repos/${state.repo}`);
+
+      // Token 有效，保存憑證（設定 2 小時過期）
+      const expiry = Date.now() + (2 * 60 * 60 * 1000); // 2 小時後過期
+      sessionStorage.setItem('admin-creds', JSON.stringify({
+        token: state.token,
+        repo: state.repo,
+        branch: state.branch,
+        expiry: expiry
+      }));
+
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('admin-panel').classList.remove('hidden');
+      loadFiles();
+    } catch (err) {
+      alert(`登入失敗: ${err.message}\n\n請確認：\n1. Token 有效且具有 repo 權限\n2. Repository 名稱正確\n3. Token 未過期`);
+      const loginBtn = document.querySelector('#login-screen button');
+      loginBtn.textContent = '登入';
+      loginBtn.disabled = false;
+    }
+  }
+
+  function logout() {
+    // 清除 sessionStorage 中的憑證
+    sessionStorage.removeItem('admin-creds');
+    state.token = '';
+    state.repo = '';
+    state.branch = 'main';
+    // 清除輸入框（安全考量）
+    document.getElementById('github-token').value = '';
+    document.getElementById('admin-panel').classList.add('hidden');
+    document.getElementById('login-screen').classList.remove('hidden');
+  }
+
+  function showAlert(message, type = 'success') {
+    const area = document.getElementById('alert-area');
+    area.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+    setTimeout(() => { area.innerHTML = ''; }, 5000);
+  }
+
+  // GitHub API 輔助函數（加強錯誤處理）
+  async function ghFetch(path, options = {}) {
+    try {
+      const res = await fetch(`https://api.github.com${path}`, {
+        ...options,
+        headers: {
+          'Authorization': `Bearer ${state.token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+          ...options.headers,
+        },
+      });
+
+      // 檢查速率限制
+      const remaining = res.headers.get('X-RateLimit-Remaining');
+      if (remaining && parseInt(remaining) < 10) {
+        console.warn(`GitHub API 速率限制警告：剩餘 ${remaining} 次請求`);
+      }
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+
+        // 根據不同的 HTTP 狀態碼提供更詳細的錯誤訊息
+        switch (res.status) {
+          case 401:
+            // Token 無效或過期
+            sessionStorage.removeItem('admin-creds');
+            throw new Error('Token 無效或已過期，請重新登入');
+          case 403:
+            if (err.message && err.message.includes('rate limit')) {
+              const resetTime = res.headers.get('X-RateLimit-Reset');
+              const resetDate = resetTime ? new Date(parseInt(resetTime) * 1000) : null;
+              throw new Error(`已達 GitHub API 速率限制。重置時間：${resetDate ? resetDate.toLocaleTimeString('zh-TW') : '未知'}`);
+            }
+            throw new Error('權限不足。請確認 Token 具有 repo 權限');
+          case 404:
+            throw new Error('資源不存在。請檢查 Repository 名稱或檔案路徑是否正確');
+          case 409:
+            throw new Error('檔案衝突。檔案可能已被其他人修改，請重新載入後再試');
+          case 422:
+            throw new Error('請求格式錯誤：' + (err.message || '請檢查輸入內容'));
+          case 429:
+            throw new Error('請求過於頻繁，請稍後再試');
+          default:
+            throw new Error(err.message || `GitHub API 錯誤 (${res.status})`);
+        }
+      }
+
+      return res.json();
+    } catch (error) {
+      // 處理網路錯誤
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        throw new Error('網路連線失敗，請檢查網路連線');
+      }
+      // 如果是我們自己拋出的錯誤，直接往上傳遞
+      throw error;
+    }
+  }
+
+  async function loadFiles() {
+    const config = collectionConfig[state.collection];
+    const list = document.getElementById('file-list');
+    list.innerHTML = '<li>載入中...</li>';
+
+    try {
+      const data = await ghFetch(`/repos/${state.repo}/contents/${config.path}?ref=${state.branch}`);
+      state.files = data.filter(f => f.name.endsWith('.md') || f.name.endsWith('.mdx'));
+
+      if (state.files.length === 0) {
+        list.innerHTML = '<li style="color:#999;text-align:center;padding:20px;">還沒有文章</li>';
+        return;
+      }
+
+      list.innerHTML = state.files.map(f => `
+        <li>
+          <div>
+            <span class="filename" onclick="editFile('${f.path}', '${f.sha}')">${f.name}</span>
+          </div>
+          <div class="meta">${(f.size / 1024).toFixed(1)} KB</div>
+        </li>
+      `).join('');
+    } catch (err) {
+      if (err.message.includes('Not Found')) {
+        list.innerHTML = '<li style="color:#999;text-align:center;padding:20px;">資料夾尚未建立，請先新增一篇文章</li>';
+      } else {
+        list.innerHTML = `<li style="color:red;">載入失敗: ${err.message}</li>`;
+      }
+    }
+  }
+
+  function switchCollection(name) {
+    state.collection = name;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('collection-title').textContent = collectionConfig[name].title;
+    showList();
+    loadFiles();
+  }
+
+  function showList() {
+    document.getElementById('list-view').classList.remove('hidden');
+    document.getElementById('editor-view').classList.add('hidden');
+  }
+
+  function showEditor(file) {
+    document.getElementById('list-view').classList.add('hidden');
+    document.getElementById('editor-view').classList.remove('hidden');
+
+    const config = collectionConfig[state.collection];
+    document.getElementById('editor-title').textContent = file ? '編輯文章' : '新增文章';
+    document.getElementById('delete-btn').classList.toggle('hidden', !file);
+
+    // Render frontmatter fields
+    const container = document.getElementById('frontmatter-fields');
+    container.innerHTML = config.fields.map(f => {
+      if (f.type === 'checkbox') {
+        return `<div class="form-group">
+          <label><input type="checkbox" id="field-${f.name}"> ${f.label}</label>
+        </div>`;
+      }
+      return `<div class="form-group">
+        <label>${f.label}${f.required ? ' *' : ''}</label>
+        <input type="${f.type === 'date' ? 'date' : 'text'}" id="field-${f.name}" ${f.required ? 'required' : ''}>
+        ${f.help ? `<p class="help-text">${f.help}</p>` : ''}
+      </div>`;
+    }).join('');
+
+    // Set defaults for new file
+    if (!file) {
+      document.getElementById('file-name').value = '';
+      document.getElementById('file-name').disabled = false;
+      document.getElementById('content-body').value = '';
+      state.editingFile = null;
+      state.editingSha = null;
+
+      // Set default date
+      const dateField = document.getElementById('field-publishDate') || document.getElementById('field-date');
+      if (dateField) dateField.value = new Date().toISOString().split('T')[0];
+    }
+  }
+
+  async function editFile(path, sha) {
+    showEditor(path);
+    state.editingFile = path;
+
+    try {
+      const data = await ghFetch(`/repos/${state.repo}/contents/${path}?ref=${state.branch}`);
+      state.editingSha = data.sha;
+
+      const content = atob(data.content.replace(/\n/g, ''));
+      const decoded = new TextDecoder().decode(Uint8Array.from(content, c => c.charCodeAt(0)));
+
+      // Parse frontmatter
+      const match = decoded.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+      if (match) {
+        const frontmatter = match[1];
+        const body = match[2];
+
+        document.getElementById('file-name').value = path.split('/').pop();
+        document.getElementById('file-name').disabled = true;
+        document.getElementById('content-body').value = body.trim();
+
+        // Parse and fill frontmatter fields
+        const config = collectionConfig[state.collection];
+        config.fields.forEach(f => {
+          const el = document.getElementById(`field-${f.name}`);
+          if (!el) return;
+
+          const regex = new RegExp(`^${f.name}:\\s*(.+)$`, 'm');
+          const m = frontmatter.match(regex);
+          if (m) {
+            let val = m[1].trim().replace(/^["']|["']$/g, '');
+            if (f.type === 'checkbox') {
+              el.checked = val === 'true';
+            } else if (f.type === 'tags') {
+              // Parse YAML array
+              val = val.replace(/^\[|\]$/g, '').replace(/"/g, '').trim();
+              el.value = val;
+            } else {
+              el.value = val;
+            }
+          }
+        });
+      }
+    } catch (err) {
+      showAlert(`載入文章失敗: ${err.message}`, 'error');
+    }
+  }
+
+  function buildFileContent() {
+    const config = collectionConfig[state.collection];
+    let frontmatter = '---\n';
+
+    config.fields.forEach(f => {
+      const el = document.getElementById(`field-${f.name}`);
+      if (!el) return;
+
+      if (f.type === 'checkbox') {
+        frontmatter += `${f.name}: ${el.checked}\n`;
+      } else if (f.type === 'tags') {
+        const tags = el.value.split(',').map(t => t.trim()).filter(Boolean);
+        frontmatter += `${f.name}: [${tags.map(t => `"${t}"`).join(', ')}]\n`;
+      } else {
+        const val = el.value.trim();
+        if (val) {
+          frontmatter += f.type === 'date' ? `${f.name}: ${val}\n` : `${f.name}: "${val}"\n`;
+        }
+      }
+    });
+
+    frontmatter += '---\n\n';
+    return frontmatter + document.getElementById('content-body').value;
+  }
+
+  async function saveFile() {
+    const config = collectionConfig[state.collection];
+    let fileName = document.getElementById('file-name').value.trim();
+
+    // 輸入驗證
+    if (!fileName) {
+      showAlert('請輸入檔案名稱', 'error');
+      return;
+    }
+
+    // 檢查檔案名稱是否包含非法字符
+    if (!/^[a-zA-Z0-9_-]+(\.(md|mdx))?$/.test(fileName)) {
+      showAlert('檔案名稱只能包含英文字母、數字、連字號和底線', 'error');
+      return;
+    }
+
+    if (!fileName.endsWith('.md') && !fileName.endsWith('.mdx')) {
+      fileName += '.md';
+    }
+
+    // 驗證必填欄位
+    const missingFields = [];
+    config.fields.forEach(f => {
+      if (f.required) {
+        const el = document.getElementById(`field-${f.name}`);
+        if (el && !el.value.trim() && el.type !== 'checkbox') {
+          missingFields.push(f.label);
+        }
+      }
+    });
+
+    if (missingFields.length > 0) {
+      showAlert(`請填寫必填欄位：${missingFields.join('、')}`, 'error');
+      return;
+    }
+
+    const filePath = state.editingFile || `${config.path}/${fileName}`;
+    const content = buildFileContent();
+
+    // 禁用保存按鈕，防止重複提交
+    const saveBtn = document.getElementById('save-btn');
+    const originalText = saveBtn.textContent;
+    saveBtn.disabled = true;
+    saveBtn.textContent = '儲存中...';
+
+    try {
+      // Encode to base64 (handle UTF-8)
+      const encoded = btoa(String.fromCharCode(...new TextEncoder().encode(content)));
+
+      const body = {
+        message: state.editingFile ? `Update ${fileName}` : `Add ${fileName}`,
+        content: encoded,
+        branch: state.branch,
+      };
+      if (state.editingSha) {
+        body.sha = state.editingSha;
+      }
+
+      await ghFetch(`/repos/${state.repo}/contents/${filePath}`, {
+        method: 'PUT',
+        body: JSON.stringify(body),
+      });
+
+      showAlert(`文章已成功${state.editingFile ? '更新' : '建立'}！網站將在幾分鐘內自動重新部署。`);
+      showList();
+      loadFiles();
+    } catch (err) {
+      showAlert(`儲存失敗: ${err.message}`, 'error');
+      // 如果是 401 錯誤（Token 過期），強制返回登入頁面
+      if (err.message.includes('Token 無效或已過期')) {
+        setTimeout(() => logout(), 2000);
+      }
+    } finally {
+      // 恢復按鈕狀態
+      saveBtn.disabled = false;
+      saveBtn.textContent = originalText;
+    }
+  }
+
+  async function deleteFile() {
+    if (!state.editingFile || !confirm('確定要刪除這篇文章嗎？')) return;
+
+    try {
+      await ghFetch(`/repos/${state.repo}/contents/${state.editingFile}`, {
+        method: 'DELETE',
+        body: JSON.stringify({
+          message: `Delete ${state.editingFile.split('/').pop()}`,
+          sha: state.editingSha,
+          branch: state.branch,
+        }),
+      });
+
+      showAlert('文章已刪除');
+      showList();
+      loadFiles();
+    } catch (err) {
+      showAlert(`刪除失敗: ${err.message}`, 'error');
+    }
+  }
+
+  // Markdown toolbar helpers
+  function insertMd(before, after) {
+    const ta = document.getElementById('content-body');
+    const start = ta.selectionStart;
+    const end = ta.selectionEnd;
+    const selected = ta.value.substring(start, end);
+    const replacement = before + (selected || '文字') + after;
+    ta.value = ta.value.substring(0, start) + replacement + ta.value.substring(end);
+    ta.focus();
+    ta.selectionStart = start + before.length;
+    ta.selectionEnd = start + before.length + (selected || '文字').length;
+  }
+
+  function insertLyrics() {
+    const ta = document.getElementById('content-body');
+    const template = `\n<div class="lyrics-container">
+  <div class="lyrics-ja">
+    日文歌詞
+  </div>
+  <div class="lyrics-zh">
+    中文翻譯
+  </div>
+</div>\n`;
+    const pos = ta.selectionStart;
+    ta.value = ta.value.substring(0, pos) + template + ta.value.substring(pos);
+    ta.focus();
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = (await getCollection('projects'))
+  .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf());
+---
+
+<BaseLayout title="作品集" description="程式作品與專案展示">
+  <div class="max-w-5xl mx-auto">
+    <h1 class="text-4xl font-bold mb-4">作品集</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-8">我的程式專案與作品展示</p>
+
+    {allProjects.length === 0 && (
+      <p class="text-gray-500 text-center py-12">還沒有作品，敬請期待！</p>
+    )}
+
+    <div class="grid md:grid-cols-2 gap-8">
+      {allProjects.map(project => (
+        <a href={`/projects/${project.id}`}
+           class="block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition overflow-hidden">
+          {project.data.coverImage && (
+            <img src={project.data.coverImage} alt={project.data.title} class="w-full h-48 object-cover" />
+          )}
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-2">
+              <h2 class="text-xl font-semibold">{project.data.title}</h2>
+              {project.data.featured && (
+                <span class="px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs rounded-full">精選</span>
+              )}
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">{project.data.description}</p>
+            <div class="flex flex-wrap gap-2">
+              {project.data.techStack.map(tech => (
+                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-sm rounded">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
