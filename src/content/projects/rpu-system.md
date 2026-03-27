@@ -2,7 +2,7 @@
 title: "RPU 投後監控系統"
 description: "金融投資組合即時監控儀表板，整合市場數據與財務模型預測"
 publishDate: 2026-03-20
-coverImage: ""
+coverImage: "/images/projects/rpu-cover.png"
 techStack: ["Python", "Streamlit", "PostgreSQL", "Flask", "JavaScript"]
 featured: true
 ---
