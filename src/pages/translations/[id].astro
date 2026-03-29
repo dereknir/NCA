@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 
 const { translation } = Astro.props;
 const { Content } = await render(translation);
-const { title, artist, youtubeId, publishDate, tags, coverImage } = translation.data;
+const { title, artist, album, albumYear, youtubeId, publishDate, tags, coverImage } = translation.data;
 
 // 使用可選鏈確保類型安全
 const description = `${artist} 的「${title}」日文歌曲翻譯。${tags?.slice(0, 3).join('、') ?? ''}`;
@@ -29,7 +29,12 @@ const image = coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId
   <article class="max-w-4xl mx-auto">
     <header class="mb-8">
       <h1 class="text-4xl font-bold mb-2" style="font-family: 'Noto Sans JP', sans-serif;">{title}</h1>
-      <p class="text-xl text-gray-600 dark:text-gray-400 mb-4">{artist}</p>
+      <p class="text-xl text-gray-600 dark:text-gray-400 mb-1">{artist}</p>
+      {album && (
+        <p class="text-sm text-gray-500 dark:text-gray-500 mb-4">
+          💿 {album}{albumYear && ` (${albumYear})`}
+        </p>
+      )}
       <div class="flex gap-2 mb-4">
         {tags.map(tag => (
           <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">

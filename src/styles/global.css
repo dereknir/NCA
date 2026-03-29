@@ -85,7 +85,57 @@
   margin: 1rem 0;
 }
 
-/* Lyrics display */
+/* Lyrics section */
+.lyrics-section {
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 1rem;
+  margin: 2rem 0;
+  color: white;
+}
+.lyrics-section h2 {
+  color: white;
+  margin-top: 0;
+}
+
+/* Single lyrics block: one JP line, one ZH line, alternating */
+.lyrics-line {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+.lyrics-line:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.lyrics-line .romaji {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.25rem;
+  font-style: italic;
+}
+.lyrics-line .ja {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.8;
+  margin-bottom: 0.25rem;
+}
+.lyrics-line .zh {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+/* Section break within lyrics */
+.lyrics-break {
+  height: 1.5rem;
+  border-bottom: none;
+}
+
+/* Legacy side-by-side format (keep for backward compat) */
 .lyrics-container {
   display: grid;
   grid-template-columns: 1fr 1fr;

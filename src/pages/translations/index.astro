@@ -3,15 +3,35 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const allTranslations = (await getCollection('translations'))
-  .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf());
+  .sort((a, b) => {
+    // Sort by trackNumber if same album, otherwise by publishDate
+    if (a.data.album && a.data.album === b.data.album) {
+      return (a.data.trackNumber ?? 99) - (b.data.trackNumber ?? 99);
+    }
+    return new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf();
+  });
 
-// Group by artist
-const byArtist = allTranslations.reduce((acc, translation) => {
-  const artist = translation.data.artist;
-  if (!acc[artist]) acc[artist] = [];
-  acc[artist].push(translation);
+// Group by artist → album
+type Translation = typeof allTranslations[number];
+interface AlbumGroup {
+  albumYear?: number;
+  songs: Translation[];
+}
+interface ArtistGroup {
+  albums: Record<string, AlbumGroup>;
+}
+
+const byArtistAlbum = allTranslations.reduce((acc, t) => {
+  const artist = t.data.artist;
+  const album = t.data.album ?? '單曲 / 其他';
+
+  if (!acc[artist]) acc[artist] = { albums: {} };
+  if (!acc[artist].albums[album]) {
+    acc[artist].albums[album] = { albumYear: t.data.albumYear, songs: [] };
+  }
+  acc[artist].albums[album].songs.push(t);
   return acc;
-}, {} as Record<string, typeof allTranslations>);
+}, {} as Record<string, ArtistGroup>);
 ---
 
 <BaseLayout title="日文歌翻譯" description="日文歌曲中文翻譯收藏">
@@ -23,31 +43,53 @@ const byArtist = allTranslations.reduce((acc, translation) => {
       <p class="text-gray-500 text-center py-12">還沒有翻譯文章，敬請期待！</p>
     )}
 
-    {Object.entries(byArtist).map(([artist, translations]) => (
-      <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4 text-blue-600 dark:text-blue-400">{artist}</h2>
-        <div class="space-y-4">
-          {translations.map(translation => (
-            <a href={`/translations/${translation.id}`}
-               class="block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h3 class="text-xl font-medium mb-2">{translation.data.title}</h3>
-                  <div class="flex gap-2">
-                    {translation.data.tags.map(tag => (
-                      <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <time class="text-sm text-gray-500 shrink-0">
-                  {new Date(translation.data.publishDate).toLocaleDateString('zh-TW')}
-                </time>
+    {Object.entries(byArtistAlbum).map(([artist, { albums }]) => (
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 pb-2">
+          {artist}
+        </h2>
+
+        {Object.entries(albums)
+          .sort(([, a], [, b]) => (b.albumYear ?? 0) - (a.albumYear ?? 0))
+          .map(([albumName, { albumYear, songs }]) => (
+            <div class="mb-8 ml-4">
+              <h3 class="text-lg font-semibold mb-3 flex items-center gap-2">
+                <span class="text-gray-400">💿</span>
+                <span>{albumName}</span>
+                {albumYear && (
+                  <span class="text-sm font-normal text-gray-500">({albumYear})</span>
+                )}
+              </h3>
+
+              <div class="space-y-3 ml-6">
+                {songs.map((t, i) => (
+                  <a href={`/translations/${t.id}`}
+                     class="block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
+                    <div class="flex justify-between items-start">
+                      <div class="flex items-center gap-3">
+                        {t.data.trackNumber && (
+                          <span class="text-sm text-gray-400 font-mono w-6 text-right">{t.data.trackNumber}.</span>
+                        )}
+                        <div>
+                          <h4 class="text-lg font-medium">{t.data.title}</h4>
+                          <div class="flex gap-2 mt-1">
+                            {t.data.tags.map(tag => (
+                              <span class="px-2 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      <time class="text-sm text-gray-500 shrink-0">
+                        {new Date(t.data.publishDate).toLocaleDateString('zh-TW')}
+                      </time>
+                    </div>
+                  </a>
+                ))}
               </div>
-            </a>
+            </div>
           ))}
-        </div>
       </section>
     ))}
   </div>

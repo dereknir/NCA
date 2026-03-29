@@ -10,6 +10,18 @@ const translationsCollection = defineCollection({
     artist: z.string()
       .min(1, '歌手名稱不能為空')
       .max(50, '歌手名稱不能超過 50 個字元'),
+    album: z.string()
+      .max(100, '專輯名稱不能超過 100 個字元')
+      .optional(),
+    albumYear: z.number()
+      .int()
+      .min(1900)
+      .max(2100)
+      .optional(),
+    trackNumber: z.number()
+      .int()
+      .positive()
+      .optional(),
     youtubeId: z.string()
       .regex(/^[a-zA-Z0-9_-]{11}$/, 'YouTube ID 格式錯誤（應為 11 個字元）')
       .optional(),
