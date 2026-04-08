@@ -1,6 +1,9 @@
 ---
-title: "Weekly"
+title: "weekly"
 artist: "にしな"
+album: "日々散漫"
+albumYear: 2026
+trackNumber: 2
 publishDate: 2026-03-28
 tags: ["にしな", "J-POP", "日常", "療癒"]
 originalLang: ja

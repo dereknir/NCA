@@ -1,6 +1,9 @@
 ---
 title: "グローリー"
 artist: "にしな"
+album: "日々散漫"
+albumYear: 2026
+trackNumber: 20
 publishDate: 2026-04-08
 tags: ["にしな", "J-POP", "反戰", "情歌"]
 originalLang: ja

@@ -1,6 +1,9 @@
 ---
 title: "It's a piece of cake"
 artist: "にしな"
+album: "日々散漫"
+albumYear: 2026
+trackNumber: 17
 publishDate: 2026-04-08
 tags: ["にしな", "J-POP", "日常", "青春"]
 originalLang: ja
