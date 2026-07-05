@@ -1,13 +1,27 @@
 ---
 /**
- * LiveShorts component - Displays a sequence of YouTube Shorts that auto-advance.
- * Designed for LIVE performance clips scattered across the artist's Shorts feed.
+ * LiveShorts component - hidden audio playback with lyric-anchored timeline.
  *
- * @param shorts - Array of YouTube video IDs (in play order)
- * @param title - Optional section heading
+ * How it works:
+ * - Each "section" is anchored to a specific Japanese lyric line.
+ * - Each section can have multiple clips (versions from different concerts).
+ * - The YouTube player is rendered off-screen (audio only by default).
+ * - A sticky mini timeline shows all sections; badges indicate multi-version.
+ * - When a clip plays, the corresponding lyric section is highlighted.
+ * - Clicking a dot: if single-version, play immediately; if multi-version,
+ *   open a picker.
  */
+interface Clip {
+  id: string;
+  source?: string;
+}
+interface Section {
+  anchor: string;
+  label?: string;
+  clips: Clip[];
+}
 interface Props {
-  shorts: string[];
+  shorts: Section[];
   title?: string;
 }
 
@@ -15,171 +29,442 @@ const { shorts, title = 'LIVE 版本' } = Astro.props;
 
 if (!shorts || shorts.length === 0) return null;
 
+const totalClips = shorts.reduce((sum, s) => sum + s.clips.length, 0);
 const componentId = `live-shorts-${Math.random().toString(36).slice(2, 9)}`;
 ---
 
-<section class="live-shorts-container" data-component-id={componentId}>
-  <div class="flex items-center justify-between mb-4">
-    <h2 class="flex items-center gap-2 text-2xl font-bold m-0">
-      <span class="text-red-500">🎤</span>
-      <span>{title}</span>
-      <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-        （共 {shorts.length} 段，自動連播）
-      </span>
-    </h2>
-    <div class="text-sm text-gray-500 dark:text-gray-400">
-      <span class="current-position">1</span> / {shorts.length}
-    </div>
-  </div>
+<div
+  class="live-shorts-root"
+  data-component-id={componentId}
+  data-sections={JSON.stringify(shorts)}
+>
+  <!-- Sticky mini timeline (fixed to viewport) -->
+  <div class="live-shorts-bar">
+    <div class="live-shorts-bar-inner">
+      <button
+        type="button"
+        class="live-shorts-play-btn"
+        aria-label="播放 / 暫停"
+        data-action="toggle-play"
+      >
+        <span class="icon-play">▶</span>
+        <span class="icon-pause">⏸</span>
+      </button>
 
-  <div class="live-shorts-layout">
-    <!-- Main player (16:9 to match YouTube's native player) -->
-    <div class="live-shorts-player-frame">
-      <div id={`${componentId}-player`} class="live-shorts-player"></div>
-    </div>
-
-    <div class="live-shorts-hint">
-      💡 點擊播放後會自動連播下一段
-    </div>
-
-    <!-- Thumbnails queue (below player, horizontal row) -->
-    <div class="live-shorts-queue">
-      <div class="live-shorts-thumbs">
-        {shorts.map((id, i) => (
-          <button
-            type="button"
-            class="live-shorts-thumb"
-            data-index={i}
-            data-video-id={id}
-            aria-label={`播放第 ${i + 1} 段`}
-          >
-            <div class="live-shorts-thumb-image">
-              <img
-                src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`}
-                alt={`第 ${i + 1} 段`}
-                loading="lazy"
-              />
-              <span class="live-shorts-thumb-number">{i + 1}</span>
-            </div>
-          </button>
-        ))}
+      <div class="live-shorts-info">
+        <div class="live-shorts-title">
+          <span class="live-shorts-title-icon">🎤</span>
+          <span>{title}</span>
+          <span class="live-shorts-count">
+            {shorts.length} 段 / {totalClips} 個 clip
+          </span>
+        </div>
+        <div class="live-shorts-status">
+          <span class="live-shorts-current-label">點按下方段落或播放鍵開始</span>
+        </div>
       </div>
+
+      <button
+        type="button"
+        class="live-shorts-video-btn"
+        aria-label="顯示 / 隱藏影像"
+        data-action="toggle-video"
+        title="顯示影像"
+      >
+        📺
+      </button>
+    </div>
+
+    <!-- Timeline of anchors -->
+    <div class="live-shorts-timeline">
+      {shorts.map((section, i) => (
+        <button
+          type="button"
+          class="live-shorts-dot"
+          data-section-index={i}
+          data-anchor={section.anchor}
+          aria-label={`播放段落 ${i + 1}${section.label ? ' - ' + section.label : ''}`}
+        >
+          <span class="live-shorts-dot-inner">{i + 1}</span>
+          {section.clips.length > 1 && (
+            <span class="live-shorts-badge">{section.clips.length}</span>
+          )}
+          <span class="live-shorts-dot-label">{section.label ?? `段落 ${i + 1}`}</span>
+        </button>
+      ))}
     </div>
   </div>
-</section>
+
+  <!-- Off-screen YouTube player (audio only by default) -->
+  <div class="live-shorts-player-shell" data-video-visible="false">
+    <div class="live-shorts-player-header">
+      <span class="live-shorts-player-title">LIVE 影像</span>
+      <button type="button" class="live-shorts-player-close" data-action="hide-video" aria-label="關閉影像">×</button>
+    </div>
+    <div class="live-shorts-player-frame">
+      <div id={`${componentId}-player`}></div>
+    </div>
+  </div>
+
+  <!-- Version picker (populated by JS) -->
+  <div class="live-shorts-picker" hidden>
+    <div class="live-shorts-picker-backdrop" data-action="close-picker"></div>
+    <div class="live-shorts-picker-card" role="dialog" aria-label="版本選單">
+      <div class="live-shorts-picker-header">
+        <span class="live-shorts-picker-title">選擇版本</span>
+        <button type="button" class="live-shorts-picker-close" data-action="close-picker" aria-label="關閉">×</button>
+      </div>
+      <ul class="live-shorts-picker-list"></ul>
+    </div>
+  </div>
+</div>
 
 <style>
-  .live-shorts-container {
-    margin: 3rem 0;
-    padding: 1.5rem;
-    background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
-    border-radius: 1rem;
-    color: white;
-  }
-  .live-shorts-container h2 {
-    color: white;
+  .live-shorts-root {
+    /* container is invisible; children position themselves */
   }
 
-  .live-shorts-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    max-width: 720px;
-    margin: 0 auto;
-  }
-
-  .live-shorts-player-frame {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    background: #000;
+  /* Sticky mini timeline */
+  .live-shorts-bar {
+    position: sticky;
+    top: 72px; /* sits below main nav */
+    z-index: 40;
+    background: rgba(30, 30, 46, 0.95);
+    backdrop-filter: blur(10px);
+    color: white;
     border-radius: 0.75rem;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    padding: 0.75rem 1rem;
+    margin: 1.5rem 0 2rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
   }
 
-  .live-shorts-player {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+  .live-shorts-bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
-  .live-shorts-player iframe {
-    width: 100% !important;
-    height: 100% !important;
+
+  .live-shorts-play-btn {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ef4444;
+    color: white;
     border: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: transform 0.15s ease, background 0.15s ease;
   }
-
-  .live-shorts-hint {
-    font-size: 0.75rem;
-    text-align: center;
-    opacity: 0.6;
+  .live-shorts-play-btn:hover {
+    transform: scale(1.05);
+    background: #dc2626;
   }
+  .live-shorts-play-btn .icon-pause { display: none; }
+  .live-shorts-play-btn[data-playing="true"] .icon-play { display: none; }
+  .live-shorts-play-btn[data-playing="true"] .icon-pause { display: inline; }
 
-  .live-shorts-queue {
+  .live-shorts-info {
+    flex: 1;
     min-width: 0;
   }
-
-  .live-shorts-thumbs {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 0.5rem;
-  }
-
-  .live-shorts-thumb {
-    background: transparent;
-    border: 2px solid transparent;
-    padding: 0;
-    cursor: pointer;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    transition: transform 0.15s ease, border-color 0.15s ease;
-  }
-  .live-shorts-thumb:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.4);
-  }
-  .live-shorts-thumb.active {
-    border-color: #ef4444;
-    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
-  }
-
-  .live-shorts-thumb-image {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    background: #000;
-  }
-  .live-shorts-thumb-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .live-shorts-thumb-number {
-    position: absolute;
-    bottom: 4px;
-    left: 4px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    font-size: 0.7rem;
+  .live-shorts-title {
     font-weight: 600;
-    padding: 1px 6px;
-    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
   }
-  .live-shorts-thumb.active .live-shorts-thumb-number {
+  .live-shorts-title-icon { color: #ef4444; }
+  .live-shorts-count {
+    font-size: 0.7rem;
+    opacity: 0.6;
+    font-weight: 400;
+    margin-left: auto;
+  }
+  .live-shorts-status {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .live-shorts-video-btn {
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 0;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.15s ease;
+  }
+  .live-shorts-video-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Timeline (dot row) */
+  .live-shorts-timeline {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+  .live-shorts-timeline::-webkit-scrollbar {
+    height: 4px;
+  }
+  .live-shorts-timeline::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+  }
+
+  .live-shorts-dot {
+    flex: 0 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.35rem 0.5rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .live-shorts-dot:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  .live-shorts-dot[data-active="true"] {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: #ef4444;
+  }
+
+  .live-shorts-dot-inner {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .live-shorts-dot[data-active="true"] .live-shorts-dot-inner {
     background: #ef4444;
   }
 
-  @media (max-width: 768px) {
-    .live-shorts-thumbs {
-      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    }
+  .live-shorts-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #f59e0b;
+    color: #1e1e2e;
+    font-size: 0.6rem;
+    font-weight: 700;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .live-shorts-dot-label {
+    font-size: 0.7rem;
+    opacity: 0.75;
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Off-screen player (invisible when hidden) */
+  .live-shorts-player-shell {
+    position: fixed;
+    z-index: 45;
+    background: #000;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .live-shorts-player-shell[data-video-visible="false"] {
+    left: -9999px;
+    top: -9999px;
+    width: 320px;
+    height: 180px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .live-shorts-player-shell[data-video-visible="true"] {
+    right: 1.5rem;
+    bottom: 1.5rem;
+    width: 320px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .live-shorts-player-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+  .live-shorts-player-close {
+    background: transparent;
+    color: white;
+    border: 0;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 0.25rem 0.5rem;
+  }
+  .live-shorts-player-frame {
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .live-shorts-player-frame > div {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Version picker */
+  .live-shorts-picker {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .live-shorts-picker[hidden] { display: none; }
+  .live-shorts-picker-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .live-shorts-picker-card {
+    position: relative;
+    background: #1e1e2e;
+    color: white;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    min-width: 280px;
+    max-width: 400px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  }
+  .live-shorts-picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  .live-shorts-picker-title {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .live-shorts-picker-close {
+    background: transparent;
+    color: white;
+    border: 0;
+    cursor: pointer;
+    font-size: 1.4rem;
+    line-height: 1;
+    padding: 0.25rem 0.5rem;
+    opacity: 0.7;
+  }
+  .live-shorts-picker-close:hover { opacity: 1; }
+
+  .live-shorts-picker-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+  .live-shorts-picker-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .live-shorts-picker-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .live-shorts-picker-item[data-current="true"] {
+    background: rgba(239, 68, 68, 0.2);
+  }
+  .live-shorts-picker-item-radio {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+  }
+  .live-shorts-picker-item[data-current="true"] .live-shorts-picker-item-radio {
+    background: #ef4444;
+  }
+  .live-shorts-picker-item-label {
+    flex: 1;
+    font-size: 0.9rem;
+  }
+  .live-shorts-picker-item-source {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-top: 2px;
+  }
+</style>
+
+<style is:global>
+  /* Lyric highlight (applied via JS to matching .lyrics-line elements) */
+  .lyrics-line.live-playing-section {
+    background: rgba(239, 68, 68, 0.12);
+    border-left: 3px solid #ef4444;
+    padding-left: 12px;
+    margin-left: -15px;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+  .lyrics-line.live-playing-anchor {
+    background: rgba(239, 68, 68, 0.22);
   }
 </style>
 
 <script>
+  interface Clip {
+    id: string;
+    source?: string;
+  }
+  interface Section {
+    anchor: string;
+    label?: string;
+    clips: Clip[];
+  }
   interface YTPlayerLike {
     loadVideoById: (id: string) => void;
     playVideo: () => void;
+    pauseVideo: () => void;
+    getPlayerState: () => number;
     destroy: () => void;
   }
   interface YTStateEvent { data: number }
@@ -187,95 +472,244 @@ const componentId = `live-shorts-${Math.random().toString(36).slice(2, 9)}`;
   declare global {
     interface Window {
       YT?: {
-        Player: new (
-          el: HTMLElement | string,
-          opts: Record<string, unknown>
-        ) => YTPlayerLike;
-        PlayerState: { ENDED: number };
-        loaded?: number;
+        Player: new (el: HTMLElement | string, opts: Record<string, unknown>) => YTPlayerLike;
+        PlayerState: { PLAYING: number; PAUSED: number; ENDED: number };
       };
       onYouTubeIframeAPIReady?: () => void;
     }
   }
 
+  const YT_PLAYING = 1;
   const YT_ENDED = 0;
 
   function loadYouTubeAPI(): Promise<void> {
     return new Promise(resolve => {
-      if (window.YT && window.YT.Player) {
-        resolve();
-        return;
-      }
+      if (window.YT && window.YT.Player) { resolve(); return; }
       if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
         const tag = document.createElement('script');
         tag.src = 'https://www.youtube.com/iframe_api';
         document.body.appendChild(tag);
       }
       const prev = window.onYouTubeIframeAPIReady;
-      window.onYouTubeIframeAPIReady = () => {
-        prev?.();
-        resolve();
-      };
+      window.onYouTubeIframeAPIReady = () => { prev?.(); resolve(); };
     });
   }
 
+  function findAnchorLine(anchor: string): HTMLElement | null {
+    const jaLines = document.querySelectorAll<HTMLElement>('.lyrics-line .ja');
+    for (const el of Array.from(jaLines)) {
+      const text = el.textContent?.trim() ?? '';
+      if (text && text.includes(anchor)) {
+        return el.closest<HTMLElement>('.lyrics-line');
+      }
+    }
+    return null;
+  }
+
   function initLiveShorts(root: HTMLElement) {
-    const componentId = root.dataset.componentId;
-    if (!componentId) return;
+    let sections: Section[] = [];
+    try {
+      sections = JSON.parse(root.dataset.sections || '[]');
+    } catch { return; }
+    if (sections.length === 0) return;
 
-    const thumbs = Array.from(root.querySelectorAll<HTMLButtonElement>('.live-shorts-thumb'));
-    const positionEl = root.querySelector<HTMLElement>('.current-position');
+    const componentId = root.dataset.componentId!;
     const playerEl = document.getElementById(`${componentId}-player`);
-    if (!playerEl || thumbs.length === 0) return;
+    const playBtn = root.querySelector<HTMLButtonElement>('.live-shorts-play-btn');
+    const statusEl = root.querySelector<HTMLElement>('.live-shorts-current-label');
+    const dots = Array.from(root.querySelectorAll<HTMLElement>('.live-shorts-dot'));
+    const playerShell = root.querySelector<HTMLElement>('.live-shorts-player-shell');
+    const videoBtn = root.querySelector<HTMLButtonElement>('.live-shorts-video-btn');
+    const picker = root.querySelector<HTMLElement>('.live-shorts-picker');
+    const pickerList = root.querySelector<HTMLElement>('.live-shorts-picker-list');
+    const pickerTitle = root.querySelector<HTMLElement>('.live-shorts-picker-title');
 
-    const shortIds = thumbs.map(t => t.dataset.videoId || '');
-    let currentIndex = 0;
+    if (!playerEl) return;
+
+    // Precompute anchor lines and their positions
+    const anchorLines = sections.map(s => findAnchorLine(s.anchor));
+
     let player: YTPlayerLike | null = null;
+    let currentSectionIdx = -1;
+    // Per-section selected clip index (default 0)
+    const selectedClipIdx = sections.map(() => 0);
+    let ready = false;
 
-    function setActive(index: number) {
-      currentIndex = index;
-      thumbs.forEach((thumb, i) => thumb.classList.toggle('active', i === index));
-      if (positionEl) positionEl.textContent = String(index + 1);
+    function updateLyricHighlight(sectionIdx: number) {
+      // Clear all
+      document.querySelectorAll('.lyrics-line.live-playing-section, .lyrics-line.live-playing-anchor')
+        .forEach(el => {
+          el.classList.remove('live-playing-section', 'live-playing-anchor');
+        });
+      if (sectionIdx < 0) return;
+
+      const startLine = anchorLines[sectionIdx];
+      if (!startLine) return;
+
+      const endLine = sectionIdx + 1 < anchorLines.length ? anchorLines[sectionIdx + 1] : null;
+
+      // Highlight from startLine (inclusive) to endLine (exclusive)
+      let el: HTMLElement | null = startLine;
+      while (el && el !== endLine) {
+        if (el.classList.contains('lyrics-line')) {
+          el.classList.add('live-playing-section');
+        }
+        el = el.nextElementSibling as HTMLElement | null;
+      }
+      startLine.classList.add('live-playing-anchor');
     }
 
-    function playAt(index: number) {
-      if (index < 0 || index >= shortIds.length) return;
-      setActive(index);
-      if (player) {
-        player.loadVideoById(shortIds[index]);
+    function updateStatus() {
+      if (currentSectionIdx < 0) {
+        if (statusEl) statusEl.textContent = '點按下方段落或播放鍵開始';
+        return;
+      }
+      const section = sections[currentSectionIdx];
+      const clip = section.clips[selectedClipIdx[currentSectionIdx]];
+      const parts = [
+        `${currentSectionIdx + 1}. ${section.label ?? section.anchor}`,
+      ];
+      if (clip.source) parts.push(clip.source);
+      if (statusEl) statusEl.textContent = parts.join(' · ');
+    }
+
+    function updateDots() {
+      dots.forEach((dot, i) => {
+        dot.dataset.active = i === currentSectionIdx ? 'true' : 'false';
+      });
+    }
+
+    function playSection(sectionIdx: number, clipIdxOverride?: number) {
+      if (sectionIdx < 0 || sectionIdx >= sections.length) return;
+      currentSectionIdx = sectionIdx;
+      if (typeof clipIdxOverride === 'number') selectedClipIdx[sectionIdx] = clipIdxOverride;
+      const clip = sections[sectionIdx].clips[selectedClipIdx[sectionIdx]];
+      if (!clip) return;
+
+      updateLyricHighlight(sectionIdx);
+      updateDots();
+      updateStatus();
+
+      if (ready && player) {
+        player.loadVideoById(clip.id);
       }
     }
 
+    function openPicker(sectionIdx: number) {
+      const section = sections[sectionIdx];
+      if (!picker || !pickerList || !pickerTitle) return;
+
+      pickerTitle.textContent = `🎤 ${section.label ?? `段落 ${sectionIdx + 1}`}`;
+      pickerList.innerHTML = '';
+      section.clips.forEach((clip, i) => {
+        const li = document.createElement('li');
+        li.className = 'live-shorts-picker-item';
+        li.dataset.current = String(selectedClipIdx[sectionIdx] === i);
+        li.innerHTML = `
+          <span class="live-shorts-picker-item-radio"></span>
+          <div>
+            <div class="live-shorts-picker-item-label">版本 ${i + 1}</div>
+            ${clip.source ? `<div class="live-shorts-picker-item-source">${clip.source}</div>` : ''}
+          </div>
+        `;
+        li.addEventListener('click', () => {
+          closePicker();
+          playSection(sectionIdx, i);
+        });
+        pickerList.appendChild(li);
+      });
+      picker.hidden = false;
+    }
+
+    function closePicker() {
+      if (picker) picker.hidden = true;
+    }
+
+    // Wire dots
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        if (sections[i].clips.length > 1) {
+          openPicker(i);
+        } else {
+          playSection(i);
+        }
+      });
+    });
+
+    // Play/pause button
+    if (playBtn) {
+      playBtn.addEventListener('click', () => {
+        if (!ready || !player) return;
+        if (currentSectionIdx < 0) {
+          playSection(0);
+          return;
+        }
+        const state = player.getPlayerState();
+        if (state === YT_PLAYING) {
+          player.pauseVideo();
+        } else {
+          player.playVideo();
+        }
+      });
+    }
+
+    // Video visibility toggle
+    if (videoBtn && playerShell) {
+      videoBtn.addEventListener('click', () => {
+        const visible = playerShell.dataset.videoVisible === 'true';
+        playerShell.dataset.videoVisible = visible ? 'false' : 'true';
+      });
+    }
+    // Close video via X button
+    root.querySelectorAll<HTMLButtonElement>('[data-action="hide-video"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (playerShell) playerShell.dataset.videoVisible = 'false';
+      });
+    });
+
+    // Picker close
+    root.querySelectorAll<HTMLElement>('[data-action="close-picker"]').forEach(el => {
+      el.addEventListener('click', closePicker);
+    });
+
+    // Boot YT player
     loadYouTubeAPI().then(() => {
       if (!window.YT) return;
       player = new window.YT.Player(playerEl, {
-        videoId: shortIds[0],
+        videoId: sections[0].clips[0].id,
         playerVars: {
           rel: 0,
           modestbranding: 1,
           playsinline: 1,
+          controls: 1,
         },
         events: {
+          onReady: () => {
+            ready = true;
+          },
           onStateChange: (event: YTStateEvent) => {
+            if (playBtn) {
+              playBtn.dataset.playing = event.data === YT_PLAYING ? 'true' : 'false';
+            }
             if (event.data === YT_ENDED) {
-              const next = currentIndex + 1;
-              if (next < shortIds.length) {
-                playAt(next);
+              // Auto-advance to next section (default first clip)
+              if (currentSectionIdx + 1 < sections.length) {
+                playSection(currentSectionIdx + 1);
+              } else {
+                currentSectionIdx = -1;
+                updateLyricHighlight(-1);
+                updateDots();
+                updateStatus();
               }
             }
           },
         },
       });
-      setActive(0);
-    });
-
-    thumbs.forEach((thumb, i) => {
-      thumb.addEventListener('click', () => playAt(i));
     });
   }
 
   function bootstrap() {
-    document.querySelectorAll<HTMLElement>('.live-shorts-container[data-component-id]').forEach(root => {
+    document.querySelectorAll<HTMLElement>('.live-shorts-root[data-component-id]').forEach(root => {
       if (root.dataset.initialized === 'true') return;
       root.dataset.initialized = 'true';
       initLiveShorts(root);

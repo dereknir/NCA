@@ -8,10 +8,13 @@ publishDate: 2026-04-08
 tags: ["にしな", "J-POP", "戀愛", "宇宙"]
 originalLang: ja
 liveShorts:
-  - "s4Jo34vFsis"
-  - "iBBMIazDybA"
-  - "U7EWnIcn4II"
-  - "fiBdM0Jr7IY"
+  - anchor: "Spaceキーワンクリックで"
+    label: "全曲 LIVE 版本"
+    clips:
+      - id: "s4Jo34vFsis"
+      - id: "iBBMIazDybA"
+      - id: "U7EWnIcn4II"
+      - id: "fiBdM0Jr7IY"
 ---
 
 ## 歌曲介紹

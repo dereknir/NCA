@@ -45,9 +45,20 @@ const translationsCollection = defineCollection({
       .or(z.string().startsWith('/', '封面圖片路徑必須以 / 開頭'))
       .optional(),
     liveShorts: z.array(
-        z.string().regex(/^[a-zA-Z0-9_-]{11}$/, 'YouTube Short ID 格式錯誤（應為 11 個字元）')
+        z.object({
+          anchor: z.string().min(1, 'Anchor 不能為空').max(200),
+          label: z.string().max(50).optional(),
+          clips: z.array(
+              z.object({
+                id: z.string().regex(/^[a-zA-Z0-9_-]{11}$/, 'YouTube ID 格式錯誤（應為 11 個字元）'),
+                source: z.string().max(80).optional(),
+              })
+            )
+            .min(1, '每個段落至少需要一個 clip')
+            .max(10, '每個段落最多 10 個版本'),
+        })
       )
-      .max(30, 'Shorts 數量不能超過 30 個')
+      .max(30, '段落數不能超過 30 個')
       .optional(),
   }),
 });
