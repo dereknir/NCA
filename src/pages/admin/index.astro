@@ -171,7 +171,11 @@
       fields: [
         { name: 'title', label: '歌曲名稱', type: 'text', required: true },
         { name: 'artist', label: '歌手', type: 'text', required: true },
+        { name: 'album', label: '專輯', type: 'text', required: false, help: '所屬專輯名稱（單曲可留空）' },
+        { name: 'albumYear', label: '專輯年份', type: 'text', required: false, help: '例如 2022' },
+        { name: 'trackNumber', label: '曲序', type: 'text', required: false, help: '專輯中的第幾首' },
         { name: 'youtubeId', label: 'YouTube ID', type: 'text', required: false, help: '例如 URL 中 v= 後面的部分' },
+        { name: 'liveShorts', label: 'LIVE Shorts（逗號分隔）', type: 'tags', required: false, help: '將 Nishina 頻道上的 LIVE 版切片 ID 依順序填入，會自動連播' },
         { name: 'publishDate', label: '發布日期', type: 'date', required: true },
         { name: 'tags', label: '標籤（逗號分隔）', type: 'tags', required: true },
       ]
@@ -500,6 +504,8 @@
         frontmatter += `${f.name}: ${el.checked}\n`;
       } else if (f.type === 'tags') {
         const tags = el.value.split(',').map(t => t.trim()).filter(Boolean);
+        // Skip optional tag fields when empty to keep frontmatter clean
+        if (tags.length === 0 && !f.required) return;
         frontmatter += `${f.name}: [${tags.map(t => `"${t}"`).join(', ')}]\n`;
       } else {
         const val = el.value.trim();

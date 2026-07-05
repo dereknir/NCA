@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import LiveShorts from '../../components/LiveShorts.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -12,9 +13,27 @@ export async function getStaticPaths() {
 
 const { translation } = Astro.props;
 const { Content } = await render(translation);
-const { title, artist, album, albumYear, youtubeId, publishDate, tags, coverImage } = translation.data;
+const { title, artist, album, albumYear, trackNumber, youtubeId, publishDate, tags, coverImage, liveShorts } = translation.data;
 
-// 使用可選鏈確保類型安全
+// Detect if this song has real translation content (vs. just the placeholder)
+const rawBody = translation.body ?? '';
+const isTranslated = !rawBody.includes('翻譯準備中');
+
+// Find sibling songs in same album for navigation
+const allTranslations = await getCollection('translations');
+const albumSiblings = album
+  ? allTranslations
+      .filter(t => t.data.album === album && t.id !== translation.id)
+      .sort((a, b) => (a.data.trackNumber ?? 99) - (b.data.trackNumber ?? 99))
+  : [];
+
+const prevSong = trackNumber
+  ? albumSiblings.find(t => t.data.trackNumber === trackNumber - 1)
+  : undefined;
+const nextSong = trackNumber
+  ? albumSiblings.find(t => t.data.trackNumber === trackNumber + 1)
+  : undefined;
+
 const description = `${artist} 的「${title}」日文歌曲翻譯。${tags?.slice(0, 3).join('、') ?? ''}`;
 const image = coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg` : undefined);
 ---
@@ -32,17 +51,22 @@ const image = coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId
       <p class="text-xl text-gray-600 dark:text-gray-400 mb-1">{artist}</p>
       {album && (
         <p class="text-sm text-gray-500 dark:text-gray-500 mb-4">
-          💿 {album}{albumYear && ` (${albumYear})`}
+          💿 {album}{albumYear && ` (${albumYear})`}{trackNumber && ` · Track ${trackNumber}`}
         </p>
       )}
-      <div class="flex gap-2 mb-4">
+      <div class="flex gap-2 mb-4 flex-wrap">
         {tags.map(tag => (
           <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
             {tag}
           </span>
         ))}
+        {!isTranslated && (
+          <span class="px-3 py-1 bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 rounded-full text-sm">
+            翻譯中
+          </span>
+        )}
       </div>
-      <time class="text-gray-500">
+      <time class="text-gray-500 text-sm">
         {new Date(publishDate).toLocaleDateString('zh-TW')}
       </time>
     </header>
@@ -62,12 +86,60 @@ const image = coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId
       </div>
     )}
 
-    <div class="prose max-w-none">
-      <Content />
-    </div>
+    {isTranslated ? (
+      <div class="prose max-w-none">
+        <Content />
+      </div>
+    ) : (
+      <div class="my-12 p-8 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/50 text-center">
+        <div class="text-5xl mb-4">🚧</div>
+        <h2 class="text-2xl font-bold mb-3 text-amber-900 dark:text-amber-200">
+          翻譯準備中
+        </h2>
+        <p class="text-amber-800 dark:text-amber-300 mb-2">
+          這首歌的中文翻譯正在整理中，敬請期待！
+        </p>
+        {album && (
+          <p class="text-sm text-amber-700 dark:text-amber-400">
+            來自 {artist} 的專輯《{album}》{albumYear && `(${albumYear})`}
+          </p>
+        )}
+      </div>
+    )}
 
-    <div class="mt-12">
-      <a href="/translations" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+    {liveShorts && liveShorts.length > 0 && (
+      <LiveShorts shorts={liveShorts} />
+    )}
+
+    {(prevSong || nextSong) && (
+      <nav class="mt-12 grid grid-cols-2 gap-4">
+        {prevSong ? (
+          <a
+            href={`/translations/${prevSong.id}`}
+            class="group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition"
+          >
+            <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">← 上一首</div>
+            <div class="font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
+              {prevSong.data.title}
+            </div>
+          </a>
+        ) : <div />}
+        {nextSong ? (
+          <a
+            href={`/translations/${nextSong.id}`}
+            class="group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition text-right"
+          >
+            <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">下一首 →</div>
+            <div class="font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
+              {nextSong.data.title}
+            </div>
+          </a>
+        ) : <div />}
+      </nav>
+    )}
+
+    <div class="mt-8">
+      <a href="/translations" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm">
         ← 返回翻譯列表
       </a>
     </div>

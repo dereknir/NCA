@@ -4,92 +4,153 @@ import { getCollection } from 'astro:content';
 
 const allTranslations = (await getCollection('translations'))
   .sort((a, b) => {
-    // Sort by trackNumber if same album, otherwise by publishDate
     if (a.data.album && a.data.album === b.data.album) {
       return (a.data.trackNumber ?? 99) - (b.data.trackNumber ?? 99);
     }
     return new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf();
   });
 
-// Group by artist → album
+// Detect translated status from raw body content
+const isTranslated = (body: string | undefined) =>
+  !!body && !body.includes('翻譯準備中');
+
 type Translation = typeof allTranslations[number];
 interface AlbumGroup {
   albumYear?: number;
   songs: Translation[];
+  translatedCount: number;
+  totalCount: number;
 }
 interface ArtistGroup {
   albums: Record<string, AlbumGroup>;
+  translatedCount: number;
+  totalCount: number;
 }
 
 const byArtistAlbum = allTranslations.reduce((acc, t) => {
   const artist = t.data.artist;
   const album = t.data.album ?? '單曲 / 其他';
+  const done = isTranslated(t.body);
 
-  if (!acc[artist]) acc[artist] = { albums: {} };
+  if (!acc[artist]) acc[artist] = { albums: {}, translatedCount: 0, totalCount: 0 };
   if (!acc[artist].albums[album]) {
-    acc[artist].albums[album] = { albumYear: t.data.albumYear, songs: [] };
+    acc[artist].albums[album] = { albumYear: t.data.albumYear, songs: [], translatedCount: 0, totalCount: 0 };
   }
   acc[artist].albums[album].songs.push(t);
+  acc[artist].albums[album].totalCount += 1;
+  acc[artist].totalCount += 1;
+  if (done) {
+    acc[artist].albums[album].translatedCount += 1;
+    acc[artist].translatedCount += 1;
+  }
   return acc;
 }, {} as Record<string, ArtistGroup>);
+
+const totalTranslated = allTranslations.filter(t => isTranslated(t.body)).length;
+const totalSongs = allTranslations.length;
+const overallProgress = totalSongs > 0 ? Math.round((totalTranslated / totalSongs) * 100) : 0;
 ---
 
 <BaseLayout title="日文歌翻譯" description="日文歌曲中文翻譯收藏">
   <div class="max-w-4xl mx-auto">
-    <h1 class="text-4xl font-bold mb-4">日文歌翻譯</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-8">收錄我喜愛的日文歌曲翻譯，包含原文與中文對照</p>
+    <h1 class="text-4xl font-bold mb-2">日文歌翻譯</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6">收錄我喜愛的日文歌曲翻譯，包含原文與中文對照</p>
+
+    {totalSongs > 0 && (
+      <div class="mb-10 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-lg border border-blue-100 dark:border-blue-800/50">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">翻譯進度</span>
+          <span class="text-sm text-gray-600 dark:text-gray-400 font-mono">
+            {totalTranslated} / {totalSongs}（{overallProgress}%）
+          </span>
+        </div>
+        <div class="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+          <div
+            class="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-500"
+            style={`width: ${overallProgress}%`}
+          />
+        </div>
+      </div>
+    )}
 
     {allTranslations.length === 0 && (
       <p class="text-gray-500 text-center py-12">還沒有翻譯文章，敬請期待！</p>
     )}
 
-    {Object.entries(byArtistAlbum).map(([artist, { albums }]) => (
+    {Object.entries(byArtistAlbum).map(([artist, { albums, translatedCount, totalCount }]) => (
       <section class="mb-16">
-        <h2 class="text-2xl font-bold mb-6 text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 pb-2">
-          {artist}
-        </h2>
+        <div class="flex items-baseline justify-between mb-6 border-b-2 border-blue-600 dark:border-blue-400 pb-2">
+          <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            {artist}
+          </h2>
+          <span class="text-sm text-gray-500 dark:text-gray-400 font-mono">
+            {translatedCount} / {totalCount} 首
+          </span>
+        </div>
 
         {Object.entries(albums)
           .sort(([, a], [, b]) => (b.albumYear ?? 0) - (a.albumYear ?? 0))
-          .map(([albumName, { albumYear, songs }]) => (
+          .map(([albumName, { albumYear, songs, translatedCount: albumDone, totalCount: albumTotal }]) => {
+            const progress = albumTotal > 0 ? Math.round((albumDone / albumTotal) * 100) : 0;
+            return (
             <div class="mb-8 ml-4">
-              <h3 class="text-lg font-semibold mb-3 flex items-center gap-2">
-                <span class="text-gray-400">💿</span>
-                <span>{albumName}</span>
-                {albumYear && (
-                  <span class="text-sm font-normal text-gray-500">({albumYear})</span>
-                )}
-              </h3>
+              <div class="mb-3">
+                <h3 class="text-lg font-semibold flex items-center gap-2">
+                  <span class="text-gray-400">💿</span>
+                  <span>{albumName}</span>
+                  {albumYear && (
+                    <span class="text-sm font-normal text-gray-500">({albumYear})</span>
+                  )}
+                  <span class="ml-auto text-xs text-gray-500 dark:text-gray-400 font-mono">
+                    {albumDone}/{albumTotal}
+                  </span>
+                </h3>
+                <div class="h-1 mt-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div
+                    class="h-full bg-blue-500 transition-all duration-500"
+                    style={`width: ${progress}%`}
+                  />
+                </div>
+              </div>
 
-              <div class="space-y-3 ml-6">
-                {songs.map((t, i) => (
+              <div class="space-y-2 ml-6">
+                {songs.map(t => {
+                  const done = isTranslated(t.body);
+                  return (
                   <a href={`/translations/${t.id}`}
-                     class="block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
-                    <div class="flex justify-between items-start">
-                      <div class="flex items-center gap-3">
+                     class={`block p-3 rounded-lg shadow-sm hover:shadow-md transition ${
+                       done
+                         ? 'bg-white dark:bg-gray-800'
+                         : 'bg-gray-50 dark:bg-gray-800/50 opacity-75 hover:opacity-100'
+                     }`}>
+                    <div class="flex justify-between items-center gap-3">
+                      <div class="flex items-center gap-3 min-w-0">
                         {t.data.trackNumber && (
-                          <span class="text-sm text-gray-400 font-mono w-6 text-right">{t.data.trackNumber}.</span>
+                          <span class="text-sm text-gray-400 font-mono w-6 text-right shrink-0">
+                            {t.data.trackNumber}.
+                          </span>
                         )}
-                        <div>
-                          <h4 class="text-lg font-medium">{t.data.title}</h4>
-                          <div class="flex gap-2 mt-1">
-                            {t.data.tags.map(tag => (
-                              <span class="px-2 py-0.5 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
+                        <div class="min-w-0">
+                          <h4 class="text-base font-medium truncate">{t.data.title}</h4>
                         </div>
                       </div>
-                      <time class="text-sm text-gray-500 shrink-0">
-                        {new Date(t.data.publishDate).toLocaleDateString('zh-TW')}
-                      </time>
+                      <div class="flex items-center gap-2 shrink-0">
+                        {done ? (
+                          <span class="text-xs px-2 py-0.5 bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-200 rounded-full">
+                            已翻譯
+                          </span>
+                        ) : (
+                          <span class="text-xs px-2 py-0.5 bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 rounded-full">
+                            翻譯中
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </a>
-                ))}
+                );})}
               </div>
             </div>
-          ))}
+          );})}
       </section>
     ))}
   </div>

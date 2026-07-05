@@ -13,12 +13,12 @@ const translationsCollection = defineCollection({
     album: z.string()
       .max(100, '專輯名稱不能超過 100 個字元')
       .optional(),
-    albumYear: z.number()
+    albumYear: z.coerce.number()
       .int()
       .min(1900)
       .max(2100)
       .optional(),
-    trackNumber: z.number()
+    trackNumber: z.coerce.number()
       .int()
       .positive()
       .optional(),
@@ -43,6 +43,11 @@ const translationsCollection = defineCollection({
     coverImage: z.string()
       .url('封面圖片必須是有效的 URL')
       .or(z.string().startsWith('/', '封面圖片路徑必須以 / 開頭'))
+      .optional(),
+    liveShorts: z.array(
+        z.string().regex(/^[a-zA-Z0-9_-]{11}$/, 'YouTube Short ID 格式錯誤（應為 11 個字元）')
+      )
+      .max(30, 'Shorts 數量不能超過 30 個')
       .optional(),
   }),
 });
