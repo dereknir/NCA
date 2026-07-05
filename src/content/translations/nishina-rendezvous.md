@@ -7,6 +7,11 @@ trackNumber: 2
 publishDate: 2026-04-08
 tags: ["にしな", "J-POP", "戀愛", "宇宙"]
 originalLang: ja
+liveShorts:
+  - "s4Jo34vFsis"
+  - "iBBMIazDybA"
+  - "U7EWnIcn4II"
+  - "fiBdM0Jr7IY"
 ---
 
 ## 歌曲介紹
