@@ -33,21 +33,17 @@ const componentId = `live-shorts-${Math.random().toString(36).slice(2, 9)}`;
   </div>
 
   <div class="live-shorts-layout">
-    <!-- Main player (vertical 9:16) -->
-    <div class="live-shorts-player-wrap">
-      <div class="live-shorts-player-frame">
-        <div id={`${componentId}-player`} class="live-shorts-player"></div>
-      </div>
-      <div class="live-shorts-hint">
-        💡 點擊播放後會自動連播下一段
-      </div>
+    <!-- Main player (16:9 to match YouTube's native player) -->
+    <div class="live-shorts-player-frame">
+      <div id={`${componentId}-player`} class="live-shorts-player"></div>
     </div>
 
-    <!-- Thumbnails queue -->
+    <div class="live-shorts-hint">
+      💡 點擊播放後會自動連播下一段
+    </div>
+
+    <!-- Thumbnails queue (below player, horizontal row) -->
     <div class="live-shorts-queue">
-      <div class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2 font-semibold">
-        播放清單
-      </div>
       <div class="live-shorts-thumbs">
         {shorts.map((id, i) => (
           <button
@@ -85,21 +81,16 @@ const componentId = `live-shorts-${Math.random().toString(36).slice(2, 9)}`;
   }
 
   .live-shorts-layout {
-    display: grid;
-    grid-template-columns: minmax(280px, 360px) 1fr;
-    gap: 1.5rem;
-    align-items: start;
-  }
-
-  .live-shorts-player-wrap {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    max-width: 720px;
+    margin: 0 auto;
   }
 
   .live-shorts-player-frame {
     position: relative;
-    aspect-ratio: 9 / 16;
+    aspect-ratio: 16 / 9;
     background: #000;
     border-radius: 0.75rem;
     overflow: hidden;
@@ -130,18 +121,8 @@ const componentId = `live-shorts-${Math.random().toString(36).slice(2, 9)}`;
 
   .live-shorts-thumbs {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 0.5rem;
-    max-height: 480px;
-    overflow-y: auto;
-    padding-right: 0.25rem;
-  }
-  .live-shorts-thumbs::-webkit-scrollbar {
-    width: 6px;
-  }
-  .live-shorts-thumbs::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
   }
 
   .live-shorts-thumb {
@@ -189,15 +170,8 @@ const componentId = `live-shorts-${Math.random().toString(36).slice(2, 9)}`;
   }
 
   @media (max-width: 768px) {
-    .live-shorts-layout {
-      grid-template-columns: 1fr;
-    }
-    .live-shorts-player-wrap {
-      max-width: 320px;
-      margin: 0 auto;
-    }
     .live-shorts-thumbs {
-      max-height: 240px;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
     }
   }
 </style>
