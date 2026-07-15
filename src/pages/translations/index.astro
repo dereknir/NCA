@@ -2,13 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const allTranslations = (await getCollection('translations'))
-  .sort((a, b) => {
-    if (a.data.album && a.data.album === b.data.album) {
-      return (a.data.trackNumber ?? 99) - (b.data.trackNumber ?? 99);
-    }
-    return new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf();
-  });
+const allTranslations = await getCollection('translations');
 
 type Translation = typeof allTranslations[number];
 
@@ -32,6 +26,10 @@ interface ArtistGroup {
   totalCount: number;
 }
 
+// Group first, then sort songs within each album by trackNumber.
+// Grouping-then-sorting avoids the transitivity issues of a mixed comparator
+// (same-album → track order, different-album → publishDate) which can scramble
+// same-album songs when publishDates match.
 const byArtistAlbum = allTranslations.reduce((acc, t) => {
   const artist = t.data.artist;
   const album = t.data.album ?? '單曲 / 其他';
@@ -50,6 +48,13 @@ const byArtistAlbum = allTranslations.reduce((acc, t) => {
   }
   return acc;
 }, {} as Record<string, ArtistGroup>);
+
+// Sort songs inside every album by trackNumber ascending
+Object.values(byArtistAlbum).forEach(artist => {
+  Object.values(artist.albums).forEach(album => {
+    album.songs.sort((a, b) => (a.data.trackNumber ?? 99) - (b.data.trackNumber ?? 99));
+  });
+});
 
 const totalTranslated = allTranslations.filter(t => isDone(t)).length;
 const totalSongs = allTranslations.length;
