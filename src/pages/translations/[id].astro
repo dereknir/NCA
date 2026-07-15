@@ -13,11 +13,12 @@ export async function getStaticPaths() {
 
 const { translation } = Astro.props;
 const { Content } = await render(translation);
-const { title, artist, album, albumYear, trackNumber, youtubeId, publishDate, tags, coverImage, liveShorts } = translation.data;
+const { title, artist, album, albumYear, trackNumber, youtubeId, publishDate, tags, coverImage, liveShorts, instrumental } = translation.data;
 
-// Detect if this song has real translation content (vs. just the placeholder)
+// Instrumental tracks are self-contained (their body is a description, not a placeholder).
+// A track is "translated / has content" if it's instrumental OR body doesn't contain the placeholder.
 const rawBody = translation.body ?? '';
-const isTranslated = !rawBody.includes('翻譯準備中');
+const isTranslated = instrumental === true || !rawBody.includes('翻譯準備中');
 
 // Find sibling songs in same album for navigation
 const allTranslations = await getCollection('translations');
@@ -60,6 +61,11 @@ const image = coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId
             {tag}
           </span>
         ))}
+        {instrumental && (
+          <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm">
+            🎧 Instrumental
+          </span>
+        )}
         {!isTranslated && (
           <span class="px-3 py-1 bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 rounded-full text-sm">
             翻譯中

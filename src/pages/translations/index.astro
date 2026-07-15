@@ -10,11 +10,16 @@ const allTranslations = (await getCollection('translations'))
     return new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf();
   });
 
-// Detect translated status from raw body content
-const isTranslated = (body: string | undefined) =>
-  !!body && !body.includes('翻譯準備中');
-
 type Translation = typeof allTranslations[number];
+
+// Instrumental tracks are "complete" for progress purposes (nothing to translate).
+// A track counts as "complete" if it is instrumental OR its body has real content.
+const isDone = (entry: Translation) =>
+  entry.data.instrumental === true ||
+  (!!entry.body && !entry.body.includes('翻譯準備中'));
+
+const isInstrumental = (entry: Translation) => entry.data.instrumental === true;
+
 interface AlbumGroup {
   albumYear?: number;
   songs: Translation[];
@@ -30,7 +35,7 @@ interface ArtistGroup {
 const byArtistAlbum = allTranslations.reduce((acc, t) => {
   const artist = t.data.artist;
   const album = t.data.album ?? '單曲 / 其他';
-  const done = isTranslated(t.body);
+  const done = isDone(t);
 
   if (!acc[artist]) acc[artist] = { albums: {}, translatedCount: 0, totalCount: 0 };
   if (!acc[artist].albums[album]) {
@@ -46,7 +51,7 @@ const byArtistAlbum = allTranslations.reduce((acc, t) => {
   return acc;
 }, {} as Record<string, ArtistGroup>);
 
-const totalTranslated = allTranslations.filter(t => isTranslated(t.body)).length;
+const totalTranslated = allTranslations.filter(t => isDone(t)).length;
 const totalSongs = allTranslations.length;
 const overallProgress = totalSongs > 0 ? Math.round((totalTranslated / totalSongs) * 100) : 0;
 ---
@@ -115,7 +120,8 @@ const overallProgress = totalSongs > 0 ? Math.round((totalTranslated / totalSong
 
               <div class="space-y-2 ml-6">
                 {songs.map(t => {
-                  const done = isTranslated(t.body);
+                  const done = isDone(t);
+                  const instrumental = isInstrumental(t);
                   return (
                   <a href={`/translations/${t.id}`}
                      class={`block p-3 rounded-lg shadow-sm hover:shadow-md transition ${
@@ -135,7 +141,11 @@ const overallProgress = totalSongs > 0 ? Math.round((totalTranslated / totalSong
                         </div>
                       </div>
                       <div class="flex items-center gap-2 shrink-0">
-                        {done ? (
+                        {instrumental ? (
+                          <span class="text-xs px-2 py-0.5 bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-200 rounded-full">
+                            🎧 Instrumental
+                          </span>
+                        ) : done ? (
                           <span class="text-xs px-2 py-0.5 bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-200 rounded-full">
                             已翻譯
                           </span>

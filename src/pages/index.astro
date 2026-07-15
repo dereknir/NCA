@@ -3,11 +3,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import ContentCard from '../components/ContentCard.astro';
 
-const isTranslated = (body: string | undefined) =>
-  !!body && !body.includes('翻譯準備中');
-
 const allTranslations = await getCollection('translations');
-const translatedOnly = allTranslations.filter(t => isTranslated(t.body));
+
+// A track is "done" if it's instrumental (self-contained content) OR has a real translation body.
+type Translation = typeof allTranslations[number];
+const isDone = (entry: Translation) =>
+  entry.data.instrumental === true ||
+  (!!entry.body && !entry.body.includes('翻譯準備中'));
+
+const translatedOnly = allTranslations.filter(t => isDone(t));
 
 const recentTranslations = translatedOnly
   .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())

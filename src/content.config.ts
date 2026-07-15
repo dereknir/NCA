@@ -44,6 +44,7 @@ const translationsCollection = defineCollection({
       .url('封面圖片必須是有效的 URL')
       .or(z.string().startsWith('/', '封面圖片路徑必須以 / 開頭'))
       .optional(),
+    instrumental: z.boolean().default(false),
     liveShorts: z.array(
         z.object({
           anchor: z.string().min(1, 'Anchor 不能為空').max(200),
