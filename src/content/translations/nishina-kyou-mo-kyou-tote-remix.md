@@ -8,7 +8,7 @@ publishDate: 2026-03-18
 lyricist: ["にしな"]
 composer: ["にしな"]
 arranger: ["PARKGOLF"]
-tags: ["にしな", "J-POP", "日常", "歡樂"]
+tags: ["J-POP", "日常", "歡樂"]
 originalLang: ja
 coverImage: "/covers/nishina/hibi-sanman.jpg"
 ---

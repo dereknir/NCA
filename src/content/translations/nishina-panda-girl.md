@@ -8,7 +8,7 @@ publishDate: 2025-10-08
 lyricist: ["にしな"]
 composer: ["にしな"]
 arranger: ["100回嘔吐"]
-tags: ["にしな", "J-POP", "青春", "彆扭"]
+tags: ["J-POP", "青春", "彆扭"]
 originalLang: ja
 coverImage: "/covers/nishina/panda-girl.jpg"
 ---

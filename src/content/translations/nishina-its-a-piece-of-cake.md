@@ -8,7 +8,7 @@ publishDate: 2024-04-10
 lyricist: ["にしな"]
 composer: ["にしな"]
 arranger: ["トオミヨウ"]
-tags: ["にしな", "J-POP", "日常", "青春"]
+tags: ["J-POP", "日常", "青春"]
 originalLang: ja
 coverImage: "/covers/nishina/its-a-piece-of-cake.jpg"
 ---

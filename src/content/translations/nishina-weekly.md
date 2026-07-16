@@ -8,7 +8,7 @@ publishDate: 2025-04-30
 lyricist: ["にしな"]
 composer: ["にしな"]
 arranger: ["knoak"]
-tags: ["にしな", "J-POP", "日常", "療癒"]
+tags: ["J-POP", "日常", "療癒"]
 originalLang: ja
 coverImage: "/covers/nishina/weekly.jpg"
 ---

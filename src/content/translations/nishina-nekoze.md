@@ -8,7 +8,7 @@ publishDate: 2024-10-16
 lyricist: ["にしな"]
 composer: ["にしな"]
 arranger: ["横山裕章"]
-tags: ["にしな", "J-POP", "生活", "小確幸"]
+tags: ["J-POP", "生活", "小確幸"]
 originalLang: ja
 coverImage: "/covers/nishina/nekoze.jpg"
 ---

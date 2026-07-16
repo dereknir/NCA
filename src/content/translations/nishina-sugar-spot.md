@@ -8,7 +8,7 @@ publishDate: 2023-10-25
 lyricist: ["にしな"]
 composer: ["にしな"]
 arranger: ["knoak"]
-tags: ["にしな", "J-POP", "溫柔", "陪伴"]
+tags: ["J-POP", "溫柔", "陪伴"]
 originalLang: ja
 coverImage: "/covers/nishina/sugar-spot.jpg"
 ---

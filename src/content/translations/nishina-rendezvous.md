@@ -5,7 +5,7 @@ album: "odds and ends"
 albumYear: 2021
 trackNumber: 2
 publishDate: 2026-04-08
-tags: ["にしな", "J-POP", "戀愛", "宇宙"]
+tags: ["J-POP", "戀愛", "宇宙"]
 originalLang: ja
 liveShorts:
   - anchor: "Spaceキーワンクリックで"

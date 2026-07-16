@@ -5,7 +5,7 @@ album: "odds and ends"
 albumYear: 2021
 trackNumber: 10
 publishDate: 2026-04-08
-tags: ["にしな", "J-POP"]
+tags: ["J-POP"]
 originalLang: ja
 ---
 

@@ -8,7 +8,7 @@ publishDate: 2024-01-31
 lyricist: ["にしな"]
 composer: ["ESME MORI", "にしな"]
 arranger: ["ESME MORI"]
-tags: ["にしな", "J-POP", "網路社會", "毒舌"]
+tags: ["J-POP", "網路社會", "毒舌"]
 originalLang: ja
 coverImage: "/covers/nishina/bugs.jpg"
 ---

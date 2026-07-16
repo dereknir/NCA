@@ -7,7 +7,7 @@ trackNumber: 16
 publishDate: 2022-11-09
 lyricist: ["にしな"]
 composer: ["にしな"]
-tags: ["にしな", "J-POP", "失戀", "秋冬"]
+tags: ["J-POP", "失戀", "秋冬"]
 originalLang: ja
 coverImage: "/covers/nishina/hot-milk.jpg"
 ---

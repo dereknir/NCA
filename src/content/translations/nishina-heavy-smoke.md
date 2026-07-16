@@ -5,7 +5,7 @@ album: "odds and ends"
 albumYear: 2021
 trackNumber: 8
 publishDate: 2026-07-05
-tags: ["にしな", "J-POP", "單戀", "香菸"]
+tags: ["J-POP", "單戀", "香菸"]
 originalLang: ja
 ---
 

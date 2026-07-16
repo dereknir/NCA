@@ -8,7 +8,7 @@ publishDate: 2025-02-05
 lyricist: ["にしな"]
 composer: ["にしな"]
 arranger: ["横山裕章"]
-tags: ["にしな", "J-POP", "生命", "堅韌"]
+tags: ["J-POP", "生命", "堅韌"]
 originalLang: ja
 coverImage: "/covers/nishina/tsukushi.jpg"
 ---

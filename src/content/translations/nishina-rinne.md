@@ -8,7 +8,7 @@ publishDate: 2025-08-20
 lyricist: ["にしな"]
 composer: ["にしな"]
 arranger: ["トオミヨウ"]
-tags: ["にしな", "J-POP", "輪迴", "宇宙"]
+tags: ["J-POP", "輪迴", "宇宙"]
 originalLang: ja
 coverImage: "/covers/nishina/rinne.jpg"
 ---

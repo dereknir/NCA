@@ -7,7 +7,7 @@ trackNumber: 10
 publishDate: 2026-03-18
 lyricist: ["にしな"]
 composer: ["にしな", "永澤和真"]
-tags: ["にしな", "J-POP", "戀愛", "溫柔"]
+tags: ["J-POP", "戀愛", "溫柔"]
 originalLang: ja
 coverImage: "/covers/nishina/hibi-sanman.jpg"
 ---

@@ -8,7 +8,7 @@ publishDate: 2024-09-04
 lyricist: ["にしな"]
 composer: ["にしな"]
 arranger: ["Yaffle"]
-tags: ["にしな", "J-POP", "都市電音", "壞女孩"]
+tags: ["J-POP", "都市電音", "壞女孩"]
 originalLang: ja
 coverImage: "/covers/nishina/plum.jpg"
 ---

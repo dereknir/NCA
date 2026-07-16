@@ -7,7 +7,7 @@ trackNumber: 21
 publishDate: 2026-03-18
 lyricist: ["にしな"]
 composer: ["にしな"]
-tags: ["にしな", "J-POP", "宇宙", "存在"]
+tags: ["J-POP", "宇宙", "存在"]
 originalLang: ja
 coverImage: "/covers/nishina/hibi-sanman.jpg"
 ---
