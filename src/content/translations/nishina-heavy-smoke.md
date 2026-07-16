@@ -7,6 +7,7 @@ trackNumber: 8
 publishDate: 2026-07-05
 tags: ["J-POP", "單戀", "香菸"]
 originalLang: ja
+coverImage: "/covers/nishina/heavy-smoke.jpg"
 ---
 
 ## 歌曲介紹

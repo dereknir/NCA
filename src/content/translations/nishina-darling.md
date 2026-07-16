@@ -7,6 +7,7 @@ trackNumber: 6
 publishDate: 2026-04-08
 tags: ["J-POP"]
 originalLang: ja
+coverImage: "/covers/nishina/darling.jpg"
 ---
 
 ## 歌詞 / 翻譯

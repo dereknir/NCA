@@ -7,6 +7,7 @@ trackNumber: 2
 publishDate: 2026-04-08
 tags: ["J-POP"]
 originalLang: ja
+coverImage: "/covers/nishina/friday-kids-china-town.jpg"
 ---
 
 ## 歌詞 / 翻譯

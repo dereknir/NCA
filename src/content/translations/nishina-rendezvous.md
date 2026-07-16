@@ -15,6 +15,7 @@ liveShorts:
       - id: "iBBMIazDybA"
       - id: "U7EWnIcn4II"
       - id: "fiBdM0Jr7IY"
+coverImage: "/covers/nishina/rendezvous.jpg"
 ---
 
 ## 歌曲介紹

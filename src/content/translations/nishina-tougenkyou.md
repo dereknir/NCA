@@ -7,6 +7,7 @@ trackNumber: 10
 publishDate: 2026-04-08
 tags: ["J-POP"]
 originalLang: ja
+coverImage: "/covers/nishina/odds-and-ends.jpg"
 ---
 
 ## 歌詞 / 翻譯

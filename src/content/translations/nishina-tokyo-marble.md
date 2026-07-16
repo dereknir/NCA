@@ -7,6 +7,7 @@ trackNumber: 4
 publishDate: 2026-04-08
 tags: ["J-POP", "都市", "夏夜"]
 originalLang: ja
+coverImage: "/covers/nishina/tokyo-marble.jpg"
 ---
 
 ## 歌曲介紹
