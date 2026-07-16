@@ -216,7 +216,7 @@ originalLang: ja
 
 ---
 
-## 創作背景 · にしな 自述（音樂 Natalie 專訪）
+## 創作背景
 
 ### 原曲原本只有 15 秒——Instagram 廣告委託作品
 
