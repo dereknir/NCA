@@ -4,7 +4,9 @@ artist: "にしな"
 album: "日々散漫"
 albumYear: 2026
 trackNumber: 13
-publishDate: 2026-07-05
+publishDate: 2023-07-25
+lyricist: ["にしな"]
+composer: ["にしな", "100回嘔吐"]
 tags: ["にしな", "J-POP", "電音", "黑色幽默"]
 originalLang: ja
 coverImage: "/covers/nishina/cranberry-jam.jpg"

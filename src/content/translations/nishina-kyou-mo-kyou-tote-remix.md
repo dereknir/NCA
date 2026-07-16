@@ -4,7 +4,10 @@ artist: "にしな"
 album: "日々散漫"
 albumYear: 2026
 trackNumber: 12
-publishDate: 2026-07-05
+publishDate: 2026-03-18
+lyricist: ["にしな"]
+composer: ["にしな"]
+arranger: ["PARKGOLF"]
 tags: ["にしな", "J-POP", "日常", "歡樂"]
 originalLang: ja
 coverImage: "/covers/nishina/hibi-sanman.jpg"

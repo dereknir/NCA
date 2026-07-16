@@ -4,7 +4,9 @@ artist: "にしな"
 album: "日々散漫"
 albumYear: 2026
 trackNumber: 1
-publishDate: 2026-07-05
+publishDate: 2026-03-18
+lyricist: ["にしな"]
+composer: ["にしな"]
 tags: ["にしな", "Field Recording", "環境音", "專輯開場"]
 originalLang: ja
 coverImage: "/covers/nishina/hibi-sanman.jpg"

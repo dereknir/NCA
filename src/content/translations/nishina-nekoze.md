@@ -4,7 +4,10 @@ artist: "にしな"
 album: "日々散漫"
 albumYear: 2026
 trackNumber: 18
-publishDate: 2026-07-05
+publishDate: 2024-10-16
+lyricist: ["にしな"]
+composer: ["にしな"]
+arranger: ["横山裕章"]
 tags: ["にしな", "J-POP", "生活", "小確幸"]
 originalLang: ja
 coverImage: "/covers/nishina/nekoze.jpg"

@@ -4,7 +4,9 @@ artist: "にしな"
 album: "日々散漫"
 albumYear: 2026
 trackNumber: 10
-publishDate: 2026-07-05
+publishDate: 2026-03-18
+lyricist: ["にしな"]
+composer: ["にしな", "永澤和真"]
 tags: ["にしな", "J-POP", "戀愛", "溫柔"]
 originalLang: ja
 coverImage: "/covers/nishina/hibi-sanman.jpg"

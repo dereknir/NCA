@@ -4,7 +4,10 @@ artist: "にしな"
 album: "日々散漫"
 albumYear: 2026
 trackNumber: 2
-publishDate: 2026-03-28
+publishDate: 2025-04-30
+lyricist: ["にしな"]
+composer: ["にしな"]
+arranger: ["knoak"]
 tags: ["にしな", "J-POP", "日常", "療癒"]
 originalLang: ja
 coverImage: "/covers/nishina/weekly.jpg"

@@ -4,7 +4,9 @@ artist: "にしな"
 album: "日々散漫"
 albumYear: 2026
 trackNumber: 16
-publishDate: 2026-07-05
+publishDate: 2022-11-09
+lyricist: ["にしな"]
+composer: ["にしな"]
 tags: ["にしな", "J-POP", "失戀", "秋冬"]
 originalLang: ja
 coverImage: "/covers/nishina/hot-milk.jpg"

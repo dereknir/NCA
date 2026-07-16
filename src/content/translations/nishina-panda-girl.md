@@ -4,7 +4,10 @@ artist: "にしな"
 album: "日々散漫"
 albumYear: 2026
 trackNumber: 15
-publishDate: 2026-07-05
+publishDate: 2025-10-08
+lyricist: ["にしな"]
+composer: ["にしな"]
+arranger: ["100回嘔吐"]
 tags: ["にしな", "J-POP", "青春", "彆扭"]
 originalLang: ja
 coverImage: "/covers/nishina/panda-girl.jpg"

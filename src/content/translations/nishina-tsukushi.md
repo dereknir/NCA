@@ -4,7 +4,10 @@ artist: "にしな"
 album: "日々散漫"
 albumYear: 2026
 trackNumber: 19
-publishDate: 2026-07-05
+publishDate: 2025-02-05
+lyricist: ["にしな"]
+composer: ["にしな"]
+arranger: ["横山裕章"]
 tags: ["にしな", "J-POP", "生命", "堅韌"]
 originalLang: ja
 coverImage: "/covers/nishina/tsukushi.jpg"

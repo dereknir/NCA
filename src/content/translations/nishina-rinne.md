@@ -4,7 +4,10 @@ artist: "にしな"
 album: "日々散漫"
 albumYear: 2026
 trackNumber: 8
-publishDate: 2026-07-05
+publishDate: 2025-08-20
+lyricist: ["にしな"]
+composer: ["にしな"]
+arranger: ["トオミヨウ"]
 tags: ["にしな", "J-POP", "輪迴", "宇宙"]
 originalLang: ja
 coverImage: "/covers/nishina/rinne.jpg"

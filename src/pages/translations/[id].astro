@@ -13,7 +13,14 @@ export async function getStaticPaths() {
 
 const { translation } = Astro.props;
 const { Content } = await render(translation);
-const { title, artist, album, albumYear, trackNumber, youtubeId, publishDate, tags, coverImage, liveShorts, instrumental } = translation.data;
+const { title, artist, album, albumYear, trackNumber, youtubeId, publishDate, tags, coverImage, liveShorts, instrumental, lyricist, composer, arranger } = translation.data;
+
+const formatCredits = (names?: string[]) => names?.join(' × ');
+const credits: Array<{ label: string; value?: string }> = [
+  { label: '作詞', value: formatCredits(lyricist) },
+  { label: '作曲', value: formatCredits(composer) },
+  { label: '編曲', value: formatCredits(arranger) },
+].filter(c => c.value);
 
 // Instrumental tracks are self-contained (their body is a description, not a placeholder).
 // A track is "translated / has content" if it's instrumental OR body doesn't contain the placeholder.
@@ -85,8 +92,18 @@ const image = coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId
             </span>
           )}
         </div>
+        {credits.length > 0 && (
+          <dl class="text-sm text-gray-600 dark:text-gray-400 space-y-1 mb-3">
+            {credits.map(c => (
+              <div class="flex gap-3">
+                <dt class="w-10 text-gray-500 dark:text-gray-500 shrink-0">{c.label}</dt>
+                <dd>{c.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
         <time class="text-gray-500 text-sm">
-          {new Date(publishDate).toLocaleDateString('zh-TW')}
+          {new Date(publishDate).toLocaleDateString('zh-TW')} 發行
         </time>
       </div>
     </header>

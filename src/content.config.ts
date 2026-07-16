@@ -10,6 +10,15 @@ const translationsCollection = defineCollection({
     artist: z.string()
       .min(1, '歌手名稱不能為空')
       .max(50, '歌手名稱不能超過 50 個字元'),
+    lyricist: z.array(z.string().min(1).max(50))
+      .max(10, '作詞者數量不能超過 10 個')
+      .optional(),
+    composer: z.array(z.string().min(1).max(50))
+      .max(10, '作曲者數量不能超過 10 個')
+      .optional(),
+    arranger: z.array(z.string().min(1).max(50))
+      .max(10, '編曲者數量不能超過 10 個')
+      .optional(),
     album: z.string()
       .max(100, '專輯名稱不能超過 100 個字元')
       .optional(),
@@ -25,11 +34,7 @@ const translationsCollection = defineCollection({
     youtubeId: z.string()
       .regex(/^[a-zA-Z0-9_-]{11}$/, 'YouTube ID 格式錯誤（應為 11 個字元）')
       .optional(),
-    publishDate: z.coerce.date()
-      .refine(
-        date => date <= new Date(),
-        { message: '發布日期不能是未來日期' }
-      ),
+    publishDate: z.coerce.date(),
     tags: z.array(z.string())
       .min(1, '至少需要一個標籤')
       .max(10, '標籤數量不能超過 10 個')

@@ -4,7 +4,9 @@ artist: "にしな"
 album: "日々散漫"
 albumYear: 2026
 trackNumber: 9
-publishDate: 2026-07-05
+publishDate: 2023-03-01
+lyricist: ["にしな"]
+composer: ["にしな"]
 tags: ["にしな", "J-POP", "青春", "暗戀"]
 originalLang: ja
 coverImage: "/covers/nishina/haru-ichiban.jpg"

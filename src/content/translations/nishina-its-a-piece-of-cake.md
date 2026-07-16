@@ -4,7 +4,10 @@ artist: "にしな"
 album: "日々散漫"
 albumYear: 2026
 trackNumber: 17
-publishDate: 2026-04-08
+publishDate: 2024-04-10
+lyricist: ["にしな"]
+composer: ["にしな"]
+arranger: ["トオミヨウ"]
 tags: ["にしな", "J-POP", "日常", "青春"]
 originalLang: ja
 coverImage: "/covers/nishina/its-a-piece-of-cake.jpg"

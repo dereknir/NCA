@@ -4,7 +4,10 @@ artist: "にしな"
 album: "日々散漫"
 albumYear: 2026
 trackNumber: 11
-publishDate: 2026-07-05
+publishDate: 2024-12-11
+lyricist: ["にしな"]
+composer: ["にしな"]
+arranger: ["GeG"]
 tags: ["にしな", "J-POP", "文字遊戲", "哲學"]
 originalLang: ja
 coverImage: "/covers/nishina/wawon.jpg"
