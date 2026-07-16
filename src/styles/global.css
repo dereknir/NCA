@@ -85,6 +85,48 @@
   margin: 1rem 0;
 }
 
+/* Tables inside translation notes */
+.prose table {
+  width: 100%;
+  margin: 1.25rem 0;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  overflow-x: auto;
+  display: table;
+}
+.prose thead {
+  background: #f3f4f6;
+  border-bottom: 2px solid #d1d5db;
+}
+.dark .prose thead {
+  background: #1f2937;
+  border-bottom-color: #374151;
+}
+.prose th,
+.prose td {
+  padding: 0.6rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #e5e7eb;
+  line-height: 1.6;
+}
+.dark .prose th,
+.dark .prose td {
+  border-bottom-color: #374151;
+}
+.prose th {
+  font-weight: 700;
+}
+.prose tbody tr:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+.dark .prose tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+.prose table strong {
+  font-weight: 600;
+}
+
 /* Lyrics section */
 .lyrics-section {
   padding: 2rem;
