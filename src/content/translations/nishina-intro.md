@@ -7,6 +7,7 @@ trackNumber: 1
 publishDate: 2026-07-05
 tags: ["にしな", "Field Recording", "環境音", "專輯開場"]
 originalLang: ja
+coverImage: "/covers/nishina/hibi-sanman.jpg"
 instrumental: true
 youtubeId: "2CKJpgMj9o0"
 ---

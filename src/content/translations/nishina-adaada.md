@@ -7,6 +7,7 @@ trackNumber: 5
 publishDate: 2026-07-05
 tags: ["にしな", "J-POP", "都市", "婀娜"]
 originalLang: ja
+coverImage: "/covers/nishina/hibi-sanman.jpg"
 ---
 
 ## 歌曲介紹

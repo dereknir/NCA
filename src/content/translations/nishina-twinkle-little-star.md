@@ -7,6 +7,7 @@ trackNumber: 21
 publishDate: 2026-07-05
 tags: ["にしな", "J-POP", "宇宙", "存在"]
 originalLang: ja
+coverImage: "/covers/nishina/hibi-sanman.jpg"
 ---
 
 ## 歌曲介紹

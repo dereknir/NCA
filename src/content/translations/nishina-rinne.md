@@ -7,6 +7,7 @@ trackNumber: 8
 publishDate: 2026-07-05
 tags: ["にしな", "J-POP", "輪迴", "宇宙"]
 originalLang: ja
+coverImage: "/covers/nishina/rinne.jpg"
 ---
 
 ## 歌曲介紹

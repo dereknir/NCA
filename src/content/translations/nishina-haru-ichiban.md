@@ -7,6 +7,7 @@ trackNumber: 9
 publishDate: 2026-07-05
 tags: ["にしな", "J-POP", "青春", "暗戀"]
 originalLang: ja
+coverImage: "/covers/nishina/haru-ichiban.jpg"
 ---
 
 ## 歌曲介紹

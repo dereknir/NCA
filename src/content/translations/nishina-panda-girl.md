@@ -7,6 +7,7 @@ trackNumber: 15
 publishDate: 2026-07-05
 tags: ["にしな", "J-POP", "青春", "彆扭"]
 originalLang: ja
+coverImage: "/covers/nishina/panda-girl.jpg"
 ---
 
 ## 歌曲介紹

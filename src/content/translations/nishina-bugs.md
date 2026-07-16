@@ -7,6 +7,7 @@ trackNumber: 4
 publishDate: 2026-07-05
 tags: ["にしな", "J-POP", "網路社會", "毒舌"]
 originalLang: ja
+coverImage: "/covers/nishina/bugs.jpg"
 ---
 
 ## 歌曲介紹

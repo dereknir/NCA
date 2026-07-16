@@ -7,6 +7,7 @@ trackNumber: 13
 publishDate: 2026-07-05
 tags: ["にしな", "J-POP", "電音", "黑色幽默"]
 originalLang: ja
+coverImage: "/covers/nishina/cranberry-jam.jpg"
 ---
 
 ## 歌曲介紹

@@ -7,6 +7,7 @@ trackNumber: 19
 publishDate: 2026-07-05
 tags: ["にしな", "J-POP", "生命", "堅韌"]
 originalLang: ja
+coverImage: "/covers/nishina/tsukushi.jpg"
 ---
 
 ## 歌曲介紹

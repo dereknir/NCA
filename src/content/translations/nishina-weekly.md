@@ -7,6 +7,7 @@ trackNumber: 2
 publishDate: 2026-03-28
 tags: ["にしな", "J-POP", "日常", "療癒"]
 originalLang: ja
+coverImage: "/covers/nishina/weekly.jpg"
 ---
 
 ## 歌曲介紹

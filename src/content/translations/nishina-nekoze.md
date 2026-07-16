@@ -7,6 +7,7 @@ trackNumber: 18
 publishDate: 2026-07-05
 tags: ["にしな", "J-POP", "生活", "小確幸"]
 originalLang: ja
+coverImage: "/covers/nishina/nekoze.jpg"
 ---
 
 ## 歌曲介紹

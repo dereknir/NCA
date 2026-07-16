@@ -7,6 +7,7 @@ trackNumber: 16
 publishDate: 2026-07-05
 tags: ["にしな", "J-POP", "失戀", "秋冬"]
 originalLang: ja
+coverImage: "/covers/nishina/hot-milk.jpg"
 ---
 
 ## 歌曲介紹

@@ -7,6 +7,7 @@ trackNumber: 12
 publishDate: 2026-07-05
 tags: ["にしな", "J-POP", "日常", "歡樂"]
 originalLang: ja
+coverImage: "/covers/nishina/hibi-sanman.jpg"
 ---
 
 ## 歌曲介紹

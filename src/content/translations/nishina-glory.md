@@ -7,6 +7,7 @@ trackNumber: 20
 publishDate: 2026-04-08
 tags: ["にしな", "J-POP", "反戰", "情歌"]
 originalLang: ja
+coverImage: "/covers/nishina/hibi-sanman.jpg"
 ---
 
 ## 歌曲介紹

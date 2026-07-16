@@ -141,6 +141,16 @@ const overallProgress = totalSongs > 0 ? Math.round((totalTranslated / totalSong
                             {t.data.trackNumber}.
                           </span>
                         )}
+                        {t.data.coverImage && (
+                          <img
+                            src={t.data.coverImage}
+                            alt=""
+                            width="40"
+                            height="40"
+                            loading="lazy"
+                            class="w-10 h-10 rounded object-cover shrink-0"
+                          />
+                        )}
                         <div class="min-w-0">
                           <h4 class="text-base font-medium truncate">{t.data.title}</h4>
                         </div>

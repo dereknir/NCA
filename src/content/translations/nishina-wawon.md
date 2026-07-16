@@ -7,6 +7,7 @@ trackNumber: 11
 publishDate: 2026-07-05
 tags: ["にしな", "J-POP", "文字遊戲", "哲學"]
 originalLang: ja
+coverImage: "/covers/nishina/wawon.jpg"
 ---
 
 ## 歌曲介紹

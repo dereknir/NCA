@@ -7,6 +7,7 @@ trackNumber: 14
 publishDate: 2026-07-05
 tags: ["にしな", "J-POP", "都市電音", "壞女孩"]
 originalLang: ja
+coverImage: "/covers/nishina/plum.jpg"
 ---
 
 ## 歌曲介紹

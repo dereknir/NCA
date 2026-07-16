@@ -7,6 +7,7 @@ trackNumber: 17
 publishDate: 2026-04-08
 tags: ["にしな", "J-POP", "日常", "青春"]
 originalLang: ja
+coverImage: "/covers/nishina/its-a-piece-of-cake.jpg"
 ---
 
 ## 歌曲介紹
