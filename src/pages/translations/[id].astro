@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import LiveShorts from '../../components/LiveShorts.astro';
+import ShortsShelf from '../../components/ShortsShelf.astro';
+import TocDrawer from '../../components/TocDrawer.astro';
+import LiveStage from '../../components/LiveStage.astro';
+import shortsData from '../../data/shorts_by_song.json';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -13,7 +16,7 @@ export async function getStaticPaths() {
 
 const { translation } = Astro.props;
 const { Content } = await render(translation);
-const { title, artist, album, albumYear, trackNumber, youtubeId, publishDate, tags, coverImage, liveShorts, instrumental, lyricist, composer, arranger } = translation.data;
+const { title, artist, album, albumYear, trackNumber, youtubeId, publishDate, tags, coverImage, instrumental, lyricist, composer, arranger } = translation.data;
 
 const formatCredits = (names?: string[]) => names?.join(' × ');
 const credits: Array<{ label: string; value?: string }> = [
@@ -44,6 +47,9 @@ const nextSong = trackNumber
 
 const description = `${artist} 的「${title}」日文歌曲翻譯。${tags?.slice(0, 3).join('、') ?? ''}`;
 const image = coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg` : undefined);
+
+// 抓當前歌曲已標註的 shorts (由 scripts/import_anchors.py 產出)
+const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation.id] ?? [];
 ---
 
 <BaseLayout
@@ -53,6 +59,15 @@ const image = coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId
   article={true}
   publishDate={new Date(publishDate)}
 >
+  {isTranslated && <TocDrawer />}
+  {songShorts.length > 0 && (
+    <LiveStage
+      shorts={songShorts as any}
+      songTitle={title}
+      coverImage={coverImage}
+    />
+  )}
+
   <article class="max-w-4xl mx-auto">
     <header class="mb-8 flex flex-col sm:flex-row gap-6 items-start">
       {coverImage && (
@@ -123,9 +138,19 @@ const image = coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId
     )}
 
     {isTranslated ? (
-      <div class="prose max-w-none">
-        <Content />
-      </div>
+      <>
+        {/* ShortsShelf 由下方 inline script 移到 <h2>歌詞 / 翻譯</h2> 之前;
+            未 hydrate 時暫留在此處,避免 shift 太明顯,故先隱藏。 */}
+        {songShorts.length > 0 && (
+          <div data-shelf-mount hidden>
+            <ShortsShelf shorts={songShorts as any} />
+          </div>
+        )}
+
+        <div class="prose max-w-none" data-song-content>
+          <Content />
+        </div>
+      </>
     ) : (
       <div class="my-12 p-8 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/50 text-center">
         <div class="text-5xl mb-4">🚧</div>
@@ -141,10 +166,6 @@ const image = coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId
           </p>
         )}
       </div>
-    )}
-
-    {liveShorts && liveShorts.length > 0 && (
-      <LiveShorts shorts={liveShorts} />
     )}
 
     {(prevSong || nextSong) && (
@@ -180,4 +201,26 @@ const image = coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId
       </a>
     </div>
   </article>
+
+  <script is:inline>
+    /* 把 ShortsShelf 塞到「歌詞 / 翻譯」H2 之前;
+       這是唯一的節點搬移,不改動 markdown 內容順序、不動翻譯筆記 H3 結構。 */
+    (function () {
+      const mount = document.querySelector('[data-shelf-mount]');
+      const prose = document.querySelector('[data-song-content]');
+      if (!mount || !prose) return;
+      const lyricsH2 = Array.from(prose.querySelectorAll('h2')).find(function (h) {
+        return (h.textContent || '').indexOf('歌詞') >= 0;
+      });
+      const shelfEl = mount.firstElementChild;
+      if (!shelfEl) return;
+      if (lyricsH2 && lyricsH2.parentNode) {
+        lyricsH2.parentNode.insertBefore(shelfEl, lyricsH2);
+      } else {
+        // 找不到 H2 就退化為插在文章開頭
+        prose.parentNode.insertBefore(shelfEl, prose);
+      }
+      mount.remove();
+    })();
+  </script>
 </BaseLayout>

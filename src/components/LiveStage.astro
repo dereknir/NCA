@@ -1,0 +1,1093 @@
+---
+/**
+ * LiveStage — 全螢幕沉浸式播放模式 (Apple Music 質感)
+ *
+ * 觸發: 監聽 window 上的 'shelf:play' CustomEvent (ShortsShelf 卡片點擊觸發)
+ * 內容: 左半影片 (9:16 直式) + 右半歌詞 karaoke 同步
+ *
+ * 關鍵行為:
+ * - `#live={videoId}` 深連結 (分享 / F5 保持)
+ * - popstate (瀏覽器返回) 關閉 Stage
+ * - 250ms poll 找 active line + 跟隨捲動
+ * - 使用者手動捲歌詞 → 暫停跟隨, 浮出「回到目前句」
+ * - 點歌詞行 → seekTo 對應 anchor
+ * - onError 禁止嵌入 → fallback UI
+ * - 用共享 __escStack / __scrollLockCount (見 TocDrawer)
+ */
+interface Anchor { t: number; line: number }
+interface Short {
+  videoId: string;
+  title?: string;
+  thumbnail?: string;
+  viewCount?: number;
+  versionType?: 'live' | 'mv' | 'acoustic' | 'other' | null;
+  instrumental?: boolean;
+  anchors: Anchor[];
+}
+interface Props {
+  shorts: Short[];
+  songTitle: string;
+  coverImage?: string;
+}
+const { shorts, songTitle, coverImage } = Astro.props;
+if (!shorts || shorts.length === 0) return null;
+---
+
+<div
+  id="live-stage"
+  class="stage"
+  role="dialog"
+  aria-modal="true"
+  aria-label="LIVE 播放模式"
+  aria-hidden="true"
+  data-song-title={songTitle}
+  data-cover-image={coverImage || ''}
+  data-shorts={JSON.stringify(shorts)}
+  hidden
+>
+  <div class="stage-backdrop"></div>
+
+  <div class="stage-frame">
+    <header class="stage-header">
+      <div class="stage-header-main">
+        <h2 class="stage-title">{songTitle}</h2>
+        <div class="stage-tabs" role="tablist"></div>
+      </div>
+      <button
+        type="button"
+        class="stage-close"
+        aria-label="關閉播放模式 (Esc)"
+        title="Esc"
+      >
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+          <line x1="6" y1="6" x2="18" y2="18"/>
+          <line x1="6" y1="18" x2="18" y2="6"/>
+        </svg>
+      </button>
+    </header>
+
+    <div class="stage-body">
+      <div class="stage-video-col">
+        <div class="stage-video-wrap">
+          <div class="stage-video-shell">
+            <div id="stage-player" class="stage-player"></div>
+          </div>
+        </div>
+        <div class="stage-strip-wrap">
+          <button type="button" class="stage-strip-arrow stage-strip-arrow-left" data-dir="-1" aria-label="向左捲動">‹</button>
+          <div class="stage-strip"></div>
+          <button type="button" class="stage-strip-arrow stage-strip-arrow-right" data-dir="1" aria-label="向右捲動">›</button>
+        </div>
+      </div>
+      <div class="stage-lyrics-wrap">
+        <div class="stage-lyrics" id="stage-lyrics"></div>
+        <button type="button" class="stage-followback" hidden>
+          <span class="stage-followback-arrow">↑</span>
+          回到目前句
+        </button>
+        <button type="button" class="stage-romaji-toggle" aria-pressed="false" title="顯示 / 隱藏羅馬拼音">
+          Aa
+        </button>
+        <div class="stage-inst-pill" hidden title="純演奏 / 無歌詞段落">🎵</div>
+      </div>
+    </div>
+
+    <div class="stage-error" hidden>
+      <p class="stage-error-msg">此影片不允許嵌入</p>
+      <a class="stage-error-link" href="#" target="_blank" rel="noopener">到 YouTube 觀看 →</a>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  /* ── Stage overlay (永遠深色, 不跟隨 light mode 影院慣例) ── */
+  .stage {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    color: #f4f5f7;
+    font-family: inherit;
+    opacity: 0;
+    transition: opacity 0.24s ease;
+    /* 開啟時 script 加 data-open */
+  }
+  .stage[data-open="true"] {
+    opacity: 1;
+  }
+
+  .stage-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: #0a0a10;
+    /* 使用 CSS variable 讓 script 塞封面圖 */
+    background-image:
+      linear-gradient(rgba(10, 10, 16, 0.75), rgba(10, 10, 16, 0.85)),
+      var(--stage-cover, none);
+    background-size: cover;
+    background-position: center;
+    filter: blur(0);
+  }
+  .stage[data-open="true"] .stage-backdrop::after {
+    content: "";
+    position: absolute;
+    inset: -40px;
+    background: inherit;
+    filter: blur(60px) brightness(0.55);
+    opacity: 0.9;
+    z-index: -1;
+  }
+
+  .stage-frame {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.5rem 1.25rem;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .stage-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.75rem;
+    flex-shrink: 0;
+  }
+  .stage-header-main {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+  .stage-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+  .stage-tabs {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .stage-tab {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.75);
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .stage-tab:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+  }
+  .stage-tab.active {
+    background: rgba(239, 68, 68, 0.9);
+    border-color: rgba(239, 68, 68, 0.9);
+    color: #fff;
+  }
+  .stage-tab-count {
+    font-size: 0.68rem;
+    opacity: 0.8;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 0 6px;
+    border-radius: 999px;
+    line-height: 1.5;
+  }
+  .stage-close {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .stage-close:hover {
+    background: rgba(255, 255, 255, 0.16);
+    transform: rotate(90deg);
+  }
+
+  /* ── 小縮圖 strip (該版本內的所有 shorts)
+       固定「一次最多 show 5 個」寬度 + 左右 ‹ › 箭頭切換 ── */
+  .stage-strip-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+  }
+  .stage-strip {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 4px;
+    flex-shrink: 1;
+    scrollbar-width: none;             /* 用箭頭導航, 隱藏 scrollbar */
+    scroll-behavior: smooth;
+    /* 5 顆縮圖: 5×54 + 4×6(gap) + 2×4(padding) = 302 */
+    max-width: 302px;
+    width: 100%;
+  }
+  .stage-strip::-webkit-scrollbar { display: none; }
+  .stage-thumb {
+    flex: 0 0 54px;
+    aspect-ratio: 9 / 16;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0.35rem;
+    overflow: hidden;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+
+  /* 左右箭頭 (只在超出時才顯示) */
+  .stage-strip-arrow {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+    font-size: 1.05rem;
+    line-height: 1;
+    font-family: inherit;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 2px;
+    margin: 0 0.3rem;
+    transition: all 0.15s ease;
+  }
+  .stage-strip-arrow:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transform: scale(1.1);
+  }
+  .stage-strip-arrow[data-visible="true"] { display: inline-flex; }
+  .stage-thumb:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+  .stage-thumb.active {
+    border-color: rgb(239 68 68);
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.4);
+  }
+  .stage-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .stage-thumb.playing::after {
+    content: "▶";
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    background: rgb(239 68 68);
+    color: #fff;
+    font-size: 0.55rem;
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+
+  /* ── Body: 左影片欄 + 右歌詞欄 (flex, 整體置中) ── */
+  .stage-body {
+    flex: 1;
+    display: flex;
+    gap: 1.75rem;
+    justify-content: center;
+    align-items: stretch;
+    min-height: 0;
+  }
+
+  /* 影片欄: 影片在上, 縮圖 strip 在下 (寬度跟影片對齊)
+     flex: 0 0 auto 讓它以內容自身大小為準 (影片 aspect-ratio 決定) */
+  .stage-video-col {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .stage-video-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .stage-video-shell {
+    /* 9:16 直式, 保留 header + strip 空間 */
+    height: min(78vh, calc(100vh - 220px));
+    aspect-ratio: 9 / 16;
+    max-width: 100%;
+    background: #000;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+  .stage-player {
+    width: 100%;
+    height: 100%;
+  }
+
+  .stage-lyrics-wrap {
+    /* basis 720 + 不 grow: 保證上限 720, 需要時可以縮小 */
+    flex: 0 1 720px;
+    min-width: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── 清掉 clone 進來的 .lyrics-section 原網站樣式
+       (原本是 padding 2rem + 紫色漸層 + 白色文字) ── */
+  .stage-lyrics .lyrics-section {
+    background: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    color: inherit;
+    box-shadow: none;
+  }
+  /* 原本的 .lyrics-line 有 border-bottom + padding-bottom 1.5rem
+     Stage 用自己的 padding/margin/背景, 這些要清 */
+  .stage-lyrics .lyrics-line {
+    border-bottom: none;
+  }
+  .stage-lyrics .lyrics-line:last-child {
+    border-bottom: none;
+    padding-bottom: inherit;
+    margin-bottom: inherit;
+  }
+  /* romaji 從原本 opacity 0.6 恢復為主色, 由 Stage 的 opacity 控制節奏 */
+  .stage-lyrics[data-romaji="on"] .lyrics-line .romaji {
+    opacity: 1;
+  }
+
+  .stage-lyrics {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20vh 1rem;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  }
+  .stage-lyrics::-webkit-scrollbar { width: 6px; }
+  .stage-lyrics::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+  }
+
+  .stage-lyrics .lyrics-line {
+    padding: 0.6rem 0.75rem;
+    margin-bottom: 0.35rem;
+    border-radius: 0.5rem;
+    opacity: 0.45;
+    cursor: pointer;
+    transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+  }
+  .stage-lyrics .lyrics-line:hover {
+    opacity: 0.75;
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .stage-lyrics .lyrics-line.stage-active {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.06);
+    transform: scale(1.02);
+  }
+  .stage-lyrics .lyrics-line.no-anchor {
+    cursor: default;
+    opacity: 0.35;
+  }
+  .stage-lyrics .lyrics-line .romaji {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.55);
+    font-style: italic;
+    line-height: 1.5;
+    margin-bottom: 0.15rem;
+    display: none; /* 預設隱藏, romaji toggle 開啟 */
+  }
+  .stage-lyrics[data-romaji="on"] .lyrics-line .romaji { display: block; }
+  .stage-lyrics .lyrics-line .ja {
+    font-size: 1.65rem;
+    color: #fff;
+    font-weight: 500;
+    line-height: 1.55;
+    font-family: 'Noto Sans JP', system-ui, sans-serif;
+  }
+  .stage-lyrics .lyrics-line .zh {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+    margin-top: 0.15rem;
+  }
+  /* 分隔器 (原本 markdown 裡的 lyrics-break) 縮小 */
+  .stage-lyrics .lyrics-break {
+    height: 0.75rem;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .stage-lyrics { scroll-behavior: auto; }
+    .stage-lyrics .lyrics-line { transition: none; }
+    .stage-lyrics .lyrics-line.stage-active { transform: none; }
+  }
+
+  /* 回到目前句 */
+  .stage-followback {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(239, 68, 68, 0.95);
+    color: #fff;
+    border: 0;
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.15s ease;
+    z-index: 3;
+  }
+  .stage-followback:hover { transform: translateX(-50%) translateY(-2px); }
+  .stage-followback-arrow { font-size: 1rem; line-height: 1; }
+
+  /* 純演奏 pill (只有 🎵, 出現在歌詞欄右上角, 提示這段沒歌詞同步) */
+  .stage-inst-pill {
+    position: absolute;
+    top: 0.75rem;
+    right: 3rem;                     /* 避開 romaji-toggle 位置 */
+    background: rgba(138, 92, 246, 0.28);
+    border: 1px solid rgba(167, 139, 250, 0.5);
+    color: #fff;
+    border-radius: 999px;
+    width: 34px;
+    height: 30px;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    pointer-events: none;
+    letter-spacing: 0;
+  }
+  .stage-inst-pill[hidden] { display: none; }
+
+  /* Romaji toggle */
+  .stage-romaji-toggle {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    width: 34px;
+    height: 30px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 3;
+    transition: all 0.15s ease;
+  }
+  .stage-romaji-toggle:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+  }
+  .stage-romaji-toggle[aria-pressed="true"] {
+    background: rgba(239, 68, 68, 0.85);
+    border-color: rgba(239, 68, 68, 0.9);
+    color: #fff;
+  }
+
+  /* ── Error state ── */
+  .stage-error {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: rgba(10, 10, 16, 0.85);
+    backdrop-filter: blur(6px);
+  }
+  .stage-error-msg {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .stage-error-link {
+    background: rgba(239, 68, 68, 0.9);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .stage-error-link:hover { background: rgb(239 68 68); }
+
+  /* ── 手機堆疊 ── */
+  @media (max-width: 1023px) {
+    .stage-frame { padding: 0.5rem 0.75rem 0.75rem; }
+    .stage-body {
+      flex-direction: column;
+      gap: 0.5rem;
+      overflow-y: auto;
+    }
+    .stage-video-col {
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 16, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 2;
+      padding: 0.25rem 0;
+    }
+    .stage-video-shell {
+      height: 38vh;
+    }
+    .stage-lyrics-wrap { max-width: none; }
+    .stage-lyrics { padding: 3vh 0.5rem 30vh; }
+    .stage-lyrics .lyrics-line .ja { font-size: 1.25rem; }
+    .stage-lyrics .lyrics-line .zh { font-size: 0.85rem; }
+    .stage-title { font-size: 1.1rem; }
+    .stage-header { padding-bottom: 0.4rem; }
+    .stage-strip { max-width: 100%; }
+  }
+</style>
+
+<script>
+  interface Anchor { t: number; line: number }
+  interface Short {
+    videoId: string;
+    title?: string;
+    thumbnail?: string;
+    versionType?: 'live' | 'mv' | 'acoustic' | 'other' | null;
+    anchors: Anchor[];
+  }
+  interface YTPlayerLike {
+    loadVideoById: (id: string) => void;
+    playVideo: () => void;
+    pauseVideo: () => void;
+    getCurrentTime: () => number;
+    seekTo: (t: number, allow: boolean) => void;
+    getPlayerState: () => number;
+  }
+  interface YTEvent { data: number }
+  declare global {
+    interface Window {
+      YT?: {
+        Player: new (el: HTMLElement | string, opts: Record<string, unknown>) => YTPlayerLike;
+      };
+      onYouTubeIframeAPIReady?: () => void;
+      __escStackApi?: { push: (fn: () => void) => void; pop: (fn: () => void) => void };
+      __scrollLockCount?: number;
+    }
+  }
+
+  /* ==== 共享 utils (與 TocDrawer) ==== */
+  const escStack = window.__escStackApi;
+  function lockScroll() {
+    window.__scrollLockCount = (window.__scrollLockCount ?? 0) + 1;
+    if (window.__scrollLockCount === 1) {
+      const w = window.innerWidth - document.documentElement.clientWidth;
+      document.documentElement.style.setProperty('--scrollbar-w', w + 'px');
+      document.body.dataset.scrollLocked = 'true';
+    }
+  }
+  function unlockScroll() {
+    window.__scrollLockCount = Math.max(0, (window.__scrollLockCount ?? 0) - 1);
+    if (window.__scrollLockCount === 0) delete document.body.dataset.scrollLocked;
+  }
+
+  /* ==== 讀取 root & 資料 ==== */
+  const stage = document.getElementById('live-stage');
+  if (!stage) { throw new Error('LiveStage: root not found'); }
+  const shortsAll: Short[] = JSON.parse(stage.dataset.shorts || '[]');
+  const songTitle = stage.dataset.songTitle || '';
+  const coverImage = stage.dataset.coverImage || '';
+  if (coverImage) {
+    const backdrop = stage.querySelector<HTMLElement>('.stage-backdrop');
+    if (backdrop) backdrop.style.setProperty('--stage-cover', `url("${coverImage}")`);
+  }
+  const shortsById = new Map(shortsAll.map(s => [s.videoId, s]));
+
+  /* ==== 版本分組 ==== */
+  const VERSION_ORDER = ['live', 'mv', 'acoustic', 'other'] as const;
+  const VERSION_META = {
+    live: { label: 'LIVE', icon: '🎤' },
+    mv: { label: 'MV', icon: '📀' },
+    acoustic: { label: '弾き語り', icon: '🎸' },
+    other: { label: '其他', icon: '🎧' },
+  };
+  const byVersion: Record<string, Short[]> = { live: [], mv: [], acoustic: [], other: [] };
+  for (const s of shortsAll) {
+    const k = s.versionType || 'other';
+    byVersion[k].push(s);
+  }
+
+  /* ==== State ==== */
+  const state = {
+    activeVersion: 'live' as string,
+    activeShort: null as Short | null,
+    activeLine: -1,
+    follow: true,
+    ready: false,
+    player: null as YTPlayerLike | null,
+    pendingLoad: null as string | null,
+    pollTimer: 0 as number,
+    autoScrolling: false,
+    autoScrollTimer: 0 as number,
+    lyricLineEls: [] as HTMLElement[],
+    lastFocused: null as HTMLElement | null,
+  };
+
+  /* ==== DOM refs ==== */
+  const backdrop = stage.querySelector<HTMLElement>('.stage-backdrop')!;
+  const tabsEl = stage.querySelector<HTMLElement>('.stage-tabs')!;
+  const stripEl = stage.querySelector<HTMLElement>('.stage-strip')!;
+  const stripArrowLeft = stage.querySelector<HTMLButtonElement>('.stage-strip-arrow-left')!;
+  const stripArrowRight = stage.querySelector<HTMLButtonElement>('.stage-strip-arrow-right')!;
+  const closeBtn = stage.querySelector<HTMLButtonElement>('.stage-close')!;
+  const playerEl = stage.querySelector<HTMLElement>('#stage-player')!;
+  const lyricsEl = stage.querySelector<HTMLElement>('#stage-lyrics')!;
+  const followBackBtn = stage.querySelector<HTMLButtonElement>('.stage-followback')!;
+  const romajiToggle = stage.querySelector<HTMLButtonElement>('.stage-romaji-toggle')!;
+  const instPill = stage.querySelector<HTMLElement>('.stage-inst-pill')!;
+  const errorPanel = stage.querySelector<HTMLElement>('.stage-error')!;
+  const errorLink = stage.querySelector<HTMLAnchorElement>('.stage-error-link')!;
+
+  /* ==== YT API ==== */
+  function loadYouTubeAPI(): Promise<void> {
+    return new Promise(resolve => {
+      if (window.YT && window.YT.Player) { resolve(); return; }
+      if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+        const s = document.createElement('script');
+        s.src = 'https://www.youtube.com/iframe_api';
+        document.body.appendChild(s);
+      }
+      const prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => { prev?.(); resolve(); };
+    });
+  }
+
+  function ensurePlayer(): Promise<YTPlayerLike> {
+    return new Promise((resolve) => {
+      if (state.player) { resolve(state.player); return; }
+      loadYouTubeAPI().then(() => {
+        if (!window.YT) return;
+        state.player = new window.YT.Player(playerEl, {
+          width: '100%',
+          height: '100%',
+          videoId: '',
+          playerVars: {
+            rel: 0, modestbranding: 1, playsinline: 1, controls: 1,
+            origin: window.location.origin,
+          },
+          events: {
+            onReady: () => {
+              state.ready = true;
+              if (state.pendingLoad) {
+                state.player!.loadVideoById(state.pendingLoad);
+                state.pendingLoad = null;
+              }
+              resolve(state.player!);
+            },
+            onError: (ev: YTEvent) => {
+              // 101 / 150 禁止嵌入; 100 已移除; 2 無效 ID
+              if ([101, 150, 100, 2].includes(ev.data)) {
+                showError(state.activeShort?.videoId || '');
+              }
+            },
+          },
+        });
+      });
+    });
+  }
+
+  /* ==== 版本 tabs & 縮圖 strip ==== */
+  function renderTabs() {
+    tabsEl.innerHTML = '';
+    for (const key of VERSION_ORDER) {
+      const list = byVersion[key];
+      if (list.length === 0) continue;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'stage-tab';
+      btn.dataset.version = key;
+      btn.setAttribute('role', 'tab');
+      btn.innerHTML = `${VERSION_META[key].icon} ${VERSION_META[key].label}
+        <span class="stage-tab-count">${list.length}</span>`;
+      btn.addEventListener('click', () => selectVersion(key));
+      tabsEl.appendChild(btn);
+    }
+  }
+
+  function selectVersion(key: string) {
+    state.activeVersion = key;
+    tabsEl.querySelectorAll<HTMLElement>('.stage-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.version === key);
+    });
+    renderStrip();
+  }
+
+  function renderStrip() {
+    stripEl.innerHTML = '';
+    const list = byVersion[state.activeVersion] || [];
+    for (const s of list) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'stage-thumb';
+      btn.dataset.videoId = s.videoId;
+      const img = document.createElement('img');
+      img.src = s.thumbnail || `https://i.ytimg.com/vi/${s.videoId}/hqdefault.jpg`;
+      img.loading = 'lazy';
+      img.alt = s.title || 'short';
+      btn.appendChild(img);
+      btn.addEventListener('click', () => loadShort(s.videoId));
+      stripEl.appendChild(btn);
+    }
+    // 重置捲動位置到最左, 再更新箭頭
+    stripEl.scrollLeft = 0;
+    updateStripArrows();
+    updateStripActive();
+  }
+
+  function updateStripArrows() {
+    const canScroll = stripEl.scrollWidth > stripEl.clientWidth + 4;
+    const atStart = stripEl.scrollLeft <= 4;
+    const atEnd = stripEl.scrollLeft >= stripEl.scrollWidth - stripEl.clientWidth - 4;
+    stripArrowLeft.dataset.visible = String(canScroll && !atStart);
+    stripArrowRight.dataset.visible = String(canScroll && !atEnd);
+  }
+  [stripArrowLeft, stripArrowRight].forEach(btn => {
+    btn.addEventListener('click', () => {
+      const dir = Number(btn.dataset.dir) || 1;
+      // 一次移一個「頁」寬度 (~5 個縮圖)
+      stripEl.scrollBy({ left: dir * stripEl.clientWidth * 0.92, behavior: 'smooth' });
+    });
+  });
+  stripEl.addEventListener('scroll', updateStripArrows, { passive: true });
+
+  function updateStripActive() {
+    stripEl.querySelectorAll<HTMLElement>('.stage-thumb').forEach(t => {
+      const isActive = t.dataset.videoId === state.activeShort?.videoId;
+      t.classList.toggle('playing', isActive);
+      t.classList.toggle('active', isActive);
+      if (isActive) t.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+    });
+  }
+
+  /* ==== 歌詞: clone 一份到 Stage ==== */
+  function cloneLyricsInto(): void {
+    const source = document.querySelector('.lyrics-section');
+    if (!source) {
+      lyricsEl.innerHTML = '<div style="color:#999;padding:2rem;">找不到歌詞內容</div>';
+      state.lyricLineEls = [];
+      return;
+    }
+    const clone = source.cloneNode(true) as HTMLElement;
+    // 清空並重建 stage-lyrics 內容
+    lyricsEl.innerHTML = '';
+    lyricsEl.appendChild(clone);
+    state.lyricLineEls = Array.from(clone.querySelectorAll<HTMLElement>('.lyrics-line'));
+    // 每行綁 click → seek
+    state.lyricLineEls.forEach((el, idx) => {
+      el.dataset.lineIndex = String(idx);
+      el.addEventListener('click', () => seekToLine(idx));
+    });
+    // 監聽使用者手動捲動 → 暫停 follow
+    lyricsEl.addEventListener('scroll', onLyricsScroll, { passive: true });
+  }
+
+  /* ==== 同步邏輯 ==== */
+  function findActiveLine(t: number, anchors: Anchor[]): number {
+    // Binary search: 找最大 anchor.t <= t
+    if (anchors.length === 0 || t < anchors[0].t) return -1;
+    let lo = 0, hi = anchors.length - 1;
+    while (lo < hi) {
+      const mid = (lo + hi + 1) >> 1;
+      if (anchors[mid].t <= t) lo = mid; else hi = mid - 1;
+    }
+    return anchors[lo].line;
+  }
+
+  function activateLine(idx: number) {
+    if (idx === state.activeLine) return;
+    state.activeLine = idx;
+    state.lyricLineEls.forEach((el, i) => {
+      el.classList.toggle('stage-active', i === idx);
+    });
+    if (state.follow && idx >= 0) {
+      scrollActiveIntoView();
+    }
+  }
+
+  function scrollActiveIntoView() {
+    const el = state.lyricLineEls[state.activeLine];
+    if (!el) return;
+    state.autoScrolling = true;
+    // 用 element 的 scrollIntoView 到中間
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({
+      behavior: prefersReduced ? 'auto' : 'smooth',
+      block: 'center',
+    });
+    clearTimeout(state.autoScrollTimer);
+    state.autoScrollTimer = window.setTimeout(() => {
+      state.autoScrolling = false;
+    }, 700);
+  }
+
+  function startPoll() {
+    stopPoll();
+    state.pollTimer = window.setInterval(() => {
+      if (!state.ready || !state.player || !state.activeShort) return;
+      const t = state.player.getCurrentTime();
+      const line = findActiveLine(t, state.activeShort.anchors);
+      if (line !== state.activeLine) activateLine(line);
+    }, 250);
+  }
+  function stopPoll() {
+    if (state.pollTimer) { clearInterval(state.pollTimer); state.pollTimer = 0; }
+  }
+
+  function onLyricsScroll() {
+    // 忽略 auto scroll 觸發的
+    if (state.autoScrolling) return;
+    if (state.follow) {
+      state.follow = false;
+      followBackBtn.hidden = false;
+    }
+  }
+
+  followBackBtn.addEventListener('click', () => {
+    state.follow = true;
+    followBackBtn.hidden = true;
+    if (state.activeLine >= 0) scrollActiveIntoView();
+  });
+
+  /* ==== 點歌詞行 seekTo ==== */
+  function seekToLine(lineIdx: number) {
+    if (!state.player || !state.activeShort) return;
+    const anchors = state.activeShort.anchors;
+    // 找出 line 等於 lineIdx 的 anchor; 沒有則找 line 最大且 <= lineIdx 的
+    let target: Anchor | null = null;
+    for (const a of anchors) {
+      if (a.line === lineIdx) { target = a; break; }
+      if (a.line < lineIdx && (!target || a.line > target.line)) target = a;
+    }
+    if (!target) return;
+    state.player.seekTo(target.t, true);
+    state.player.playVideo();
+    // seek 過去後打回跟隨模式
+    if (!state.follow) {
+      state.follow = true;
+      followBackBtn.hidden = true;
+    }
+  }
+
+  /* ==== 載入某支 short ==== */
+  function loadShort(videoId: string) {
+    const short = shortsById.get(videoId);
+    if (!short) return;
+    state.activeShort = short;
+    state.activeLine = -1;
+    state.follow = true;
+    followBackBtn.hidden = true;
+    errorPanel.hidden = true;
+    // 純演奏 short: 顯示 🎵 pill, 清掉歌詞 highlight
+    instPill.hidden = !short.instrumental;
+    if (short.instrumental) {
+      // 清掉任何先前的 highlight
+      state.lyricLineEls.forEach(el => el.classList.remove('stage-active'));
+    }
+    updateStripActive();
+    // 若當前的 activeVersion 不含這支, 切到它的 version
+    const vt = short.versionType || 'other';
+    if (state.activeVersion !== vt) selectVersion(vt);
+    // 標記 URL hash (在此 Stage 已開啟時)
+    if (stage.dataset.open === 'true') {
+      history.replaceState(null, '', `#live=${videoId}`);
+    }
+    if (state.ready && state.player) {
+      state.player.loadVideoById(videoId);
+    } else {
+      state.pendingLoad = videoId;
+      ensurePlayer();
+    }
+  }
+
+  /* ==== 錯誤 fallback ==== */
+  function showError(videoId: string) {
+    errorLink.href = `https://www.youtube.com/shorts/${videoId}`;
+    errorPanel.hidden = false;
+  }
+
+  /* ==== Romaji toggle ==== */
+  romajiToggle.addEventListener('click', () => {
+    const on = lyricsEl.dataset.romaji === 'on';
+    lyricsEl.dataset.romaji = on ? 'off' : 'on';
+    romajiToggle.setAttribute('aria-pressed', on ? 'false' : 'true');
+    try { localStorage.setItem('nca-stage-romaji', on ? '0' : '1'); } catch {}
+  });
+  // Restore romaji pref
+  try {
+    if (localStorage.getItem('nca-stage-romaji') === '1') {
+      lyricsEl.dataset.romaji = 'on';
+      romajiToggle.setAttribute('aria-pressed', 'true');
+    }
+  } catch {}
+
+  /* ==== 開 / 關 Stage ==== */
+  function openStage(videoId: string, opts: { filter?: string; pushHistory?: boolean } = {}) {
+    if (!shortsById.has(videoId)) return;
+    if (stage.dataset.open === 'true') {
+      // 已開啟, 只換 video
+      loadShort(videoId);
+      return;
+    }
+    state.lastFocused = document.activeElement as HTMLElement;
+    stage.hidden = false;
+    stage.setAttribute('aria-hidden', 'false');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        stage.dataset.open = 'true';
+      });
+    });
+    lockScroll();
+    escStack?.push(closeStage);
+    // 決定 initial version
+    const short = shortsById.get(videoId)!;
+    const initialVersion = opts.filter && opts.filter !== 'all' && byVersion[opts.filter]?.length
+      ? opts.filter
+      : (short.versionType || 'other');
+    selectVersion(initialVersion);
+    cloneLyricsInto();
+    loadShort(videoId);
+    startPoll();
+    if (opts.pushHistory !== false) {
+      history.pushState({ stage: true }, '', `#live=${videoId}`);
+    }
+    // Focus 移入
+    setTimeout(() => closeBtn.focus(), 100);
+  }
+
+  function closeStage(opts: { fromPopstate?: boolean } = {}) {
+    if (stage.dataset.open !== 'true') return;
+    delete stage.dataset.open;
+    stage.setAttribute('aria-hidden', 'true');
+    stopPoll();
+    // 等 opacity transition 結束再 hidden
+    setTimeout(() => {
+      if (stage.dataset.open !== 'true') stage.hidden = true;
+    }, 260);
+    // 清歌詞 clone 以釋放記憶體
+    setTimeout(() => {
+      if (stage.dataset.open !== 'true') {
+        lyricsEl.innerHTML = '';
+        state.lyricLineEls = [];
+      }
+    }, 300);
+    // 暫停播放器
+    if (state.player) { try { state.player.pauseVideo(); } catch {} }
+    unlockScroll();
+    escStack?.pop(closeStage);
+    // 清 URL hash
+    if (!opts.fromPopstate) {
+      if (location.hash.startsWith('#live=')) {
+        history.replaceState(null, '', location.pathname + location.search);
+      }
+    }
+    // Focus 還原
+    if (state.lastFocused && document.body.contains(state.lastFocused)) {
+      state.lastFocused.focus();
+    }
+    followBackBtn.hidden = true;
+  }
+
+  closeBtn.addEventListener('click', () => closeStage());
+  backdrop.addEventListener('click', () => closeStage());
+
+  /* ==== Focus trap ==== */
+  stage.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab' || stage.dataset.open !== 'true') return;
+    const focusables = stage.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  });
+
+  /* ==== 監聽 shelf:play 事件 ==== */
+  document.addEventListener('shelf:play', ((e: CustomEvent) => {
+    e.preventDefault();
+    const detail = e.detail || {};
+    if (!detail.videoId) return;
+    openStage(detail.videoId, { filter: detail.filter });
+  }) as EventListener);
+
+  /* ==== popstate: 瀏覽器返回鍵 ==== */
+  window.addEventListener('popstate', () => {
+    const hashMatch = location.hash.match(/^#live=(.+)$/);
+    if (hashMatch && shortsById.has(hashMatch[1])) {
+      // hash 還在 (前進?) → 打開 (不再 pushHistory)
+      openStage(hashMatch[1], { pushHistory: false });
+    } else {
+      // hash 已消失 → 關閉
+      closeStage({ fromPopstate: true });
+    }
+  });
+
+  /* ==== 頁面載入時檢查深連結 ==== */
+  function handleInitialHash() {
+    const m = location.hash.match(/^#live=(.+)$/);
+    if (!m) return;
+    if (!shortsById.has(m[1])) return;
+    openStage(m[1], { pushHistory: false });
+  }
+  // 初始化 tabs 先, 才能 handleInitialHash
+  renderTabs();
+  if (document.readyState === 'complete') {
+    handleInitialHash();
+  } else {
+    window.addEventListener('load', handleInitialHash);
+  }
+</script>

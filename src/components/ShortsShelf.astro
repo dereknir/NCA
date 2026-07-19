@@ -1,0 +1,419 @@
+---
+/**
+ * ShortsShelf — 一列橫向滑動的 shorts 縮圖架
+ *
+ * 資料來自 src/data/shorts_by_song.json (由 scripts/import_anchors.py 產出)
+ * 上方 filter chips 依版本類型過濾 (全部 / LIVE / MV / 弾き語り / 其他)
+ *
+ * Phase 1: 點卡片 → dispatch 'shelf:play' 事件 (待 Phase 2 的 LiveStage 監聽)
+ *          若尚無 Stage,退化為新分頁開 YouTube shorts URL。
+ */
+interface Anchor { t: number; line: number }
+interface Short {
+  videoId: string;
+  title?: string;
+  url?: string;
+  thumbnail?: string;
+  viewCount?: number;
+  versionType?: 'live' | 'mv' | 'acoustic' | 'other' | null;
+  anchors: Anchor[];
+}
+interface Props {
+  shorts: Short[];
+}
+const { shorts } = Astro.props;
+if (!shorts || shorts.length === 0) return null;
+
+const counts: Record<string, number> = { all: shorts.length };
+for (const s of shorts) {
+  const k = s.versionType || 'other';
+  counts[k] = (counts[k] || 0) + 1;
+}
+
+const VERSION_META = {
+  live:     { label: 'LIVE',    icon: '🎤' },
+  mv:       { label: 'MV',      icon: '📀' },
+  acoustic: { label: '弾き語り', icon: '🎸' },
+  other:    { label: '其他',    icon: '🎧' },
+};
+
+function formatViews(n?: number): string {
+  if (!n) return '—';
+  if (n >= 10000) return `${(n / 10000).toFixed(1)}萬`;
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
+  return String(n);
+}
+
+const componentId = `shelf-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<section class="shelf" data-shelf-id={componentId} data-shorts={JSON.stringify(shorts)}>
+  <div class="shelf-head">
+    <h3 class="shelf-title">
+      <span class="shelf-title-icon">🎬</span>
+      各版本
+      <span class="shelf-count">{shorts.length}</span>
+    </h3>
+  </div>
+
+  <div class="shelf-filters" role="tablist">
+    <button class="shelf-chip active" data-filter="all" role="tab">
+      全部 <span class="shelf-chip-count">{counts.all}</span>
+    </button>
+    {(['live','mv','acoustic','other'] as const)
+      .filter(k => counts[k])
+      .map(k => (
+        <button class="shelf-chip" data-filter={k} role="tab">
+          {VERSION_META[k].icon} {VERSION_META[k].label}
+          <span class="shelf-chip-count">{counts[k]}</span>
+        </button>
+      ))}
+  </div>
+
+  <div class="shelf-row-wrap">
+    <button type="button" class="shelf-arrow shelf-arrow-left" data-dir="-1" aria-label="向左捲動">‹</button>
+    <div class="shelf-row" role="tabpanel">
+      {shorts.map(s => (
+        <button
+          type="button"
+          class="shelf-card"
+          data-video-id={s.videoId}
+          data-version-type={s.versionType || 'other'}
+        >
+          <div class="shelf-thumb">
+            <img src={s.thumbnail} loading="lazy" alt={s.title} />
+            <span class={`shelf-badge shelf-badge-${s.versionType || 'other'}`}>
+              {VERSION_META[(s.versionType || 'other') as keyof typeof VERSION_META].icon}
+              {VERSION_META[(s.versionType || 'other') as keyof typeof VERSION_META].label}
+            </span>
+            <span class="shelf-play-icon">▶</span>
+          </div>
+          <div class="shelf-card-title">{s.title || 'YouTube Short'}</div>
+          <div class="shelf-card-meta">{formatViews(s.viewCount)} views</div>
+        </button>
+      ))}
+    </div>
+    <button type="button" class="shelf-arrow shelf-arrow-right" data-dir="1" aria-label="向右捲動">›</button>
+  </div>
+</section>
+
+<style>
+  .shelf {
+    margin: 2.5rem 0;
+  }
+
+  .shelf-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .shelf-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0;
+    /* 覆蓋 .prose h3 的分隔線 (shelf 被 inline-script 插到 .prose 內) */
+    padding-top: 0;
+    border-top: none;
+  }
+  .shelf-title-icon { font-size: 1rem; }
+  .shelf-count {
+    font-size: 0.72rem;
+    background: rgba(239, 68, 68, 0.15);
+    color: rgb(220 38 38);
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+  :global(.dark) .shelf-count { color: rgb(248 113 113); }
+  .shelf-hint {
+    font-size: 0.8rem;
+    color: rgb(107 114 128);
+  }
+  :global(.dark) .shelf-hint { color: rgb(156 163 175); }
+
+  .shelf-filters {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.9rem;
+  }
+  .shelf-chip {
+    background: transparent;
+    border: 1px solid rgb(229 231 235);
+    color: rgb(75 85 99);
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  :global(.dark) .shelf-chip {
+    border-color: rgb(55 65 81);
+    color: rgb(156 163 175);
+  }
+  .shelf-chip:hover {
+    background: rgb(243 244 246);
+    border-color: rgb(156 163 175);
+  }
+  :global(.dark) .shelf-chip:hover {
+    background: rgb(55 65 81);
+    border-color: rgb(107 114 128);
+  }
+  .shelf-chip.active {
+    background: rgb(239 68 68);
+    border-color: rgb(239 68 68);
+    color: #fff;
+  }
+  .shelf-chip-count {
+    font-size: 0.68rem;
+    opacity: 0.75;
+    background: rgba(0, 0, 0, 0.15);
+    padding: 0 5px;
+    border-radius: 999px;
+    line-height: 1.4;
+  }
+  .shelf-chip.active .shelf-chip-count {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .shelf-row-wrap {
+    position: relative;
+  }
+  .shelf-row {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 0.75rem;
+    padding: 0.25rem 0.25rem 1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(156 163 175) transparent;
+  }
+  .shelf-row::-webkit-scrollbar { height: 6px; }
+  .shelf-row::-webkit-scrollbar-thumb {
+    background: rgb(209 213 219);
+    border-radius: 3px;
+  }
+  :global(.dark) .shelf-row::-webkit-scrollbar-thumb { background: rgb(55 65 81); }
+
+  .shelf-card {
+    flex: 0 0 130px;
+    scroll-snap-align: start;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    color: inherit;
+    text-align: left;
+    transition: transform 0.15s ease;
+  }
+  .shelf-card:hover { transform: translateY(-3px); }
+  .shelf-card:hover .shelf-play-icon { opacity: 1; }
+  .shelf-card[data-hidden="true"] { display: none; }
+
+  .shelf-thumb {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+    border-radius: 0.6rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  }
+  .shelf-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .shelf-badge {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    font-size: 0.62rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.65);
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    line-height: 1.3;
+  }
+  .shelf-badge-live { background: rgba(239, 68, 68, 0.88); }
+  .shelf-badge-mv { background: rgba(59, 130, 246, 0.88); }
+  .shelf-badge-acoustic { background: rgba(245, 158, 11, 0.88); }
+  .shelf-badge-other { background: rgba(107, 114, 128, 0.88); }
+  .shelf-play-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.95);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+  }
+
+  .shelf-card-title {
+    font-size: 0.72rem;
+    line-height: 1.4;
+    color: rgb(55 65 81);
+    margin-top: 0.4rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    /* 固定 2 行高度 = font-size × line-height × 2 = 0.72 × 1.4 × 2 rem
+       短標題也保留這個高度, 讓 views 那行對齊 */
+    min-height: 2.016rem;
+  }
+  :global(.dark) .shelf-card-title { color: rgb(209 213 219); }
+  .shelf-card-meta {
+    font-size: 0.65rem;
+    color: rgb(156 163 175);
+    margin-top: 2px;
+  }
+
+  /* 左右箭頭:桌機捲動輔助 */
+  .shelf-arrow {
+    position: absolute;
+    top: calc((100% - 1.25rem) / 2 - 0.5rem);
+    z-index: 5;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    color: rgb(31 41 55);
+    border: 1px solid rgb(229 231 235);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    font-size: 1.4rem;
+    line-height: 1;
+    font-family: inherit;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 2px;
+    transition: all 0.15s ease;
+  }
+  .shelf-arrow:hover {
+    transform: scale(1.1);
+    background: #fff;
+  }
+  :global(.dark) .shelf-arrow {
+    background: rgb(31 41 55);
+    color: rgb(243 244 246);
+    border-color: rgb(55 65 81);
+  }
+  :global(.dark) .shelf-arrow:hover { background: rgb(55 65 81); }
+  .shelf-arrow-left { left: -12px; }
+  .shelf-arrow-right { right: -12px; }
+  .shelf-arrow[data-visible="true"] { display: flex; }
+
+  @media (max-width: 768px) {
+    .shelf-arrow { display: none !important; }
+    .shelf-row { padding-left: 0; padding-right: 0; }
+  }
+</style>
+
+<script>
+  interface ShelfShort {
+    videoId: string;
+    versionType?: string;
+    anchors?: unknown[];
+    [k: string]: unknown;
+  }
+
+  function initShelf(root: HTMLElement) {
+    const shorts: ShelfShort[] = JSON.parse(root.dataset.shorts || '[]');
+    const chips = Array.from(root.querySelectorAll<HTMLButtonElement>('.shelf-chip'));
+    const cards = Array.from(root.querySelectorAll<HTMLButtonElement>('.shelf-card'));
+    const row = root.querySelector<HTMLElement>('.shelf-row');
+    const arrowLeft = root.querySelector<HTMLButtonElement>('.shelf-arrow-left');
+    const arrowRight = root.querySelector<HTMLButtonElement>('.shelf-arrow-right');
+    if (!row) return;
+
+    // Filter chips
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.toggle('active', c === chip));
+        const filter = chip.dataset.filter;
+        cards.forEach(card => {
+          const vt = card.dataset.versionType || 'other';
+          card.dataset.hidden = (filter === 'all' || filter === vt) ? 'false' : 'true';
+        });
+        row.scrollTo({ left: 0, behavior: 'smooth' });
+        updateArrows();
+      });
+    });
+
+    // 左右箭頭 (桌機才顯示,當內容超出時)
+    function updateArrows() {
+      if (!arrowLeft || !arrowRight || !row) return;
+      const canScroll = row.scrollWidth > row.clientWidth + 4;
+      const atStart = row.scrollLeft <= 4;
+      const atEnd = row.scrollLeft >= row.scrollWidth - row.clientWidth - 4;
+      arrowLeft.dataset.visible = String(canScroll && !atStart);
+      arrowRight.dataset.visible = String(canScroll && !atEnd);
+    }
+    [arrowLeft, arrowRight].forEach(btn => {
+      btn?.addEventListener('click', () => {
+        if (!row) return;
+        const dir = Number(btn.dataset.dir) || 1;
+        row.scrollBy({ left: dir * row.clientWidth * 0.8, behavior: 'smooth' });
+      });
+    });
+    row.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
+
+    // 卡片點擊 → dispatch 事件 (Phase 2 的 LiveStage 監聽) → fallback 開 YouTube
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const videoId = card.dataset.videoId!;
+        const short = shorts.find(s => s.videoId === videoId);
+        const filter = chips.find(c => c.classList.contains('active'))?.dataset.filter || 'all';
+        const ev = new CustomEvent('shelf:play', {
+          detail: { videoId, short, filter },
+          bubbles: true,
+          cancelable: true,
+        });
+        const notPrevented = root.dispatchEvent(ev);
+        // 沒有監聽者 (或監聽者沒 preventDefault) → 新分頁開 YouTube
+        if (notPrevented) {
+          window.open(`https://www.youtube.com/shorts/${videoId}`, '_blank', 'noopener');
+        }
+      });
+    });
+  }
+
+  function bootstrap() {
+    document.querySelectorAll<HTMLElement>('.shelf[data-shelf-id]').forEach(root => {
+      if (root.dataset.initialized === 'true') return;
+      root.dataset.initialized = 'true';
+      initShelf(root);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootstrap);
+  } else {
+    bootstrap();
+  }
+</script>

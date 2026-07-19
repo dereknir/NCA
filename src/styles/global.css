@@ -34,8 +34,20 @@
 .prose h3 {
   font-size: 1.5rem;
   font-weight: 600;
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
+  margin-top: 2.75rem;
+  margin-bottom: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgb(229 231 235);
+  position: relative;
+}
+.dark .prose h3 {
+  border-top-color: rgb(55 65 81);
+}
+/* 首個 H3 不用上分隔線 (通常緊跟在 H2 下面) */
+.prose h2 + h3 {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 1.5rem;
 }
 .prose p {
   margin-bottom: 1rem;

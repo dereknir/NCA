@@ -1,0 +1,537 @@
+---
+/**
+ * TocDrawer — YouTube 觀看頁式的目錄抽屜
+ *
+ * 特色:
+ * - 左上角 sticky 漢堡按鈕入口
+ * - 覆蓋式展開 (不推擠內文重排)
+ * - IntersectionObserver scrollspy 高亮目前章節
+ * - Esc 用全域 stack, 支援和 Live Stage 分層 (後開先關)
+ * - focus trap + focus 還原
+ * - localStorage 記憶開合狀態
+ *
+ * 使用方式:
+ * 直接放在頁面, 元件會自己掃 article 內的 H2/H3 + .shelf 建目錄。
+ */
+---
+
+<button id="toc-btn" class="toc-btn" type="button" aria-label="開啟目錄" aria-expanded="false" aria-controls="toc-drawer">
+  <svg class="toc-btn-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+    <line x1="4" y1="6" x2="20" y2="6"/>
+    <line x1="4" y1="12" x2="20" y2="12"/>
+    <line x1="4" y1="18" x2="20" y2="18"/>
+  </svg>
+  <span class="toc-btn-label">目錄</span>
+</button>
+
+<div id="toc-backdrop" class="toc-backdrop" hidden></div>
+
+<aside
+  id="toc-drawer"
+  class="toc-drawer"
+  aria-label="頁面目錄"
+  aria-hidden="true"
+  role="navigation"
+>
+  <div class="toc-header">
+    <h2 class="toc-heading">目錄</h2>
+    <button id="toc-close" class="toc-close" type="button" aria-label="關閉目錄">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <line x1="6" y1="6" x2="18" y2="18"/>
+        <line x1="6" y1="18" x2="18" y2="6"/>
+      </svg>
+    </button>
+  </div>
+  <div class="toc-scroll">
+    <ul id="toc-list" class="toc-list" role="list"></ul>
+  </div>
+</aside>
+
+<style is:global>
+  /* z-index 分層 (與 Live Stage 約定):
+     content=0 · hamburger=30 · drawer/backdrop=40/45 · Stage=90/100 */
+
+  /* Scroll lock 給抽屜與 Stage 共用 (見底部 script 的 stack 邏輯) */
+  body[data-scroll-locked="true"] {
+    overflow: hidden;
+    padding-right: var(--scrollbar-w, 0px);
+  }
+
+  /* 章節錨點補償 sticky 元素高度, 跳轉時不會被遮 */
+  .prose h2, .prose h3, .shelf {
+    scroll-margin-top: 5rem;
+  }
+
+  /* ── 漢堡按鈕 (sticky 左上) ── */
+  .toc-btn {
+    position: fixed;
+    top: 5rem;
+    left: 1rem;
+    z-index: 30;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    color: rgb(31 41 55);
+    border: 1px solid rgb(229 231 235);
+    border-radius: 999px;
+    padding: 6px 14px 6px 10px;
+    font-family: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+  .toc-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.12);
+  }
+  .dark .toc-btn {
+    background: rgba(31, 41, 55, 0.9);
+    color: rgb(243 244 246);
+    border-color: rgb(55 65 81);
+  }
+  .toc-btn-icon { flex-shrink: 0; }
+  .toc-btn-label { font-weight: 500; }
+
+  /* ── Backdrop ── */
+  .toc-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: opacity 0.22s ease;
+  }
+  .toc-backdrop[data-open="true"] {
+    opacity: 1;
+  }
+
+  /* ── 抽屜 ── */
+  .toc-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 45;
+    width: 300px;
+    max-width: 85vw;
+    background: rgb(255 255 255);
+    border-right: 1px solid rgb(229 231 235);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.24s cubic-bezier(0.4, 0.0, 0.2, 1);
+    /* 預設 visibility hidden 避免鍵盤 tab 進去 */
+    visibility: hidden;
+  }
+  .dark .toc-drawer {
+    background: rgb(17 24 39);
+    border-right-color: rgb(55 65 81);
+  }
+  .toc-drawer[data-open="true"] {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  .toc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgb(229 231 235);
+    flex-shrink: 0;
+  }
+  .dark .toc-header { border-bottom-color: rgb(55 65 81); }
+  .toc-heading {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgb(31 41 55);
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+  .dark .toc-heading { color: rgb(243 244 246); }
+  .toc-close {
+    background: transparent;
+    border: 0;
+    color: rgb(107 114 128);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    line-height: 0;
+    transition: background 0.12s ease, color 0.12s ease;
+  }
+  .toc-close:hover {
+    background: rgb(243 244 246);
+    color: rgb(31 41 55);
+  }
+  .dark .toc-close { color: rgb(156 163 175); }
+  .dark .toc-close:hover {
+    background: rgb(55 65 81);
+    color: rgb(243 244 246);
+  }
+
+  .toc-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem 0;
+  }
+
+  .toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .toc-list ul { list-style: none; padding: 0; margin: 0; }
+
+  .toc-item {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: 0;
+    color: rgb(75 85 99);
+    padding: 8px 1.25rem;
+    text-align: left;
+    font-family: inherit;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+  }
+  .toc-item:hover {
+    background: rgb(243 244 246);
+    color: rgb(31 41 55);
+  }
+  .dark .toc-item { color: rgb(156 163 175); }
+  .dark .toc-item:hover {
+    background: rgb(31 41 55);
+    color: rgb(243 244 246);
+  }
+  .toc-item.active {
+    color: rgb(220 38 38);
+    border-left-color: rgb(239 68 68);
+    background: rgb(254 242 242);
+    font-weight: 500;
+  }
+  .dark .toc-item.active {
+    color: rgb(248 113 113);
+    background: rgba(239, 68, 68, 0.08);
+  }
+  .toc-item-l3 {
+    padding-left: 2.5rem;
+    font-size: 0.78rem;
+    color: rgb(107 114 128);
+  }
+  .dark .toc-item-l3 { color: rgb(156 163 175); }
+  .toc-item-num {
+    display: inline-block;
+    color: rgb(156 163 175);
+    margin-right: 0.4rem;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.72rem;
+  }
+  .toc-item.active .toc-item-num { color: rgb(220 38 38); }
+  .dark .toc-item.active .toc-item-num { color: rgb(248 113 113); }
+
+  /* 抽屜開啟時漢堡按鈕漸隱 (避免與抽屜按鈕重疊) */
+  body[data-toc-open="true"] .toc-btn {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.12s ease;
+  }
+
+  /* 手機小螢幕優化 */
+  @media (max-width: 640px) {
+    .toc-btn {
+      top: 4.5rem;
+      padding: 6px 12px 6px 10px;
+    }
+    .toc-btn-label { display: none; }
+  }
+</style>
+
+<script>
+  /* ---- Esc 全域 stack (Drawer 與 Live Stage 共用) ---- */
+  interface EscStack {
+    push: (fn: () => void) => void;
+    pop: (fn: () => void) => void;
+  }
+  interface WindowWithEsc extends Window {
+    __escStack?: (() => void)[];
+    __escStackApi?: EscStack;
+  }
+  const w = window as WindowWithEsc;
+  if (!w.__escStackApi) {
+    w.__escStack = [];
+    w.__escStackApi = {
+      push(fn) { w.__escStack!.push(fn); },
+      pop(fn) {
+        const idx = w.__escStack!.lastIndexOf(fn);
+        if (idx >= 0) w.__escStack!.splice(idx, 1);
+      },
+    };
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      const stack = w.__escStack!;
+      const top = stack[stack.length - 1];
+      if (top) { e.preventDefault(); top(); }
+    });
+  }
+  const escStack = w.__escStackApi!;
+
+  /* ---- Scroll lock 共享 flag (計數形式, 兩個 overlay 都可用) ---- */
+  interface WindowWithLock extends Window {
+    __scrollLockCount?: number;
+  }
+  const wl = window as WindowWithLock;
+  wl.__scrollLockCount = wl.__scrollLockCount ?? 0;
+  function lockScroll() {
+    wl.__scrollLockCount = (wl.__scrollLockCount ?? 0) + 1;
+    if (wl.__scrollLockCount === 1) {
+      const w = window.innerWidth - document.documentElement.clientWidth;
+      document.documentElement.style.setProperty('--scrollbar-w', w + 'px');
+      document.body.dataset.scrollLocked = 'true';
+    }
+  }
+  function unlockScroll() {
+    wl.__scrollLockCount = Math.max(0, (wl.__scrollLockCount ?? 0) - 1);
+    if (wl.__scrollLockCount === 0) {
+      delete document.body.dataset.scrollLocked;
+    }
+  }
+
+  /* ---- Slugify (fallback 產生 id) ---- */
+  function slugify(text: string): string {
+    return text.toLowerCase()
+      .replace(/[\s\/\\.,!?"'`~()\[\]{}<>#*+=;:]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 40);
+  }
+
+  /* ---- 目錄 item 資料結構 ---- */
+  interface TocItem {
+    id: string;
+    text: string;
+    level: 2 | 3;
+    element: HTMLElement;
+    num?: string;      // "1." / "2." 等前綴 (H3 用)
+    label?: string;    // 去掉編號後的文字
+  }
+
+  function buildToc(): TocItem[] {
+    const article = document.querySelector('article');
+    if (!article) return [];
+    // 走訪順序 = DOM 順序; 選 .shelf 讓 Shorts 有目錄項
+    const nodes = Array.from(article.querySelectorAll<HTMLElement>('.prose h2, .prose h3, .shelf'));
+    const items: TocItem[] = [];
+    for (const el of nodes) {
+      const isShelf = el.classList.contains('shelf');
+      const text = isShelf ? '現場 & 版本'
+                : (el.textContent || '').trim();
+      if (!text) continue;
+      // 確保有 id
+      if (!el.id) {
+        el.id = 'toc-' + slugify(text) + '-' + items.length;
+      }
+      const level: 2 | 3 = (isShelf || el.tagName === 'H2') ? 2 : 3;
+      // 從 H3 文字裡拆 "1. " 這種前綴, 讓目錄裡編號對齊
+      let num: string | undefined;
+      let label = text;
+      if (level === 3) {
+        const m = text.match(/^(\d+)[\.．]\s*(.*)$/);
+        if (m) { num = m[1] + '.'; label = m[2]; }
+      }
+      items.push({ id: el.id, text, level, element: el, num, label });
+    }
+    return items;
+  }
+
+  /* ---- 渲染目錄 list ---- */
+  function renderTocList(items: TocItem[]) {
+    const list = document.getElementById('toc-list');
+    if (!list) return;
+    list.innerHTML = '';
+    for (const it of items) {
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'toc-item toc-item-l' + it.level;
+      btn.dataset.target = it.id;
+      if (it.num) {
+        const num = document.createElement('span');
+        num.className = 'toc-item-num';
+        num.textContent = it.num;
+        btn.appendChild(num);
+        btn.appendChild(document.createTextNode(it.label || it.text));
+      } else {
+        btn.textContent = it.text;
+      }
+      btn.addEventListener('click', () => {
+        const target = document.getElementById(it.id);
+        if (!target) return;
+        closeDrawer();
+        // 給 close animation 一點時間再捲, 避免抽屜還在動就搶焦點
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 60);
+      });
+      li.appendChild(btn);
+      list.appendChild(li);
+    }
+  }
+
+  /* ---- 開合抽屜 ---- */
+  const btn = document.getElementById('toc-btn') as HTMLButtonElement | null;
+  const closeBtn = document.getElementById('toc-close') as HTMLButtonElement | null;
+  const drawer = document.getElementById('toc-drawer') as HTMLElement | null;
+  const backdrop = document.getElementById('toc-backdrop') as HTMLElement | null;
+  if (!btn || !closeBtn || !drawer || !backdrop) {
+    // 元件沒掛好, silent return
+    console.warn('[TocDrawer] Missing DOM nodes');
+  }
+
+  let lastFocused: HTMLElement | null = null;
+
+  function openDrawer() {
+    if (!drawer || !backdrop || !btn) return;
+    if (drawer.dataset.open === 'true') return;
+    lastFocused = document.activeElement as HTMLElement;
+    drawer.dataset.open = 'true';
+    drawer.setAttribute('aria-hidden', 'false');
+    backdrop.hidden = false;
+    // 觸發 transition (雙 rAF 保險)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (backdrop) backdrop.dataset.open = 'true';
+      });
+    });
+    btn.setAttribute('aria-expanded', 'true');
+    document.body.dataset.tocOpen = 'true';
+    lockScroll();
+    escStack.push(closeDrawer);
+    try { localStorage.setItem('nca-toc-open', '1'); } catch {}
+    // Focus 移到第一個 toc-item
+    const first = drawer.querySelector<HTMLButtonElement>('.toc-item');
+    setTimeout(() => first?.focus(), 100);
+  }
+
+  function closeDrawer() {
+    if (!drawer || !backdrop || !btn) return;
+    if (drawer.dataset.open !== 'true') return;
+    delete drawer.dataset.open;
+    drawer.setAttribute('aria-hidden', 'true');
+    delete backdrop.dataset.open;
+    // 等 transition 結束再 hidden, 才有淡出動畫
+    setTimeout(() => { if (backdrop && backdrop.dataset.open !== 'true') backdrop.hidden = true; }, 220);
+    btn.setAttribute('aria-expanded', 'false');
+    delete document.body.dataset.tocOpen;
+    unlockScroll();
+    escStack.pop(closeDrawer);
+    try { localStorage.setItem('nca-toc-open', '0'); } catch {}
+    // Focus 還原
+    if (lastFocused && document.body.contains(lastFocused)) {
+      lastFocused.focus();
+    } else {
+      btn.focus();
+    }
+  }
+
+  btn?.addEventListener('click', openDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+  backdrop?.addEventListener('click', closeDrawer);
+
+  /* ---- Focus trap (抽屜開啟時 Tab 循環在內) ---- */
+  drawer?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusables = drawer.querySelectorAll<HTMLElement>(
+      'button, [href], [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  });
+
+  /* ---- Scrollspy (IntersectionObserver + rAF debounce) ---- */
+  let scrollspyItems: TocItem[] = [];
+  let scrollspyFrame = 0;
+  const activeStates = new Map<string, number>(); // id -> visibility ratio
+
+  function highlightActive() {
+    if (scrollspyFrame) return;
+    scrollspyFrame = requestAnimationFrame(() => {
+      scrollspyFrame = 0;
+      // 找目前可視的、最靠上的那個章節
+      let bestId: string | null = null;
+      let bestTop = Infinity;
+      for (const it of scrollspyItems) {
+        if (!activeStates.has(it.id)) continue;
+        const rect = it.element.getBoundingClientRect();
+        if (rect.top < bestTop && rect.top < window.innerHeight * 0.4) {
+          bestTop = rect.top;
+          bestId = it.id;
+        }
+      }
+      document.querySelectorAll('.toc-item').forEach(el => {
+        el.classList.toggle('active', (el as HTMLElement).dataset.target === bestId);
+      });
+    });
+  }
+
+  function initScrollspy(items: TocItem[]) {
+    scrollspyItems = items;
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const id = entry.target.id;
+        if (entry.isIntersecting) {
+          activeStates.set(id, entry.intersectionRatio);
+        } else {
+          activeStates.delete(id);
+        }
+      }
+      highlightActive();
+    }, {
+      rootMargin: '-64px 0px -55% 0px',
+      threshold: [0, 0.1, 0.5, 1],
+    });
+    items.forEach(it => observer.observe(it.element));
+    // 一開始就抓一次目前位置
+    highlightActive();
+  }
+
+  /* ---- 開機 ---- */
+  function boot() {
+    const items = buildToc();
+    if (items.length === 0) {
+      // 沒章節就把入口按鈕也藏起來
+      if (btn) btn.style.display = 'none';
+      return;
+    }
+    renderTocList(items);
+    initScrollspy(items);
+    // 還原上次開合狀態 (只在桌機還原, 手機一律預設關)
+    try {
+      const saved = localStorage.getItem('nca-toc-open');
+      if (saved === '1' && window.innerWidth >= 900) {
+        openDrawer();
+      }
+    } catch {}
+  }
+
+  // ShortsShelf 是 inline-script 插入的, 等它結束後再 build toc.
+  // 保險起見用 double rAF, 幾乎沒有延遲但保證 DOM 已穩定。
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      requestAnimationFrame(() => requestAnimationFrame(boot));
+    });
+  } else {
+    requestAnimationFrame(() => requestAnimationFrame(boot));
+  }
+</script>

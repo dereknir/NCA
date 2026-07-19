@@ -31,3 +31,10 @@ pnpm-debug.log*
 !.vscode/extensions.json
 !.vscode/launch.json
 .claude/
+
+# Shorts data — raw yt-dlp output, ~2MB each, regen via scripts/scrape_shorts.py
+data/nishina_shorts_raw.jsonl
+annotation/nishina_shorts_raw.jsonl
+# Python bytecode
+__pycache__/
+*.pyc
