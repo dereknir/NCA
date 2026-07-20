@@ -38,8 +38,8 @@ const stats = {
   title="Derek's Site"
   description="歡迎來到 Derek 的個人網站。探索日文歌曲翻譯、閱讀生活日記，以及查看程式作品集。"
 >
-  <!-- Hero Section (galaxy 背景, 選項 D: 靜態星場 + 隨機流星) -->
-  <section class="hero-galaxy">
+  <!-- Hero Section: 全寬 100vw galaxy 背景 (slot="hero" 跳出 container) -->
+  <section slot="hero" class="hero-galaxy">
     <canvas class="hero-galaxy-canvas" aria-hidden="true"></canvas>
     <div class="hero-galaxy-content">
       <h1 class="hero-galaxy-title">歡迎來到我的個人空間</h1>
@@ -143,11 +143,11 @@ const stats = {
       position: relative;
       background: #040613;
       color: #fff;
-      padding: 5rem 1.5rem;
-      border-radius: 1.25rem;
+      padding: 7rem 1.5rem 6rem;    /* 全寬狀態需要更多垂直呼吸 */
       overflow: hidden;
-      margin: 1.5rem 0 3rem;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      /* 全寬 bleed: 100vw, 不用圓角 */
+      width: 100%;
+      /* 底部自然銜接 body 深空色 */
     }
     .hero-galaxy-canvas {
       position: absolute;
