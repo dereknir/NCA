@@ -129,15 +129,82 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   </main>
 
   <!-- Footer -->
-  <footer class="bg-gray-100 dark:bg-gray-800 mt-16">
-    <div class="container mx-auto px-4 py-8 text-center text-gray-600 dark:text-gray-400">
-      <p>&copy; {new Date().getFullYear()} {SITE_CONFIG.author}. All rights reserved.</p>
-      <div class="flex justify-center gap-4 mt-4">
-        <a href={SITE_CONFIG.social.github} target="_blank" rel="noopener noreferrer" class="hover:text-blue-600 transition-colors">GitHub</a>
-        <a href={`mailto:${SITE_CONFIG.social.email}`} class="hover:text-blue-600 transition-colors">Email</a>
+  <footer class="site-footer">
+    <div class="container mx-auto px-6 py-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 max-w-5xl mx-auto">
+        <div>
+          <h3 class="footer-heading">Explore</h3>
+          <ul class="footer-list">
+            {NAVIGATION.map(item => (
+              <li><a href={item.href} class="footer-link">{item.name}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer-heading">Connect</h3>
+          <ul class="footer-list">
+            <li><a href={`mailto:${SITE_CONFIG.social.email}`} class="footer-link">{SITE_CONFIG.social.email}</a></li>
+            <li><a href={SITE_CONFIG.social.github} target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a></li>
+          </ul>
+        </div>
       </div>
+      <div class="footer-divider max-w-5xl mx-auto"></div>
+      <p class="footer-copy">
+        © {new Date().getFullYear()} {SITE_CONFIG.author}. All rights reserved.
+      </p>
     </div>
   </footer>
+
+  <style is:global>
+    .site-footer {
+      background: rgb(243 244 246);   /* light: gray-100 */
+      color: rgb(75 85 99);            /* light text: gray-600 */
+      margin-top: 6rem;
+    }
+    :root.dark .site-footer,
+    .dark .site-footer {
+      background: rgb(31 41 55);       /* dark: gray-800 */
+      color: rgb(156 163 175);
+    }
+    .footer-heading {
+      color: rgb(31 41 55);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .dark .footer-heading { color: rgb(243 244 246); }
+    .footer-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .footer-link {
+      color: rgb(75 85 99);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.15s ease;
+    }
+    .footer-link:hover { color: rgb(37 99 235); }   /* blue-600 (跟現有 accent 一致) */
+    .dark .footer-link { color: rgb(156 163 175); }
+    .dark .footer-link:hover { color: rgb(96 165 250); }  /* blue-400 */
+
+    .footer-divider {
+      border-top: 1px solid rgb(229 231 235);
+      margin: 3rem 0 1.5rem;
+    }
+    .dark .footer-divider { border-top-color: rgb(55 65 81); }
+
+    .footer-copy {
+      text-align: center;
+      font-size: 0.75rem;                /* 更小 */
+      color: rgb(156 163 175);
+    }
+    .dark .footer-copy { color: rgb(107 114 128); }
+  </style>
 
   <script is:inline>
     document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
