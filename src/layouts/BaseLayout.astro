@@ -130,7 +130,7 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
 
   <!-- Footer -->
   <footer class="site-footer">
-    <div class="container mx-auto px-6 py-20">
+    <div class="container mx-auto px-6 pt-16 pb-4">
       <div class="footer-cols">
         <div>
           <h3 class="footer-heading">Explore</h3>
@@ -161,9 +161,9 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
       color: rgb(75 85 99);            /* light text: gray-600 */
       margin-top: 6rem;
     }
-    /* Explore 貼左、Connect 貼右 (跟參考圖同款), 統一 max-width */
+    /* 兩欄置中偏左, 右側留空白 (跟參考圖比例一致) */
     .footer-cols {
-      max-width: 72rem;                /* 1152px, ~ max-w-6xl */
+      max-width: 72rem;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -171,9 +171,11 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
     }
     @media (min-width: 768px) {
       .footer-cols {
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 4rem;
+        display: grid;
+        /* 兩欄自然寬度 + spacer 吃掉剩下空間 → 內容靠左 */
+        grid-template-columns: max-content max-content 1fr;
+        column-gap: 8rem;
+        gap: 0;
       }
     }
     :root.dark .site-footer,
@@ -209,15 +211,16 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
 
     .footer-divider {
       border-top: 1px solid rgb(229 231 235);
-      margin: 3rem auto 1.5rem;
+      margin: 3rem auto 2rem;
       max-width: 72rem;
     }
     .dark .footer-divider { border-top-color: rgb(55 65 81); }
 
     .footer-copy {
       text-align: center;
-      font-size: 0.75rem;                /* 更小 */
+      font-size: 0.75rem;
       color: rgb(156 163 175);
+      margin: 0;                         /* 拿掉 <p> 預設 margin, 貼底 */
     }
     .dark .footer-copy { color: rgb(107 114 128); }
   </style>
