@@ -38,48 +38,41 @@ const stats = {
   title="Derek's Site"
   description="歡迎來到 Derek 的個人網站。探索日文歌曲翻譯、閱讀生活日記，以及查看程式作品集。"
 >
-  <!-- Hero Section -->
-  <section class="text-center py-20">
-    <h1 class="text-5xl font-bold mb-4">
-      歡迎來到我的個人空間
-    </h1>
-    <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
-      日文歌翻譯 · 生活日記 · 程式作品
-    </p>
-    <div class="flex justify-center gap-4 flex-wrap">
-      <a href="/translations"
-         class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-        探索翻譯
-      </a>
-      <a href="/projects"
-         class="px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition">
-        查看作品
-      </a>
-    </div>
-
-    {stats.totalSongs > 0 && (
-      <div class="mt-12 flex justify-center gap-8 text-sm text-gray-500 dark:text-gray-400">
-        <div>
-          <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">
-            {stats.translations}
-            <span class="text-sm text-gray-400 font-normal"> / {stats.totalSongs}</span>
-          </div>
-          <div>已翻譯</div>
-        </div>
-        {stats.diary > 0 && (
-          <div>
-            <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.diary}</div>
-            <div>篇日記</div>
-          </div>
-        )}
-        {stats.projects > 0 && (
-          <div>
-            <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.projects}</div>
-            <div>個作品</div>
-          </div>
-        )}
+  <!-- Hero Section (galaxy 背景, 選項 D: 靜態星場 + 隨機流星) -->
+  <section class="hero-galaxy">
+    <canvas class="hero-galaxy-canvas" aria-hidden="true"></canvas>
+    <div class="hero-galaxy-content">
+      <h1 class="hero-galaxy-title">歡迎來到我的個人空間</h1>
+      <p class="hero-galaxy-sub">日文歌翻譯 · 生活日記 · 程式作品</p>
+      <div class="hero-galaxy-cta">
+        <a href="/translations" class="hero-btn hero-btn-primary">探索翻譯</a>
+        <a href="/projects" class="hero-btn hero-btn-ghost">查看作品</a>
       </div>
-    )}
+
+      {stats.totalSongs > 0 && (
+        <div class="hero-galaxy-stats">
+          <div>
+            <div class="hero-stat-num">
+              {stats.translations}
+              <span class="hero-stat-sub"> / {stats.totalSongs}</span>
+            </div>
+            <div>已翻譯</div>
+          </div>
+          {stats.diary > 0 && (
+            <div>
+              <div class="hero-stat-num">{stats.diary}</div>
+              <div>篇日記</div>
+            </div>
+          )}
+          {stats.projects > 0 && (
+            <div>
+              <div class="hero-stat-num">{stats.projects}</div>
+              <div>個作品</div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   </section>
 
   <!-- Recent Translations (only fully translated songs) -->
@@ -144,4 +137,232 @@ const stats = {
       </div>
     </section>
   )}
+
+  <style is:global>
+    .hero-galaxy {
+      position: relative;
+      background: #040613;
+      color: #fff;
+      padding: 5rem 1.5rem;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      margin: 1.5rem 0 3rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+    .hero-galaxy-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;   /* 讓底下的星星動畫不阻擋按鈕點擊 */
+    }
+    .hero-galaxy-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .hero-galaxy-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin: 0 0 1rem;
+      color: #fff;
+      letter-spacing: 0.01em;
+    }
+    .hero-galaxy-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255, 255, 255, 0.65);
+      margin: 0 0 2rem;
+    }
+    .hero-galaxy-cta {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .hero-btn {
+      padding: 0.75rem 1.75rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      display: inline-block;
+    }
+    .hero-btn:hover { transform: translateY(-1px); }
+    .hero-btn-primary {
+      background: rgb(37 99 235);
+      color: #fff;
+    }
+    .hero-btn-primary:hover { background: rgb(29 78 216); }
+    .hero-btn-ghost {
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+    .hero-btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+    .hero-galaxy-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.55);
+      flex-wrap: wrap;
+    }
+    .hero-galaxy-stats > div { text-align: center; }
+    .hero-stat-num {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 2px;
+    }
+    .hero-stat-sub {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: 400;
+    }
+  </style>
+
+  <script is:inline>
+    /* Hero galaxy 動畫 (選項 D: 靜態星場 + 隨機流星) */
+    (function () {
+      const canvas = document.querySelector('.hero-galaxy-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const parent = canvas.parentElement;
+      const DPR = Math.min(window.devicePixelRatio || 1, 2);
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      let W = 0, H = 0;
+      let stars = [];
+      let meteors = [];
+      let elapsed = 0;
+      let nextMeteorAt = 3000;
+      let lastNow = performance.now();
+
+      function resize() {
+        W = parent.offsetWidth; H = parent.offsetHeight;
+        canvas.width = W * DPR; canvas.height = H * DPR;
+        canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+        spawn();
+      }
+      function spawn() {
+        const count = Math.floor(W * H / 4200);
+        stars = [];
+        for (let i = 0; i < count; i++) {
+          stars.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            r: 0.5 + Math.random() * 1.3,
+            base: 0.4 + Math.random() * 0.4,
+            phase: Math.random() * Math.PI * 2,
+            speed: 0.6 + Math.random() * 0.9,
+          });
+        }
+      }
+      function spawnMeteor() {
+        const fromTop = Math.random() < 0.5;
+        let x, y;
+        if (fromTop) { x = W * 0.4 + Math.random() * W * 0.6; y = -20; }
+        else { x = W + 20; y = Math.random() * H * 0.6; }
+        const angle = Math.PI * 0.72 + (Math.random() - 0.5) * 0.15;
+        const speed = 7 + Math.random() * 4;
+        meteors.push({
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          trail: [],
+          life: 0,
+          maxLife: 90 + Math.random() * 40,
+        });
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+
+      /* reduced motion: 只畫一張靜態星圖, 不動 */
+      if (reducedMotion) {
+        ctx.fillStyle = '#040613';
+        ctx.fillRect(0, 0, W, H);
+        for (const s of stars) {
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(230,240,255,${s.base})`;
+          ctx.fill();
+        }
+        return;
+      }
+
+      let t = 0;
+      function frame() {
+        t += 0.016;
+        const now = performance.now();
+        const dt = now - lastNow;
+        lastNow = now;
+        elapsed += dt;
+
+        ctx.fillStyle = '#040613';
+        ctx.fillRect(0, 0, W, H);
+
+        // 星星
+        for (const s of stars) {
+          const tw = s.base + 0.3 * Math.sin(t * s.speed + s.phase);
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(230,240,255,${tw})`;
+          ctx.fill();
+        }
+
+        // 排程流星
+        if (elapsed >= nextMeteorAt) {
+          spawnMeteor();
+          elapsed = 0;
+          nextMeteorAt = 3000 + Math.random() * 5000;
+        }
+
+        // 更新+繪流星
+        for (let i = meteors.length - 1; i >= 0; i--) {
+          const m = meteors[i];
+          m.x += m.vx; m.y += m.vy;
+          m.life++;
+          m.trail.push({ x: m.x, y: m.y });
+          if (m.trail.length > 18) m.trail.shift();
+
+          for (let j = 0; j < m.trail.length - 1; j++) {
+            const p1 = m.trail[j], p2 = m.trail[j + 1];
+            const a = (j / m.trail.length) * 0.85;
+            ctx.strokeStyle = `rgba(255,240,220,${a})`;
+            ctx.lineWidth = 2.2 * (j / m.trail.length);
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+          ctx.beginPath();
+          ctx.arc(m.x, m.y, 2.4, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255,250,240,1)';
+          ctx.fill();
+
+          const gm = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, 10);
+          gm.addColorStop(0, 'rgba(255,240,200,0.5)');
+          gm.addColorStop(1, 'rgba(255,240,200,0)');
+          ctx.fillStyle = gm;
+          ctx.beginPath();
+          ctx.arc(m.x, m.y, 10, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (m.x < -60 || m.y > H + 60 || m.life > m.maxLife) meteors.splice(i, 1);
+        }
+
+        requestAnimationFrame(frame);
+      }
+      frame();
+    })();
+  </script>
 </BaseLayout>
