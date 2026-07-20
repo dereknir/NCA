@@ -131,7 +131,7 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container mx-auto px-6 py-20">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 max-w-5xl mx-auto">
+      <div class="footer-cols">
         <div>
           <h3 class="footer-heading">Explore</h3>
           <ul class="footer-list">
@@ -148,7 +148,7 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
           </ul>
         </div>
       </div>
-      <div class="footer-divider max-w-5xl mx-auto"></div>
+      <div class="footer-divider"></div>
       <p class="footer-copy">
         © {new Date().getFullYear()} {SITE_CONFIG.author}. All rights reserved.
       </p>
@@ -160,6 +160,21 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
       background: rgb(243 244 246);   /* light: gray-100 */
       color: rgb(75 85 99);            /* light text: gray-600 */
       margin-top: 6rem;
+    }
+    /* Explore 貼左、Connect 貼右 (跟參考圖同款), 統一 max-width */
+    .footer-cols {
+      max-width: 72rem;                /* 1152px, ~ max-w-6xl */
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+    @media (min-width: 768px) {
+      .footer-cols {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 4rem;
+      }
     }
     :root.dark .site-footer,
     .dark .site-footer {
@@ -194,7 +209,8 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
 
     .footer-divider {
       border-top: 1px solid rgb(229 231 235);
-      margin: 3rem 0 1.5rem;
+      margin: 3rem auto 1.5rem;
+      max-width: 72rem;
     }
     .dark .footer-divider { border-top-color: rgb(55 65 81); }
 
