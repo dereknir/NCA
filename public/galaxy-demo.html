@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Galaxy 效果比較</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000;
+    color: #fff;
+    font-family: -apple-system, "Noto Sans TC", system-ui, sans-serif;
+    overflow: hidden;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 100vh;
+    gap: 6px;
+    padding: 6px;
+  }
+  .cell {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: crosshair;
+  }
+  canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+  .label {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(8px);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .desc {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    right: 14px;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(8px);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    max-width: 60%;
+  }
+  .instructions {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    animation: fadeInOut 4s ease-in-out forwards;
+  }
+  @keyframes fadeInOut {
+    0%, 20% { opacity: 1; }
+    80%, 100% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid">
+  <div class="cell" data-mode="A">
+    <span class="label">A · 深空寧靜</span>
+    <span class="desc">稀疏、幾乎靜止、游標經過的星星變亮</span>
+    <canvas></canvas>
+  </div>
+  <div class="cell" data-mode="B">
+    <span class="label">B · 星座浮現</span>
+    <span class="desc">游標附近星星互相連線 + 連向游標 = 臨時星座</span>
+    <canvas></canvas>
+  </div>
+  <div class="cell" data-mode="C">
+    <span class="label">C · Interstellar 流動</span>
+    <span class="desc">三層 parallax + 星雲光暈 + 緩慢漂移;游標控制視差</span>
+    <canvas></canvas>
+  </div>
+  <div class="cell" data-mode="D">
+    <span class="label">D · 流星劃過</span>
+    <span class="desc">安靜背景 + 3-8 秒隨機流星,游標處有光暈</span>
+    <canvas></canvas>
+  </div>
+</div>
+
+<div class="instructions">把滑鼠移到各區塊試試互動</div>
+
+<script>
+(function () {
+  const cells = document.querySelectorAll('.cell');
+  cells.forEach(cell => initCell(cell));
+
+  function initCell(cell) {
+    const canvas = cell.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    let W, H;
+    const mouse = { x: -9999, y: -9999 };
+
+    function resize() {
+      W = cell.offsetWidth; H = cell.offsetHeight;
+      canvas.width = W * DPR; canvas.height = H * DPR;
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    cell.addEventListener('mousemove', e => {
+      const r = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+    });
+    cell.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+    const mode = cell.dataset.mode;
+    const drawFn = ({
+      'A': makeA, 'B': makeB, 'C': makeC, 'D': makeD
+    }[mode])({ ctx, get W() { return W; }, get H() { return H; }, mouse, cell });
+
+    let t = 0;
+    function loop() {
+      t += 0.016;
+      drawFn(t);
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  /* ========================================
+     A. 深空寧靜 — 極稀疏 + 游標放大鏡
+     ======================================== */
+  function makeA({ ctx, W: getW, H: getH, mouse, cell }) {
+    let stars = [];
+    let lastW = 0, lastH = 0;
+
+    function spawn(W, H) {
+      const count = Math.floor(W * H / 5500);
+      stars = [];
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random() < 0.85 ? 0.5 + Math.random() * 0.5 : 1.2 + Math.random() * 0.7,
+          base: 0.35 + Math.random() * 0.4,
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.6 + Math.random() * 0.9,
+        });
+      }
+    }
+
+    return function draw(t) {
+      const W = cell.offsetWidth, H = cell.offsetHeight;
+      if (W !== lastW || H !== lastH) { spawn(W, H); lastW = W; lastH = H; }
+      ctx.fillStyle = '#050612';
+      ctx.fillRect(0, 0, W, H);
+
+      for (const s of stars) {
+        const tw = s.base + 0.3 * Math.sin(t * s.speed + s.phase);
+        const dx = s.x - mouse.x, dy = s.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        let a = tw;
+        let r = s.r;
+        if (dist < 80) {
+          const boost = (1 - dist / 80);
+          a = Math.min(1, tw + boost * 0.6);
+          r = s.r + boost * 0.8;
+        }
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(230,240,255,${a})`;
+        ctx.fill();
+      }
+    };
+  }
+
+  /* ========================================
+     B. 星座浮現 — 游標附近星星互相連線
+     ======================================== */
+  function makeB({ ctx, mouse, cell }) {
+    let stars = [];
+    let lastW = 0, lastH = 0;
+
+    function spawn(W, H) {
+      const count = Math.floor(W * H / 3500);
+      stars = [];
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: 0.6 + Math.random() * 1.6,
+          base: 0.5 + Math.random() * 0.35,
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.8 + Math.random() * 1.0,
+        });
+      }
+    }
+
+    return function draw(t) {
+      const W = cell.offsetWidth, H = cell.offsetHeight;
+      if (W !== lastW || H !== lastH) { spawn(W, H); lastW = W; lastH = H; }
+
+      // 深藍紫漸層背景
+      const bg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H));
+      bg.addColorStop(0, '#1a1444');
+      bg.addColorStop(1, '#0a0a24');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, W, H);
+
+      // 畫星星 + 光暈
+      for (const s of stars) {
+        const tw = s.base + 0.35 * Math.sin(t * s.speed + s.phase);
+        const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 3.5);
+        g.addColorStop(0, `rgba(200,220,255,${tw * 0.4})`);
+        g.addColorStop(1, 'rgba(200,220,255,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * 3.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${tw})`;
+        ctx.fill();
+      }
+
+      // 游標附近的星星: 互相連線 + 連到游標
+      if (mouse.x > -1000) {
+        const NEAR = 130;
+        const nearby = [];
+        for (const s of stars) {
+          const dx = s.x - mouse.x, dy = s.y - mouse.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < NEAR * NEAR) nearby.push({ s, d: Math.sqrt(d2) });
+        }
+        // 星星之間
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i < nearby.length; i++) {
+          for (let j = i + 1; j < nearby.length; j++) {
+            const s1 = nearby[i].s, s2 = nearby[j].s;
+            const dx = s1.x - s2.x, dy = s1.y - s2.y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < 90) {
+              const a = (1 - d / 90) * 0.35;
+              ctx.strokeStyle = `rgba(180,200,255,${a})`;
+              ctx.beginPath();
+              ctx.moveTo(s1.x, s1.y);
+              ctx.lineTo(s2.x, s2.y);
+              ctx.stroke();
+            }
+          }
+        }
+        // 星星到游標
+        ctx.lineWidth = 0.7;
+        for (const { s, d } of nearby) {
+          const a = (1 - d / NEAR) * 0.45;
+          ctx.strokeStyle = `rgba(220,230,255,${a})`;
+          ctx.beginPath();
+          ctx.moveTo(s.x, s.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+      }
+    };
+  }
+
+  /* ========================================
+     C. Interstellar 流動 — 三層 parallax + 星雲
+     ======================================== */
+  function makeC({ ctx, mouse, cell }) {
+    let layers = [];
+    let lastW = 0, lastH = 0;
+    let mx = 0, my = 0;      // 游標歸一化位置 (-1 ~ 1)
+
+    function spawn(W, H) {
+      const density = W * H / 6000;
+      layers = [
+        { stars: [], count: Math.round(density * 0.15), sMin: 1.4, sMax: 3, driftX: 0.18, aMin: 0.7, aMax: 1.0, parallax: 25 }, // 近
+        { stars: [], count: Math.round(density * 0.35), sMin: 0.7, sMax: 1.4, driftX: 0.09, aMin: 0.5, aMax: 0.8, parallax: 12 }, // 中
+        { stars: [], count: Math.round(density * 0.5),  sMin: 0.3, sMax: 0.7, driftX: 0.04, aMin: 0.3, aMax: 0.6, parallax: 4 },  // 遠
+      ];
+      for (const L of layers) {
+        for (let i = 0; i < L.count; i++) {
+          L.stars.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            r: L.sMin + Math.random() * (L.sMax - L.sMin),
+            a: L.aMin + Math.random() * (L.aMax - L.aMin),
+          });
+        }
+      }
+    }
+
+    return function draw(t) {
+      const W = cell.offsetWidth, H = cell.offsetHeight;
+      if (W !== lastW || H !== lastH) { spawn(W, H); lastW = W; lastH = H; }
+
+      // 游標歸一化 (平滑過渡)
+      const targetMx = mouse.x > -1000 ? (mouse.x / W - 0.5) * 2 : 0;
+      const targetMy = mouse.y > -1000 ? (mouse.y / H - 0.5) * 2 : 0;
+      mx += (targetMx - mx) * 0.08;
+      my += (targetMy - my) * 0.08;
+
+      // 深空底
+      ctx.fillStyle = '#040518';
+      ctx.fillRect(0, 0, W, H);
+
+      // 星雲 1 (紫)
+      const nx1 = W * 0.45 + Math.sin(t * 0.08) * W * 0.06;
+      const ny1 = H * 0.4 + Math.cos(t * 0.06) * H * 0.06;
+      const g1 = ctx.createRadialGradient(nx1, ny1, 0, nx1, ny1, Math.max(W, H) * 0.65);
+      g1.addColorStop(0, 'rgba(90,50,180,0.32)');
+      g1.addColorStop(0.4, 'rgba(60,40,140,0.18)');
+      g1.addColorStop(1, 'rgba(20,20,60,0)');
+      ctx.fillStyle = g1;
+      ctx.fillRect(0, 0, W, H);
+
+      // 星雲 2 (粉)
+      const nx2 = W * 0.7 + Math.cos(t * 0.05) * W * 0.05;
+      const ny2 = H * 0.7 + Math.sin(t * 0.07) * H * 0.05;
+      const g2 = ctx.createRadialGradient(nx2, ny2, 0, nx2, ny2, Math.max(W, H) * 0.45);
+      g2.addColorStop(0, 'rgba(200,80,140,0.2)');
+      g2.addColorStop(1, 'rgba(200,80,140,0)');
+      ctx.fillStyle = g2;
+      ctx.fillRect(0, 0, W, H);
+
+      // 三層星星 (遠到近繪製)
+      for (let l = layers.length - 1; l >= 0; l--) {
+        const L = layers[l];
+        const offX = -mx * L.parallax;
+        const offY = -my * L.parallax;
+        for (const s of L.stars) {
+          s.x += L.driftX;
+          if (s.x > W + 10) s.x = -10;
+          ctx.beginPath();
+          ctx.arc(s.x + offX, s.y + offY, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(220,235,255,${s.a})`;
+          ctx.fill();
+        }
+      }
+    };
+  }
+
+  /* ========================================
+     D. 流星劃過 — 靜態星場 + 隨機流星
+     ======================================== */
+  function makeD({ ctx, mouse, cell }) {
+    let stars = [];
+    let meteors = [];
+    let lastW = 0, lastH = 0;
+    let nextMeteorAt = 3000; // ms
+    let elapsed = 0;
+    let lastNow = performance.now();
+
+    function spawn(W, H) {
+      const count = Math.floor(W * H / 4200);
+      stars = [];
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: 0.5 + Math.random() * 1.3,
+          base: 0.4 + Math.random() * 0.4,
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.6 + Math.random() * 0.9,
+        });
+      }
+    }
+
+    function spawnMeteor(W, H) {
+      // 從右上或上方進場
+      const fromTop = Math.random() < 0.5;
+      let x, y;
+      if (fromTop) {
+        x = W * 0.4 + Math.random() * W * 0.6;
+        y = -20;
+      } else {
+        x = W + 20;
+        y = Math.random() * H * 0.6;
+      }
+      const angle = Math.PI * 0.72 + (Math.random() - 0.5) * 0.15; // 大致向左下
+      const speed = 7 + Math.random() * 4;
+      meteors.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        trail: [],
+        life: 0,
+        maxLife: 90 + Math.random() * 40,
+      });
+    }
+
+    return function draw(t) {
+      const W = cell.offsetWidth, H = cell.offsetHeight;
+      if (W !== lastW || H !== lastH) { spawn(W, H); lastW = W; lastH = H; }
+      const now = performance.now();
+      const dt = now - lastNow;
+      lastNow = now;
+      elapsed += dt;
+
+      ctx.fillStyle = '#040613';
+      ctx.fillRect(0, 0, W, H);
+
+      // 星星
+      for (const s of stars) {
+        const tw = s.base + 0.3 * Math.sin(t * s.speed + s.phase);
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(230,240,255,${tw})`;
+        ctx.fill();
+      }
+
+      // 排程流星
+      if (elapsed >= nextMeteorAt) {
+        spawnMeteor(W, H);
+        elapsed = 0;
+        nextMeteorAt = 3000 + Math.random() * 5000; // 3-8 秒
+      }
+
+      // 更新+繪流星
+      for (let i = meteors.length - 1; i >= 0; i--) {
+        const m = meteors[i];
+        m.x += m.vx; m.y += m.vy;
+        m.life++;
+        m.trail.push({ x: m.x, y: m.y });
+        if (m.trail.length > 18) m.trail.shift();
+
+        // 尾巴
+        for (let j = 0; j < m.trail.length - 1; j++) {
+          const t1 = m.trail[j], t2 = m.trail[j + 1];
+          const a = (j / m.trail.length) * 0.85;
+          ctx.strokeStyle = `rgba(255,240,220,${a})`;
+          ctx.lineWidth = 2.2 * (j / m.trail.length);
+          ctx.beginPath();
+          ctx.moveTo(t1.x, t1.y);
+          ctx.lineTo(t2.x, t2.y);
+          ctx.stroke();
+        }
+        // 頭部
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, 2.4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,250,240,1)';
+        ctx.fill();
+        // 光暈
+        const gm = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, 10);
+        gm.addColorStop(0, 'rgba(255,240,200,0.5)');
+        gm.addColorStop(1, 'rgba(255,240,200,0)');
+        ctx.fillStyle = gm;
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, 10, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (m.x < -60 || m.y > H + 60 || m.life > m.maxLife) meteors.splice(i, 1);
+      }
+
+      // 游標光暈
+      if (mouse.x > -1000) {
+        const gc = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 80);
+        gc.addColorStop(0, 'rgba(180,200,255,0.18)');
+        gc.addColorStop(1, 'rgba(180,200,255,0)');
+        ctx.fillStyle = gc;
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 80, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+  }
+})();
+</script>
+</body>
+</html>
