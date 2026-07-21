@@ -188,6 +188,8 @@ const S = {                       // 全域狀態
   cur: null,                      // 目前的 short item
   player: null, ready: false, timer: null,
   pendingLoad: null,              // 若 player 尚未 ready,先暫存 videoId
+  // 每個 group 的收合狀態; 只記使用者「主動點過」的, 其餘用預設 (歌 group 展開 / __unmatched 收合)
+  groupCollapsed: {},
 };
 const UNMATCHED_KEY = '__unmatched';
 const METHOD_LABEL = {
@@ -454,11 +456,16 @@ function renderQueue(){
     const label = isUnmatched
       ? `⚠ 未匹配 (${items.length})`
       : `${song ? song.title : sid} (${items.length})`;
+    // 保留使用者手動切換過的收合狀態; 沒切過就用預設 (歌 group 展開, __unmatched 收合)
+    const userToggled = S.groupCollapsed[sid];
+    const collapsed = userToggled !== undefined ? userToggled : isUnmatched;
     const g = document.createElement('div');
-    g.className = 'song-group' + (isUnmatched ? ' unmatched collapsed' : '');
+    g.className = 'song-group' + (isUnmatched ? ' unmatched' : '') + (collapsed ? ' collapsed' : '');
     g.innerHTML = `<div class="song-title">${label}</div>`;
-    // click title = 展開/收起
-    g.querySelector('.song-title').onclick = ()=> g.classList.toggle('collapsed');
+    g.querySelector('.song-title').onclick = ()=>{
+      g.classList.toggle('collapsed');
+      S.groupCollapsed[sid] = g.classList.contains('collapsed');
+    };
     for(const it of items){
       const a = S.ann[it.videoId];
       // 若使用者已用下拉選歌,以 ann 裡的 songId 為準
