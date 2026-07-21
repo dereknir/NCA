@@ -424,8 +424,21 @@ window.onYouTubeIframeAPIReady = () => {
 /* ---------- 佇列側欄 ---------- */
 function renderQueue(){
   const el = document.getElementById('queuePanel'); el.innerHTML='';
-  // 已 match 的歌曲 group 排前面,__unmatched 放最後
-  const entries = Object.entries(S.queue).sort((a,b)=>{
+
+  // 動態分組:以「使用者在下拉選的歌 (a.songId) > pipeline 分類 (it.songId) > __unmatched」
+  // 為分組依據 → phase 1 只選歌時, 該支立刻脫離 __unmatched 移到目標歌 group
+  const dynGroups = {};
+  for(const items of Object.values(S.queue)){
+    for(const it of items){
+      const a = S.ann[it.videoId];
+      const sid = a?.songId || it.songId || UNMATCHED_KEY;
+      if(!dynGroups[sid]) dynGroups[sid] = [];
+      dynGroups[sid].push(it);
+    }
+  }
+
+  // 已 match 的歌曲 group 排前面, __unmatched 放最後
+  const entries = Object.entries(dynGroups).sort((a,b)=>{
     if(a[0]===UNMATCHED_KEY) return 1;
     if(b[0]===UNMATCHED_KEY) return -1;
     return 0;
