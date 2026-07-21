@@ -14,7 +14,10 @@ jobs:
       contents: write
 
     steps:
+      # 明確 checkout develop, 不管觸發時的分支是什麼 (Vercel + annotator 都讀 develop)
       - uses: actions/checkout@v4
+        with:
+          ref: develop
 
       - uses: actions/setup-python@v5
         with:
@@ -64,7 +67,8 @@ jobs:
             echo "→ nothing to commit"
           else
             git commit -m "chore(shorts): daily refresh (+${NEW_COUNT} new)"
-            git push
+            # 明確 push 到 develop (Vercel + annotator 讀那)
+            git push origin HEAD:develop
             echo "committed=yes" >> $GITHUB_OUTPUT
           fi
 
