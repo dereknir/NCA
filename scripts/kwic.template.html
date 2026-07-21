@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>にしな KWIC — 歌詞索引</title>
+<style>
+  /* 對齊主站深空調色 */
+  :root{--bg:#0a0a15;--panel:#141425;--line:rgba(255,255,255,0.08);--text:#f3f4f6;--dim:#9ca3af;
+        --accent:#60a5fa;--hl:#e2b03a;--font:"Noto Sans TC","Hiragino Sans",system-ui,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6}
+  /* 頂端 mini header — 同 /lyric-universe/ */
+  .site-topbar{position:sticky;top:0;z-index:50;background:rgba(10,10,21,0.75);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .site-topbar-inner{max-width:1200px;margin:0 auto;padding:14px 24px}
+  .site-topbar a{color:var(--text);font-size:20px;font-weight:700;text-decoration:none;transition:color .15s}
+  .site-topbar a:hover{color:var(--accent)}
+  main{max-width:980px;margin:0 auto;padding:48px 24px 120px}
+  h1{font-size:30px;letter-spacing:.05em}
+  .sub{color:var(--dim);font-size:13.5px;margin-top:6px}
+  .bar{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap;align-items:center}
+  input[type=search]{flex:1;min-width:240px;background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:11px 16px;color:var(--text);font-size:16px;font-family:inherit}
+  input[type=search]:focus{outline:none;border-color:var(--accent)}
+  select,label.tg{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:10px 12px;color:var(--dim);font-size:13px;font-family:inherit;cursor:pointer}
+  label.tg input{margin-right:6px}
+  #stat{margin-top:18px;font-size:13.5px;color:var(--dim)}
+  #stat b{color:var(--text)}
+  #forms{margin-top:6px;font-size:12.5px;color:var(--dim)}
+  #forms span{border:1px solid var(--line);border-radius:99px;padding:2px 10px;margin-right:6px}
+  table{width:100%;border-collapse:collapse;margin-top:20px;table-layout:fixed}
+  td{padding:9px 6px;border-bottom:1px solid rgba(36,49,84,.55);vertical-align:top;font-size:15.5px}
+  td.l{width:34%;text-align:right;color:var(--dim);overflow:hidden;white-space:nowrap;
+       text-overflow:ellipsis;direction:rtl}
+  td.l bdi{unicode-bidi:plaintext}
+  td.k{width:16%;text-align:center;color:var(--hl);font-weight:700;white-space:nowrap}
+  td.r{width:34%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:var(--dim)}
+  td.s{width:16%;font-size:12px}
+  td.s a{color:var(--accent);text-decoration:none}
+  td.s .n{color:var(--dim);margin-left:4px}
+  tr:hover td{background:rgba(20,29,49,.6)}
+  tr.zh td{border-bottom:1px solid var(--line);padding-top:0;font-size:12.5px;color:#6f7c9d}
+  .hide-zh tr.zh{display:none}
+  .empty{margin-top:40px;color:var(--dim);text-align:center}
+  footer{margin-top:80px;color:var(--dim);font-size:12px;text-align:center}
+</style>
+</head>
+<body>
+<header class="site-topbar">
+  <div class="site-topbar-inner">
+    <a href="/">Derek's Site</a>
+  </div>
+</header>
+<main>
+  <h1>にしな KWIC 歌詞索引</h1>
+  <p class="sub">Key Word In Context — 以原形(lemma)檢索,活用形一網打盡。點曲名到歌曲頁。</p>
+
+  <div class="bar">
+    <input type="search" id="q" list="sugg" placeholder="輸入詞的原形,例:溶ける、夜、愛しい" autocomplete="off">
+    <datalist id="sugg"></datalist>
+    <select id="sort">
+      <option value="song">曲順</option>
+      <option value="right">後文排序(概覽用法)</option>
+      <option value="left">前文排序</option>
+    </select>
+    <label class="tg"><input type="checkbox" id="zh" checked>顯示中譯</label>
+  </div>
+
+  <div id="stat"></div>
+  <div id="forms"></div>
+  <div id="out"></div>
+  <footer>索引詞性:名詞・動詞・形容詞・副詞・代名詞|重複副歌行已收合(×n 為原始出現次數)</footer>
+</main>
+
+<script>
+const DATA = /*__DATA__*/null;
+// TODO(Claude Code): 對齊站內歌曲頁 route
+const songUrl = id => `/translations/${id}`;
+const lineById = DATA.lines;               // id 即陣列索引
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* 建議清單:前 300 高頻 lemma */
+document.getElementById('sugg').innerHTML =
+  DATA.vocab.slice(0, 300).map(v => `<option value="${esc(v.lemma)}">`).join('');
+
+const $q = document.getElementById('q'), $out = document.getElementById('out'),
+      $stat = document.getElementById('stat'), $forms = document.getElementById('forms'),
+      $sort = document.getElementById('sort'), $zh = document.getElementById('zh');
+
+function findLemma(q) {
+  if (DATA.postings[q]) return q;
+  // 部分一致 fallback:取包含 q 的最高頻 lemma
+  const hit = DATA.vocab.find(v => v.lemma.includes(q));
+  return hit ? hit.lemma : null;
+}
+
+function render() {
+  const raw = $q.value.trim();
+  if (!raw) { $out.innerHTML = ''; $stat.textContent = ''; $forms.innerHTML = ''; return; }
+  const lemma = findLemma(raw);
+  if (!lemma) {
+    $out.innerHTML = `<div class="empty">找不到「${esc(raw)}」——試試原形(辭書形),或從輸入框的建議挑選。</div>`;
+    $stat.textContent = ''; $forms.innerHTML = ''; return;
+  }
+  const posts = DATA.postings[lemma];
+  const vocabEntry = DATA.vocab.find(v => v.lemma === lemma);
+  const totalRaw = posts.reduce((s, p) => s + lineById[p[0]].n, 0);
+
+  const rows = posts.map(([lid, st, en]) => {
+    const L = lineById[lid];
+    return { L, left: L.ja.slice(0, st), kw: L.ja.slice(st, en), right: L.ja.slice(en) };
+  });
+  const mode = $sort.value;
+  if (mode === 'right') rows.sort((a, b) => a.right.localeCompare(b.right, 'ja'));
+  else if (mode === 'left') rows.sort((a, b) =>
+    [...a.left].reverse().join('').localeCompare([...b.left].reverse().join(''), 'ja'));
+  else rows.sort((a, b) => a.L.song.localeCompare(b.L.song) || a.L.idx - b.L.idx);
+
+  $stat.innerHTML = `<b>${esc(lemma)}</b> — ${posts.length} 處(unique 行)/ 含副歌重複 ${totalRaw} 次` +
+    (raw !== lemma ? `(由「${esc(raw)}」部分一致)` : '');
+  $forms.innerHTML = vocabEntry
+    ? '出現形:' + Object.entries(vocabEntry.forms).map(([f, c]) => `<span>${esc(f)} ×${c}</span>`).join('')
+    : '';
+
+  $out.innerHTML = `<table class="${$zh.checked ? '' : 'hide-zh'}">` + rows.map(r => `
+    <tr>
+      <td class="l"><bdi>${esc(r.left)}</bdi></td>
+      <td class="k">${esc(r.kw)}</td>
+      <td class="r">${esc(r.right)}</td>
+      <td class="s"><a href="${songUrl(r.L.song)}">${esc(r.L.title)}</a>${r.L.n > 1 ? `<span class="n">×${r.L.n}</span>` : ''}</td>
+    </tr>
+    <tr class="zh"><td></td><td colspan="3">${esc(r.L.zh || '')}</td></tr>`).join('') + '</table>';
+}
+
+$q.addEventListener('input', render);
+$sort.addEventListener('change', render);
+$zh.addEventListener('change', render);
+
+/* URL ?q= 深連結 */
+const initQ = new URLSearchParams(location.search).get('q');
+if (initQ) { $q.value = initQ; render(); }
+$q.addEventListener('change', () => {
+  const u = new URL(location); u.searchParams.set('q', $q.value); history.replaceState(null, '', u);
+});
+</script>
+</body>
+</html>

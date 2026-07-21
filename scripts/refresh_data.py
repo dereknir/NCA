@@ -20,6 +20,7 @@ ROOT = Path(__file__).parent.parent
 STEPS = [
     ('scripts/export_lyrics_json.py', 'md → data/lyrics.json'),
     ('scripts/analyze_lyrics.py',     'lyrics.json → lyric_universe (JSON + HTML)'),
+    ('scripts/build_kwic.py',         'lyrics.json → kwic_index (JSON + HTML)'),
 ]
 
 for script, desc in STEPS:
