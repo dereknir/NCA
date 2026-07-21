@@ -6,7 +6,7 @@ lyrics.json → fugashi(unidic) 斷詞 → 聚合統計 → src/data/lyric_unive
 離線一次性腳本:歌詞更新時重跑,產物 JSON 進 repo,不掛在 astro build 裡。
 用法: python scripts/analyze_lyrics.py   (從 repo root 執行)
 """
-import json, re, sys, math
+import json, re, sys, math, unicodedata
 from collections import Counter, defaultdict
 from itertools import combinations
 from pathlib import Path
@@ -180,31 +180,94 @@ for a in album_order:
         avgLineChars=round(album_chars[a] / album_lines[a], 1),
         topTerms=[dict(term=t, score=round(sc, 1)) for t, sc in top]))
 
-# ---------- 5. 共現網絡 ----------
-freq = Counter()
+# ---------- 5. 共現網絡 (v2: 曲內去重 + PMI + Dunning G²) ----------
+# 去重: 同曲 ja 完全相同的行只算一次 (副歌反覆不灌水共現統計)
+# 詞頻 / 窗數以「unique 行」為單位計算, 才有機率意義
+records_by_song = defaultdict(list)
 for r in records:
+    records_by_song[r['song']].append(r)
+
+dedup_records = []
+duplicates_skipped = 0
+for song_id, song_records in records_by_song.items():
+    seen_ja = set()
+    for r in song_records:
+        key = unicodedata.normalize('NFKC', r['ja']).replace(' ', '').replace('　', '')
+        if key in seen_ja:
+            duplicates_skipped += 1
+            continue
+        seen_ja.add(key)
+        dedup_records.append(r)
+
+freq = Counter()
+for r in dedup_records:
     for l in set(r['lemmas']):
         if CJK.search(l) and l not in STOP:
             freq[l] += 1
 node_vocab = [w for w, _ in freq.most_common(40)]
 node_set = set(node_vocab)
-edges = Counter()
+
+# 滑窗 (歌內連續 2 行) → 統計含詞 / 含詞對 的窗數
+win_word = Counter()
+win_pair = Counter()
 node_refs = defaultdict(list)
-node_seen = defaultdict(set)   # 例句 dedupe
-for i, r in enumerate(records):
+node_seen = defaultdict(set)
+n_windows = 0
+for i, r in enumerate(dedup_records):
     window = set(r['lemmas'])
-    if i + 1 < len(records) and records[i + 1]['song'] == r['song']:
-        window |= set(records[i + 1]['lemmas'])
-    hits = sorted((window & node_set))
+    if i + 1 < len(dedup_records) and dedup_records[i + 1]['song'] == r['song']:
+        window |= set(dedup_records[i + 1]['lemmas'])
+    hits = sorted(window & node_set)
+    n_windows += 1
+    for a in hits:
+        win_word[a] += 1
+    for a, b in combinations(hits, 2):
+        win_pair[(a, b)] += 1
     for l in set(r['lemmas']) & node_set:
         if len(node_refs[l]) < 6 and r['ja'] not in node_seen[l]:
             node_refs[l].append(ref(r))
             node_seen[l].add(r['ja'])
-    for a, b in combinations(hits, 2):
-        edges[(a, b)] += 1
+
+
+def dunning_g2(k11, k1_, k_1, n):
+    """Dunning log-likelihood for 2×2 contingency table."""
+    k12, k21, k22 = k1_ - k11, k_1 - k11, n - k1_ - k_1 + k11
+    def term(k, e):
+        return k * math.log(k / e) if k > 0 and e > 0 else 0.0
+    e11 = k1_ * k_1 / n
+    e12 = k1_ * (n - k_1) / n
+    e21 = (n - k1_) * k_1 / n
+    e22 = (n - k1_) * (n - k_1) / n
+    return 2 * (term(k11, e11) + term(k12, e12) + term(k21, e21) + term(k22, e22))
+
+
+MIN_PAIR = 3
+links = []
+for (a, b), c in win_pair.items():
+    if c < MIN_PAIR:
+        continue
+    pa, pb, pab = win_word[a] / n_windows, win_word[b] / n_windows, c / n_windows
+    pmi = math.log2(pab / (pa * pb))
+    links.append(dict(
+        source=a, target=b, count=c,
+        pmi=round(pmi, 2),
+        ppmi=round(max(0, pmi), 2),
+        g2=round(dunning_g2(c, win_word[a], win_word[b], n_windows), 1),
+    ))
+links.sort(key=lambda e: -e['g2'])
+
 network = dict(
+    method=dict(
+        window='歌內連續 2 行',
+        nWindows=n_windows,
+        minPair=MIN_PAIR,
+        dedup=f'同曲同 ja 行唯一化 (去除 {duplicates_skipped} 個副歌重複行)',
+    ),
     nodes=[dict(id=w, count=freq[w], refs=node_refs[w]) for w in node_vocab],
-    links=[dict(source=a, target=b, weight=wt) for (a, b), wt in edges.items() if wt >= 3])
+    links=links,
+    topPairs=[dict(a=e['source'], b=e['target'], count=e['count'],
+                   pmi=e['pmi'], g2=e['g2']) for e in links[:15]],
+)
 
 # ---------- 輸出 ----------
 out = dict(
