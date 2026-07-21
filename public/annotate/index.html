@@ -602,9 +602,39 @@ function bindSongSelect(){
       }
       S.ann[S.cur.videoId].anchors = [];
     }
+    // 記住當前是不是「未匹配的 phase 1 item」, 用來決定要不要 auto-advance
+    const TRUSTED = new Set(['hashtag', 'lyric_match']);
+    const wasUnmatched = !TRUSTED.has(S.cur.matchMethod);
     S.ann[S.cur.videoId].songId = sel.value || null;
-    persist(); renderLyrics(); renderAnchors(); renderQueue();
+    persist();
+    // Phase 1 加速: 如果剛才是在未匹配 item 上、且選了一首歌 (非清空)
+    // → 自動跳到下一個未匹配, 免得手動捲回 __unmatched 找
+    if(wasUnmatched && sel.value){
+      const next = findNextUnmatched();
+      if(next){ loadShort(next); return; }
+    }
+    renderLyrics(); renderAnchors(); renderQueue();
   };
+}
+
+// 找出下一個「還沒被歸屬到任何歌」的 short (可信任的 pipeline 命中/使用者手動指定 都算已歸屬)
+function findNextUnmatched(){
+  const TRUSTED = new Set(['hashtag', 'lyric_match']);
+  const remaining = [];
+  for(const items of Object.values(S.queue)){
+    for(const it of items){
+      const a = S.ann[it.videoId];
+      if(a?.songId) continue;                             // 使用者已指定
+      if(TRUSTED.has(it.matchMethod) && it.songId) continue; // 高信心 pipeline 命中
+      if(a?.status === 'skip') continue;                  // 已被使用者略過
+      remaining.push(it);
+    }
+  }
+  if(!remaining.length) return null;
+  if(!S.cur) return remaining[0];
+  // 從 current 之後找; current 已 assigned 所以不在 remaining, findIndex 通常 -1 → 從 0 開始
+  const idx = remaining.findIndex(it => it.videoId === S.cur.videoId);
+  return remaining[(idx + 1) % remaining.length] || remaining[0];
 }
 
 /* ---------- anchors ---------- */
