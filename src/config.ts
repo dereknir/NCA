@@ -59,6 +59,7 @@ export const NAVIGATION = [
   { name: "日文歌翻譯", href: "/translations" },
   { name: "歌詞宇宙", href: "/lyric-universe/" },
   { name: "歌詞索引", href: "/kwic/" },
+  { name: "歌詞星圖", href: "/star-map/" },
   { name: "日記", href: "/diary" },
   { name: "作品集", href: "/projects" },
   { name: "關於我", href: "/about" },

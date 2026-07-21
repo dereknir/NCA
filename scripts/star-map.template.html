@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>にしな歌詞星圖</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+  /* 對齊主站深空調色 */
+  :root{--bg:#0a0a15;--panel:#141425;--line:rgba(255,255,255,0.08);--text:#f3f4f6;--dim:#9ca3af;
+        --accent:#60a5fa;--font:"Noto Sans TC","Hiragino Sans",system-ui,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1200px 700px at 65% 20%, #10112a 0%, var(--bg) 60%);
+       color:var(--text);font-family:var(--font);line-height:1.6;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+  /* mini header — 對齊 /lyric-universe/ 和 /kwic/ */
+  .site-topbar{background:rgba(10,10,21,0.75);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);flex-shrink:0}
+  .site-topbar-inner{max-width:1400px;margin:0 auto;padding:14px 24px}
+  .site-topbar a{color:var(--text);font-size:20px;font-weight:700;text-decoration:none;transition:color .15s}
+  .site-topbar a:hover{color:var(--accent)}
+  header{display:flex;align-items:center;gap:14px;padding:14px 20px;flex-wrap:wrap}
+  h1{font-size:20px;letter-spacing:.08em}
+  .meta{color:var(--dim);font-size:12px}
+  .spacer{flex:1}
+  input[type=search]{background:var(--panel);border:1px solid var(--line);border-radius:9px;
+    padding:8px 14px;color:var(--text);font-size:13.5px;font-family:inherit;width:230px}
+  input[type=search]:focus{outline:none;border-color:var(--accent)}
+  .seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .seg button{background:transparent;border:none;color:var(--dim);padding:8px 14px;
+    font-size:13px;cursor:pointer;font-family:inherit}
+  .seg button.on{background:var(--accent);color:#fff}
+  button.rst{background:var(--panel);border:1px solid var(--line);border-radius:9px;
+    color:var(--dim);padding:8px 12px;font-size:13px;cursor:pointer;font-family:inherit}
+  #stage{flex:1;display:grid;grid-template-columns:1fr 290px;min-height:0}
+  #sky{width:100%;height:100%;cursor:grab;touch-action:none}
+  #sky:active{cursor:grabbing}
+  #sky text.cl{fill:#c7d2f0;font-size:13px;letter-spacing:.15em;opacity:.85;
+    paint-order:stroke;stroke:rgba(8,13,26,.85);stroke-width:4px;pointer-events:none}
+  aside{border-left:1px solid var(--line);padding:16px;overflow-y:auto;background:rgba(10,15,28,.5)}
+  aside .ph{color:var(--dim);font-size:13px}
+  .pin .ja{font-size:16px;line-height:1.7}
+  .pin .zh{color:var(--dim);font-size:13px;margin-top:6px}
+  .pin .src{margin-top:12px;font-size:12.5px}
+  .pin .src a{color:var(--accent);text-decoration:none}
+  .pin .cst{margin-top:14px;font-size:12px;color:var(--dim)}
+  #legend{padding:10px 16px;display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--dim);
+    border-top:1px solid var(--line)}
+  #legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+  #tip{position:fixed;pointer-events:none;background:rgba(12,18,34,.96);border:1px solid var(--line);
+    border-radius:10px;padding:10px 13px;font-size:13px;max-width:340px;display:none;z-index:9}
+  #tip .zh{color:var(--dim);font-size:11.5px;margin-top:3px}
+  #tip .t{color:var(--dim);font-size:11px;margin-top:5px}
+  @media(max-width:820px){#stage{grid-template-columns:1fr}aside{display:none}}
+</style>
+</head>
+<body>
+<div class="site-topbar">
+  <div class="site-topbar-inner">
+    <a href="/">Derek's Site</a>
+  </div>
+</div>
+<header>
+  <h1>にしな歌詞星圖</h1>
+  <span class="meta" id="meta"></span>
+  <span class="spacer"></span>
+  <input type="search" id="filter" placeholder="輸入文字點亮相符的星(日/中)">
+  <div class="seg">
+    <button id="m-cluster" class="on">星座</button>
+    <button id="m-album">專輯</button>
+  </div>
+  <button class="rst" id="reset">重置視角</button>
+</header>
+
+<div id="stage">
+  <svg id="sky"></svg>
+  <aside id="side"><div class="ph">每顆星是一句歌詞。滾輪縮放、拖曳漫遊;<br>hover 讀句子,點擊釘選。<br><br>亮度較高的星 = 副歌反覆吟唱的句子。</div></aside>
+</div>
+<div id="legend"></div>
+<div id="tip"></div>
+
+<script>
+const DATA = /*__DATA__*/null;
+// TODO(Claude Code): 站內歌曲頁 route
+const songUrl = id => `/translations/${id}`;
+// 站長策展區:星座正式名稱(key = cluster id;未填則顯示 autoLabel 草稿)
+const CLUSTER_NAMES = { /* 例: 0: '夜與溶解', 3: '果實與戀' */ };
+
+const CL_COLORS = ['#6ea8fe','#3aa981','#e2603a','#8a63c9','#e1518e','#e8c94a',
+                   '#4dd0c4','#f2a6c0','#9ccc65','#ef9f27','#7c8db5','#c76b4a'];
+const ALBUMS = [...new Set(DATA.points.map(p => p.album))];
+const ALB_COLORS = ['#7c8db5','#3aa981','#e2603a','#8a63c9','#e1518e'];
+const cName = c => CLUSTER_NAMES[c.id] ?? c.autoLabel;
+const esc = s => s.replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+
+document.getElementById('meta').textContent =
+  `${DATA.meta.lines} 句 · ${DATA.meta.k} 星座 · encoder: ${DATA.meta.encoder}`;
+
+const side = document.getElementById('side'), tip = document.getElementById('tip');
+if (typeof d3 === 'undefined') {
+  side.innerHTML = '<div class="ph">D3 載入失敗(需網路載入函式庫)。</div>';
+} else {
+
+const svg = d3.select('#sky');
+const box = document.getElementById('sky').getBoundingClientRect();
+const W = box.width || 900, H = box.height || 600;
+svg.attr('viewBox', `0 0 ${W} ${H}`);
+const root = svg.append('g');
+
+// 座標映射(資料 0-1000 → 畫布,留邊)
+const pad = 40;
+const sx = d3.scaleLinear([0, 1000], [pad, W - pad]);
+const sy = d3.scaleLinear([0, 1000], [pad, H - pad]);
+let mode = 'cluster';
+const color = p => mode === 'cluster'
+  ? CL_COLORS[p.c % CL_COLORS.length]
+  : ALB_COLORS[ALBUMS.indexOf(p.album) % ALB_COLORS.length];
+const R = p => 2.2 + Math.sqrt(p.n) * 1.6;
+
+// 星暈 + 星核
+const halo = root.append('g').selectAll('circle').data(DATA.points).join('circle')
+  .attr('cx', p => sx(p.x)).attr('cy', p => sy(p.y))
+  .attr('r', p => R(p) * 2.4).attr('opacity', .13);
+const star = root.append('g').selectAll('circle').data(DATA.points).join('circle')
+  .attr('cx', p => sx(p.x)).attr('cy', p => sy(p.y))
+  .attr('r', R).attr('stroke', 'rgba(255,255,255,.35)').attr('stroke-width', .4)
+  .style('cursor', 'pointer');
+
+// 星座標籤(置於各群質心)
+const cent = DATA.clusters.map(c => {
+  const ps = DATA.points.filter(p => p.c === c.id);
+  return { c, x: d3.mean(ps, p => sx(p.x)), y: d3.mean(ps, p => sy(p.y)) };
+});
+const clabel = root.append('g').selectAll('text').data(cent).join('text')
+  .attr('class', 'cl').attr('text-anchor', 'middle')
+  .attr('x', d => d.x).attr('y', d => d.y)
+  .text(d => cName(d.c));
+
+function paint() {
+  halo.attr('fill', color);
+  star.attr('fill', color);
+  clabel.style('display', mode === 'cluster' ? null : 'none');
+  const items = mode === 'cluster'
+    ? DATA.clusters.map(c => [CL_COLORS[c.id % CL_COLORS.length], `${cName(c)} (${c.size})`])
+    : ALBUMS.map(a => [ALB_COLORS[ALBUMS.indexOf(a) % ALB_COLORS.length], a]);
+  document.getElementById('legend').innerHTML =
+    items.map(([col, t]) => `<span><i style="background:${col}"></i>${esc(t)}</span>`).join('');
+}
+paint();
+
+// 縮放漫遊
+const zoom = d3.zoom().scaleExtent([.6, 9]).on('zoom', e => root.attr('transform', e.transform));
+svg.call(zoom);
+document.getElementById('reset').onclick = () =>
+  svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
+
+// tooltip / 釘選
+star.on('pointerover', (e, p) => {
+  tip.style.display = 'block';
+  tip.innerHTML = `${esc(p.ja)}<div class="zh">${esc(p.zh || '')}</div>
+    <div class="t">${esc(p.title)}${p.n > 1 ? ` · 唱了 ${p.n} 次` : ''}</div>`;
+}).on('pointermove', e => {
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 360) + 'px';
+  tip.style.top = (e.clientY + 14) + 'px';
+}).on('pointerout', () => tip.style.display = 'none')
+  .on('click', (e, p) => {
+    const cl = DATA.clusters.find(c => c.id === p.c);
+    side.innerHTML = `<div class="pin">
+      <div class="ja">${esc(p.ja)}</div>
+      <div class="zh">${esc(p.zh || '')}</div>
+      <div class="src"><a href="${songUrl(p.song)}">${esc(p.title)} →</a>${p.n > 1 ? ` · 副歌 ×${p.n}` : ''}</div>
+      <div class="cst">所屬星座:${esc(cName(cl))}(${cl.size} 句)</div></div>`;
+  });
+
+// 文字過濾點亮
+document.getElementById('filter').addEventListener('input', e => {
+  const q = e.target.value.trim();
+  const hit = p => !q || p.ja.includes(q) || (p.zh && p.zh.includes(q));
+  star.attr('opacity', p => hit(p) ? 1 : .12);
+  halo.attr('opacity', p => hit(p) ? .13 : .02);
+});
+
+// 模式切換
+const bC = document.getElementById('m-cluster'), bA = document.getElementById('m-album');
+bC.onclick = () => { mode = 'cluster'; bC.classList.add('on'); bA.classList.remove('on'); paint(); };
+bA.onclick = () => { mode = 'album'; bA.classList.add('on'); bC.classList.remove('on'); paint(); };
+}
+</script>
+</body>
+</html>
