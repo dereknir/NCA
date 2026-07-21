@@ -425,13 +425,18 @@ window.onYouTubeIframeAPIReady = () => {
 function renderQueue(){
   const el = document.getElementById('queuePanel'); el.innerHTML='';
 
-  // 動態分組:以「使用者在下拉選的歌 (a.songId) > pipeline 分類 (it.songId) > __unmatched」
-  // 為分組依據 → phase 1 只選歌時, 該支立刻脫離 __unmatched 移到目標歌 group
+  // 動態分組: 優先順序
+  //   1) 使用者在下拉手動選過的歌 (a.songId) — 一律採用
+  //   2) pipeline 高信心分類的 it.songId (hashtag / lyric_match) — 採用
+  //   3) 其他 (review 低信心猜測 / out_of_catalog / non_song) — 一律回 __unmatched,
+  //      不管 it.songId 帶了什麼 (那只是低信心猜測, 不能當真)
+  const TRUSTED_METHODS = new Set(['hashtag', 'lyric_match']);
   const dynGroups = {};
   for(const items of Object.values(S.queue)){
     for(const it of items){
       const a = S.ann[it.videoId];
-      const sid = a?.songId || it.songId || UNMATCHED_KEY;
+      const pipelineSid = TRUSTED_METHODS.has(it.matchMethod) ? it.songId : null;
+      const sid = a?.songId || pipelineSid || UNMATCHED_KEY;
       if(!dynGroups[sid]) dynGroups[sid] = [];
       dynGroups[sid].push(it);
     }
