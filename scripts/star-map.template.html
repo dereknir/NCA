@@ -33,8 +33,10 @@
   #stage{flex:1;display:grid;grid-template-columns:1fr 290px;min-height:0}
   #sky{width:100%;height:100%;cursor:grab;touch-action:none}
   #sky:active{cursor:grabbing}
-  #sky text.cl{fill:#c7d2f0;font-size:13px;letter-spacing:.15em;opacity:.85;
-    paint-order:stroke;stroke:rgba(8,13,26,.85);stroke-width:4px;pointer-events:none}
+  #sky text.cl{fill:#f3f4f6;font-size:14px;font-weight:600;letter-spacing:.15em;opacity:.9;
+    paint-order:stroke;stroke:rgba(10,10,21,.9);stroke-width:5px;pointer-events:none}
+  #sky path.hull{fill-opacity:.07;stroke-opacity:.35;stroke-width:1.2;pointer-events:none}
+  #sky line.leader{stroke:rgba(255,255,255,.18);stroke-width:.8;pointer-events:none}
   aside{border-left:1px solid var(--line);padding:16px;overflow-y:auto;background:rgba(10,15,28,.5)}
   aside .ph{color:var(--dim);font-size:13px}
   .pin .ja{font-size:16px;line-height:1.7}
@@ -113,22 +115,59 @@ let mode = 'cluster';
 const color = p => mode === 'cluster'
   ? CL_COLORS[p.c % CL_COLORS.length]
   : ALB_COLORS[ALBUMS.indexOf(p.album) % ALB_COLORS.length];
-const R = p => 2.2 + Math.sqrt(p.n) * 1.6;
+// 星大小:副歌反覆越多 → 星越大越亮 (更誇張的曲線, 拉開視覺層次)
+const R = p => 1.4 + Math.pow(p.n, 0.6) * 2.4;
+const CORE_OP = p => Math.min(1, 0.75 + (p.n - 1) * 0.05);
+const HALO_OP = p => Math.min(0.28, 0.11 + (p.n - 1) * 0.03);
 
-// 星暈 + 星核
+// 星座殼 (convex hull, 平滑曲線, 半透明) — 最底層
+const line = d3.line().curve(d3.curveCatmullRomClosed.alpha(0.6));
+const hulls = DATA.clusters.map(c => {
+  const pts = DATA.points.filter(p => p.c === c.id).map(p => [sx(p.x), sy(p.y)]);
+  if (pts.length < 3) return null;
+  const hull = d3.polygonHull(pts);
+  return hull ? { c, path: line(hull) } : null;
+}).filter(Boolean);
+const hullG = root.append('g').attr('class', 'hulls');
+const hullPath = hullG.selectAll('path').data(hulls).join('path')
+  .attr('class', 'hull').attr('d', h => h.path)
+  .attr('fill', h => CL_COLORS[h.c.id % CL_COLORS.length])
+  .attr('stroke', h => CL_COLORS[h.c.id % CL_COLORS.length]);
+
+// 星暈 + 星核 (副歌反覆越多的星更亮更大)
 const halo = root.append('g').selectAll('circle').data(DATA.points).join('circle')
   .attr('cx', p => sx(p.x)).attr('cy', p => sy(p.y))
-  .attr('r', p => R(p) * 2.4).attr('opacity', .13);
+  .attr('r', p => R(p) * 2.4).attr('opacity', HALO_OP);
 const star = root.append('g').selectAll('circle').data(DATA.points).join('circle')
   .attr('cx', p => sx(p.x)).attr('cy', p => sy(p.y))
-  .attr('r', R).attr('stroke', 'rgba(255,255,255,.35)').attr('stroke-width', .4)
+  .attr('r', R).attr('opacity', CORE_OP)
+  .attr('stroke', 'rgba(255,255,255,.4)').attr('stroke-width', .5)
   .style('cursor', 'pointer');
 
-// 星座標籤(置於各群質心)
+// 星座標籤(以質心為錨, 用 d3-force 反擁擠推開)
 const cent = DATA.clusters.map(c => {
   const ps = DATA.points.filter(p => p.c === c.id);
-  return { c, x: d3.mean(ps, p => sx(p.x)), y: d3.mean(ps, p => sy(p.y)) };
+  const cx = d3.mean(ps, p => sx(p.x));
+  const cy = d3.mean(ps, p => sy(p.y));
+  return { c, x0: cx, y0: cy, x: cx, y: cy };
 });
+// 抗撞短算:centroid 為彈簧目標, 彼此以圓形碰撞推開
+const labelSim = d3.forceSimulation(cent)
+  .force('x', d3.forceX(d => d.x0).strength(0.5))
+  .force('y', d3.forceY(d => d.y0).strength(0.5))
+  .force('collide', d3.forceCollide(58))
+  .stop();
+for (let i = 0; i < 140; i++) labelSim.tick();
+
+// 標籤偏移超過閾值時, 畫細引線回原質心
+const leaderG = root.append('g');
+const leader = leaderG.selectAll('line').data(cent).join('line')
+  .attr('class', 'leader')
+  .attr('x1', d => d.x0).attr('y1', d => d.y0)
+  .attr('x2', d => d.x).attr('y2', d => d.y)
+  .attr('visibility', d =>
+    Math.hypot(d.x - d.x0, d.y - d.y0) > 12 ? 'visible' : 'hidden');
+
 const clabel = root.append('g').selectAll('text').data(cent).join('text')
   .attr('class', 'cl').attr('text-anchor', 'middle')
   .attr('x', d => d.x).attr('y', d => d.y)
@@ -137,8 +176,11 @@ const clabel = root.append('g').selectAll('text').data(cent).join('text')
 function paint() {
   halo.attr('fill', color);
   star.attr('fill', color);
-  clabel.style('display', mode === 'cluster' ? null : 'none');
-  const items = mode === 'cluster'
+  const showCl = mode === 'cluster';
+  clabel.style('display', showCl ? null : 'none');
+  leader.style('display', showCl ? null : 'none');
+  hullPath.style('display', showCl ? null : 'none');
+  const items = showCl
     ? DATA.clusters.map(c => [CL_COLORS[c.id % CL_COLORS.length], `${cName(c)} (${c.size})`])
     : ALBUMS.map(a => [ALB_COLORS[ALBUMS.indexOf(a) % ALB_COLORS.length], a]);
   document.getElementById('legend').innerHTML =
