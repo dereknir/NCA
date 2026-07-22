@@ -53,6 +53,9 @@ jobs:
       - name: Diff report → recent_new_shorts.json
         run: python scripts/build_recent_new.py
 
+      - name: Rebuild gacha LIVE pool from shorts_anchors.json
+        run: python scripts/build_gacha_live_pool.py
+
       - name: Commit + push if changed
         id: commit
         run: |
