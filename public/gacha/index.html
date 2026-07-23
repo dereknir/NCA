@@ -20,10 +20,10 @@
   h1{font-size:24px;letter-spacing:.12em}
   .sub{color:var(--dim);font-size:12.5px;margin-top:8px;text-align:center;line-height:1.7}
 
-  #machine{margin-top:22px;image-rendering:pixelated;cursor:pointer;border-radius:10px;
-           transition:filter .2s}
-  #machine:hover{filter:brightness(1.08)}
-  #machine.busy{cursor:wait}
+  #machine{margin-top:22px;image-rendering:pixelated;cursor:default;border-radius:10px;
+           width:min(640px,92vw);height:auto;transition:filter .2s}
+  #machine.knob-hover{cursor:pointer;filter:brightness(1.06)}
+  #machine.busy{cursor:wait;filter:none}
   #machine.shake{animation:mshake .3s}
   @keyframes mshake{0%,100%{transform:none}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
   #hint{color:var(--dim);font-size:12.5px;margin-top:8px;min-height:16px}
@@ -69,7 +69,7 @@
 <h1>にしなカードガチャ <span style="color:var(--gold)">β</span></h1>
 <p class="sub">點下方扭蛋機抽一張獨一無二的歌詞卡<br>身分(歌×句)共 <b id="poolN">…</b> 種・印刷(星空)無限</p>
 
-<canvas id="machine" width="480" height="440" title="點機器抽一張"></canvas>
+<canvas id="machine" width="600" height="550" title="點金色旋鈕抽卡"></canvas>
 <div id="hint">載入字型中…</div>
 
 <div id="cardWrap"><canvas id="card" width="840" height="630"></canvas></div>
@@ -293,6 +293,7 @@ async function drawOne() {
   if (busy || !ready) return;
   busy = true;
   mCv.classList.add('busy');
+  mCv.classList.remove('knob-hover');
   $('hint').textContent = '抽選中…';
   $('cardWrap').style.display = 'none';
   $('info').style.display = 'none';
@@ -318,7 +319,7 @@ async function drawOne() {
   $('again').style.display = 'inline-block';
 
   drawCount++;
-  $('hint').textContent = `點機器再抽(本次已抽 ${drawCount})`;
+  $('hint').textContent = `再轉一次旋鈕抽下一張(本次已抽 ${drawCount})`;
   $('stat').textContent = `本次測試已抽 ${drawCount} 張`;
 
   const thumb = document.createElement('img');
@@ -342,7 +343,25 @@ function currentFromHist(c) {
   $('cardId').textContent = `${c.song.id}#${c.line.i} · print:${c.seed.toString(16)}`;
 }
 
-$('machine').onclick = drawOne;
+/* ---------- 只認旋鈕的 hit-test ---------- */
+// 機器在 scene 座標 (32, 6); 旋鈕在 machine-local (20, 60) 半徑 7 → scene (52, 66)
+const KNOB_SX = ((SW - MACHINE_W) >> 1) + 20;
+const KNOB_SY = 6 + 60;
+const KNOB_HIT_R = 10;  // 7 px 本體 + 少量觸控/滑鼠寬容
+function knobHit(clientX, clientY) {
+  const rect = mCv.getBoundingClientRect();
+  // clientX/Y → canvas 內部座標 → scene 座標
+  const sx = (clientX - rect.left) / rect.width * SW;
+  const sy = (clientY - rect.top) / rect.height * SH;
+  const dx = sx - KNOB_SX, dy = sy - KNOB_SY;
+  return dx * dx + dy * dy <= KNOB_HIT_R * KNOB_HIT_R;
+}
+mCv.addEventListener('click', (e) => { if (knobHit(e.clientX, e.clientY)) drawOne(); });
+mCv.addEventListener('mousemove', (e) => {
+  if (busy) return;
+  mCv.classList.toggle('knob-hover', knobHit(e.clientX, e.clientY));
+});
+mCv.addEventListener('mouseleave', () => mCv.classList.remove('knob-hover'));
 $('again').onclick = drawOne;
 $('dl').onclick = () => {
   if (!current) return;
@@ -378,7 +397,7 @@ const FONTS = [
       }
     } catch (e) { /* live_pool 不存在也可以, LIVE 池會退化為空 → 自動降級到 SR/R/N */ }
     ready = true;
-    $('hint').textContent = '點機器抽一張';
+    $('hint').textContent = '轉動金色旋鈕抽一張';
   } catch (e) {
     $('hint').textContent = '載入失敗:請以 python -m http.server 啟動後開啟本頁';
     console.error(e);
