@@ -83,12 +83,12 @@
   #flyer{position:fixed;z-index:60;image-rendering:pixelated;border-radius:4px;
         display:none;pointer-events:none;transition:all .55s cubic-bezier(.5,.05,.3,1)}
 
-  /* 圖鑑 */
-  #bookPanel{display:flex;flex-direction:column;gap:8px}
-  #bookHead{display:flex;justify-content:space-between;align-items:baseline;padding:0 4px}
-  #bookHead .t{font-size:14px}
+  /* 圖鑑 — 跟 #stagePanel 用同一組框樣式, 讓桌面兩欄頂邊對齊 */
+  #bookPanel{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+        padding:16px;display:flex;flex-direction:column;gap:12px;min-height:520px}
+  #bookHead{display:flex;justify-content:space-between;align-items:baseline;padding:0 2px}
+  #bookHead .t{font-size:15px;letter-spacing:.12em}
   #bookHead .n{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
-  #backpack{--bp-max-h:560px}
 
   /* 彈窗 */
   #modal{position:fixed;inset:0;background:rgba(6,8,16,.8);display:none;
@@ -393,7 +393,9 @@ async function choreography(rarity, colorIdx) {
 /* ---------- hero → 飛入圖鑑 ---------- */
 function flyToSlot(identity) {
   return new Promise(resolve => {
-    const slotEl = document.querySelector(`[data-id="${identity.song.id}#${identity.line.i}"]`);
+    // 分頁模式下, 對應 slot 可能不在當前頁 → 先讓背包跳到對的頁再找元素
+    const slotEl = backpack ? backpack.showIdentity(identity)
+                            : document.querySelector(`[data-id="${identity.song.id}#${identity.line.i}"]`);
     const flyer = $('flyer');
     if (!slotEl || reduced) { resolve(); return; }
     slotEl.scrollIntoView({ block: 'nearest' });
@@ -529,6 +531,8 @@ const FONTS = [
       })),
       activeArtist: activeArtist.id,
       showTabs: false,                              // rail 已經是歌手切換 UI
+      chromeless: true,                             // 框由 #bookPanel 提供, 避免雙重 border
+      pageSize: 24,                                 // 4 欄 × 6 列/頁, 51 頁 for にしな
       getSongsForArtist: songsByArtist,
       log,
       onSlotClick: openModal,

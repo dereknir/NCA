@@ -9,9 +9,10 @@ function injectStyle() {
   if (styleInjected) return;
   styleInjected = true;
   const css = `
-  .bp{background:var(--panel,#141d31);border:1px solid var(--line,#243154);
-      border-radius:8px;padding:14px;font-family:inherit}
-  .bp-tabs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .bp{font-family:inherit;display:flex;flex-direction:column;gap:10px}
+  .bp.chrome{background:var(--panel,#141d31);border:1px solid var(--line,#243154);
+      border-radius:8px;padding:14px}
+  .bp-tabs{display:flex;gap:8px;flex-wrap:wrap}
   .bp-tab{border:1px solid var(--line,#243154);border-radius:8px;padding:7px 14px;
       font-size:13px;color:var(--dim,#8b97b8);cursor:pointer;background:transparent;
       font-family:inherit;position:relative}
@@ -20,8 +21,16 @@ function injectStyle() {
   .bp-tab.active{background:var(--accent,#3d63ff);color:#fff;border-color:var(--accent,#3d63ff)}
   .bp-tab.locked{opacity:.4;cursor:not-allowed}
   .bp-tab .bp-count{font-size:11px;opacity:.85;margin-left:6px;font-variant-numeric:tabular-nums}
-  .bp-grid-wrap{overflow-y:auto;max-height:var(--bp-max-h,520px);border-radius:4px;
-      transition:opacity .2s,transform .2s}
+  .bp-pager{display:flex;align-items:center;justify-content:center;gap:12px;padding:0 2px;user-select:none}
+  .bp-pager button{background:var(--panel-2,#1a2440);color:var(--text,#e8ecf6);
+      border:1px solid var(--line,#243154);border-radius:8px;width:34px;height:34px;
+      font-size:15px;cursor:pointer;font-family:inherit;transition:filter .15s,border-color .15s;
+      display:flex;align-items:center;justify-content:center}
+  .bp-pager button:not(:disabled):hover{border-color:var(--accent,#3d63ff);filter:brightness(1.15)}
+  .bp-pager button:disabled{opacity:.3;cursor:not-allowed}
+  .bp-pager .bp-p-num{font-size:12px;color:var(--dim,#8b97b8);font-variant-numeric:tabular-nums;
+      min-width:70px;text-align:center}
+  .bp-grid-wrap{border-radius:4px;transition:opacity .2s,transform .2s}
   .bp.switching .bp-grid-wrap{opacity:0;transform:translateX(6px)}
   .bp-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
   .bp.narrow .bp-grid{grid-template-columns:repeat(4,1fr)}
@@ -66,15 +75,21 @@ export function createBackpack(container, opts) {
   const state = {
     active: opts.activeArtist,
     log: opts.log || [],
-    slotEls: new Map(),          // identityId -> element
+    slotEls: new Map(),          // identityId (on current page) -> element
     ro: null,
+    page: 0,
+    pageSize: opts.pageSize ?? 24,
   };
 
   const root = document.createElement('div');
-  root.className = 'bp';
-  root.innerHTML = `<div class="bp-tabs"></div><div class="bp-grid-wrap"><div class="bp-grid"></div></div>`;
+  root.className = 'bp' + (opts.chromeless ? '' : ' chrome');
+  root.innerHTML =
+    `<div class="bp-tabs"></div>` +
+    `<div class="bp-pager"></div>` +
+    `<div class="bp-grid-wrap"><div class="bp-grid"></div></div>`;
   container.appendChild(root);
   const tabsEl = root.querySelector('.bp-tabs');
+  const pagerEl = root.querySelector('.bp-pager');
   const wrapEl = root.querySelector('.bp-grid-wrap');
   const gridEl = root.querySelector('.bp-grid');
 
@@ -111,40 +126,91 @@ export function createBackpack(container, opts) {
     }
   }
 
-  /* ---- Grid ---- */
-  function renderGrid(animateNew = false) {
+  /* ---- Identities (該歌手全部 slot 的 flat 順序清單, 分頁前的來源) ---- */
+  function currentIdentities() {
     const songs = opts.getSongsForArtist(state.active) || [];
+    const list = [];
+    for (const s of songs) for (const l of s.lines) list.push({ song: s, line: l });
+    return list;
+  }
+
+  /* ---- Pager ---- */
+  function renderPager(total) {
+    const pageSize = state.pageSize;
+    const pages = Math.max(1, Math.ceil(total / pageSize));
+    if (state.page >= pages) state.page = pages - 1;
+    if (state.page < 0) state.page = 0;
+    if (pages <= 1) { pagerEl.innerHTML = ''; pagerEl.style.display = 'none'; return; }
+    pagerEl.style.display = 'flex';
+    const start = state.page * pageSize + 1;
+    const end = Math.min(total, (state.page + 1) * pageSize);
+    pagerEl.innerHTML =
+      `<button class="bp-p-btn" data-dir="-1" aria-label="上一頁" ${state.page === 0 ? 'disabled' : ''}>&lsaquo;</button>` +
+      `<span class="bp-p-num">${start}–${end} / ${total}</span>` +
+      `<button class="bp-p-btn" data-dir="1" aria-label="下一頁" ${state.page >= pages - 1 ? 'disabled' : ''}>&rsaquo;</button>`;
+    pagerEl.querySelectorAll('.bp-p-btn').forEach(b => {
+      b.onclick = () => {
+        const next = state.page + Number(b.dataset.dir);
+        if (next < 0 || next >= pages) return;
+        state.page = next;
+        renderGrid();
+      };
+    });
+  }
+
+  /* ---- Grid (每次只畫當前頁) ---- */
+  function renderGrid(animateNew = false) {
+    const list = currentIdentities();
     const owned = ownedMap(state.active);
+    const start = state.page * state.pageSize;
+    const pageItems = list.slice(start, start + state.pageSize);
     gridEl.innerHTML = '';
     state.slotEls.clear();
     const frag = document.createDocumentFragment();
-    for (const song of songs) {
-      for (const line of song.lines) {
-        const id = `${song.id}#${line.i}`;
-        const got = owned.get(id);
-        const el = document.createElement('div');
-        el.dataset.id = id;
-        if (!got) {
-          el.className = 'bp-slot empty';
-          el.innerHTML = `<div class="bp-q">?</div>`;
-        } else {
-          const r = got.latest.rarity;
-          el.className = `bp-slot owned r-${r}` + (animateNew ? ' filling' : '');
-          el.style.background = hexDim(song.accent);
-          el.innerHTML =
-            (r === 'LIVE' ? `<div class="bp-live">LIVE</div>` : '') +
-            `<div class="bp-title">${esc([...song.title].slice(0, 6).join(''))}</div>` +
-            `<div class="bp-line">#${line.i}</div>` +
-            (got.count > 1 ? `<div class="bp-dup">×${got.count}</div>` : '');
-          el.onclick = () => opts.onSlotClick && opts.onSlotClick({
-            song, line, rarity: got.latest.rarity, seed: got.latest.seed,
-          });
-        }
-        state.slotEls.set(id, el);
-        frag.appendChild(el);
+    for (const { song, line } of pageItems) {
+      const id = `${song.id}#${line.i}`;
+      const got = owned.get(id);
+      const el = document.createElement('div');
+      el.dataset.id = id;
+      if (!got) {
+        el.className = 'bp-slot empty';
+        el.innerHTML = `<div class="bp-q">?</div>`;
+      } else {
+        const r = got.latest.rarity;
+        el.className = `bp-slot owned r-${r}` + (animateNew ? ' filling' : '');
+        el.style.background = hexDim(song.accent);
+        el.innerHTML =
+          (r === 'LIVE' ? `<div class="bp-live">LIVE</div>` : '') +
+          `<div class="bp-title">${esc([...song.title].slice(0, 6).join(''))}</div>` +
+          `<div class="bp-line">#${line.i}</div>` +
+          (got.count > 1 ? `<div class="bp-dup">×${got.count}</div>` : '');
+        el.onclick = () => opts.onSlotClick && opts.onSlotClick({
+          song, line, rarity: got.latest.rarity, seed: got.latest.seed,
+        });
       }
+      state.slotEls.set(id, el);
+      frag.appendChild(el);
     }
     gridEl.appendChild(frag);
+    renderPager(list.length);
+  }
+
+  /* ---- 導頁到某 identity 所在頁, 回傳該 slot element (若不在該歌手池 → null) ---- */
+  function pageIndexOf(identity) {
+    if (artistOf(identity.song.id) !== state.active) return -1;
+    const id = `${identity.song.id}#${identity.line.i}`;
+    const list = currentIdentities();
+    return list.findIndex(({ song, line }) => `${song.id}#${line.i}` === id);
+  }
+  function showIdentity(identity) {
+    const idx = pageIndexOf(identity);
+    if (idx < 0) return null;
+    const targetPage = Math.floor(idx / state.pageSize);
+    if (targetPage !== state.page) {
+      state.page = targetPage;
+      renderGrid();
+    }
+    return state.slotEls.get(`${identity.song.id}#${identity.line.i}`) || null;
   }
 
   function hexDim(hex) {
@@ -158,6 +224,7 @@ export function createBackpack(container, opts) {
   function setActive(artistId) {
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     state.active = artistId;
+    state.page = 0;
     if (reduced) { renderTabs(); renderGrid(); return; }
     root.classList.add('switching');
     setTimeout(() => {
@@ -173,13 +240,11 @@ export function createBackpack(container, opts) {
   }
 
   function highlightLatest(identity) {
-    const id = `${identity.song.id}#${identity.line.i}`;
-    if (artistOf(identity.song.id) !== state.active) return;
-    const el = state.slotEls.get(id);
+    // 先跳頁到 identity 所在頁, 再加 latest pulse
+    const el = showIdentity(identity);
     if (!el) return;
     for (const other of state.slotEls.values()) other.classList.remove('latest');
     el.classList.add('latest');
-    el.scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   }
 
   function destroy() {
@@ -196,5 +261,5 @@ export function createBackpack(container, opts) {
 
   renderTabs();
   renderGrid();
-  return { highlightLatest, refresh, setActive, destroy };
+  return { highlightLatest, refresh, setActive, destroy, showIdentity };
 }
