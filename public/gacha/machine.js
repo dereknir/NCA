@@ -46,8 +46,13 @@ export function drawCapsule(put, cx, cy, color, r = 5, crack = 0) {
  * 畫整台機器到 put(x,y,color)
  * opts: { knob:0|1|2, bob:0|1, hatchCapsule:null|colorIndex }
  */
+const mixc = (a, b, t) => [0, 1, 2].map(i => Math.round(a[i] * (1 - t) + b[i] * t));
 export function drawMachine(put, ox, oy, opts = {}) {
-  const { knob = 0, bob = 0, hatchCapsule = null } = opts;
+  const { knob = 0, bob = 0, hatchCapsule = null, theme = null } = opts;
+  // 歌手主題色 → 機身三階(受光/本體/陰影)
+  const body = theme ?? MPAL.body;
+  const bodyHi = theme ? mixc(theme, MPAL.white, 0.28) : MPAL.bodyHi;
+  const bodyDark = theme ? mixc(theme, MPAL.dark, 0.48) : MPAL.bodyDark;
   const P = (x, y, c) => put(ox + x, oy + y, c);
 
   // 圓頂玻璃艙
@@ -63,10 +68,10 @@ export function drawMachine(put, ox, oy, opts = {}) {
   for (let i = 0; i < 8; i++) P(15 + i, 10 - Math.floor(i / 3), MPAL.white);
 
   // 頸圈與機身
-  rect(P, 4, 45, 48, 4, MPAL.bodyDark);
-  rect(P, 6, 49, 44, 30, MPAL.body);
-  rect(P, 6, 49, 3, 30, MPAL.bodyHi);                   // 左受光
-  rect(P, 47, 49, 3, 30, MPAL.bodyDark);                // 右陰影
+  rect(P, 4, 45, 48, 4, bodyDark);
+  rect(P, 6, 49, 44, 30, body);
+  rect(P, 6, 49, 3, 30, bodyHi);                   // 左受光
+  rect(P, 47, 49, 3, 30, bodyDark);                // 右陰影
   // 投幣縫
   rect(P, 40, 52, 2, 6, MPAL.dark);
 
@@ -83,7 +88,7 @@ export function drawMachine(put, ox, oy, opts = {}) {
   if (hatchCapsule != null) drawCapsule(P, 39, 71, MPAL.capsules[hatchCapsule % 5], 5, 0);
 
   // 底座與腳
-  rect(P, 2, 79, 52, 5, MPAL.bodyDark);
+  rect(P, 2, 79, 52, 5, bodyDark);
   rect(P, 5, 84, 8, 2, MPAL.dark);
   rect(P, 43, 84, 8, 2, MPAL.dark);
 }

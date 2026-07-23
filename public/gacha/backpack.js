@@ -93,6 +93,7 @@ export function createBackpack(container, opts) {
 
   /* ---- Tabs ---- */
   function renderTabs() {
+    if (opts.showTabs === false) { tabsEl.style.display = 'none'; return; }
     tabsEl.innerHTML = '';
     for (const a of opts.artists) {
       const btn = document.createElement('button');
