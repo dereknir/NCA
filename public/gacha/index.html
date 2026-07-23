@@ -49,11 +49,11 @@
   /* 舞台 */
   #stagePanel{background:var(--panel);border:1px solid var(--line);border-radius:12px;
         padding:16px;display:flex;flex-direction:column;align-items:center;
-        position:relative;min-height:520px}
+        position:relative;min-height:560px}
   #stageTitle{font-size:15px;letter-spacing:.12em}
   #stageTitle b{color:var(--artist-accent)}
   #machine{margin-top:10px;image-rendering:pixelated;cursor:pointer;max-width:100%;
-           width:min(420px,100%);height:auto}
+           width:min(520px,100%);height:auto}
   #machine.shake{animation:mshake .3s}
   @keyframes mshake{0%,100%{transform:none}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
   #hint{color:var(--dim);font-size:12px;margin-top:8px;text-align:center;min-height:16px}
@@ -83,9 +83,9 @@
   #flyer{position:fixed;z-index:60;image-rendering:pixelated;border-radius:4px;
         display:none;pointer-events:none;transition:all .55s cubic-bezier(.5,.05,.3,1)}
 
-  /* 圖鑑 — 跟 #stagePanel 用同一組框樣式, 讓桌面兩欄頂邊對齊 */
+  /* 圖鑑 — 跟 #stagePanel 用同一組框樣式, 讓桌面兩欄頂邊 + 高度對齊 */
   #bookPanel{background:var(--panel);border:1px solid var(--line);border-radius:12px;
-        padding:16px;display:flex;flex-direction:column;gap:12px;min-height:520px}
+        padding:16px;display:flex;flex-direction:column;gap:12px;min-height:560px}
   #bookHead{display:flex;justify-content:space-between;align-items:baseline;padding:0 2px}
   #bookHead .t{font-size:15px;letter-spacing:.12em}
   #bookHead .n{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
@@ -353,6 +353,21 @@ function renderCardTo(canvas, song, line, seed, rarity) {
   c.drawImage(oc, 0, 0, canvas.width, canvas.height);
 }
 
+/* ---------- 圖鑑 slot 縮圖 (原生 168×126 pixel-art, 快取 dataURL) ---------- */
+const thumbCv = document.createElement('canvas');
+thumbCv.width = E.W;   // 168
+thumbCv.height = E.H;  // 126
+const thumbCache = new Map();
+function slotThumb(identity) {
+  const key = `${identity.song.id}#${identity.line.i}#${identity.seed}`;
+  let url = thumbCache.get(key);
+  if (url) return url;
+  renderCardTo(thumbCv, identity.song, identity.line, identity.seed, identity.rarity);
+  url = thumbCv.toDataURL('image/png');
+  thumbCache.set(key, url);
+  return url;
+}
+
 /* ---------- 演出編排(skip 支援) ---------- */
 const RARITY_FLASH = { N: [200,216,246], R: [90,130,255], SR: [232,201,74], LIVE: [232,201,74] };
 async function choreography(rarity, colorIdx) {
@@ -534,6 +549,7 @@ const FONTS = [
       chromeless: true,                             // 框由 #bookPanel 提供, 避免雙重 border
       pageSize: 24,                                 // 4 欄 × 6 列/頁, 51 頁 for にしな
       getSongsForArtist: songsByArtist,
+      renderSlotArt: slotThumb,                     // 每格用真實 168×126 pixel-art 卡當底
       log,
       onSlotClick: openModal,
       onTabSwitch: () => {},                        // showTabs:false 用不到

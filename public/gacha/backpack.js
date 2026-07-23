@@ -34,25 +34,30 @@ function injectStyle() {
   .bp.switching .bp-grid-wrap{opacity:0;transform:translateX(6px)}
   .bp-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
   .bp.narrow .bp-grid{grid-template-columns:repeat(4,1fr)}
-  .bp-slot{aspect-ratio:5/7;border:1px solid var(--line,#243154);border-radius:3px;
+  .bp-slot{aspect-ratio:4/3;border:1px solid var(--line,#243154);border-radius:3px;
       background:var(--panel-2,#1a2440);position:relative;overflow:hidden;
-      display:flex;flex-direction:column;align-items:center;justify-content:center}
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      background-size:cover;background-position:center;image-rendering:pixelated}
   .bp-slot.empty{opacity:.35}
   .bp-slot.empty .bp-q{font-size:16px;color:var(--dim,#8b97b8)}
   .bp-slot.owned{cursor:pointer;opacity:1}
   .bp-slot.owned:hover{transform:translateY(-2px);filter:brightness(1.1)}
   .bp-slot.r-N{border-color:var(--line,#243154)}
-  .bp-slot.r-R{border-color:var(--accent,#3d63ff)}
-  .bp-slot.r-SR,.bp-slot.r-LIVE{border-color:var(--gold,#e8c94a)}
+  .bp-slot.r-R{border-color:var(--accent,#3d63ff);border-width:2px}
+  .bp-slot.r-SR,.bp-slot.r-LIVE{border-color:var(--gold,#e8c94a);border-width:2px}
   .bp-slot .bp-title{font-size:8px;line-height:1.3;color:var(--text,#e8ecf6);
       text-align:center;padding:0 3px;word-break:break-all;
       font-family:'JP8','JP12',monospace}
   .bp-slot .bp-line{font-size:9px;color:rgba(255,255,255,.6);margin-top:3px;
       font-family:monospace}
+  /* 有 pixel-art 縮圖時, 隱藏 fallback 文字, 只留角落標 */
+  .bp-slot.has-art .bp-title,.bp-slot.has-art .bp-line{display:none}
   .bp-slot .bp-live{position:absolute;top:2px;left:2px;font-size:7px;
-      color:var(--gold,#e8c94a);font-family:monospace;letter-spacing:.5px}
+      color:var(--gold,#e8c94a);font-family:monospace;letter-spacing:.5px;
+      background:rgba(10,10,21,.65);padding:0 3px;border-radius:2px}
   .bp-slot .bp-dup{position:absolute;right:2px;bottom:2px;font-size:9px;
-      color:rgba(255,255,255,.75);font-family:monospace}
+      color:rgba(255,255,255,.9);font-family:monospace;
+      background:rgba(10,10,21,.65);padding:0 3px;border-radius:2px}
   .bp-slot.filling{animation:bp-fill .25s cubic-bezier(.2,1.6,.4,1)}
   @keyframes bp-fill{0%{transform:scale(.6);opacity:0}100%{transform:none;opacity:1}}
   .bp-slot.latest{box-shadow:0 0 0 2px var(--gold,#e8c94a);
@@ -177,16 +182,25 @@ export function createBackpack(container, opts) {
         el.innerHTML = `<div class="bp-q">?</div>`;
       } else {
         const r = got.latest.rarity;
-        el.className = `bp-slot owned r-${r}` + (animateNew ? ' filling' : '');
-        el.style.background = hexDim(song.accent);
+        const identity = { song, line, rarity: r, seed: got.latest.seed };
+        // 優先要真實 pixel-art 縮圖; 沒有(或呼叫失敗)才 fallback 到 accent + 文字
+        let artUrl = null;
+        if (opts.renderSlotArt) {
+          try { artUrl = opts.renderSlotArt(identity); } catch (e) { artUrl = null; }
+        }
+        el.className = `bp-slot owned r-${r}` + (animateNew ? ' filling' : '') + (artUrl ? ' has-art' : '');
+        if (artUrl) {
+          el.style.backgroundImage = `url(${artUrl})`;
+        } else {
+          el.style.background = hexDim(song.accent);
+        }
         el.innerHTML =
           (r === 'LIVE' ? `<div class="bp-live">LIVE</div>` : '') +
-          `<div class="bp-title">${esc([...song.title].slice(0, 6).join(''))}</div>` +
-          `<div class="bp-line">#${line.i}</div>` +
+          (artUrl ? '' :
+            `<div class="bp-title">${esc([...song.title].slice(0, 6).join(''))}</div>` +
+            `<div class="bp-line">#${line.i}</div>`) +
           (got.count > 1 ? `<div class="bp-dup">×${got.count}</div>` : '');
-        el.onclick = () => opts.onSlotClick && opts.onSlotClick({
-          song, line, rarity: got.latest.rarity, seed: got.latest.seed,
-        });
+        el.onclick = () => opts.onSlotClick && opts.onSlotClick(identity);
       }
       state.slotEls.set(id, el);
       frag.appendChild(el);
