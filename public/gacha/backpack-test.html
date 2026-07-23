@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>backpack.js — 自足 demo</title>
+<style>
+  :root{--bg:#0a0a15;--panel:#141d31;--panel-2:#1a2440;--line:#243154;
+        --text:#e8ecf6;--dim:#8b97b8;--accent:#3d63ff;--gold:#e8c94a;--hint:#8a5cf6}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);min-height:100vh;padding:30px 16px;
+       font-family:"Noto Sans TC",system-ui,sans-serif;display:flex;flex-direction:column;
+       align-items:center;gap:16px}
+  h1{font-size:18px;letter-spacing:.1em}
+  .ctl{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  button{background:var(--panel);color:var(--text);border:1px solid var(--line);
+         border-radius:10px;padding:10px 18px;font-size:14px;cursor:pointer;font-family:inherit}
+  button:hover{border-color:var(--accent)}
+  #wrap{width:min(880px,96vw)}
+  #log{color:var(--dim);font-size:12px;font-family:monospace;max-width:600px;text-align:center}
+</style>
+</head>
+<body>
+<h1>backpack.js 自足 demo(假資料)</h1>
+<div class="ctl">
+  <button id="sim">模擬抽卡 ×1</button>
+  <button id="sim10">模擬抽卡 ×10</button>
+  <button id="reset">清空</button>
+</div>
+<div id="wrap"><div id="backpack"></div></div>
+<div id="log">點「模擬抽卡」開始;點已抽格子看 console</div>
+
+<script type="module">
+import { createBackpack } from './backpack.js';
+
+/* 字型:demo 放在 gacha/ 同層時載入真字型,失敗則 monospace 降級 */
+try {
+  for (const [n, u] of [['JP8', 'fonts/fusion-pixel-8px-proportional-ja.sub.ttf'],
+                        ['JP12', 'fonts/fusion-pixel-12px-proportional-ja.sub.ttf']]) {
+    const f = new FontFace(n, `url(${u})`); await f.load(); document.fonts.add(f);
+  }
+} catch (e) { console.warn('字型未載入(不影響 demo)'); }
+
+/* ---- 假資料:1 個解鎖歌手(8 首×25 句=200 格)+ 2 鎖定 ---- */
+const ACCENTS = ['#e2603a', '#3b6fd6', '#e1518e', '#3aa981', '#ef9f27', '#8a63c9', '#c23b52', '#9b8aa6'];
+const TITLES = ['plum', '青藍遊泳', 'ヘビースモーク', '夜間飛行', 'アイニコイ', 'ワンルーム', '春一番', 'debbie'];
+const fakeSongs = TITLES.map((t, k) => ({
+  id: `nishina-fake${k}`, title: t, album: 'demo', accent: ACCENTS[k],
+  lines: Array.from({ length: 25 }, (_, i) => ({ i, ja: `テスト行${i}`, zh: `測試行${i}` })),
+}));
+const artists = [
+  { id: 'nishina', displayName: 'にしな', locked: false, totalCards: 200 },
+  { id: 'tuki', displayName: 'Tuki.', locked: true, totalCards: 0 },
+  { id: 'yuika', displayName: 'ユイカ', locked: true, totalCards: 0 },
+];
+let log = [];
+
+const bp = createBackpack(document.getElementById('backpack'), {
+  artists,
+  activeArtist: 'nishina',
+  getSongsForArtist: id => (id === 'nishina' ? fakeSongs : []),
+  log,
+  onSlotClick: identity => {
+    console.log('slot click →', identity);
+    document.getElementById('log').textContent =
+      `點了 ${identity.song.title}#${identity.line.i}(${identity.rarity})print:${identity.seed.toString(16)}`;
+  },
+  onTabSwitch: id => console.log('tab →', id),
+});
+
+/* ---- 模擬抽卡 ---- */
+function rollRarity() {
+  const x = Math.random() * 100;
+  return x < 1 ? 'LIVE' : x < 6 ? 'SR' : x < 22 ? 'R' : 'N';
+}
+function simDraw() {
+  const song = fakeSongs[Math.floor(Math.random() * fakeSongs.length)];
+  const line = song.lines[Math.floor(Math.random() * song.lines.length)];
+  const entry = { id: `${song.id}#${line.i}`, rarity: rollRarity(),
+                  seed: (Math.random() * 0xFFFFFFFF) >>> 0, ts: Date.now() };
+  log.push(entry);
+  bp.refresh(log);
+  bp.highlightLatest({ song, line, rarity: entry.rarity, seed: entry.seed });
+  const uniq = new Set(log.map(e => e.id)).size;
+  document.getElementById('log').textContent =
+    `抽到 ${song.title}#${line.i}(${entry.rarity})・收集 ${uniq}/200・總抽 ${log.length}`;
+}
+document.getElementById('sim').onclick = simDraw;
+document.getElementById('sim10').onclick = () => { for (let i = 0; i < 10; i++) simDraw(); };
+document.getElementById('reset').onclick = () => { log = []; bp.refresh(log);
+  document.getElementById('log').textContent = '已清空'; };
+</script>
+</body>
+</html>
