@@ -22,6 +22,7 @@ interface Tour {
   date: string;
   spotify: string | null;
   applemusic: string | null;
+  cover: string | null;
   tracks: Track[];
   track_count: number;
   matched_count: number;
@@ -49,13 +50,21 @@ const meta = setlists.meta;
     <div class="grid gap-6">
       {tours.map(tour => (
         <article class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 overflow-hidden">
-          {/* header */}
-          <header class="p-5 border-b border-gray-200 dark:border-gray-700 flex flex-wrap items-baseline gap-x-4 gap-y-2">
-            <h2 class="text-2xl font-bold">{tour.title}</h2>
-            <span class="text-sm text-gray-500 dark:text-gray-400 font-mono">{tour.date}</span>
-            <span class="ml-auto text-xs text-gray-600 dark:text-gray-400">
-              {tour.matched_count} / {tour.track_count} 首已翻譯
-            </span>
+          {/* header: cover on left + title/date/stats on right */}
+          <header class="p-5 border-b border-gray-200 dark:border-gray-700 flex gap-5">
+            {tour.cover && (
+              <img src={tour.cover} alt={`${tour.title} 巡演封面`}
+                   width="120" height="120" loading="lazy"
+                   class="w-24 h-24 md:w-28 md:h-28 rounded-lg object-cover flex-shrink-0
+                          border border-gray-200 dark:border-gray-700 shadow-sm" />
+            )}
+            <div class="flex-1 min-w-0 flex flex-col justify-center gap-1">
+              <h2 class="text-2xl font-bold leading-tight">{tour.title}</h2>
+              <span class="text-sm text-gray-500 dark:text-gray-400 font-mono">{tour.date}</span>
+              <span class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                {tour.matched_count} / {tour.track_count} 首已翻譯
+              </span>
+            </div>
           </header>
 
           {/* action buttons */}

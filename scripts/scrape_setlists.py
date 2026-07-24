@@ -31,6 +31,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
 ROOT = Path(__file__).parent.parent
 LYRICS_JSON = ROOT / 'src' / 'data' / 'lyrics.json'
 OUT_JSON = ROOT / 'src' / 'data' / 'setlists.json'
+COVERS_DIR = ROOT / 'public' / 'setlists' / 'covers'
 HUB_URL = 'https://nishina.lnk.to/live_setlist'
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0'
 
@@ -39,6 +40,12 @@ def fetch(url: str) -> str:
     req = urllib.request.Request(url, headers={'User-Agent': UA})
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.read().decode('utf-8', errors='replace')
+
+
+def fetch_bytes(url: str) -> tuple:
+    req = urllib.request.Request(url, headers={'User-Agent': UA})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return r.read(), r.headers.get('Content-Type', '')
 
 
 def decode_unicode_escape(s: str) -> str:
@@ -77,8 +84,8 @@ def parse_hub(html: str) -> list:
     return tours
 
 
-def parse_spotify_tracklist(playlist_url: str) -> list:
-    """從 Spotify embed 頁抽 tracklist. 無 auth."""
+def parse_spotify_embed(playlist_url: str) -> dict:
+    """從 Spotify embed 頁抽 tracklist + 封面 URL. 無 auth."""
     pid = playlist_url.rstrip('/').split('/')[-1]
     embed_url = f'https://open.spotify.com/embed/playlist/{pid}'
     html = fetch(embed_url)
@@ -86,29 +93,31 @@ def parse_spotify_tracklist(playlist_url: str) -> list:
         r'<script id="__NEXT_DATA__" type="application/json">(.+?)</script>',
         html, re.DOTALL)
     if not m:
-        return []
+        return {'tracks': [], 'cover_url': None, 'playlist_id': pid}
     try:
         data = json.loads(m.group(1))
     except Exception as e:
         print(f'  ⚠ JSON parse err: {e}', file=sys.stderr)
-        return []
+        return {'tracks': [], 'cover_url': None, 'playlist_id': pid}
 
-    def find_track_list(obj):
+    def find_entity(obj):
+        """Return the 'entity' dict containing trackList + coverArt."""
         if isinstance(obj, dict):
             if 'trackList' in obj and isinstance(obj['trackList'], list):
-                return obj['trackList']
+                return obj
             for v in obj.values():
-                r = find_track_list(v)
+                r = find_entity(v)
                 if r is not None:
                     return r
         elif isinstance(obj, list):
             for v in obj:
-                r = find_track_list(v)
+                r = find_entity(v)
                 if r is not None:
                     return r
         return None
 
-    raw = find_track_list(data) or []
+    entity = find_entity(data) or {}
+    raw = entity.get('trackList', [])
     tracks = []
     for i, t in enumerate(raw):
         tracks.append({
@@ -117,7 +126,29 @@ def parse_spotify_tracklist(playlist_url: str) -> list:
             'artist': t.get('subtitle', ''),
             'uid': t.get('uid', ''),
         })
-    return tracks
+    # coverArt.sources 通常有多 size, 取第一個 (masterpiece / 最大)
+    cover_url = None
+    cover_art = entity.get('coverArt') or {}
+    sources = cover_art.get('sources') or []
+    if sources:
+        cover_url = sources[0].get('url')
+    return {'tracks': tracks, 'cover_url': cover_url, 'playlist_id': pid}
+
+
+def download_cover(url: str, playlist_id: str) -> str | None:
+    """Download cover to public/setlists/covers/<pid>.<ext>. Return public path or None."""
+    if not url:
+        return None
+    COVERS_DIR.mkdir(parents=True, exist_ok=True)
+    try:
+        buf, ctype = fetch_bytes(url)
+    except Exception as e:
+        print(f'  ⚠ cover fetch err: {e}', file=sys.stderr)
+        return None
+    ext = 'webp' if 'webp' in ctype else 'jpg' if 'jpeg' in ctype or 'jpg' in ctype else 'png' if 'png' in ctype else 'img'
+    dest = COVERS_DIR / f'{playlist_id}.{ext}'
+    dest.write_bytes(buf)
+    return f'/setlists/covers/{dest.name}'
 
 
 def load_translation_songs() -> list:
@@ -167,10 +198,11 @@ def main():
     for i, t in enumerate(tours):
         print(f'\n[{i+1}/{len(tours)}] {t["title"]} ({t["date"]})')
         try:
-            tracks = parse_spotify_tracklist(t['spotify'])
+            info = parse_spotify_embed(t['spotify'])
         except Exception as e:
             print(f'  ⚠ fetch err: {e}')
-            tracks = []
+            info = {'tracks': [], 'cover_url': None, 'playlist_id': ''}
+        tracks = info['tracks']
         # match each track to translation
         matched = 0
         for tr in tracks:
@@ -182,7 +214,10 @@ def main():
         t['tracks'] = tracks
         t['track_count'] = len(tracks)
         t['matched_count'] = matched
-        print(f'  → {len(tracks)} tracks, {matched} matched to translation')
+        # 下載封面到 public/, 存 site-relative path
+        t['cover'] = download_cover(info['cover_url'], info['playlist_id']) if info['cover_url'] else None
+        cover_note = f' + cover' if t['cover'] else ''
+        print(f'  → {len(tracks)} tracks, {matched} matched{cover_note}')
         # 手軟一點, 別打太快
         time.sleep(0.5)
 
