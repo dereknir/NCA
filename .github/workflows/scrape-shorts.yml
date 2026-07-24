@@ -50,6 +50,12 @@ jobs:
       - name: Sync queue → /annotate/ public path
         run: cp annotation/annotation_queue.json public/annotate/annotation_queue.json
 
+      - name: Export lyrics.json (md → data/lyrics.json)
+        run: python scripts/export_lyrics_json.py
+
+      - name: Sync lyrics.json → /annotate/ (so 新歌自動出現在下拉)
+        run: cp data/lyrics.json public/annotate/lyrics.json
+
       - name: Diff report → recent_new_shorts.json
         run: python scripts/build_recent_new.py
 

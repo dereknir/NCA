@@ -1,8 +1,8 @@
 {
   "meta": {
     "source": "src/content/translations/*.md",
-    "song_count": 43,
-    "total_lyric_lines": 1571,
+    "song_count": 51,
+    "total_lyric_lines": 1991,
     "schema": {
       "song": {
         "id": "kebab-case filename stem (nishina-plum, yoasobi-yoru-ni-kakeru)",
@@ -44,6 +44,7 @@
         "同名主打"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/1999.jpg",
       "detail_url": "/translations/nishina-1999/",
       "lyric_lines": [
@@ -253,6 +254,7 @@
         "婀娜"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/hibi-sanman.jpg",
       "detail_url": "/translations/nishina-adaada/",
       "lyric_lines": [
@@ -660,6 +662,7 @@
         "文字遊戲"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/1999.jpg",
       "detail_url": "/translations/nishina-ainikoi/",
       "lyric_lines": [
@@ -811,6 +814,280 @@
       "lyric_line_count": 24
     },
     {
+      "id": "nishina-are-ga-koi",
+      "title": "あれが恋だったのかな",
+      "artist": "にしな",
+      "album": "FEAT / 客串",
+      "album_year": null,
+      "track_number": "4",
+      "publish_date": "2024-07-17",
+      "lyricist": [
+        "くじら"
+      ],
+      "composer": [
+        "くじら"
+      ],
+      "arranger": [
+        "Naoki Itai"
+      ],
+      "tags": [
+        "J-POP",
+        "feat",
+        "くじら",
+        "動畫主題曲",
+        "先輩はおとこのこ",
+        "回憶",
+        "分手"
+      ],
+      "instrumental": false,
+      "exclude_from_lyric_analysis": "true   # 主藝人 くじら,詞曲皆くじら 作,にしな feat 演唱",
+      "cover_image": "/covers/nishina/are-ga-koi.jpg",
+      "detail_url": "/translations/nishina-are-ga-koi/",
+      "lyric_lines": [
+        {
+          "index": 0,
+          "romaji": "uchira neoki de eiga toka itte",
+          "ja": "ウチら寝起きで映画とか行って",
+          "zh": "我們剛睡醒就跑去電影院"
+        },
+        {
+          "index": 1,
+          "romaji": "guda guda shabette waratte te wo tsunaide",
+          "ja": "ぐだぐだ喋って笑って手を繋いで",
+          "zh": "懶洋洋地聊天、笑著、牽著手"
+        },
+        {
+          "index": 2,
+          "romaji": "bangohan no hanashi shinagara kaette",
+          "ja": "晩ごはんの話しながら帰って",
+          "zh": "一邊討論著晚餐吃什麼一邊回家"
+        },
+        {
+          "index": 3,
+          "romaji": "hima ni nareba hoozuri toka shite",
+          "ja": "暇になれば頬擦りとかして",
+          "zh": "一有空就互相貼貼蹭蹭臉頰"
+        },
+        {
+          "index": 4,
+          "romaji": "sabishii toka mo patto wasurechatte",
+          "ja": "寂しいとかもパッと忘れちゃって",
+          "zh": "連寂寞什麼的都瞬間忘光光"
+        },
+        {
+          "index": 5,
+          "romaji": "kokoro mo karada mo",
+          "ja": "心も体も",
+          "zh": "無論是心靈還是身體"
+        },
+        {
+          "index": 6,
+          "romaji": "jiritsu dokoro ka",
+          "ja": "自立どころか",
+          "zh": "別說是自立了"
+        },
+        {
+          "index": 7,
+          "romaji": "suraimu mitai ni tada tokeatte",
+          "ja": "スライムみたいにただ溶け合って",
+          "zh": "就像史萊姆一樣只是相互融化在一起"
+        },
+        {
+          "index": 8,
+          "romaji": "tada tada tada konna mainichi ga",
+          "ja": "ただ ただ ただ こんな毎日が",
+          "zh": "只是 只是 只是 以為這樣的每一天"
+        },
+        {
+          "index": 9,
+          "romaji": "tsuzuku to omotteita",
+          "ja": "続くと思っていた",
+          "zh": "會一直持續下去"
+        },
+        {
+          "index": 10,
+          "romaji": "tsuzuku to omotteita yo",
+          "ja": "続くと思っていたよ",
+          "zh": "以為會一直持續下去的啊"
+        },
+        {
+          "index": 11,
+          "romaji": "tada tada tada konna mainichi ga",
+          "ja": "ただ ただ ただ こんな毎日が",
+          "zh": "只是 只是 只是 以為這樣的每一天"
+        },
+        {
+          "index": 12,
+          "romaji": "tsuzuku to omotteita",
+          "ja": "続くと思っていた",
+          "zh": "會一直持續下去"
+        },
+        {
+          "index": 13,
+          "romaji": "tsuzuku to omotteita yo",
+          "ja": "続くと思っていたよ",
+          "zh": "以為會一直持續下去的啊"
+        },
+        {
+          "index": 14,
+          "romaji": "hontou da yo",
+          "ja": "本当だよ",
+          "zh": "是真的喔"
+        },
+        {
+          "index": 15,
+          "romaji": "megane ga nai toka keitai ga nai toka",
+          "ja": "メガネがないとか携帯がないとか",
+          "zh": "「眼鏡不見了」或是「手機找不到」"
+        },
+        {
+          "index": 16,
+          "romaji": "arekore sore de dotabata shite",
+          "ja": "あれこれそれでドタバタして",
+          "zh": "為了這個那個手忙腳亂"
+        },
+        {
+          "index": 17,
+          "romaji": "manuke na bun dake waratte",
+          "ja": "間抜けな分だけ笑って",
+          "zh": "因為笨拙而傻笑著"
+        },
+        {
+          "index": 18,
+          "romaji": "denshi renji ga kowareta toki wa hontou ni ochikonda kedo",
+          "ja": "電子レンジが壊れた時は本当に落ち込んだけど",
+          "zh": "微波爐壞掉的時候真的超級沮喪"
+        },
+        {
+          "index": 19,
+          "romaji": "tonari de waratte kureta kara ima demo waraeru",
+          "ja": "隣で笑ってくれたから 今でも笑える",
+          "zh": "但因為你在身旁對我微笑,所以到現在還笑得出來"
+        },
+        {
+          "index": 20,
+          "romaji": "magukappu watta no yurushitenai yo beibii",
+          "ja": "マグカップ割ったの許してないよベイビー",
+          "zh": "把你馬克杯打破這件事我可還沒原諒你喔 Baby"
+        },
+        {
+          "index": 21,
+          "romaji": "kono mama ikeba kantan ni",
+          "ja": "このままいけば簡単に",
+          "zh": "「如果這樣下去的話,我們感覺能很輕易地"
+        },
+        {
+          "index": 22,
+          "romaji": "futari de shineru to omotteita ne",
+          "ja": "2人で死ねると思っていたね",
+          "zh": "兩個人一起走到生命的盡頭呢」"
+        },
+        {
+          "index": 23,
+          "romaji": "kekkonshiki wa dizunii tte (wara)",
+          "ja": "結婚式はディズニーって笑",
+          "zh": "「婚禮要在迪士尼辦啦」笑死"
+        },
+        {
+          "index": 24,
+          "romaji": "baka itten ja nai yo anta",
+          "ja": "馬鹿言ってんじゃないよあんた",
+          "zh": "「你這傢伙少在那裡說傻話了」"
+        },
+        {
+          "index": 25,
+          "romaji": "sono toki ni nareba nan demo suru sa",
+          "ja": "その時になればなんでもするさ",
+          "zh": "「等到了那一天,要我做什麼都可以啦"
+        },
+        {
+          "index": 26,
+          "romaji": "uchuu ryokou demo ikou ka!",
+          "ja": "宇宙旅行でもいこうか!",
+          "zh": "就算是宇宙旅行我們也一起去吧!」"
+        },
+        {
+          "index": 27,
+          "romaji": "hitori ni natte shibaraku tatte",
+          "ja": "1人になってしばらく経って",
+          "zh": "恢復單身過了一陣子"
+        },
+        {
+          "index": 28,
+          "romaji": "tada ii hito wo enjireba dekiru",
+          "ja": "ただいい人を演じればできる",
+          "zh": "發現只要扮演一個好人就能做到的"
+        },
+        {
+          "index": 29,
+          "romaji": "koi gokko wo kurikaeshite omou",
+          "ja": "恋ごっこを繰り返して思う",
+          "zh": "那些「戀愛遊戲」,在不斷重複之後我不禁想著"
+        },
+        {
+          "index": 30,
+          "romaji": "are ga koi datta no ka na",
+          "ja": "あれが恋だったのかな",
+          "zh": "那段感情,就是戀愛了吧"
+        },
+        {
+          "index": 31,
+          "romaji": "are ga koi datta no ka na",
+          "ja": "あれが恋だったのかな",
+          "zh": "那段感情,原來就是戀愛啊"
+        },
+        {
+          "index": 32,
+          "romaji": "kimagure de akishou",
+          "ja": "気まぐれで飽き性",
+          "zh": "隨性又三分鐘熱度"
+        },
+        {
+          "index": 33,
+          "romaji": "amaetagari de guzu de tanki de",
+          "ja": "甘えたがりで愚図で短気で",
+          "zh": "愛撒嬌、笨拙、脾氣又急"
+        },
+        {
+          "index": 34,
+          "romaji": "wasureppoi kara ongaku ni shitoku yo",
+          "ja": "忘れっぽいから音楽にしとくよ",
+          "zh": "因為我很健忘,所以就把這一切寫成音樂吧"
+        },
+        {
+          "index": 35,
+          "romaji": "tada tada tada anna mainichi ga",
+          "ja": "ただ ただ ただ あんな毎日が",
+          "zh": "只是 只是 只是 以為那樣的每一天"
+        },
+        {
+          "index": 36,
+          "romaji": "tsuzuku to omotteita tsuzuku to omotteita yo",
+          "ja": "続くと思っていた 続くと思っていたよ",
+          "zh": "會一直持續下去,以為會一直持續下去的啊"
+        },
+        {
+          "index": 37,
+          "romaji": "tada tada tada anna mainichi ga",
+          "ja": "ただ ただ ただ あんな毎日が",
+          "zh": "只是 只是 只是 以為那樣的每一天"
+        },
+        {
+          "index": 38,
+          "romaji": "tsuzuku to omotteita tsuzuku to omotteita yo",
+          "ja": "続くと思っていた 続くと思っていたよ",
+          "zh": "會一直持續下去,以為會一直持續下去的啊"
+        },
+        {
+          "index": 39,
+          "romaji": "hontou da yo",
+          "ja": "本当だよ",
+          "zh": "是真的喔"
+        }
+      ],
+      "lyric_line_count": 40
+    },
+    {
       "id": "nishina-bugs",
       "title": "bugs",
       "artist": "にしな",
@@ -834,6 +1111,7 @@
         "毒舌"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/bugs.jpg",
       "detail_url": "/translations/nishina-bugs/",
       "lyric_lines": [
@@ -1143,6 +1421,7 @@
         "深夜"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/centi.jpg",
       "detail_url": "/translations/nishina-centi/",
       "lyric_lines": [
@@ -1372,6 +1651,221 @@
       "lyric_line_count": 37
     },
     {
+      "id": "nishina-clover",
+      "title": "クローバー",
+      "artist": "にしな",
+      "album": "單曲",
+      "album_year": null,
+      "track_number": "2",
+      "publish_date": "2026-06-03",
+      "lyricist": [
+        "にしな"
+      ],
+      "composer": [
+        "にしな"
+      ],
+      "arranger": null,
+      "tags": [
+        "J-POP",
+        "動畫主題曲",
+        "モブ子の恋",
+        "治癒"
+      ],
+      "instrumental": false,
+      "exclude_from_lyric_analysis": false,
+      "cover_image": "/covers/nishina/clover.jpg",
+      "detail_url": "/translations/nishina-clover/",
+      "lyric_lines": [
+        {
+          "index": 0,
+          "romaji": "kuchibue wo fukeba sora takaku hazunda",
+          "ja": "口笛を吹けば空高く弾んだ",
+          "zh": "只要吹起口哨,心就會在天空中高高彈跳"
+        },
+        {
+          "index": 1,
+          "romaji": "ashibumi naraseba hana ga waratta",
+          "ja": "足踏み鳴らせば花が笑った",
+          "zh": "只要踏響腳步,花兒就會綻放笑容"
+        },
+        {
+          "index": 2,
+          "romaji": "ano shirotsumekusa no ashimoto ni kuroobaa",
+          "ja": "あの白詰草の足元にクローバー",
+          "zh": "在那白三葉草的腳邊,長著幸運草"
+        },
+        {
+          "index": 3,
+          "romaji": "shiawase wa itsumo soba ni",
+          "ja": "幸せはいつもそばに",
+          "zh": "幸福總是在我們身邊"
+        },
+        {
+          "index": 4,
+          "romaji": "kaerimichi no yuugure yuuhan no nioi",
+          "ja": "帰り道の夕暮れ 夕飯の匂い",
+          "zh": "回家路上的晚霞,晚餐飄來的香氣"
+        },
+        {
+          "index": 5,
+          "romaji": "sabita jitensha ga watashi wo oikosu",
+          "ja": "錆びた自転車が私を追い越す",
+          "zh": "生鏽的腳踏車從我身旁超車而過"
+        },
+        {
+          "index": 6,
+          "romaji": "hakusen dake funde watatteku shounen",
+          "ja": "白線だけ踏んで渡ってく少年",
+          "zh": "只踩著白線過馬路的少年"
+        },
+        {
+          "index": 7,
+          "romaji": "ano hi no jibun wo futo omoiukabete imasu",
+          "ja": "あの日の自分をふと思い浮かべています",
+          "zh": "讓我忽然想起了那一天的自己"
+        },
+        {
+          "index": 8,
+          "romaji": "akogaretari kurabetetari",
+          "ja": "憧れたり 比べてたり",
+          "zh": "曾經去憧憬、曾經去比較"
+        },
+        {
+          "index": 9,
+          "romaji": "tarinai mono wo kazoeta kedo",
+          "ja": "足りないものを数えたけど",
+          "zh": "細數著自己所缺乏的事物"
+        },
+        {
+          "index": 10,
+          "romaji": "koi wo shitari yume wo mitari",
+          "ja": "恋をしたり 夢を見たり",
+          "zh": "但也談了場戀愛、做了些夢想"
+        },
+        {
+          "index": 11,
+          "romaji": "aa wasureteita",
+          "ja": "あぁ 忘れていた",
+          "zh": "啊啊,我差點都忘了呢"
+        },
+        {
+          "index": 12,
+          "romaji": "kuchibue wo fukeba sora takaku hazunda",
+          "ja": "口笛を吹けば空高く弾んだ",
+          "zh": "只要吹起口哨,心就會在天空中高高彈跳"
+        },
+        {
+          "index": 13,
+          "romaji": "ashibumi naraseba hana ga waratta",
+          "ja": "足踏み鳴らせば花が笑った",
+          "zh": "只要踏響腳步,花兒就會綻放笑容"
+        },
+        {
+          "index": 14,
+          "romaji": "ano shirotsumekusa no ashimoto ni kuroobaa",
+          "ja": "あの白詰草の足元にクローバー",
+          "zh": "在那白三葉草的腳邊,長著幸運草"
+        },
+        {
+          "index": 15,
+          "romaji": "shiawase wa itsumo soba ni",
+          "ja": "幸せはいつもそばに",
+          "zh": "幸福總是在我們身邊"
+        },
+        {
+          "index": 16,
+          "romaji": "sayonara to tooku de dareka ga ieba",
+          "ja": "さよならと遠くで誰かが言えば",
+          "zh": "如果遠方有誰說了句「再見」"
+        },
+        {
+          "index": 17,
+          "romaji": "bokura wa mata ne to te wo furikaeshi susumu",
+          "ja": "僕らはまたねと手を振り返し進む",
+          "zh": "我們會揮著手回敬一句「下次見」,然後繼續前進"
+        },
+        {
+          "index": 18,
+          "romaji": "aakeedo wo nuke atarashii biru",
+          "ja": "アーケードを抜け 新しいビル",
+          "zh": "穿過商店街的拱廊,映入眼簾的新大樓"
+        },
+        {
+          "index": 19,
+          "romaji": "anata yuzuri no chiisana ashidori",
+          "ja": "あなた譲りの小さな足取り",
+          "zh": "邁著遺傳自你的小小步伐"
+        },
+        {
+          "index": 20,
+          "romaji": "tsumazuita hi mo sorenari no hi mo",
+          "ja": "つまづいた日も それなりの日も",
+          "zh": "無論是跌倒受挫的日子,還是普普通通的日子"
+        },
+        {
+          "index": 21,
+          "romaji": "hora mata ashita",
+          "ja": "ほらまた明日",
+          "zh": "你看,明天依然會到來"
+        },
+        {
+          "index": 22,
+          "romaji": "hanauta fukaseba kaze soyogi asonda",
+          "ja": "鼻歌吹かせば風そよぎ遊んだ",
+          "zh": "只要哼起歌,微風就會在一旁嬉戲"
+        },
+        {
+          "index": 23,
+          "romaji": "rararara koe ni sureba kanau ki ga shita",
+          "ja": "ラララ声にすれば叶う気がした",
+          "zh": "啦啦啦,只要唱出聲,就覺得願望能夠實現"
+        },
+        {
+          "index": 24,
+          "romaji": "ano kumoma no saki ni aoku sunda sora",
+          "ja": "あの雲間の先に青く澄んだ空",
+          "zh": "在那雲隙的前方,是一片蔚藍清澈的天空"
+        },
+        {
+          "index": 25,
+          "romaji": "yasashisa no ame wo furasete",
+          "ja": "優しさの雨を降らせて",
+          "zh": "降下一場溫柔的雨吧"
+        },
+        {
+          "index": 26,
+          "romaji": "kuchibue wo fukeba sora takaku hazunda",
+          "ja": "口笛を吹けば空高く弾んだ",
+          "zh": "只要吹起口哨,心就會在天空中高高彈跳"
+        },
+        {
+          "index": 27,
+          "romaji": "ashibumi naraseba hana ga waratta",
+          "ja": "足踏み鳴らせば花が笑った",
+          "zh": "只要踏響腳步,花兒就會綻放笑容"
+        },
+        {
+          "index": 28,
+          "romaji": "ano shirotsumekusa no ashimoto ni kuroobaa",
+          "ja": "あの白詰草の足元にクローバー",
+          "zh": "在那白三葉草的腳邊,長著幸運草"
+        },
+        {
+          "index": 29,
+          "romaji": "shiawase wa itsumo soba ni",
+          "ja": "幸せはいつもそばに",
+          "zh": "幸福總是在我們身邊"
+        },
+        {
+          "index": 30,
+          "romaji": "shiawase wa itsumo soba ni",
+          "ja": "幸せはいつもそばに",
+          "zh": "幸福總是在我們身邊"
+        }
+      ],
+      "lyric_line_count": 31
+    },
+    {
       "id": "nishina-cranberry-jam",
       "title": "クランベリージャムをかけて",
       "artist": "にしな",
@@ -1393,6 +1887,7 @@
         "黑色幽默"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/cranberry-jam.jpg",
       "detail_url": "/translations/nishina-cranberry-jam/",
       "lyric_lines": [
@@ -1714,6 +2209,7 @@
         "同居分手"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/darling.jpg",
       "detail_url": "/translations/nishina-darling/",
       "lyric_lines": [
@@ -1915,6 +2411,7 @@
         "電影主題曲"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/debbie.jpg",
       "detail_url": "/translations/nishina-debbie/",
       "lyric_lines": [
@@ -2148,6 +2645,7 @@
         "自愛"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/hibi-sanman.jpg",
       "detail_url": "/translations/nishina-dress-code/",
       "lyric_lines": [
@@ -2377,6 +2875,471 @@
       "lyric_line_count": 37
     },
     {
+      "id": "nishina-eden",
+      "title": "EDEN",
+      "artist": "にしな",
+      "album": "FEAT / 客串",
+      "album_year": null,
+      "track_number": "2",
+      "publish_date": "2023-09-13",
+      "lyricist": [
+        "唾奇",
+        "SNEEEZE"
+      ],
+      "composer": [
+        "GeG",
+        "Kazuki Isogai"
+      ],
+      "arranger": null,
+      "tags": [
+        "Jazz Hip-Hop",
+        "feat",
+        "GeG",
+        "唾奇",
+        "都會夜曲",
+        "微醺"
+      ],
+      "instrumental": false,
+      "exclude_from_lyric_analysis": "true   # 主藝人 GeG,詞 唾奇/SNEEEZE,にしな feat 演唱",
+      "cover_image": "/covers/nishina/eden.jpg",
+      "detail_url": "/translations/nishina-eden/",
+      "lyric_lines": [
+        {
+          "index": 0,
+          "romaji": "just tonight konya dake",
+          "ja": "just tonight 今夜だけ",
+          "zh": "just tonight 只有今夜"
+        },
+        {
+          "index": 1,
+          "romaji": "kimi wo motomete",
+          "ja": "君を求めて",
+          "zh": "追尋著你"
+        },
+        {
+          "index": 2,
+          "romaji": "sayonara wa iwanaide",
+          "ja": "サヨナラは言わないで",
+          "zh": "別說再見"
+        },
+        {
+          "index": 3,
+          "romaji": "asa ga kuru made wa",
+          "ja": "朝がくるまでは",
+          "zh": "直到早晨到來之前"
+        },
+        {
+          "index": 4,
+          "romaji": "kimi to nara daijoubu",
+          "ja": "君となら大丈夫",
+          "zh": "只要有你,就沒問題"
+        },
+        {
+          "index": 5,
+          "romaji": "yume no you na saikoukyuu",
+          "ja": "夢の様な最高級",
+          "zh": "如夢一般的最高等級"
+        },
+        {
+          "index": 6,
+          "romaji": "saigo made sa I show you",
+          "ja": "最後までさ I show you",
+          "zh": "到最後,I show you"
+        },
+        {
+          "index": 7,
+          "romaji": "futari nara aishou good",
+          "ja": "二人なら相性 good",
+          "zh": "我們兩個,相性 good"
+        },
+        {
+          "index": 8,
+          "romaji": "show me you odotte",
+          "ja": "show me you 踊って",
+          "zh": "show me you 起舞吧"
+        },
+        {
+          "index": 9,
+          "romaji": "nagareru oto ni kimi to notte",
+          "ja": "流れる音に君と乗って",
+          "zh": "順著流動的樂聲與你共乘"
+        },
+        {
+          "index": 10,
+          "romaji": "I call you kimi wo sasotte",
+          "ja": "I call you 君を誘って",
+          "zh": "I call you 誘惑著你"
+        },
+        {
+          "index": 11,
+          "romaji": "nagareru hoshi ni kimi to notte",
+          "ja": "流れる星に君と乗って",
+          "zh": "乘上流星,和你一起"
+        },
+        {
+          "index": 12,
+          "romaji": "sugiteku yoru no naka",
+          "ja": "過ぎてく夜の中",
+          "zh": "在這流逝的夜色之中"
+        },
+        {
+          "index": 13,
+          "romaji": "setsunai koi shita",
+          "ja": "切ない恋した",
+          "zh": "談了一場心痛的戀愛"
+        },
+        {
+          "index": 14,
+          "romaji": "wakatte ite mo mata",
+          "ja": "わかっていてもまた",
+          "zh": "就算明白這一切"
+        },
+        {
+          "index": 15,
+          "romaji": "kimi wo oikakerunda",
+          "ja": "君を追いかけるんだ",
+          "zh": "我還是會再次追著你"
+        },
+        {
+          "index": 16,
+          "romaji": "hold on what you want",
+          "ja": "hold on what you want",
+          "zh": "hold on what you want"
+        },
+        {
+          "index": 17,
+          "romaji": "keep your eyes on me",
+          "ja": "keep your eyes on me",
+          "zh": "keep your eyes on me"
+        },
+        {
+          "index": 18,
+          "romaji": "gone on toki wa mujou ni flow",
+          "ja": "gone on 時は無常にflow",
+          "zh": "gone on 時間無常地流走"
+        },
+        {
+          "index": 19,
+          "romaji": "aisowarai to wa I don't wanna talk",
+          "ja": "愛想笑いとは I don't wanna talk",
+          "zh": "跟那種皮笑肉不笑的東西 I don't wanna talk"
+        },
+        {
+          "index": 20,
+          "romaji": "iro mo motenai hodo no kurayami wo saki",
+          "ja": "色も持てない程の暗闇を裂き",
+          "zh": "撕開連顏色都拿不住的黑暗"
+        },
+        {
+          "index": 21,
+          "romaji": "hito shirezu sora ni ochiru no wa diamond",
+          "ja": "人知れず空に落ちるのは diamond",
+          "zh": "悄悄地墜入夜空的是 diamond"
+        },
+        {
+          "index": 22,
+          "romaji": "kasaneta te wo hodoite",
+          "ja": "重ねた手を解いて",
+          "zh": "鬆開交疊的雙手"
+        },
+        {
+          "index": 23,
+          "romaji": "anata wa mijikai yoru no you desu",
+          "ja": "貴方は短い夜の様です",
+          "zh": "你就像這短暫的夜晚"
+        },
+        {
+          "index": 24,
+          "romaji": "nigiwau yoru no",
+          "ja": "賑わう夜の",
+          "zh": "在這熱鬧的夜晚"
+        },
+        {
+          "index": 25,
+          "romaji": "kimi to hitogomi nuke",
+          "ja": "君と人混み抜け",
+          "zh": "和你穿越人潮"
+        },
+        {
+          "index": 26,
+          "romaji": "sameteku yume wo",
+          "ja": "覚めてく夢を",
+          "zh": "將這逐漸醒來的夢境"
+        },
+        {
+          "index": 27,
+          "romaji": "kono me ni yakitsukete",
+          "ja": "この目に焼き付けて",
+          "zh": "深深烙印在雙眼裡"
+        },
+        {
+          "index": 28,
+          "romaji": "dare ni mo barenai you ni sa naisho",
+          "ja": "誰にもバレないようにさ内緒",
+          "zh": "別讓任何人發現,是秘密"
+        },
+        {
+          "index": 29,
+          "romaji": "saisho de saigo wo nando demo",
+          "ja": "最初で最後を何度でも",
+          "zh": "「第一次也是最後一次」,不論重複多少遍"
+        },
+        {
+          "index": 30,
+          "romaji": "kurikaeshite mo tsukamenai yo",
+          "ja": "繰り返しても掴めないよ",
+          "zh": "再重複也抓不住啊"
+        },
+        {
+          "index": 31,
+          "romaji": "sureta kanjou kojireta aijou",
+          "ja": "擦れた感情 拗れた愛情",
+          "zh": "磨損的情感、彆扭的愛情"
+        },
+        {
+          "index": 32,
+          "romaji": "kimi to yumemigokochi you na kibun",
+          "ja": "君と夢見心地ような気分",
+          "zh": "和你一起如同作夢般的心情"
+        },
+        {
+          "index": 33,
+          "romaji": "futari awaseru yoru no machi rizumu",
+          "ja": "二人合わせる夜の街リズム",
+          "zh": "兩人合上這夜晚街頭的節奏"
+        },
+        {
+          "index": 34,
+          "romaji": "iranai joushiki ima wa suteru riyuu",
+          "ja": "いらない常識 今は捨てる理由",
+          "zh": "不需要的常識,現在有理由拋掉"
+        },
+        {
+          "index": 35,
+          "romaji": "tada me no mae ni wa mata kimi ga iru",
+          "ja": "ただ目の前にはまた君がいる",
+          "zh": "只是眼前又出現了你"
+        },
+        {
+          "index": 36,
+          "romaji": "chikaku natte tooku natte",
+          "ja": "近くなって遠くなって",
+          "zh": "一下靠近、一下遠離"
+        },
+        {
+          "index": 37,
+          "romaji": "kodoku datte kowaku nakute",
+          "ja": "孤独だって怖くなくて",
+          "zh": "就算孤獨也不再害怕"
+        },
+        {
+          "index": 38,
+          "romaji": "jibun katte mo wakatteru",
+          "ja": "自分勝手もわかってる",
+          "zh": "我也知道自己任性"
+        },
+        {
+          "index": 39,
+          "romaji": "demo ima mata kimi ni koi shiteru",
+          "ja": "でも今また君に恋してる",
+          "zh": "但此刻我又愛上了你"
+        },
+        {
+          "index": 40,
+          "romaji": "dekakatta kotoba wo ichido nomikomeba",
+          "ja": "出かかった言葉を一度飲み込めば",
+          "zh": "將快要脫口的話再一次吞回去"
+        },
+        {
+          "index": 41,
+          "romaji": "mahou ga tokeru koto wo ore wa shitteita",
+          "ja": "魔法が解ける事を俺は知っていた",
+          "zh": "我早就知道魔法會就此解除"
+        },
+        {
+          "index": 42,
+          "romaji": "yakedo mitai na kiss ni gekkou wo abiru spotlight",
+          "ja": "火傷みたいな kiss に月光を浴びる spotlight",
+          "zh": "灼熱如燙傷的 kiss 沐浴著月光的 spotlight"
+        },
+        {
+          "index": 43,
+          "romaji": "oretachi wa henka ni sonaeta",
+          "ja": "俺たちは変化に備えた",
+          "zh": "我們早就為改變做好了準備"
+        },
+        {
+          "index": 44,
+          "romaji": "tatoe moshi kyou ga yume de genjitsu ja nai to shite mo",
+          "ja": "たとえもし今日が夢で現実じゃないとしても",
+          "zh": "就算今天是夢、不是現實"
+        },
+        {
+          "index": 45,
+          "romaji": "donna kekka demo ore wa shinogono iwanai",
+          "ja": "どんな結果でも俺はしのごの言わない",
+          "zh": "不管結果如何,我不會囉嗦地說什麼"
+        },
+        {
+          "index": 46,
+          "romaji": "kyosei no atsugeshou desho?",
+          "ja": "虚勢の厚化粧でしょ?",
+          "zh": "那不過是虛張聲勢的厚粉底吧?"
+        },
+        {
+          "index": 47,
+          "romaji": "itsuwari no shoutai to tomoru neon",
+          "ja": "偽りの正体と灯る neon",
+          "zh": "虛偽的真面目與亮起的 neon"
+        },
+        {
+          "index": 48,
+          "romaji": "kuruoshii hodo ni ichizu na love",
+          "ja": "狂おしい程に一途な love",
+          "zh": "瘋狂到不行、卻只朝著一人的 love"
+        },
+        {
+          "index": 49,
+          "romaji": "uzu ni tobikondeku mizukara",
+          "ja": "渦に飛び込んでく自ら",
+          "zh": "自願跳進漩渦裡"
+        },
+        {
+          "index": 50,
+          "romaji": "atarimae ni kakurete kizukanai",
+          "ja": "当たり前に隠れて気付かない",
+          "zh": "藏在理所當然背後,根本不會察覺"
+        },
+        {
+          "index": 51,
+          "romaji": "time limit wa? (nirvana)",
+          "ja": "time limit は? (nirvana)",
+          "zh": "time limit 是幾點? (nirvana / 涅槃)"
+        },
+        {
+          "index": 52,
+          "romaji": "issai nai konkyo to kyou no yohou doori tooriame",
+          "ja": "一切無い根拠と今日の予報通り通り雨",
+          "zh": "全無根據、就像今日預報的那場雷陣雨"
+        },
+        {
+          "index": 53,
+          "romaji": "nurasetari shinai hitori dake",
+          "ja": "濡らせたりしない一人だけ",
+          "zh": "唯獨不會淋濕、只有一個人"
+        },
+        {
+          "index": 54,
+          "romaji": "tokei no hari ga yoru no owari wo shiraseru",
+          "ja": "時計の針が夜の終わりを知らせる",
+          "zh": "時鐘的指針宣告著這一夜的結束"
+        },
+        {
+          "index": 55,
+          "romaji": "tojita me sorry my bad",
+          "ja": "閉じた目 sorry my bad",
+          "zh": "閉上的雙眼 sorry my bad"
+        },
+        {
+          "index": 56,
+          "romaji": "hold on what you want",
+          "ja": "hold on what you want",
+          "zh": "hold on what you want"
+        },
+        {
+          "index": 57,
+          "romaji": "keep your eyes on me",
+          "ja": "keep your eyes on me",
+          "zh": "keep your eyes on me"
+        },
+        {
+          "index": 58,
+          "romaji": "gone on toki wa mujou ni flow",
+          "ja": "gone on 時は無常に flow",
+          "zh": "gone on 時間無常地流走"
+        },
+        {
+          "index": 59,
+          "romaji": "aisowarai to wa I don't wanna talk",
+          "ja": "愛想笑いとは I don't wanna talk",
+          "zh": "跟那種皮笑肉不笑的東西 I don't wanna talk"
+        },
+        {
+          "index": 60,
+          "romaji": "iro mo motenai hodo no kurayami wo saki",
+          "ja": "色も持てない程の暗闇を裂き",
+          "zh": "撕開連顏色都拿不住的黑暗"
+        },
+        {
+          "index": 61,
+          "romaji": "hito shirezu sora ni ochiru no wa diamond",
+          "ja": "人知れず空に落ちるのは diamond",
+          "zh": "悄悄地墜入夜空的是 diamond"
+        },
+        {
+          "index": 62,
+          "romaji": "kasaneta te wo hodoite",
+          "ja": "重ねた手を解いて",
+          "zh": "鬆開交疊的雙手"
+        },
+        {
+          "index": 63,
+          "romaji": "anata wa mijikai yoru you desu",
+          "ja": "貴方は短い夜様です",
+          "zh": "你就像這短暫的夜晚"
+        },
+        {
+          "index": 64,
+          "romaji": "just tonight konya dake",
+          "ja": "just tonight 今夜だけ",
+          "zh": "just tonight 只有今夜"
+        },
+        {
+          "index": 65,
+          "romaji": "kimi wo motomete",
+          "ja": "君を求めて",
+          "zh": "追尋著你"
+        },
+        {
+          "index": 66,
+          "romaji": "sayonara wa iwanaide",
+          "ja": "サヨナラは言わないで",
+          "zh": "別說再見"
+        },
+        {
+          "index": 67,
+          "romaji": "asa ga kuru made wa",
+          "ja": "朝がくるまでは",
+          "zh": "直到早晨到來之前"
+        },
+        {
+          "index": 68,
+          "romaji": "kimi to nara daijoubu",
+          "ja": "君となら大丈夫",
+          "zh": "只要有你,就沒問題"
+        },
+        {
+          "index": 69,
+          "romaji": "yume no you na saikoukyuu",
+          "ja": "夢の様な最高級",
+          "zh": "如夢一般的最高等級"
+        },
+        {
+          "index": 70,
+          "romaji": "saigo made sa I show you",
+          "ja": "最後までさ I show you",
+          "zh": "到最後,I show you"
+        },
+        {
+          "index": 71,
+          "romaji": "futari nara aishou good",
+          "ja": "二人なら相性 good",
+          "zh": "我們兩個,相性 good"
+        }
+      ],
+      "lyric_line_count": 72
+    },
+    {
       "id": "nishina-friday-kids-china-town",
       "title": "FRIDAY KIDS CHINA TOWN",
       "artist": "にしな",
@@ -2397,6 +3360,7 @@
         "百鬼夜行"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/friday-kids-china-town.jpg",
       "detail_url": "/translations/nishina-friday-kids-china-town/",
       "lyric_lines": [
@@ -2684,6 +3648,7 @@
         "情歌"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/hibi-sanman.jpg",
       "detail_url": "/translations/nishina-glory/",
       "lyric_lines": [
@@ -2975,6 +3940,7 @@
         "暗戀"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/haru-ichiban.jpg",
       "detail_url": "/translations/nishina-haru-ichiban/",
       "lyric_lines": [
@@ -3160,6 +4126,7 @@
         "香菸"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/heavy-smoke.jpg",
       "detail_url": "/translations/nishina-heavy-smoke/",
       "lyric_lines": [
@@ -3427,6 +4394,7 @@
         "秘密"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/odds-and-ends.jpg",
       "detail_url": "/translations/nishina-himitsu-kichi/",
       "lyric_lines": [
@@ -3526,6 +4494,7 @@
         "秋冬"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/hot-milk.jpg",
       "detail_url": "/translations/nishina-hot-milk/",
       "lyric_lines": [
@@ -3775,6 +4744,7 @@
         "水"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/hibi-sanman.jpg",
       "detail_url": "/translations/nishina-in-your-eyes/",
       "lyric_lines": [
@@ -4136,6 +5106,455 @@
       "lyric_line_count": 59
     },
     {
+      "id": "nishina-inaho",
+      "title": "Inaho",
+      "artist": "にしな",
+      "album": "FEAT / 客串",
+      "album_year": null,
+      "track_number": "6",
+      "publish_date": "2025-08-04",
+      "lyricist": [
+        "唾奇",
+        "にしな"
+      ],
+      "composer": [
+        "唾奇",
+        "にしな",
+        "hokuto"
+      ],
+      "arranger": null,
+      "tags": [
+        "Jazz Hip-Hop",
+        "feat",
+        "唾奇",
+        "hokuto",
+        "Camellia",
+        "自省",
+        "文語"
+      ],
+      "instrumental": false,
+      "exclude_from_lyric_analysis": "true   # 主藝人 唾奇 (Camellia Track 12),にしな 掛名共同作詞但主導為唾奇",
+      "cover_image": "/covers/nishina/inaho.png",
+      "detail_url": "/translations/nishina-inaho/",
+      "lyric_lines": [
+        {
+          "index": 0,
+          "romaji": "tsune ni joucho wa fuantei nan da",
+          "ja": "常に情緒は不安定んだ",
+          "zh": "情緒總是處於不穩定的狀態啊"
+        },
+        {
+          "index": 1,
+          "romaji": "baakan de hirotta ano anteizai ja",
+          "ja": "バーカンで拾ったあの安定剤じゃ",
+          "zh": "在吧台拿到的那錠安定劑"
+        },
+        {
+          "index": 2,
+          "romaji": "tarinai peace no nuketa puzzle",
+          "ja": "足り無い peace の抜けた puzzle",
+          "zh": "根本填補不了缺失了 peace 的 puzzle"
+        },
+        {
+          "index": 3,
+          "romaji": "sore ga ima no bars",
+          "ja": "それが今の bars",
+          "zh": "這就是我現在吐出的歌詞(bars)"
+        },
+        {
+          "index": 4,
+          "romaji": "mata okizari ka satta basu",
+          "ja": "また置き去りか 去ったバス",
+          "zh": "又被丟下了嗎? 開走的公車"
+        },
+        {
+          "index": 5,
+          "romaji": "aru ze kasu ni mo ai kurai",
+          "ja": "あるぜカスにも愛くらい",
+          "zh": "就算是個廢柴,至少也還是有愛吧"
+        },
+        {
+          "index": 6,
+          "romaji": "aimai na kurai ga choudo ii deshou",
+          "ja": "曖昧なくらいが丁度いいでしょう",
+          "zh": "稍微曖昧一點反而剛剛好吧"
+        },
+        {
+          "index": 7,
+          "romaji": "kanojo no insuta ni wa iine shiyou",
+          "ja": "彼女のインスタにはいいねしよう",
+          "zh": "去點個讚給女友的 Instagram 吧"
+        },
+        {
+          "index": 8,
+          "romaji": "Hokuto no beat yappa ii desho?",
+          "ja": "Hokuto の beat やっぱ良いでしょ?",
+          "zh": "hokuto 製作的 beat 果然很棒對吧?"
+        },
+        {
+          "index": 9,
+          "romaji": "jiman shitai mono ga fueru",
+          "ja": "自慢したい物が増える",
+          "zh": "值得自滿誇耀的事物變多了"
+        },
+        {
+          "index": 10,
+          "romaji": "kane ya daiya ja naku",
+          "ja": "金やダイヤじゃなく",
+          "zh": "不是金錢或鑽石"
+        },
+        {
+          "index": 11,
+          "romaji": "aiseru hito no kazu",
+          "ja": "愛せる人の数",
+          "zh": "而是能去愛的人的數量"
+        },
+        {
+          "index": 12,
+          "romaji": "ishiki suru ikiru koto soshite shinu koto",
+          "ja": "意識する生きる事 そして死ぬ事",
+          "zh": "去意識何謂生存,以及何謂死亡"
+        },
+        {
+          "index": 13,
+          "romaji": "jibun no teisai wo mamoru tame shinogono",
+          "ja": "自分の体裁を守るためしのごの",
+          "zh": "為了維護自己的面子而三番兩次"
+        },
+        {
+          "index": 14,
+          "romaji": "itteta maybe misenai damage",
+          "ja": "言ってた maybe 見せない damage",
+          "zh": "找藉口 maybe(或許吧),不展露受到的傷痛(damage)"
+        },
+        {
+          "index": 15,
+          "romaji": "Negative ga unda uta ga ima no bane ni",
+          "ja": "Negative が生んだ歌が今のバネに",
+          "zh": "Negative(負面情緒) 孕育出的歌曲變成了現在的跳板"
+        },
+        {
+          "index": 16,
+          "romaji": "inaho wa herikudaru yueni sore wo shiru tame",
+          "ja": "稲穂は謙る 故にそれを知るため",
+          "zh": "稻穗會低頭垂首,因此為了明白這個道理"
+        },
+        {
+          "index": 17,
+          "romaji": "ima wa susume let it be, yeah",
+          "ja": "今は進め let it be, yeah",
+          "zh": "現在就向前邁進吧 let it be, yeah"
+        },
+        {
+          "index": 18,
+          "romaji": "I don't know why ima no boku de wa",
+          "ja": "I don't know why 今の僕では",
+          "zh": "I don't know why 以我現在的模樣"
+        },
+        {
+          "index": 19,
+          "romaji": "kangaete mita kedo all day and night",
+          "ja": "考えてみたけど all day and night",
+          "zh": "雖然試著思考過了 all day and night(日日夜夜)"
+        },
+        {
+          "index": 20,
+          "romaji": "I don't know why ima no mama de wa",
+          "ja": "I don't know why 今のままでは",
+          "zh": "I don't know why 保持現在這個樣子"
+        },
+        {
+          "index": 21,
+          "romaji": "wakatteta kedo rokudenashi",
+          "ja": "分かってたけどろくでなし",
+          "zh": "雖然早已心知肚明,我就是個沒用的傢伙"
+        },
+        {
+          "index": 22,
+          "romaji": "I don't know why ima omou ze maa",
+          "ja": "I don't know why 今思うぜまぁ",
+          "zh": "I don't know why 現在想想看啊"
+        },
+        {
+          "index": 23,
+          "romaji": "kouin ya no gotoshi ko wo egaku",
+          "ja": "光陰矢の如し弧を描く",
+          "zh": "光陰似箭般劃出一道弧線"
+        },
+        {
+          "index": 24,
+          "romaji": "I don't know why ima wo ippitsugaki",
+          "ja": "I don't know why 今を一筆書き",
+          "zh": "I don't know why 將當下畫成一筆畫"
+        },
+        {
+          "index": 25,
+          "romaji": "kaze ni yurareru you ni",
+          "ja": "風に揺られるように",
+          "zh": "如同隨風搖曳一般"
+        },
+        {
+          "index": 26,
+          "romaji": "tasogare inaho wa tada tayutau hmm-hmm",
+          "ja": "黄昏 稲穂はただたゆたふ hmm-hmm",
+          "zh": "黃昏時刻,稻穗只是隨風搖曳著 hmm-hmm"
+        },
+        {
+          "index": 27,
+          "romaji": "aisuru hibi yuunagi",
+          "ja": "愛する日々 夕凪",
+          "zh": "充滿愛的日子,夕陽下的風平浪靜"
+        },
+        {
+          "index": 28,
+          "romaji": "anata wo omoi yurare tayutau hmm-hmm",
+          "ja": "貴方を思い揺られたゆたふ hmm-hmm",
+          "zh": "思念著你,隨風輕晃搖曳著 hmm-hmm"
+        },
+        {
+          "index": 29,
+          "romaji": "tada ukabu yurari",
+          "ja": "ただ浮かぶ ゆらり",
+          "zh": "只是漂浮著,晃啊晃地"
+        },
+        {
+          "index": 30,
+          "romaji": "nasakenakute shinitakatta hi mo",
+          "ja": "情け無くて死にたかった日も",
+          "zh": "連自己都覺得窩囊、痛苦想死的日子裡"
+        },
+        {
+          "index": 31,
+          "romaji": "sasaete kureteta hito",
+          "ja": "支えてくれてた人",
+          "zh": "背後默默支持著我的人"
+        },
+        {
+          "index": 32,
+          "romaji": "zetsubou no ura ni aru no wa kibou?",
+          "ja": "絶望の裏にあるのは希望?",
+          "zh": "絕望的背後藏著的是希望嗎?"
+        },
+        {
+          "index": 33,
+          "romaji": "maa jinsei aru ze iroiro",
+          "ja": "まぁ 人生あるぜ色々",
+          "zh": "嘛,人生總是有著起起伏伏呢"
+        },
+        {
+          "index": 34,
+          "romaji": "kangaete ita kiro",
+          "ja": "考えていた帰路",
+          "zh": "在回家的路上思考著"
+        },
+        {
+          "index": 35,
+          "romaji": "shiru yoshi mo nai mirai ni",
+          "ja": "知るよしも無い未来に",
+          "zh": "對一無所知的未來"
+        },
+        {
+          "index": 36,
+          "romaji": "obiete tachidomaru no sa tama ni",
+          "ja": "怯えて立ち止まるのさたまに",
+          "zh": "感到害怕而偶爾停下腳步"
+        },
+        {
+          "index": 37,
+          "romaji": "onaji basho de koketemo manabanai",
+          "ja": "同じ場所で転けても学ばない",
+          "zh": "即使在同一個地方摔倒也不長教訓"
+        },
+        {
+          "index": 38,
+          "romaji": "ore ni oshiete kureta hito wa \"ai no mama ni\"",
+          "ja": "俺に教えてくれた人は『愛のままに』",
+          "zh": "而點醒了我的人,教導我要「順從愛意」"
+        },
+        {
+          "index": 39,
+          "romaji": "mawaru jidai no chibu yashiga ill",
+          "ja": "回る時代の恥部やしが ill",
+          "zh": "轉動著的時代的醜陋面,但依然很酷(ill)"
+        },
+        {
+          "index": 40,
+          "romaji": "kimi mitsumeru no sono me wa ichizu",
+          "ja": "君見つめるのその目は一途",
+          "zh": "注視著你的那雙眼睛無比專一"
+        },
+        {
+          "index": 41,
+          "romaji": "tarinai ana wo umeru tame hisshi datta",
+          "ja": "足り無い穴を埋めるため必死だった",
+          "zh": "為了填補不夠完美的空缺,曾經拚盡了全力"
+        },
+        {
+          "index": 42,
+          "romaji": "ore mo baka yassa",
+          "ja": "俺も馬鹿やっさ",
+          "zh": "我也是個傻瓜啊"
+        },
+        {
+          "index": 43,
+          "romaji": "\"kawaranai\" mo \"kawatte iku\" mo suteki",
+          "ja": "\"変わら無い\" も \"変わって行く\" も素敵",
+          "zh": "「始終如一」與「不斷改變」都很美好"
+        },
+        {
+          "index": 44,
+          "romaji": "nasu beki koto ga aru ze me",
+          "ja": "成すべき事があるぜ me",
+          "zh": "我還有著必須去完成的事情呢 me"
+        },
+        {
+          "index": 45,
+          "romaji": "unmei wa eraberu ka? alchemist",
+          "ja": "運命は選べるか? alchmist",
+          "zh": "命運是可以選擇的嗎? 煉金術師(alchemist)"
+        },
+        {
+          "index": 46,
+          "romaji": "seikou wo eru tame ni wa misu mo hitsuyou",
+          "ja": "成功を得るためにはミスも必要",
+          "zh": "為了獲得成功,失敗也是不可或缺的"
+        },
+        {
+          "index": 47,
+          "romaji": "I don't know why ima no boku de wa",
+          "ja": "I don't know why 今の僕では",
+          "zh": "I don't know why 以我現在的模樣"
+        },
+        {
+          "index": 48,
+          "romaji": "kangaete mita kedo all day and night",
+          "ja": "考えてみたけど all day and night",
+          "zh": "雖然試著思考過了 all day and night"
+        },
+        {
+          "index": 49,
+          "romaji": "I don't know why ima no mama de wa",
+          "ja": "I don't know why 今のままでは",
+          "zh": "I don't know why 保持現在這個樣子"
+        },
+        {
+          "index": 50,
+          "romaji": "wakatteta kedo rokudenashi",
+          "ja": "分かってたけどろくでなし",
+          "zh": "雖然早已心知肚明,我就是個沒用的傢伙"
+        },
+        {
+          "index": 51,
+          "romaji": "I don't know why ima omou ze maa",
+          "ja": "I don't know why 今思うぜまぁ",
+          "zh": "I don't know why 現在想想看啊"
+        },
+        {
+          "index": 52,
+          "romaji": "kouin ya no gotoshi ko wo egaku",
+          "ja": "光陰矢の如し弧を描く",
+          "zh": "光陰似箭般劃出一道弧線"
+        },
+        {
+          "index": 53,
+          "romaji": "I don't know why ima wo ippitsugaki",
+          "ja": "I don't know why 今を一筆書き",
+          "zh": "I don't know why 將當下畫成一筆畫"
+        },
+        {
+          "index": 54,
+          "romaji": "kaze ni yurareru you ni",
+          "ja": "風に揺られるように",
+          "zh": "如同隨風搖曳一般"
+        },
+        {
+          "index": 55,
+          "romaji": "konjiki no kikyou",
+          "ja": "金色の帰郷",
+          "zh": "金黃色的歸鄉之路"
+        },
+        {
+          "index": 56,
+          "romaji": "terasanai hada iro",
+          "ja": "照らさない肌色",
+          "zh": "映照著肌膚的顏色"
+        },
+        {
+          "index": 57,
+          "romaji": "hibi anata wo omou",
+          "ja": "日々貴方を想ふ",
+          "zh": "日日夜夜思念著你"
+        },
+        {
+          "index": 58,
+          "romaji": "afureru minori to",
+          "ja": "溢れる実りと",
+          "zh": "滿溢而出的豐收果實與"
+        },
+        {
+          "index": 59,
+          "romaji": "kureru setsuna wo",
+          "ja": "暮れる刹那を",
+          "zh": "日落沉沒的瞬間"
+        },
+        {
+          "index": 60,
+          "romaji": "tada itsukushimu",
+          "ja": "ただ愛しむ",
+          "zh": "只是深深地去珍惜疼愛"
+        },
+        {
+          "index": 61,
+          "romaji": "aruite mukau yo",
+          "ja": "歩いて向かうよ",
+          "zh": "用雙腳邁步前行喔"
+        },
+        {
+          "index": 62,
+          "romaji": "dorehodo ni tooku temo",
+          "ja": "どれ程に遠くても",
+          "zh": "無論路途多麼遙遠"
+        },
+        {
+          "index": 63,
+          "romaji": "kawaita kokoro wo",
+          "ja": "乾いた心を",
+          "zh": "為了去滋潤"
+        },
+        {
+          "index": 64,
+          "romaji": "mitasu tame doko made mo",
+          "ja": "満たすためどこまでも",
+          "zh": "枯竭的心靈,無論何處都會前行"
+        },
+        {
+          "index": 65,
+          "romaji": "itsuka tomaru ashi",
+          "ja": "いつか止まる足",
+          "zh": "總有一天會停下的雙腳"
+        },
+        {
+          "index": 66,
+          "romaji": "kokochi yoku suwarikomu",
+          "ja": "心地よく座り込む",
+          "zh": "舒服地盤腿坐下"
+        },
+        {
+          "index": 67,
+          "romaji": "subete uketome you",
+          "ja": "全て受け止めよう",
+          "zh": "坦然接受這一切吧"
+        },
+        {
+          "index": 68,
+          "romaji": "juubun no heigai mo fusoku no onkei mo",
+          "ja": "十分の弊害も不足の恩恵も",
+          "zh": "不管是充足過頭帶來的弊端,還是匱乏不足給予的恩惠"
+        }
+      ],
+      "lyric_line_count": 69
+    },
+    {
       "id": "nishina-intro",
       "title": "intro",
       "artist": "にしな",
@@ -4156,6 +5575,7 @@
         "專輯開場"
       ],
       "instrumental": true,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/hibi-sanman.jpg",
       "detail_url": "/translations/nishina-intro/",
       "lyric_lines": [],
@@ -4184,6 +5604,7 @@
         "青春"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/its-a-piece-of-cake.jpg",
       "detail_url": "/translations/nishina-its-a-piece-of-cake/",
       "lyric_lines": [
@@ -4439,6 +5860,7 @@
         "野獸國"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/kedamono-no-friends.jpg",
       "detail_url": "/translations/nishina-kedamono-no-friends/",
       "lyric_lines": [
@@ -4744,6 +6166,7 @@
         "歡樂"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/hibi-sanman.jpg",
       "detail_url": "/translations/nishina-kyou-mo-kyou-tote-remix/",
       "lyric_lines": [
@@ -4831,6 +6254,7 @@
         "苦戀"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/mashiro.jpg",
       "detail_url": "/translations/nishina-mashiro/",
       "lyric_lines": [
@@ -5056,6 +6480,7 @@
         "脆弱"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/1999.jpg",
       "detail_url": "/translations/nishina-momo/",
       "lyric_lines": [
@@ -5223,6 +6648,7 @@
         "小確幸"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/nekoze.jpg",
       "detail_url": "/translations/nishina-nekoze/",
       "lyric_lines": [
@@ -5502,6 +6928,7 @@
         "遺憾"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/1999.jpg",
       "detail_url": "/translations/nishina-one-room/",
       "lyric_lines": [
@@ -5728,6 +7155,7 @@
         "溫柔"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/hibi-sanman.jpg",
       "detail_url": "/translations/nishina-oto-ni-natteiku-yo/",
       "lyric_lines": [
@@ -6045,6 +7473,7 @@
         "彆扭"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/panda-girl.jpg",
       "detail_url": "/translations/nishina-panda-girl/",
       "lyric_lines": [
@@ -6380,6 +7809,7 @@
         "壞女孩"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/plum.jpg",
       "detail_url": "/translations/nishina-plum/",
       "lyric_lines": [
@@ -6625,6 +8055,7 @@
         "宇宙"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/rendezvous.jpg",
       "detail_url": "/translations/nishina-rendezvous/",
       "lyric_lines": [
@@ -6882,6 +8313,7 @@
         "宇宙"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/rinne.jpg",
       "detail_url": "/translations/nishina-rinne/",
       "lyric_lines": [
@@ -7033,6 +8465,325 @@
       "lyric_line_count": 24
     },
     {
+      "id": "nishina-santa-girl",
+      "title": "サンタガール",
+      "artist": "にしな",
+      "album": "FEAT / 客串",
+      "album_year": null,
+      "track_number": "1",
+      "publish_date": "2021-12-01",
+      "lyricist": [
+        "WurtS"
+      ],
+      "composer": [
+        "WurtS"
+      ],
+      "arranger": null,
+      "tags": [
+        "J-POP",
+        "feat",
+        "WurtS",
+        "聖誕節",
+        "青春",
+        "校園"
+      ],
+      "instrumental": false,
+      "exclude_from_lyric_analysis": "true   # 詞曲皆 WurtS 作,にしな 僅 feat 客串",
+      "cover_image": "/covers/nishina/santa-girl.jpg",
+      "detail_url": "/translations/nishina-santa-girl/",
+      "lyric_lines": [
+        {
+          "index": 0,
+          "romaji": "hajimari wa sou",
+          "ja": "はじまりはそう",
+          "zh": "沒錯,一切的開始"
+        },
+        {
+          "index": 1,
+          "romaji": "onaji kyoushitsu de",
+          "ja": "同じ教室で",
+          "zh": "是在同一個教室裡"
+        },
+        {
+          "index": 2,
+          "romaji": "me to me wo awasete",
+          "ja": "目と目を合わせて",
+          "zh": "眼神與眼神交會"
+        },
+        {
+          "index": 3,
+          "romaji": "hohoemu you ni",
+          "ja": "微笑むように",
+          "zh": "相視而笑"
+        },
+        {
+          "index": 4,
+          "romaji": "machiawase wa",
+          "ja": "待ち合わせは",
+          "zh": "約定見面的地方"
+        },
+        {
+          "index": 5,
+          "romaji": "tokeidai de",
+          "ja": "時計台で",
+          "zh": "是在鐘樓下"
+        },
+        {
+          "index": 6,
+          "romaji": "te to te wo awasete",
+          "ja": "手と手を合わせて",
+          "zh": "牽起彼此的手"
+        },
+        {
+          "index": 7,
+          "romaji": "hohoemu you ni",
+          "ja": "微笑むように",
+          "zh": "相視而笑"
+        },
+        {
+          "index": 8,
+          "romaji": "kimi wa amai kotoba nado",
+          "ja": "君は甘い言葉など",
+          "zh": "雖然你不會"
+        },
+        {
+          "index": 9,
+          "romaji": "iwanai keredo",
+          "ja": "言わないけれど",
+          "zh": "說什麼甜言蜜語"
+        },
+        {
+          "index": 10,
+          "romaji": "fui ni boku wo sasotte",
+          "ja": "不意に僕を誘って",
+          "zh": "卻突然對我發出邀請"
+        },
+        {
+          "index": 11,
+          "romaji": "boku mo onaji you na koto",
+          "ja": "僕も同じようなこと",
+          "zh": "我也曾裝模作樣地"
+        },
+        {
+          "index": 12,
+          "romaji": "kakko tsukete sa",
+          "ja": "カッコつけてさ",
+          "zh": "思考過"
+        },
+        {
+          "index": 13,
+          "romaji": "kangaeteta yo",
+          "ja": "考えてたよ",
+          "zh": "一模一樣的事情啊"
+        },
+        {
+          "index": 14,
+          "romaji": "akari ga tomotte iku",
+          "ja": "あかりが灯っていく",
+          "zh": "燈火逐漸點亮"
+        },
+        {
+          "index": 15,
+          "romaji": "kurisumasu yoru wa kagayatte iru",
+          "ja": "クリスマス夜は輝っている",
+          "zh": "聖誕節的夜晚閃耀著光芒"
+        },
+        {
+          "index": 16,
+          "romaji": "kimi no iro ni somatte ikunda",
+          "ja": "君の色に染まっていくんだ",
+          "zh": "漸漸染上了你的色彩"
+        },
+        {
+          "index": 17,
+          "romaji": "santa gaaru wa boku ni muchuu",
+          "ja": "サンタガールは僕に夢中",
+          "zh": "Santa Girl 對我神魂顛倒"
+        },
+        {
+          "index": 18,
+          "romaji": "ima omou to",
+          "ja": "今思うと",
+          "zh": "現在回想起來"
+        },
+        {
+          "index": 19,
+          "romaji": "onaji kyoushitsu de",
+          "ja": "同じ教室で",
+          "zh": "在同一個教室裡"
+        },
+        {
+          "index": 20,
+          "romaji": "tonari no seki ni nari",
+          "ja": "隣の席になり",
+          "zh": "坐在彼此隔壁"
+        },
+        {
+          "index": 21,
+          "romaji": "hashagu yoru wa",
+          "ja": "はしゃぐ夜は",
+          "zh": "歡鬧歡慶的夜晚"
+        },
+        {
+          "index": 22,
+          "romaji": "machi ni matta",
+          "ja": "待ちに待った",
+          "zh": "朝思暮想的"
+        },
+        {
+          "index": 23,
+          "romaji": "tokeidai e",
+          "ja": "時計台へ",
+          "zh": "鐘樓"
+        },
+        {
+          "index": 24,
+          "romaji": "hayame ni kigaete",
+          "ja": "はやめに着替えて",
+          "zh": "早早換好衣服"
+        },
+        {
+          "index": 25,
+          "romaji": "hana wo kau no",
+          "ja": "花を買うの",
+          "zh": "買了束花"
+        },
+        {
+          "index": 26,
+          "romaji": "kimi wa amai kotoba nado",
+          "ja": "君は甘い言葉など",
+          "zh": "雖然你不會"
+        },
+        {
+          "index": 27,
+          "romaji": "iwanai keredo",
+          "ja": "言わないけれど",
+          "zh": "說什麼甜言蜜語"
+        },
+        {
+          "index": 28,
+          "romaji": "fui ni boku wo sasotte",
+          "ja": "不意に僕を誘って",
+          "zh": "卻突然對我發出邀請"
+        },
+        {
+          "index": 29,
+          "romaji": "boku mo onaji you na koto",
+          "ja": "僕も同じようなこと",
+          "zh": "我也曾裝模作樣地"
+        },
+        {
+          "index": 30,
+          "romaji": "kakko tsukete sa",
+          "ja": "カッコつけてさ",
+          "zh": "思考過"
+        },
+        {
+          "index": 31,
+          "romaji": "kangaeteta yo",
+          "ja": "考えてたよ",
+          "zh": "一模一樣的事情啊"
+        },
+        {
+          "index": 32,
+          "romaji": "akari ga tomotte iku",
+          "ja": "あかりが灯っていく",
+          "zh": "燈火逐漸點亮"
+        },
+        {
+          "index": 33,
+          "romaji": "kurisumasu yoru wa kagayatte iru",
+          "ja": "クリスマス夜は輝っている",
+          "zh": "聖誕節的夜晚閃耀著光芒"
+        },
+        {
+          "index": 34,
+          "romaji": "kimi no iro ni somatte ikunda",
+          "ja": "君の色に染まっていくんだ",
+          "zh": "漸漸染上了你的色彩"
+        },
+        {
+          "index": 35,
+          "romaji": "santa gaaru wa boku ni muchuu",
+          "ja": "サンタガールは僕に夢中",
+          "zh": "Santa Girl 對我神魂顛倒"
+        },
+        {
+          "index": 36,
+          "romaji": "akari ga tomotte iku",
+          "ja": "あかりが灯っていく",
+          "zh": "燈火逐漸點亮"
+        },
+        {
+          "index": 37,
+          "romaji": "kurisumasu boku ga utatte iru",
+          "ja": "クリスマス僕が歌っている",
+          "zh": "聖誕節我正在歌唱著"
+        },
+        {
+          "index": 38,
+          "romaji": "kimi no hitomi de kawatte iku sekai",
+          "ja": "君の瞳で変わっていく世界",
+          "zh": "因為你的雙眼而逐漸改變的世界"
+        },
+        {
+          "index": 39,
+          "romaji": "santa gaaru ni boku wa muchuu",
+          "ja": "サンタガールに僕は夢中",
+          "zh": "是我對 Santa Girl 神魂顛倒啊"
+        },
+        {
+          "index": 40,
+          "romaji": "akari ga tomotte iku",
+          "ja": "あかりが灯っていく",
+          "zh": "燈火逐漸點亮"
+        },
+        {
+          "index": 41,
+          "romaji": "kurisumasu yoru wa kagayatte iru",
+          "ja": "クリスマス夜は輝っている",
+          "zh": "聖誕節的夜晚閃耀著光芒"
+        },
+        {
+          "index": 42,
+          "romaji": "kimi no iro ni somatte ikunda",
+          "ja": "君の色に染まっていくんだ",
+          "zh": "漸漸染上了你的色彩"
+        },
+        {
+          "index": 43,
+          "romaji": "santa gaaru wa boku ni muchuu",
+          "ja": "サンタガールは僕に夢中",
+          "zh": "Santa Girl 對我神魂顛倒"
+        },
+        {
+          "index": 44,
+          "romaji": "akari ga tomotte iku",
+          "ja": "あかりが灯っていく",
+          "zh": "燈火逐漸點亮"
+        },
+        {
+          "index": 45,
+          "romaji": "kurisumasu yoru wa kagayatte iru",
+          "ja": "クリスマス夜は輝っている",
+          "zh": "聖誕節的夜晚閃耀著光芒"
+        },
+        {
+          "index": 46,
+          "romaji": "kimi no iro ni somatte ikunda",
+          "ja": "君の色に染まっていくんだ",
+          "zh": "漸漸染上了你的色彩"
+        },
+        {
+          "index": 47,
+          "romaji": "santa gaaru wa boku ni muchuu",
+          "ja": "サンタガールは僕に夢中",
+          "zh": "Santa Girl 對我神魂顛倒"
+        }
+      ],
+      "lyric_line_count": 48
+    },
+    {
       "id": "nishina-seiran-yuuei",
       "title": "青藍遊泳",
       "artist": "にしな",
@@ -7053,6 +8804,7 @@
         "夏夜"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/1999.jpg",
       "detail_url": "/translations/nishina-seiran-yuuei/",
       "lyric_lines": [
@@ -7230,6 +8982,7 @@
         "自毀"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/slow-motion.jpg",
       "detail_url": "/translations/nishina-slow-motion/",
       "lyric_lines": [
@@ -7439,6 +9192,7 @@
         "陪伴"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/sugar-spot.jpg",
       "detail_url": "/translations/nishina-sugar-spot/",
       "lyric_lines": [
@@ -7824,6 +9578,400 @@
       "lyric_line_count": 63
     },
     {
+      "id": "nishina-suisen",
+      "title": "水仙",
+      "artist": "にしな",
+      "album": "FEAT / 客串",
+      "album_year": null,
+      "track_number": "3",
+      "publish_date": "2024-01-03",
+      "lyricist": [
+        "唾奇",
+        "にしな"
+      ],
+      "composer": [
+        "唾奇",
+        "にしな",
+        "GeG"
+      ],
+      "arranger": null,
+      "tags": [
+        "Jazz Hip-Hop",
+        "feat",
+        "唾奇",
+        "GeG",
+        "自戀",
+        "無法交集"
+      ],
+      "instrumental": false,
+      "exclude_from_lyric_analysis": "true   # 主藝人 唾奇,にしな 掛名共同作詞但主導為唾奇",
+      "cover_image": "/covers/nishina/suisen.jpg",
+      "detail_url": "/translations/nishina-suisen/",
+      "lyric_lines": [
+        {
+          "index": 0,
+          "romaji": "ai mo kawarazu i wa nai ga",
+          "ja": "相も変わらずiは無いが",
+          "zh": "依然如故,既沒有「我(i)」,也沒有「愛(ai)」"
+        },
+        {
+          "index": 1,
+          "romaji": "ai wa iu to hanarete tsurai",
+          "ja": "愛は言うと離れて辛い",
+          "zh": "但若說出了「愛」,遠離彼此又令人難受"
+        },
+        {
+          "index": 2,
+          "romaji": "wake mo naku tachiyotta kouen",
+          "ja": "訳もなく立ち寄った公園",
+          "zh": "毫無理由地順道走進的公園"
+        },
+        {
+          "index": 3,
+          "romaji": "tabako ni hi",
+          "ja": "タバコに火",
+          "zh": "點燃香煙"
+        },
+        {
+          "index": 4,
+          "romaji": "tsukete matsu hitori",
+          "ja": "付けて待つ一人",
+          "zh": "一個人獨自等待"
+        },
+        {
+          "index": 5,
+          "romaji": "asahi wo matsu dakedo furu ame",
+          "ja": "朝日を待つ だけど降る雨",
+          "zh": "等待著朝陽,降下的卻是雨水"
+        },
+        {
+          "index": 6,
+          "romaji": "nuruma yu wa ii ga",
+          "ja": "ぬるま湯はいいが",
+          "zh": "溫水雖然舒服"
+        },
+        {
+          "index": 7,
+          "romaji": "kono mama ja dame?",
+          "ja": "このままじゃダメ?",
+          "zh": "難道一直這樣下去不行嗎?"
+        },
+        {
+          "index": 8,
+          "romaji": "Money ja shiawase ni narenainda ne",
+          "ja": "Money じゃ幸せになれないんだね",
+          "zh": "看來靠「金錢(Money)」是無法獲得幸福的呢"
+        },
+        {
+          "index": 9,
+          "romaji": "sameta yume katamuiteru babel",
+          "ja": "覚めた夢傾いてる babel",
+          "zh": "醒來的夢境,正逐漸傾斜的巴別塔(Babel)"
+        },
+        {
+          "index": 10,
+          "romaji": "kitanai hito to shiranai you na kao",
+          "ja": "汚い人と知らないような顔",
+          "zh": "裝作不認識骯髒之人般的面孔"
+        },
+        {
+          "index": 11,
+          "romaji": "iranai mono wa iranai mon",
+          "ja": "要らない物は要らないもん",
+          "zh": "不需要的東西就是不需要嘛"
+        },
+        {
+          "index": 12,
+          "romaji": "kimi wa taiyou de ore ni wa nai mono ga aru",
+          "ja": "君は太陽で俺には無い物がある",
+          "zh": "你是太陽,擁有著我所沒有的光芒"
+        },
+        {
+          "index": 13,
+          "romaji": "Zion wa naku ubaiau love",
+          "ja": "Zion は無く奪い合う love",
+          "zh": "沒有聖城錫安(Zion),只有互相爭奪的「愛(love)」"
+        },
+        {
+          "index": 14,
+          "romaji": "tsumi to batsu no bun no rougoku",
+          "ja": "罪と罰の分の牢獄",
+          "zh": "承載著罪與罰的監獄"
+        },
+        {
+          "index": 15,
+          "romaji": "kuchi no naka de kaketa doroppusu",
+          "ja": "口の中で欠けたドロップス",
+          "zh": "在口中破裂缺角的糖果"
+        },
+        {
+          "index": 16,
+          "romaji": "jibun wa korosenai",
+          "ja": "自分は殺せない",
+          "zh": "我無法殺死自己"
+        },
+        {
+          "index": 17,
+          "romaji": "mou koko ni wa irarenai",
+          "ja": "もう此処には居られない",
+          "zh": "但我也已經無法再留在此處了"
+        },
+        {
+          "index": 18,
+          "romaji": "ainiku my love",
+          "ja": "生憎 my love",
+          "zh": "很不巧 my love"
+        },
+        {
+          "index": 19,
+          "romaji": "I missing tired",
+          "ja": "I missing tired",
+          "zh": "我因思念而疲憊不堪"
+        },
+        {
+          "index": 20,
+          "romaji": "chigireta denpa",
+          "ja": "千切れた電波",
+          "zh": "斷斷續續的訊號(電波)"
+        },
+        {
+          "index": 21,
+          "romaji": "gomakasenai",
+          "ja": "誤魔化せない",
+          "zh": "再也無法掩飾"
+        },
+        {
+          "index": 22,
+          "romaji": "kimi dake ga kagayaite mienai seiza",
+          "ja": "君だけが輝いて見えない星座",
+          "zh": "只有你獨自閃耀、看不清形狀的星座"
+        },
+        {
+          "index": 23,
+          "romaji": "ainiku my love",
+          "ja": "生憎 my love",
+          "zh": "很不巧 my love"
+        },
+        {
+          "index": 24,
+          "romaji": "I missing tired",
+          "ja": "I missing tired",
+          "zh": "我因思念而疲憊不堪"
+        },
+        {
+          "index": 25,
+          "romaji": "hagareochita meiga",
+          "ja": "剥がれ落ちた名画",
+          "zh": "剝落的名畫"
+        },
+        {
+          "index": 26,
+          "romaji": "nagareru hoshi no you ni fade out",
+          "ja": "流れる星の様に fade out",
+          "zh": "如流星般逐漸 fade out"
+        },
+        {
+          "index": 27,
+          "romaji": "ai dakishimete",
+          "ja": "哀抱きしめて",
+          "zh": "緊抱著「哀傷」"
+        },
+        {
+          "index": 28,
+          "romaji": "ai iro ni natte",
+          "ja": "藍色になって",
+          "zh": "染成了「藍色」"
+        },
+        {
+          "index": 29,
+          "romaji": "surechigau fusoroi no paatsu de",
+          "ja": "すれ違う不揃いのパーツで",
+          "zh": "用錯過擦肩、參差不齊的碎片"
+        },
+        {
+          "index": 30,
+          "romaji": "aimai ni natte",
+          "ja": "曖昧になって",
+          "zh": "變得「曖昧」不清"
+        },
+        {
+          "index": 31,
+          "romaji": "aitaku nattatte",
+          "ja": "会いたくなったって",
+          "zh": "就算變得「想見你」"
+        },
+        {
+          "index": 32,
+          "romaji": "maboroshi no kuni wa",
+          "ja": "幻の国は",
+          "zh": "那幻影的國度"
+        },
+        {
+          "index": 33,
+          "romaji": "haruka mukou",
+          "ja": "遥か向こう",
+          "zh": "也遠在彼岸"
+        },
+        {
+          "index": 34,
+          "romaji": "nai reason",
+          "ja": "無い reason",
+          "zh": "沒有「理由(reason)」"
+        },
+        {
+          "index": 35,
+          "romaji": "nokoriga dake nokosu perfume",
+          "ja": "残り香だけ残す perfume",
+          "zh": "只留下餘香的「香水(perfume)」"
+        },
+        {
+          "index": 36,
+          "romaji": "hitori ja tsunagenai futatsu no seiza",
+          "ja": "1人じゃ繋げない 2つの星座",
+          "zh": "光憑一個人是無法連結的,兩座星座"
+        },
+        {
+          "index": 37,
+          "romaji": "ainiku my love",
+          "ja": "生憎 my love",
+          "zh": "很不巧 my love"
+        },
+        {
+          "index": 38,
+          "romaji": "I missing tired",
+          "ja": "I missing tired",
+          "zh": "我因思念而疲憊不堪"
+        },
+        {
+          "index": 39,
+          "romaji": "chigireta denpa",
+          "ja": "千切れた電波",
+          "zh": "斷斷續續的訊號"
+        },
+        {
+          "index": 40,
+          "romaji": "gomakasenai",
+          "ja": "誤魔化せない",
+          "zh": "再也無法掩飾"
+        },
+        {
+          "index": 41,
+          "romaji": "kimi dake ga kagayaite mienai seiza",
+          "ja": "君だけが輝いて見えない星座",
+          "zh": "只有你獨自閃耀、看不清形狀的星座"
+        },
+        {
+          "index": 42,
+          "romaji": "ainiku my love",
+          "ja": "生憎 my love",
+          "zh": "很不巧 my love"
+        },
+        {
+          "index": 43,
+          "romaji": "I missing tired",
+          "ja": "I missing tired",
+          "zh": "我因思念而疲憊不堪"
+        },
+        {
+          "index": 44,
+          "romaji": "hagareochita meiga",
+          "ja": "剥がれ落ちた名画",
+          "zh": "剝落的名畫"
+        },
+        {
+          "index": 45,
+          "romaji": "nagareru hoshi no you ni fade out",
+          "ja": "流れる星の様に fade out",
+          "zh": "如流星般逐漸 fade out"
+        },
+        {
+          "index": 46,
+          "romaji": "tachidomatte play back",
+          "ja": "立ち止まって play back",
+          "zh": "停下腳步 play back(倒帶重播)"
+        },
+        {
+          "index": 47,
+          "romaji": "nani wo machigatta? whatever",
+          "ja": "何を間違った? whatever",
+          "zh": "究竟是哪裡出錯了? whatever(隨便吧)"
+        },
+        {
+          "index": 48,
+          "romaji": "ainiku my love",
+          "ja": "生憎 my love",
+          "zh": "很不巧 my love"
+        },
+        {
+          "index": 49,
+          "romaji": "I missing tired",
+          "ja": "I missing tired",
+          "zh": "我因思念而疲憊不堪"
+        },
+        {
+          "index": 50,
+          "romaji": "chigireta denpa",
+          "ja": "千切れた電波",
+          "zh": "斷斷續續的訊號"
+        },
+        {
+          "index": 51,
+          "romaji": "gomakasenai",
+          "ja": "誤魔化せない",
+          "zh": "再也無法掩飾"
+        },
+        {
+          "index": 52,
+          "romaji": "kimi dake ga kagayaite mienai seiza",
+          "ja": "君だけが輝いて見えない星座",
+          "zh": "只有你獨自閃耀、看不清形狀的星座"
+        },
+        {
+          "index": 53,
+          "romaji": "ainiku my love",
+          "ja": "生憎 my love",
+          "zh": "很不巧 my love"
+        },
+        {
+          "index": 54,
+          "romaji": "I missing tired",
+          "ja": "I missing tired",
+          "zh": "我因思念而疲憊不堪"
+        },
+        {
+          "index": 55,
+          "romaji": "hagareochita meiga",
+          "ja": "剥がれ落ちた名画",
+          "zh": "剝落的名畫"
+        },
+        {
+          "index": 56,
+          "romaji": "nagareru hoshi no you ni fade out",
+          "ja": "流れる星の様に fade out",
+          "zh": "如流星般逐漸 fade out"
+        },
+        {
+          "index": 57,
+          "romaji": "ai ni ai ni iku",
+          "ja": "あいに会いに行く",
+          "zh": "踏上旅程,去見「愛/相遇/哀」"
+        },
+        {
+          "index": 58,
+          "romaji": "ai ni ai ni iku",
+          "ja": "あいに会いに行く",
+          "zh": "踏上旅程,去見「愛/相遇/哀」"
+        },
+        {
+          "index": 59,
+          "romaji": "ai ni ai ni iku",
+          "ja": "あいに会いに行く",
+          "zh": "踏上旅程,去見「愛/相遇/哀」"
+        }
+      ],
+      "lyric_line_count": 60
+    },
+    {
       "id": "nishina-tokyo-marble",
       "title": "東京マーブル",
       "artist": "にしな",
@@ -7840,6 +9988,7 @@
         "夏夜"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/tokyo-marble.jpg",
       "detail_url": "/translations/nishina-tokyo-marble/",
       "lyric_lines": [
@@ -8144,6 +10293,7 @@
         "母親的魔法"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/odds-and-ends.jpg",
       "detail_url": "/translations/nishina-tougenkyou/",
       "lyric_lines": [
@@ -8359,6 +10509,7 @@
         "神仙合作"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/odds-and-ends.jpg",
       "detail_url": "/translations/nishina-toumei-na-kuro/",
       "lyric_lines": [
@@ -8628,6 +10779,7 @@
         "堅韌"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/tsukushi.jpg",
       "detail_url": "/translations/nishina-tsukushi/",
       "lyric_lines": [
@@ -8889,6 +11041,7 @@
         "存在"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/hibi-sanman.jpg",
       "detail_url": "/translations/nishina-twinkle-little-star/",
       "lyric_lines": [
@@ -9272,6 +11425,7 @@
         "Identity"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/u-plus.jpg",
       "detail_url": "/translations/nishina-u-plus/",
       "lyric_lines": [
@@ -9483,6 +11637,395 @@
       "lyric_line_count": 34
     },
     {
+      "id": "nishina-uruwashikihito",
+      "title": "うるわしきひと",
+      "artist": "にしな",
+      "album": "單曲",
+      "album_year": null,
+      "track_number": "1",
+      "publish_date": "2026-03-11",
+      "lyricist": [
+        "水野良樹"
+      ],
+      "composer": [
+        "水野良樹"
+      ],
+      "arranger": null,
+      "tags": [
+        "J-POP",
+        "翻唱",
+        "純愛",
+        "生きものがかり"
+      ],
+      "instrumental": false,
+      "exclude_from_lyric_analysis": "true   # 翻唱曲,詞曲皆水野良樹 (生きものがかり) 作",
+      "cover_image": "/covers/nishina/uruwashikihito.jpg",
+      "detail_url": "/translations/nishina-uruwashikihito/",
+      "lyric_lines": [
+        {
+          "index": 0,
+          "romaji": "aa uruwashiki ai no uta",
+          "ja": "あぁ うるわしき あいのうた",
+          "zh": "啊,美麗的愛之歌"
+        },
+        {
+          "index": 1,
+          "romaji": "itsu no hi mo kawarazu ni",
+          "ja": "いつの日も 変わらずに",
+          "zh": "無論何時都不會改變"
+        },
+        {
+          "index": 2,
+          "romaji": "atashi no mae de zutto",
+          "ja": "あたしの前で ずっと",
+          "zh": "一直在我面前"
+        },
+        {
+          "index": 3,
+          "romaji": "utatte ite onegai",
+          "ja": "歌っていて お願い",
+          "zh": "唱著吧,拜託了"
+        },
+        {
+          "index": 4,
+          "romaji": "kono mune ga tomaru made",
+          "ja": "この胸が止まるまで",
+          "zh": "直到這顆心臟停止跳動"
+        },
+        {
+          "index": 5,
+          "romaji": "kono toki ga owaru made",
+          "ja": "この時が終わるまで",
+          "zh": "直到這段時間迎來終結"
+        },
+        {
+          "index": 6,
+          "romaji": "uruwashiki hito yo",
+          "ja": "うるわしきひとよ",
+          "zh": "美麗的人啊"
+        },
+        {
+          "index": 7,
+          "romaji": "itsu made mo dakishimete",
+          "ja": "いつまでも 抱きしめて",
+          "zh": "永遠地擁抱我吧"
+        },
+        {
+          "index": 8,
+          "romaji": "anata wa itsu datte",
+          "ja": "あなたはいつだって",
+          "zh": "你總是"
+        },
+        {
+          "index": 9,
+          "romaji": "muzukashii kotoba de",
+          "ja": "難しいコトバで",
+          "zh": "用艱澀的詞彙"
+        },
+        {
+          "index": 10,
+          "romaji": "atashi e no ai wo katarunda",
+          "ja": "あたしへの愛を語るんだ",
+          "zh": "訴說著對我的愛"
+        },
+        {
+          "index": 11,
+          "romaji": "atashi wa tsuyogatte",
+          "ja": "あたしは強がって",
+          "zh": "我總是逞強著"
+        },
+        {
+          "index": 12,
+          "romaji": "hatena maaku hikidashite",
+          "ja": "はてなマーク引き出して",
+          "zh": "滿頭問號地"
+        },
+        {
+          "index": 13,
+          "romaji": "sono tetsugaku wo tokiakasu no",
+          "ja": "その哲学を解き明すの",
+          "zh": "試圖解開你的哲學"
+        },
+        {
+          "index": 14,
+          "romaji": "fukushiki kokyuu de sasayaita",
+          "ja": "腹式呼吸でささやいた",
+          "zh": "用腹式呼吸輕聲訴說著的"
+        },
+        {
+          "index": 15,
+          "romaji": "irotoridori no love message",
+          "ja": "色とりどりの love message",
+          "zh": "形形色色的 love message"
+        },
+        {
+          "index": 16,
+          "romaji": "shinpai shinaide atashi wa",
+          "ja": "心配しないで あたしは",
+          "zh": "別擔心,我啊"
+        },
+        {
+          "index": 17,
+          "romaji": "anata no kotoba wo shinjiteru",
+          "ja": "あなたのことばを信じてる",
+          "zh": "一直相信著你的話語"
+        },
+        {
+          "index": 18,
+          "romaji": "aa uruwashiki ai no uta",
+          "ja": "あぁ うるわしき あいのうた",
+          "zh": "啊,美麗的愛之歌"
+        },
+        {
+          "index": 19,
+          "romaji": "itsu no hi mo kawarazu ni",
+          "ja": "いつの日も 変わらずに",
+          "zh": "無論何時都不會改變"
+        },
+        {
+          "index": 20,
+          "romaji": "atashi no mae de zutto",
+          "ja": "あたしの前で ずっと",
+          "zh": "一直在我面前"
+        },
+        {
+          "index": 21,
+          "romaji": "utatte ite onegai",
+          "ja": "歌っていて お願い",
+          "zh": "唱著吧,拜託了"
+        },
+        {
+          "index": 22,
+          "romaji": "kono mune ga tomaru made",
+          "ja": "この胸が止まるまで",
+          "zh": "直到這顆心臟停止跳動"
+        },
+        {
+          "index": 23,
+          "romaji": "kono toki ga owaru made",
+          "ja": "この時が終わるまで",
+          "zh": "直到這段時間迎來終結"
+        },
+        {
+          "index": 24,
+          "romaji": "uruwashiki hito yo",
+          "ja": "うるわしきひとよ",
+          "zh": "美麗的人啊"
+        },
+        {
+          "index": 25,
+          "romaji": "itsu made mo dakishimete",
+          "ja": "いつまでも 抱きしめて",
+          "zh": "永遠地擁抱我吧"
+        },
+        {
+          "index": 26,
+          "romaji": "pookaa feisu nante",
+          "ja": "ポーカーフェイスなんて",
+          "zh": "撲克臉什麼的"
+        },
+        {
+          "index": 27,
+          "romaji": "hen na muri shinaide",
+          "ja": "変な無理しないで",
+          "zh": "就別勉強自己裝出來了"
+        },
+        {
+          "index": 28,
+          "romaji": "tobo keta sono kao de ii yo",
+          "ja": "とぼけたその顔でいいよ",
+          "zh": "那副呆呆的表情就很好了喔"
+        },
+        {
+          "index": 29,
+          "romaji": "kanjin na koto wa",
+          "ja": "肝心なことは",
+          "zh": "最重要的是"
+        },
+        {
+          "index": 30,
+          "romaji": "atashi no kono te wo",
+          "ja": "あたしのこの手を",
+          "zh": "我這雙手"
+        },
+        {
+          "index": 31,
+          "romaji": "hanasanaide ite hoshiinda",
+          "ja": "離さないでいて欲しいんだ",
+          "zh": "希望你不要放開"
+        },
+        {
+          "index": 32,
+          "romaji": "kore kkurai no chiisana mune ni",
+          "ja": "これっくらいの小さな胸に",
+          "zh": "在這麼小的心胸裡"
+        },
+        {
+          "index": 33,
+          "romaji": "anata e no omoi ga tsumatteru",
+          "ja": "あなたへの想いが詰まってる",
+          "zh": "塞滿了對你的思念"
+        },
+        {
+          "index": 34,
+          "romaji": "shinpai shinaide atashi wa",
+          "ja": "心配しないで あたしは",
+          "zh": "別擔心,我啊"
+        },
+        {
+          "index": 35,
+          "romaji": "anata no subete wo shinjiteru",
+          "ja": "あなたのすべてを信じてる",
+          "zh": "相信著你的一切"
+        },
+        {
+          "index": 36,
+          "romaji": "aa kurikaesu ai no uta",
+          "ja": "あぁ くりかえす あいのうた",
+          "zh": "啊,不斷重複的愛之歌"
+        },
+        {
+          "index": 37,
+          "romaji": "daisuki na sono koe de",
+          "ja": "大好きな その声で",
+          "zh": "用我最喜歡的那聲音"
+        },
+        {
+          "index": 38,
+          "romaji": "atashi no mae ni zutto",
+          "ja": "あたしの前に ずっと",
+          "zh": "一直在我面前"
+        },
+        {
+          "index": 39,
+          "romaji": "todokete ite yo merodi",
+          "ja": "届けていてよ メロディ",
+          "zh": "傳達這段旋律吧"
+        },
+        {
+          "index": 40,
+          "romaji": "furikaeru sono saki ni",
+          "ja": "振り返る その先に",
+          "zh": "在回首的那一端"
+        },
+        {
+          "index": 41,
+          "romaji": "itsu datte ite hoshii",
+          "ja": "いつだって いて欲しい",
+          "zh": "希望你永遠都在"
+        },
+        {
+          "index": 42,
+          "romaji": "uruwashiki hito yo",
+          "ja": "うるわしきひとよ",
+          "zh": "美麗的人啊"
+        },
+        {
+          "index": 43,
+          "romaji": "itsu made mo soba ni ite",
+          "ja": "いつまでも そばにいて",
+          "zh": "永遠陪伴在我身邊"
+        },
+        {
+          "index": 44,
+          "romaji": "aa tomenaide ai no uta",
+          "ja": "あぁ とめないで あいのうた",
+          "zh": "啊,別停下這愛之歌"
+        },
+        {
+          "index": 45,
+          "romaji": "eien no sono merodi",
+          "ja": "永遠の そのメロディ",
+          "zh": "那首永遠的旋律"
+        },
+        {
+          "index": 46,
+          "romaji": "atashi no mae de zutto",
+          "ja": "あたしの前で ずっと",
+          "zh": "一直在我面前"
+        },
+        {
+          "index": 47,
+          "romaji": "utatte ite onegai",
+          "ja": "歌っていて お願い",
+          "zh": "唱著吧,拜託了"
+        },
+        {
+          "index": 48,
+          "romaji": "kono mune ga tomaru made",
+          "ja": "この胸が止まるまで",
+          "zh": "直到這顆心臟停止跳動"
+        },
+        {
+          "index": 49,
+          "romaji": "kono toki ga owaru made",
+          "ja": "この時が終わるまで",
+          "zh": "直到這段時間迎來終結"
+        },
+        {
+          "index": 50,
+          "romaji": "sou ippai no ai de",
+          "ja": "そう いっぱいの愛で",
+          "zh": "沒錯,用滿滿的愛"
+        },
+        {
+          "index": 51,
+          "romaji": "atashi no omoi wo uketomete",
+          "ja": "あたしの想いを 受け止めて",
+          "zh": "接納我的思念吧"
+        },
+        {
+          "index": 52,
+          "romaji": "uruwashiki ai no uta",
+          "ja": "うるわしき あいのうた",
+          "zh": "美麗的愛之歌"
+        },
+        {
+          "index": 53,
+          "romaji": "itsu no hi mo kawarazu ni",
+          "ja": "いつの日も 変わらずに",
+          "zh": "無論何時都不會改變"
+        },
+        {
+          "index": 54,
+          "romaji": "atashi no mae de zutto",
+          "ja": "あたしの前で ずっと",
+          "zh": "一直在我面前"
+        },
+        {
+          "index": 55,
+          "romaji": "utatte ite onegai",
+          "ja": "歌っていて お願い",
+          "zh": "唱著吧,拜託了"
+        },
+        {
+          "index": 56,
+          "romaji": "kono mune ga tomaru made",
+          "ja": "この胸が止まるまで",
+          "zh": "直到這顆心臟停止跳動"
+        },
+        {
+          "index": 57,
+          "romaji": "kono toki ga owaru made",
+          "ja": "この時が終わるまで",
+          "zh": "直到這段時間迎來終結"
+        },
+        {
+          "index": 58,
+          "romaji": "uruwashiki hito yo",
+          "ja": "うるわしきひとよ",
+          "zh": "美麗的人啊"
+        },
+        {
+          "index": 59,
+          "romaji": "itsu made mo dakishimete",
+          "ja": "いつまでも 抱きしめて",
+          "zh": "永遠地擁抱我吧"
+        }
+      ],
+      "lyric_line_count": 60
+    },
+    {
       "id": "nishina-wawon",
       "title": "わをん",
       "artist": "にしな",
@@ -9505,6 +12048,7 @@
         "哲學"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/wawon.jpg",
       "detail_url": "/translations/nishina-wawon/",
       "lyric_lines": [
@@ -9858,6 +12402,7 @@
         "療癒"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/weekly.jpg",
       "detail_url": "/translations/nishina-weekly/",
       "lyric_lines": [
@@ -10233,6 +12778,7 @@
         "夜"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/yakan-hikou.jpg",
       "detail_url": "/translations/nishina-yakan-hikou/",
       "lyric_lines": [
@@ -10372,6 +12918,277 @@
       "lyric_line_count": 22
     },
     {
+      "id": "nishina-yonagi",
+      "title": "夜凪",
+      "artist": "にしな",
+      "album": "FEAT / 客串",
+      "album_year": null,
+      "track_number": "5",
+      "publish_date": "2025-01-29",
+      "lyricist": [
+        "川谷繪音"
+      ],
+      "composer": [
+        "川谷繪音"
+      ],
+      "arranger": null,
+      "tags": [
+        "J-POP",
+        "feat",
+        "indigo la End",
+        "川谷繪音",
+        "分手",
+        "冬春交替"
+      ],
+      "instrumental": false,
+      "exclude_from_lyric_analysis": "true   # 主藝人 indigo la End,詞曲皆川谷繪音 作,にしな feat 演唱",
+      "cover_image": "/covers/nishina/yonagi.jpg",
+      "detail_url": "/translations/nishina-yonagi/",
+      "lyric_lines": [
+        {
+          "index": 0,
+          "romaji": "anata to onaji nioi wo kajitta",
+          "ja": "あなたと同じ匂いをかじった",
+          "zh": "聞到了與你相同的氣味"
+        },
+        {
+          "index": 1,
+          "romaji": "marude kurashi no ichibu no you na",
+          "ja": "まるで暮らしの一部のような",
+          "zh": "就像是生活中的一部分一樣"
+        },
+        {
+          "index": 2,
+          "romaji": "atarimae ni yasashikute",
+          "ja": "当たり前に優しくて",
+          "zh": "理所當然般地溫柔"
+        },
+        {
+          "index": 3,
+          "romaji": "uso mitai ni mabushii",
+          "ja": "嘘みたいに眩しい",
+          "zh": "耀眼得宛如謊言"
+        },
+        {
+          "index": 4,
+          "romaji": "ii wakarekata ga aru no nara",
+          "ja": "良い別れ方があるのなら",
+          "zh": "如果這世上有所謂「好的分手方式」"
+        },
+        {
+          "index": 5,
+          "romaji": "kitto konna kanji nan darou",
+          "ja": "きっとこんな感じなんだろう",
+          "zh": "一定就是像現在這樣吧"
+        },
+        {
+          "index": 6,
+          "romaji": "fuyu ga owaru made sayonara wa matte yo",
+          "ja": "冬が終わるまでさよならは待ってよ",
+          "zh": "在冬天結束之前,請等一等再說再見吧"
+        },
+        {
+          "index": 7,
+          "romaji": "chiisaku hikaru samusa ni yotte yo",
+          "ja": "小さく光る寒さに酔ってよ",
+          "zh": "請沉醉在這微弱閃耀的寒意之中吧"
+        },
+        {
+          "index": 8,
+          "romaji": "mada anata to futari de itai kara",
+          "ja": "まだあなたと二人でいたいから",
+          "zh": "因為我還想和你兩個人在一起啊"
+        },
+        {
+          "index": 9,
+          "romaji": "nee, ato sukoshi dake",
+          "ja": "ねえ、あと少しだけ",
+          "zh": "吶,再給我一點點時間就好"
+        },
+        {
+          "index": 10,
+          "romaji": "subete wakatte iru kara daarin",
+          "ja": "全てわかっているからダーリン",
+          "zh": "因為我全都明白啊 Darling"
+        },
+        {
+          "index": 11,
+          "romaji": "sugireba sugiru hodo anhappii",
+          "ja": "過ぎれば過ぎるほどアンハッピー",
+          "zh": "時間流逝得越多,就越顯得 Unhappy(不快樂)"
+        },
+        {
+          "index": 12,
+          "romaji": "nibui shiro ga shikai de yureru kara",
+          "ja": "鈍い白が視界で揺れるから",
+          "zh": "渾濁的白色在視線中搖曳"
+        },
+        {
+          "index": 13,
+          "romaji": "kirei na kuse ni kanashii yo",
+          "ja": "綺麗なくせに悲しいよ",
+          "zh": "明明那麼美麗,卻又如此悲傷"
+        },
+        {
+          "index": 14,
+          "romaji": "sokkenai no mo",
+          "ja": "そっけないのも",
+          "zh": "你那冷淡的樣子"
+        },
+        {
+          "index": 15,
+          "romaji": "chotto suki datta",
+          "ja": "ちょっと好きだった",
+          "zh": "我其實也有點喜歡呢"
+        },
+        {
+          "index": 16,
+          "romaji": "akkenai no wa",
+          "ja": "あっけないのは",
+          "zh": "而這過於乾脆的結局"
+        },
+        {
+          "index": 17,
+          "romaji": "chotto kirai da yo",
+          "ja": "ちょっと嫌いだよ",
+          "zh": "我實在有點討厭啊"
+        },
+        {
+          "index": 18,
+          "romaji": "konna ni shizuka na yoru ni naku no wa",
+          "ja": "こんなに静かな夜に泣くのは",
+          "zh": "在這樣安靜的夜晚裡哭泣"
+        },
+        {
+          "index": 19,
+          "romaji": "kitto kirai da yo ne",
+          "ja": "きっと嫌いだよね",
+          "zh": "你一定會很討厭的吧"
+        },
+        {
+          "index": 20,
+          "romaji": "fuyu no itazura de futari wo tsunaide yo",
+          "ja": "冬のいたずらで二人を繋いでよ",
+          "zh": "就用冬天的惡作劇將我們兩人緊緊相連吧"
+        },
+        {
+          "index": 21,
+          "romaji": "doramachikku na yoru wo egaite yo",
+          "ja": "ドラマチックな夜を描いてよ",
+          "zh": "請描繪出一個充滿戲劇性的夜晚吧"
+        },
+        {
+          "index": 22,
+          "romaji": "mada anata no kokoro ni itai kara",
+          "ja": "まだあなたの心にいたいから",
+          "zh": "因為我還想留在你的心裡啊"
+        },
+        {
+          "index": 23,
+          "romaji": "hanaretakunai yo",
+          "ja": "離れたくないよ",
+          "zh": "我不想離開你啊"
+        },
+        {
+          "index": 24,
+          "romaji": "wakare wo irodoranaide winter",
+          "ja": "別れを彩らないでウィンター",
+          "zh": "請別用離別來點綴 Winter(冬天)"
+        },
+        {
+          "index": 25,
+          "romaji": "anata dake de susundeku haiwei",
+          "ja": "あなただけで進んでくハイウェイ",
+          "zh": "只有你獨自前行的 Highway(高速公路)"
+        },
+        {
+          "index": 26,
+          "romaji": "wakatteru kedo shiritakunai yo",
+          "ja": "わかってるけど知りたくないよ",
+          "zh": "我雖然心知肚明,卻一點也不想去面對啊"
+        },
+        {
+          "index": 27,
+          "romaji": "aitai to omotte mo",
+          "ja": "会いたいと思っても",
+          "zh": "即使心裡想著「好想見你」"
+        },
+        {
+          "index": 28,
+          "romaji": "haru ni nomikomarete iku no deshou",
+          "ja": "春に呑み込まれていくのでしょう",
+          "zh": "最終也只會被春日給吞噬殆盡吧"
+        },
+        {
+          "index": 29,
+          "romaji": "fuyu ga owaru made sayonara wa matte yo",
+          "ja": "冬が終わるまでさよならは待ってよ",
+          "zh": "在冬天結束之前,請等一等再說再見吧"
+        },
+        {
+          "index": 30,
+          "romaji": "chiisaku hikaru samusa ni yotte yo",
+          "ja": "小さく光る寒さに酔ってよ",
+          "zh": "請沉醉在這微弱閃耀的寒意之中吧"
+        },
+        {
+          "index": 31,
+          "romaji": "mada anata to futari de itai kara",
+          "ja": "まだあなたと二人でいたいから",
+          "zh": "因為我還想和你兩個人在一起啊"
+        },
+        {
+          "index": 32,
+          "romaji": "nee, ato sukoshi dake",
+          "ja": "ねえ、あと少しだけ",
+          "zh": "吶,再給我一點點時間就好"
+        },
+        {
+          "index": 33,
+          "romaji": "subete wakatte iru kara daarin",
+          "ja": "全てわかっているからダーリン",
+          "zh": "因為我全都明白啊 Darling"
+        },
+        {
+          "index": 34,
+          "romaji": "sugireba sugiru hodo anhappii",
+          "ja": "過ぎれば過ぎるほどアンハッピー",
+          "zh": "時間流逝得越多,就越顯得 Unhappy"
+        },
+        {
+          "index": 35,
+          "romaji": "nibui shiro ga shikai de yuraideru",
+          "ja": "鈍い白が視界で揺らいでる",
+          "zh": "渾濁的白色正如雪花般在視線中搖曳著"
+        },
+        {
+          "index": 36,
+          "romaji": "fuyu ga owaru kara baibai",
+          "ja": "冬が終わるからバイバイ",
+          "zh": "因為冬天要結束了,所以 Bye-bye"
+        },
+        {
+          "index": 37,
+          "romaji": "shiawase datta yo",
+          "ja": "幸せだったよ",
+          "zh": "我曾感到很幸福喔"
+        },
+        {
+          "index": 38,
+          "romaji": "fuyu ga owaru kara baibai",
+          "ja": "冬が終わるからバイバイ",
+          "zh": "因為冬天要結束了,所以 Bye-bye"
+        },
+        {
+          "index": 39,
+          "romaji": "daisuki datta yo",
+          "ja": "大好きだったよ",
+          "zh": "我曾超級喜歡你喔"
+        }
+      ],
+      "lyric_line_count": 40
+    },
+    {
       "id": "nishina-yoru-ni-natte",
       "title": "夜になって",
       "artist": "にしな",
@@ -10392,6 +13209,7 @@
         "反抗"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/covers/nishina/yoru-ni-natte.jpg",
       "detail_url": "/translations/nishina-yoru-ni-natte/",
       "lyric_lines": [
@@ -10589,6 +13407,7 @@
         "動畫"
       ],
       "instrumental": false,
+      "exclude_from_lyric_analysis": false,
       "cover_image": "/images/yoasobi-cover.jpg",
       "detail_url": "/translations/yoasobi-yoru-ni-kakeru/",
       "lyric_lines": [
