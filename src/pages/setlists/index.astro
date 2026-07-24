@@ -8,6 +8,7 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import setlists from '../../data/setlists.json';
+import tourRecaps from '../../data/shorts_tours.json';
 
 interface Track {
   index: number;
@@ -27,9 +28,24 @@ interface Tour {
   track_count: number;
   matched_count: number;
 }
+interface RecapShort {
+  videoId: string;
+  title: string;
+  url: string;
+  thumbnail: string;
+  viewCount: number;
+  tourName: string | null;
+}
 
 const tours = (setlists.tours as Tour[]).slice().reverse();  // 最新在上
 const meta = setlists.meta;
+const recapsByTour = (tourRecaps.by_tour ?? {}) as Record<string, RecapShort[]>;
+
+function formatViews(n: number): string {
+  if (n >= 10000) return `${(n / 10000).toFixed(1)}萬`;
+  if (n >= 1000)  return `${(n / 1000).toFixed(1)}k`;
+  return String(n);
+}
 ---
 
 <BaseLayout title="巡演 Setlist" description="にしな 歷年巡演的完整曲目清單">
@@ -107,6 +123,33 @@ const meta = setlists.meta;
               </li>
             ))}
           </ol>
+
+          {/* 當日花絮 (若有 tour_recap shorts 被 tag 到這個 tour.title) */}
+          {recapsByTour[tour.title]?.length > 0 && (
+            <div class="border-t border-gray-200 dark:border-gray-700 p-5">
+              <h3 class="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-3">
+                📹 當日花絮 · {recapsByTour[tour.title].length} 支
+              </h3>
+              <div class="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+                {recapsByTour[tour.title].map(s => (
+                  <a href={s.url} target="_blank" rel="noopener noreferrer"
+                     class="group block rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700
+                            bg-gray-50 dark:bg-gray-900/40 hover:shadow-lg hover:-translate-y-0.5 transition">
+                    <div class="aspect-[9/16] overflow-hidden bg-gray-100 dark:bg-gray-900 relative">
+                      <img src={s.thumbnail} alt={s.title} loading="lazy"
+                           class="w-full h-full object-cover group-hover:scale-105 transition" />
+                      <div class="absolute bottom-1 right-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-mono">
+                        ▶ {formatViews(s.viewCount)}
+                      </div>
+                    </div>
+                    <div class="p-2 text-xs text-gray-700 dark:text-gray-200 line-clamp-2 leading-snug">
+                      {s.title}
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
         </article>
       ))}
     </div>

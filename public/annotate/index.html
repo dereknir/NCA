@@ -199,11 +199,12 @@ const OTHERS_KEY = '__others';   // 使用者主動標記「之後再處理」�
 // 對應 sentinel songId; 下游 import_anchors.py 過濾 __-prefix 不進 shorts_by_song.json,
 // 而是走另一條 pipeline 輸出到 shorts_extras.json 給 /extras/ 頁消費。
 const NON_SONG_CATEGORIES = [
-  { key:'__ad',    label:'📢 廣告',           short:'廣告' },
-  { key:'__promo', label:'📣 宣傳',            short:'宣傳' },
-  { key:'__mc',    label:'🎤 MC / 演唱會講話',  short:'MC'   },
-  { key:'__cover', label:'🎵 翻唱 (非她的歌)', short:'翻唱' },
-  { key:'__tv',    label:'📺 節目切片',        short:'節目' },
+  { key:'__ad',         label:'📢 廣告',           short:'廣告' },
+  { key:'__promo',      label:'📣 宣傳',            short:'宣傳' },
+  { key:'__mc',         label:'🎤 MC / 演唱會講話',  short:'MC'   },
+  { key:'__cover',      label:'🎵 翻唱 (非她的歌)', short:'翻唱' },
+  { key:'__tv',         label:'📺 節目切片',        short:'節目' },
+  { key:'__tour_recap', label:'🎪 巡演花絮',        short:'花絮' },   // 可再選巡演 (optional)
 ];
 const NON_SONG_KEY_SET = new Set(NON_SONG_CATEGORIES.map(c => c.key));
 const METHOD_LABEL = {
@@ -379,20 +380,24 @@ async function boot(){
     });
   }
   try{
-    const [q, l] = await Promise.all([
+    const [q, l, t] = await Promise.all([
       fetch('annotation_queue.json').then(r=>r.json()),
       fetch('lyrics.json').then(r=>r.json()),
+      // setlists.json 沒有就當作空陣列 (annotator 舊環境相容)
+      fetch('setlists.json').then(r => r.ok ? r.json() : {tours:[]}).catch(() => ({tours:[]})),
     ]);
-    initData(q, l);
+    initData(q, l, t);
     document.getElementById('dropzone').classList.add('hidden');
   }catch(e){ /* 留在拖放畫面 */ }
 }
-function initData(queueFile, lyricsFile){
+function initData(queueFile, lyricsFile, setlistsFile){
   S.queue = queueFile.queue;
   for(const s of lyricsFile.songs) S.songs[s.id] = s;
   S.songList = lyricsFile.songs
     .filter(s => !s.instrumental)
     .sort((a,b)=> (a.album||'').localeCompare(b.album||'') || (a.track_number||99)-(b.track_number||99));
+  // 巡演清單 (供 __tour_recap 分類的巡演 dropdown 用)
+  S.tourList = (setlistsFile?.tours || []).map(t => t.title).filter(Boolean);
   renderQueue(); updateProgress();
 }
 document.getElementById('filePick').addEventListener('change', async ev=>{
@@ -460,7 +465,7 @@ function renderQueue(){
 
   // 排序: 已 match 的歌 group 排最前, 4 個非歌類別 (__ad/__mc/__cover/__tv) 中間,
   // __others 次之, __unmatched 放最後
-  const NON_SONG_ORDER = ['__ad', '__promo', '__mc', '__cover', '__tv'];   // 顯示順序
+  const NON_SONG_ORDER = ['__ad', '__promo', '__mc', '__cover', '__tv', '__tour_recap'];   // 顯示順序
   const rank = k =>
     k === UNMATCHED_KEY ? 4 :
     k === OTHERS_KEY    ? 3 :
@@ -623,9 +628,11 @@ function renderLyrics(){
     return;
   }
 
-  // 4 個非歌類別: 立刻完成, 沒 anchor 要打
+  // 非歌類別: 立刻完成, 沒 anchor 要打
   if(NON_SONG_KEY_SET.has(effectiveSid)){
     const cat = NON_SONG_CATEGORIES.find(c => c.key === effectiveSid);
+    // __tour_recap 額外提供「巡演」dropdown (optional)
+    const tourExtra = effectiveSid === '__tour_recap' ? renderTourPicker(ann) : '';
     panel.innerHTML = head +
       `<div class="song-head" style="color:var(--ok)">${cat.label} — 已分類完成 ✓</div>` +
       `<div style="color:var(--dim);font-size:12px;line-height:1.6;padding:8px 2px">
@@ -633,8 +640,9 @@ function renderLyrics(){
         <span style="color:#5a6784">
           若分錯類,從上方下拉改選其他類別/歌曲即可 (會清掉 done 狀態)。
         </span>
-      </div>`;
+      </div>` + tourExtra;
     bindSongSelect();
+    if (effectiveSid === '__tour_recap') bindTourPicker();
     return;
   }
 
@@ -697,6 +705,35 @@ function bindSongSelect(){
       if(next){ loadShort(next); return; }
     }
     renderLyrics(); renderAnchors(); renderQueue();
+  };
+}
+
+/* ---------- 巡演花絮 (__tour_recap) 專屬: 巡演 dropdown ---------- */
+function renderTourPicker(ann){
+  const cur = ann?.tourName || '';
+  const opts = ['<option value="">— 未指定 (可略) —</option>']
+    .concat((S.tourList || []).map(t =>
+      `<option value="${escapeHtml(t)}"${t===cur?' selected':''}>${escapeHtml(t)}</option>`
+    )).join('');
+  return `
+    <div id="tourPicker" style="display:flex;align-items:center;gap:8px;padding:10px 12px;
+         background:var(--panel);border:1px solid var(--line);border-radius:8px;margin-top:12px">
+      <label style="font-size:12px;color:var(--dim);flex-shrink:0">🎪 巡演</label>
+      <select id="tourSelect"
+              style="flex:1;background:var(--panel-2);color:var(--text);border:1px solid var(--line);
+                     border-radius:6px;padding:5px 8px;font-family:inherit;font-size:13px">
+        ${opts}
+      </select>
+    </div>`;
+}
+function bindTourPicker(){
+  const sel = document.getElementById('tourSelect');
+  if(!sel) return;
+  sel.onchange = () => {
+    if(!S.cur) return;
+    const v = sel.value || null;
+    S.ann[S.cur.videoId].tourName = v;
+    persist(); renderQueue();
   };
 }
 

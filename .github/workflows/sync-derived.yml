@@ -54,7 +54,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # 只 stage 衍生檔案, 絕不動 shorts_anchors.json (那是 source of truth)
-          git add src/data/shorts_by_song.json src/data/shorts_extras.json public/gacha/live_pool.json
+          git add src/data/shorts_by_song.json src/data/shorts_extras.json src/data/shorts_tours.json public/gacha/live_pool.json
           if git diff --staged --quiet; then
             echo "committed=no" >> $GITHUB_OUTPUT
             echo "→ 衍生檔跟目前 anchors 已同步, 沒東西可 commit"

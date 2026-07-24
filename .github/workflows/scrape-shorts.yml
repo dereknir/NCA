@@ -69,6 +69,10 @@ jobs:
         run: python scripts/scrape_setlists.py
         continue-on-error: true    # Spotify embed 若暫時掛掉不阻塞其他步驟
 
+      - name: Sync setlists.json → /annotate/ (讓 annotator 巡演 dropdown 跟上新場)
+        run: cp src/data/setlists.json public/annotate/setlists.json
+        continue-on-error: true    # 上一步 continue-on-error 若沒生檔, 這步跳過
+
       - name: Commit + push if changed
         id: commit
         run: |
