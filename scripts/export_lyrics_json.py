@@ -140,6 +140,7 @@ def main():
             "arranger": fm.get("arranger"),
             "tags": fm.get("tags"),
             "instrumental": fm.get("instrumental") or False,
+            "exclude_from_lyric_analysis": fm.get("excludeFromLyricAnalysis") or False,
             "cover_image": fm.get("coverImage"),
             "detail_url": f"/translations/{slugify_filename(path)}/",
             "lyric_lines": lyric_lines,

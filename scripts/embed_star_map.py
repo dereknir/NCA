@@ -67,6 +67,8 @@ lines = []
 for s in data['songs']:
     if s.get('instrumental'):
         continue
+    if s.get('exclude_from_lyric_analysis'):
+        continue
     if s.get('artist') not in ARTIST_ALLOWLIST:
         continue
     seen = {}

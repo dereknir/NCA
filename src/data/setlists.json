@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-07-25T00:57:07+08:00",
+    "generated": "2026-07-25T02:30:58+08:00",
     "source": "https://nishina.lnk.to/live_setlist",
     "tour_count": 10,
     "total_tracks": 182
@@ -236,8 +236,8 @@
           "title": "あれが恋だったのかな",
           "artist": "whaledontsleep, nishina",
           "uid": "5cc162f8446c0b30",
-          "matched_song_id": null,
-          "match_score": 33.333333333333336
+          "matched_song_id": "nishina-are-ga-koi",
+          "match_score": 100
         },
         {
           "index": 5,
@@ -369,7 +369,7 @@
         }
       ],
       "track_count": 20,
-      "matched_count": 19,
+      "matched_count": 20,
       "cover": "/setlists/covers/6fWlDjCNGGvZrNgSHvb4eD.jpg"
     },
     {
@@ -415,8 +415,8 @@
           "title": "あれが恋だったのかな",
           "artist": "whaledontsleep, nishina",
           "uid": "e7353ccaef6308ce",
-          "matched_song_id": null,
-          "match_score": 33.333333333333336
+          "matched_song_id": "nishina-are-ga-koi",
+          "match_score": 100
         },
         {
           "index": 6,
@@ -540,7 +540,7 @@
         }
       ],
       "track_count": 20,
-      "matched_count": 19,
+      "matched_count": 20,
       "cover": "/setlists/covers/1nIgFT41iAHOJYsKw2Xjf2.jpg"
     },
     {

@@ -189,6 +189,21 @@
   border-bottom: none;
 }
 
+/* Singer label — used on duets / collabs to mark who sings the next stanza
+   e.g. 【にしな】 / 【唾奇】 . Sits between .lyrics-break and .lyrics-line. */
+.lyrics-singer {
+  display: inline-block;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  padding: 3px 12px;
+  margin-bottom: 0.75rem;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-weight: 500;
+}
+
 /* Legacy side-by-side format (keep for backward compat) */
 .lyrics-container {
   display: grid;

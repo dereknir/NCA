@@ -1,7 +1,7 @@
 {
  "meta": {
-  "songs": 41,
-  "lines": 1567,
+  "songs": 42,
+  "lines": 1598,
   "albums": [
    {
     "name": "odds and ends",
@@ -14,6 +14,10 @@
    {
     "name": "日々散漫",
     "year": "2026"
+   },
+   {
+    "name": "單曲",
+    "year": null
    }
   ],
   "generated": "analyze_lyrics.py",
@@ -38,6 +42,11 @@
      "album": "日々散漫",
      "count": 8,
      "density": 0.9
+    },
+    {
+     "album": "單曲",
+     "count": 0,
+     "density": 0.0
     }
    ],
    "refs": [
@@ -80,7 +89,7 @@
   },
   {
    "group": "愛・恋",
-   "total": 45,
+   "total": 46,
    "perAlbum": [
     {
      "album": "odds and ends",
@@ -96,6 +105,11 @@
      "album": "日々散漫",
      "count": 21,
      "density": 2.36
+    },
+    {
+     "album": "單曲",
+     "count": 1,
+     "density": 3.23
     }
    ],
    "refs": [
@@ -128,11 +142,74 @@
      "zh": "來歌唱愛吧"
     },
     {
-     "song": "nishina-cranberry-jam",
-     "title": "クランベリージャムをかけて",
-     "idx": 34,
-     "ja": "誰か永遠の愛を教えておくれよ",
-     "zh": "誰來教教我何謂永遠的愛吧"
+     "song": "nishina-clover",
+     "title": "クローバー",
+     "idx": 10,
+     "ja": "恋をしたり 夢を見たり",
+     "zh": "但也談了場戀愛、做了些夢想"
+    }
+   ]
+  },
+  {
+   "group": "空",
+   "total": 30,
+   "perAlbum": [
+    {
+     "album": "odds and ends",
+     "count": 4,
+     "density": 1.22
+    },
+    {
+     "album": "1999",
+     "count": 9,
+     "density": 2.56
+    },
+    {
+     "album": "日々散漫",
+     "count": 13,
+     "density": 1.46
+    },
+    {
+     "album": "單曲",
+     "count": 4,
+     "density": 12.9
+    }
+   ],
+   "refs": [
+    {
+     "song": "nishina-adaada",
+     "title": "婀娜婀娜",
+     "idx": 49,
+     "ja": "見上げる空に群青",
+     "zh": "仰望天空呈現一片群青色"
+    },
+    {
+     "song": "nishina-centi",
+     "title": "centi",
+     "idx": 1,
+     "ja": "流れ込む夜空色",
+     "zh": "流入了夜空的色彩"
+    },
+    {
+     "song": "nishina-centi",
+     "title": "centi",
+     "idx": 22,
+     "ja": "空っぽの空に",
+     "zh": "對著空蕩蕩的天空"
+    },
+    {
+     "song": "nishina-centi",
+     "title": "centi",
+     "idx": 24,
+     "ja": "見上げた空の",
+     "zh": "仰望的天空"
+    },
+    {
+     "song": "nishina-clover",
+     "title": "クローバー",
+     "idx": 0,
+     "ja": "口笛を吹けば空高く弾んだ",
+     "zh": "只要吹起口哨,心就會在天空中高高彈跳"
     }
    ]
   },
@@ -154,6 +231,11 @@
      "album": "日々散漫",
      "count": 23,
      "density": 2.59
+    },
+    {
+     "album": "單曲",
+     "count": 0,
+     "density": 0.0
     }
    ],
    "refs": [
@@ -195,64 +277,6 @@
    ]
   },
   {
-   "group": "空",
-   "total": 26,
-   "perAlbum": [
-    {
-     "album": "odds and ends",
-     "count": 4,
-     "density": 1.22
-    },
-    {
-     "album": "1999",
-     "count": 9,
-     "density": 2.56
-    },
-    {
-     "album": "日々散漫",
-     "count": 13,
-     "density": 1.46
-    }
-   ],
-   "refs": [
-    {
-     "song": "nishina-adaada",
-     "title": "婀娜婀娜",
-     "idx": 49,
-     "ja": "見上げる空に群青",
-     "zh": "仰望天空呈現一片群青色"
-    },
-    {
-     "song": "nishina-centi",
-     "title": "centi",
-     "idx": 1,
-     "ja": "流れ込む夜空色",
-     "zh": "流入了夜空的色彩"
-    },
-    {
-     "song": "nishina-centi",
-     "title": "centi",
-     "idx": 22,
-     "ja": "空っぽの空に",
-     "zh": "對著空蕩蕩的天空"
-    },
-    {
-     "song": "nishina-centi",
-     "title": "centi",
-     "idx": 24,
-     "ja": "見上げた空の",
-     "zh": "仰望的天空"
-    },
-    {
-     "song": "nishina-debbie",
-     "title": "debbie",
-     "idx": 6,
-     "ja": "ただ青く遠い空で",
-     "zh": "只是在那蔚藍遙遠的天空中"
-    }
-   ]
-  },
-  {
    "group": "果実",
    "total": 24,
    "perAlbum": [
@@ -270,6 +294,11 @@
      "album": "日々散漫",
      "count": 23,
      "density": 2.59
+    },
+    {
+     "album": "單曲",
+     "count": 0,
+     "density": 0.0
     }
    ],
    "refs": [
@@ -312,7 +341,7 @@
   },
   {
    "group": "花",
-   "total": 18,
+   "total": 21,
    "perAlbum": [
     {
      "album": "odds and ends",
@@ -328,6 +357,11 @@
      "album": "日々散漫",
      "count": 10,
      "density": 1.13
+    },
+    {
+     "album": "單曲",
+     "count": 3,
+     "density": 9.68
     }
    ],
    "refs": [
@@ -337,6 +371,13 @@
      "idx": 19,
      "ja": "艶やかにさぁ魅惑の花になる",
      "zh": "艷麗地 化作一朵魅惑之花吧"
+    },
+    {
+     "song": "nishina-clover",
+     "title": "クローバー",
+     "idx": 1,
+     "ja": "足踏み鳴らせば花が笑った",
+     "zh": "只要踏響腳步,花兒就會綻放笑容"
     },
     {
      "song": "nishina-debbie",
@@ -358,13 +399,6 @@
      "idx": 10,
      "ja": "素知らぬ顔して花は揺れ",
      "zh": "花朵卻裝作若無其事地搖曳著"
-    },
-    {
-     "song": "nishina-glory",
-     "title": "グローリー",
-     "idx": 33,
-     "ja": "花の代わりに",
-     "zh": "代替那些花朵"
     }
    ]
   },
@@ -386,6 +420,11 @@
      "album": "日々散漫",
      "count": 8,
      "density": 0.9
+    },
+    {
+     "album": "單曲",
+     "count": 0,
+     "density": 0.0
     }
    ],
    "refs": [
@@ -428,7 +467,7 @@
   },
   {
    "group": "夢",
-   "total": 14,
+   "total": 15,
    "perAlbum": [
     {
      "album": "odds and ends",
@@ -444,6 +483,11 @@
      "album": "日々散漫",
      "count": 5,
      "density": 0.56
+    },
+    {
+     "album": "單曲",
+     "count": 1,
+     "density": 3.23
     }
    ],
    "refs": [
@@ -453,6 +497,13 @@
      "idx": 11,
      "ja": "夢さえ見つけられずに",
      "zh": "夢想都還沒能找到"
+    },
+    {
+     "song": "nishina-clover",
+     "title": "クローバー",
+     "idx": 10,
+     "ja": "恋をしたり 夢を見たり",
+     "zh": "但也談了場戀愛、做了些夢想"
     },
     {
      "song": "nishina-darling",
@@ -474,13 +525,6 @@
      "idx": 14,
      "ja": "幼いほどに夢を見続ける",
      "zh": "如同孩子般不斷做著夢的"
-    },
-    {
-     "song": "nishina-in-your-eyes",
-     "title": "in your eyes",
-     "idx": 9,
-     "ja": "昼夜問わず夢を見た",
-     "zh": "不分日夜地做著夢"
     }
    ]
   },
@@ -502,6 +546,11 @@
      "album": "日々散漫",
      "count": 4,
      "density": 0.45
+    },
+    {
+     "album": "單曲",
+     "count": 0,
+     "density": 0.0
     }
    ],
    "refs": [
@@ -544,7 +593,7 @@
   },
   {
    "group": "水・海",
-   "total": 11,
+   "total": 12,
    "perAlbum": [
     {
      "album": "odds and ends",
@@ -560,9 +609,21 @@
      "album": "日々散漫",
      "count": 4,
      "density": 0.45
+    },
+    {
+     "album": "單曲",
+     "count": 1,
+     "density": 3.23
     }
    ],
    "refs": [
+    {
+     "song": "nishina-clover",
+     "title": "クローバー",
+     "idx": 25,
+     "ja": "優しさの雨を降らせて",
+     "zh": "降下一場溫柔的雨吧"
+    },
     {
      "song": "nishina-in-your-eyes",
      "title": "in your eyes",
@@ -590,13 +651,6 @@
      "idx": 2,
      "ja": "夜を泳ぐメロとリズム",
      "zh": "在夜裡遨遊的旋律與節奏"
-    },
-    {
-     "song": "nishina-seiran-yuuei",
-     "title": "青藍遊泳",
-     "idx": 11,
-     "ja": "ただ好き勝手に泳いでいく",
-     "zh": "只是隨心所欲地游著"
     }
    ]
   },
@@ -616,6 +670,11 @@
     },
     {
      "album": "日々散漫",
+     "count": 0,
+     "density": 0.0
+    },
+    {
+     "album": "單曲",
      "count": 0,
      "density": 0.0
     }
@@ -662,6 +721,11 @@
      "album": "日々散漫",
      "count": 4,
      "density": 0.45
+    },
+    {
+     "album": "單曲",
+     "count": 0,
+     "density": 0.0
     }
    ],
    "refs": [
@@ -720,6 +784,11 @@
      "album": "日々散漫",
      "count": 3,
      "density": 0.34
+    },
+    {
+     "album": "單曲",
+     "count": 0,
+     "density": 0.0
     }
    ],
    "refs": [
@@ -764,7 +833,7 @@
  "pronouns": [
   {
    "label": "私",
-   "total": 47,
+   "total": 48,
    "perAlbum": [
     {
      "album": "odds and ends",
@@ -780,6 +849,11 @@
      "album": "日々散漫",
      "count": 19,
      "density": 2.14
+    },
+    {
+     "album": "單曲",
+     "count": 1,
+     "density": 3.23
     }
    ]
   },
@@ -801,12 +875,17 @@
      "album": "日々散漫",
      "count": 16,
      "density": 1.8
+    },
+    {
+     "album": "單曲",
+     "count": 0,
+     "density": 0.0
     }
    ]
   },
   {
    "label": "僕",
-   "total": 26,
+   "total": 27,
    "perAlbum": [
     {
      "album": "odds and ends",
@@ -822,12 +901,17 @@
      "album": "日々散漫",
      "count": 10,
      "density": 1.13
+    },
+    {
+     "album": "單曲",
+     "count": 1,
+     "density": 3.23
     }
    ]
   },
   {
    "label": "あなた",
-   "total": 23,
+   "total": 24,
    "perAlbum": [
     {
      "album": "odds and ends",
@@ -843,6 +927,11 @@
      "album": "日々散漫",
      "count": 9,
      "density": 1.01
+    },
+    {
+     "album": "單曲",
+     "count": 1,
+     "density": 3.23
     }
    ]
   },
@@ -864,6 +953,11 @@
      "album": "日々散漫",
      "count": 4,
      "density": 0.45
+    },
+    {
+     "album": "單曲",
+     "count": 0,
+     "density": 0.0
     }
    ]
   }
@@ -872,7 +966,7 @@
   {
    "name": "青",
    "hex": "#3b82d6",
-   "count": 8,
+   "count": 9,
    "refs": [
     {
      "song": "nishina-centi",
@@ -880,6 +974,13 @@
      "idx": 25,
      "ja": "青さで傷つくような僕を",
      "zh": "那份蔚藍彷彿會刺傷我一般 這樣的我"
+    },
+    {
+     "song": "nishina-clover",
+     "title": "クローバー",
+     "idx": 24,
+     "ja": "あの雲間の先に青く澄んだ空",
+     "zh": "在那雲隙的前方,是一片蔚藍清澈的天空"
     },
     {
      "song": "nishina-debbie",
@@ -894,13 +995,6 @@
      "idx": 0,
      "ja": "青い春にくたびれたシャツ",
      "zh": "青春裡那件穿舊了的襯衫"
-    },
-    {
-     "song": "nishina-himitsu-kichi",
-     "title": "秘密基地",
-     "idx": 3,
-     "ja": "ラムネの青いビー玉",
-     "zh": "彈珠汽水的藍色玻璃珠"
     }
    ]
   },
@@ -936,6 +1030,20 @@
      "idx": 13,
      "ja": "赤い奇跡を僕らは見つけた",
      "zh": "我們發現了紅色的奇蹟"
+    }
+   ]
+  },
+  {
+   "name": "白",
+   "hex": "#e8e8ee",
+   "count": 3,
+   "refs": [
+    {
+     "song": "nishina-clover",
+     "title": "クローバー",
+     "idx": 2,
+     "ja": "あの白詰草の足元にクローバー",
+     "zh": "在那白三葉草的腳邊,長著幸運草"
     }
    ]
   },
@@ -1007,35 +1115,35 @@
    "topTerms": [
     {
      "term": "ヘビー",
-     "score": 8.8
+     "score": 10.8
     },
     {
      "term": "スモーク",
-     "score": 7.8
+     "score": 9.6
+    },
+    {
+     "term": "夜",
+     "score": 6.4
+    },
+    {
+     "term": "消える",
+     "score": 5.5
+    },
+    {
+     "term": "ダーリン",
+     "score": 5.5
+    },
+    {
+     "term": "深い",
+     "score": 4.9
     },
     {
      "term": "連れ去る",
-     "score": 3.9
+     "score": 4.8
     },
     {
      "term": "拘束",
-     "score": 3.9
-    },
-    {
-     "term": "ダンス",
-     "score": 3.9
-    },
-    {
-     "term": "暗い",
-     "score": 3.9
-    },
-    {
-     "term": "バイ",
-     "score": 3.9
-    },
-    {
-     "term": "酔いどれ",
-     "score": 3.9
+     "score": 4.8
     }
    ]
   },
@@ -1048,36 +1156,36 @@
    "avgLineChars": 10.9,
    "topTerms": [
     {
+     "term": "夜",
+     "score": 6.4
+    },
+    {
      "term": "レイ",
-     "score": 4.9
-    },
-    {
-     "term": "天使",
-     "score": 3.9
-    },
-    {
-     "term": "グンナイモモ",
-     "score": 3.9
+     "score": 6.0
     },
     {
      "term": "要る",
-     "score": 3.8
+     "score": 5.5
+    },
+    {
+     "term": "天使",
+     "score": 4.8
+    },
+    {
+     "term": "グンナイモモ",
+     "score": 4.8
+    },
+    {
+     "term": "愛",
+     "score": 4.3
+    },
+    {
+     "term": "壊れる",
+     "score": 4.2
     },
     {
      "term": "怖い",
-     "score": 2.9
-    },
-    {
-     "term": "畳",
-     "score": 2.9
-    },
-    {
-     "term": "間",
-     "score": 2.9
-    },
-    {
-     "term": "ルーム",
-     "score": 2.9
+     "score": 3.6
     }
    ]
   },
@@ -1091,35 +1199,77 @@
    "topTerms": [
     {
      "term": "ジャム",
-     "score": 10.8
+     "score": 13.2
     },
     {
      "term": "出会う",
-     "score": 7.8
+     "score": 9.6
+    },
+    {
+     "term": "心",
+     "score": 7.6
+    },
+    {
+     "term": "甘い",
+     "score": 7.6
     },
     {
      "term": "呪う",
-     "score": 5.9
+     "score": 7.2
     },
     {
      "term": "クランベリー",
-     "score": 5.9
+     "score": 7.2
     },
     {
      "term": "囁く",
-     "score": 5.9
+     "score": 7.2
     },
     {
      "term": "命",
-     "score": 5.9
+     "score": 7.2
+    }
+   ]
+  },
+  {
+   "album": "單曲",
+   "year": null,
+   "songs": 1,
+   "lines": 31,
+   "kanaRatio": 0.667,
+   "avgLineChars": 11.6,
+   "topTerms": [
+    {
+     "term": "口笛",
+     "score": 3.6
     },
     {
-     "term": "トゥインクル",
-     "score": 5.9
+     "term": "弾む",
+     "score": 3.6
     },
     {
-     "term": "リトル",
-     "score": 5.9
+     "term": "足",
+     "score": 3.6
+    },
+    {
+     "term": "踏み鳴らす",
+     "score": 3.6
+    },
+    {
+     "term": "白",
+     "score": 3.6
+    },
+    {
+     "term": "草",
+     "score": 3.6
+    },
+    {
+     "term": "足元",
+     "score": 3.6
+    },
+    {
+     "term": "クローバー",
+     "score": 3.6
     }
    ]
   }
@@ -1127,9 +1277,9 @@
  "network": {
   "method": {
    "window": "歌內連續 2 行",
-   "nWindows": 1276,
+   "nWindows": 1298,
    "minPair": 3,
-   "dedup": "同曲同 ja 行唯一化 (去除 291 個副歌重複行)"
+   "dedup": "同曲同 ja 行唯一化 (去除 300 個副歌重複行)"
   },
   "nodes": [
    {
@@ -1182,7 +1332,7 @@
    },
    {
     "id": "優しい",
-    "count": 22,
+    "count": 23,
     "refs": [
      {
       "song": "nishina-1999",
@@ -1190,6 +1340,13 @@
       "idx": 20,
       "ja": "夢見がちな優しいあの子も",
       "zh": "還是那個愛做夢的溫柔孩子"
+     },
+     {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 25,
+      "ja": "優しさの雨を降らせて",
+      "zh": "降下一場溫柔的雨吧"
      },
      {
       "song": "nishina-darling",
@@ -1218,13 +1375,6 @@
       "idx": 2,
       "ja": "吹きこぼれぬよう優しい口づけを",
       "zh": "為了不讓它溢出而落下溫柔的吻"
-     },
-     {
-      "song": "nishina-hot-milk",
-      "title": "ホットミルク",
-      "idx": 23,
-      "ja": "優しいふりしてずるくて冷たいのよ許して",
-      "zh": "假裝溫柔 其實狡猾又冷酷呢 原諒我吧"
      }
     ]
    },
@@ -1278,7 +1428,7 @@
    },
    {
     "id": "笑う",
-    "count": 19,
+    "count": 20,
     "refs": [
      {
       "song": "nishina-1999",
@@ -1302,6 +1452,13 @@
       "zh": "風兒笑著 總有一天會將我解開（釋懷）吧"
      },
      {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 1,
+      "ja": "足踏み鳴らせば花が笑った",
+      "zh": "只要踏響腳步,花兒就會綻放笑容"
+     },
+     {
       "song": "nishina-cranberry-jam",
       "title": "クランベリージャムをかけて",
       "idx": 26,
@@ -1314,19 +1471,12 @@
       "idx": 37,
       "ja": "はっははー笑っちゃおう",
       "zh": "哈哈哈ー就一笑置之吧"
-     },
-     {
-      "song": "nishina-dress-code",
-      "title": "ドレスコード",
-      "idx": 21,
-      "ja": "気づかないふりして笑ってくれた",
-      "zh": "你都裝作沒發現 笑著包容我"
      }
     ]
    },
    {
     "id": "言う",
-    "count": 19,
+    "count": 20,
     "refs": [
      {
       "song": "nishina-1999",
@@ -1357,18 +1507,18 @@
       "zh": "想說的話一句也沒有"
      },
      {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 16,
+      "ja": "さよならと遠くで誰かが言えば",
+      "zh": "如果遠方有誰說了句「再見」"
+     },
+     {
       "song": "nishina-darling",
       "title": "ダーリン",
       "idx": 12,
       "ja": "さよならは私が言ってあげる",
       "zh": "那句「再見」 就由我來替你說吧"
-     },
-     {
-      "song": "nishina-dress-code",
-      "title": "ドレスコード",
-      "idx": 26,
-      "ja": "大人みたく言うから 打ち明けられなかった",
-      "zh": "因為你總是像個大人般說著這些 讓我無法對你坦白"
      }
     ]
    },
@@ -1421,6 +1571,54 @@
     ]
    },
    {
+    "id": "空",
+    "count": 15,
+    "refs": [
+     {
+      "song": "nishina-adaada",
+      "title": "婀娜婀娜",
+      "idx": 49,
+      "ja": "見上げる空に群青",
+      "zh": "仰望天空呈現一片群青色"
+     },
+     {
+      "song": "nishina-centi",
+      "title": "centi",
+      "idx": 22,
+      "ja": "空っぽの空に",
+      "zh": "對著空蕩蕩的天空"
+     },
+     {
+      "song": "nishina-centi",
+      "title": "centi",
+      "idx": 24,
+      "ja": "見上げた空の",
+      "zh": "仰望的天空"
+     },
+     {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 0,
+      "ja": "口笛を吹けば空高く弾んだ",
+      "zh": "只要吹起口哨,心就會在天空中高高彈跳"
+     },
+     {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 24,
+      "ja": "あの雲間の先に青く澄んだ空",
+      "zh": "在那雲隙的前方,是一片蔚藍清澈的天空"
+     },
+     {
+      "song": "nishina-debbie",
+      "title": "debbie",
+      "idx": 6,
+      "ja": "ただ青く遠い空で",
+      "zh": "只是在那蔚藍遙遠的天空中"
+     }
+    ]
+   },
+   {
     "id": "分かる",
     "count": 15,
     "refs": [
@@ -1465,6 +1663,54 @@
       "idx": 24,
       "ja": "本当は分かってる",
       "zh": "其實我心裡很清楚"
+     }
+    ]
+   },
+   {
+    "id": "夢",
+    "count": 14,
+    "refs": [
+     {
+      "song": "nishina-centi",
+      "title": "centi",
+      "idx": 11,
+      "ja": "夢さえ見つけられずに",
+      "zh": "夢想都還沒能找到"
+     },
+     {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 10,
+      "ja": "恋をしたり 夢を見たり",
+      "zh": "但也談了場戀愛、做了些夢想"
+     },
+     {
+      "song": "nishina-darling",
+      "title": "ダーリン",
+      "idx": 24,
+      "ja": "あどけなく愚かに夢を見てる",
+      "zh": "天真無邪又愚蠢地做著夢"
+     },
+     {
+      "song": "nishina-debbie",
+      "title": "debbie",
+      "idx": 15,
+      "ja": "刺のある花も夢を見ている",
+      "zh": "帶刺的花朵也做著夢"
+     },
+     {
+      "song": "nishina-hot-milk",
+      "title": "ホットミルク",
+      "idx": 14,
+      "ja": "幼いほどに夢を見続ける",
+      "zh": "如同孩子般不斷做著夢的"
+     },
+     {
+      "song": "nishina-in-your-eyes",
+      "title": "in your eyes",
+      "idx": 9,
+      "ja": "昼夜問わず夢を見た",
+      "zh": "不分日夜地做著夢"
      }
     ]
    },
@@ -1517,54 +1763,6 @@
     ]
    },
    {
-    "id": "空",
-    "count": 13,
-    "refs": [
-     {
-      "song": "nishina-adaada",
-      "title": "婀娜婀娜",
-      "idx": 49,
-      "ja": "見上げる空に群青",
-      "zh": "仰望天空呈現一片群青色"
-     },
-     {
-      "song": "nishina-centi",
-      "title": "centi",
-      "idx": 22,
-      "ja": "空っぽの空に",
-      "zh": "對著空蕩蕩的天空"
-     },
-     {
-      "song": "nishina-centi",
-      "title": "centi",
-      "idx": 24,
-      "ja": "見上げた空の",
-      "zh": "仰望的天空"
-     },
-     {
-      "song": "nishina-debbie",
-      "title": "debbie",
-      "idx": 6,
-      "ja": "ただ青く遠い空で",
-      "zh": "只是在那蔚藍遙遠的天空中"
-     },
-     {
-      "song": "nishina-debbie",
-      "title": "debbie",
-      "idx": 23,
-      "ja": "ただ正しく遠い空を",
-      "zh": "只因為對那正確且遙遠的天空"
-     },
-     {
-      "song": "nishina-glory",
-      "title": "グローリー",
-      "idx": 36,
-      "ja": "空に向かい放とうか",
-      "zh": "朝著天空釋放吧"
-     }
-    ]
-   },
-   {
     "id": "甘い",
     "count": 13,
     "refs": [
@@ -1613,54 +1811,6 @@
     ]
    },
    {
-    "id": "夢",
-    "count": 13,
-    "refs": [
-     {
-      "song": "nishina-centi",
-      "title": "centi",
-      "idx": 11,
-      "ja": "夢さえ見つけられずに",
-      "zh": "夢想都還沒能找到"
-     },
-     {
-      "song": "nishina-darling",
-      "title": "ダーリン",
-      "idx": 24,
-      "ja": "あどけなく愚かに夢を見てる",
-      "zh": "天真無邪又愚蠢地做著夢"
-     },
-     {
-      "song": "nishina-debbie",
-      "title": "debbie",
-      "idx": 15,
-      "ja": "刺のある花も夢を見ている",
-      "zh": "帶刺的花朵也做著夢"
-     },
-     {
-      "song": "nishina-hot-milk",
-      "title": "ホットミルク",
-      "idx": 14,
-      "ja": "幼いほどに夢を見続ける",
-      "zh": "如同孩子般不斷做著夢的"
-     },
-     {
-      "song": "nishina-in-your-eyes",
-      "title": "in your eyes",
-      "idx": 9,
-      "ja": "昼夜問わず夢を見た",
-      "zh": "不分日夜地做著夢"
-     },
-     {
-      "song": "nishina-mashiro",
-      "title": "真白",
-      "idx": 2,
-      "ja": "遠の昔に捨ててきた夢と",
-      "zh": "與很久以前就拋棄的夢想"
-     }
-    ]
-   },
-   {
     "id": "踊る",
     "count": 12,
     "refs": [
@@ -1705,6 +1855,54 @@
       "idx": 13,
       "ja": "そうなりゃ皆纏め踊るだけさ",
       "zh": "既然這樣那就把大家湊在一起跳舞吧"
+     }
+    ]
+   },
+   {
+    "id": "声",
+    "count": 12,
+    "refs": [
+     {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 23,
+      "ja": "ラララ声にすれば叶う気がした",
+      "zh": "啦啦啦,只要唱出聲,就覺得願望能夠實現"
+     },
+     {
+      "song": "nishina-dress-code",
+      "title": "ドレスコード",
+      "idx": 3,
+      "ja": "貴方を想い声を紡ぐ",
+      "zh": "此刻我更想念著你而編織著話語"
+     },
+     {
+      "song": "nishina-glory",
+      "title": "グローリー",
+      "idx": 31,
+      "ja": "大きな声で歌おうか",
+      "zh": "大聲地唱出來吧"
+     },
+     {
+      "song": "nishina-haru-ichiban",
+      "title": "春一番",
+      "idx": 2,
+      "ja": "揺れるハンガー 子供が笑う声",
+      "zh": "搖晃的衣架 孩子們的笑聲"
+     },
+     {
+      "song": "nishina-heavy-smoke",
+      "title": "ヘビースモーク",
+      "idx": 4,
+      "ja": "綺麗なその声もしゃがれて",
+      "zh": "連那好聽的聲音也變得沙啞"
+     },
+     {
+      "song": "nishina-hot-milk",
+      "title": "ホットミルク",
+      "idx": 16,
+      "ja": "少し低くて落ち着く声",
+      "zh": "稍微低沉而令人安心的聲音"
      }
     ]
    },
@@ -1805,50 +2003,50 @@
     ]
    },
    {
-    "id": "声",
+    "id": "花",
     "count": 11,
     "refs": [
      {
-      "song": "nishina-dress-code",
-      "title": "ドレスコード",
-      "idx": 3,
-      "ja": "貴方を想い声を紡ぐ",
-      "zh": "此刻我更想念著你而編織著話語"
+      "song": "nishina-adaada",
+      "title": "婀娜婀娜",
+      "idx": 19,
+      "ja": "艶やかにさぁ魅惑の花になる",
+      "zh": "艷麗地 化作一朵魅惑之花吧"
+     },
+     {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 1,
+      "ja": "足踏み鳴らせば花が笑った",
+      "zh": "只要踏響腳步,花兒就會綻放笑容"
+     },
+     {
+      "song": "nishina-debbie",
+      "title": "debbie",
+      "idx": 15,
+      "ja": "刺のある花も夢を見ている",
+      "zh": "帶刺的花朵也做著夢"
+     },
+     {
+      "song": "nishina-debbie",
+      "title": "debbie",
+      "idx": 32,
+      "ja": "刺のある花より密やかに",
+      "zh": "比帶刺的花朵更隱密地"
      },
      {
       "song": "nishina-glory",
       "title": "グローリー",
-      "idx": 31,
-      "ja": "大きな声で歌おうか",
-      "zh": "大聲地唱出來吧"
+      "idx": 10,
+      "ja": "素知らぬ顔して花は揺れ",
+      "zh": "花朵卻裝作若無其事地搖曳著"
      },
      {
-      "song": "nishina-haru-ichiban",
-      "title": "春一番",
-      "idx": 2,
-      "ja": "揺れるハンガー 子供が笑う声",
-      "zh": "搖晃的衣架 孩子們的笑聲"
-     },
-     {
-      "song": "nishina-heavy-smoke",
-      "title": "ヘビースモーク",
-      "idx": 4,
-      "ja": "綺麗なその声もしゃがれて",
-      "zh": "連那好聽的聲音也變得沙啞"
-     },
-     {
-      "song": "nishina-hot-milk",
-      "title": "ホットミルク",
-      "idx": 16,
-      "ja": "少し低くて落ち着く声",
-      "zh": "稍微低沉而令人安心的聲音"
-     },
-     {
-      "song": "nishina-in-your-eyes",
-      "title": "in your eyes",
-      "idx": 20,
-      "ja": "飲み込む声 夜の淵",
-      "zh": "吞入腹中的聲音 夜晚的深淵"
+      "song": "nishina-glory",
+      "title": "グローリー",
+      "idx": 33,
+      "ja": "花の代わりに",
+      "zh": "代替那些花朵"
      }
     ]
    },
@@ -1901,54 +2099,6 @@
     ]
    },
    {
-    "id": "花",
-    "count": 10,
-    "refs": [
-     {
-      "song": "nishina-adaada",
-      "title": "婀娜婀娜",
-      "idx": 19,
-      "ja": "艶やかにさぁ魅惑の花になる",
-      "zh": "艷麗地 化作一朵魅惑之花吧"
-     },
-     {
-      "song": "nishina-debbie",
-      "title": "debbie",
-      "idx": 15,
-      "ja": "刺のある花も夢を見ている",
-      "zh": "帶刺的花朵也做著夢"
-     },
-     {
-      "song": "nishina-debbie",
-      "title": "debbie",
-      "idx": 32,
-      "ja": "刺のある花より密やかに",
-      "zh": "比帶刺的花朵更隱密地"
-     },
-     {
-      "song": "nishina-glory",
-      "title": "グローリー",
-      "idx": 10,
-      "ja": "素知らぬ顔して花は揺れ",
-      "zh": "花朵卻裝作若無其事地搖曳著"
-     },
-     {
-      "song": "nishina-glory",
-      "title": "グローリー",
-      "idx": 33,
-      "ja": "花の代わりに",
-      "zh": "代替那些花朵"
-     },
-     {
-      "song": "nishina-its-a-piece-of-cake",
-      "title": "It's a piece of cake",
-      "idx": 10,
-      "ja": "桜の花は散って疎に汚れて",
-      "zh": "櫻花散落 沾染了點點污泥"
-     }
-    ]
-   },
-   {
     "id": "最後",
     "count": 9,
     "refs": [
@@ -1993,6 +2143,54 @@
       "idx": 23,
       "ja": "わからなかった本当は最後まで",
       "zh": "其實直到最後我都還是不明白"
+     }
+    ]
+   },
+   {
+    "id": "手",
+    "count": 9,
+    "refs": [
+     {
+      "song": "nishina-1999",
+      "title": "1999",
+      "idx": 17,
+      "ja": "誰もがきっと愛しき人の手を握る",
+      "zh": "所有人一定都會緊緊握住心愛之人的手"
+     },
+     {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 17,
+      "ja": "僕らはまたねと手を振り返し進む",
+      "zh": "我們會揮著手回敬一句「下次見」,然後繼續前進"
+     },
+     {
+      "song": "nishina-debbie",
+      "title": "debbie",
+      "idx": 17,
+      "ja": "奏でる手を止めないでよ",
+      "zh": "請別停下演奏的雙手"
+     },
+     {
+      "song": "nishina-friday-kids-china-town",
+      "title": "FRIDAY KIDS CHINA TOWN",
+      "idx": 32,
+      "ja": "鬼さんこちらで手のなる方へ",
+      "zh": "當鬼的來這邊 朝著拍手的方向來"
+     },
+     {
+      "song": "nishina-heavy-smoke",
+      "title": "ヘビースモーク",
+      "idx": 1,
+      "ja": "新品のセブンスターまた手を伸ばして",
+      "zh": "又伸向了全新的一包 Seven Stars（七星香菸）"
+     },
+     {
+      "song": "nishina-heavy-smoke",
+      "title": "ヘビースモーク",
+      "idx": 10,
+      "ja": "両の手を私が握って拘束する",
+      "zh": "那就由我來握住你的雙手 把你束縛住"
      }
     ]
    },
@@ -2093,6 +2291,102 @@
     ]
    },
    {
+    "id": "青い",
+    "count": 9,
+    "refs": [
+     {
+      "song": "nishina-centi",
+      "title": "centi",
+      "idx": 25,
+      "ja": "青さで傷つくような僕を",
+      "zh": "那份蔚藍彷彿會刺傷我一般 這樣的我"
+     },
+     {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 24,
+      "ja": "あの雲間の先に青く澄んだ空",
+      "zh": "在那雲隙的前方,是一片蔚藍清澈的天空"
+     },
+     {
+      "song": "nishina-debbie",
+      "title": "debbie",
+      "idx": 6,
+      "ja": "ただ青く遠い空で",
+      "zh": "只是在那蔚藍遙遠的天空中"
+     },
+     {
+      "song": "nishina-haru-ichiban",
+      "title": "春一番",
+      "idx": 0,
+      "ja": "青い春にくたびれたシャツ",
+      "zh": "青春裡那件穿舊了的襯衫"
+     },
+     {
+      "song": "nishina-himitsu-kichi",
+      "title": "秘密基地",
+      "idx": 3,
+      "ja": "ラムネの青いビー玉",
+      "zh": "彈珠汽水的藍色玻璃珠"
+     },
+     {
+      "song": "nishina-in-your-eyes",
+      "title": "in your eyes",
+      "idx": 41,
+      "ja": "赤よりも青く",
+      "zh": "比紅色更湛藍"
+     }
+    ]
+   },
+   {
+    "id": "風",
+    "count": 9,
+    "refs": [
+     {
+      "song": "nishina-centi",
+      "title": "centi",
+      "idx": 26,
+      "ja": "風は笑っていつか解いてゆくかな",
+      "zh": "風兒笑著 總有一天會將我解開（釋懷）吧"
+     },
+     {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 22,
+      "ja": "鼻歌吹かせば風そよぎ遊んだ",
+      "zh": "只要哼起歌,微風就會在一旁嬉戲"
+     },
+     {
+      "song": "nishina-debbie",
+      "title": "debbie",
+      "idx": 16,
+      "ja": "春の風はきっと泣き続ける",
+      "zh": "春風一定會不斷哭泣"
+     },
+     {
+      "song": "nishina-its-a-piece-of-cake",
+      "title": "It's a piece of cake",
+      "idx": 19,
+      "ja": "風は追い越してく",
+      "zh": "微風從身旁超越而去"
+     },
+     {
+      "song": "nishina-kedamono-no-friends",
+      "title": "ケダモノのフレンズ",
+      "idx": 5,
+      "ja": "風が炎を揺らせば",
+      "zh": "當風吹晃了火焰"
+     },
+     {
+      "song": "nishina-one-room",
+      "title": "ワンルーム",
+      "idx": 15,
+      "ja": "もしも臆病風が吹き込んで 君をさらってしまってもちゃんと",
+      "zh": "如果吹進了一陣膽怯的風 將你給捲走 我也"
+     }
+    ]
+   },
+   {
     "id": "愛する",
     "count": 9,
     "refs": [
@@ -2189,54 +2483,6 @@
     ]
    },
    {
-    "id": "手",
-    "count": 8,
-    "refs": [
-     {
-      "song": "nishina-1999",
-      "title": "1999",
-      "idx": 17,
-      "ja": "誰もがきっと愛しき人の手を握る",
-      "zh": "所有人一定都會緊緊握住心愛之人的手"
-     },
-     {
-      "song": "nishina-debbie",
-      "title": "debbie",
-      "idx": 17,
-      "ja": "奏でる手を止めないでよ",
-      "zh": "請別停下演奏的雙手"
-     },
-     {
-      "song": "nishina-friday-kids-china-town",
-      "title": "FRIDAY KIDS CHINA TOWN",
-      "idx": 32,
-      "ja": "鬼さんこちらで手のなる方へ",
-      "zh": "當鬼的來這邊 朝著拍手的方向來"
-     },
-     {
-      "song": "nishina-heavy-smoke",
-      "title": "ヘビースモーク",
-      "idx": 1,
-      "ja": "新品のセブンスターまた手を伸ばして",
-      "zh": "又伸向了全新的一包 Seven Stars（七星香菸）"
-     },
-     {
-      "song": "nishina-heavy-smoke",
-      "title": "ヘビースモーク",
-      "idx": 10,
-      "ja": "両の手を私が握って拘束する",
-      "zh": "那就由我來握住你的雙手 把你束縛住"
-     },
-     {
-      "song": "nishina-oto-ni-natteiku-yo",
-      "title": "音になっていくよ",
-      "idx": 3,
-      "ja": "手と手",
-      "zh": "手與手"
-     }
-    ]
-   },
-   {
     "id": "気付く",
     "count": 8,
     "refs": [
@@ -2281,6 +2527,54 @@
       "idx": 9,
       "ja": "気づいてしまってるのに",
       "zh": "明明早就察覺到了"
+     }
+    ]
+   },
+   {
+    "id": "恋",
+    "count": 8,
+    "refs": [
+     {
+      "song": "nishina-adaada",
+      "title": "婀娜婀娜",
+      "idx": 2,
+      "ja": "身を焦がすほどの恋がまたしたい",
+      "zh": "好想再談一場惹火燒身的戀愛"
+     },
+     {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 10,
+      "ja": "恋をしたり 夢を見たり",
+      "zh": "但也談了場戀愛、做了些夢想"
+     },
+     {
+      "song": "nishina-darling",
+      "title": "ダーリン",
+      "idx": 14,
+      "ja": "恋を静かに吹き消す夜",
+      "zh": "靜靜地將這段戀情吹熄的夜晚"
+     },
+     {
+      "song": "nishina-darling",
+      "title": "ダーリン",
+      "idx": 28,
+      "ja": "恋を優しく吹き消す夜 woo, woo, woo, woo",
+      "zh": "溫柔地將這段戀情吹熄的夜晚 woo, woo, woo, woo"
+     },
+     {
+      "song": "nishina-dress-code",
+      "title": "ドレスコード",
+      "idx": 0,
+      "ja": "皮肉なものね恋の終わりに",
+      "zh": "真諷刺呢 在戀情的終點"
+     },
+     {
+      "song": "nishina-hot-milk",
+      "title": "ホットミルク",
+      "idx": 10,
+      "ja": "ねぇいつかは終わる恋をしていたのね 私達も",
+      "zh": "吶 原來我們談了一場總有一天會結束的戀愛呢"
      }
     ]
    },
@@ -2477,98 +2771,50 @@
     ]
    },
    {
-    "id": "青い",
+    "id": "幸せ",
     "count": 8,
     "refs": [
      {
-      "song": "nishina-centi",
-      "title": "centi",
-      "idx": 25,
-      "ja": "青さで傷つくような僕を",
-      "zh": "那份蔚藍彷彿會刺傷我一般 這樣的我"
-     },
-     {
-      "song": "nishina-debbie",
-      "title": "debbie",
-      "idx": 6,
-      "ja": "ただ青く遠い空で",
-      "zh": "只是在那蔚藍遙遠的天空中"
-     },
-     {
-      "song": "nishina-haru-ichiban",
-      "title": "春一番",
-      "idx": 0,
-      "ja": "青い春にくたびれたシャツ",
-      "zh": "青春裡那件穿舊了的襯衫"
-     },
-     {
-      "song": "nishina-himitsu-kichi",
-      "title": "秘密基地",
+      "song": "nishina-clover",
+      "title": "クローバー",
       "idx": 3,
-      "ja": "ラムネの青いビー玉",
-      "zh": "彈珠汽水的藍色玻璃珠"
+      "ja": "幸せはいつもそばに",
+      "zh": "幸福總是在我們身邊"
      },
      {
-      "song": "nishina-in-your-eyes",
-      "title": "in your eyes",
-      "idx": 41,
-      "ja": "赤よりも青く",
-      "zh": "比紅色更湛藍"
+      "song": "nishina-cranberry-jam",
+      "title": "クランベリージャムをかけて",
+      "idx": 32,
+      "ja": "飽き飽きするのが幸せ",
+      "zh": "感到厭煩這件事本身就是幸福"
      },
      {
-      "song": "nishina-plum",
-      "title": "plum",
-      "idx": 36,
-      "ja": "来世で出会う青い2人に期待して左様なら",
-      "zh": "期待著來世相遇時青澀的兩人 再見了"
-     }
-    ]
-   },
-   {
-    "id": "風",
-    "count": 8,
-    "refs": [
-     {
-      "song": "nishina-centi",
-      "title": "centi",
-      "idx": 26,
-      "ja": "風は笑っていつか解いてゆくかな",
-      "zh": "風兒笑著 總有一天會將我解開（釋懷）吧"
+      "song": "nishina-darling",
+      "title": "ダーリン",
+      "idx": 25,
+      "ja": "2人は幸せだったわ",
+      "zh": "我們兩個人 曾經很幸福呢"
      },
      {
-      "song": "nishina-debbie",
-      "title": "debbie",
-      "idx": 16,
-      "ja": "春の風はきっと泣き続ける",
-      "zh": "春風一定會不斷哭泣"
+      "song": "nishina-dress-code",
+      "title": "ドレスコード",
+      "idx": 32,
+      "ja": "幸せは貰うんじゃなく",
+      "zh": "幸福不是別人給予的"
      },
      {
-      "song": "nishina-its-a-piece-of-cake",
-      "title": "It's a piece of cake",
-      "idx": 19,
-      "ja": "風は追い越してく",
-      "zh": "微風從身旁超越而去"
+      "song": "nishina-glory",
+      "title": "グローリー",
+      "idx": 20,
+      "ja": "幸せの最中演じる",
+      "zh": "不過是在幸福之中演出來的戲碼"
      },
      {
-      "song": "nishina-kedamono-no-friends",
-      "title": "ケダモノのフレンズ",
-      "idx": 5,
-      "ja": "風が炎を揺らせば",
-      "zh": "當風吹晃了火焰"
-     },
-     {
-      "song": "nishina-one-room",
-      "title": "ワンルーム",
-      "idx": 15,
-      "ja": "もしも臆病風が吹き込んで 君をさらってしまってもちゃんと",
-      "zh": "如果吹進了一陣膽怯的風 將你給捲走 我也"
-     },
-     {
-      "song": "nishina-tsukushi",
-      "title": "つくし",
-      "idx": 18,
-      "ja": "風を掴め",
-      "zh": "乘風而起吧"
+      "song": "nishina-nekoze",
+      "title": "ねこぜ",
+      "idx": 6,
+      "ja": "私の幸せ",
+      "zh": "我的幸福"
      }
     ]
    },
@@ -2909,54 +3155,6 @@
     ]
    },
    {
-    "id": "恋",
-    "count": 7,
-    "refs": [
-     {
-      "song": "nishina-adaada",
-      "title": "婀娜婀娜",
-      "idx": 2,
-      "ja": "身を焦がすほどの恋がまたしたい",
-      "zh": "好想再談一場惹火燒身的戀愛"
-     },
-     {
-      "song": "nishina-darling",
-      "title": "ダーリン",
-      "idx": 14,
-      "ja": "恋を静かに吹き消す夜",
-      "zh": "靜靜地將這段戀情吹熄的夜晚"
-     },
-     {
-      "song": "nishina-darling",
-      "title": "ダーリン",
-      "idx": 28,
-      "ja": "恋を優しく吹き消す夜 woo, woo, woo, woo",
-      "zh": "溫柔地將這段戀情吹熄的夜晚 woo, woo, woo, woo"
-     },
-     {
-      "song": "nishina-dress-code",
-      "title": "ドレスコード",
-      "idx": 0,
-      "ja": "皮肉なものね恋の終わりに",
-      "zh": "真諷刺呢 在戀情的終點"
-     },
-     {
-      "song": "nishina-hot-milk",
-      "title": "ホットミルク",
-      "idx": 10,
-      "ja": "ねぇいつかは終わる恋をしていたのね 私達も",
-      "zh": "吶 原來我們談了一場總有一天會結束的戀愛呢"
-     },
-     {
-      "song": "nishina-hot-milk",
-      "title": "ホットミルク",
-      "idx": 22,
-      "ja": "ねぇ誰かと出会ってまた恋をしてね 私より早く",
-      "zh": "吶 去遇見某個人 再次談場戀愛吧 要比我更快喔"
-     }
-    ]
-   },
-   {
     "id": "詰まる",
     "count": 7,
     "refs": [
@@ -3003,54 +3201,6 @@
       "zh": "無法忘我投入的大人最無趣了"
      }
     ]
-   },
-   {
-    "id": "止める",
-    "count": 7,
-    "refs": [
-     {
-      "song": "nishina-adaada",
-      "title": "婀娜婀娜",
-      "idx": 9,
-      "ja": "つまんないこと言うのやめなよ",
-      "zh": "別再說些無聊的話了"
-     },
-     {
-      "song": "nishina-debbie",
-      "title": "debbie",
-      "idx": 17,
-      "ja": "奏でる手を止めないでよ",
-      "zh": "請別停下演奏的雙手"
-     },
-     {
-      "song": "nishina-glory",
-      "title": "グローリー",
-      "idx": 7,
-      "ja": "「くだらないからもうやめてよ」",
-      "zh": "「太無聊了快住手吧」"
-     },
-     {
-      "song": "nishina-heavy-smoke",
-      "title": "ヘビースモーク",
-      "idx": 2,
-      "ja": "君はヘビースモーカーやめられなくて",
-      "zh": "你是個老菸槍 戒也戒不掉"
-     },
-     {
-      "song": "nishina-heavy-smoke",
-      "title": "ヘビースモーク",
-      "idx": 6,
-      "ja": "彼女ができたらやめるって笑って",
-      "zh": "笑著說「交了女朋友就會戒啦」"
-     },
-     {
-      "song": "nishina-rinne",
-      "title": "輪廻",
-      "idx": 11,
-      "ja": "運命も定めも気に留めず恵みになれ",
-      "zh": "不去在意命運或宿命 讓一切都化作恩賜吧"
-     }
-    ]
    }
   ],
   "links": [
@@ -3058,161 +3208,153 @@
     "source": "愛",
     "target": "歌う",
     "count": 6,
-    "pmi": 3.85,
-    "ppmi": 3.85,
-    "g2": 24.4
+    "pmi": 3.87,
+    "ppmi": 3.87,
+    "g2": 24.6
+   },
+   {
+    "source": "空",
+    "target": "青い",
+    "count": 5,
+    "pmi": 3.72,
+    "ppmi": 3.72,
+    "g2": 18.8
    },
    {
     "source": "悲しみ",
     "target": "愛しい",
     "count": 4,
-    "pmi": 4.09,
-    "ppmi": 4.09,
-    "g2": 17.0
+    "pmi": 4.11,
+    "ppmi": 4.11,
+    "g2": 17.1
    },
    {
     "source": "皆",
     "target": "踊る",
     "count": 4,
-    "pmi": 3.73,
-    "ppmi": 3.73,
-    "g2": 14.9
+    "pmi": 3.76,
+    "ppmi": 3.76,
+    "g2": 15.0
    },
    {
     "source": "変わる",
     "target": "甘い",
     "count": 4,
-    "pmi": 3.73,
-    "ppmi": 3.73,
-    "g2": 14.9
-   },
-   {
-    "source": "手",
-    "target": "止める",
-    "count": 3,
-    "pmi": 4.1,
-    "ppmi": 4.1,
-    "g2": 12.5
+    "pmi": 3.76,
+    "ppmi": 3.76,
+    "g2": 15.0
    },
    {
     "source": "ラブ",
     "target": "悲しみ",
     "count": 3,
-    "pmi": 4.0,
-    "ppmi": 4.0,
-    "g2": 12.1
+    "pmi": 4.02,
+    "ppmi": 4.02,
+    "g2": 12.2
    },
    {
     "source": "孤独",
     "target": "愛する",
     "count": 3,
-    "pmi": 3.73,
-    "ppmi": 3.73,
-    "g2": 11.0
+    "pmi": 3.76,
+    "ppmi": 3.76,
+    "g2": 11.1
    },
    {
     "source": "声",
     "target": "歌う",
     "count": 3,
-    "pmi": 3.7,
-    "ppmi": 3.7,
-    "g2": 10.9
+    "pmi": 3.6,
+    "ppmi": 3.6,
+    "g2": 10.4
    },
    {
     "source": "夜",
     "target": "恋",
     "count": 4,
-    "pmi": 2.69,
-    "ppmi": 2.69,
-    "g2": 9.5
-   },
-   {
-    "source": "空",
-    "target": "青い",
-    "count": 3,
-    "pmi": 3.3,
-    "ppmi": 3.3,
-    "g2": 9.1
+    "pmi": 2.49,
+    "ppmi": 2.49,
+    "g2": 8.3
    },
    {
     "source": "声",
     "target": "笑う",
     "count": 4,
-    "pmi": 2.68,
-    "ppmi": 2.68,
-    "g2": 9.0
+    "pmi": 2.5,
+    "ppmi": 2.5,
+    "g2": 8.1
    },
    {
     "source": "泣く",
     "target": "風",
     "count": 3,
-    "pmi": 3.15,
-    "ppmi": 3.15,
-    "g2": 8.5
+    "pmi": 3.0,
+    "ppmi": 3.0,
+    "g2": 7.9
    },
    {
     "source": "優しい",
     "target": "恋",
     "count": 3,
-    "pmi": 2.86,
-    "ppmi": 2.86,
-    "g2": 7.5
+    "pmi": 2.6,
+    "ppmi": 2.6,
+    "g2": 6.4
    },
    {
     "source": "愛",
     "target": "知る",
     "count": 4,
-    "pmi": 2.12,
-    "ppmi": 2.12,
-    "g2": 6.2
+    "pmi": 2.14,
+    "ppmi": 2.14,
+    "g2": 6.3
    },
    {
     "source": "優しい",
     "target": "最後",
     "count": 3,
-    "pmi": 2.36,
-    "ppmi": 2.36,
-    "g2": 5.5
+    "pmi": 2.32,
+    "ppmi": 2.32,
+    "g2": 5.3
    },
    {
     "source": "優しい",
     "target": "夜",
     "count": 6,
-    "pmi": 1.4,
-    "ppmi": 1.4,
-    "g2": 4.8
+    "pmi": 1.36,
+    "ppmi": 1.36,
+    "g2": 4.5
    },
    {
     "source": "夜",
     "target": "甘い",
     "count": 4,
-    "pmi": 1.69,
-    "ppmi": 1.69,
-    "g2": 4.3
+    "pmi": 1.71,
+    "ppmi": 1.71,
+    "g2": 4.4
    },
    {
     "source": "リズム",
     "target": "夜",
     "count": 3,
-    "pmi": 1.86,
-    "ppmi": 1.86,
-    "g2": 3.8
+    "pmi": 1.88,
+    "ppmi": 1.88,
+    "g2": 3.9
    },
    {
     "source": "夜",
     "target": "愛しい",
     "count": 3,
-    "pmi": 1.54,
-    "ppmi": 1.54,
-    "g2": 2.7
+    "pmi": 1.56,
+    "ppmi": 1.56,
+    "g2": 2.8
    },
    {
     "source": "夜",
     "target": "泣く",
     "count": 3,
-    "pmi": 1.1,
-    "ppmi": 1.1,
-    "g2": 1.5
+    "pmi": 1.13,
+    "ppmi": 1.13,
+    "g2": 1.6
    }
   ],
   "topPairs": [
@@ -3220,106 +3362,106 @@
     "a": "愛",
     "b": "歌う",
     "count": 6,
-    "pmi": 3.85,
-    "g2": 24.4
+    "pmi": 3.87,
+    "g2": 24.6
+   },
+   {
+    "a": "空",
+    "b": "青い",
+    "count": 5,
+    "pmi": 3.72,
+    "g2": 18.8
    },
    {
     "a": "悲しみ",
     "b": "愛しい",
     "count": 4,
-    "pmi": 4.09,
-    "g2": 17.0
+    "pmi": 4.11,
+    "g2": 17.1
    },
    {
     "a": "皆",
     "b": "踊る",
     "count": 4,
-    "pmi": 3.73,
-    "g2": 14.9
+    "pmi": 3.76,
+    "g2": 15.0
    },
    {
     "a": "変わる",
     "b": "甘い",
     "count": 4,
-    "pmi": 3.73,
-    "g2": 14.9
-   },
-   {
-    "a": "手",
-    "b": "止める",
-    "count": 3,
-    "pmi": 4.1,
-    "g2": 12.5
+    "pmi": 3.76,
+    "g2": 15.0
    },
    {
     "a": "ラブ",
     "b": "悲しみ",
     "count": 3,
-    "pmi": 4.0,
-    "g2": 12.1
+    "pmi": 4.02,
+    "g2": 12.2
    },
    {
     "a": "孤独",
     "b": "愛する",
     "count": 3,
-    "pmi": 3.73,
-    "g2": 11.0
+    "pmi": 3.76,
+    "g2": 11.1
    },
    {
     "a": "声",
     "b": "歌う",
     "count": 3,
-    "pmi": 3.7,
-    "g2": 10.9
+    "pmi": 3.6,
+    "g2": 10.4
    },
    {
     "a": "夜",
     "b": "恋",
     "count": 4,
-    "pmi": 2.69,
-    "g2": 9.5
-   },
-   {
-    "a": "空",
-    "b": "青い",
-    "count": 3,
-    "pmi": 3.3,
-    "g2": 9.1
+    "pmi": 2.49,
+    "g2": 8.3
    },
    {
     "a": "声",
     "b": "笑う",
     "count": 4,
-    "pmi": 2.68,
-    "g2": 9.0
+    "pmi": 2.5,
+    "g2": 8.1
    },
    {
     "a": "泣く",
     "b": "風",
     "count": 3,
-    "pmi": 3.15,
-    "g2": 8.5
+    "pmi": 3.0,
+    "g2": 7.9
    },
    {
     "a": "優しい",
     "b": "恋",
     "count": 3,
-    "pmi": 2.86,
-    "g2": 7.5
+    "pmi": 2.6,
+    "g2": 6.4
    },
    {
     "a": "愛",
     "b": "知る",
     "count": 4,
-    "pmi": 2.12,
-    "g2": 6.2
+    "pmi": 2.14,
+    "g2": 6.3
    },
    {
     "a": "優しい",
     "b": "最後",
     "count": 3,
-    "pmi": 2.36,
-    "g2": 5.5
+    "pmi": 2.32,
+    "g2": 5.3
+   },
+   {
+    "a": "優しい",
+    "b": "夜",
+    "count": 6,
+    "pmi": 1.36,
+    "g2": 4.5
    }
   ]
  }

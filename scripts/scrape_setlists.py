@@ -29,7 +29,9 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
 
 ROOT = Path(__file__).parent.parent
-LYRICS_JSON = ROOT / 'src' / 'data' / 'lyrics.json'
+# lyrics.json 由 scripts/export_lyrics_json.py 產出到 data/ (canonical);
+# 舊版本曾誤讀 src/data/lyrics.json (那份會 stale, 因為只有 pipeline 寫的路徑會 refresh)
+LYRICS_JSON = ROOT / 'data' / 'lyrics.json'
 OUT_JSON = ROOT / 'src' / 'data' / 'setlists.json'
 COVERS_DIR = ROOT / 'public' / 'setlists' / 'covers'
 HUB_URL = 'https://nishina.lnk.to/live_setlist'

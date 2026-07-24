@@ -70,9 +70,11 @@ def kana_ratio(text):
 data = json.load(open(LYRICS_PATH, encoding='utf-8'))
 songs = [
     s for s in data['songs']
-    if not s.get('instrumental') and s.get('artist') in ARTIST_ALLOWLIST
+    if not s.get('instrumental')
+    and not s.get('exclude_from_lyric_analysis')
+    and s.get('artist') in ARTIST_ALLOWLIST
 ]
-print(f'analyzing {len(songs)} songs (filtered artist ∈ {ARTIST_ALLOWLIST}, non-instrumental)')
+print(f'analyzing {len(songs)} songs (filtered artist ∈ {ARTIST_ALLOWLIST}, non-instrumental, non-external-lyrics)')
 albums = sorted({(s['album'], s['album_year']) for s in songs}, key=lambda a: (str(a[1]), a[0]))
 album_order = [a[0] for a in albums]
 album_lines = Counter()

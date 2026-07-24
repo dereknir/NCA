@@ -50,6 +50,14 @@ const translationsCollection = defineCollection({
       .or(z.string().startsWith('/', '封面圖片路徑必須以 / 開頭'))
       .optional(),
     instrumental: z.boolean().default(false),
+    /** true = 這首歌的詞非にしな 原作 (翻唱 / feat 作為 guest / 其他人主導的 collab)
+     *  → 排除於 歌詞宇宙 / 歌詞索引 / 歌詞星圖 這類「にしな 作詞風格分析」的下游 pipeline
+     *  仍出現在 /translations 列表、setlist 匹配、圖鑑等以歌手身份為主的介面 */
+    excludeFromLyricAnalysis: z.boolean().default(false),
+    /** OG 卡引用的歌詞行 index (指向 lyric_lines[].index)。不填則 fallback 到第 0 行 */
+    og_line: z.coerce.number().int().nonnegative().optional(),
+    /** OG 卡主色, hex like "#e2603a"。不填則用站的預設藍 */
+    accent: z.string().regex(/^#[0-9a-fA-F]{3,8}$/, 'accent 需為 hex 顏色').optional(),
     liveShorts: z.array(
         z.object({
           anchor: z.string().min(1, 'Anchor 不能為空').max(200),

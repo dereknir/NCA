@@ -53,7 +53,9 @@ def tokenize_with_offsets(ja: str):
 data = json.load(open(LYRICS_PATH, encoding='utf-8'))
 songs = [
     s for s in data['songs']
-    if not s.get('instrumental') and s.get('artist') in ARTIST_ALLOWLIST
+    if not s.get('instrumental')
+    and not s.get('exclude_from_lyric_analysis')
+    and s.get('artist') in ARTIST_ALLOWLIST
 ]
 print(f'indexing {len(songs)} songs (filtered artist ∈ {ARTIST_ALLOWLIST}, non-instrumental)', file=sys.stderr)
 
