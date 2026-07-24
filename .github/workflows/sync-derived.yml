@@ -1,0 +1,65 @@
+name: Sync derived data (annotator push)
+
+# 觸發: annotator 使用者存 GitHub → 推 annotation/shorts_anchors.json →
+# 這個輕量 workflow 立刻跑, 只把「衍生檔案」重生, 讓 /extras/ + /translations/<song>/
+# shelf + /gacha/ live pool 反映最新標註結果.
+#
+# 跟每日 03:00 排程 (scrape-shorts.yml) 的關係:
+#   排程做:  yt-dlp scrape + classify + build queue + 全部衍生
+#   本份做:  只跑衍生檔部分 (~30 秒), 不重抓 YouTube
+#
+# 無限循環保護: 這個 workflow 的 commit 動作只 push 衍生檔
+# (shorts_by_song.json / shorts_extras.json / live_pool.json),
+# 從不 push annotation/shorts_anchors.json — 所以自己不會再觸發自己.
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'annotation/shorts_anchors.json'
+  workflow_dispatch: {}
+
+# 併發控制: 同一時間只跑一個, 後來的排隊 (避免 annotator 連續 push 造成疊車)
+concurrency:
+  group: sync-derived-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install rapidfuzz
+
+      - name: Rebuild shorts_by_song.json + shorts_extras.json from anchors
+        run: python scripts/import_anchors.py
+
+      - name: Rebuild gacha LIVE pool from shorts_anchors.json
+        run: python scripts/build_gacha_live_pool.py
+
+      - name: Commit + push if changed
+        id: commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 只 stage 衍生檔案, 絕不動 shorts_anchors.json (那是 source of truth)
+          git add src/data/shorts_by_song.json src/data/shorts_extras.json public/gacha/live_pool.json
+          if git diff --staged --quiet; then
+            echo "committed=no" >> $GITHUB_OUTPUT
+            echo "→ 衍生檔跟目前 anchors 已同步, 沒東西可 commit"
+          else
+            git commit -m "chore(sync): regen derived data from annotator push"
+            git push origin HEAD:develop
+            echo "committed=yes" >> $GITHUB_OUTPUT
+          fi
