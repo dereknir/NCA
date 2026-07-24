@@ -1,7 +1,7 @@
 ---
 title: "夜凪"
 artist: "にしな"
-album: "FEAT / 客串"
+album: "feat."
 trackNumber: 5
 publishDate: 2025-01-29
 lyricist: ["川谷繪音"]

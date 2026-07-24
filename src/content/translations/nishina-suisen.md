@@ -1,7 +1,7 @@
 ---
 title: "水仙"
 artist: "にしな"
-album: "FEAT / 客串"
+album: "feat."
 trackNumber: 3
 publishDate: 2024-01-03
 lyricist: ["唾奇", "にしな"]

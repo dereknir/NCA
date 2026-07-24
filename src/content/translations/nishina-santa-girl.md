@@ -1,7 +1,7 @@
 ---
 title: "サンタガール"
 artist: "にしな"
-album: "FEAT / 客串"
+album: "feat."
 trackNumber: 1
 publishDate: 2021-12-01
 lyricist: ["WurtS"]

@@ -1,7 +1,7 @@
 ---
 title: "EDEN"
 artist: "にしな"
-album: "FEAT / 客串"
+album: "feat."
 trackNumber: 2
 publishDate: 2023-09-13
 lyricist: ["唾奇", "SNEEEZE"]

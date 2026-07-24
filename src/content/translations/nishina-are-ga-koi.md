@@ -1,7 +1,7 @@
 ---
 title: "あれが恋だったのかな"
 artist: "にしな"
-album: "FEAT / 客串"
+album: "feat."
 trackNumber: 4
 publishDate: 2024-07-17
 lyricist: ["くじら"]

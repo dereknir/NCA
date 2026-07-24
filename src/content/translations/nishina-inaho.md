@@ -1,7 +1,7 @@
 ---
 title: "Inaho"
 artist: "にしな"
-album: "FEAT / 客串"
+album: "feat."
 trackNumber: 6
 publishDate: 2025-08-04
 lyricist: ["唾奇", "にしな"]
