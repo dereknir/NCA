@@ -1,44 +1,289 @@
 {
   "meta": {
-    "total": 0,
+    "total": 24,
     "by_category": {
-      "ad": 0,
-      "promo": 0,
-      "mc": 0,
-      "cover": 0,
-      "tv": 0
+      "promo": 8,
+      "cover": 5,
+      "mc": 6,
+      "ad": 2,
+      "tv": 3
     }
   },
   "categories": {
-    "ad": {
-      "displayName": "廣告",
-      "emoji": "📢",
-      "count": 0,
-      "shorts": []
-    },
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 0,
-      "shorts": []
-    },
-    "mc": {
-      "displayName": "MC / 演唱會講話",
-      "emoji": "🎤",
-      "count": 0,
-      "shorts": []
+      "count": 8,
+      "shorts": [
+        {
+          "videoId": "iw2deFw5p80",
+          "title": "tiny desk concerts JAPAN with spiritual brothers!",
+          "url": "https://www.youtube.com/shorts/iw2deFw5p80",
+          "thumbnail": "https://i.ytimg.com/vi/iw2deFw5p80/hqdefault.jpg",
+          "viewCount": 19000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "34kKI4hhjTo",
+          "title": "？",
+          "url": "https://www.youtube.com/shorts/34kKI4hhjTo",
+          "thumbnail": "https://i.ytimg.com/vi/34kKI4hhjTo/hqdefault.jpg",
+          "viewCount": 18000,
+          "versionType": null,
+          "instrumental": true,
+          "anchors": []
+        },
+        {
+          "videoId": "3Pi9Qnwbmsc",
+          "title": "？？",
+          "url": "https://www.youtube.com/shorts/3Pi9Qnwbmsc",
+          "thumbnail": "https://i.ytimg.com/vi/3Pi9Qnwbmsc/hqdefault.jpg",
+          "viewCount": 13000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "CICk-ZwFl64",
+          "title": "NEW ALBUM on March 18th in 2026!!",
+          "url": "https://www.youtube.com/shorts/CICk-ZwFl64",
+          "thumbnail": "https://i.ytimg.com/vi/CICk-ZwFl64/hqdefault.jpg",
+          "viewCount": 9900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "Al-9ppLMtus",
+          "title": "参考にならないけどどーぞ",
+          "url": "https://www.youtube.com/shorts/Al-9ppLMtus",
+          "thumbnail": "https://i.ytimg.com/vi/Al-9ppLMtus/hqdefault.jpg",
+          "viewCount": 8500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "5CypXOHTzpA",
+          "title": "明日夜お知らせあり",
+          "url": "https://www.youtube.com/shorts/5CypXOHTzpA",
+          "thumbnail": "https://i.ytimg.com/vi/5CypXOHTzpA/hqdefault.jpg",
+          "viewCount": 5300,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "24LL1kmYAek",
+          "title": "？？？",
+          "url": "https://www.youtube.com/shorts/24LL1kmYAek",
+          "thumbnail": "https://i.ytimg.com/vi/24LL1kmYAek/hqdefault.jpg",
+          "viewCount": 4300,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "sERSFSmDn0o",
+          "title": "WITH CRANBERRY JAM TOUR",
+          "url": "https://www.youtube.com/shorts/sERSFSmDn0o",
+          "thumbnail": "https://i.ytimg.com/vi/sERSFSmDn0o/hqdefault.jpg",
+          "viewCount": 2400,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        }
+      ]
     },
     "cover": {
       "displayName": "翻唱其他歌手",
       "emoji": "🎵",
-      "count": 0,
-      "shorts": []
+      "count": 5,
+      "shorts": [
+        {
+          "videoId": "a_ConCpEYoo",
+          "title": "いいんですか？カバー by にしな",
+          "url": "https://www.youtube.com/shorts/a_ConCpEYoo",
+          "thumbnail": "https://i.ytimg.com/vi/a_ConCpEYoo/hqdefault.jpg",
+          "viewCount": 18000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "Bjlj6Dhbpbw",
+          "title": "若者のすべて",
+          "url": "https://www.youtube.com/shorts/Bjlj6Dhbpbw",
+          "thumbnail": "https://i.ytimg.com/vi/Bjlj6Dhbpbw/hqdefault.jpg",
+          "viewCount": 13000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "7ug1smXX410",
+          "title": "Shangri-La - chatmonchy covered by nishina",
+          "url": "https://www.youtube.com/shorts/7ug1smXX410",
+          "thumbnail": "https://i.ytimg.com/vi/7ug1smXX410/hqdefault.jpg",
+          "viewCount": 10000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "MGxKgYoRT6c",
+          "title": "JOIN ALIVE 2024",
+          "url": "https://www.youtube.com/shorts/MGxKgYoRT6c",
+          "thumbnail": "https://i.ytimg.com/vi/MGxKgYoRT6c/hqdefault.jpg",
+          "viewCount": 6600,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "3sg2xo-K2gg",
+          "title": "ABCDC",
+          "url": "https://www.youtube.com/shorts/3sg2xo-K2gg",
+          "thumbnail": "https://i.ytimg.com/vi/3sg2xo-K2gg/hqdefault.jpg",
+          "viewCount": 6400,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        }
+      ]
+    },
+    "mc": {
+      "displayName": "MC / 演唱會講話",
+      "emoji": "🎤",
+      "count": 6,
+      "shorts": [
+        {
+          "videoId": "JVi6D1nCdP0",
+          "title": "あそびにきてねー",
+          "url": "https://www.youtube.com/shorts/JVi6D1nCdP0",
+          "thumbnail": "https://i.ytimg.com/vi/JVi6D1nCdP0/hqdefault.jpg",
+          "viewCount": 15000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "QDp_BJ9qGSA",
+          "title": "Thank you for 「MUSICK」！",
+          "url": "https://www.youtube.com/shorts/QDp_BJ9qGSA",
+          "thumbnail": "https://i.ytimg.com/vi/QDp_BJ9qGSA/hqdefault.jpg",
+          "viewCount": 8600,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "wChOVv7Gfzc",
+          "title": "にしな です",
+          "url": "https://www.youtube.com/shorts/wChOVv7Gfzc",
+          "thumbnail": "https://i.ytimg.com/vi/wChOVv7Gfzc/hqdefault.jpg",
+          "viewCount": 6900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "JgT8Tfu5dls",
+          "title": "TOMAKOMAI MIRAI FEST 2024🍅",
+          "url": "https://www.youtube.com/shorts/JgT8Tfu5dls",
+          "thumbnail": "https://i.ytimg.com/vi/JgT8Tfu5dls/hqdefault.jpg",
+          "viewCount": 4900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "1bu6B8m6Xyk",
+          "title": "Congratulations on your graduation!",
+          "url": "https://www.youtube.com/shorts/1bu6B8m6Xyk",
+          "thumbnail": "https://i.ytimg.com/vi/1bu6B8m6Xyk/hqdefault.jpg",
+          "viewCount": 4200,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "i-b5zGorylU",
+          "title": "🍉🍉",
+          "url": "https://www.youtube.com/shorts/i-b5zGorylU",
+          "thumbnail": "https://i.ytimg.com/vi/i-b5zGorylU/hqdefault.jpg",
+          "viewCount": 2100,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        }
+      ]
+    },
+    "ad": {
+      "displayName": "廣告",
+      "emoji": "📢",
+      "count": 2,
+      "shorts": [
+        {
+          "videoId": "BKPcV0HU_Pc",
+          "title": "👟converse × nishina",
+          "url": "https://www.youtube.com/shorts/BKPcV0HU_Pc",
+          "thumbnail": "https://i.ytimg.com/vi/BKPcV0HU_Pc/hqdefault.jpg",
+          "viewCount": 4500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "uBCKcqMrnpU",
+          "title": "こわくてきれいなわたしのぜんぶ",
+          "url": "https://www.youtube.com/shorts/uBCKcqMrnpU",
+          "thumbnail": "https://i.ytimg.com/vi/uBCKcqMrnpU/hqdefault.jpg",
+          "viewCount": 4400,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        }
+      ]
     },
     "tv": {
       "displayName": "節目切片",
       "emoji": "📺",
-      "count": 0,
-      "shorts": []
+      "count": 3,
+      "shorts": [
+        {
+          "videoId": "I9M2vdzryfs",
+          "title": "📺にしなのよりみち〜井の頭線篇〜",
+          "url": "https://www.youtube.com/shorts/I9M2vdzryfs",
+          "thumbnail": "https://i.ytimg.com/vi/I9M2vdzryfs/hqdefault.jpg",
+          "viewCount": 2900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "8HJF7P0p46k",
+          "title": "📺にしなのよりみち〜井の頭線篇〜",
+          "url": "https://www.youtube.com/shorts/8HJF7P0p46k",
+          "thumbnail": "https://i.ytimg.com/vi/8HJF7P0p46k/hqdefault.jpg",
+          "viewCount": 2500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "I70ZrtBQ4iE",
+          "title": "📺にしなのよりみち〜井の頭線篇〜",
+          "url": "https://www.youtube.com/shorts/I70ZrtBQ4iE",
+          "thumbnail": "https://i.ytimg.com/vi/I70ZrtBQ4iE/hqdefault.jpg",
+          "viewCount": 2400,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        }
+      ]
     }
   }
 }
