@@ -3,10 +3,11 @@
     "song_count": 10,
     "short_count": 103,
     "skipped": {
-      "pending": 1,
+      "pending": 836,
       "skip": 0,
       "no_song": 0,
-      "no_anchors": 0
+      "no_anchors": 1,
+      "others_bucket": 0
     }
   },
   "by_song": {
@@ -112,6 +113,33 @@
         ]
       },
       {
+        "videoId": "GnuScyXL760",
+        "title": "優しさと愛は違うみたいだ",
+        "url": "https://www.youtube.com/shorts/GnuScyXL760",
+        "thumbnail": "https://i.ytimg.com/vi/GnuScyXL760/hqdefault.jpg",
+        "viewCount": 8600,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 29
+          },
+          {
+            "t": 12.88,
+            "line": 30
+          },
+          {
+            "t": 19.89,
+            "line": 31
+          },
+          {
+            "t": 28.19,
+            "line": 32
+          }
+        ]
+      },
+      {
         "videoId": "-ySrumQg_CI",
         "title": "君もずっと気づいていたんだろう",
         "url": "https://www.youtube.com/shorts/-ySrumQg_CI",
@@ -158,7 +186,7 @@
         "title": "ねぇ私のことちゃんと愛してる？",
         "url": "https://www.youtube.com/shorts/ZHX1DaN2sqE",
         "thumbnail": "https://i.ytimg.com/vi/ZHX1DaN2sqE/hqdefault.jpg",
-        "viewCount": 5900,
+        "viewCount": 6000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -252,36 +280,36 @@
             "line": 16
           }
         ]
-      },
+      }
+    ],
+    "nishina-yakan-hikou": [
       {
-        "videoId": "GnuScyXL760",
-        "title": "優しさと愛は違うみたいだ",
-        "url": "https://www.youtube.com/shorts/GnuScyXL760",
-        "thumbnail": "https://i.ytimg.com/vi/GnuScyXL760/hqdefault.jpg",
-        "viewCount": 1400,
+        "videoId": "83cFMSJiAx4",
+        "title": "大人みたいにずるをしよう",
+        "url": "https://www.youtube.com/shorts/83cFMSJiAx4",
+        "thumbnail": "https://i.ytimg.com/vi/83cFMSJiAx4/hqdefault.jpg",
+        "viewCount": 10000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
           {
             "t": 0,
-            "line": 29
+            "line": 12
           },
           {
-            "t": 12.88,
-            "line": 30
+            "t": 4.8,
+            "line": 13
           },
           {
-            "t": 19.89,
-            "line": 31
+            "t": 9.51,
+            "line": 14
           },
           {
-            "t": 28.19,
-            "line": 32
+            "t": 19.49,
+            "line": 15
           }
         ]
-      }
-    ],
-    "nishina-yakan-hikou": [
+      },
       {
         "videoId": "9ZcBMCP7vHY",
         "title": "愛しさに恐怖を",
@@ -329,33 +357,6 @@
         ]
       },
       {
-        "videoId": "83cFMSJiAx4",
-        "title": "大人みたいにずるをしよう",
-        "url": "https://www.youtube.com/shorts/83cFMSJiAx4",
-        "thumbnail": "https://i.ytimg.com/vi/83cFMSJiAx4/hqdefault.jpg",
-        "viewCount": 5600,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 12
-          },
-          {
-            "t": 4.8,
-            "line": 13
-          },
-          {
-            "t": 9.51,
-            "line": 14
-          },
-          {
-            "t": 19.49,
-            "line": 15
-          }
-        ]
-      },
-      {
         "videoId": "JwjmbbqJeas",
         "title": "優しさで壊したい",
         "url": "https://www.youtube.com/shorts/JwjmbbqJeas",
@@ -379,7 +380,7 @@
         "title": "ねぇ抱きしめてよ",
         "url": "https://www.youtube.com/shorts/0vg0lD_gyvw",
         "thumbnail": "https://i.ytimg.com/vi/0vg0lD_gyvw/hqdefault.jpg",
-        "viewCount": 3900,
+        "viewCount": 4000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -559,6 +560,41 @@
         ]
       },
       {
+        "videoId": "-xjIN_OK23Q",
+        "title": "種のそばが酸っぱいのは私の可愛げ",
+        "url": "https://www.youtube.com/shorts/-xjIN_OK23Q",
+        "thumbnail": "https://i.ytimg.com/vi/-xjIN_OK23Q/hqdefault.jpg",
+        "viewCount": 5300,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 31
+          },
+          {
+            "t": 4.94,
+            "line": 32
+          },
+          {
+            "t": 9.84,
+            "line": 33
+          },
+          {
+            "t": 12.72,
+            "line": 34
+          },
+          {
+            "t": 15.41,
+            "line": 35
+          },
+          {
+            "t": 20.31,
+            "line": 36
+          }
+        ]
+      },
+      {
         "videoId": "YrFG2tZ55PE",
         "title": "The sour piece near the seed is part of my charm",
         "url": "https://www.youtube.com/shorts/YrFG2tZ55PE",
@@ -586,41 +622,6 @@
           {
             "t": 14.66,
             "line": 31
-          }
-        ]
-      },
-      {
-        "videoId": "-xjIN_OK23Q",
-        "title": "種のそばが酸っぱいのは私の可愛げ",
-        "url": "https://www.youtube.com/shorts/-xjIN_OK23Q",
-        "thumbnail": "https://i.ytimg.com/vi/-xjIN_OK23Q/hqdefault.jpg",
-        "viewCount": 4300,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 31
-          },
-          {
-            "t": 4.94,
-            "line": 32
-          },
-          {
-            "t": 9.84,
-            "line": 33
-          },
-          {
-            "t": 12.72,
-            "line": 34
-          },
-          {
-            "t": 15.41,
-            "line": 35
-          },
-          {
-            "t": 20.31,
-            "line": 36
           }
         ]
       },
@@ -914,7 +915,7 @@
         "title": "曖昧に笑う悪いひと",
         "url": "https://www.youtube.com/shorts/BL9Qyc9isQQ",
         "thumbnail": "https://i.ytimg.com/vi/BL9Qyc9isQQ/hqdefault.jpg",
-        "viewCount": 14000,
+        "viewCount": 18000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -1184,7 +1185,7 @@
         "title": "君はずるいボーイ",
         "url": "https://www.youtube.com/shorts/zWHTvzqu72E",
         "thumbnail": "https://i.ytimg.com/vi/zWHTvzqu72E/hqdefault.jpg",
-        "viewCount": 5200,
+        "viewCount": 5400,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -1306,7 +1307,7 @@
         "title": "私は闇夜に紛れてどこまでも飛んで行ける？",
         "url": "https://www.youtube.com/shorts/v4YIpSnVntM",
         "thumbnail": "https://i.ytimg.com/vi/v4YIpSnVntM/hqdefault.jpg",
-        "viewCount": 4400,
+        "viewCount": 5000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -1820,7 +1821,7 @@
         "title": "門出の夜に忍び込んで 青いプール金魚を放とう",
         "url": "https://www.youtube.com/shorts/YzDus5M3URQ",
         "thumbnail": "https://i.ytimg.com/vi/YzDus5M3URQ/hqdefault.jpg",
-        "viewCount": 9400,
+        "viewCount": 10000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -2068,7 +2069,7 @@
         "title": "御心のままの生き様",
         "url": "https://www.youtube.com/shorts/Cus43_ZF12A",
         "thumbnail": "https://i.ytimg.com/vi/Cus43_ZF12A/hqdefault.jpg",
-        "viewCount": 4900,
+        "viewCount": 5100,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -2095,7 +2096,7 @@
         "title": "身を焦がすほどの恋がまたしたい",
         "url": "https://www.youtube.com/shorts/UP6KM-5fiYY",
         "thumbnail": "https://i.ytimg.com/vi/UP6KM-5fiYY/hqdefault.jpg",
-        "viewCount": 4400,
+        "viewCount": 4500,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -2122,7 +2123,7 @@
         "title": "nishina - 婀娜婀娜",
         "url": "https://www.youtube.com/shorts/xAl0usT49xc",
         "thumbnail": "https://i.ytimg.com/vi/xAl0usT49xc/hqdefault.jpg",
-        "viewCount": 3800,
+        "viewCount": 4100,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -2165,7 +2166,7 @@
         "title": "待ち合わす場所歌舞伎町",
         "url": "https://www.youtube.com/shorts/H5QLZ2niswQ",
         "thumbnail": "https://i.ytimg.com/vi/H5QLZ2niswQ/hqdefault.jpg",
-        "viewCount": 3000,
+        "viewCount": 3100,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -2194,7 +2195,7 @@
         "title": "好きなものから食べ尽くして",
         "url": "https://www.youtube.com/shorts/OL3yXENGp-A",
         "thumbnail": "https://i.ytimg.com/vi/OL3yXENGp-A/hqdefault.jpg",
-        "viewCount": 25000,
+        "viewCount": 26000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -2446,7 +2447,7 @@
         "title": "now loading loadingどうか応答せよ",
         "url": "https://www.youtube.com/shorts/YAgDIIf1plw",
         "thumbnail": "https://i.ytimg.com/vi/YAgDIIf1plw/hqdefault.jpg",
-        "viewCount": 9100,
+        "viewCount": 9500,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -2852,7 +2853,7 @@
         "title": "同志よ 我らが世界を回すのだ",
         "url": "https://www.youtube.com/shorts/8vsxwE3YvlQ",
         "thumbnail": "https://i.ytimg.com/vi/8vsxwE3YvlQ/hqdefault.jpg",
-        "viewCount": 7300,
+        "viewCount": 7500,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -2887,7 +2888,7 @@
         "title": "ほっとけー",
         "url": "https://www.youtube.com/shorts/79WajlQza4A",
         "thumbnail": "https://i.ytimg.com/vi/79WajlQza4A/hqdefault.jpg",
-        "viewCount": 5200,
+        "viewCount": 5300,
         "versionType": "live",
         "instrumental": false,
         "anchors": [

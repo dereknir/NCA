@@ -1,0 +1,131 @@
+---
+/**
+ * extras/index.astro — にしな「花絮」— 音樂之外的 shorts 分類展示
+ *
+ * 資料來源 src/data/shorts_extras.json 由 scripts/import_anchors.py 產出
+ * (從 annotation/shorts_anchors.json 讀取被標為 __ad/__mc/__cover/__tv 的 shorts)
+ *
+ * OTHERS (__others) 桶不上網站 — 那是 annotator 內部「還沒分好」的暫存區。
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import extras from '../../data/shorts_extras.json';
+
+interface Short {
+  videoId: string;
+  title: string;
+  url: string;
+  thumbnail: string;
+  viewCount: number;
+}
+interface Category {
+  displayName: string;
+  emoji: string;
+  count: number;
+  shorts: Short[];
+}
+
+const categories = extras.categories as Record<string, Category>;
+const meta = extras.meta;
+
+// tab 顯示順序 (跟 annotator 的順序一致)
+const TAB_ORDER = ['mc', 'ad', 'cover', 'tv'];
+const orderedCategories = TAB_ORDER
+  .map(k => ({ key: k, ...categories[k] }))
+  .filter(c => c.displayName);   // 保護: 若 schema 少 category, 不 crash
+
+function formatViews(n: number): string {
+  if (n >= 10000) return `${(n / 10000).toFixed(1)}萬`;
+  if (n >= 1000)  return `${(n / 1000).toFixed(1)}k`;
+  return String(n);
+}
+---
+
+<BaseLayout title="花絮" description="にしな 音樂之外的 shorts 內容分類展示">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold mb-2">花絮</h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-2">
+      除了正式歌曲之外,にしな 的 YouTube shorts 還包含大量的演唱會 MC、廣告代言、
+      電視節目片段和翻唱 —— 這裡是所有「音樂之外」的存在。
+    </p>
+    <p class="text-xs text-gray-500 dark:text-gray-500 mb-8">
+      共 {meta.total} 支 · 分為 {orderedCategories.length} 類 · 資料來源:手動分類 annotator + YouTube shorts
+    </p>
+
+    {meta.total === 0 ? (
+      <div class="rounded-xl border border-dashed border-gray-300 dark:border-gray-700 p-10 text-center text-gray-500 dark:text-gray-400 text-sm">
+        還沒有 shorts 被分到這些類別。<br>
+        <span class="text-xs">在 <a href="/annotate/" class="text-blue-500 hover:underline">/annotate/</a> 挑一支未匹配的 short,選擇底部的「非歌曲類別」就會在這裡出現。</span>
+      </div>
+    ) : (
+      <div class="extras-container">
+        {/* tab 列 */}
+        <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-200 dark:border-gray-700 pb-3" id="extraTabs">
+          {orderedCategories.map((cat, i) => (
+            <button
+              class={`tab-btn px-4 py-2 rounded-lg text-sm font-medium transition ${
+                i === 0
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+              }`}
+              data-tab={cat.key}>
+              {cat.emoji} {cat.displayName}
+              <span class="ml-1.5 text-xs opacity-80 font-mono">{cat.count}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* 各 tab 的 grid panel */}
+        {orderedCategories.map((cat, i) => (
+          <section
+            class={`extras-panel grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ${i === 0 ? '' : 'hidden'}`}
+            data-panel={cat.key}>
+            {cat.shorts.length === 0 && (
+              <div class="col-span-full text-center py-10 text-sm text-gray-500 dark:text-gray-500 italic">
+                目前這個類別還沒有 short。
+              </div>
+            )}
+            {cat.shorts.map(s => (
+              <a href={s.url} target="_blank" rel="noopener noreferrer"
+                 class="group block rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700
+                        bg-white dark:bg-gray-800/50 hover:shadow-lg hover:-translate-y-0.5 transition">
+                <div class="aspect-[9/16] overflow-hidden bg-gray-100 dark:bg-gray-900 relative">
+                  <img src={s.thumbnail} alt={s.title} loading="lazy"
+                       class="w-full h-full object-cover group-hover:scale-105 transition" />
+                  <div class="absolute bottom-1 right-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded font-mono">
+                    ▶ {formatViews(s.viewCount)}
+                  </div>
+                </div>
+                <div class="p-2.5">
+                  <div class="text-xs text-gray-700 dark:text-gray-200 line-clamp-2 leading-snug">
+                    {s.title}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </section>
+        ))}
+      </div>
+    )}
+  </div>
+
+  <script is:inline>
+    // Tab 切換: click .tab-btn → 顯示對應 .extras-panel
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach(b => {
+          const active = b.dataset.tab === key;
+          b.classList.toggle('bg-blue-500', active);
+          b.classList.toggle('text-white', active);
+          b.classList.toggle('bg-gray-100', !active);
+          b.classList.toggle('dark:bg-gray-800', !active);
+          b.classList.toggle('text-gray-700', !active);
+          b.classList.toggle('dark:text-gray-300', !active);
+        });
+        document.querySelectorAll('.extras-panel').forEach(p => {
+          p.classList.toggle('hidden', p.dataset.panel !== key);
+        });
+      });
+    });
+  </script>
+</BaseLayout>

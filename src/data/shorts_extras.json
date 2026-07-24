@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "total": 0,
+    "by_category": {
+      "ad": 0,
+      "mc": 0,
+      "cover": 0,
+      "tv": 0
+    }
+  },
+  "categories": {
+    "ad": {
+      "displayName": "廣告",
+      "emoji": "📢",
+      "count": 0,
+      "shorts": []
+    },
+    "mc": {
+      "displayName": "MC / 演唱會講話",
+      "emoji": "🎤",
+      "count": 0,
+      "shorts": []
+    },
+    "cover": {
+      "displayName": "翻唱其他歌手",
+      "emoji": "🎵",
+      "count": 0,
+      "shorts": []
+    },
+    "tv": {
+      "displayName": "節目切片",
+      "emoji": "📺",
+      "count": 0,
+      "shorts": []
+    }
+  }
+}
