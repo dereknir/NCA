@@ -1,0 +1,1566 @@
+{
+  "meta": {
+    "generated": "2026-07-25T00:46:09+08:00",
+    "source": "https://nishina.lnk.to/live_setlist",
+    "tour_count": 10,
+    "total_tracks": 182
+  },
+  "tours": [
+    {
+      "title": "日々散漫",
+      "date": "2026.3.29 - 2026.6.20",
+      "spotify": "https://open.spotify.com/playlist/1s5bfpq5tnkdVx1plJ6AGI",
+      "applemusic": "https://music.apple.com/jp/playlist/pl.5e1bf1e7f12d4a0385ff8b8b137c8e73",
+      "tracks": [
+        {
+          "index": 1,
+          "title": "今日も今日とて - remix",
+          "artist": "nishina, PARKGOLF",
+          "uid": "d519315922e6df8d",
+          "matched_song_id": "nishina-kyou-mo-kyou-tote-remix",
+          "match_score": 100
+        },
+        {
+          "index": 2,
+          "title": "婀娜婀娜",
+          "artist": "nishina",
+          "uid": "a04571a4a89705c9",
+          "matched_song_id": "nishina-adaada",
+          "match_score": 100
+        },
+        {
+          "index": 3,
+          "title": "bugs",
+          "artist": "nishina",
+          "uid": "629a0e0af732464e",
+          "matched_song_id": "nishina-bugs",
+          "match_score": 100
+        },
+        {
+          "index": 4,
+          "title": "U+",
+          "artist": "nishina",
+          "uid": "b0fc49f216a4e503",
+          "matched_song_id": "nishina-u-plus",
+          "match_score": 100
+        },
+        {
+          "index": 5,
+          "title": "東京マーブル",
+          "artist": "nishina",
+          "uid": "677a714d3e295724",
+          "matched_song_id": "nishina-tokyo-marble",
+          "match_score": 100
+        },
+        {
+          "index": 6,
+          "title": "スローモーション",
+          "artist": "nishina",
+          "uid": "30f77020641a35b3",
+          "matched_song_id": "nishina-slow-motion",
+          "match_score": 100
+        },
+        {
+          "index": 7,
+          "title": "真白",
+          "artist": "nishina",
+          "uid": "58030984aa76640c",
+          "matched_song_id": "nishina-mashiro",
+          "match_score": 100
+        },
+        {
+          "index": 8,
+          "title": "in your eyes",
+          "artist": "nishina",
+          "uid": "8f9a721845fcffab",
+          "matched_song_id": "nishina-in-your-eyes",
+          "match_score": 100
+        },
+        {
+          "index": 9,
+          "title": "音になっていくよ",
+          "artist": "nishina",
+          "uid": "386c296c811c6bdc",
+          "matched_song_id": "nishina-oto-ni-natteiku-yo",
+          "match_score": 100
+        },
+        {
+          "index": 10,
+          "title": "ドレスコード",
+          "artist": "nishina",
+          "uid": "a8a219bd76440e44",
+          "matched_song_id": "nishina-dress-code",
+          "match_score": 100
+        },
+        {
+          "index": 11,
+          "title": "ワンルーム",
+          "artist": "nishina",
+          "uid": "89c3168f225dd6cd",
+          "matched_song_id": "nishina-one-room",
+          "match_score": 100
+        },
+        {
+          "index": 12,
+          "title": "つくし",
+          "artist": "nishina",
+          "uid": "10420bf5218171fc",
+          "matched_song_id": "nishina-tsukushi",
+          "match_score": 100
+        },
+        {
+          "index": 13,
+          "title": "weekly",
+          "artist": "nishina",
+          "uid": "1196839a4ae8c5dc",
+          "matched_song_id": "nishina-weekly",
+          "match_score": 100
+        },
+        {
+          "index": 14,
+          "title": "ケダモノのフレンズ",
+          "artist": "nishina",
+          "uid": "4e6d5b5587e4f933",
+          "matched_song_id": "nishina-kedamono-no-friends",
+          "match_score": 100
+        },
+        {
+          "index": 15,
+          "title": "パンダガール",
+          "artist": "nishina",
+          "uid": "1e2a96318f61f6ee",
+          "matched_song_id": "nishina-panda-girl",
+          "match_score": 100
+        },
+        {
+          "index": 16,
+          "title": "クランベリージャムをかけて",
+          "artist": "nishina",
+          "uid": "050bbf48939b5f6f",
+          "matched_song_id": "nishina-cranberry-jam",
+          "match_score": 100
+        },
+        {
+          "index": 17,
+          "title": "シュガースポット",
+          "artist": "nishina",
+          "uid": "aca1884b979a7ba7",
+          "matched_song_id": "nishina-sugar-spot",
+          "match_score": 100
+        },
+        {
+          "index": 18,
+          "title": "ねこぜ",
+          "artist": "nishina",
+          "uid": "4d488b86c98d143b",
+          "matched_song_id": "nishina-nekoze",
+          "match_score": 100
+        },
+        {
+          "index": 19,
+          "title": "グローリー",
+          "artist": "nishina",
+          "uid": "f23adfbf41422d69",
+          "matched_song_id": "nishina-glory",
+          "match_score": 100
+        },
+        {
+          "index": 20,
+          "title": "わをん",
+          "artist": "nishina",
+          "uid": "a44f49007ba8a97d",
+          "matched_song_id": "nishina-wawon",
+          "match_score": 100
+        },
+        {
+          "index": 21,
+          "title": "ヘビースモーク",
+          "artist": "nishina",
+          "uid": "30d258f653198619",
+          "matched_song_id": "nishina-heavy-smoke",
+          "match_score": 100
+        },
+        {
+          "index": 22,
+          "title": "It's a piece of cake",
+          "artist": "nishina",
+          "uid": "6e675774c3dd8a3e",
+          "matched_song_id": "nishina-its-a-piece-of-cake",
+          "match_score": 100
+        },
+        {
+          "index": 23,
+          "title": "Twinkle Little Star",
+          "artist": "nishina",
+          "uid": "b628c6175470267a",
+          "matched_song_id": "nishina-twinkle-little-star",
+          "match_score": 100
+        }
+      ],
+      "track_count": 23,
+      "matched_count": 23
+    },
+    {
+      "title": "MUSICK 2",
+      "date": "2025.6.2 - 2025.6.26",
+      "spotify": "https://open.spotify.com/playlist/6fWlDjCNGGvZrNgSHvb4eD",
+      "applemusic": "https://music.apple.com/jp/playlist/pl.a3326b732bf944b4af9f30931a030dab",
+      "tracks": [
+        {
+          "index": 1,
+          "title": "ヘビースモーク",
+          "artist": "nishina",
+          "uid": "451bc66f719ad079",
+          "matched_song_id": "nishina-heavy-smoke",
+          "match_score": 100
+        },
+        {
+          "index": 2,
+          "title": "weekly",
+          "artist": "nishina",
+          "uid": "6e480b25bf0c9875",
+          "matched_song_id": "nishina-weekly",
+          "match_score": 100
+        },
+        {
+          "index": 3,
+          "title": "ねこぜ",
+          "artist": "nishina",
+          "uid": "25217ac1d50f7236",
+          "matched_song_id": "nishina-nekoze",
+          "match_score": 100
+        },
+        {
+          "index": 4,
+          "title": "あれが恋だったのかな",
+          "artist": "whaledontsleep, nishina",
+          "uid": "5cc162f8446c0b30",
+          "matched_song_id": null,
+          "match_score": 33.333333333333336
+        },
+        {
+          "index": 5,
+          "title": "真白",
+          "artist": "nishina",
+          "uid": "055db4db1e74adc3",
+          "matched_song_id": "nishina-mashiro",
+          "match_score": 100
+        },
+        {
+          "index": 6,
+          "title": "スローモーション",
+          "artist": "nishina",
+          "uid": "f0f87b9821a343e0",
+          "matched_song_id": "nishina-slow-motion",
+          "match_score": 100
+        },
+        {
+          "index": 7,
+          "title": "夜になって",
+          "artist": "nishina",
+          "uid": "57e5750dc4f127b2",
+          "matched_song_id": "nishina-yoru-ni-natte",
+          "match_score": 100
+        },
+        {
+          "index": 8,
+          "title": "つくし",
+          "artist": "nishina",
+          "uid": "0ae1b82945c6c25c",
+          "matched_song_id": "nishina-tsukushi",
+          "match_score": 100
+        },
+        {
+          "index": 9,
+          "title": "ワンルーム",
+          "artist": "nishina",
+          "uid": "b75720c3494e421d",
+          "matched_song_id": "nishina-one-room",
+          "match_score": 100
+        },
+        {
+          "index": 10,
+          "title": "plum",
+          "artist": "nishina",
+          "uid": "3b5184c6088b13d8",
+          "matched_song_id": "nishina-plum",
+          "match_score": 100
+        },
+        {
+          "index": 11,
+          "title": "It's a piece of cake",
+          "artist": "nishina",
+          "uid": "9001d05b6c3d6e50",
+          "matched_song_id": "nishina-its-a-piece-of-cake",
+          "match_score": 100
+        },
+        {
+          "index": 12,
+          "title": "ケダモノのフレンズ",
+          "artist": "nishina",
+          "uid": "1f32d1cada8ee751",
+          "matched_song_id": "nishina-kedamono-no-friends",
+          "match_score": 100
+        },
+        {
+          "index": 13,
+          "title": "東京マーブル",
+          "artist": "nishina",
+          "uid": "50cef21339106ff8",
+          "matched_song_id": "nishina-tokyo-marble",
+          "match_score": 100
+        },
+        {
+          "index": 14,
+          "title": "クランベリージャムをかけて",
+          "artist": "nishina",
+          "uid": "dfcbd5786c8947c6",
+          "matched_song_id": "nishina-cranberry-jam",
+          "match_score": 100
+        },
+        {
+          "index": 15,
+          "title": "U+",
+          "artist": "nishina",
+          "uid": "309db4f4069b38fc",
+          "matched_song_id": "nishina-u-plus",
+          "match_score": 100
+        },
+        {
+          "index": 16,
+          "title": "シュガースポット",
+          "artist": "nishina",
+          "uid": "1ae99727ee252399",
+          "matched_song_id": "nishina-sugar-spot",
+          "match_score": 100
+        },
+        {
+          "index": 17,
+          "title": "わをん",
+          "artist": "nishina",
+          "uid": "d129e9e3e1bb60b3",
+          "matched_song_id": "nishina-wawon",
+          "match_score": 100
+        },
+        {
+          "index": 18,
+          "title": "1999",
+          "artist": "nishina",
+          "uid": "0b7a48c992995cf0",
+          "matched_song_id": "nishina-1999",
+          "match_score": 100
+        },
+        {
+          "index": 19,
+          "title": "輪廻",
+          "artist": "nishina",
+          "uid": "cf41050556d1b039",
+          "matched_song_id": "nishina-rinne",
+          "match_score": 100
+        },
+        {
+          "index": 20,
+          "title": "アイニコイ",
+          "artist": "nishina",
+          "uid": "18fb715b82aee12b",
+          "matched_song_id": "nishina-ainikoi",
+          "match_score": 100
+        }
+      ],
+      "track_count": 20,
+      "matched_count": 19
+    },
+    {
+      "title": "MUSICK",
+      "date": "2025.4.12",
+      "spotify": "https://open.spotify.com/playlist/1nIgFT41iAHOJYsKw2Xjf2",
+      "applemusic": "https://music.apple.com/jp/playlist/pl.49c0be9261b14d5a8c0af920edaa797e",
+      "tracks": [
+        {
+          "index": 1,
+          "title": "アイニコイ",
+          "artist": "nishina",
+          "uid": "a09b763081554b8e",
+          "matched_song_id": "nishina-ainikoi",
+          "match_score": 100
+        },
+        {
+          "index": 2,
+          "title": "クランベリージャムをかけて",
+          "artist": "nishina",
+          "uid": "f39d7e140e23f950",
+          "matched_song_id": "nishina-cranberry-jam",
+          "match_score": 100
+        },
+        {
+          "index": 3,
+          "title": "東京マーブル",
+          "artist": "nishina",
+          "uid": "32756b8d8516fc02",
+          "matched_song_id": "nishina-tokyo-marble",
+          "match_score": 100
+        },
+        {
+          "index": 4,
+          "title": "ケダモノのフレンズ",
+          "artist": "nishina",
+          "uid": "a54472b0caa854f0",
+          "matched_song_id": "nishina-kedamono-no-friends",
+          "match_score": 100
+        },
+        {
+          "index": 5,
+          "title": "あれが恋だったのかな",
+          "artist": "whaledontsleep, nishina",
+          "uid": "e7353ccaef6308ce",
+          "matched_song_id": null,
+          "match_score": 33.333333333333336
+        },
+        {
+          "index": 6,
+          "title": "bugs",
+          "artist": "nishina",
+          "uid": "a9834075676b0f30",
+          "matched_song_id": "nishina-bugs",
+          "match_score": 100
+        },
+        {
+          "index": 7,
+          "title": "夜になって",
+          "artist": "nishina",
+          "uid": "418cf9f69bb4616b",
+          "matched_song_id": "nishina-yoru-ni-natte",
+          "match_score": 100
+        },
+        {
+          "index": 8,
+          "title": "1999",
+          "artist": "nishina",
+          "uid": "c32315eddb91ef4c",
+          "matched_song_id": "nishina-1999",
+          "match_score": 100
+        },
+        {
+          "index": 9,
+          "title": "FRIDAY KIDS CHINA TOWN",
+          "artist": "nishina",
+          "uid": "2fc68355b9be68ee",
+          "matched_song_id": "nishina-friday-kids-china-town",
+          "match_score": 100
+        },
+        {
+          "index": 10,
+          "title": "ランデブー",
+          "artist": "nishina",
+          "uid": "e80b23200a82e68f",
+          "matched_song_id": "nishina-rendezvous",
+          "match_score": 100
+        },
+        {
+          "index": 11,
+          "title": "It's a piece of cake",
+          "artist": "nishina",
+          "uid": "3b48abe719533bed",
+          "matched_song_id": "nishina-its-a-piece-of-cake",
+          "match_score": 100
+        },
+        {
+          "index": 12,
+          "title": "真白",
+          "artist": "nishina",
+          "uid": "80f0e898101fe369",
+          "matched_song_id": "nishina-mashiro",
+          "match_score": 100
+        },
+        {
+          "index": 13,
+          "title": "スローモーション",
+          "artist": "nishina",
+          "uid": "cc2f67b97f6b18de",
+          "matched_song_id": "nishina-slow-motion",
+          "match_score": 100
+        },
+        {
+          "index": 14,
+          "title": "シュガースポット",
+          "artist": "nishina",
+          "uid": "3094fb742178c5dc",
+          "matched_song_id": "nishina-sugar-spot",
+          "match_score": 100
+        },
+        {
+          "index": 15,
+          "title": "U+",
+          "artist": "nishina",
+          "uid": "1d755128879e0193",
+          "matched_song_id": "nishina-u-plus",
+          "match_score": 100
+        },
+        {
+          "index": 16,
+          "title": "つくし",
+          "artist": "nishina",
+          "uid": "6a27a47f71fba3dc",
+          "matched_song_id": "nishina-tsukushi",
+          "match_score": 100
+        },
+        {
+          "index": 17,
+          "title": "ヘビースモーク",
+          "artist": "nishina",
+          "uid": "93463f1a5a30a38e",
+          "matched_song_id": "nishina-heavy-smoke",
+          "match_score": 100
+        },
+        {
+          "index": 18,
+          "title": "わをん",
+          "artist": "nishina",
+          "uid": "1b01b5648c00ddb4",
+          "matched_song_id": "nishina-wawon",
+          "match_score": 100
+        },
+        {
+          "index": 19,
+          "title": "ねこぜ",
+          "artist": "nishina",
+          "uid": "3732eef9a488c1fd",
+          "matched_song_id": "nishina-nekoze",
+          "match_score": 100
+        },
+        {
+          "index": 20,
+          "title": "weekly",
+          "artist": "nishina",
+          "uid": "eb6fa8797cc56ccc",
+          "matched_song_id": "nishina-weekly",
+          "match_score": 100
+        }
+      ],
+      "track_count": 20,
+      "matched_count": 19
+    },
+    {
+      "title": "SUPER COMPLEX",
+      "date": "2024.11.10 - 2024.11.29",
+      "spotify": "https://open.spotify.com/playlist/0YUgiCWovlW7dFlqySbydX",
+      "applemusic": "https://music.apple.com/jp/playlist/pl.c7a8f9ca8c6f458fb3b5a1c51a287344",
+      "tracks": [
+        {
+          "index": 1,
+          "title": "plum",
+          "artist": "nishina",
+          "uid": "dcdc1f7198a1c917",
+          "matched_song_id": "nishina-plum",
+          "match_score": 100
+        },
+        {
+          "index": 2,
+          "title": "bugs",
+          "artist": "nishina",
+          "uid": "b90384c58d18ceee",
+          "matched_song_id": "nishina-bugs",
+          "match_score": 100
+        },
+        {
+          "index": 3,
+          "title": "FRIDAY KIDS CHINA TOWN",
+          "artist": "nishina",
+          "uid": "f55356db139dd8d4",
+          "matched_song_id": "nishina-friday-kids-china-town",
+          "match_score": 100
+        },
+        {
+          "index": 4,
+          "title": "スローモーション",
+          "artist": "nishina",
+          "uid": "4091baff4a830371",
+          "matched_song_id": "nishina-slow-motion",
+          "match_score": 100
+        },
+        {
+          "index": 5,
+          "title": "夜になって",
+          "artist": "nishina",
+          "uid": "ffc2d023ba5eeb91",
+          "matched_song_id": "nishina-yoru-ni-natte",
+          "match_score": 100
+        },
+        {
+          "index": 6,
+          "title": "真白",
+          "artist": "nishina",
+          "uid": "33afa61de2a6abb4",
+          "matched_song_id": "nishina-mashiro",
+          "match_score": 100
+        },
+        {
+          "index": 7,
+          "title": "debbie",
+          "artist": "nishina",
+          "uid": "bf5d05dca3fcc721",
+          "matched_song_id": "nishina-debbie",
+          "match_score": 100
+        },
+        {
+          "index": 8,
+          "title": "透明な黒と鉄分のある赤",
+          "artist": "nishina, くじら",
+          "uid": "69a54d6faae466d9",
+          "matched_song_id": "nishina-toumei-na-kuro",
+          "match_score": 100
+        },
+        {
+          "index": 9,
+          "title": "ワンルーム",
+          "artist": "nishina",
+          "uid": "b6bc24a91bdbc656",
+          "matched_song_id": "nishina-one-room",
+          "match_score": 100
+        },
+        {
+          "index": 10,
+          "title": "ヘビースモーク",
+          "artist": "nishina",
+          "uid": "1243a8e5c78383bf",
+          "matched_song_id": "nishina-heavy-smoke",
+          "match_score": 100
+        },
+        {
+          "index": 11,
+          "title": "It's a piece of cake",
+          "artist": "nishina",
+          "uid": "2020df5dc3afeab2",
+          "matched_song_id": "nishina-its-a-piece-of-cake",
+          "match_score": 100
+        },
+        {
+          "index": 12,
+          "title": "ケダモノのフレンズ",
+          "artist": "nishina",
+          "uid": "c177da7d4fa0837f",
+          "matched_song_id": "nishina-kedamono-no-friends",
+          "match_score": 100
+        },
+        {
+          "index": 13,
+          "title": "ランデブー",
+          "artist": "nishina",
+          "uid": "8366f0e335802489",
+          "matched_song_id": "nishina-rendezvous",
+          "match_score": 100
+        },
+        {
+          "index": 14,
+          "title": "東京マーブル",
+          "artist": "nishina",
+          "uid": "98310906c644d7cb",
+          "matched_song_id": "nishina-tokyo-marble",
+          "match_score": 100
+        },
+        {
+          "index": 15,
+          "title": "クランベリージャムをかけて",
+          "artist": "nishina",
+          "uid": "ad928c2c894d6a15",
+          "matched_song_id": "nishina-cranberry-jam",
+          "match_score": 100
+        },
+        {
+          "index": 16,
+          "title": "シュガースポット",
+          "artist": "nishina",
+          "uid": "497811441e057b2c",
+          "matched_song_id": "nishina-sugar-spot",
+          "match_score": 100
+        },
+        {
+          "index": 17,
+          "title": "わをん",
+          "artist": "nishina",
+          "uid": "880f15ef721669a7",
+          "matched_song_id": "nishina-wawon",
+          "match_score": 100
+        },
+        {
+          "index": 18,
+          "title": "ダーリン",
+          "artist": "nishina",
+          "uid": "841b1e92b15b08ed",
+          "matched_song_id": "nishina-darling",
+          "match_score": 100
+        },
+        {
+          "index": 19,
+          "title": "青藍遊泳",
+          "artist": "nishina",
+          "uid": "174ac8a75baaae00",
+          "matched_song_id": "nishina-seiran-yuuei",
+          "match_score": 100
+        },
+        {
+          "index": 20,
+          "title": "ねこぜ",
+          "artist": "nishina",
+          "uid": "0d748e07c21c5e58",
+          "matched_song_id": "nishina-nekoze",
+          "match_score": 100
+        },
+        {
+          "index": 21,
+          "title": "アイニコイ",
+          "artist": "nishina",
+          "uid": "392b57b3f2df6b8d",
+          "matched_song_id": "nishina-ainikoi",
+          "match_score": 100
+        }
+      ],
+      "track_count": 21,
+      "matched_count": 21
+    },
+    {
+      "title": "Feeling",
+      "date": "2024.2.12 - 2024.4.28",
+      "spotify": "https://open.spotify.com/playlist/3VlJ2gdW4JW7q5jY7lLSOO",
+      "applemusic": "https://music.apple.com/jp/playlist/pl.3448e5f8b94f42aba0f01045033a657a",
+      "tracks": [
+        {
+          "index": 1,
+          "title": "春一番",
+          "artist": "nishina",
+          "uid": "f6de8e69e43f2981",
+          "matched_song_id": "nishina-haru-ichiban",
+          "match_score": 100
+        },
+        {
+          "index": 2,
+          "title": "東京マーブル",
+          "artist": "nishina",
+          "uid": "6859ebd624edaa5d",
+          "matched_song_id": "nishina-tokyo-marble",
+          "match_score": 100
+        },
+        {
+          "index": 3,
+          "title": "夜間飛行",
+          "artist": "nishina",
+          "uid": "e151b73d8eefa3f1",
+          "matched_song_id": "nishina-yakan-hikou",
+          "match_score": 100
+        },
+        {
+          "index": 4,
+          "title": "ケダモノのフレンズ",
+          "artist": "nishina",
+          "uid": "b7c1315a5bf1682b",
+          "matched_song_id": "nishina-kedamono-no-friends",
+          "match_score": 100
+        },
+        {
+          "index": 5,
+          "title": "真白",
+          "artist": "nishina",
+          "uid": "9b64af016915a581",
+          "matched_song_id": "nishina-mashiro",
+          "match_score": 100
+        },
+        {
+          "index": 6,
+          "title": "夜になって",
+          "artist": "nishina",
+          "uid": "5ac3ba45df8298eb",
+          "matched_song_id": "nishina-yoru-ni-natte",
+          "match_score": 100
+        },
+        {
+          "index": 7,
+          "title": "FRIDAY KIDS CHINA TOWN",
+          "artist": "nishina",
+          "uid": "50d94139dabac474",
+          "matched_song_id": "nishina-friday-kids-china-town",
+          "match_score": 100
+        },
+        {
+          "index": 8,
+          "title": "透明な黒と鉄分のある赤",
+          "artist": "nishina, くじら",
+          "uid": "804c87b659d671ba",
+          "matched_song_id": "nishina-toumei-na-kuro",
+          "match_score": 100
+        },
+        {
+          "index": 9,
+          "title": "ワンルーム",
+          "artist": "nishina",
+          "uid": "0ef92d3a729cab8c",
+          "matched_song_id": "nishina-one-room",
+          "match_score": 100
+        },
+        {
+          "index": 10,
+          "title": "It's a piece of cake",
+          "artist": "nishina",
+          "uid": "44d26ec0fece7260",
+          "matched_song_id": "nishina-its-a-piece-of-cake",
+          "match_score": 100
+        },
+        {
+          "index": 11,
+          "title": "ダーリン",
+          "artist": "nishina",
+          "uid": "1f360a65548a7ff4",
+          "matched_song_id": "nishina-darling",
+          "match_score": 100
+        },
+        {
+          "index": 12,
+          "title": "U+",
+          "artist": "nishina",
+          "uid": "5a71e69b9ff806b0",
+          "matched_song_id": "nishina-u-plus",
+          "match_score": 100
+        },
+        {
+          "index": 13,
+          "title": "クランベリージャムをかけて",
+          "artist": "nishina",
+          "uid": "9f6013f01eb38b63",
+          "matched_song_id": "nishina-cranberry-jam",
+          "match_score": 100
+        },
+        {
+          "index": 14,
+          "title": "bugs",
+          "artist": "nishina",
+          "uid": "3bdb85e63aa9f1db",
+          "matched_song_id": "nishina-bugs",
+          "match_score": 100
+        },
+        {
+          "index": 15,
+          "title": "スローモーション",
+          "artist": "nishina",
+          "uid": "3aa28cdcd779bfea",
+          "matched_song_id": "nishina-slow-motion",
+          "match_score": 100
+        },
+        {
+          "index": 16,
+          "title": "ヘビースモーク",
+          "artist": "nishina",
+          "uid": "cfe7aa2757da569f",
+          "matched_song_id": "nishina-heavy-smoke",
+          "match_score": 100
+        },
+        {
+          "index": 17,
+          "title": "青藍遊泳",
+          "artist": "nishina",
+          "uid": "38651f4860bde3e6",
+          "matched_song_id": "nishina-seiran-yuuei",
+          "match_score": 100
+        },
+        {
+          "index": 18,
+          "title": "1999",
+          "artist": "nishina",
+          "uid": "3c65dc5de6b19d28",
+          "matched_song_id": "nishina-1999",
+          "match_score": 100
+        },
+        {
+          "index": 19,
+          "title": "ホットミルク",
+          "artist": "nishina",
+          "uid": "77e37165ecf903b0",
+          "matched_song_id": "nishina-hot-milk",
+          "match_score": 100
+        },
+        {
+          "index": 20,
+          "title": "シュガースポット",
+          "artist": "nishina",
+          "uid": "5fc41f9826054254",
+          "matched_song_id": "nishina-sugar-spot",
+          "match_score": 100
+        },
+        {
+          "index": 21,
+          "title": "アイニコイ",
+          "artist": "nishina",
+          "uid": "41ca3378d5891306",
+          "matched_song_id": "nishina-ainikoi",
+          "match_score": 100
+        }
+      ],
+      "track_count": 21,
+      "matched_count": 21
+    },
+    {
+      "title": "クランベリージャムをかけて",
+      "date": "2023.6.24 - 2023.7.27",
+      "spotify": "https://open.spotify.com/playlist/18bM7AAML1Kj7VsLIM1aLZ",
+      "applemusic": "https://music.apple.com/jp/playlist/pl.db8bca437a5c40d39b4fd03e87c9d990",
+      "tracks": [
+        {
+          "index": 1,
+          "title": "ランデブー",
+          "artist": "nishina",
+          "uid": "0bebff22475d322f",
+          "matched_song_id": "nishina-rendezvous",
+          "match_score": 100
+        },
+        {
+          "index": 2,
+          "title": "東京マーブル",
+          "artist": "nishina",
+          "uid": "5b3fe90e8a21e5d8",
+          "matched_song_id": "nishina-tokyo-marble",
+          "match_score": 100
+        },
+        {
+          "index": 3,
+          "title": "真白",
+          "artist": "nishina",
+          "uid": "21c6003e746e246e",
+          "matched_song_id": "nishina-mashiro",
+          "match_score": 100
+        },
+        {
+          "index": 4,
+          "title": "夜間飛行",
+          "artist": "nishina",
+          "uid": "8b68fb071e1610a0",
+          "matched_song_id": "nishina-yakan-hikou",
+          "match_score": 100
+        },
+        {
+          "index": 5,
+          "title": "夜になって",
+          "artist": "nishina",
+          "uid": "6a5855bd08da97cc",
+          "matched_song_id": "nishina-yoru-ni-natte",
+          "match_score": 100
+        },
+        {
+          "index": 6,
+          "title": "FRIDAY KIDS CHINA TOWN",
+          "artist": "nishina",
+          "uid": "101cc775ead633b8",
+          "matched_song_id": "nishina-friday-kids-china-town",
+          "match_score": 100
+        },
+        {
+          "index": 7,
+          "title": "U+",
+          "artist": "nishina",
+          "uid": "866931872bb3fa29",
+          "matched_song_id": "nishina-u-plus",
+          "match_score": 100
+        },
+        {
+          "index": 8,
+          "title": "透明な黒と鉄分のある赤",
+          "artist": "nishina, くじら",
+          "uid": "b17abcdf1a40a38b",
+          "matched_song_id": "nishina-toumei-na-kuro",
+          "match_score": 100
+        },
+        {
+          "index": 9,
+          "title": "春一番",
+          "artist": "nishina",
+          "uid": "58e09545586f78b0",
+          "matched_song_id": "nishina-haru-ichiban",
+          "match_score": 100
+        },
+        {
+          "index": 10,
+          "title": "centi",
+          "artist": "nishina",
+          "uid": "1157eb07bde73aa3",
+          "matched_song_id": "nishina-centi",
+          "match_score": 100
+        },
+        {
+          "index": 11,
+          "title": "青藍遊泳",
+          "artist": "nishina",
+          "uid": "f1d316d3bd2e0de8",
+          "matched_song_id": "nishina-seiran-yuuei",
+          "match_score": 100
+        },
+        {
+          "index": 12,
+          "title": "スローモーション",
+          "artist": "nishina",
+          "uid": "aa5ee123f0ef2576",
+          "matched_song_id": "nishina-slow-motion",
+          "match_score": 100
+        },
+        {
+          "index": 13,
+          "title": "ヘビースモーク",
+          "artist": "nishina",
+          "uid": "227a80949ba2d8ca",
+          "matched_song_id": "nishina-heavy-smoke",
+          "match_score": 100
+        },
+        {
+          "index": 14,
+          "title": "1999",
+          "artist": "nishina",
+          "uid": "9aa4ee2d1cb935c9",
+          "matched_song_id": "nishina-1999",
+          "match_score": 100
+        },
+        {
+          "index": 15,
+          "title": "クランベリージャムをかけて",
+          "artist": "nishina",
+          "uid": "5794f8f6063f9ac3",
+          "matched_song_id": "nishina-cranberry-jam",
+          "match_score": 100
+        },
+        {
+          "index": 16,
+          "title": "ケダモノのフレンズ",
+          "artist": "nishina",
+          "uid": "1702fd481efaf359",
+          "matched_song_id": "nishina-kedamono-no-friends",
+          "match_score": 100
+        },
+        {
+          "index": 17,
+          "title": "アイニコイ",
+          "artist": "nishina",
+          "uid": "5f5175521a9d6a29",
+          "matched_song_id": "nishina-ainikoi",
+          "match_score": 100
+        }
+      ],
+      "track_count": 17,
+      "matched_count": 17
+    },
+    {
+      "title": "1999限定弾き語りツアー",
+      "date": "2023.1.11 - 2023.3.8",
+      "spotify": "https://open.spotify.com/playlist/1yExuvFwGLG2L3KMKFOz1x",
+      "applemusic": "https://music.apple.com/jp/playlist/pl.24d7e1987a68488eb761e9c7554cc725",
+      "tracks": [
+        {
+          "index": 1,
+          "title": "ホットミルク",
+          "artist": "nishina",
+          "uid": "57d35d41eb24831e",
+          "matched_song_id": "nishina-hot-milk",
+          "match_score": 100
+        },
+        {
+          "index": 2,
+          "title": "夜間飛行",
+          "artist": "nishina",
+          "uid": "4d76af6c81cf71a6",
+          "matched_song_id": "nishina-yakan-hikou",
+          "match_score": 100
+        },
+        {
+          "index": 3,
+          "title": "ランデブー",
+          "artist": "nishina",
+          "uid": "b37756142528f6d6",
+          "matched_song_id": "nishina-rendezvous",
+          "match_score": 100
+        },
+        {
+          "index": 4,
+          "title": "スローモーション",
+          "artist": "nishina",
+          "uid": "1f7035fe6ad924bc",
+          "matched_song_id": "nishina-slow-motion",
+          "match_score": 100
+        },
+        {
+          "index": 5,
+          "title": "ダーリン",
+          "artist": "nishina",
+          "uid": "dc3715a9ab717d4a",
+          "matched_song_id": "nishina-darling",
+          "match_score": 100
+        },
+        {
+          "index": 6,
+          "title": "ワンルーム",
+          "artist": "nishina",
+          "uid": "bd138d3928249215",
+          "matched_song_id": "nishina-one-room",
+          "match_score": 100
+        },
+        {
+          "index": 7,
+          "title": "真白",
+          "artist": "nishina",
+          "uid": "cf0cdd4be368fa97",
+          "matched_song_id": "nishina-mashiro",
+          "match_score": 100
+        },
+        {
+          "index": 8,
+          "title": "FRIDAY KIDS CHINA TOWN",
+          "artist": "nishina",
+          "uid": "d53068136b776995",
+          "matched_song_id": "nishina-friday-kids-china-town",
+          "match_score": 100
+        },
+        {
+          "index": 9,
+          "title": "ヘビースモーク",
+          "artist": "nishina",
+          "uid": "615d4ffc96cb342a",
+          "matched_song_id": "nishina-heavy-smoke",
+          "match_score": 100
+        },
+        {
+          "index": 10,
+          "title": "青藍遊泳",
+          "artist": "nishina",
+          "uid": "e4e3558250fae253",
+          "matched_song_id": "nishina-seiran-yuuei",
+          "match_score": 100
+        },
+        {
+          "index": 11,
+          "title": "1999",
+          "artist": "nishina",
+          "uid": "c87c295cad08e9e9",
+          "matched_song_id": "nishina-1999",
+          "match_score": 100
+        },
+        {
+          "index": 12,
+          "title": "春一番",
+          "artist": "nishina",
+          "uid": "385c6103cf54d02b",
+          "matched_song_id": "nishina-haru-ichiban",
+          "match_score": 100
+        },
+        {
+          "index": 13,
+          "title": "秘密基地",
+          "artist": "nishina",
+          "uid": "df4827c246777409",
+          "matched_song_id": "nishina-himitsu-kichi",
+          "match_score": 100
+        }
+      ],
+      "track_count": 13,
+      "matched_count": 13
+    },
+    {
+      "title": "1999ツアー",
+      "date": "2022.10.28 - 2022.11.17",
+      "spotify": "https://open.spotify.com/playlist/1y8FRxF92u2nl7mcyL3KdE",
+      "applemusic": "https://music.apple.com/jp/playlist/pl.0433773451cf41ea9666d0cd2876e7af",
+      "tracks": [
+        {
+          "index": 1,
+          "title": "スローモーション",
+          "artist": "nishina",
+          "uid": "16a3e4c5c5951bc5",
+          "matched_song_id": "nishina-slow-motion",
+          "match_score": 100
+        },
+        {
+          "index": 2,
+          "title": "東京マーブル",
+          "artist": "nishina",
+          "uid": "4e560b03a35e915f",
+          "matched_song_id": "nishina-tokyo-marble",
+          "match_score": 100
+        },
+        {
+          "index": 3,
+          "title": "FRIDAY KIDS CHINA TOWN",
+          "artist": "nishina",
+          "uid": "5c4e6808e64f9dce",
+          "matched_song_id": "nishina-friday-kids-china-town",
+          "match_score": 100
+        },
+        {
+          "index": 4,
+          "title": "ダーリン",
+          "artist": "nishina",
+          "uid": "cb837dd167380661",
+          "matched_song_id": "nishina-darling",
+          "match_score": 100
+        },
+        {
+          "index": 5,
+          "title": "真白",
+          "artist": "nishina",
+          "uid": "3bcdf1f79248ce92",
+          "matched_song_id": "nishina-mashiro",
+          "match_score": 100
+        },
+        {
+          "index": 6,
+          "title": "夜になって",
+          "artist": "nishina",
+          "uid": "2e439c36dfc77f1c",
+          "matched_song_id": "nishina-yoru-ni-natte",
+          "match_score": 100
+        },
+        {
+          "index": 7,
+          "title": "桃源郷",
+          "artist": "nishina",
+          "uid": "3560c38854bd5b62",
+          "matched_song_id": "nishina-tougenkyou",
+          "match_score": 100
+        },
+        {
+          "index": 8,
+          "title": "centi",
+          "artist": "nishina",
+          "uid": "66fb502f166b8c53",
+          "matched_song_id": "nishina-centi",
+          "match_score": 100
+        },
+        {
+          "index": 9,
+          "title": "夜間飛行",
+          "artist": "nishina",
+          "uid": "6c941793d7c1fd64",
+          "matched_song_id": "nishina-yakan-hikou",
+          "match_score": 100
+        },
+        {
+          "index": 10,
+          "title": "ワンルーム",
+          "artist": "nishina",
+          "uid": "47ad94e6e047bfd5",
+          "matched_song_id": "nishina-one-room",
+          "match_score": 100
+        },
+        {
+          "index": 11,
+          "title": "透明な黒と鉄分のある赤",
+          "artist": "nishina, くじら",
+          "uid": "360a9b7653fb68b4",
+          "matched_song_id": "nishina-toumei-na-kuro",
+          "match_score": 100
+        },
+        {
+          "index": 12,
+          "title": "ケダモノのフレンズ",
+          "artist": "nishina",
+          "uid": "e98f18fedb6ab048",
+          "matched_song_id": "nishina-kedamono-no-friends",
+          "match_score": 100
+        },
+        {
+          "index": 13,
+          "title": "U+",
+          "artist": "nishina",
+          "uid": "2095979ac032e542",
+          "matched_song_id": "nishina-u-plus",
+          "match_score": 100
+        },
+        {
+          "index": 14,
+          "title": "ヘビースモーク",
+          "artist": "nishina",
+          "uid": "7c207130656afa1a",
+          "matched_song_id": "nishina-heavy-smoke",
+          "match_score": 100
+        },
+        {
+          "index": 15,
+          "title": "青藍遊泳",
+          "artist": "nishina",
+          "uid": "93045239e691745d",
+          "matched_song_id": "nishina-seiran-yuuei",
+          "match_score": 100
+        },
+        {
+          "index": 16,
+          "title": "1999",
+          "artist": "nishina",
+          "uid": "70a91881e0b8b047",
+          "matched_song_id": "nishina-1999",
+          "match_score": 100
+        },
+        {
+          "index": 17,
+          "title": "ホットミルク",
+          "artist": "nishina",
+          "uid": "75f01e4336ec324b",
+          "matched_song_id": "nishina-hot-milk",
+          "match_score": 100
+        },
+        {
+          "index": 18,
+          "title": "アイニコイ",
+          "artist": "nishina",
+          "uid": "0fb87b59a94bf824",
+          "matched_song_id": "nishina-ainikoi",
+          "match_score": 100
+        }
+      ],
+      "track_count": 18,
+      "matched_count": 18
+    },
+    {
+      "title": "虎虎",
+      "date": "2022.4.2 - 4.17",
+      "spotify": "https://open.spotify.com/playlist/1bqDfHhi8YLKcCwpoJmXeI",
+      "applemusic": "https://music.apple.com/jp/playlist/pl.66b0a580a8e249d5b7fa0fdb5c126b99",
+      "tracks": [
+        {
+          "index": 1,
+          "title": "スローモーション",
+          "artist": "nishina",
+          "uid": "cf3c0ca943102fec",
+          "matched_song_id": "nishina-slow-motion",
+          "match_score": 100
+        },
+        {
+          "index": 2,
+          "title": "真白",
+          "artist": "nishina",
+          "uid": "66a316da1e424947",
+          "matched_song_id": "nishina-mashiro",
+          "match_score": 100
+        },
+        {
+          "index": 3,
+          "title": "夜になって",
+          "artist": "nishina",
+          "uid": "dca83553c262e3e3",
+          "matched_song_id": "nishina-yoru-ni-natte",
+          "match_score": 100
+        },
+        {
+          "index": 4,
+          "title": "ダーリン",
+          "artist": "nishina",
+          "uid": "5f05f0f93b57a221",
+          "matched_song_id": "nishina-darling",
+          "match_score": 100
+        },
+        {
+          "index": 5,
+          "title": "centi",
+          "artist": "nishina",
+          "uid": "bf719e43b490f165",
+          "matched_song_id": "nishina-centi",
+          "match_score": 100
+        },
+        {
+          "index": 6,
+          "title": "夜間飛行",
+          "artist": "nishina",
+          "uid": "95a441b26aba6520",
+          "matched_song_id": "nishina-yakan-hikou",
+          "match_score": 100
+        },
+        {
+          "index": 7,
+          "title": "モモ",
+          "artist": "nishina",
+          "uid": "1f2a04c2b93bd58d",
+          "matched_song_id": "nishina-momo",
+          "match_score": 100
+        },
+        {
+          "index": 8,
+          "title": "debbie",
+          "artist": "nishina",
+          "uid": "1a9978f94dc8826c",
+          "matched_song_id": "nishina-debbie",
+          "match_score": 100
+        },
+        {
+          "index": 9,
+          "title": "透明な黒と鉄分のある赤",
+          "artist": "nishina, くじら",
+          "uid": "7e9f1bc51a4289aa",
+          "matched_song_id": "nishina-toumei-na-kuro",
+          "match_score": 100
+        },
+        {
+          "index": 10,
+          "title": "東京マーブル",
+          "artist": "nishina",
+          "uid": "5133b67ef4fe94bf",
+          "matched_song_id": "nishina-tokyo-marble",
+          "match_score": 100
+        },
+        {
+          "index": 11,
+          "title": "ランデブー",
+          "artist": "nishina",
+          "uid": "0c5026ec6ddb9fb4",
+          "matched_song_id": "nishina-rendezvous",
+          "match_score": 100
+        },
+        {
+          "index": 12,
+          "title": "FRIDAY KIDS CHINA TOWN",
+          "artist": "nishina",
+          "uid": "ebc70a2cb2e63cb0",
+          "matched_song_id": "nishina-friday-kids-china-town",
+          "match_score": 100
+        },
+        {
+          "index": 13,
+          "title": "ケダモノのフレンズ",
+          "artist": "nishina",
+          "uid": "d92dacbe01c51a1d",
+          "matched_song_id": "nishina-kedamono-no-friends",
+          "match_score": 100
+        },
+        {
+          "index": 14,
+          "title": "U+",
+          "artist": "nishina",
+          "uid": "089f3a7375feae18",
+          "matched_song_id": "nishina-u-plus",
+          "match_score": 100
+        },
+        {
+          "index": 15,
+          "title": "ヘビースモーク",
+          "artist": "nishina",
+          "uid": "8e30a5af46ad878d",
+          "matched_song_id": "nishina-heavy-smoke",
+          "match_score": 100
+        },
+        {
+          "index": 16,
+          "title": "ワンルーム",
+          "artist": "nishina",
+          "uid": "b85112cf71299978",
+          "matched_song_id": "nishina-one-room",
+          "match_score": 100
+        },
+        {
+          "index": 17,
+          "title": "青藍遊泳",
+          "artist": "nishina",
+          "uid": "9cbce9a7c80f924f",
+          "matched_song_id": "nishina-seiran-yuuei",
+          "match_score": 100
+        },
+        {
+          "index": 18,
+          "title": "アイニコイ",
+          "artist": "nishina",
+          "uid": "661b3837869a834a",
+          "matched_song_id": "nishina-ainikoi",
+          "match_score": 100
+        }
+      ],
+      "track_count": 18,
+      "matched_count": 18
+    },
+    {
+      "title": "hatsu",
+      "date": "2021.6.25",
+      "spotify": "https://open.spotify.com/playlist/0o2831Xpbg1IafrQYyZADL",
+      "applemusic": "https://music.apple.com/jp/playlist/pl.15801ee397f94d268cbcfac0363f9c69",
+      "tracks": [
+        {
+          "index": 1,
+          "title": "真白",
+          "artist": "nishina",
+          "uid": "0afa1c7e5eeaacab",
+          "matched_song_id": "nishina-mashiro",
+          "match_score": 100
+        },
+        {
+          "index": 2,
+          "title": "夜間飛行",
+          "artist": "nishina",
+          "uid": "b094ba217e4b8f01",
+          "matched_song_id": "nishina-yakan-hikou",
+          "match_score": 100
+        },
+        {
+          "index": 3,
+          "title": "ケダモノのフレンズ",
+          "artist": "nishina",
+          "uid": "b7af7979858736be",
+          "matched_song_id": "nishina-kedamono-no-friends",
+          "match_score": 100
+        },
+        {
+          "index": 4,
+          "title": "ダーリン",
+          "artist": "nishina",
+          "uid": "f7feacb0ea3c775c",
+          "matched_song_id": "nishina-darling",
+          "match_score": 100
+        },
+        {
+          "index": 5,
+          "title": "ランデブー",
+          "artist": "nishina",
+          "uid": "637dfa967326bdc5",
+          "matched_song_id": "nishina-rendezvous",
+          "match_score": 100
+        },
+        {
+          "index": 6,
+          "title": "centi",
+          "artist": "nishina",
+          "uid": "f57434eb5e276fc2",
+          "matched_song_id": "nishina-centi",
+          "match_score": 100
+        },
+        {
+          "index": 7,
+          "title": "夜になって",
+          "artist": "nishina",
+          "uid": "a78698801a0d1649",
+          "matched_song_id": "nishina-yoru-ni-natte",
+          "match_score": 100
+        },
+        {
+          "index": 8,
+          "title": "透明な黒と鉄分のある赤",
+          "artist": "nishina, くじら",
+          "uid": "f21126a7bad29f99",
+          "matched_song_id": "nishina-toumei-na-kuro",
+          "match_score": 100
+        },
+        {
+          "index": 9,
+          "title": "U+",
+          "artist": "nishina",
+          "uid": "3c0ad887695df450",
+          "matched_song_id": "nishina-u-plus",
+          "match_score": 100
+        },
+        {
+          "index": 10,
+          "title": "桃源郷",
+          "artist": "nishina",
+          "uid": "58a3783369e383de",
+          "matched_song_id": "nishina-tougenkyou",
+          "match_score": 100
+        },
+        {
+          "index": 11,
+          "title": "ヘビースモーク",
+          "artist": "nishina",
+          "uid": "f66d611cbb4039b0",
+          "matched_song_id": "nishina-heavy-smoke",
+          "match_score": 100
+        }
+      ],
+      "track_count": 11,
+      "matched_count": 11
+    }
+  ]
+}

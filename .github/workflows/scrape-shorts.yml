@@ -56,6 +56,10 @@ jobs:
       - name: Rebuild gacha LIVE pool from shorts_anchors.json
         run: python scripts/build_gacha_live_pool.py
 
+      - name: Refresh setlists from Linkfire hub (each Spotify playlist)
+        run: python scripts/scrape_setlists.py
+        continue-on-error: true    # Spotify embed 若暫時掛掉不阻塞其他步驟
+
       - name: Commit + push if changed
         id: commit
         run: |
