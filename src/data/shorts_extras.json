@@ -3,6 +3,7 @@
     "total": 0,
     "by_category": {
       "ad": 0,
+      "promo": 0,
       "mc": 0,
       "cover": 0,
       "tv": 0
@@ -12,6 +13,12 @@
     "ad": {
       "displayName": "廣告",
       "emoji": "📢",
+      "count": 0,
+      "shorts": []
+    },
+    "promo": {
+      "displayName": "宣傳",
+      "emoji": "📣",
       "count": 0,
       "shorts": []
     },

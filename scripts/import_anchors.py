@@ -28,9 +28,10 @@ SHORTS_FILE = ROOT / "data" / "nishina_shorts.json"
 OUT_BY_SONG = ROOT / "src" / "data" / "shorts_by_song.json"
 OUT_EXTRAS = ROOT / "src" / "data" / "shorts_extras.json"
 
-# 網站要展示的 4 個非歌類別 (排除 __others, 那是 annotator 內部暫存桶)
+# 網站要展示的 5 個非歌類別 (排除 __others, 那是 annotator 內部暫存桶)
 EXTRA_CATEGORIES = {
     "__ad":    {"key": "ad",    "displayName": "廣告",           "emoji": "📢"},
+    "__promo": {"key": "promo", "displayName": "宣傳",            "emoji": "📣"},
     "__mc":    {"key": "mc",    "displayName": "MC / 演唱會講話", "emoji": "🎤"},
     "__cover": {"key": "cover", "displayName": "翻唱其他歌手",    "emoji": "🎵"},
     "__tv":    {"key": "tv",    "displayName": "節目切片",        "emoji": "📺"},

@@ -200,6 +200,7 @@ const OTHERS_KEY = '__others';   // 使用者主動標記「之後再處理」�
 // 而是走另一條 pipeline 輸出到 shorts_extras.json 給 /extras/ 頁消費。
 const NON_SONG_CATEGORIES = [
   { key:'__ad',    label:'📢 廣告',           short:'廣告' },
+  { key:'__promo', label:'📣 宣傳',            short:'宣傳' },
   { key:'__mc',    label:'🎤 MC / 演唱會講話',  short:'MC'   },
   { key:'__cover', label:'🎵 翻唱 (非她的歌)', short:'翻唱' },
   { key:'__tv',    label:'📺 節目切片',        short:'節目' },
@@ -459,7 +460,7 @@ function renderQueue(){
 
   // 排序: 已 match 的歌 group 排最前, 4 個非歌類別 (__ad/__mc/__cover/__tv) 中間,
   // __others 次之, __unmatched 放最後
-  const NON_SONG_ORDER = ['__ad', '__mc', '__cover', '__tv'];   // 顯示順序
+  const NON_SONG_ORDER = ['__ad', '__promo', '__mc', '__cover', '__tv'];   // 顯示順序
   const rank = k =>
     k === UNMATCHED_KEY ? 4 :
     k === OTHERS_KEY    ? 3 :
