@@ -223,4 +223,293 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
       mount.remove();
     })();
   </script>
+
+  {/* ── Confluence-style 就地編輯器 (only 顯示給有存 PAT 的使用者) ── */}
+  <script is:inline define:vars={{ songId: translation.id }}>
+  (function () {
+    const TOKEN_KEY = 'nishina-annotator-gh-token';   // 跟 annotator 共用同一顆 PAT
+    const GH = {
+      owner: 'dereknir', repo: 'NCA', branch: 'develop',
+      path: 'src/content/translations/' + songId + '.md',
+    };
+    function getToken() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch(e) { return ''; } }
+    if (!getToken()) return;   // 沒 PAT 完全不顯示編輯 UI (訪客體驗不受影響)
+
+    // ---- helpers ----
+    function utf8ToBase64(str) {
+      const bytes = new TextEncoder().encode(str);
+      let bin = '';
+      const CHUNK = 8192;
+      for (let i = 0; i < bytes.length; i += CHUNK) {
+        bin += String.fromCharCode.apply(null, bytes.subarray(i, i + CHUNK));
+      }
+      return btoa(bin);
+    }
+    function base64ToUtf8(b64) {
+      const bin = atob(b64.replace(/\s/g, ''));
+      const bytes = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      return new TextDecoder().decode(bytes);
+    }
+    async function fetchMd() {
+      const url = 'https://api.github.com/repos/' + GH.owner + '/' + GH.repo +
+                  '/contents/' + GH.path + '?ref=' + GH.branch;
+      const r = await fetch(url, {
+        headers: { Authorization: 'token ' + getToken(), Accept: 'application/vnd.github+json' }
+      });
+      if (!r.ok) throw new Error('fetch md failed: ' + r.status);
+      const j = await r.json();
+      return { content: base64ToUtf8(j.content), sha: j.sha };
+    }
+    async function pushMd(newContent, sha, message) {
+      const url = 'https://api.github.com/repos/' + GH.owner + '/' + GH.repo + '/contents/' + GH.path;
+      const r = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          Authorization: 'token ' + getToken(),
+          Accept: 'application/vnd.github+json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: message, content: utf8ToBase64(newContent), sha: sha, branch: GH.branch,
+        }),
+      });
+      if (!r.ok) {
+        const err = await r.text();
+        throw new Error('push failed: ' + r.status + ' ' + err.slice(0, 200));
+      }
+      return r.json();
+    }
+
+    // ---- floating toolbar ----
+    const bar = document.createElement('div');
+    bar.id = 'editBar';
+    bar.innerHTML =
+      '<button data-a="zh"  title="就地改中文翻譯 (每個 .zh 變可編輯)">✏️ 編輯 zh</button>' +
+      '<button data-a="all" title="開啟全篇 markdown 編輯器">📝 全篇 md</button>';
+    document.body.appendChild(bar);
+
+    // ---- Mode 1: inline zh edit ----
+    let zhSnapshot = null;   // Map<HTMLElement, string> — 打開編輯時的原文
+    function toggleZhMode() {
+      const zhs = Array.from(document.querySelectorAll('[data-song-content] .lyrics-line .zh'));
+      if (!zhs.length) { alert('這頁沒有 .zh 歌詞行'); return; }
+      if (zhSnapshot) {
+        // 已在編輯模式 → 關閉
+        zhs.forEach(el => { el.removeAttribute('contenteditable'); el.classList.remove('edit-zh'); });
+        document.getElementById('zhSaveBar')?.remove();
+        zhSnapshot = null;
+        return;
+      }
+      // 打開 → 記快照 + 讓每個 zh 可編
+      zhSnapshot = new Map();
+      zhs.forEach((el, i) => {
+        zhSnapshot.set(el, el.textContent || '');
+        el.setAttribute('contenteditable', 'plaintext-only');
+        el.classList.add('edit-zh');
+        el.dataset.zhIdx = String(i);
+      });
+      // 底部固定 save bar
+      const sb = document.createElement('div');
+      sb.id = 'zhSaveBar';
+      sb.innerHTML =
+        '<span id="zhDiffCount">0 處待存</span>' +
+        '<button data-a="save-zh" class="primary">☁ 存到 GitHub</button>' +
+        '<button data-a="cancel-zh">取消</button>';
+      document.body.appendChild(sb);
+      const updateCount = () => {
+        let n = 0;
+        zhs.forEach(el => { if ((el.textContent || '') !== zhSnapshot.get(el)) n++; });
+        document.getElementById('zhDiffCount').textContent = n + ' 處待存';
+      };
+      zhs.forEach(el => el.addEventListener('input', updateCount));
+      updateCount();
+    }
+
+    async function saveZh() {
+      const zhs = Array.from(document.querySelectorAll('[data-song-content] .lyrics-line .zh'));
+      const changes = [];
+      zhs.forEach((el, i) => {
+        const now = (el.textContent || '').trim();
+        const old = (zhSnapshot.get(el) || '').trim();
+        if (now !== old) changes.push({ idx: i, old, now });
+      });
+      if (!changes.length) { alert('沒有變動'); return; }
+      const btn = document.querySelector('#zhSaveBar button[data-a="save-zh"]');
+      btn.disabled = true; btn.textContent = '⏳ 存中…';
+      try {
+        const { content, sha } = await fetchMd();
+        // 定位: md 裡 <div class="zh">...</div> 的所有出現按 index 排序; 對應每個 change.idx
+        let newContent = content;
+        // 從最後一個往前替換, 避免前面替換改變後面 offset
+        const positions = [];
+        const rx = /<div class="zh">([^<]*)<\/div>/g;
+        let m;
+        while ((m = rx.exec(content)) !== null) {
+          positions.push({ start: m.index, end: rx.lastIndex, inner: m[1] });
+        }
+        // 按 idx 反向替換
+        changes.sort((a, b) => b.idx - a.idx);
+        for (const c of changes) {
+          const pos = positions[c.idx];
+          if (!pos) { console.warn('idx 對不到 md, skip:', c); continue; }
+          // 確保 md 裡那句跟 DOM 記的舊 zh 相符, 否則 md 已被別人改過
+          if (pos.inner.trim() !== c.old) {
+            throw new Error('第 ' + (c.idx + 1) + ' 行遠端內容跟本頁不一致 (可能有人改過), 請 refresh 重試');
+          }
+          const before = newContent.slice(0, pos.start);
+          const after = newContent.slice(pos.end);
+          const escaped = c.now.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          newContent = before + '<div class="zh">' + escaped + '</div>' + after;
+        }
+        const message = 'edit(' + songId + '): 就地改 ' + changes.length + ' 行 zh';
+        await pushMd(newContent, sha, message);
+        alert('✅ 已存到 GitHub · Vercel 部完約 2-3 分鐘後可看到');
+        // 更新 snapshot 為 latest, 關閉編輯模式
+        toggleZhMode();
+      } catch (e) {
+        alert('❌ 存失敗: ' + e.message);
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = '☁ 存到 GitHub'; }
+      }
+    }
+
+    // ---- Mode 2: full md modal ----
+    async function openMdModal() {
+      const overlay = document.createElement('div');
+      overlay.id = 'mdOverlay';
+      overlay.innerHTML =
+        '<div id="mdBox">' +
+        '  <header>' +
+        '    <span>📝 全篇編輯: <code>' + songId + '.md</code></span>' +
+        '    <span id="mdStatus">⏳ 從 GitHub 拉最新版…</span>' +
+        '    <button data-a="save-md" class="primary" disabled>☁ 存到 GitHub</button>' +
+        '    <button data-a="close-md">關閉 ×</button>' +
+        '  </header>' +
+        '  <textarea id="mdArea" spellcheck="false" placeholder="Loading…"></textarea>' +
+        '</div>';
+      document.body.appendChild(overlay);
+      let sha = null;
+      try {
+        const r = await fetchMd();
+        sha = r.sha;
+        document.getElementById('mdArea').value = r.content;
+        document.getElementById('mdStatus').textContent = '✓ 已載入 · sha ' + sha.slice(0, 7);
+        document.querySelector('#mdOverlay button[data-a="save-md"]').disabled = false;
+      } catch (e) {
+        document.getElementById('mdStatus').textContent = '❌ 載入失敗: ' + e.message;
+        return;
+      }
+      document.querySelector('#mdOverlay button[data-a="close-md"]').onclick = () => overlay.remove();
+      document.querySelector('#mdOverlay button[data-a="save-md"]').onclick = async () => {
+        const newContent = document.getElementById('mdArea').value;
+        const btn = document.querySelector('#mdOverlay button[data-a="save-md"]');
+        btn.disabled = true;
+        document.getElementById('mdStatus').textContent = '⏳ 存中…';
+        try {
+          const message = 'edit(' + songId + '): 全篇 md 更新';
+          await pushMd(newContent, sha, message);
+          document.getElementById('mdStatus').textContent = '✅ 已存 · Vercel 重建中';
+          setTimeout(() => overlay.remove(), 1500);
+        } catch (e) {
+          document.getElementById('mdStatus').textContent = '❌ ' + e.message;
+          btn.disabled = false;
+        }
+      };
+    }
+
+    // ---- wire up ----
+    bar.addEventListener('click', (e) => {
+      const a = e.target.closest('button')?.dataset.a;
+      if (a === 'zh') toggleZhMode();
+      else if (a === 'all') openMdModal();
+      else if (a === 'save-zh') saveZh();
+      else if (a === 'cancel-zh') { toggleZhMode(); }
+    });
+    document.body.addEventListener('click', (e) => {
+      const a = e.target.closest('button')?.dataset.a;
+      if (a === 'save-zh') saveZh();
+      else if (a === 'cancel-zh') { toggleZhMode(); }
+    });
+  })();
+  </script>
+
+  <style is:global>
+    /* ── Edit UI (only 顯示給有存 PAT 的使用者, 由 JS 動態插入) ── */
+    #editBar {
+      position: fixed; top: 68px; right: 14px; z-index: 40;
+      display: flex; gap: 6px;
+      background: rgba(20, 29, 49, 0.9); backdrop-filter: blur(6px);
+      border: 1px solid #243154; border-radius: 10px; padding: 6px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.35);
+    }
+    #editBar button {
+      background: #1a2440; color: #e8ecf6; border: 1px solid #243154;
+      border-radius: 6px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+      font-family: inherit;
+    }
+    #editBar button:hover { border-color: #3d63ff; }
+
+    /* .zh 進入編輯模式 */
+    .lyrics-line .zh.edit-zh {
+      outline: 1px dashed rgba(232,201,74,.8);
+      background: rgba(232,201,74,.08);
+      border-radius: 3px; padding: 2px 4px; cursor: text;
+    }
+    .lyrics-line .zh.edit-zh:focus {
+      outline: 2px solid #e8c94a;
+      background: rgba(232,201,74,.16);
+    }
+
+    /* Sticky zh save bar */
+    #zhSaveBar {
+      position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+      z-index: 45; display: flex; align-items: center; gap: 12px;
+      background: rgba(20, 29, 49, 0.94); backdrop-filter: blur(8px);
+      border: 1px solid #243154; border-radius: 12px; padding: 10px 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.5);
+    }
+    #zhSaveBar #zhDiffCount { color: #e8c94a; font-size: 12.5px; font-weight: 600; }
+    #zhSaveBar button {
+      background: #1a2440; color: #e8ecf6; border: 1px solid #243154;
+      border-radius: 8px; padding: 7px 14px; font-size: 13px; cursor: pointer;
+      font-family: inherit;
+    }
+    #zhSaveBar button:hover:not(:disabled) { border-color: #3d63ff; }
+    #zhSaveBar button.primary { background: linear-gradient(180deg,#2ea043,#22863a); border-color: #22863a; color: #fff; }
+    #zhSaveBar button:disabled { opacity: .5; cursor: wait; }
+
+    /* Full md modal */
+    #mdOverlay {
+      position: fixed; inset: 0; z-index: 90;
+      background: rgba(6, 8, 16, .82); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center; padding: 24px;
+    }
+    #mdBox {
+      width: min(1100px, 100%); height: min(85vh, 900px);
+      background: #141d31; border: 1px solid #243154; border-radius: 14px;
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    #mdBox header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; border-bottom: 1px solid #243154;
+      background: rgba(10, 15, 30, 0.5);
+    }
+    #mdBox header span:first-child { color: #e8ecf6; font-size: 14px; font-weight: 600; }
+    #mdBox header code { color: #8b97b8; font-size: 12px; background: #1a2440; padding: 1px 6px; border-radius: 4px; }
+    #mdBox header #mdStatus { color: #8b97b8; font-size: 12px; flex: 1; }
+    #mdBox header button {
+      background: #1a2440; color: #e8ecf6; border: 1px solid #243154;
+      border-radius: 8px; padding: 6px 14px; font-size: 13px; cursor: pointer;
+      font-family: inherit;
+    }
+    #mdBox header button:hover:not(:disabled) { border-color: #3d63ff; }
+    #mdBox header button.primary { background: linear-gradient(180deg,#2ea043,#22863a); border-color: #22863a; color: #fff; }
+    #mdBox header button:disabled { opacity: .5; cursor: wait; }
+    #mdBox textarea {
+      flex: 1; width: 100%; background: #0c1322; color: #e8ecf6;
+      border: none; padding: 16px 20px; font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 13px; line-height: 1.6; resize: none; outline: none;
+    }
+  </style>
 </BaseLayout>
