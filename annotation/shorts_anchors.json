@@ -3728,9 +3728,50 @@
   },
   "PNjjglWpgSU": {
     "songId": "nishina-kyou-mo-kyou-tote-remix",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 3.23,
+        "line": 0
+      },
+      {
+        "t": 4.49,
+        "line": 1
+      },
+      {
+        "t": 5.79,
+        "line": 2
+      },
+      {
+        "t": 7.17,
+        "line": 3
+      },
+      {
+        "t": 8.57,
+        "line": 4
+      },
+      {
+        "t": 9.75,
+        "line": 5
+      },
+      {
+        "t": 11.02,
+        "line": 6
+      },
+      {
+        "t": 12.57,
+        "line": 7
+      },
+      {
+        "t": 12.99,
+        "line": 8
+      },
+      {
+        "t": 13.3,
+        "line": 9
+      }
+    ],
+    "status": "done",
+    "versionType": "other",
     "instrumental": false
   },
   "fS5VkKBXYNk": {
@@ -4554,9 +4595,62 @@
   },
   "Luxu6lYGnEw": {
     "songId": "nishina-in-your-eyes",
-    "anchors": [],
+    "anchors": [
+      {
+        "t": 0,
+        "line": 9
+      },
+      {
+        "t": 3.05,
+        "line": 10
+      },
+      {
+        "t": 4.7,
+        "line": 11
+      },
+      {
+        "t": 8.66,
+        "line": 12
+      },
+      {
+        "t": 14.96,
+        "line": 13
+      },
+      {
+        "t": 17.78,
+        "line": 14
+      },
+      {
+        "t": 20.85,
+        "line": 15
+      },
+      {
+        "t": 24.96,
+        "line": 16
+      },
+      {
+        "t": 26.99,
+        "line": 17
+      },
+      {
+        "t": 30.76,
+        "line": 18
+      },
+      {
+        "t": 37.18,
+        "line": 19
+      },
+      {
+        "t": 40.01,
+        "line": 20
+      },
+      {
+        "t": 43.13,
+        "line": 21
+      }
+    ],
     "status": "pending",
-    "versionType": null,
+    "versionType": "live",
     "instrumental": false
   },
   "-lkgQJEW3ZQ": {
@@ -4735,9 +4829,9 @@
     "instrumental": false
   },
   "jWxn_ZeQRH8": {
-    "songId": "nishina-clover",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -4833,11 +4927,12 @@
     "instrumental": false
   },
   "Rj5CL1PqDTE": {
-    "songId": "nishina-are-ga-koi",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "MUSICK 2"
   },
   "MpyR2sGJeCU": {
     "songId": "nishina-u-plus",
@@ -5149,11 +5244,12 @@
     "instrumental": false
   },
   "BR2hWTFvlyw": {
-    "songId": "nishina-panda-girl",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "日々散漫"
   },
   "2tLv8eTQ75U": {
     "songId": "nishina-darling",
@@ -5675,9 +5771,42 @@
   },
   "a4pQ6L5WiYc": {
     "songId": "nishina-are-ga-koi",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 1.84,
+        "line": 1
+      },
+      {
+        "t": 3.87,
+        "line": 2
+      },
+      {
+        "t": 8.28,
+        "line": 3
+      },
+      {
+        "t": 10.67,
+        "line": 4
+      },
+      {
+        "t": 13.15,
+        "line": 5
+      },
+      {
+        "t": 14.45,
+        "line": 6
+      },
+      {
+        "t": 15.44,
+        "line": 7
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "8POdWyYD5d0": {
@@ -5854,9 +5983,9 @@
     "instrumental": false
   },
   "EFg_17psRcU": {
-    "songId": "nishina-are-ga-koi",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -6489,9 +6618,38 @@
   },
   "BOJdUNxh3eA": {
     "songId": "nishina-are-ga-koi",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 27
+      },
+      {
+        "t": 2.3,
+        "line": 28
+      },
+      {
+        "t": 4.48,
+        "line": 29
+      },
+      {
+        "t": 8.08,
+        "line": 30
+      },
+      {
+        "t": 10.37,
+        "line": 31
+      },
+      {
+        "t": 12.46,
+        "line": 32
+      },
+      {
+        "t": 14.03,
+        "line": 33
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "DN559d9DkuA": {
@@ -6874,9 +7032,38 @@
   },
   "51FfZTsaHMg": {
     "songId": "nishina-momo",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0.37,
+        "line": 15
+      },
+      {
+        "t": 3.36,
+        "line": 16
+      },
+      {
+        "t": 12.47,
+        "line": 17
+      },
+      {
+        "t": 19.19,
+        "line": 18
+      },
+      {
+        "t": 25.68,
+        "line": 19
+      },
+      {
+        "t": 29.04,
+        "line": 20
+      },
+      {
+        "t": 38.65,
+        "line": 21
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "aoRTDbJTG28": {
@@ -7042,9 +7229,30 @@
   },
   "KnVgHuaxypc": {
     "songId": "nishina-are-ga-koi",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 35
+      },
+      {
+        "t": 3.7,
+        "line": 36
+      },
+      {
+        "t": 8.08,
+        "line": 37
+      },
+      {
+        "t": 12.36,
+        "line": 38
+      },
+      {
+        "t": 16.01,
+        "line": 39
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "k9CcpvdHXpY": {
@@ -7217,9 +7425,58 @@
   },
   "GvVHy-b0EJ4": {
     "songId": "nishina-are-ga-koi",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 15
+      },
+      {
+        "t": 4.15,
+        "line": 16
+      },
+      {
+        "t": 5.98,
+        "line": 17
+      },
+      {
+        "t": 8.23,
+        "line": 18
+      },
+      {
+        "t": 12.01,
+        "line": 19
+      },
+      {
+        "t": 16.62,
+        "line": 20
+      },
+      {
+        "t": 20.17,
+        "line": 21
+      },
+      {
+        "t": 21.77,
+        "line": 22
+      },
+      {
+        "t": 24.98,
+        "line": 23
+      },
+      {
+        "t": 26.79,
+        "line": 24
+      },
+      {
+        "t": 28.7,
+        "line": 25
+      },
+      {
+        "t": 30.78,
+        "line": 26
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "YLeftSd_5y4": {
@@ -7637,15 +7894,36 @@
   },
   "TOa0Bbtr_XQ": {
     "songId": "nishina-are-ga-koi",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 35
+      },
+      {
+        "t": 4.09,
+        "line": 36
+      },
+      {
+        "t": 8.15,
+        "line": 37
+      },
+      {
+        "t": 12.34,
+        "line": 38
+      },
+      {
+        "t": 15.89,
+        "line": 39
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "tePjcZLC8hk": {
-    "songId": "nishina-are-ga-koi",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -7973,9 +8251,26 @@
   },
   "gUMln_KM9Zs": {
     "songId": "nishina-momo",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 4
+      },
+      {
+        "t": 3.08,
+        "line": 5
+      },
+      {
+        "t": 12.23,
+        "line": 6
+      },
+      {
+        "t": 19.31,
+        "line": 7
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "CjVtTUO1b1E": {
