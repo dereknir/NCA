@@ -34,7 +34,7 @@ OUT_TOURS = ROOT / "src" / "data" / "shorts_tours.json"
 TOUR_RECAP_KEY = "__tour_recap"   # 巡演花絮 sentinel (獨立走 shorts_tours.json)
 UNSPECIFIED_TOUR = ""              # tourName 未指定時的分組 key
 
-# 網站要展示的 6 個非歌類別 (排除 __others = annotator 暫存桶, 排除 __tour_recap = 走 tours 通道)
+# 網站要展示的 7 個非歌類別 (排除 __others = annotator 暫存桶, 排除 __tour_recap = 走 tours 通道)
 EXTRA_CATEGORIES = {
     "__ad":     {"key": "ad",     "displayName": "廣告",           "emoji": "📢"},
     "__promo":  {"key": "promo",  "displayName": "宣傳",            "emoji": "📣"},
@@ -42,6 +42,7 @@ EXTRA_CATEGORIES = {
     "__cover":  {"key": "cover",  "displayName": "翻唱其他歌手",    "emoji": "🎵"},
     "__tv":     {"key": "tv",     "displayName": "節目切片",        "emoji": "📺"},
     "__travel": {"key": "travel", "displayName": "旅行",            "emoji": "✈️"},
+    "__yearly": {"key": "yearly", "displayName": "年度回顧",        "emoji": "🎉"},
 }
 
 
