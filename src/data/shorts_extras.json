@@ -1,10 +1,10 @@
 {
   "meta": {
-    "total": 29,
+    "total": 32,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 5,
+      "promo": 8,
       "mc": 6,
       "yearly": 2,
       "ad": 2,
@@ -120,7 +120,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 5,
+      "count": 8,
       "shorts": [
         {
           "videoId": "iw2deFw5p80",
@@ -153,6 +153,16 @@
           "anchors": []
         },
         {
+          "videoId": "jWxn_ZeQRH8",
+          "title": "にしな🎬映画「モブ子の恋」🍀主題歌「クローバー」6月3日リリース決定",
+          "url": "https://www.youtube.com/shorts/jWxn_ZeQRH8",
+          "thumbnail": "https://i.ytimg.com/vi/jWxn_ZeQRH8/hqdefault.jpg",
+          "viewCount": 6600,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "fs8zHlzg7rE",
           "title": "いきものがかり meets 2 にしな「うるわしきひと」",
           "url": "https://www.youtube.com/shorts/fs8zHlzg7rE",
@@ -163,11 +173,31 @@
           "anchors": []
         },
         {
+          "videoId": "EFg_17psRcU",
+          "title": "Shape of Love feat.nishina teaser",
+          "url": "https://www.youtube.com/shorts/EFg_17psRcU",
+          "thumbnail": "https://i.ytimg.com/vi/EFg_17psRcU/hqdefault.jpg",
+          "viewCount": 4900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "e-pmzZoe-MM",
           "title": "うるわしき あいのうた",
           "url": "https://www.youtube.com/shorts/e-pmzZoe-MM",
           "thumbnail": "https://i.ytimg.com/vi/e-pmzZoe-MM/hqdefault.jpg",
           "viewCount": 3100,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "tePjcZLC8hk",
+          "title": "あれが恋だったのかな",
+          "url": "https://www.youtube.com/shorts/tePjcZLC8hk",
+          "thumbnail": "https://i.ytimg.com/vi/tePjcZLC8hk/hqdefault.jpg",
+          "viewCount": 2800,
           "versionType": null,
           "instrumental": false,
           "anchors": []
