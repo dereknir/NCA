@@ -28,7 +28,7 @@ const categories = extras.categories as Record<string, Category>;
 const meta = extras.meta;
 
 // tab 顯示順序 (跟 annotator 的順序一致)
-const TAB_ORDER = ['mc', 'ad', 'promo', 'cover', 'tv', 'travel', 'yearly'];
+const TAB_ORDER = ['mc', 'ad', 'promo', 'cover', 'tv', 'travel', 'yearly', 'daily'];
 const orderedCategories = TAB_ORDER
   .map(k => ({ key: k, ...categories[k] }))
   .filter(c => c.displayName);   // 保護: 若 schema 少 category, 不 crash

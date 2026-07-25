@@ -206,6 +206,7 @@ const NON_SONG_CATEGORIES = [
   { key:'__tv',         label:'📺 節目切片',        short:'節目' },
   { key:'__travel',     label:'✈️ 旅行',            short:'旅行' },
   { key:'__yearly',     label:'🎉 年度回顧',        short:'年度' },   // Thank you for XXXX 等
+  { key:'__daily',      label:'☕ 日常',            short:'日常' },   // slice-of-life vlog
   { key:'__tour_recap', label:'🎪 巡演花絮',        short:'花絮' },   // 可再選巡演 (optional)
 ];
 const NON_SONG_KEY_SET = new Set(NON_SONG_CATEGORIES.map(c => c.key));
@@ -467,7 +468,7 @@ function renderQueue(){
 
   // 排序: 已 match 的歌 group 排最前, 4 個非歌類別 (__ad/__mc/__cover/__tv) 中間,
   // __others 次之, __unmatched 放最後
-  const NON_SONG_ORDER = ['__ad', '__promo', '__mc', '__cover', '__tv', '__travel', '__yearly', '__tour_recap'];   // 顯示順序
+  const NON_SONG_ORDER = ['__ad', '__promo', '__mc', '__cover', '__tv', '__travel', '__yearly', '__daily', '__tour_recap'];   // 顯示順序
   const rank = k =>
     k === UNMATCHED_KEY ? 4 :
     k === OTHERS_KEY    ? 3 :
