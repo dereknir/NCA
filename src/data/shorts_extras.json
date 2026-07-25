@@ -1,33 +1,23 @@
 {
   "meta": {
-    "total": 24,
+    "total": 29,
     "by_category": {
-      "promo": 8,
+      "daily": 4,
       "cover": 5,
+      "promo": 5,
       "mc": 6,
+      "yearly": 2,
       "ad": 2,
       "tv": 3,
-      "travel": 0,
-      "yearly": 0,
-      "daily": 0
+      "travel": 2
     }
   },
   "categories": {
-    "promo": {
-      "displayName": "宣傳",
-      "emoji": "📣",
-      "count": 8,
+    "daily": {
+      "displayName": "日常",
+      "emoji": "☕",
+      "count": 4,
       "shorts": [
-        {
-          "videoId": "iw2deFw5p80",
-          "title": "tiny desk concerts JAPAN with spiritual brothers!",
-          "url": "https://www.youtube.com/shorts/iw2deFw5p80",
-          "thumbnail": "https://i.ytimg.com/vi/iw2deFw5p80/hqdefault.jpg",
-          "viewCount": 19000,
-          "versionType": null,
-          "instrumental": false,
-          "anchors": []
-        },
         {
           "videoId": "34kKI4hhjTo",
           "title": "？",
@@ -49,26 +39,6 @@
           "anchors": []
         },
         {
-          "videoId": "CICk-ZwFl64",
-          "title": "NEW ALBUM on March 18th in 2026!!",
-          "url": "https://www.youtube.com/shorts/CICk-ZwFl64",
-          "thumbnail": "https://i.ytimg.com/vi/CICk-ZwFl64/hqdefault.jpg",
-          "viewCount": 9900,
-          "versionType": null,
-          "instrumental": false,
-          "anchors": []
-        },
-        {
-          "videoId": "Al-9ppLMtus",
-          "title": "参考にならないけどどーぞ",
-          "url": "https://www.youtube.com/shorts/Al-9ppLMtus",
-          "thumbnail": "https://i.ytimg.com/vi/Al-9ppLMtus/hqdefault.jpg",
-          "viewCount": 8500,
-          "versionType": null,
-          "instrumental": false,
-          "anchors": []
-        },
-        {
           "videoId": "5CypXOHTzpA",
           "title": "明日夜お知らせあり",
           "url": "https://www.youtube.com/shorts/5CypXOHTzpA",
@@ -84,16 +54,6 @@
           "url": "https://www.youtube.com/shorts/24LL1kmYAek",
           "thumbnail": "https://i.ytimg.com/vi/24LL1kmYAek/hqdefault.jpg",
           "viewCount": 4300,
-          "versionType": null,
-          "instrumental": false,
-          "anchors": []
-        },
-        {
-          "videoId": "sERSFSmDn0o",
-          "title": "WITH CRANBERRY JAM TOUR",
-          "url": "https://www.youtube.com/shorts/sERSFSmDn0o",
-          "thumbnail": "https://i.ytimg.com/vi/sERSFSmDn0o/hqdefault.jpg",
-          "viewCount": 2400,
           "versionType": null,
           "instrumental": false,
           "anchors": []
@@ -151,6 +111,63 @@
           "url": "https://www.youtube.com/shorts/3sg2xo-K2gg",
           "thumbnail": "https://i.ytimg.com/vi/3sg2xo-K2gg/hqdefault.jpg",
           "viewCount": 6400,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        }
+      ]
+    },
+    "promo": {
+      "displayName": "宣傳",
+      "emoji": "📣",
+      "count": 5,
+      "shorts": [
+        {
+          "videoId": "iw2deFw5p80",
+          "title": "tiny desk concerts JAPAN with spiritual brothers!",
+          "url": "https://www.youtube.com/shorts/iw2deFw5p80",
+          "thumbnail": "https://i.ytimg.com/vi/iw2deFw5p80/hqdefault.jpg",
+          "viewCount": 19000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "CICk-ZwFl64",
+          "title": "NEW ALBUM on March 18th in 2026!!",
+          "url": "https://www.youtube.com/shorts/CICk-ZwFl64",
+          "thumbnail": "https://i.ytimg.com/vi/CICk-ZwFl64/hqdefault.jpg",
+          "viewCount": 9900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "Al-9ppLMtus",
+          "title": "参考にならないけどどーぞ",
+          "url": "https://www.youtube.com/shorts/Al-9ppLMtus",
+          "thumbnail": "https://i.ytimg.com/vi/Al-9ppLMtus/hqdefault.jpg",
+          "viewCount": 8500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "fs8zHlzg7rE",
+          "title": "いきものがかり meets 2 にしな「うるわしきひと」",
+          "url": "https://www.youtube.com/shorts/fs8zHlzg7rE",
+          "thumbnail": "https://i.ytimg.com/vi/fs8zHlzg7rE/hqdefault.jpg",
+          "viewCount": 5800,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "e-pmzZoe-MM",
+          "title": "うるわしき あいのうた",
+          "url": "https://www.youtube.com/shorts/e-pmzZoe-MM",
+          "thumbnail": "https://i.ytimg.com/vi/e-pmzZoe-MM/hqdefault.jpg",
+          "viewCount": 3100,
           "versionType": null,
           "instrumental": false,
           "anchors": []
@@ -224,6 +241,33 @@
         }
       ]
     },
+    "yearly": {
+      "displayName": "年度回顧",
+      "emoji": "🎉",
+      "count": 2,
+      "shorts": [
+        {
+          "videoId": "ZMyrOv-gLNA",
+          "title": "thank you for 2025👏",
+          "url": "https://www.youtube.com/shorts/ZMyrOv-gLNA",
+          "thumbnail": "https://i.ytimg.com/vi/ZMyrOv-gLNA/hqdefault.jpg",
+          "viewCount": 6400,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "DUIJRYGaqJg",
+          "title": "24/7 in 2025",
+          "url": "https://www.youtube.com/shorts/DUIJRYGaqJg",
+          "thumbnail": "https://i.ytimg.com/vi/DUIJRYGaqJg/hqdefault.jpg",
+          "viewCount": 5200,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        }
+      ]
+    },
     "ad": {
       "displayName": "廣告",
       "emoji": "📢",
@@ -291,20 +335,29 @@
     "travel": {
       "displayName": "旅行",
       "emoji": "✈️",
-      "count": 0,
-      "shorts": []
-    },
-    "yearly": {
-      "displayName": "年度回顧",
-      "emoji": "🎉",
-      "count": 0,
-      "shorts": []
-    },
-    "daily": {
-      "displayName": "日常",
-      "emoji": "☕",
-      "count": 0,
-      "shorts": []
+      "count": 2,
+      "shorts": [
+        {
+          "videoId": "JI86pWwhdf4",
+          "title": "あい、五十音はそこから始まって",
+          "url": "https://www.youtube.com/shorts/JI86pWwhdf4",
+          "thumbnail": "https://i.ytimg.com/vi/JI86pWwhdf4/hqdefault.jpg",
+          "viewCount": 23000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "Fl4jfue9iIc",
+          "title": "我愛你",
+          "url": "https://www.youtube.com/shorts/Fl4jfue9iIc",
+          "thumbnail": "https://i.ytimg.com/vi/Fl4jfue9iIc/hqdefault.jpg",
+          "viewCount": 4300,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        }
+      ]
     }
   }
 }
