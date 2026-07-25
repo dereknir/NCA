@@ -6,7 +6,8 @@
       "cover": 5,
       "mc": 6,
       "ad": 2,
-      "tv": 3
+      "tv": 3,
+      "travel": 0
     }
   },
   "categories": {
@@ -284,6 +285,12 @@
           "anchors": []
         }
       ]
+    },
+    "travel": {
+      "displayName": "旅行",
+      "emoji": "✈️",
+      "count": 0,
+      "shorts": []
     }
   }
 }
