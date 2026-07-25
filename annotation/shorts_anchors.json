@@ -2740,7 +2740,7 @@
     "instrumental": false
   },
   "34kKI4hhjTo": {
-    "songId": "__promo",
+    "songId": "__daily",
     "anchors": [],
     "status": "done",
     "versionType": null,
@@ -3244,7 +3244,7 @@
     "instrumental": false
   },
   "3Pi9Qnwbmsc": {
-    "songId": "__promo",
+    "songId": "__daily",
     "anchors": [],
     "status": "done",
     "versionType": null,
@@ -4882,9 +4882,9 @@
     "instrumental": false
   },
   "ZMyrOv-gLNA": {
-    "songId": "nishina-wawon",
+    "songId": "__yearly",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -5036,11 +5036,12 @@
     "instrumental": false
   },
   "2_lPglzm1f4": {
-    "songId": "nishina-wawon",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "MUSICK 2"
   },
   "eLqUG69_VvE": {
     "songId": "nishina-haru-ichiban",
@@ -5218,9 +5219,9 @@
     "instrumental": false
   },
   "fs8zHlzg7rE": {
-    "songId": "nishina-uruwashikihito",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -5498,7 +5499,7 @@
     "instrumental": false
   },
   "5CypXOHTzpA": {
-    "songId": "__promo",
+    "songId": "__daily",
     "anchors": [],
     "status": "done",
     "versionType": null,
@@ -5582,9 +5583,9 @@
     "instrumental": false
   },
   "DUIJRYGaqJg": {
-    "songId": "nishina-wawon",
+    "songId": "__yearly",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -5758,9 +5759,42 @@
   },
   "7F9GklA1IOw": {
     "songId": "nishina-uruwashikihito",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 4.11,
+        "line": 1
+      },
+      {
+        "t": 8.37,
+        "line": 2
+      },
+      {
+        "t": 10.9,
+        "line": 3
+      },
+      {
+        "t": 15.55,
+        "line": 4
+      },
+      {
+        "t": 18.88,
+        "line": 5
+      },
+      {
+        "t": 22.93,
+        "line": 6
+      },
+      {
+        "t": 25.78,
+        "line": 7
+      }
+    ],
+    "status": "done",
+    "versionType": "other",
     "instrumental": false
   },
   "OKo2A5Dt3JI": {
@@ -5841,11 +5875,12 @@
     "instrumental": false
   },
   "BUt5ayswSiA": {
-    "songId": "nishina-oto-ni-natteiku-yo",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "日々散漫"
   },
   "daJBmm9OIo0": {
     "songId": "nishina-rendezvous",
@@ -6017,9 +6052,26 @@
   },
   "BTjZCrdAv0s": {
     "songId": "nishina-tougenkyou",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 1.29,
+        "line": 27
+      },
+      {
+        "t": 7.64,
+        "line": 28
+      },
+      {
+        "t": 14.31,
+        "line": 29
+      },
+      {
+        "t": 20.91,
+        "line": 30
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "hk6_UgpH1Mw": {
@@ -6352,7 +6404,7 @@
     "instrumental": false
   },
   "24LL1kmYAek": {
-    "songId": "__promo",
+    "songId": "__daily",
     "anchors": [],
     "status": "done",
     "versionType": null,
@@ -7360,9 +7412,9 @@
     "instrumental": false
   },
   "e-pmzZoe-MM": {
-    "songId": "nishina-uruwashikihito",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -7983,11 +8035,12 @@
     "instrumental": false
   },
   "sERSFSmDn0o": {
-    "songId": "__promo",
+    "songId": "__tour_recap",
     "anchors": [],
     "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "クランベリージャムをかけて"
   },
   "gEh0D1jo-0Q": {
     "songId": "nishina-sugar-spot",
@@ -8783,6 +8836,87 @@
   },
   "GmwXOz6aHrk": {
     "songId": "nishina-darling",
+    "anchors": [],
+    "status": "pending",
+    "versionType": null,
+    "instrumental": false
+  },
+  "bmrJImkLLwc": {
+    "songId": "nishina-wawon",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 3.52,
+        "line": 1
+      },
+      {
+        "t": 6.62,
+        "line": 2
+      },
+      {
+        "t": 9.65,
+        "line": 3
+      },
+      {
+        "t": 11.72,
+        "line": 4
+      },
+      {
+        "t": 14.73,
+        "line": 5
+      },
+      {
+        "t": 18.7,
+        "line": 6
+      },
+      {
+        "t": 21.62,
+        "line": 7
+      },
+      {
+        "t": 24.53,
+        "line": 8
+      },
+      {
+        "t": 32.31,
+        "line": 9
+      },
+      {
+        "t": 37.68,
+        "line": 10
+      },
+      {
+        "t": 40.65,
+        "line": 11
+      },
+      {
+        "t": 43.48,
+        "line": 12
+      }
+    ],
+    "status": "done",
+    "versionType": "other",
+    "instrumental": false
+  },
+  "JI86pWwhdf4": {
+    "songId": "__travel",
+    "anchors": [],
+    "status": "done",
+    "versionType": null,
+    "instrumental": false
+  },
+  "Fl4jfue9iIc": {
+    "songId": "__travel",
+    "anchors": [],
+    "status": "done",
+    "versionType": null,
+    "instrumental": false
+  },
+  "oBzHEw-UA84": {
+    "songId": "nishina-wawon",
     "anchors": [],
     "status": "pending",
     "versionType": null,
