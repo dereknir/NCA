@@ -1,0 +1,74 @@
+name: Refresh lyric derived data (md push)
+
+# 觸發: 有人 push 到 src/content/translations/**.md
+# (例如 in-page editor 存了 zh / ja 改動, 或手動 commit md)
+# → 這個 workflow 立刻重跑 lyrics.json + 歌詞宇宙 + KWIC + annotator 同步.
+#
+# 星圖 (embed_star_map.py) 不在這裡跑, 太重 (e5-large 模型 2GB, ~5-10 分).
+# 星圖走「累積幾次改動再手動 run」的 cadence.
+#
+# 無限循環保護: 這個 workflow 只 push 衍生檔 (data/lyrics.json, src/data/lyric_universe.json,
+# src/data/kwic_index.json, public/annotate/lyrics.json 等), 從不 push
+# src/content/translations/**.md → 自己不會再觸發自己.
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'src/content/translations/**.md'
+  workflow_dispatch: {}
+
+concurrency:
+  group: refresh-lyric-data-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps (fugashi + unidic-lite for 日文斷詞)
+        run: pip install fugashi unidic-lite rapidfuzz
+
+      - name: Export lyrics.json (md → data/lyrics.json)
+        run: python scripts/export_lyrics_json.py
+
+      - name: Analyze → lyric_universe.json + inject into HTML
+        run: python scripts/analyze_lyrics.py
+
+      - name: Build KWIC index → kwic_index.json + inject into HTML
+        run: python scripts/build_kwic.py
+
+      - name: Sync lyrics.json → /annotate/ (so 新編輯的 title/album 也同步下拉)
+        run: cp data/lyrics.json public/annotate/lyrics.json
+
+      - name: Commit + push if changed
+        id: commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 只 stage 衍生檔, 絕不動 src/content/translations/**.md (那是 source of truth)
+          git add data/lyrics.json \
+                  src/data/lyric_universe.json \
+                  src/data/kwic_index.json \
+                  public/lyric-universe/index.html \
+                  public/kwic/index.html \
+                  public/annotate/lyrics.json
+          if git diff --staged --quiet; then
+            echo "committed=no" >> $GITHUB_OUTPUT
+            echo "→ 衍生檔跟目前 md 已同步, 沒東西可 commit"
+          else
+            git commit -m "chore(sync): regen lyric derived data from md push"
+            git push origin HEAD:develop
+            echo "committed=yes" >> $GITHUB_OUTPUT
+          fi
