@@ -1,0 +1,137 @@
+---
+/**
+ * /live/timeline — にしな 年表(官方 news 全 119 條)
+ *
+ * DATA: src/data/live_news.json (每條 news 帶 class = LIVE/RELEASE/TIEUP/COLLAB/GOODS/OTHER)
+ * SERIES: src/data/live_series.json (回訪查表, 標「回訪 N/總數」sbadge)
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import news from '../../data/live_news.json';
+import series from '../../data/live_series.json';
+---
+
+<BaseLayout title="にしな 年表" description="にしな 官方 news 全 119 條 · 六色標籤篩選">
+  <div class="tl-page">
+    <h1>にしな年表</h1>
+    <p class="sub">官方 news 全 {news.length} 條・點標題到官方頁 · <a href="/live/">← 回 Live hub</a></p>
+    <div id="chips"></div>
+    <div id="tl"></div>
+    <p class="foot">資料源:nishina247.jp/news(2021.04 開站起)・僅日期/標題/連結,內文請至官方</p>
+  </div>
+
+  <style>
+    .tl-page {
+      --c-LIVE:#3aa981;--c-RELEASE:#e2603a;--c-TIEUP:#8a63c9;--c-COLLAB:#e1518e;
+      --c-GOODS:#ef9f27;--c-OTHER:#7c8db5;
+      max-width: 820px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .tl-page h1 { font-size: 30px; letter-spacing: .08em; }
+    .tl-page .sub { color: #8b97b8; font-size: 13px; margin-top: 6px; }
+    .tl-page .sub a { color: #3d63ff; text-decoration: none; }
+    .tl-page .sub a:hover { text-decoration: underline; }
+    #chips {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-top: 22px;
+      position: sticky; top: 76px; background: #0a0a15; padding: 12px 0; z-index: 5;
+    }
+    .chip {
+      border: 1px solid #243154; border-radius: 99px; padding: 5px 14px;
+      font-size: 12.5px; color: #8b97b8; cursor: pointer; background: transparent;
+      font-family: inherit;
+    }
+    .chip i {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px;
+    }
+    .chip.on { color: #e8ecf6; border-color: currentColor; }
+    .yr { font-size: 20px; margin: 44px 0 6px; color: #e8c94a; letter-spacing: .1em; }
+    .yr small { color: #8b97b8; font-size: 12px; margin-left: 10px; }
+    .tl {
+      border-left: 2px solid #243154; margin-left: 7px; padding-left: 22px;
+    }
+    .item { position: relative; padding: 9px 0; }
+    .item::before {
+      content: ''; position: absolute; left: -28px; top: 17px; width: 10px; height: 10px;
+      border-radius: 50%; background: var(--dot, #7c8db5);
+    }
+    .item .d { color: #8b97b8; font-size: 12px; font-variant-numeric: tabular-nums; }
+    .item .t { font-size: 15px; }
+    .item .t a { color: #e8ecf6; text-decoration: none; }
+    .item .t a:hover { color: #3d63ff; }
+    .badge {
+      font-size: 10px; border: 1px solid #e8c94a; color: #e8c94a; border-radius: 4px;
+      padding: 1px 6px; margin-left: 8px; vertical-align: 2px;
+    }
+    .sbadge {
+      font-size: 10px; border: 1px solid #3aa981; color: #3aa981; border-radius: 4px;
+      padding: 1px 6px; margin-left: 8px; vertical-align: 2px;
+    }
+    .tl-page .foot { margin-top: 70px; color: #5a6784; font-size: 11.5px; text-align: center; }
+  </style>
+
+  <script is:inline define:vars={{ NEWS: news, SERIES: series }}>
+    /* 回訪查表:news_url → 第幾回/共幾回(僅 2 場以上的系列) */
+    const SLOOK = {};
+    if (SERIES) for (const s of SERIES.series) if (s.count >= 2)
+      s.editions.forEach((e, i) => SLOOK[e.news_url] = { name: s.series, n: i + 1, total: s.count });
+
+    const CLS = { LIVE: 'LIVE 演出', RELEASE: '發行', TIEUP: '媒體/主題歌', COLLAB: '合作',
+                  GOODS: '周邊', OTHER: '其他' };
+    const on = new Set(Object.keys(CLS));
+    const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+    /* 依日期排序(取區間起始;年份缺失的沉底) */
+    const key = d => {
+      const m = d.match(/20\d{2}[.]\d{1,2}[.]\d{1,2}/);
+      if (!m) return d.match(/20\d{2}/) ? d.slice(0, 4) + '-00-00' : '0000';
+      const [y, mo, da] = m[0].split('.');
+      return `${y}-${mo.padStart(2, '0')}-${da.padStart(2, '0')}`;
+    };
+    NEWS.forEach(i => i._k = key(i.date));
+    NEWS.sort((a, b) => b._k.localeCompare(a._k));   // 新到舊
+
+    function render() {
+      const tl = document.getElementById('tl');
+      tl.innerHTML = '';
+      let curYear = null, yearWrap = null, count = 0;
+      for (const i of NEWS) {
+        if (!on.has(i.class)) continue;
+        const y = i._k.slice(0, 4);
+        if (y !== curYear) {
+          curYear = y;
+          const h = document.createElement('div');
+          h.className = 'yr';
+          h.innerHTML = `${y === '0000' ? '日期不明' : y}<small id="yc-${y}"></small>`;
+          tl.appendChild(h);
+          yearWrap = document.createElement('div');
+          yearWrap.className = 'tl';
+          yearWrap.dataset.y = y;
+          tl.appendChild(yearWrap);
+          count = 0;
+        }
+        const el = document.createElement('div');
+        el.className = 'item';
+        el.style.setProperty('--dot', `var(--c-${i.class})`);
+        const badge = i.live_type === 'ONEMAN' ? '<span class="badge">公演</span>' : '';
+        const sv = SLOOK[i.url];
+        const sbadge = sv ? `<span class="sbadge" title="${esc(sv.name)}">回訪 ${sv.n}/${sv.total}</span>` : '';
+        el.innerHTML = `<div class="d">${esc(i.date)}</div>
+          <div class="t"><a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.title)}</a>${badge}${sbadge}</div>`;
+        yearWrap.appendChild(el);
+        count++;
+        const yc = document.getElementById(`yc-${y}`);
+        if (yc) yc.textContent = `${count} 件`;
+      }
+    }
+    const chips = document.getElementById('chips');
+    for (const [k, label] of Object.entries(CLS)) {
+      const b = document.createElement('button');
+      b.className = 'chip on';
+      b.style.setProperty('--c', `var(--c-${k})`);
+      b.innerHTML = `<i style="background:var(--c-${k})"></i>${label}`;
+      b.onclick = () => { on.has(k) ? on.delete(k) : on.add(k); b.classList.toggle('on'); render(); };
+      chips.appendChild(b);
+    }
+    render();
+  </script>
+</BaseLayout>

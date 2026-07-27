@@ -61,6 +61,7 @@ export const NAVIGATION = [
   { name: "歌詞索引", href: "/kwic/" },
   { name: "歌詞星圖", href: "/star-map/" },
   { name: "巡演 Setlist", href: "/setlists/" },
+  { name: "Live 演出", href: "/live/" },
   { name: "花絮", href: "/extras/" },
   { name: "歌詞卡ガチャ", href: "/gacha/" },
   { name: "日記", href: "/diary" },

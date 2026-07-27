@@ -1,0 +1,91 @@
+---
+/**
+ * /live/ — にしな 演出資料 hub
+ *
+ * 底下三個子頁面:
+ *   /live/timeline    年表(官方 news 全 119 條, 六色標籤篩選)
+ *   /live/concerts    公演史(10 場個人公演, 參戰蓋章)
+ *   /live/footprint   出演足跡(67 場活動落點, 都道府縣熱區地圖)
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import appearances from '../../data/live_appearances.json';
+import news from '../../data/live_news.json';
+
+const oneman = appearances.oneman.length;
+const app = appearances.appearance.length;
+const total = news.length;
+---
+
+<BaseLayout title="にしな 演出資料" description="にしな 公演史・出演足跡・年表">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-2">にしな 演出資料</h1>
+    <p class="text-gray-400 text-sm mb-10">
+      官方 news {total} 條・{oneman} 場個人公演・{app} 場音樂祭活動出演
+    </p>
+
+    <div class="grid gap-5 md:grid-cols-3">
+      <a href="/live/timeline" class="hub-card">
+        <div class="hub-emoji">🗓</div>
+        <h2>年表</h2>
+        <p class="hub-sub">六色標籤(LIVE / 發行 / 主題歌 / 合作 / 周邊 / 其他)可篩選,直連官方 news</p>
+        <div class="hub-num">{total} 件</div>
+      </a>
+      <a href="/live/concerts" class="hub-card">
+        <div class="hub-emoji">🎤</div>
+        <h2>公演史</h2>
+        <p class="hub-sub">2021「hatsu」→ 2026「日々散漫」全 {oneman} 場個人公演,可蓋參戰章</p>
+        <div class="hub-num">{oneman} 場</div>
+      </a>
+      <a href="/live/footprint" class="hub-card">
+        <div class="hub-emoji">🗾</div>
+        <h2>出演足跡</h2>
+        <p class="hub-sub">音樂祭/活動落點日本地圖,按都道府縣看場次、蓋參戰章</p>
+        <div class="hub-num">{app} 場</div>
+      </a>
+    </div>
+
+    <p class="text-xs text-gray-500 mt-10">
+      資料源:nishina247.jp/news(2021.04 開站起)・僅日期/標題/連結,內文請至官方
+    </p>
+  </div>
+
+  <style>
+    .hub-card {
+      display: block;
+      background: #141d31;
+      border: 1px solid #243154;
+      border-radius: 14px;
+      padding: 24px 22px;
+      color: inherit;
+      text-decoration: none;
+      transition: transform .15s ease, border-color .15s ease;
+      position: relative;
+    }
+    .hub-card:hover {
+      transform: translateY(-2px);
+      border-color: #3d63ff;
+    }
+    .hub-emoji { font-size: 36px; margin-bottom: 8px; }
+    .hub-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      letter-spacing: .04em;
+    }
+    .hub-sub {
+      font-size: 13px;
+      color: #8b97b8;
+      line-height: 1.6;
+      min-height: 4em;
+    }
+    .hub-num {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      font-size: 15px;
+      color: #e8c94a;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .05em;
+    }
+  </style>
+</BaseLayout>
