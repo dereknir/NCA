@@ -1,11 +1,353 @@
 {
   "meta": {
     "topN": 0,
-    "totalInQueue": 1292,
+    "totalInQueue": 1294,
     "songCount": 36,
-    "unmatchedCount": 833
+    "unmatchedCount": 834
   },
   "queue": {
+    "nishina-cranberry-jam": [
+      {
+        "videoId": "yFYulF6a-U4",
+        "title": "ときめきがひしめくこの世はJAM #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 10000,
+        "thumbnail": "https://i.ytimg.com/vi/yFYulF6a-U4/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 5,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "fErwsGkLAno",
+        "title": "誰か永遠の愛を教えておくれよ #にしな #nishina #ライブ #shorts",
+        "viewCount": 9200,
+        "thumbnail": "https://i.ytimg.com/vi/fErwsGkLAno/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 34,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "1GwcFzreZ0o",
+        "title": "にしな ワンマンツアー「クランベリージャムをかけて」初日札幌公演ありがとうございました！🍓 #にしな #クランベリージャムをかけて #ライブ映像",
+        "viewCount": 8600,
+        "thumbnail": "https://i.ytimg.com/vi/1GwcFzreZ0o/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 25,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "KEK-Mp5hm2c",
+        "title": "クランベリージャムをかけて #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 8500,
+        "thumbnail": "https://i.ytimg.com/vi/KEK-Mp5hm2c/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 25,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "aY6fXV1c-70",
+        "title": "にしな クランベリージャムをかけて #shorts",
+        "viewCount": 8000,
+        "thumbnail": "https://i.ytimg.com/vi/aY6fXV1c-70/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 25,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "jEcGgj2TIzQ",
+        "title": "低気圧も引き摺って #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 7400,
+        "thumbnail": "https://i.ytimg.com/vi/jEcGgj2TIzQ/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 27,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "OyGwsW6tgnM",
+        "title": "つまりも●●もない #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 7200,
+        "thumbnail": "https://i.ytimg.com/vi/OyGwsW6tgnM/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 8,
+        "matchScore": 77.77777777777779,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "m16DJwsMLwc",
+        "title": "👻 #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 7000,
+        "thumbnail": "https://i.ytimg.com/vi/m16DJwsMLwc/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 0,
+        "matchScore": 0.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "yGYxFNSwGIw",
+        "title": "外は悪夢の続き #にしな #nishina #ライブ #shorts",
+        "viewCount": 6800,
+        "thumbnail": "https://i.ytimg.com/vi/yGYxFNSwGIw/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 11,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "odLx3yeDsMg",
+        "title": "クランベリージャムジャム #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 6500,
+        "thumbnail": "https://i.ytimg.com/vi/odLx3yeDsMg/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 9,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "UoK14OY_uzk",
+        "title": "最低と最高は大体イコール #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 6200,
+        "thumbnail": "https://i.ytimg.com/vi/UoK14OY_uzk/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 7,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "Z-hbpr017RM",
+        "title": "MAZUI! #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 5800,
+        "thumbnail": "https://i.ytimg.com/vi/Z-hbpr017RM/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 21,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "4rye5Zyc_CM",
+        "title": "誰か永遠の愛を教えておくれよ #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 5700,
+        "thumbnail": "https://i.ytimg.com/vi/4rye5Zyc_CM/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 34,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "BdHJViSNHLc",
+        "title": "はっははー笑っちゃおう #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 5600,
+        "thumbnail": "https://i.ytimg.com/vi/BdHJViSNHLc/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 37,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "qho0j65l4yo",
+        "title": "#にしな #クランベリージャムをかけて #ライブ",
+        "viewCount": 5500,
+        "thumbnail": "https://i.ytimg.com/vi/qho0j65l4yo/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 0,
+        "matchScore": 0.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "z4VmWt0zTj0",
+        "title": "#にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 5400,
+        "thumbnail": "https://i.ytimg.com/vi/z4VmWt0zTj0/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 0,
+        "matchScore": 0.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "9DQDTEcMd1c",
+        "title": "外は悪夢の続き #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 5200,
+        "thumbnail": "https://i.ytimg.com/vi/9DQDTEcMd1c/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 11,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "kr2K4jh5NKg",
+        "title": "低気圧も引き摺って #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 5000,
+        "thumbnail": "https://i.ytimg.com/vi/kr2K4jh5NKg/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 27,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "kTcPME22H8s",
+        "title": "あれが悪いこれが悪いとかって #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 4700,
+        "thumbnail": "https://i.ytimg.com/vi/kTcPME22H8s/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 35,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "tREHUceu594",
+        "title": "🐶 #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 4600,
+        "thumbnail": "https://i.ytimg.com/vi/tREHUceu594/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 0,
+        "matchScore": 0.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "jLkFCbubHBs",
+        "title": "🎈#にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 4600,
+        "thumbnail": "https://i.ytimg.com/vi/jLkFCbubHBs/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 0,
+        "matchScore": 0.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "7mqTI0gntLs",
+        "title": "敵も味方もわかんない？？？ #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 4600,
+        "thumbnail": "https://i.ytimg.com/vi/7mqTI0gntLs/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 12,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "IW2QkIv8xhI",
+        "title": "👁️ #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 4400,
+        "thumbnail": "https://i.ytimg.com/vi/IW2QkIv8xhI/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 0,
+        "matchScore": 0.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "oDMTSpMacdI",
+        "title": "#にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 4200,
+        "thumbnail": "https://i.ytimg.com/vi/oDMTSpMacdI/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 0,
+        "matchScore": 0.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "PK9FTHIsPqI",
+        "title": "仙台！#にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 4200,
+        "thumbnail": "https://i.ytimg.com/vi/PK9FTHIsPqI/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 0,
+        "matchScore": 0.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "HFOitfWWtBU",
+        "title": "MAZUI！ #nishina #shorts",
+        "viewCount": 4100,
+        "thumbnail": "https://i.ytimg.com/vi/HFOitfWWtBU/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 21,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "TluPk5t0GLc",
+        "title": "敵も味方もわかんない？？？ #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 4100,
+        "thumbnail": "https://i.ytimg.com/vi/TluPk5t0GLc/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 12,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "cQ0LtJIOGA4",
+        "title": "ゲームオーバーしたとこからまたせいはろ #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 3900,
+        "thumbnail": "https://i.ytimg.com/vi/cQ0LtJIOGA4/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 18,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "lsNONedWSi8",
+        "title": "誰か永遠の愛を教えておくれよ #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 3700,
+        "thumbnail": "https://i.ytimg.com/vi/lsNONedWSi8/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 34,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "AVOo3ZVbfk8",
+        "title": "#にしな #クランベリージャムをかけて #shorts #ライブ",
+        "viewCount": 3700,
+        "thumbnail": "https://i.ytimg.com/vi/AVOo3ZVbfk8/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 0,
+        "matchScore": 0.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "HW0A2SaszPE",
+        "title": "かびたパンにハムを乗せたらハイチーズ #にしな #shorts",
+        "viewCount": 3600,
+        "thumbnail": "https://i.ytimg.com/vi/HW0A2SaszPE/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 29,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "h5WHuNkTAAI",
+        "title": "外は悪夢の続き #にしな #クランベリージャムをかけて #shorts",
+        "viewCount": 3600,
+        "thumbnail": "https://i.ytimg.com/vi/h5WHuNkTAAI/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 11,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "_S85SJa7sQY",
+        "title": "ゲームオーバーしたとこからまたせいはろ #にしな #shorts",
+        "viewCount": 2900,
+        "thumbnail": "https://i.ytimg.com/vi/_S85SJa7sQY/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 18,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "1DjIR2Onz9A",
+        "title": "誰か永遠の愛を教えておくれよ #にしな #nishina #クランベリージャムをかけて #ライブ #shorts",
+        "viewCount": 2400,
+        "thumbnail": "https://i.ytimg.com/vi/1DjIR2Onz9A/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 34,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      }
+    ],
     "nishina-tsukushi": [
       {
         "videoId": "HVWdVIvdr4Y",
@@ -26,6 +368,16 @@
         "lineHint": 19,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "WaY1kJlZhZ0",
+        "title": "いのちはただ美し #にしな #nishina #つくし #ライブ #shorts",
+        "viewCount": 4800,
+        "thumbnail": "https://i.ytimg.com/vi/WaY1kJlZhZ0/hqdefault.jpg",
+        "songId": "nishina-tsukushi",
+        "lineHint": 19,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
       },
       {
         "videoId": "3WsQcLmrhP0",
@@ -74,16 +426,6 @@
         "thumbnail": "https://i.ytimg.com/vi/kChBdgAjKkw/hqdefault.jpg",
         "songId": "nishina-tsukushi",
         "lineHint": 9,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "WaY1kJlZhZ0",
-        "title": "いのちはただ美し #にしな #nishina #つくし #ライブ #shorts",
-        "viewCount": 2300,
-        "thumbnail": "https://i.ytimg.com/vi/WaY1kJlZhZ0/hqdefault.jpg",
-        "songId": "nishina-tsukushi",
-        "lineHint": 19,
         "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
@@ -190,6 +532,16 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "4-hHveTvcqc",
+        "title": "ただこんな日が続くように # #にしな # #nishina #グローリー #日々散漫 #shorts",
+        "viewCount": 7900,
+        "thumbnail": "https://i.ytimg.com/vi/4-hHveTvcqc/hqdefault.jpg",
+        "songId": "nishina-glory",
+        "lineHint": 39,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "_IjzrEL1g5I",
         "title": "支離滅裂な言葉でしか自分を語れなかった #にしな #nishina #グローリー #glory #shorts",
         "viewCount": 6900,
@@ -207,16 +559,6 @@
         "songId": "nishina-glory",
         "lineHint": 0,
         "matchScore": 0.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "4-hHveTvcqc",
-        "title": "ただこんな日が続くように # #にしな # #nishina #グローリー #日々散漫 #shorts",
-        "viewCount": 6200,
-        "thumbnail": "https://i.ytimg.com/vi/4-hHveTvcqc/hqdefault.jpg",
-        "songId": "nishina-glory",
-        "lineHint": 39,
-        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -262,7 +604,7 @@
       {
         "videoId": "W0IQQ_EpM3k",
         "title": "らららラブソングを #にしな #nishina #newmusic #shorts",
-        "viewCount": 5100,
+        "viewCount": 5200,
         "thumbnail": "https://i.ytimg.com/vi/W0IQQ_EpM3k/hqdefault.jpg",
         "songId": "nishina-glory",
         "lineHint": 30,
@@ -414,7 +756,7 @@
       {
         "videoId": "GN4b4L_aWRU",
         "title": "この世の全て最悪で手放したい時もある # #にしな # #nishina #わをん #ライブ #shorts",
-        "viewCount": 8600,
+        "viewCount": 9000,
         "thumbnail": "https://i.ytimg.com/vi/GN4b4L_aWRU/hqdefault.jpg",
         "songId": "nishina-wawon",
         "lineHint": 40,
@@ -464,7 +806,7 @@
       {
         "videoId": "NaWofAEa0aE",
         "title": "愛、やがて和音に繋がって #にしな #nishina #ライブ #shorts",
-        "viewCount": 6800,
+        "viewCount": 6900,
         "thumbnail": "https://i.ytimg.com/vi/NaWofAEa0aE/hqdefault.jpg",
         "songId": "nishina-wawon",
         "lineHint": 48,
@@ -622,6 +964,16 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "bC1LLZRFe-s",
+        "title": "And turn foolishness into kindness #にしな #わをん #shorts",
+        "viewCount": 4300,
+        "thumbnail": "https://i.ytimg.com/vi/bC1LLZRFe-s/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 14,
+        "matchScore": 55.55555555555556,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "OXmCO-RRoJ0",
         "title": "生きることなどno reason #にしな #わをん #shorts",
         "viewCount": 4200,
@@ -629,16 +981,6 @@
         "songId": "nishina-wawon",
         "lineHint": 10,
         "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "bC1LLZRFe-s",
-        "title": "And turn foolishness into kindness #にしな #わをん #shorts",
-        "viewCount": 4200,
-        "thumbnail": "https://i.ytimg.com/vi/bC1LLZRFe-s/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 14,
-        "matchScore": 55.55555555555556,
         "matchMethod": "hashtag"
       },
       {
@@ -886,7 +1228,7 @@
       {
         "videoId": "uH_MtCmfOGo",
         "title": "触れたら壊れてしまいそうな夜の隙間 #にしな #nishina #ダーリン #ライブ #shorts",
-        "viewCount": 6600,
+        "viewCount": 7100,
         "thumbnail": "https://i.ytimg.com/vi/uH_MtCmfOGo/hqdefault.jpg",
         "songId": "nishina-darling",
         "lineHint": 21,
@@ -1098,7 +1440,7 @@
       {
         "videoId": "UNhhJAJFFmk",
         "title": "愛をうたおう #にしな #nishina #アイニコイ # #ライブ #shorts",
-        "viewCount": 6700,
+        "viewCount": 6800,
         "thumbnail": "https://i.ytimg.com/vi/UNhhJAJFFmk/hqdefault.jpg",
         "songId": "nishina-ainikoi",
         "lineHint": 9,
@@ -1178,6 +1520,16 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "9a3kyD0Fy9U",
+        "title": "クライクライ夜は溢れてしまうままに #にしな #nishina #ケダモノのフレンズ #ライブ #shorts",
+        "viewCount": 11000,
+        "thumbnail": "https://i.ytimg.com/vi/9a3kyD0Fy9U/hqdefault.jpg",
+        "songId": "nishina-kedamono-no-friends",
+        "lineHint": 12,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "n7vrYbmqvRM",
         "title": "ここは僕らだけの国 #にしな #shorts",
         "viewCount": 11000,
@@ -1186,16 +1538,6 @@
         "lineHint": 2,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "9a3kyD0Fy9U",
-        "title": "クライクライ夜は溢れてしまうままに #にしな #nishina #ケダモノのフレンズ #ライブ #shorts",
-        "viewCount": 10000,
-        "thumbnail": "https://i.ytimg.com/vi/9a3kyD0Fy9U/hqdefault.jpg",
-        "songId": "nishina-kedamono-no-friends",
-        "lineHint": 12,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
       },
       {
         "videoId": "RhOve0wzJqA",
@@ -1330,6 +1672,16 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "zKROw-O1atQ",
+        "title": "たまに素直なエモーション #にしな #nishina #weekly #ライブ #shorts",
+        "viewCount": 9500,
+        "thumbnail": "https://i.ytimg.com/vi/zKROw-O1atQ/hqdefault.jpg",
+        "songId": "nishina-weekly",
+        "lineHint": 21,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "iuId9l1EwFo",
         "title": "😜weekly #nishina #newmusic #shorts",
         "viewCount": 9500,
@@ -1338,16 +1690,6 @@
         "lineHint": 8,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "zKROw-O1atQ",
-        "title": "たまに素直なエモーション #にしな #nishina #weekly #ライブ #shorts",
-        "viewCount": 9400,
-        "thumbnail": "https://i.ytimg.com/vi/zKROw-O1atQ/hqdefault.jpg",
-        "songId": "nishina-weekly",
-        "lineHint": 21,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
       },
       {
         "videoId": "rk95ny-PzqU",
@@ -1636,7 +1978,7 @@
       {
         "videoId": "GnuScyXL760",
         "title": "優しさと愛は違うみたいだ # #にしな # #nishina #ワンルーム #ライブ #shorts",
-        "viewCount": 8900,
+        "viewCount": 9000,
         "thumbnail": "https://i.ytimg.com/vi/GnuScyXL760/hqdefault.jpg",
         "songId": "nishina-one-room",
         "lineHint": 31,
@@ -1962,7 +2304,7 @@
       {
         "videoId": "o47baTlgFuc",
         "title": "片っぽ引っ張って優しく解いたリボン #にしな #真白 #shorts",
-        "viewCount": 7000,
+        "viewCount": 7100,
         "thumbnail": "https://i.ytimg.com/vi/o47baTlgFuc/hqdefault.jpg",
         "songId": "nishina-mashiro",
         "lineHint": 9,
@@ -2378,7 +2720,7 @@
       {
         "videoId": "25xNPfCd6Lg",
         "title": "好きだった　ずっとそのままずっと #にしな #nishina #春一番 #ライブ #shorts",
-        "viewCount": 7800,
+        "viewCount": 7900,
         "thumbnail": "https://i.ytimg.com/vi/25xNPfCd6Lg/hqdefault.jpg",
         "songId": "nishina-haru-ichiban",
         "lineHint": 9,
@@ -2520,7 +2862,7 @@
       {
         "videoId": "xAl0usT49xc",
         "title": "nishina - 婀娜婀娜 #にしな #nishina #婀娜婀娜 #shorts",
-        "viewCount": 4100,
+        "viewCount": 4200,
         "thumbnail": "https://i.ytimg.com/vi/xAl0usT49xc/hqdefault.jpg",
         "songId": "nishina-adaada",
         "lineHint": 47,
@@ -2694,7 +3036,7 @@
       {
         "videoId": "bR9GKqxg5fQ",
         "title": "幸せは貰うんじゃなく私は私で掴もう #にしな #nishina #ドレスコード #shorts",
-        "viewCount": 44000,
+        "viewCount": 45000,
         "thumbnail": "https://i.ytimg.com/vi/bR9GKqxg5fQ/hqdefault.jpg",
         "songId": "nishina-dress-code",
         "lineHint": 32,
@@ -2704,7 +3046,7 @@
       {
         "videoId": "mDwpnYpYRE0",
         "title": "誰の為でもなくていいんだよ #にしな #nishina  #弾き語り #shorts",
-        "viewCount": 7700,
+        "viewCount": 7800,
         "thumbnail": "https://i.ytimg.com/vi/mDwpnYpYRE0/hqdefault.jpg",
         "songId": "nishina-dress-code",
         "lineHint": 14,
@@ -3366,7 +3708,7 @@
       {
         "videoId": "OZ6RxpkCJAY",
         "title": "1999 #nishina #live #shorts",
-        "viewCount": 3500,
+        "viewCount": 3600,
         "thumbnail": "https://i.ytimg.com/vi/OZ6RxpkCJAY/hqdefault.jpg",
         "songId": "nishina-1999",
         "lineHint": 10,
@@ -3682,7 +4024,7 @@
       {
         "videoId": "385RxA0Oo7g",
         "title": "我愛你 #にしな #スローモーション #shorts",
-        "viewCount": 5700,
+        "viewCount": 5800,
         "thumbnail": "https://i.ytimg.com/vi/385RxA0Oo7g/hqdefault.jpg",
         "songId": "nishina-slow-motion",
         "lineHint": 9,
@@ -3982,338 +4324,6 @@
         "thumbnail": "https://i.ytimg.com/vi/XTck3jyE1Sg/hqdefault.jpg",
         "songId": "nishina-rinne",
         "lineHint": 10,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      }
-    ],
-    "nishina-cranberry-jam": [
-      {
-        "videoId": "yFYulF6a-U4",
-        "title": "ときめきがひしめくこの世はJAM #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 10000,
-        "thumbnail": "https://i.ytimg.com/vi/yFYulF6a-U4/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 5,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "fErwsGkLAno",
-        "title": "誰か永遠の愛を教えておくれよ #にしな #nishina #ライブ #shorts",
-        "viewCount": 9200,
-        "thumbnail": "https://i.ytimg.com/vi/fErwsGkLAno/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 34,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "1GwcFzreZ0o",
-        "title": "にしな ワンマンツアー「クランベリージャムをかけて」初日札幌公演ありがとうございました！🍓 #にしな #クランベリージャムをかけて #ライブ映像",
-        "viewCount": 8600,
-        "thumbnail": "https://i.ytimg.com/vi/1GwcFzreZ0o/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 25,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "KEK-Mp5hm2c",
-        "title": "クランベリージャムをかけて #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 8500,
-        "thumbnail": "https://i.ytimg.com/vi/KEK-Mp5hm2c/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 25,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "aY6fXV1c-70",
-        "title": "にしな クランベリージャムをかけて #shorts",
-        "viewCount": 8000,
-        "thumbnail": "https://i.ytimg.com/vi/aY6fXV1c-70/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 25,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "jEcGgj2TIzQ",
-        "title": "低気圧も引き摺って #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 7400,
-        "thumbnail": "https://i.ytimg.com/vi/jEcGgj2TIzQ/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 27,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "OyGwsW6tgnM",
-        "title": "つまりも●●もない #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 7200,
-        "thumbnail": "https://i.ytimg.com/vi/OyGwsW6tgnM/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 8,
-        "matchScore": 77.77777777777779,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "m16DJwsMLwc",
-        "title": "👻 #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 7000,
-        "thumbnail": "https://i.ytimg.com/vi/m16DJwsMLwc/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 0,
-        "matchScore": 0.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "yGYxFNSwGIw",
-        "title": "外は悪夢の続き #にしな #nishina #ライブ #shorts",
-        "viewCount": 6800,
-        "thumbnail": "https://i.ytimg.com/vi/yGYxFNSwGIw/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 11,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "odLx3yeDsMg",
-        "title": "クランベリージャムジャム #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 6500,
-        "thumbnail": "https://i.ytimg.com/vi/odLx3yeDsMg/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 9,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "UoK14OY_uzk",
-        "title": "最低と最高は大体イコール #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 6200,
-        "thumbnail": "https://i.ytimg.com/vi/UoK14OY_uzk/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 7,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "Z-hbpr017RM",
-        "title": "MAZUI! #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 5800,
-        "thumbnail": "https://i.ytimg.com/vi/Z-hbpr017RM/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 21,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "4rye5Zyc_CM",
-        "title": "誰か永遠の愛を教えておくれよ #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 5700,
-        "thumbnail": "https://i.ytimg.com/vi/4rye5Zyc_CM/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 34,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "BdHJViSNHLc",
-        "title": "はっははー笑っちゃおう #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 5600,
-        "thumbnail": "https://i.ytimg.com/vi/BdHJViSNHLc/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 37,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "qho0j65l4yo",
-        "title": "#にしな #クランベリージャムをかけて #ライブ",
-        "viewCount": 5500,
-        "thumbnail": "https://i.ytimg.com/vi/qho0j65l4yo/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 0,
-        "matchScore": 0.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "z4VmWt0zTj0",
-        "title": "#にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 5400,
-        "thumbnail": "https://i.ytimg.com/vi/z4VmWt0zTj0/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 0,
-        "matchScore": 0.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "9DQDTEcMd1c",
-        "title": "外は悪夢の続き #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 5200,
-        "thumbnail": "https://i.ytimg.com/vi/9DQDTEcMd1c/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 11,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "kr2K4jh5NKg",
-        "title": "低気圧も引き摺って #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 5000,
-        "thumbnail": "https://i.ytimg.com/vi/kr2K4jh5NKg/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 27,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "kTcPME22H8s",
-        "title": "あれが悪いこれが悪いとかって #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 4700,
-        "thumbnail": "https://i.ytimg.com/vi/kTcPME22H8s/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 35,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "tREHUceu594",
-        "title": "🐶 #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 4600,
-        "thumbnail": "https://i.ytimg.com/vi/tREHUceu594/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 0,
-        "matchScore": 0.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "jLkFCbubHBs",
-        "title": "🎈#にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 4600,
-        "thumbnail": "https://i.ytimg.com/vi/jLkFCbubHBs/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 0,
-        "matchScore": 0.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "7mqTI0gntLs",
-        "title": "敵も味方もわかんない？？？ #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 4600,
-        "thumbnail": "https://i.ytimg.com/vi/7mqTI0gntLs/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 12,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "IW2QkIv8xhI",
-        "title": "👁️ #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 4400,
-        "thumbnail": "https://i.ytimg.com/vi/IW2QkIv8xhI/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 0,
-        "matchScore": 0.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "oDMTSpMacdI",
-        "title": "#にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 4200,
-        "thumbnail": "https://i.ytimg.com/vi/oDMTSpMacdI/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 0,
-        "matchScore": 0.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "PK9FTHIsPqI",
-        "title": "仙台！#にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 4200,
-        "thumbnail": "https://i.ytimg.com/vi/PK9FTHIsPqI/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 0,
-        "matchScore": 0.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "HFOitfWWtBU",
-        "title": "MAZUI！ #nishina #shorts",
-        "viewCount": 4100,
-        "thumbnail": "https://i.ytimg.com/vi/HFOitfWWtBU/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 21,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "TluPk5t0GLc",
-        "title": "敵も味方もわかんない？？？ #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 4100,
-        "thumbnail": "https://i.ytimg.com/vi/TluPk5t0GLc/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 12,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "cQ0LtJIOGA4",
-        "title": "ゲームオーバーしたとこからまたせいはろ #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 3900,
-        "thumbnail": "https://i.ytimg.com/vi/cQ0LtJIOGA4/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 18,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "lsNONedWSi8",
-        "title": "誰か永遠の愛を教えておくれよ #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 3700,
-        "thumbnail": "https://i.ytimg.com/vi/lsNONedWSi8/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 34,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "AVOo3ZVbfk8",
-        "title": "#にしな #クランベリージャムをかけて #shorts #ライブ",
-        "viewCount": 3700,
-        "thumbnail": "https://i.ytimg.com/vi/AVOo3ZVbfk8/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 0,
-        "matchScore": 0.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "HW0A2SaszPE",
-        "title": "かびたパンにハムを乗せたらハイチーズ #にしな #shorts",
-        "viewCount": 3600,
-        "thumbnail": "https://i.ytimg.com/vi/HW0A2SaszPE/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 29,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "h5WHuNkTAAI",
-        "title": "外は悪夢の続き #にしな #クランベリージャムをかけて #shorts",
-        "viewCount": 3600,
-        "thumbnail": "https://i.ytimg.com/vi/h5WHuNkTAAI/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 11,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "_S85SJa7sQY",
-        "title": "ゲームオーバーしたとこからまたせいはろ #にしな #shorts",
-        "viewCount": 2900,
-        "thumbnail": "https://i.ytimg.com/vi/_S85SJa7sQY/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 18,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
       }
@@ -6920,6 +6930,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "GIOGZqU18bw",
+        "title": "にしな - クローバー Music Video teaser #にしな #nishina #クローバー #モブ子の恋 #shorts",
+        "viewCount": 7300,
+        "thumbnail": "https://i.ytimg.com/vi/GIOGZqU18bw/hqdefault.jpg",
+        "songId": "nishina-weekly",
+        "lineHint": 25,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
+      },
+      {
         "videoId": "r1y0gbNv0uI",
         "title": "Farewell, my friend, forget it all happened #にしな #nishina #live #shorts",
         "viewCount": 7300,
@@ -6988,16 +7008,6 @@
         "lineHint": null,
         "matchScore": 54.54545454545454,
         "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "GIOGZqU18bw",
-        "title": "にしな - クローバー Music Video teaser #にしな #nishina #クローバー #モブ子の恋 #shorts",
-        "viewCount": 7200,
-        "thumbnail": "https://i.ytimg.com/vi/GIOGZqU18bw/hqdefault.jpg",
-        "songId": "nishina-weekly",
-        "lineHint": 25,
-        "matchScore": 66.66666666666667,
-        "matchMethod": "review"
       },
       {
         "videoId": "FIqlco7mHN8",
@@ -7900,6 +7910,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "qCXlJ1M99eU",
+        "title": "Twinkle Little Star #にしな #nishina #ライブ #shorts",
+        "viewCount": 6100,
+        "thumbnail": "https://i.ytimg.com/vi/qCXlJ1M99eU/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 62.5,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "bSamfX3zqjU",
         "title": "Self-consciousness that never stops #nishina #live #shorts",
         "viewCount": 6100,
@@ -7998,16 +8018,6 @@
         "lineHint": 22,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
-      },
-      {
-        "videoId": "qCXlJ1M99eU",
-        "title": "Twinkle Little Star #にしな #nishina #ライブ #shorts",
-        "viewCount": 6000,
-        "thumbnail": "https://i.ytimg.com/vi/qCXlJ1M99eU/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 62.5,
-        "matchMethod": "out_of_catalog"
       },
       {
         "videoId": "FVcBlMGtVUk",
@@ -8920,6 +8930,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "pIwlwfINUIs",
+        "title": "Black or white choices, just like a panda #nishina #newmusic #shorts",
+        "viewCount": 5000,
+        "thumbnail": "https://i.ytimg.com/vi/pIwlwfINUIs/hqdefault.jpg",
+        "songId": "nishina-hot-milk",
+        "lineHint": 33,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
+      },
+      {
         "videoId": "148NBvzv7Jg",
         "title": "Is this just a pointless cycle? #nishina #newmusic #shorts",
         "viewCount": 5000,
@@ -9058,16 +9078,6 @@
         "lineHint": null,
         "matchScore": 50.0,
         "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "pIwlwfINUIs",
-        "title": "Black or white choices, just like a panda #nishina #newmusic #shorts",
-        "viewCount": 4900,
-        "thumbnail": "https://i.ytimg.com/vi/pIwlwfINUIs/hqdefault.jpg",
-        "songId": "nishina-hot-milk",
-        "lineHint": 33,
-        "matchScore": 66.66666666666667,
-        "matchMethod": "review"
       },
       {
         "videoId": "1fG2oJ0DBAA",
@@ -9590,6 +9600,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "M5Al4lymN1o",
+        "title": "2026.3.29 at Zepp Fukuoka #にしな #nishina #shorts",
+        "viewCount": 4500,
+        "thumbnail": "https://i.ytimg.com/vi/M5Al4lymN1o/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": null,
+        "matchMethod": "non_song"
+      },
+      {
         "videoId": "8xkSyOeRAVQ",
         "title": "婀娜婀娜 #にしな #nishina #newmusic #shorts",
         "viewCount": 4500,
@@ -9728,16 +9748,6 @@
         "lineHint": 9,
         "matchScore": 69.56521739130434,
         "matchMethod": "review"
-      },
-      {
-        "videoId": "M5Al4lymN1o",
-        "title": "2026.3.29 at Zepp Fukuoka #にしな #nishina #shorts",
-        "viewCount": 4400,
-        "thumbnail": "https://i.ytimg.com/vi/M5Al4lymN1o/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": null,
-        "matchMethod": "non_song"
       },
       {
         "videoId": "LMGnETijfsM",
@@ -11800,6 +11810,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "P7LCfZSIsY8",
+        "title": "名古屋！ありがとうございました🥏 #にしな #ライブ #shorts",
+        "viewCount": 2800,
+        "thumbnail": "https://i.ytimg.com/vi/P7LCfZSIsY8/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 58.82352941176471,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "BuYthQSjo4o",
         "title": "nishina tour \"MUSICK 2\" #nishina #live #shorts",
         "viewCount": 2700,
@@ -11818,6 +11838,16 @@
         "lineHint": null,
         "matchScore": 60.0,
         "matchMethod": "out_of_catalog"
+      },
+      {
+        "videoId": "Gls3qo4hmsY",
+        "title": "The night softly puts out the flames of love #nishina #live #shorts",
+        "viewCount": 2700,
+        "thumbnail": "https://i.ytimg.com/vi/Gls3qo4hmsY/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
       },
       {
         "videoId": "MATX72fFr7Q",
@@ -11890,16 +11920,6 @@
         "matchMethod": "out_of_catalog"
       },
       {
-        "videoId": "P7LCfZSIsY8",
-        "title": "名古屋！ありがとうございました🥏 #にしな #ライブ #shorts",
-        "viewCount": 2700,
-        "thumbnail": "https://i.ytimg.com/vi/P7LCfZSIsY8/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 58.82352941176471,
-        "matchMethod": "out_of_catalog"
-      },
-      {
         "videoId": "WZ02xijoSPY",
         "title": "nishina Tour 「SUPER COMPLEX」 #nishina #live #shorts",
         "viewCount": 2600,
@@ -11936,16 +11956,6 @@
         "thumbnail": "https://i.ytimg.com/vi/N99uEDjAj3g/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 22,
-        "matchScore": 66.66666666666667,
-        "matchMethod": "review"
-      },
-      {
-        "videoId": "Gls3qo4hmsY",
-        "title": "The night softly puts out the flames of love #nishina #live #shorts",
-        "viewCount": 2600,
-        "thumbnail": "https://i.ytimg.com/vi/Gls3qo4hmsY/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
       },
@@ -12807,6 +12817,16 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 61.53846153846154,
+        "matchMethod": "out_of_catalog"
+      },
+      {
+        "videoId": "tud1RxEr5m8",
+        "title": "니시나 - 글로리　#にしな #nishina #shorts",
+        "viewCount": 1800,
+        "thumbnail": "https://i.ytimg.com/vi/tud1RxEr5m8/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 0.0,
         "matchMethod": "out_of_catalog"
       },
       {
