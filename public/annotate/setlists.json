@@ -1,9 +1,9 @@
 {
   "meta": {
-    "generated": "2026-07-28T04:15:33+08:00",
+    "generated": "2026-07-29T04:11:57+08:00",
     "source": "https://nishina.lnk.to/live_setlist",
     "tour_count": 10,
-    "total_tracks": 151
+    "total_tracks": 182
   },
   "tours": [
     {
@@ -1053,20 +1053,270 @@
       "date": "2023.1.11 - 2023.3.8",
       "spotify": "https://open.spotify.com/playlist/1yExuvFwGLG2L3KMKFOz1x",
       "applemusic": "https://music.apple.com/jp/playlist/pl.24d7e1987a68488eb761e9c7554cc725",
-      "tracks": [],
-      "track_count": 0,
-      "matched_count": 0,
-      "cover": null
+      "tracks": [
+        {
+          "index": 1,
+          "title": "ホットミルク",
+          "artist": "nishina",
+          "uid": "57d35d41eb24831e",
+          "matched_song_id": "nishina-hot-milk",
+          "match_score": 100
+        },
+        {
+          "index": 2,
+          "title": "夜間飛行",
+          "artist": "nishina",
+          "uid": "4d76af6c81cf71a6",
+          "matched_song_id": "nishina-yakan-hikou",
+          "match_score": 100
+        },
+        {
+          "index": 3,
+          "title": "ランデブー",
+          "artist": "nishina",
+          "uid": "b37756142528f6d6",
+          "matched_song_id": "nishina-rendezvous",
+          "match_score": 100
+        },
+        {
+          "index": 4,
+          "title": "スローモーション",
+          "artist": "nishina",
+          "uid": "1f7035fe6ad924bc",
+          "matched_song_id": "nishina-slow-motion",
+          "match_score": 100
+        },
+        {
+          "index": 5,
+          "title": "ダーリン",
+          "artist": "nishina",
+          "uid": "dc3715a9ab717d4a",
+          "matched_song_id": "nishina-darling",
+          "match_score": 100
+        },
+        {
+          "index": 6,
+          "title": "ワンルーム",
+          "artist": "nishina",
+          "uid": "bd138d3928249215",
+          "matched_song_id": "nishina-one-room",
+          "match_score": 100
+        },
+        {
+          "index": 7,
+          "title": "真白",
+          "artist": "nishina",
+          "uid": "cf0cdd4be368fa97",
+          "matched_song_id": "nishina-mashiro",
+          "match_score": 100
+        },
+        {
+          "index": 8,
+          "title": "FRIDAY KIDS CHINA TOWN",
+          "artist": "nishina",
+          "uid": "d53068136b776995",
+          "matched_song_id": "nishina-friday-kids-china-town",
+          "match_score": 100
+        },
+        {
+          "index": 9,
+          "title": "ヘビースモーク",
+          "artist": "nishina",
+          "uid": "615d4ffc96cb342a",
+          "matched_song_id": "nishina-heavy-smoke",
+          "match_score": 100
+        },
+        {
+          "index": 10,
+          "title": "青藍遊泳",
+          "artist": "nishina",
+          "uid": "e4e3558250fae253",
+          "matched_song_id": "nishina-seiran-yuuei",
+          "match_score": 100
+        },
+        {
+          "index": 11,
+          "title": "1999",
+          "artist": "nishina",
+          "uid": "c87c295cad08e9e9",
+          "matched_song_id": "nishina-1999",
+          "match_score": 100
+        },
+        {
+          "index": 12,
+          "title": "春一番",
+          "artist": "nishina",
+          "uid": "385c6103cf54d02b",
+          "matched_song_id": "nishina-haru-ichiban",
+          "match_score": 100
+        },
+        {
+          "index": 13,
+          "title": "秘密基地",
+          "artist": "nishina",
+          "uid": "df4827c246777409",
+          "matched_song_id": "nishina-himitsu-kichi",
+          "match_score": 100
+        }
+      ],
+      "track_count": 13,
+      "matched_count": 13,
+      "cover": "/setlists/covers/1yExuvFwGLG2L3KMKFOz1x.jpg"
     },
     {
       "title": "1999ツアー",
       "date": "2022.10.28 - 2022.11.17",
       "spotify": "https://open.spotify.com/playlist/1y8FRxF92u2nl7mcyL3KdE",
       "applemusic": "https://music.apple.com/jp/playlist/pl.0433773451cf41ea9666d0cd2876e7af",
-      "tracks": [],
-      "track_count": 0,
-      "matched_count": 0,
-      "cover": null
+      "tracks": [
+        {
+          "index": 1,
+          "title": "スローモーション",
+          "artist": "nishina",
+          "uid": "16a3e4c5c5951bc5",
+          "matched_song_id": "nishina-slow-motion",
+          "match_score": 100
+        },
+        {
+          "index": 2,
+          "title": "東京マーブル",
+          "artist": "nishina",
+          "uid": "4e560b03a35e915f",
+          "matched_song_id": "nishina-tokyo-marble",
+          "match_score": 100
+        },
+        {
+          "index": 3,
+          "title": "FRIDAY KIDS CHINA TOWN",
+          "artist": "nishina",
+          "uid": "5c4e6808e64f9dce",
+          "matched_song_id": "nishina-friday-kids-china-town",
+          "match_score": 100
+        },
+        {
+          "index": 4,
+          "title": "ダーリン",
+          "artist": "nishina",
+          "uid": "cb837dd167380661",
+          "matched_song_id": "nishina-darling",
+          "match_score": 100
+        },
+        {
+          "index": 5,
+          "title": "真白",
+          "artist": "nishina",
+          "uid": "3bcdf1f79248ce92",
+          "matched_song_id": "nishina-mashiro",
+          "match_score": 100
+        },
+        {
+          "index": 6,
+          "title": "夜になって",
+          "artist": "nishina",
+          "uid": "2e439c36dfc77f1c",
+          "matched_song_id": "nishina-yoru-ni-natte",
+          "match_score": 100
+        },
+        {
+          "index": 7,
+          "title": "桃源郷",
+          "artist": "nishina",
+          "uid": "3560c38854bd5b62",
+          "matched_song_id": "nishina-tougenkyou",
+          "match_score": 100
+        },
+        {
+          "index": 8,
+          "title": "centi",
+          "artist": "nishina",
+          "uid": "66fb502f166b8c53",
+          "matched_song_id": "nishina-centi",
+          "match_score": 100
+        },
+        {
+          "index": 9,
+          "title": "夜間飛行",
+          "artist": "nishina",
+          "uid": "6c941793d7c1fd64",
+          "matched_song_id": "nishina-yakan-hikou",
+          "match_score": 100
+        },
+        {
+          "index": 10,
+          "title": "ワンルーム",
+          "artist": "nishina",
+          "uid": "47ad94e6e047bfd5",
+          "matched_song_id": "nishina-one-room",
+          "match_score": 100
+        },
+        {
+          "index": 11,
+          "title": "透明な黒と鉄分のある赤",
+          "artist": "nishina, くじら",
+          "uid": "360a9b7653fb68b4",
+          "matched_song_id": "nishina-toumei-na-kuro",
+          "match_score": 100
+        },
+        {
+          "index": 12,
+          "title": "ケダモノのフレンズ",
+          "artist": "nishina",
+          "uid": "e98f18fedb6ab048",
+          "matched_song_id": "nishina-kedamono-no-friends",
+          "match_score": 100
+        },
+        {
+          "index": 13,
+          "title": "U+",
+          "artist": "nishina",
+          "uid": "2095979ac032e542",
+          "matched_song_id": "nishina-u-plus",
+          "match_score": 100
+        },
+        {
+          "index": 14,
+          "title": "ヘビースモーク",
+          "artist": "nishina",
+          "uid": "7c207130656afa1a",
+          "matched_song_id": "nishina-heavy-smoke",
+          "match_score": 100
+        },
+        {
+          "index": 15,
+          "title": "青藍遊泳",
+          "artist": "nishina",
+          "uid": "93045239e691745d",
+          "matched_song_id": "nishina-seiran-yuuei",
+          "match_score": 100
+        },
+        {
+          "index": 16,
+          "title": "1999",
+          "artist": "nishina",
+          "uid": "70a91881e0b8b047",
+          "matched_song_id": "nishina-1999",
+          "match_score": 100
+        },
+        {
+          "index": 17,
+          "title": "ホットミルク",
+          "artist": "nishina",
+          "uid": "75f01e4336ec324b",
+          "matched_song_id": "nishina-hot-milk",
+          "match_score": 100
+        },
+        {
+          "index": 18,
+          "title": "アイニコイ",
+          "artist": "nishina",
+          "uid": "0fb87b59a94bf824",
+          "matched_song_id": "nishina-ainikoi",
+          "match_score": 100
+        }
+      ],
+      "track_count": 18,
+      "matched_count": 18,
+      "cover": "/setlists/covers/1y8FRxF92u2nl7mcyL3KdE.jpg"
     },
     {
       "title": "虎虎",
