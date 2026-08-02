@@ -1,11 +1,233 @@
 {
   "meta": {
     "topN": 0,
-    "totalInQueue": 1299,
+    "totalInQueue": 1300,
     "songCount": 36,
     "unmatchedCount": 834
   },
   "queue": {
+    "nishina-tokyo-marble": [
+      {
+        "videoId": "OL3yXENGp-A",
+        "title": "好きなものから食べ尽くして #にしな #東京マーブル #shorts",
+        "viewCount": 26000,
+        "thumbnail": "https://i.ytimg.com/vi/OL3yXENGp-A/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 32,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "HvHzNNEGwpk",
+        "title": "どこに逃げたって行き止まりね #にしな #東京マーブル #shorts",
+        "viewCount": 19000,
+        "thumbnail": "https://i.ytimg.com/vi/HvHzNNEGwpk/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 13,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "vkYC7t3xTyg",
+        "title": "どこに逃げたって行き止まりね #にしな #nishina #ライブ #shorts",
+        "viewCount": 16000,
+        "thumbnail": "https://i.ytimg.com/vi/vkYC7t3xTyg/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 13,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "xeJUh7a6Lmw",
+        "title": "人目を気にしキスをしてる #にしな #東京マーブル #shorts",
+        "viewCount": 16000,
+        "thumbnail": "https://i.ytimg.com/vi/xeJUh7a6Lmw/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 2,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "wuE3kWBXUww",
+        "title": "欲望がいつも愛のリズム #にしな #東京マーブル #shorts",
+        "viewCount": 14000,
+        "thumbnail": "https://i.ytimg.com/vi/wuE3kWBXUww/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 25,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "4hz_R3LOY0s",
+        "title": "どこに逃げたって行き止まりね #にしな #東京マーブル #shorts",
+        "viewCount": 11000,
+        "thumbnail": "https://i.ytimg.com/vi/4hz_R3LOY0s/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 13,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "wUqUDl4uzIk",
+        "title": "good night dear #nishina #live #shorts",
+        "viewCount": 10000,
+        "thumbnail": "https://i.ytimg.com/vi/wUqUDl4uzIk/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 45,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "dZ6yOXXPya4",
+        "title": "夏の匂い吸い込む #にしな #東京マーブル #shorts",
+        "viewCount": 10000,
+        "thumbnail": "https://i.ytimg.com/vi/dZ6yOXXPya4/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 11,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "YAgDIIf1plw",
+        "title": "now loading loadingどうか応答せよ #にしな #nishina #東京マーブル #ライブ #shorts",
+        "viewCount": 9700,
+        "thumbnail": "https://i.ytimg.com/vi/YAgDIIf1plw/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 16,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "JGaF4ZhDnGw",
+        "title": "夏の匂い吸い込む #にしな #東京マーブル #shorts",
+        "viewCount": 8900,
+        "thumbnail": "https://i.ytimg.com/vi/JGaF4ZhDnGw/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 11,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "xBm-fmGCV00",
+        "title": "どうか応答せよ",
+        "viewCount": 8200,
+        "thumbnail": "https://i.ytimg.com/vi/xBm-fmGCV00/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 16,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "6aNt5JPEus4",
+        "title": "good night dear #nishina #live #shorts",
+        "viewCount": 7300,
+        "thumbnail": "https://i.ytimg.com/vi/6aNt5JPEus4/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 45,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "UU9J-mEWurM",
+        "title": "好きなものから食べ尽くして #にしな #shorts",
+        "viewCount": 7200,
+        "thumbnail": "https://i.ytimg.com/vi/UU9J-mEWurM/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 32,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "g62i3tlQcLg",
+        "title": "もうすぐ君の元へ #にしな #東京マーブル #shorts",
+        "viewCount": 6800,
+        "thumbnail": "https://i.ytimg.com/vi/g62i3tlQcLg/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 27,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "UGJrnvFR9cU",
+        "title": "now loading loading #nishina  #live #shorts",
+        "viewCount": 6200,
+        "thumbnail": "https://i.ytimg.com/vi/UGJrnvFR9cU/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 16,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "yLy4iFt1sUo",
+        "title": "どこに逃げたって行き止まりね #にしな #shorts",
+        "viewCount": 6100,
+        "thumbnail": "https://i.ytimg.com/vi/yLy4iFt1sUo/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 13,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "K-jhMMdg7oE",
+        "title": "めくりめく街 敗れた夢と #にしな #東京マーブル #shorts",
+        "viewCount": 4200,
+        "thumbnail": "https://i.ytimg.com/vi/K-jhMMdg7oE/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 0,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "vgm9DotbFFo",
+        "title": "now loading loading #nishina #live #shorts",
+        "viewCount": 3700,
+        "thumbnail": "https://i.ytimg.com/vi/vgm9DotbFFo/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 16,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "tbTdwHlC4Go",
+        "title": "イカれた夜のメランルー #にしな #東京マーブル #shorts",
+        "viewCount": 3400,
+        "thumbnail": "https://i.ytimg.com/vi/tbTdwHlC4Go/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 12,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "P09tfty8FrQ",
+        "title": "イカれた夜のメランルー #にしな #東京マーブル #shorts",
+        "viewCount": 3200,
+        "thumbnail": "https://i.ytimg.com/vi/P09tfty8FrQ/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 12,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "CXxeFpK7jM0",
+        "title": "AUREX #にしな #東京マーブル #shorts",
+        "viewCount": 2700,
+        "thumbnail": "https://i.ytimg.com/vi/CXxeFpK7jM0/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 45,
+        "matchScore": 57.14285714285714,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "7M0C7rqR7-E",
+        "title": "イカれた夜のメランルー #にしな #nishina #東京マーブル #ライブ #shorts",
+        "viewCount": 1000,
+        "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 12,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      }
+    ],
     "nishina-panda-girl": [
       {
         "videoId": "N-bB7X18OYM",
@@ -20,7 +242,7 @@
       {
         "videoId": "nywcYurtoRk",
         "title": "今日もラブ履き違え #にしな #nishina #パンダガール #shorts",
-        "viewCount": 2200,
+        "viewCount": 4800,
         "thumbnail": "https://i.ytimg.com/vi/nywcYurtoRk/hqdefault.jpg",
         "songId": "nishina-panda-girl",
         "lineHint": 11,
@@ -82,7 +304,7 @@
       {
         "videoId": "6TZIGpZS8ZE",
         "title": "さらば友よ #にしな #青藍遊泳 #shorts",
-        "viewCount": 17000,
+        "viewCount": 18000,
         "thumbnail": "https://i.ytimg.com/vi/6TZIGpZS8ZE/hqdefault.jpg",
         "songId": "nishina-seiran-yuuei",
         "lineHint": 10,
@@ -170,6 +392,16 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "EWFVgH24zFI",
+        "title": "名残惜しさは振り払って もう行かなきゃ #にしな #nishina #青藍遊泳 #shorts",
+        "viewCount": 5500,
+        "thumbnail": "https://i.ytimg.com/vi/EWFVgH24zFI/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 18,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "SCQ3YtiD89M",
         "title": "さらば友よ、忘れてしまえよ #にしな #nishina #青藍遊泳 #ライブ #shorts",
         "viewCount": 5300,
@@ -196,16 +428,6 @@
         "thumbnail": "https://i.ytimg.com/vi/gz_lzqzgVFU/hqdefault.jpg",
         "songId": "nishina-seiran-yuuei",
         "lineHint": 5,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "EWFVgH24zFI",
-        "title": "名残惜しさは振り払って もう行かなきゃ #にしな #nishina #青藍遊泳 #shorts",
-        "viewCount": 4700,
-        "thumbnail": "https://i.ytimg.com/vi/EWFVgH24zFI/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 18,
         "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
@@ -282,6 +504,16 @@
         "matchMethod": "lyric_match"
       },
       {
+        "videoId": "hbKmXCMqVAA",
+        "title": "飛び交うミサイル愛をめがけてkaboom #にしな #nishina #ライブ #shorts",
+        "viewCount": 10000,
+        "thumbnail": "https://i.ytimg.com/vi/hbKmXCMqVAA/hqdefault.jpg",
+        "songId": "nishina-friday-kids-china-town",
+        "lineHint": 19,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
         "videoId": "zZqNfb10fEI",
         "title": "三つ目の小僧＋僕で五眼球（five eyes） #にしな #nishina #ライブ #shorts",
         "viewCount": 10000,
@@ -289,16 +521,6 @@
         "songId": "nishina-friday-kids-china-town",
         "lineHint": 23,
         "matchScore": 91.89189189189189,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "hbKmXCMqVAA",
-        "title": "飛び交うミサイル愛をめがけてkaboom #にしな #nishina #ライブ #shorts",
-        "viewCount": 9500,
-        "thumbnail": "https://i.ytimg.com/vi/hbKmXCMqVAA/hqdefault.jpg",
-        "songId": "nishina-friday-kids-china-town",
-        "lineHint": 19,
-        "matchScore": 100.0,
         "matchMethod": "lyric_match"
       },
       {
@@ -444,6 +666,16 @@
     ],
     "nishina-sugar-spot": [
       {
+        "videoId": "nopQjFzb07w",
+        "title": "約束なしでもまた出会える #にしな #nishina #ライブ #shorts",
+        "viewCount": 9600,
+        "thumbnail": "https://i.ytimg.com/vi/nopQjFzb07w/hqdefault.jpg",
+        "songId": "nishina-sugar-spot",
+        "lineHint": 51,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
         "videoId": "pH8lSV1CzIA",
         "title": "約束なしでもまた出会える #にしな #nishina #ライブ #shorts",
         "viewCount": 9300,
@@ -454,19 +686,9 @@
         "matchMethod": "lyric_match"
       },
       {
-        "videoId": "nopQjFzb07w",
-        "title": "約束なしでもまた出会える #にしな #nishina #ライブ #shorts",
-        "viewCount": 9000,
-        "thumbnail": "https://i.ytimg.com/vi/nopQjFzb07w/hqdefault.jpg",
-        "songId": "nishina-sugar-spot",
-        "lineHint": 51,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
         "videoId": "wOe_QcJorTs",
         "title": "擦りむいたって憂鬱だって大丈夫 #にしな #nishina #シュガースポット #ライブ #shorts",
-        "viewCount": 7600,
+        "viewCount": 7700,
         "thumbnail": "https://i.ytimg.com/vi/wOe_QcJorTs/hqdefault.jpg",
         "songId": "nishina-sugar-spot",
         "lineHint": 16,
@@ -588,7 +810,7 @@
       {
         "videoId": "ng-nBoPt7oY",
         "title": "片っぽ引っ張って優しく解いたリボン # #にしな #nishina #真白 #ライブ #shorts",
-        "viewCount": 8100,
+        "viewCount": 8300,
         "thumbnail": "https://i.ytimg.com/vi/ng-nBoPt7oY/hqdefault.jpg",
         "songId": "nishina-mashiro",
         "lineHint": 9,
@@ -698,22 +920,22 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "1DjIR2Onz9A",
+        "title": "誰か永遠の愛を教えておくれよ #にしな #nishina #クランベリージャムをかけて #ライブ #shorts",
+        "viewCount": 8500,
+        "thumbnail": "https://i.ytimg.com/vi/1DjIR2Onz9A/hqdefault.jpg",
+        "songId": "nishina-cranberry-jam",
+        "lineHint": 34,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "KEK-Mp5hm2c",
         "title": "クランベリージャムをかけて #にしな #クランベリージャムをかけて #shorts",
         "viewCount": 8500,
         "thumbnail": "https://i.ytimg.com/vi/KEK-Mp5hm2c/hqdefault.jpg",
         "songId": "nishina-cranberry-jam",
         "lineHint": 25,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "1DjIR2Onz9A",
-        "title": "誰か永遠の愛を教えておくれよ #にしな #nishina #クランベリージャムをかけて #ライブ #shorts",
-        "viewCount": 8400,
-        "thumbnail": "https://i.ytimg.com/vi/1DjIR2Onz9A/hqdefault.jpg",
-        "songId": "nishina-cranberry-jam",
-        "lineHint": 34,
         "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
@@ -1032,7 +1254,7 @@
       {
         "videoId": "WaY1kJlZhZ0",
         "title": "いのちはただ美し #にしな #nishina #つくし #ライブ #shorts",
-        "viewCount": 7500,
+        "viewCount": 7600,
         "thumbnail": "https://i.ytimg.com/vi/WaY1kJlZhZ0/hqdefault.jpg",
         "songId": "nishina-tsukushi",
         "lineHint": 19,
@@ -1144,7 +1366,7 @@
       {
         "videoId": "4-hHveTvcqc",
         "title": "ただこんな日が続くように # #にしな # #nishina #グローリー #日々散漫 #shorts",
-        "viewCount": 9800,
+        "viewCount": 9900,
         "thumbnail": "https://i.ytimg.com/vi/4-hHveTvcqc/hqdefault.jpg",
         "songId": "nishina-glory",
         "lineHint": 39,
@@ -1384,6 +1606,16 @@
         "matchMethod": "lyric_match"
       },
       {
+        "videoId": "GN4b4L_aWRU",
+        "title": "この世の全て最悪で手放したい時もある # #にしな # #nishina #わをん #ライブ #shorts",
+        "viewCount": 10000,
+        "thumbnail": "https://i.ytimg.com/vi/GN4b4L_aWRU/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 40,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "RTb_v1E9_hI",
         "title": "相変わらずの中に見つけたい #にしな #わをん #shorts",
         "viewCount": 10000,
@@ -1400,16 +1632,6 @@
         "thumbnail": "https://i.ytimg.com/vi/uP2ew_MK7NM/hqdefault.jpg",
         "songId": "nishina-wawon",
         "lineHint": 48,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "GN4b4L_aWRU",
-        "title": "この世の全て最悪で手放したい時もある # #にしな # #nishina #わをん #ライブ #shorts",
-        "viewCount": 9900,
-        "thumbnail": "https://i.ytimg.com/vi/GN4b4L_aWRU/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 40,
         "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
@@ -1858,7 +2080,7 @@
       {
         "videoId": "uH_MtCmfOGo",
         "title": "触れたら壊れてしまいそうな夜の隙間 #にしな #nishina #ダーリン #ライブ #shorts",
-        "viewCount": 7600,
+        "viewCount": 7700,
         "thumbnail": "https://i.ytimg.com/vi/uH_MtCmfOGo/hqdefault.jpg",
         "songId": "nishina-darling",
         "lineHint": 21,
@@ -2090,7 +2312,7 @@
       {
         "videoId": "UNhhJAJFFmk",
         "title": "愛をうたおう #にしな #nishina #アイニコイ # #ライブ #shorts",
-        "viewCount": 7200,
+        "viewCount": 7300,
         "thumbnail": "https://i.ytimg.com/vi/UNhhJAJFFmk/hqdefault.jpg",
         "songId": "nishina-ainikoi",
         "lineHint": 9,
@@ -2486,7 +2708,7 @@
       {
         "videoId": "nzqQMjwSojc",
         "title": "口寂しいならば その口に私がちゅってして拘束する #にしな #nishina #ライブ #shorts",
-        "viewCount": 10000,
+        "viewCount": 11000,
         "thumbnail": "https://i.ytimg.com/vi/nzqQMjwSojc/hqdefault.jpg",
         "songId": "nishina-heavy-smoke",
         "lineHint": 19,
@@ -2514,6 +2736,16 @@
         "matchMethod": "lyric_match"
       },
       {
+        "videoId": "JYGpOLZjnCo",
+        "title": "両の手を私が握って拘束する #にしな #nishina #ライブ #shorts",
+        "viewCount": 8400,
+        "thumbnail": "https://i.ytimg.com/vi/JYGpOLZjnCo/hqdefault.jpg",
+        "songId": "nishina-heavy-smoke",
+        "lineHint": 10,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
         "videoId": "5HKHkM3wor8",
         "title": "その口に私がちゅってして拘束する #にしな #ヘビースモーク",
         "viewCount": 8400,
@@ -2522,16 +2754,6 @@
         "lineHint": 20,
         "matchScore": 100.0,
         "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "JYGpOLZjnCo",
-        "title": "両の手を私が握って拘束する #にしな #nishina #ライブ #shorts",
-        "viewCount": 8300,
-        "thumbnail": "https://i.ytimg.com/vi/JYGpOLZjnCo/hqdefault.jpg",
-        "songId": "nishina-heavy-smoke",
-        "lineHint": 10,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
       },
       {
         "videoId": "Hwes8TDz2AU",
@@ -2638,7 +2860,7 @@
       {
         "videoId": "GnuScyXL760",
         "title": "優しさと愛は違うみたいだ # #にしな # #nishina #ワンルーム #ライブ #shorts",
-        "viewCount": 9200,
+        "viewCount": 9300,
         "thumbnail": "https://i.ytimg.com/vi/GnuScyXL760/hqdefault.jpg",
         "songId": "nishina-one-room",
         "lineHint": 31,
@@ -3350,218 +3572,6 @@
         "matchMethod": "lyric_match"
       }
     ],
-    "nishina-tokyo-marble": [
-      {
-        "videoId": "OL3yXENGp-A",
-        "title": "好きなものから食べ尽くして #にしな #東京マーブル #shorts",
-        "viewCount": 26000,
-        "thumbnail": "https://i.ytimg.com/vi/OL3yXENGp-A/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 32,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "HvHzNNEGwpk",
-        "title": "どこに逃げたって行き止まりね #にしな #東京マーブル #shorts",
-        "viewCount": 19000,
-        "thumbnail": "https://i.ytimg.com/vi/HvHzNNEGwpk/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 13,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "vkYC7t3xTyg",
-        "title": "どこに逃げたって行き止まりね #にしな #nishina #ライブ #shorts",
-        "viewCount": 16000,
-        "thumbnail": "https://i.ytimg.com/vi/vkYC7t3xTyg/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 13,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "xeJUh7a6Lmw",
-        "title": "人目を気にしキスをしてる #にしな #東京マーブル #shorts",
-        "viewCount": 16000,
-        "thumbnail": "https://i.ytimg.com/vi/xeJUh7a6Lmw/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 2,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "wuE3kWBXUww",
-        "title": "欲望がいつも愛のリズム #にしな #東京マーブル #shorts",
-        "viewCount": 14000,
-        "thumbnail": "https://i.ytimg.com/vi/wuE3kWBXUww/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 25,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "4hz_R3LOY0s",
-        "title": "どこに逃げたって行き止まりね #にしな #東京マーブル #shorts",
-        "viewCount": 11000,
-        "thumbnail": "https://i.ytimg.com/vi/4hz_R3LOY0s/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 13,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "wUqUDl4uzIk",
-        "title": "good night dear #nishina #live #shorts",
-        "viewCount": 10000,
-        "thumbnail": "https://i.ytimg.com/vi/wUqUDl4uzIk/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 45,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "dZ6yOXXPya4",
-        "title": "夏の匂い吸い込む #にしな #東京マーブル #shorts",
-        "viewCount": 10000,
-        "thumbnail": "https://i.ytimg.com/vi/dZ6yOXXPya4/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 11,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "YAgDIIf1plw",
-        "title": "now loading loadingどうか応答せよ #にしな #nishina #東京マーブル #ライブ #shorts",
-        "viewCount": 9700,
-        "thumbnail": "https://i.ytimg.com/vi/YAgDIIf1plw/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 16,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "JGaF4ZhDnGw",
-        "title": "夏の匂い吸い込む #にしな #東京マーブル #shorts",
-        "viewCount": 8900,
-        "thumbnail": "https://i.ytimg.com/vi/JGaF4ZhDnGw/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 11,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "xBm-fmGCV00",
-        "title": "どうか応答せよ",
-        "viewCount": 8200,
-        "thumbnail": "https://i.ytimg.com/vi/xBm-fmGCV00/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 16,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "6aNt5JPEus4",
-        "title": "good night dear #nishina #live #shorts",
-        "viewCount": 7300,
-        "thumbnail": "https://i.ytimg.com/vi/6aNt5JPEus4/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 45,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "UU9J-mEWurM",
-        "title": "好きなものから食べ尽くして #にしな #shorts",
-        "viewCount": 7200,
-        "thumbnail": "https://i.ytimg.com/vi/UU9J-mEWurM/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 32,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "g62i3tlQcLg",
-        "title": "もうすぐ君の元へ #にしな #東京マーブル #shorts",
-        "viewCount": 6800,
-        "thumbnail": "https://i.ytimg.com/vi/g62i3tlQcLg/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 27,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "UGJrnvFR9cU",
-        "title": "now loading loading #nishina  #live #shorts",
-        "viewCount": 6200,
-        "thumbnail": "https://i.ytimg.com/vi/UGJrnvFR9cU/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 16,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "yLy4iFt1sUo",
-        "title": "どこに逃げたって行き止まりね #にしな #shorts",
-        "viewCount": 6100,
-        "thumbnail": "https://i.ytimg.com/vi/yLy4iFt1sUo/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 13,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "K-jhMMdg7oE",
-        "title": "めくりめく街 敗れた夢と #にしな #東京マーブル #shorts",
-        "viewCount": 4200,
-        "thumbnail": "https://i.ytimg.com/vi/K-jhMMdg7oE/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 0,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "vgm9DotbFFo",
-        "title": "now loading loading #nishina #live #shorts",
-        "viewCount": 3700,
-        "thumbnail": "https://i.ytimg.com/vi/vgm9DotbFFo/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 16,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "tbTdwHlC4Go",
-        "title": "イカれた夜のメランルー #にしな #東京マーブル #shorts",
-        "viewCount": 3400,
-        "thumbnail": "https://i.ytimg.com/vi/tbTdwHlC4Go/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 12,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "P09tfty8FrQ",
-        "title": "イカれた夜のメランルー #にしな #東京マーブル #shorts",
-        "viewCount": 3200,
-        "thumbnail": "https://i.ytimg.com/vi/P09tfty8FrQ/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 12,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "CXxeFpK7jM0",
-        "title": "AUREX #にしな #東京マーブル #shorts",
-        "viewCount": 2700,
-        "thumbnail": "https://i.ytimg.com/vi/CXxeFpK7jM0/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 45,
-        "matchScore": 57.14285714285714,
-        "matchMethod": "hashtag"
-      }
-    ],
     "nishina-nekoze": [
       {
         "videoId": "8vsxwE3YvlQ",
@@ -4158,7 +4168,7 @@
       {
         "videoId": "szHj8or2uvk",
         "title": "音楽なんかなくて生きていけるのに #にしな #nishina #ライブ #shorts",
-        "viewCount": 9500,
+        "viewCount": 9600,
         "thumbnail": "https://i.ytimg.com/vi/szHj8or2uvk/hqdefault.jpg",
         "songId": "nishina-its-a-piece-of-cake",
         "lineHint": 27,
@@ -4290,7 +4300,7 @@
       {
         "videoId": "zUnegWtSQkI",
         "title": "何者になれずとも もうきっと大丈夫 #にしな #U+ #shorts",
-        "viewCount": 11000,
+        "viewCount": 12000,
         "thumbnail": "https://i.ytimg.com/vi/zUnegWtSQkI/hqdefault.jpg",
         "songId": "nishina-u-plus",
         "lineHint": 9,
@@ -4320,7 +4330,7 @@
       {
         "videoId": "bD9LjxCv4SY",
         "title": "誰もが幻を信じてやまない #にしな #U+ #shorts",
-        "viewCount": 7700,
+        "viewCount": 7800,
         "thumbnail": "https://i.ytimg.com/vi/bD9LjxCv4SY/hqdefault.jpg",
         "songId": "nishina-u-plus",
         "lineHint": 11,
@@ -4350,7 +4360,7 @@
       {
         "videoId": "MvhIttp8-aQ",
         "title": "無自覚の中で傷つけあったエイリアンズ 愛おしいんだ #にしな #nishina #ライブ #shorts",
-        "viewCount": 5600,
+        "viewCount": 5700,
         "thumbnail": "https://i.ytimg.com/vi/MvhIttp8-aQ/hqdefault.jpg",
         "songId": "nishina-u-plus",
         "lineHint": 17,
@@ -4658,7 +4668,7 @@
       {
         "videoId": "jF2bk0NkhnA",
         "title": "every day every night #nishina #live #shorts",
-        "viewCount": 2900,
+        "viewCount": 3000,
         "thumbnail": "https://i.ytimg.com/vi/jF2bk0NkhnA/hqdefault.jpg",
         "songId": "nishina-centi",
         "lineHint": 31,
@@ -5090,6 +5100,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "tud1RxEr5m8",
+        "title": "니시나 - 글로리　#にしな #nishina #shorts",
+        "viewCount": 16000,
+        "thumbnail": "https://i.ytimg.com/vi/tud1RxEr5m8/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 0.0,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "XLbZ4y-ULyw",
         "title": "It will all be fine in the end #nishina #live #shorts",
         "viewCount": 16000,
@@ -5227,16 +5247,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 50.0,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "tud1RxEr5m8",
-        "title": "니시나 - 글로리　#にしな #nishina #shorts",
-        "viewCount": 14000,
-        "thumbnail": "https://i.ytimg.com/vi/tud1RxEr5m8/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 0.0,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -10790,6 +10800,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "x4vUxg7Gjjg",
+        "title": "口笛を吹けば空高く弾んだ #にしな #nishina #クローバー #newmusic #shorts",
+        "viewCount": 3600,
+        "thumbnail": "https://i.ytimg.com/vi/x4vUxg7Gjjg/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 50.0,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "V_WrZSRCNEY",
         "title": "What really matters? #にしな #nishina #newmusic #shorts",
         "viewCount": 3600,
@@ -10940,6 +10960,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "5pnfJmnpt3Q",
+        "title": "Happy and sometimes sad #nishina  #live #shorts",
+        "viewCount": 3600,
+        "thumbnail": "https://i.ytimg.com/vi/5pnfJmnpt3Q/hqdefault.jpg",
+        "songId": "nishina-hot-milk",
+        "lineHint": 33,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
+      },
+      {
         "videoId": "hHL8u4A4V2E",
         "title": "It feels like you’re not even here #nishina #jpop #shorts",
         "viewCount": 3600,
@@ -10948,16 +10978,6 @@
         "lineHint": 22,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
-      },
-      {
-        "videoId": "x4vUxg7Gjjg",
-        "title": "口笛を吹けば空高く弾んだ #にしな #nishina #クローバー #newmusic #shorts",
-        "viewCount": 3500,
-        "thumbnail": "https://i.ytimg.com/vi/x4vUxg7Gjjg/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 50.0,
-        "matchMethod": "out_of_catalog"
       },
       {
         "videoId": "s5bY0UMqglc",
@@ -11038,16 +11058,6 @@
         "lineHint": null,
         "matchScore": 50.0,
         "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "5pnfJmnpt3Q",
-        "title": "Happy and sometimes sad #nishina  #live #shorts",
-        "viewCount": 3500,
-        "thumbnail": "https://i.ytimg.com/vi/5pnfJmnpt3Q/hqdefault.jpg",
-        "songId": "nishina-hot-milk",
-        "lineHint": 33,
-        "matchScore": 66.66666666666667,
-        "matchMethod": "review"
       },
       {
         "videoId": "apr_3eZNPzA",
