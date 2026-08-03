@@ -24,7 +24,8 @@ setlists = json.dumps([sl.get(k) for k in ORDER], ensure_ascii=False)
 
 JOBS = [
   ('timeline.template.html', 'timeline',
-   [('/*__DATA__*/null', news), ('/*__SERIES__*/null', series)]),
+   [('/*__DATA__*/null', news), ('/*__SERIES__*/null', series),
+    ('/*__EVENTS__*/null', events), ('/*__TOURS__*/null', tours)]),
   ('concerts.template.html', 'concerts',
    [('/*__DATA__*/null', events), ('/*__SETLISTS__*/null', setlists)]),
   ('footprint.template.html', 'footprint',

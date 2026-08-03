@@ -39,6 +39,23 @@
   .item .t a:hover{color:var(--accent)}
   .badge{font-size:10px;border:1px solid var(--gold);color:var(--gold);border-radius:4px;
         padding:1px 6px;margin-left:8px;vertical-align:2px}
+  #today{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+        padding:16px 18px;margin-top:20px;display:none}
+  #today .hd{color:var(--dim);font-size:12px;letter-spacing:.08em}
+  #today .big{font-size:19px;margin-top:8px}
+  #today .big b{color:var(--gold)}
+  #today .ev{color:var(--text);font-size:14.5px;margin-top:8px}
+  #today .vn{color:var(--dim);font-size:12.5px;margin-top:3px}
+  #today .row{display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap}
+  #today .go{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:5px 13px;
+        color:var(--dim);text-decoration:none;cursor:pointer;background:transparent;font-family:inherit}
+  #today .go:hover{border-color:var(--accent);color:var(--accent)}
+  #today .dots{display:flex;gap:6px}
+  #today .dot{width:7px;height:7px;border-radius:50%;background:var(--line);cursor:pointer;border:none;padding:0}
+  #today .dot.on{background:var(--gold)}
+  .chip.mine{border-color:#d65555!important}
+  .chip.mine i{background:#d65555}
+  .chip.mine.on{color:#d65555}
   #next{background:var(--panel);border:1px solid var(--line);border-radius:12px;
         padding:12px 16px;margin-top:18px;font-size:14px;display:none}
   #next b{color:var(--gold)}
@@ -65,6 +82,7 @@
 <main>
   <h1>にしな年表</h1>
   <p class="sub">官方 news 全 119 條・點標題到官方頁・未來場次可加入行事曆</p>
+  <div id="today"></div>
   <div id="next"></div>
   <input id="q" type="search" placeholder="搜尋活動/歌名… (支援 ?q= 深連結)">
   <div id="chips"></div>
@@ -74,6 +92,14 @@
 <script>
 const DATA = /*__DATA__*/null;
 const SERIES = /*__SERIES__*/null;
+const EVENTS = /*__EVENTS__*/null;   // 公演/出演事件(今日のにしな用)
+const TOURS = /*__TOURS__*/null;     // 巡演站點(公演徽章連結+参戦濾鏡用)
+/* 站上路徑(injection 產物掛在 public/live/ 底下) */
+const ROUTES = { concerts: '/live/concerts/', footprint: '/live/footprint/' };
+const TOURMAP = {};
+TOURS.tours.forEach((t, i) => TOURMAP[t.news_url] = { n: i + 1, tid: t.id });
+let visited = {};
+try { visited = JSON.parse(localStorage.getItem('nishina-visited') || '{}'); } catch (e) {}
 /* 回訪查表:news_url → 第幾回/共幾回(僅 2 場以上的系列) */
 const SLOOK = {};
 if (SERIES) for (const s of SERIES.series) if (s.count >= 2)
@@ -81,6 +107,13 @@ if (SERIES) for (const s of SERIES.series) if (s.count >= 2)
 const CLS = { LIVE: 'LIVE 演出', RELEASE: '發行', TIEUP: '媒體/主題歌', COLLAB: '合作',
               GOODS: '周邊', OTHER: '其他' };
 const on = new Set(Object.keys(CLS));
+let mineOnly = false;
+function isMine(i) {
+  if (visited[i.url]) return true;
+  const tm = TOURMAP[i.url];
+  return !!(tm && (visited['oneman:' + tm.n] ||
+    Object.keys(visited).some(k => k.startsWith('stop:' + tm.tid + ':'))));
+}
 const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 /* 依日期排序(取區間起始;年份缺失的沉底) */
@@ -125,6 +158,7 @@ function render() {
   for (const i of DATA) {
     if (!on.has(i.class)) continue;
     if (q && !i.title.toLowerCase().includes(q.toLowerCase())) continue;
+    if (mineOnly && !isMine(i)) continue;
     const y = i._k.slice(0, 4);
     if (y !== curYear) {
       curYear = y;
@@ -142,7 +176,12 @@ function render() {
     const el = document.createElement('div');
     el.className = 'item';
     el.style.setProperty('--dot', `var(--c-${i.class})`);
-    const badge = i.live_type === 'ONEMAN' ? '<span class="badge">公演</span>' : '';
+    const tm = TOURMAP[i.url];
+    const badge = i.live_type === 'ONEMAN'
+      ? (ROUTES.concerts && tm
+          ? `<a class="badge" style="text-decoration:none" href="${ROUTES.concerts}#c${tm.n}">公演 →</a>`
+          : '<span class="badge">公演</span>')
+      : '';
     const sv = SLOOK[i.url];
     const sbadge = sv ? `<span class="sbadge" title="${esc(sv.name)}">回訪 ${sv.n}/${sv.total}</span>` : '';
     const ics = i._k > TODAY
@@ -163,6 +202,13 @@ for (const [k, label] of Object.entries(CLS)) {
   b.onclick = () => { on.has(k) ? on.delete(k) : on.add(k); b.classList.toggle('on'); render(); };
   chips.appendChild(b);
 }
+{
+  const b = document.createElement('button');
+  b.className = 'chip mine';
+  b.innerHTML = `<i></i>参戦した場次`;
+  b.onclick = () => { mineOnly = !mineOnly; b.classList.toggle('on'); render(); };
+  chips.appendChild(b);
+}
 document.getElementById('tl').addEventListener('click', e => {
   const b = e.target.closest('.ics');
   if (b) icsFor(b.dataset.k, b.dataset.t, b.dataset.u);
@@ -180,6 +226,56 @@ qEl.addEventListener('input', () => {
 });
 render();
 renderNext();
+
+/* ④ 今日のにしな:同月日回顧,無事件日回退成下一場倒數 */
+(function today() {
+  const el = document.getElementById('today');
+  const now = new Date(TODAY);
+  const md = TODAY.slice(5);
+  const pool = [
+    ...EVENTS.appearance.filter(e => e.event_date && e.event_date.slice(5) === md && e.event_date < TODAY)
+      .map(e => ({ date: e.event_date, name: e.name, sub: e.venue || '', url: e.news_url })),
+    ...TOURS.tours.flatMap((t, i) => t.stops
+      .filter(st => st.date.slice(5) === md && st.date < TODAY)
+      .map(st => ({ date: st.date, name: t.name, sub: st.venue + '(' + st.pref + ')',
+                    url: ROUTES.concerts ? `${ROUTES.concerts}#c${i + 1}` : t.news_url }))),
+  ].sort((a, b) => a.date.localeCompare(b.date)).slice(0, 3);
+  el.style.display = 'block';
+  const hd = `<div class="hd">✦ 今日のにしな — ${+md.slice(0, 2)}月${+md.slice(3)}日</div>`;
+  if (pool.length) {
+    let idx = 0;
+    const paint = () => {
+      const e = pool[idx];
+      const yrs = now.getFullYear() - +e.date.slice(0, 4);
+      el.innerHTML = hd
+        + `<div class="big"><b>${yrs}</b> 年前的今天</div>`
+        + `<div class="ev">${esc(e.name)}</div>`
+        + `<div class="vn">${esc(e.sub)}</div>`
+        + `<div class="row">
+             <button class="go" data-y="${e.date.slice(0, 4)}">在年表看這一年 →</button>
+             ${pool.length > 1 ? `<span class="dots">${pool.map((_, j) =>
+               `<button class="dot${j === idx ? ' on' : ''}" data-i="${j}"></button>`).join('')}</span>` : ''}
+           </div>`;
+      el.querySelector('.go').onclick = ev =>
+        document.getElementById('y' + ev.target.dataset.y)?.scrollIntoView({ block: 'start' });
+      el.querySelectorAll('.dot').forEach(d => d.onclick = () => { idx = +d.dataset.i; paint(); });
+    };
+    paint();
+    if (pool.length > 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches)
+      setInterval(() => { idx = (idx + 1) % pool.length; paint(); }, 7000);
+  } else {
+    const fut = [...DATA].filter(i => i._k > TODAY && i.class === 'LIVE')
+      .sort((a, b) => a._k.localeCompare(b._k))[0];
+    if (!fut) { el.style.display = 'none'; return; }
+    const days = Math.ceil((new Date(fut._k) - now) / 86400000);
+    el.innerHTML = hd
+      + `<div class="big">今天的往年安靜——但 <b>${days}</b> 天後</div>`
+      + `<div class="ev">${esc(fut.title.replace(/^【[^】]+】\s*/, '').slice(0, 44))}</div>`
+      + `<div class="row"><button class="go ics" data-k="${fut._k}" data-t="${esc(fut.title)}" data-u="${esc(fut.url)}">📅 加入行事曆</button></div>`;
+    el.querySelector('.ics').onclick = b =>
+      icsFor(b.target.dataset.k, b.target.dataset.t, b.target.dataset.u);
+  }
+})();
 if (location.hash.match(/^#y20\d{2}$/))
   setTimeout(() => document.querySelector(location.hash)?.scrollIntoView({ block: 'start' }), 60);
 </script>

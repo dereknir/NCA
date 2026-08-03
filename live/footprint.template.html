@@ -131,6 +131,8 @@ if (SERIES) for (const s of SERIES.series)
   for (const e of s.editions) SNAME[e.news_url] = s.series;
 const JAPAN = /*__JAPAN__*/null;   // 真實縣界(dataofjapan/land,公有領域,build 時注入)
 const TOURS = /*__TOURS__*/null;   // 公演巡演站點(官方 news 內文,站長收割)
+/* 站上路徑(injection 產物掛在 public/live/ 底下) */
+const ROUTES = { timeline: '/live/timeline/', concerts: '/live/concerts/' };
 
 /* 瓷磚版退路:グリッド座標 [col,row](真地圖上線後停用)
 const PREF = {
@@ -290,7 +292,8 @@ function openPref(p) {
   const oneRow = e => `<div class="ev">
       <button class="stx${stopStamped(e) ? ' on' : ''}" data-stop="${esc(stopKey(e))}"${visited['oneman:' + e.tn] && !visited[stopKey(e)] ? ' title="已於公演史頁蓋整場章"' : ''}>${stopStamped(e) ? '参' : ''}</button>
       <div class="body"><div class="d">${esc(e.date)}・${esc(e.venue)}</div>
-      <a href="${esc(e.news_url)}" target="_blank" rel="noopener">${esc(e.tour)}</a></div></div>`;
+      <a href="${ROUTES.concerts ? `${ROUTES.concerts}#c${e.tn}` : esc(e.news_url)}"${ROUTES.concerts ? '' : ' target="_blank" rel="noopener"'}>${esc(e.tour)}</a>
+      <a href="${esc(e.news_url)}" target="_blank" rel="noopener" style="font-size:10px;color:var(--dim);margin-left:6px">news↗</a></div></div>`;
   sideItems = [];
   if (oneEvs.length) {
     sideItems.push(`<div class="sgh">♪ 公演 ×${oneEvs.length}</div>`);
@@ -365,6 +368,10 @@ for (const [id, key] of [['lyOne', 'one'], ['lyApp', 'app']])
     if (playing) stopPlay();
     if (selPref) openPref(selPref); else renderMap();
     renderFacts();
+{
+  const pp = new URLSearchParams(location.search).get('pref');
+  if (pp && (effCounts()[pp] || []).length) openPref(pp);
+}
   };
 
 const ORDERED = [

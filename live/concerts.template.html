@@ -26,8 +26,20 @@
   .name{font-size:18px;padding-right:64px}
   .period{color:var(--gold);font-size:13px;margin-top:6px;font-variant-numeric:tabular-nums}
   .period.todo{color:var(--dim);font-style:italic}
-  .stops{color:var(--dim);font-size:12px;margin-top:8px;line-height:1.8}
+  .stops{color:var(--dim);font-size:12px;margin-top:8px;line-height:1.8;cursor:pointer}
   .stops b{color:var(--text);font-weight:600}
+  .stops:hover b{color:var(--gold)}
+  .stopsdetail{display:none;margin-top:8px;border-top:1px solid rgba(36,49,84,.6);padding-top:8px}
+  .card.expanded .stopsdetail{display:block}
+  .stoprow{display:flex;align-items:center;gap:9px;padding:5px 0;font-size:12.5px}
+  .stoprow .sd{color:var(--dim);font-variant-numeric:tabular-nums;width:84px;flex:none}
+  .stoprow .sp a{color:var(--accent);text-decoration:none}
+  .stx{width:26px;height:26px;flex:none;border:1.5px dashed var(--line);border-radius:6px;
+       background:transparent;color:transparent;font-size:11px;cursor:pointer;font-family:inherit}
+  .stx:hover{border-color:#d65555;color:rgba(214,85,85,.55)}
+  .stx.on{border:2px solid #d65555;border-radius:7px;color:#d65555;font-weight:700;
+       transform:rotate(-9deg);box-shadow:inset 0 0 4px rgba(214,85,85,.35)}
+  .card.hl{outline:2px solid var(--gold);outline-offset:2px}
   .slwrap{position:relative;display:inline-block}
   .slmenu{position:absolute;bottom:calc(100% + 8px);left:0;background:var(--panel);
         border:1px solid var(--gold);border-radius:12px;padding:8px;display:none;
@@ -73,6 +85,8 @@
 </main>
 <script>
 const DATA = /*__DATA__*/null;
+/* 站上路徑(injection 產物掛在 public/live/ 底下) */
+const ROUTES = { timeline: '/live/timeline/', footprint: '/live/footprint/' };
 /* 各場 setlist 歌單(lnk.to 浮層收割;順序對齊 DATA.oneman;null=尚未收割) */
 const SETLISTS = /*__SETLISTS__*/null;
 /* TODO(站長): 各場 setlist 短連結(lnk.to),key = 場次序號 1-10 */
@@ -86,8 +100,12 @@ try { visited = JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) {}
 const saveV = () => { try { localStorage.setItem(LS, JSON.stringify(visited)); } catch (e) {} };
 const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const list = document.getElementById('list');
+function tourStamped(ev, i) {
+  return visited['oneman:' + (i + 1)] ||
+    (ev.stops || []).some(st => visited['stop:' + ev.tid + ':' + st.date]);
+}
 function updateAtt() {
-  const n = DATA.oneman.filter((_, i) => visited['oneman:' + (i + 1)]).length;
+  const n = DATA.oneman.filter((ev, i) => tourStamped(ev, i)).length;
   document.getElementById('att').innerHTML =
     n ? `你的參戰:<b>${n}</b> / 10 場公演` : '參戰過的公演,按「参戦」蓋個章吧(僅存於你的瀏覽器)';
 }
@@ -95,6 +113,7 @@ DATA.oneman.forEach((ev, idx) => {
   const n = idx + 1;
   const key = 'oneman:' + n;
   const card = document.createElement('div');
+  card.id = 'c' + n;
   card.className = 'card' + (visited[key] ? ' stamped' : '');
   const todo = ev.note ? ' todo' : '';
   const svc = SETLISTS && SETLISTS[idx];
@@ -102,7 +121,17 @@ DATA.oneman.forEach((ev, idx) => {
     <div class="num">${String(n).padStart(2, '0')}</div>
     <div class="name">${esc(ev.name)}</div>
     <div class="period${todo}">${esc(ev.period)}${ev.note ? '(' + esc(ev.note) + ')' : ''}</div>
-    ${ev.stops?.length ? `<div class="stops"><b>${ev.stops.length} 站</b>:${esc([...new Set(ev.stops.map(s => s.pref))].join('・'))}</div>` : ''}
+    ${ev.stops?.length ? `<div class="stops" data-tg><b>${ev.stops.length} 站</b>:${esc([...new Set(ev.stops.map(s => s.pref))].join('・'))} ▾</div>
+    <div class="stopsdetail">${ev.stops.map(st => `
+      <div class="stoprow">
+        <button class="stx${(visited['stop:' + ev.tid + ':' + st.date] || visited[key]) ? ' on' : ''}"
+                data-stop="stop:${ev.tid}:${st.date}">参</button>
+        <span class="sd">${esc(st.date.slice(2))}</span>
+        <span class="sp">${ROUTES.footprint
+          ? `<a href="${ROUTES.footprint}?pref=${encodeURIComponent(st.pref)}">${esc(st.pref)}</a>`
+          : esc(st.pref)}</span>
+        <span>${esc(st.venue)}</span>
+      </div>`).join('')}</div>` : ''}
     <div class="links">
       ${ev.news.map(nw => `<a href="${esc(nw.url)}" target="_blank" rel="noopener">news: ${esc(nw.title.slice(0, 18))}…</a>`).join('')}
       ${svc && Object.keys(svc).length
@@ -125,6 +154,16 @@ DATA.oneman.forEach((ev, idx) => {
     saveV(); paint(); updateAtt();
   };
   paint();
+  const tg = card.querySelector('[data-tg]');
+  if (tg) tg.onclick = () => card.classList.toggle('expanded');
+  card.querySelectorAll('[data-stop]').forEach(b => b.onclick = () => {
+    const k = b.dataset.stop;
+    if (visited[k]) delete visited[k]; else visited[k] = Date.now();
+    saveV();
+    b.classList.toggle('on', !!(visited[k] || visited[key]));
+    b.textContent = '参';
+    updateAtt();
+  });
   const slBtn = card.querySelector('[data-sl]');
   if (slBtn) slBtn.onclick = e => {
     e.preventDefault();
@@ -139,6 +178,11 @@ document.addEventListener('click', e => {
     document.querySelectorAll('.slmenu.open').forEach(m => m.classList.remove('open'));
 });
 updateAtt();
+if (location.hash.match(/^#c\d+$/)) {
+  const el = document.querySelector(location.hash);
+  if (el) setTimeout(() => { el.scrollIntoView({ block: 'center' }); el.classList.add('hl');
+    setTimeout(() => el.classList.remove('hl'), 2200); }, 80);
+}
 </script>
 </body>
 </html>
