@@ -2,45 +2,49 @@
 /**
  * /live/ — にしな 演出資料 hub
  *
- * 底下三個子頁面:
- *   /live/timeline    年表(官方 news 全 119 條, 六色標籤篩選)
- *   /live/concerts    公演史(10 場個人公演, 參戰蓋章)
- *   /live/footprint   出演足跡(67 場活動落點, 都道府縣熱區地圖)
+ * 三個子頁面是 live/inject.py 注入產出的靜態頁(public/live/<page>/index.html):
+ *   /live/timeline/    年表(官方 news 全量 · 六色篩選 · 搜尋 · 未來場次 .ics)
+ *   /live/concerts/    公演史(10 場個人公演 · setlist 歌單選單 · 參戰蓋章)
+ *   /live/footprint/   出演足跡(真實日本地圖 · 巡演站點圖層 · 足跡の旅 · 參戰卡)
+ *
+ * 資料更新流程: 改 live/data/*.json → python live/inject.py → commit
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import appearances from '../../data/live_appearances.json';
-import news from '../../data/live_news.json';
+import events from '../../../live/data/nishina_live_events.json';
+import news from '../../../live/data/nishina_news_classified.json';
+import tours from '../../../live/data/tour_stops.json';
 
-const oneman = appearances.oneman.length;
-const app = appearances.appearance.length;
+const oneman = events.oneman.length;
+const app = events.appearance.length;
 const total = news.length;
+const stops = tours.meta.total_stops;
 ---
 
 <BaseLayout title="にしな 演出資料" description="にしな 公演史・出演足跡・年表">
   <div class="max-w-4xl mx-auto">
     <h1 class="text-4xl font-bold mb-2">にしな 演出資料</h1>
     <p class="text-gray-400 text-sm mb-10">
-      官方 news {total} 條・{oneman} 場個人公演・{app} 場音樂祭活動出演
+      官方 news {total} 條・{oneman} 場個人公演({stops} 站)・{app} 場音樂祭活動出演
     </p>
 
     <div class="grid gap-5 md:grid-cols-3">
-      <a href="/live/timeline" class="hub-card">
+      <a href="/live/timeline/" class="hub-card">
         <div class="hub-emoji">🗓</div>
         <h2>年表</h2>
-        <p class="hub-sub">六色標籤(LIVE / 發行 / 主題歌 / 合作 / 周邊 / 其他)可篩選,直連官方 news</p>
+        <p class="hub-sub">六色標籤篩選 + 搜尋(?q= 深連結)。未來場次倒數、一鍵加入行事曆(.ics)</p>
         <div class="hub-num">{total} 件</div>
       </a>
-      <a href="/live/concerts" class="hub-card">
+      <a href="/live/concerts/" class="hub-card">
         <div class="hub-emoji">🎤</div>
         <h2>公演史</h2>
-        <p class="hub-sub">2021「hatsu」→ 2026「日々散漫」全 {oneman} 場個人公演,可蓋參戰章</p>
+        <p class="hub-sub">2021「hatsu」→ 2026「日々散漫」全 {oneman} 場。各場巡演站數、setlist 歌單直連、參戰蓋章</p>
         <div class="hub-num">{oneman} 場</div>
       </a>
-      <a href="/live/footprint" class="hub-card">
+      <a href="/live/footprint/" class="hub-card">
         <div class="hub-emoji">🗾</div>
         <h2>出演足跡</h2>
-        <p class="hub-sub">音樂祭/活動落點日本地圖,按都道府縣看場次、蓋參戰章</p>
-        <div class="hub-num">{app} 場</div>
+        <p class="hub-sub">真實縣界日本地圖,公演/出演雙圖層。「足跡の旅」時間軸動畫、像素參戰卡生成</p>
+        <div class="hub-num">{app + stops} 點</div>
       </a>
     </div>
 
