@@ -1,12 +1,12 @@
 {
   "meta": {
-    "total": 32,
+    "total": 39,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 8,
+      "promo": 12,
       "mc": 6,
-      "yearly": 2,
+      "yearly": 5,
       "ad": 2,
       "tv": 3,
       "travel": 2
@@ -120,7 +120,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 8,
+      "count": 12,
       "shorts": [
         {
           "videoId": "iw2deFw5p80",
@@ -128,6 +128,16 @@
           "url": "https://www.youtube.com/shorts/iw2deFw5p80",
           "thumbnail": "https://i.ytimg.com/vi/iw2deFw5p80/hqdefault.jpg",
           "viewCount": 19000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "ZPJg55iafRI",
+          "title": "にしな新曲「グローリー」Music Video映像素材募集",
+          "url": "https://www.youtube.com/shorts/ZPJg55iafRI",
+          "thumbnail": "https://i.ytimg.com/vi/ZPJg55iafRI/hqdefault.jpg",
+          "viewCount": 18000,
           "versionType": null,
           "instrumental": false,
           "anchors": []
@@ -153,6 +163,16 @@
           "anchors": []
         },
         {
+          "videoId": "Txtzlstoo38",
+          "title": "nishina 「MUSICK」 new GOODS",
+          "url": "https://www.youtube.com/shorts/Txtzlstoo38",
+          "thumbnail": "https://i.ytimg.com/vi/Txtzlstoo38/hqdefault.jpg",
+          "viewCount": 7600,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "jWxn_ZeQRH8",
           "title": "にしな🎬映画「モブ子の恋」🍀主題歌「クローバー」6月3日リリース決定",
           "url": "https://www.youtube.com/shorts/jWxn_ZeQRH8",
@@ -173,11 +193,31 @@
           "anchors": []
         },
         {
+          "videoId": "_4YUnJsWbiA",
+          "title": "🙂new goods",
+          "url": "https://www.youtube.com/shorts/_4YUnJsWbiA",
+          "thumbnail": "https://i.ytimg.com/vi/_4YUnJsWbiA/hqdefault.jpg",
+          "viewCount": 5600,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "EFg_17psRcU",
           "title": "Shape of Love feat.nishina teaser",
           "url": "https://www.youtube.com/shorts/EFg_17psRcU",
           "thumbnail": "https://i.ytimg.com/vi/EFg_17psRcU/hqdefault.jpg",
           "viewCount": 4900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "5iN_jT-ON2U",
+          "title": "にしな の新曲「グローリー」のMusic Videoに皆さんの力を貸してください！",
+          "url": "https://www.youtube.com/shorts/5iN_jT-ON2U",
+          "thumbnail": "https://i.ytimg.com/vi/5iN_jT-ON2U/hqdefault.jpg",
+          "viewCount": 4200,
           "versionType": null,
           "instrumental": false,
           "anchors": []
@@ -274,7 +314,7 @@
     "yearly": {
       "displayName": "年度回顧",
       "emoji": "🎉",
-      "count": 2,
+      "count": 5,
       "shorts": [
         {
           "videoId": "ZMyrOv-gLNA",
@@ -287,11 +327,41 @@
           "anchors": []
         },
         {
+          "videoId": "GVnPV8aNrEs",
+          "title": "happy new year!!!",
+          "url": "https://www.youtube.com/shorts/GVnPV8aNrEs",
+          "thumbnail": "https://i.ytimg.com/vi/GVnPV8aNrEs/hqdefault.jpg",
+          "viewCount": 6300,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "DUIJRYGaqJg",
           "title": "24/7 in 2025",
           "url": "https://www.youtube.com/shorts/DUIJRYGaqJg",
           "thumbnail": "https://i.ytimg.com/vi/DUIJRYGaqJg/hqdefault.jpg",
           "viewCount": 5200,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "rTJWxnOiHOo",
+          "title": "thank you for 2023",
+          "url": "https://www.youtube.com/shorts/rTJWxnOiHOo",
+          "thumbnail": "https://i.ytimg.com/vi/rTJWxnOiHOo/hqdefault.jpg",
+          "viewCount": 4500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "g7NqO8BDnwg",
+          "title": "Thank you for 2024!",
+          "url": "https://www.youtube.com/shorts/g7NqO8BDnwg",
+          "thumbnail": "https://i.ytimg.com/vi/g7NqO8BDnwg/hqdefault.jpg",
+          "viewCount": 4300,
           "versionType": null,
           "instrumental": false,
           "anchors": []
