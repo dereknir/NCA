@@ -1,11 +1,113 @@
 {
   "meta": {
     "topN": 0,
-    "totalInQueue": 1300,
+    "totalInQueue": 1301,
     "songCount": 36,
     "unmatchedCount": 834
   },
   "queue": {
+    "nishina-bugs": [
+      {
+        "videoId": "nnsjg6zguKU",
+        "title": "YA! #nishina #live #shorts",
+        "viewCount": 14000,
+        "thumbnail": "https://i.ytimg.com/vi/nnsjg6zguKU/hqdefault.jpg",
+        "songId": "nishina-bugs",
+        "lineHint": 2,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "CrXPBERe67E",
+        "title": "BEAUTIFUL DIRTY GUYS #nishina #jpop #shorts",
+        "viewCount": 9400,
+        "thumbnail": "https://i.ytimg.com/vi/CrXPBERe67E/hqdefault.jpg",
+        "songId": "nishina-bugs",
+        "lineHint": 15,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "uspHpy2t1QM",
+        "title": "This is virtual insanity #nishina # #newmusic  #shorts",
+        "viewCount": 4700,
+        "thumbnail": "https://i.ytimg.com/vi/uspHpy2t1QM/hqdefault.jpg",
+        "songId": "nishina-bugs",
+        "lineHint": 18,
+        "matchScore": 90.9090909090909,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "QtNjGPca0Lw",
+        "title": "This is virtual insanity #nishina #music #shorts",
+        "viewCount": 3700,
+        "thumbnail": "https://i.ytimg.com/vi/QtNjGPca0Lw/hqdefault.jpg",
+        "songId": "nishina-bugs",
+        "lineHint": 18,
+        "matchScore": 90.9090909090909,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "_OYBrjxPjtg",
+        "title": "BEAUTIFUL DIRTY GUYS & GIRLS #nishina #newmusic #shorts",
+        "viewCount": 2700,
+        "thumbnail": "https://i.ytimg.com/vi/_OYBrjxPjtg/hqdefault.jpg",
+        "songId": "nishina-bugs",
+        "lineHint": 15,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "iyhFtKxwHTc",
+        "title": "BEAUTIFUL DIRTY GIRLS #nishina #newmusic #shorts",
+        "viewCount": 2500,
+        "thumbnail": "https://i.ytimg.com/vi/iyhFtKxwHTc/hqdefault.jpg",
+        "songId": "nishina-bugs",
+        "lineHint": 17,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "Hq29mBuaqAg",
+        "title": "bugs 1.31 release #nishina #bugs #shorts",
+        "viewCount": 1900,
+        "thumbnail": "https://i.ytimg.com/vi/Hq29mBuaqAg/hqdefault.jpg",
+        "songId": "nishina-bugs",
+        "lineHint": 17,
+        "matchScore": 42.10526315789473,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "8_UlbWOtQxU",
+        "title": "bugs - 1.31 release #nishina #bugs #shorts",
+        "viewCount": 1700,
+        "thumbnail": "https://i.ytimg.com/vi/8_UlbWOtQxU/hqdefault.jpg",
+        "songId": "nishina-bugs",
+        "lineHint": 17,
+        "matchScore": 42.10526315789473,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "0Qnv5rmR7Ss",
+        "title": "GOOD or BAD? #nishina #newmusic #shorts",
+        "viewCount": 1600,
+        "thumbnail": "https://i.ytimg.com/vi/0Qnv5rmR7Ss/hqdefault.jpg",
+        "songId": "nishina-bugs",
+        "lineHint": 19,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "m8pxw2GNhoo",
+        "title": "ここは安楽unreality #にしな #nishina #bugs #ライブ #shorts",
+        "viewCount": 1200,
+        "thumbnail": "https://i.ytimg.com/vi/m8pxw2GNhoo/hqdefault.jpg",
+        "songId": "nishina-bugs",
+        "lineHint": 35,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      }
+    ],
     "nishina-tokyo-marble": [
       {
         "videoId": "OL3yXENGp-A",
@@ -188,6 +290,16 @@
         "matchMethod": "lyric_match"
       },
       {
+        "videoId": "7M0C7rqR7-E",
+        "title": "イカれた夜のメランルー #にしな #nishina #東京マーブル #ライブ #shorts",
+        "viewCount": 3400,
+        "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
+        "songId": "nishina-tokyo-marble",
+        "lineHint": 12,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "tbTdwHlC4Go",
         "title": "イカれた夜のメランルー #にしな #東京マーブル #shorts",
         "viewCount": 3400,
@@ -216,16 +328,6 @@
         "lineHint": 45,
         "matchScore": 57.14285714285714,
         "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "7M0C7rqR7-E",
-        "title": "イカれた夜のメランルー #にしな #nishina #東京マーブル #ライブ #shorts",
-        "viewCount": 1000,
-        "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
-        "songId": "nishina-tokyo-marble",
-        "lineHint": 12,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
       }
     ],
     "nishina-panda-girl": [
@@ -242,7 +344,7 @@
       {
         "videoId": "nywcYurtoRk",
         "title": "今日もラブ履き違え #にしな #nishina #パンダガール #shorts",
-        "viewCount": 4800,
+        "viewCount": 5800,
         "thumbnail": "https://i.ytimg.com/vi/nywcYurtoRk/hqdefault.jpg",
         "songId": "nishina-panda-girl",
         "lineHint": 11,
@@ -394,7 +496,7 @@
       {
         "videoId": "EWFVgH24zFI",
         "title": "名残惜しさは振り払って もう行かなきゃ #にしな #nishina #青藍遊泳 #shorts",
-        "viewCount": 5500,
+        "viewCount": 6000,
         "thumbnail": "https://i.ytimg.com/vi/EWFVgH24zFI/hqdefault.jpg",
         "songId": "nishina-seiran-yuuei",
         "lineHint": 18,
@@ -494,22 +596,22 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "hbKmXCMqVAA",
+        "title": "飛び交うミサイル愛をめがけてkaboom #にしな #nishina #ライブ #shorts",
+        "viewCount": 11000,
+        "thumbnail": "https://i.ytimg.com/vi/hbKmXCMqVAA/hqdefault.jpg",
+        "songId": "nishina-friday-kids-china-town",
+        "lineHint": 19,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
         "videoId": "-PXZwwa3VCg",
         "title": "GIVE ME A DANCE!  #にしな #shorts",
         "viewCount": 11000,
         "thumbnail": "https://i.ytimg.com/vi/-PXZwwa3VCg/hqdefault.jpg",
         "songId": "nishina-friday-kids-china-town",
         "lineHint": 9,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "hbKmXCMqVAA",
-        "title": "飛び交うミサイル愛をめがけてkaboom #にしな #nishina #ライブ #shorts",
-        "viewCount": 10000,
-        "thumbnail": "https://i.ytimg.com/vi/hbKmXCMqVAA/hqdefault.jpg",
-        "songId": "nishina-friday-kids-china-town",
-        "lineHint": 19,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
       },
@@ -668,7 +770,7 @@
       {
         "videoId": "nopQjFzb07w",
         "title": "約束なしでもまた出会える #にしな #nishina #ライブ #shorts",
-        "viewCount": 9600,
+        "viewCount": 9900,
         "thumbnail": "https://i.ytimg.com/vi/nopQjFzb07w/hqdefault.jpg",
         "songId": "nishina-sugar-spot",
         "lineHint": 51,
@@ -810,7 +912,7 @@
       {
         "videoId": "ng-nBoPt7oY",
         "title": "片っぽ引っ張って優しく解いたリボン # #にしな #nishina #真白 #ライブ #shorts",
-        "viewCount": 8300,
+        "viewCount": 8500,
         "thumbnail": "https://i.ytimg.com/vi/ng-nBoPt7oY/hqdefault.jpg",
         "songId": "nishina-mashiro",
         "lineHint": 9,
@@ -1254,7 +1356,7 @@
       {
         "videoId": "WaY1kJlZhZ0",
         "title": "いのちはただ美し #にしな #nishina #つくし #ライブ #shorts",
-        "viewCount": 7600,
+        "viewCount": 7700,
         "thumbnail": "https://i.ytimg.com/vi/WaY1kJlZhZ0/hqdefault.jpg",
         "songId": "nishina-tsukushi",
         "lineHint": 19,
@@ -1354,6 +1456,16 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "4-hHveTvcqc",
+        "title": "ただこんな日が続くように # #にしな # #nishina #グローリー #日々散漫 #shorts",
+        "viewCount": 10000,
+        "thumbnail": "https://i.ytimg.com/vi/4-hHveTvcqc/hqdefault.jpg",
+        "songId": "nishina-glory",
+        "lineHint": 39,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "VceXwsG3-0c",
         "title": "In a whisper #にしな #nishina #shorts #グローリー #glory",
         "viewCount": 10000,
@@ -1361,16 +1473,6 @@
         "songId": "nishina-glory",
         "lineHint": 0,
         "matchScore": 0.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "4-hHveTvcqc",
-        "title": "ただこんな日が続くように # #にしな # #nishina #グローリー #日々散漫 #shorts",
-        "viewCount": 9900,
-        "thumbnail": "https://i.ytimg.com/vi/4-hHveTvcqc/hqdefault.jpg",
-        "songId": "nishina-glory",
-        "lineHint": 39,
-        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -1648,7 +1750,7 @@
       {
         "videoId": "b9GoHmxPYgc",
         "title": "あい、五十音はそこから始まって #にしな #nishina #わをん #ライブ #shorts",
-        "viewCount": 7500,
+        "viewCount": 7600,
         "thumbnail": "https://i.ytimg.com/vi/b9GoHmxPYgc/hqdefault.jpg",
         "songId": "nishina-wawon",
         "lineHint": 0,
@@ -1818,7 +1920,7 @@
       {
         "videoId": "Fl4jfue9iIc",
         "title": "我愛你 #nishina #wawon #shorts",
-        "viewCount": 4300,
+        "viewCount": 4400,
         "thumbnail": "https://i.ytimg.com/vi/Fl4jfue9iIc/hqdefault.jpg",
         "songId": "nishina-wawon",
         "lineHint": 33,
@@ -2626,7 +2728,7 @@
       {
         "videoId": "XtQ1j121eeU",
         "title": "nishina - weekly #nishina #newmusic #shorts",
-        "viewCount": 5600,
+        "viewCount": 5700,
         "thumbnail": "https://i.ytimg.com/vi/XtQ1j121eeU/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 8,
@@ -3340,7 +3442,7 @@
       {
         "videoId": "Cus43_ZF12A",
         "title": "御心のままの生き様 #にしな #nishina #婀娜婀娜 #shorts",
-        "viewCount": 5200,
+        "viewCount": 5300,
         "thumbnail": "https://i.ytimg.com/vi/Cus43_ZF12A/hqdefault.jpg",
         "songId": "nishina-adaada",
         "lineHint": 20,
@@ -4400,98 +4502,6 @@
         "matchMethod": "lyric_match"
       }
     ],
-    "nishina-bugs": [
-      {
-        "videoId": "nnsjg6zguKU",
-        "title": "YA! #nishina #live #shorts",
-        "viewCount": 14000,
-        "thumbnail": "https://i.ytimg.com/vi/nnsjg6zguKU/hqdefault.jpg",
-        "songId": "nishina-bugs",
-        "lineHint": 2,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "CrXPBERe67E",
-        "title": "BEAUTIFUL DIRTY GUYS #nishina #jpop #shorts",
-        "viewCount": 9400,
-        "thumbnail": "https://i.ytimg.com/vi/CrXPBERe67E/hqdefault.jpg",
-        "songId": "nishina-bugs",
-        "lineHint": 15,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "uspHpy2t1QM",
-        "title": "This is virtual insanity #nishina # #newmusic  #shorts",
-        "viewCount": 4700,
-        "thumbnail": "https://i.ytimg.com/vi/uspHpy2t1QM/hqdefault.jpg",
-        "songId": "nishina-bugs",
-        "lineHint": 18,
-        "matchScore": 90.9090909090909,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "QtNjGPca0Lw",
-        "title": "This is virtual insanity #nishina #music #shorts",
-        "viewCount": 3700,
-        "thumbnail": "https://i.ytimg.com/vi/QtNjGPca0Lw/hqdefault.jpg",
-        "songId": "nishina-bugs",
-        "lineHint": 18,
-        "matchScore": 90.9090909090909,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "_OYBrjxPjtg",
-        "title": "BEAUTIFUL DIRTY GUYS & GIRLS #nishina #newmusic #shorts",
-        "viewCount": 2700,
-        "thumbnail": "https://i.ytimg.com/vi/_OYBrjxPjtg/hqdefault.jpg",
-        "songId": "nishina-bugs",
-        "lineHint": 15,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "iyhFtKxwHTc",
-        "title": "BEAUTIFUL DIRTY GIRLS #nishina #newmusic #shorts",
-        "viewCount": 2500,
-        "thumbnail": "https://i.ytimg.com/vi/iyhFtKxwHTc/hqdefault.jpg",
-        "songId": "nishina-bugs",
-        "lineHint": 17,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "Hq29mBuaqAg",
-        "title": "bugs 1.31 release #nishina #bugs #shorts",
-        "viewCount": 1900,
-        "thumbnail": "https://i.ytimg.com/vi/Hq29mBuaqAg/hqdefault.jpg",
-        "songId": "nishina-bugs",
-        "lineHint": 17,
-        "matchScore": 42.10526315789473,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "8_UlbWOtQxU",
-        "title": "bugs - 1.31 release #nishina #bugs #shorts",
-        "viewCount": 1700,
-        "thumbnail": "https://i.ytimg.com/vi/8_UlbWOtQxU/hqdefault.jpg",
-        "songId": "nishina-bugs",
-        "lineHint": 17,
-        "matchScore": 42.10526315789473,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "0Qnv5rmR7Ss",
-        "title": "GOOD or BAD? #nishina #newmusic #shorts",
-        "viewCount": 1600,
-        "thumbnail": "https://i.ytimg.com/vi/0Qnv5rmR7Ss/hqdefault.jpg",
-        "songId": "nishina-bugs",
-        "lineHint": 19,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      }
-    ],
     "nishina-toumei-na-kuro": [
       {
         "videoId": "mFO-Dg7vBp4",
@@ -5040,6 +5050,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "tud1RxEr5m8",
+        "title": "니시나 - 글로리　#にしな #nishina #shorts",
+        "viewCount": 17000,
+        "thumbnail": "https://i.ytimg.com/vi/tud1RxEr5m8/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 0.0,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "NZ85OFF1huQ",
         "title": "Bye-bye, sweet innocence #nishina #live #shorts",
         "viewCount": 17000,
@@ -5097,16 +5117,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 58.33333333333333,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "tud1RxEr5m8",
-        "title": "니시나 - 글로리　#にしな #nishina #shorts",
-        "viewCount": 16000,
-        "thumbnail": "https://i.ytimg.com/vi/tud1RxEr5m8/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 0.0,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -7220,6 +7230,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "Luxu6lYGnEw",
+        "title": "にしな 日々散漫 フリーライブ #にしな #nishina #shorts",
+        "viewCount": 7000,
+        "thumbnail": "https://i.ytimg.com/vi/Luxu6lYGnEw/hqdefault.jpg",
+        "songId": "nishina-weekly",
+        "lineHint": 25,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
+      },
+      {
         "videoId": "Gt1qWXNVjZs",
         "title": "Slowly, slowly, today is ending #nishina #live #shorts",
         "viewCount": 7000,
@@ -7276,16 +7296,6 @@
         "thumbnail": "https://i.ytimg.com/vi/AZgvCmAY7nU/hqdefault.jpg",
         "songId": "nishina-hot-milk",
         "lineHint": 33,
-        "matchScore": 66.66666666666667,
-        "matchMethod": "review"
-      },
-      {
-        "videoId": "Luxu6lYGnEw",
-        "title": "にしな 日々散漫 フリーライブ #にしな #nishina #shorts",
-        "viewCount": 6900,
-        "thumbnail": "https://i.ytimg.com/vi/Luxu6lYGnEw/hqdefault.jpg",
-        "songId": "nishina-weekly",
-        "lineHint": 25,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
       },
@@ -9340,6 +9350,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "pVIzcE3r6LU",
+        "title": "Thank you for Tour「日々散漫」⭐️#にしな #nishina #日々散漫 #shorts",
+        "viewCount": 4700,
+        "thumbnail": "https://i.ytimg.com/vi/pVIzcE3r6LU/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 50.0,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "8bJGMsUNMiw",
         "title": "MERRY ROCK PARADE 2025🪅🐏🎄 #nishina #live #shorts",
         "viewCount": 4700,
@@ -9508,16 +9528,6 @@
         "lineHint": 32,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
-      },
-      {
-        "videoId": "pVIzcE3r6LU",
-        "title": "Thank you for Tour「日々散漫」⭐️#にしな #nishina #日々散漫 #shorts",
-        "viewCount": 4600,
-        "thumbnail": "https://i.ytimg.com/vi/pVIzcE3r6LU/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 50.0,
-        "matchMethod": "out_of_catalog"
       },
       {
         "videoId": "juj5EzxeNBo",

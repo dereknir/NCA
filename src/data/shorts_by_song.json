@@ -2135,7 +2135,7 @@
         "title": "御心のままの生き様",
         "url": "https://www.youtube.com/shorts/Cus43_ZF12A",
         "thumbnail": "https://i.ytimg.com/vi/Cus43_ZF12A/hqdefault.jpg",
-        "viewCount": 5200,
+        "viewCount": 5300,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -3216,6 +3216,33 @@
         ]
       },
       {
+        "videoId": "7M0C7rqR7-E",
+        "title": "イカれた夜のメランルー",
+        "url": "https://www.youtube.com/shorts/7M0C7rqR7-E",
+        "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
+        "viewCount": 3400,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.48,
+            "line": 13
+          },
+          {
+            "t": 4.36,
+            "line": 14
+          },
+          {
+            "t": 6.38,
+            "line": 15
+          },
+          {
+            "t": 9.16,
+            "line": 16
+          }
+        ]
+      },
+      {
         "videoId": "P09tfty8FrQ",
         "title": "イカれた夜のメランルー",
         "url": "https://www.youtube.com/shorts/P09tfty8FrQ",
@@ -3281,33 +3308,6 @@
           },
           {
             "t": 13.89,
-            "line": 16
-          }
-        ]
-      },
-      {
-        "videoId": "7M0C7rqR7-E",
-        "title": "イカれた夜のメランルー",
-        "url": "https://www.youtube.com/shorts/7M0C7rqR7-E",
-        "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
-        "viewCount": 1000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.48,
-            "line": 13
-          },
-          {
-            "t": 4.36,
-            "line": 14
-          },
-          {
-            "t": 6.38,
-            "line": 15
-          },
-          {
-            "t": 9.16,
             "line": 16
           }
         ]
