@@ -42,3 +42,18 @@ for tpl, page, blobs in JOBS:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(html, encoding='utf-8')
     print(f'✓ {out.relative_to(HERE.parent)}({len(html)//1024}KB)')
+
+# 順手同步「出演場次清單」給 annotator (__live_song 出演演唱的場次 dropdown)
+# 這樣 live 資料更新時, annotator 的場次選單自動跟上, 不會漏。
+ev_obj = json.load(open(D / 'nishina_live_events.json', encoding='utf-8'))
+apps = sorted(ev_obj['appearance'],
+              key=lambda x: x.get('event_date') or x.get('date_text') or '', reverse=True)
+ann_apps = {
+    'meta': {'total': len(apps), 'source': 'live/data/nishina_live_events.json appearance'},
+    'appearances': [{'name': a['name'],
+                     'date': a.get('event_date') or a.get('date_text') or '',
+                     'news_url': a.get('news_url', '')} for a in apps],
+}
+ann_out = HERE.parent / 'public' / 'annotate' / 'appearances.json'
+ann_out.write_text(json.dumps(ann_apps, ensure_ascii=False, indent=2), encoding='utf-8')
+print(f'✓ {ann_out.relative_to(HERE.parent)}({len(apps)} 場)')

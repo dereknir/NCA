@@ -1,0 +1,343 @@
+{
+  "meta": {
+    "total": 67,
+    "source": "live/data/nishina_live_events.json appearance"
+  },
+  "appearances": [
+    {
+      "name": "TOKYO ISLAND 2026",
+      "date": "2026-10-10",
+      "news_url": "https://nishina247.jp/news/2075/"
+    },
+    {
+      "name": "SHINJUKU LOFT 50th ANNIVERSARY 「音鳴足知」vol.3 w 奇妙礼太郎BAND",
+      "date": "2026-09-09",
+      "news_url": "https://nishina247.jp/news/2079/"
+    },
+    {
+      "name": "RUSH BALL 2026",
+      "date": "2026-08-29",
+      "news_url": "https://nishina247.jp/news/2033/"
+    },
+    {
+      "name": "WILD BUNCH FEST.2026",
+      "date": "2026-08-22",
+      "news_url": "https://nishina247.jp/news/2021/"
+    },
+    {
+      "name": "SUMMER SONIC 2026 TOKYO",
+      "date": "2026-08-16",
+      "news_url": "https://nishina247.jp/news/2024/"
+    },
+    {
+      "name": "RISING SUN ROCK FESTIVAL 2026 in EZO",
+      "date": "2026-08-14",
+      "news_url": "https://nishina247.jp/news/2029/"
+    },
+    {
+      "name": "ツタロックフェス2026",
+      "date": "2026-03-21",
+      "news_url": "https://nishina247.jp/news/1924/"
+    },
+    {
+      "name": "COUNTDOWN JAPAN 2526",
+      "date": "2025-12-29",
+      "news_url": "https://nishina247.jp/news/1896/"
+    },
+    {
+      "name": "FM802 ROCK FESTIVAL RADIO CRAZY 2025",
+      "date": "2025-12-26",
+      "news_url": "https://nishina247.jp/news/1892/"
+    },
+    {
+      "name": "MERRY ROCK PARADE 2025",
+      "date": "2025-12-21",
+      "news_url": "https://nishina247.jp/news/1906/"
+    },
+    {
+      "name": "第66回「新大祭」 - 2025.10.19 （新潟）",
+      "date": "2025-10-19",
+      "news_url": "https://nishina247.jp/news/1875/"
+    },
+    {
+      "name": "TOKYO ISLAND 2025",
+      "date": "2025-10-13",
+      "news_url": "https://nishina247.jp/news/1740/"
+    },
+    {
+      "name": "愛工大祭",
+      "date": "2025-10-12",
+      "news_url": "https://nishina247.jp/news/1840/"
+    },
+    {
+      "name": "RUSH BALL 2025",
+      "date": "2025-08-30",
+      "news_url": "https://nishina247.jp/news/1754/"
+    },
+    {
+      "name": "SPACE SHOWER SWEET LOVE SHOWER 2025 30th ANNIVERSARY",
+      "date": "2025-08-29",
+      "news_url": "https://nishina247.jp/news/1783/"
+    },
+    {
+      "name": "TAKASAKI CITY ROCK FES.2025",
+      "date": "2025-06-28",
+      "news_url": "https://nishina247.jp/news/1686/"
+    },
+    {
+      "name": "VIVA LA ROCK 2025",
+      "date": "2025-05-04",
+      "news_url": "https://nishina247.jp/news/1677/"
+    },
+    {
+      "name": "ツタロックフェス2025",
+      "date": "2025-03-22",
+      "news_url": "https://nishina247.jp/news/1433/"
+    },
+    {
+      "name": "WurtS LIVEHOUSE TOUR Ⅳ",
+      "date": "2025-01-27",
+      "news_url": "https://nishina247.jp/news/1393/"
+    },
+    {
+      "name": "FM802 35th ANNIVERSARY“Be FUNKY!!” ROCK FESTIVAL RADIO CRAZY 2024ｰレディクレ15th- - ……",
+      "date": "2024-12-27",
+      "news_url": "https://nishina247.jp/news/1406/"
+    },
+    {
+      "name": "MERRY ROCK PARADE 2024",
+      "date": "2024-12-22",
+      "news_url": "https://nishina247.jp/news/1402/"
+    },
+    {
+      "name": "周南公立大学学園祭「ポプラ祭」",
+      "date": "2024-11-03",
+      "news_url": "https://nishina247.jp/news/1388/"
+    },
+    {
+      "name": "LIVE at 川崎学園祭",
+      "date": "2024-10-19",
+      "news_url": "https://nishina247.jp/news/1285/"
+    },
+    {
+      "name": "第４９回東北工業大学大学祭 - 祭高潮 - ARTIST LIVE 2024",
+      "date": "2024-10-13",
+      "news_url": "https://nishina247.jp/news/1308/"
+    },
+    {
+      "name": "TOMAKOMAI MIRAI FEST 2024（トマコマイ ミライ フェスト 2024）",
+      "date": "2024-09-07",
+      "news_url": "https://nishina247.jp/news/1273/"
+    },
+    {
+      "name": "RUSH BALL 2024",
+      "date": "2024-08-31",
+      "news_url": "https://nishina247.jp/news/1241/"
+    },
+    {
+      "name": "ROCK IN JAPAN FES.2024",
+      "date": "2024-08-10",
+      "news_url": "https://nishina247.jp/news/1247/"
+    },
+    {
+      "name": "ROCK KIDS 802－OCHIKEN Goes ON!!-SPECIAL LIVE",
+      "date": "2024-08-08",
+      "news_url": "https://nishina247.jp/news/1269/"
+    },
+    {
+      "name": "JOIN ALIVE 2024",
+      "date": "2024-07-13",
+      "news_url": "https://nishina247.jp/news/1227/"
+    },
+    {
+      "name": "SWEET LOVE SHOWER SPRING 2024",
+      "date": "2024-05-11",
+      "news_url": "https://nishina247.jp/news/1206/"
+    },
+    {
+      "name": "JAPAN JAM 2024",
+      "date": "2024-05-03",
+      "news_url": "https://nishina247.jp/news/1209/"
+    },
+    {
+      "name": "COUNTDOWN JAPAN 23/24",
+      "date": "2023-12-31",
+      "news_url": "https://nishina247.jp/news/1073/"
+    },
+    {
+      "name": "Date fm RADIO GIGA 令和05",
+      "date": "2023-12-29",
+      "news_url": "https://nishina247.jp/news/1155/"
+    },
+    {
+      "name": "FM802 ROCK FESTIVAL RADIO CRAZY",
+      "date": "2023-12-27",
+      "news_url": "https://nishina247.jp/news/1076/"
+    },
+    {
+      "name": "MERRY ROCK PARADE 2023",
+      "date": "2023-12-17",
+      "news_url": "https://nishina247.jp/news/1163/"
+    },
+    {
+      "name": "MELODY STAFF presents 学園祭LIVE 2023 魅夜飛行",
+      "date": "2023-11-19",
+      "news_url": "https://nishina247.jp/news/1049/"
+    },
+    {
+      "name": "東邦大学 東邦祭 ARTIST LIVE 2023",
+      "date": "2023-11-12",
+      "news_url": "https://nishina247.jp/news/1063/"
+    },
+    {
+      "name": "日比谷野音100周年 Billboard JAPAN Women In Music vol.1 Supported by CASIO",
+      "date": "2023-11-03",
+      "news_url": "https://nishina247.jp/news/1009/"
+    },
+    {
+      "name": "徳島大学常三島祭〜阿呆になってもかんまんよ〜",
+      "date": "2023-10-28",
+      "news_url": "https://nishina247.jp/news/1031/"
+    },
+    {
+      "name": "Eggs presents FM802 MINAMI WHEEL 2023",
+      "date": "2023-10-09",
+      "news_url": "https://nishina247.jp/news/1012/"
+    },
+    {
+      "name": "BEAT PHOENIX 2023",
+      "date": "2023-09-24",
+      "news_url": "https://nishina247.jp/news/992/"
+    },
+    {
+      "name": "WILD BUNCH FEST.2023",
+      "date": "2023-09-16",
+      "news_url": "https://nishina247.jp/news/958/"
+    },
+    {
+      "name": "TREASURE05X 2023 20th Anniversary",
+      "date": "2023-08-22",
+      "news_url": "https://nishina247.jp/news/966/"
+    },
+    {
+      "name": "NUMBER SHOT 2023（福岡）",
+      "date": "2023-07-23",
+      "news_url": "https://nishina247.jp/news/937/"
+    },
+    {
+      "name": "クランベリージャムをかけて：仙台Rensa公演に関して",
+      "date": "2023-07-16",
+      "news_url": "https://nishina247.jp/news/995/"
+    },
+    {
+      "name": "ROCK KIDS 802-OCHIKEN Goes ON!!-SPECIAL LIVE HIGH!HIGH!HIGH! supported by ナカバヤ……",
+      "date": "2023-07-01",
+      "news_url": "https://nishina247.jp/news/954/"
+    },
+    {
+      "name": "METROCK2023（東京）",
+      "date": "2023-05-20",
+      "news_url": "https://nishina247.jp/news/904/"
+    },
+    {
+      "name": "JAPAN JAM 2023",
+      "date": "2023-05-06",
+      "news_url": "https://nishina247.jp/news/889/"
+    },
+    {
+      "name": "VIVA LA ROCK 2023",
+      "date": "2023-05-05",
+      "news_url": "https://nishina247.jp/news/862/"
+    },
+    {
+      "name": "ARABAKI ROCK FEST.23",
+      "date": "2023-04-30",
+      "news_url": "https://nishina247.jp/news/871/"
+    },
+    {
+      "name": "FM NORTH WAVE & WESS PRESENTS IMPACT！XIX supported by アルキタ",
+      "date": "2023-04-01",
+      "news_url": "https://nishina247.jp/news/910/"
+    },
+    {
+      "name": "FM802 ROCK FESTIVAL RADIO CRAZY 2022",
+      "date": "2022-12-26",
+      "news_url": "https://nishina247.jp/news/826/"
+    },
+    {
+      "name": "COUNTDOWN JAPAN22/23",
+      "date": "2022-12-25",
+      "news_url": "https://nishina247.jp/news/775/"
+    },
+    {
+      "name": "Merry Rock Parade 2022",
+      "date": "2022-12-23",
+      "news_url": "https://nishina247.jp/news/847/"
+    },
+    {
+      "name": "TOKYO ISLAND",
+      "date": "2022-09-24",
+      "news_url": "https://nishina247.jp/news/703/"
+    },
+    {
+      "name": "WILD BUNCH FEST.2022",
+      "date": "2022-09-19",
+      "news_url": "https://nishina247.jp/news/683/"
+    },
+    {
+      "name": "SWEET LOVE SHOWER 2022",
+      "date": "2022-08-28",
+      "news_url": "https://nishina247.jp/news/699/"
+    },
+    {
+      "name": "『BE FES!!』",
+      "date": "2022-07-05",
+      "news_url": "https://nishina247.jp/news/469/"
+    },
+    {
+      "name": "ぴあ 50thAnniversary PIA MUSIC COMPLEX 2022 - 10 .1",
+      "date": "2022-06-20",
+      "news_url": "https://nishina247.jp/news/669/"
+    },
+    {
+      "name": "Distinct Musics",
+      "date": "2022-05-15",
+      "news_url": "https://nishina247.jp/news/581/"
+    },
+    {
+      "name": "VIVA LA ROCK 2022",
+      "date": "2022-05-04",
+      "news_url": "https://nishina247.jp/news/492/"
+    },
+    {
+      "name": "ARABAKI ROCK FEST.22",
+      "date": "2022-01-26",
+      "news_url": "https://nishina247.jp/news/509/"
+    },
+    {
+      "name": "MERRY ROCK PARADE",
+      "date": "2021-12-18",
+      "news_url": "https://nishina247.jp/news/407/"
+    },
+    {
+      "name": "FM802 RADIO CRAZY presents LIVE HOUSE Antenna -GSシリーズｰ 2022.1.6",
+      "date": "2021-11-27",
+      "news_url": "https://nishina247.jp/news/432/"
+    },
+    {
+      "name": "PLAYLIST FESTIVAL2021",
+      "date": "2021-09-11",
+      "news_url": "https://nishina247.jp/news/315/"
+    },
+    {
+      "name": "SPACE SHOWER SWEET LOVE SHOWER 2021 -25th ANNIVERSARY",
+      "date": "2021-08-29",
+      "news_url": "https://nishina247.jp/news/293/"
+    },
+    {
+      "name": "RUSH BALL 2021",
+      "date": "2021-08-28",
+      "news_url": "https://nishina247.jp/news/269/"
+    }
+  ]
+}

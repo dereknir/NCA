@@ -28,6 +28,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 ANCHORS_FILE = ROOT / "annotation" / "shorts_anchors.json"
 SHORTS_FILE = ROOT / "data" / "nishina_shorts.json"
+LYRICS_FILE = ROOT / "data" / "lyrics.json"   # 供 __live_song 把 liveSongId → 歌名
 OUT_BY_SONG = ROOT / "src" / "data" / "shorts_by_song.json"
 OUT_EXTRAS = ROOT / "src" / "data" / "shorts_extras.json"
 OUT_TOURS = ROOT / "src" / "data" / "shorts_tours.json"
@@ -44,6 +45,7 @@ EXTRA_CATEGORIES = {
     "__travel": {"key": "travel", "displayName": "旅行",            "emoji": "✈️"},
     "__yearly": {"key": "yearly", "displayName": "年度回顧",        "emoji": "🎉"},
     "__daily":  {"key": "daily",  "displayName": "日常",            "emoji": "☕"},
+    "__live_song": {"key": "live_song", "displayName": "出演演唱", "emoji": "🎸"},
 }
 
 
@@ -66,6 +68,9 @@ def main():
     anchors = json.loads(ANCHORS_FILE.read_text(encoding="utf-8"))
     shorts_meta = json.loads(SHORTS_FILE.read_text(encoding="utf-8"))
     by_id = {s["id"]: s for s in shorts_meta["shorts"]}
+    # liveSongId → 歌名 (供 __live_song entry 補歌名; lyrics.json 缺檔則留空 map)
+    lyrics = json.loads(LYRICS_FILE.read_text(encoding="utf-8")) if LYRICS_FILE.exists() else {"songs": []}
+    song_titles = {s["id"]: s.get("title") for s in lyrics.get("songs", [])}
 
     by_song = defaultdict(list)          # real songs only
     by_extra = defaultdict(list)         # non-song categories (__ad/__promo/__mc/__cover/__tv)
@@ -99,6 +104,12 @@ def main():
                 skipped["others_bucket"] += 1
                 continue
             if sid in EXTRA_CATEGORIES:
+                # __live_song 出演演唱: 補「哪一場 + 哪首歌」給 /extras/ 卡片標題用
+                if sid == "__live_song":
+                    entry["appearanceName"] = (ann.get("appearanceName") or "").strip() or None
+                    lsid = ann.get("liveSongId")
+                    entry["songId"] = lsid or None
+                    entry["songTitle"] = song_titles.get(lsid) if lsid else None
                 by_extra[sid].append(entry)
             # 未知的 __-prefix 靜默忽略 (schema 保護)
             continue
