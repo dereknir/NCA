@@ -391,13 +391,6 @@ function updateSyncStatus(){
 async function boot(){
   restore();
   updateSyncStatus();
-  // 若已設 token, 從 GitHub 拉最新 baseline 蓋在 localStorage 之上 (非 dirty 部分)
-  if(getToken()){
-    fetchBaseline().then(() => renderQueue?.()).catch(err => {
-      console.warn('[boot] baseline fetch failed:', err);
-      setSyncStatus('error', 'baseline 讀取失敗 (' + (err && err.message ? err.message : err) + ')');
-    });
-  }
   try{
     const [q, l, t, a] = await Promise.all([
       fetch('annotation_queue.json').then(r=>r.json()),
@@ -410,6 +403,15 @@ async function boot(){
     initData(q, l, t, a);
     document.getElementById('dropzone').classList.add('hidden');
   }catch(e){ /* 留在拖放畫面 */ }
+  // 資料就緒 (initData 已設好 S.queue) 後才拉 baseline。
+  // 若順序顛倒, fetchBaseline 先完成會呼叫 renderQueue → 撞到還沒初始化的 S.queue
+  // → Object.values(undefined) 爆 "Cannot convert undefined or null to object"。
+  if(getToken()){
+    fetchBaseline().then(() => renderQueue?.()).catch(err => {
+      console.warn('[boot] baseline fetch failed:', err);
+      setSyncStatus('error', 'baseline 讀取失敗 (' + (err && err.message ? err.message : err) + ')');
+    });
+  }
 }
 function initData(queueFile, lyricsFile, setlistsFile, appearancesFile){
   S.queue = queueFile.queue;
@@ -467,6 +469,7 @@ window.onYouTubeIframeAPIReady = () => {
 
 /* ---------- 佇列側欄 ---------- */
 function renderQueue(){
+  if(!S.queue) return;   // 競態保護: S.queue 還沒被 initData 設好就別 render (否則 Object.values 會爆)
   const el = document.getElementById('queuePanel'); el.innerHTML='';
 
   // 動態分組: 優先順序
