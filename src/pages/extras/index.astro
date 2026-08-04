@@ -92,15 +92,22 @@ function formatViews(n: number): string {
               </div>
             )}
             {cat.shorts.map(s => (
-              <a href={s.url} target="_blank" rel="noopener noreferrer"
-                 class="group block rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700
-                        bg-white dark:bg-gray-800/50 hover:shadow-lg hover:-translate-y-0.5 transition">
-                <div class="aspect-[9/16] overflow-hidden bg-gray-100 dark:bg-gray-900 relative">
+              <div class="group block rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700
+                          bg-white dark:bg-gray-800/50 hover:shadow-lg transition">
+                <div class="thumb-wrap aspect-[9/16] overflow-hidden bg-gray-100 dark:bg-gray-900 relative cursor-pointer"
+                     data-vid={s.videoId}>
                   <img src={s.thumbnail} alt={s.title} loading="lazy"
-                       class="w-full h-full object-cover group-hover:scale-105 transition" />
-                  <div class="absolute bottom-1 right-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded font-mono">
+                       class="thumb-img w-full h-full object-cover group-hover:scale-105 transition" />
+                  <div class="play-ov absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div class="w-12 h-12 rounded-full bg-black/55 group-hover:bg-red-600/90 transition flex items-center justify-center">
+                      <svg class="w-5 h-5" style="margin-left:2px" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                  </div>
+                  <div class="views-badge absolute bottom-1 right-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded font-mono pointer-events-none">
                     ▶ {formatViews(s.viewCount)}
                   </div>
+                  <a href={s.url} target="_blank" rel="noopener noreferrer" title="在 YouTube 開啟"
+                     class="yt-link absolute top-1 right-1 bg-black/60 hover:bg-red-600 text-white text-sm w-6 h-6 rounded flex items-center justify-center opacity-0 group-hover:opacity-100 transition">↗</a>
                 </div>
                 <div class="p-2.5">
                   {(s.appearanceName || s.songTitle) ? (
@@ -118,7 +125,7 @@ function formatViews(n: number): string {
                     </div>
                   )}
                 </div>
-              </a>
+              </div>
             ))}
           </section>
         ))}
@@ -143,7 +150,42 @@ function formatViews(n: number): string {
         document.querySelectorAll('.extras-panel').forEach(p => {
           p.classList.toggle('hidden', p.dataset.panel !== key);
         });
+        stopAllPlaying();   // 切 tab 時停掉正在播的 short
       });
     });
+
+    // 花絮卡片: 點縮圖 → 就地內嵌 YouTube 播放 (不跳頁、不彈窗; 一次只播一個)
+    function stopAllPlaying(except){
+      document.querySelectorAll('.thumb-wrap.playing').forEach(w => {
+        if (w === except) return;
+        w.classList.remove('playing');
+        const f = w.querySelector('iframe');
+        if (f) f.remove();
+      });
+    }
+    document.querySelectorAll('.thumb-wrap').forEach(w => {
+      w.addEventListener('click', () => {
+        if (w.classList.contains('playing')) return;   // 已在播, 忽略
+        stopAllPlaying(w);
+        const ifr = document.createElement('iframe');
+        ifr.src = `https://www.youtube.com/embed/${w.dataset.vid}?autoplay=1&playsinline=1&rel=0`;
+        ifr.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        ifr.setAttribute('allowfullscreen', '');
+        ifr.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0';
+        w.appendChild(ifr);
+        w.classList.add('playing');
+      });
+    });
+    // 右上角 ↗ 只去 YouTube 原頁, 不觸發就地播放
+    document.querySelectorAll('.yt-link').forEach(a =>
+      a.addEventListener('click', e => e.stopPropagation()));
   </script>
+
+  <style>
+    /* 就地播放時, 蓋掉縮圖/播放鈕/角標 (iframe 已定位在 .thumb-wrap 內填滿) */
+    .thumb-wrap.playing .thumb-img,
+    .thumb-wrap.playing .play-ov,
+    .thumb-wrap.playing .views-badge,
+    .thumb-wrap.playing .yt-link { display: none; }
+  </style>
 </BaseLayout>
