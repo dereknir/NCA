@@ -2636,8 +2636,49 @@
   },
   "6xvRNydvGxA": {
     "songId": "nishina-eden",
-    "anchors": [],
-    "status": "pending",
+    "anchors": [
+      {
+        "t": 0.98,
+        "line": 48
+      },
+      {
+        "t": 3.59,
+        "line": 49
+      },
+      {
+        "t": 6.44,
+        "line": 50
+      },
+      {
+        "t": 9.27,
+        "line": 51
+      },
+      {
+        "t": 12.18,
+        "line": 52
+      },
+      {
+        "t": 15.61,
+        "line": 53
+      },
+      {
+        "t": 17.98,
+        "line": 54
+      },
+      {
+        "t": 21.43,
+        "line": 55
+      },
+      {
+        "t": 24.97,
+        "line": 56
+      },
+      {
+        "t": 26.19,
+        "line": 57
+      }
+    ],
+    "status": "done",
     "versionType": "live",
     "instrumental": false
   },
@@ -2810,11 +2851,13 @@
     "instrumental": false
   },
   "w4JjAipFj1k": {
-    "songId": "nishina-kedamono-no-friends",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "JAPAN JAM 2023",
+    "liveSongId": "nishina-kedamono-no-friends"
   },
   "vwzwsZqouu0": {
     "songId": "nishina-u-plus",
@@ -2925,11 +2968,13 @@
     "instrumental": false
   },
   "0O4a0IntwNI": {
-    "songId": "nishina-kedamono-no-friends",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "JAPAN JAM 2024",
+    "liveSongId": "nishina-kedamono-no-friends"
   },
   "XLbZ4y-ULyw": {
     "songId": "nishina-u-plus",
@@ -3009,9 +3054,9 @@
     "instrumental": false
   },
   "ZPNS0tul3eU": {
-    "songId": "nishina-its-a-piece-of-cake",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -3163,11 +3208,13 @@
     "instrumental": false
   },
   "pmJSVjlqetM": {
-    "songId": "nishina-u-plus",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "JAPAN JAM 2024",
+    "liveSongId": "nishina-u-plus"
   },
   "JVi6D1nCdP0": {
     "songId": "__mc",
@@ -3268,11 +3315,12 @@
     "instrumental": false
   },
   "gVT3oG3adHc": {
-    "songId": "nishina-wawon",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "日々散漫"
   },
   "wnzTI7dUVLo": {
     "songId": "nishina-tokyo-marble",
@@ -3752,11 +3800,13 @@
     "instrumental": false
   },
   "DujGcmQVB_M": {
-    "songId": "nishina-ainikoi",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "VIVA LA ROCK 2023",
+    "liveSongId": "nishina-ainikoi"
   },
   "D4YC1oG2XB4": {
     "songId": "nishina-1999",
@@ -3766,11 +3816,12 @@
     "instrumental": false
   },
   "pH3TEhMzHsY": {
-    "songId": "nishina-cranberry-jam",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "日々散漫"
   },
   "wtOJUawVFSs": {
     "songId": "nishina-haru-ichiban",
@@ -4024,11 +4075,13 @@
     "instrumental": false
   },
   "V2mdVqI5PvA": {
-    "songId": "nishina-kedamono-no-friends",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "METROCK2023（東京）",
+    "liveSongId": "nishina-kedamono-no-friends"
   },
   "CICk-ZwFl64": {
     "songId": "__promo",
@@ -4144,11 +4197,13 @@
     "instrumental": false
   },
   "SFMtKhfp5Pw": {
-    "songId": "nishina-wawon",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "VIVA LA ROCK 2025",
+    "liveSongId": "nishina-wawon"
   },
   "gDF-LZoLiIY": {
     "songId": "nishina-heavy-smoke",
@@ -4437,11 +4492,12 @@
     "instrumental": false
   },
   "FBJ-ofcWoKo": {
-    "songId": "nishina-bugs",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "日々散漫"
   },
   "wYy008dugZ8": {
     "songId": "nishina-nekoze",
@@ -4620,11 +4676,12 @@
     "instrumental": false
   },
   "aY6fNSKHcW8": {
-    "songId": "nishina-ainikoi",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "クランベリージャムをかけて"
   },
   "iMeyK_VlQv0": {
     "songId": "nishina-twinkle-little-star",
@@ -4803,11 +4860,12 @@
     "instrumental": false
   },
   "qFGJ4_ramEY": {
-    "songId": "nishina-u-plus",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "Feeling"
   },
   "Gt1qWXNVjZs": {
     "songId": "nishina-sugar-spot",
@@ -4964,7 +5022,7 @@
         "line": 21
       }
     ],
-    "status": "pending",
+    "status": "done",
     "versionType": "live",
     "instrumental": false
   },
@@ -5043,11 +5101,13 @@
     "instrumental": false
   },
   "43GGFCnMi24": {
-    "songId": "nishina-1999",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "RUSH BALL 2025",
+    "liveSongId": "nishina-1999"
   },
   "i2sESz_j4gY": {
     "songId": "nishina-wawon",
@@ -5057,11 +5117,13 @@
     "instrumental": false
   },
   "mEkPr3A8U8g": {
-    "songId": "nishina-santa-girl",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "WurtS LIVEHOUSE TOUR Ⅳ",
+    "liveSongId": "nishina-santa-girl"
   },
   "-ITNZfv7GYs": {
     "songId": "nishina-cranberry-jam",
@@ -5106,11 +5168,13 @@
     "instrumental": false
   },
   "-VKLl_ZFTkM": {
-    "songId": "nishina-kedamono-no-friends",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "COUNTDOWN JAPAN 2526",
+    "liveSongId": "nishina-kedamono-no-friends"
   },
   "1peeN6xMKB8": {
     "songId": "nishina-rendezvous",
@@ -5649,9 +5713,9 @@
     "instrumental": false
   },
   "k4a2zg4nvzM": {
-    "songId": "nishina-ainikoi",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -5734,11 +5798,13 @@
     "instrumental": false
   },
   "AI_kn8opUaE": {
-    "songId": "nishina-kedamono-no-friends",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "WurtS LIVEHOUSE TOUR Ⅳ",
+    "liveSongId": "nishina-kedamono-no-friends"
   },
   "CavV6NCZBOM": {
     "songId": "nishina-bugs",
@@ -5999,18 +6065,20 @@
     "instrumental": false
   },
   "0la2Qo0Ncro": {
-    "songId": "nishina-cranberry-jam",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "MUSICK 2"
   },
   "C_2JZ6gyS1M": {
-    "songId": "nishina-wawon",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "MUSICK 2"
   },
   "o8bU3JLHV7Y": {
     "songId": "nishina-darling",
@@ -6048,11 +6116,13 @@
     "instrumental": false
   },
   "8zamy2YvBZA": {
-    "songId": "__promo",
+    "songId": "__live_song",
     "anchors": [],
     "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "WILD BUNCH FEST.2023",
+    "liveSongId": "nishina-tokyo-marble"
   },
   "YV-OrmnbIec": {
     "songId": "nishina-haru-ichiban",
@@ -6224,11 +6294,13 @@
     "instrumental": false
   },
   "NINFJtKKqAQ": {
-    "songId": "nishina-kedamono-no-friends",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "SWEET LOVE SHOWER SPRING 2024",
+    "liveSongId": "nishina-kedamono-no-friends"
   },
   "mAZU_hPXe04": {
     "songId": "nishina-bugs",
@@ -6423,11 +6495,13 @@
     "instrumental": false
   },
   "CKnnZeApBD4": {
-    "songId": "nishina-1999",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "FM802 ROCK FESTIVAL RADIO CRAZY 2025",
+    "liveSongId": "nishina-1999"
   },
   "pIwlwfINUIs": {
     "songId": "nishina-panda-girl",
@@ -6459,11 +6533,12 @@
     "instrumental": false
   },
   "JgT8Tfu5dls": {
-    "songId": "__mc",
+    "songId": "__live_song",
     "anchors": [],
     "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "TOMAKOMAI MIRAI FEST 2024（トマコマイ ミライ フェスト 2024）"
   },
   "zNdETVBQ90I": {
     "songId": "nishina-bugs",
@@ -6572,11 +6647,13 @@
     "instrumental": false
   },
   "8bJGMsUNMiw": {
-    "songId": "nishina-wawon",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "MERRY ROCK PARADE 2025",
+    "liveSongId": "nishina-wawon"
   },
   "z-MxxQrpDrE": {
     "songId": "nishina-wawon",
@@ -6663,11 +6740,12 @@
     "instrumental": false
   },
   "65XQlG-k18I": {
-    "songId": "nishina-bugs",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "Feeling"
   },
   "BTjZCrdAv0s": {
     "songId": "nishina-tougenkyou",
@@ -6842,11 +6920,13 @@
     "instrumental": false
   },
   "SxoGpYjHGms": {
-    "songId": "nishina-plum",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "TAKASAKI CITY ROCK FES.2025",
+    "liveSongId": "nishina-plum"
   },
   "BKPcV0HU_Pc": {
     "songId": "__ad",
@@ -6856,11 +6936,13 @@
     "instrumental": false
   },
   "0uX9IZM0Mo4": {
-    "songId": "nishina-kedamono-no-friends",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "第４９回東北工業大学大学祭 - 祭高潮 - ARTIST LIVE 2024",
+    "liveSongId": "nishina-kedamono-no-friends"
   },
   "tVP-zhXR37o": {
     "songId": "nishina-haru-ichiban",
@@ -7187,11 +7269,12 @@
     "instrumental": false
   },
   "qn5Taa-E3I0": {
-    "songId": "nishina-its-a-piece-of-cake",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "SUPER COMPLEX"
   },
   "ROj_oeprwl0": {
     "songId": "nishina-its-a-piece-of-cake",
@@ -7264,16 +7347,17 @@
     "instrumental": false
   },
   "KAIRNBdSmAw": {
-    "songId": "nishina-its-a-piece-of-cake",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "MUSICK 2"
   },
   "2VF3uZmYXE8": {
-    "songId": "nishina-tsukushi",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -7492,11 +7576,12 @@
     "instrumental": false
   },
   "jQTNRsGGtDA": {
-    "songId": "nishina-1999",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "Feeling"
   },
   "50fLaNAYr2Q": {
     "songId": "nishina-heavy-smoke",
@@ -7654,11 +7739,13 @@
     "instrumental": false
   },
   "9NZXQa8LbtI": {
-    "songId": "nishina-kedamono-no-friends",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "ROCK KIDS 802-OCHIKEN Goes ON!!-SPECIAL LIVE HIGH!HIGH!HIGH! supported by ナカバヤ……",
+    "liveSongId": "nishina-kedamono-no-friends"
   },
   "fiBdM0Jr7IY": {
     "songId": "nishina-rendezvous",
@@ -7689,11 +7776,12 @@
     "instrumental": false
   },
   "9003mxoDv28": {
-    "songId": "nishina-cranberry-jam",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "Feeling"
   },
   "FLNxjHL3NCI": {
     "songId": "nishina-heavy-smoke",
@@ -7703,11 +7791,13 @@
     "instrumental": false
   },
   "JOa6aRmpXgo": {
-    "songId": "nishina-cranberry-jam",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "Eggs presents FM802 MINAMI WHEEL 2023",
+    "liveSongId": "nishina-cranberry-jam"
   },
   "V_WrZSRCNEY": {
     "songId": "nishina-adaada",
@@ -7738,11 +7828,13 @@
     "instrumental": false
   },
   "HTclEsGBcwI": {
-    "songId": "nishina-wawon",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "MERRY ROCK PARADE 2024",
+    "liveSongId": "nishina-wawon"
   },
   "y7Pi9bzO99E": {
     "songId": "nishina-plum",
@@ -8067,11 +8159,12 @@
     "instrumental": false
   },
   "apr_3eZNPzA": {
-    "songId": "nishina-cranberry-jam",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "日々散漫"
   },
   "nezNk2kigVA": {
     "songId": "nishina-adaada",
@@ -8439,16 +8532,16 @@
     "instrumental": false
   },
   "ge-BgDs08z0": {
-    "songId": "nishina-yonagi",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
   "KAqlP5DPClw": {
-    "songId": "nishina-ainikoi",
+    "songId": "__yearly",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -8565,11 +8658,12 @@
     "instrumental": false
   },
   "1-0XTkh5IDA": {
-    "songId": "nishina-adaada",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "日々散漫"
   },
   "BuYthQSjo4o": {
     "songId": "nishina-nekoze",
@@ -8586,11 +8680,12 @@
     "instrumental": false
   },
   "MATX72fFr7Q": {
-    "songId": "nishina-ainikoi",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "Feeling"
   },
   "zaTxyFS2M_0": {
     "songId": "nishina-centi",
@@ -8635,11 +8730,13 @@
     "instrumental": false
   },
   "P7LCfZSIsY8": {
-    "songId": "nishina-ainikoi",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "TREASURE05X 2023 20th Anniversary",
+    "liveSongId": "nishina-ainikoi"
   },
   "WZ02xijoSPY": {
     "songId": "nishina-bugs",
@@ -9032,9 +9129,9 @@
     "instrumental": false
   },
   "SdW7Z2GaJUg": {
-    "songId": "nishina-tsukushi",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -9151,11 +9248,12 @@
     "instrumental": false
   },
   "P4_PyXZXi7s": {
-    "songId": "nishina-plum",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "SUPER COMPLEX"
   },
   "A2aD18w8VSc": {
     "songId": "nishina-nekoze",
@@ -9872,6 +9970,56 @@
   },
   "tud1RxEr5m8": {
     "songId": "nishina-glory",
+    "anchors": [],
+    "status": "pending",
+    "versionType": null,
+    "instrumental": false
+  },
+  "nnsjg6zguKU": {
+    "songId": "nishina-bugs",
+    "anchors": [],
+    "status": "pending",
+    "versionType": null,
+    "instrumental": false
+  },
+  "XTck3jyE1Sg": {
+    "songId": "nishina-rinne",
+    "anchors": [],
+    "status": "pending",
+    "versionType": null,
+    "instrumental": false
+  },
+  "5H9rF_KhD2w": {
+    "songId": "nishina-twinkle-little-star",
+    "anchors": [],
+    "status": "pending",
+    "versionType": null,
+    "instrumental": false
+  },
+  "5ss09eEBrT4": {
+    "songId": "__tour_recap",
+    "anchors": [],
+    "status": "done",
+    "versionType": null,
+    "instrumental": false,
+    "tourName": "MUSICK"
+  },
+  "sJXnAjW8V3U": {
+    "songId": "nishina-weekly",
+    "anchors": [],
+    "status": "pending",
+    "versionType": null,
+    "instrumental": false
+  },
+  "nU_zlmug_cw": {
+    "songId": "__promo",
+    "anchors": [],
+    "status": "done",
+    "versionType": null,
+    "instrumental": false
+  },
+  "kChBdgAjKkw": {
+    "songId": "nishina-tsukushi",
     "anchors": [],
     "status": "pending",
     "versionType": null,
