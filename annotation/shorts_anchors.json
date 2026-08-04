@@ -2684,9 +2684,46 @@
   },
   "-taxutqYsAs": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 1.9,
+        "line": 9
+      },
+      {
+        "t": 4.06,
+        "line": 10
+      },
+      {
+        "t": 9.8,
+        "line": 11
+      },
+      {
+        "t": 14.74,
+        "line": 12
+      },
+      {
+        "t": 19.09,
+        "line": 13
+      },
+      {
+        "t": 20.8,
+        "line": 14
+      },
+      {
+        "t": 22.72,
+        "line": 15
+      },
+      {
+        "t": 24.22,
+        "line": 16
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "DQgFKD92VJw": {
@@ -2705,9 +2742,34 @@
   },
   "UxV0bLP2goA": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 16
+      },
+      {
+        "t": 3.3,
+        "line": 17
+      },
+      {
+        "t": 7.64,
+        "line": 18
+      },
+      {
+        "t": 9.19,
+        "line": 19
+      },
+      {
+        "t": 11.39,
+        "line": 20
+      },
+      {
+        "t": 12.86,
+        "line": 21
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "KCLbhtNyPFY": {
@@ -3629,9 +3691,34 @@
   },
   "jM-ul7hH1ck": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 2.16,
+        "line": 11
+      },
+      {
+        "t": 7.03,
+        "line": 12
+      },
+      {
+        "t": 11.27,
+        "line": 13
+      },
+      {
+        "t": 13.14,
+        "line": 14
+      },
+      {
+        "t": 15.28,
+        "line": 15
+      },
+      {
+        "t": 16.43,
+        "line": 16
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "CdgtvBdqeB8": {
@@ -4350,9 +4437,30 @@
   },
   "_etviI2uSqo": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 2
+      },
+      {
+        "t": 2.91,
+        "line": 3
+      },
+      {
+        "t": 5.46,
+        "line": 4
+      },
+      {
+        "t": 10.79,
+        "line": 5
+      },
+      {
+        "t": 12.96,
+        "line": 6
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "uhKgvJ7MKmE": {
@@ -4406,9 +4514,50 @@
   },
   "TeWqLTNYOys": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0.59,
+        "line": 27
+      },
+      {
+        "t": 3.97,
+        "line": 28
+      },
+      {
+        "t": 8.01,
+        "line": 29
+      },
+      {
+        "t": 9.98,
+        "line": 30
+      },
+      {
+        "t": 11.84,
+        "line": 31
+      },
+      {
+        "t": 17.96,
+        "line": 32
+      },
+      {
+        "t": 22.63,
+        "line": 33
+      },
+      {
+        "t": 25.28,
+        "line": 34
+      },
+      {
+        "t": 27.15,
+        "line": 35
+      },
+      {
+        "t": 30.63,
+        "line": 36
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "qMKbXvCPKZI": {
@@ -4720,9 +4869,54 @@
   },
   "c6SoI6gwKs8": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 11
+      },
+      {
+        "t": 5.18,
+        "line": 12
+      },
+      {
+        "t": 9.25,
+        "line": 13
+      },
+      {
+        "t": 11.26,
+        "line": 14
+      },
+      {
+        "t": 13.29,
+        "line": 15
+      },
+      {
+        "t": 14.91,
+        "line": 16
+      },
+      {
+        "t": 20.15,
+        "line": 17
+      },
+      {
+        "t": 24.48,
+        "line": 18
+      },
+      {
+        "t": 26.02,
+        "line": 19
+      },
+      {
+        "t": 28.01,
+        "line": 20
+      },
+      {
+        "t": 29.73,
+        "line": 21
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "bpMWvqxEn38": {
@@ -5389,16 +5583,62 @@
   },
   "5Chryig6FFg": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 16
+      },
+      {
+        "t": 3.36,
+        "line": 17
+      },
+      {
+        "t": 7.71,
+        "line": 18
+      },
+      {
+        "t": 9.14,
+        "line": 19
+      },
+      {
+        "t": 11.64,
+        "line": 20
+      },
+      {
+        "t": 13.13,
+        "line": 21
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "_HLqNCtWJQw": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 27
+      },
+      {
+        "t": 5.98,
+        "line": 28
+      },
+      {
+        "t": 10.29,
+        "line": 29
+      },
+      {
+        "t": 12.25,
+        "line": 30
+      },
+      {
+        "t": 14.03,
+        "line": 31
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "19XGpiBB8bY": {
@@ -5941,8 +6181,53 @@
   },
   "kYZEZAWwels": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 11
+      },
+      {
+        "t": 3.54,
+        "line": 12
+      },
+      {
+        "t": 7.69,
+        "line": 13
+      },
+      {
+        "t": 9.54,
+        "line": 14
+      },
+      {
+        "t": 11.5,
+        "line": 15
+      },
+      {
+        "t": 12.95,
+        "line": 16
+      },
+      {
+        "t": 18.28,
+        "line": 17
+      },
+      {
+        "t": 22.71,
+        "line": 18
+      },
+      {
+        "t": 24.17,
+        "line": 19
+      },
+      {
+        "t": 26.57,
+        "line": 20
+      },
+      {
+        "t": 28.06,
+        "line": 21
+      }
+    ],
+    "status": "done",
     "versionType": "mv",
     "instrumental": false
   },
@@ -6052,16 +6337,70 @@
   },
   "ZtUPwjn62ME": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 39
+      },
+      {
+        "t": 6.37,
+        "line": 40
+      },
+      {
+        "t": 11.07,
+        "line": 41
+      },
+      {
+        "t": 15.58,
+        "line": 42
+      },
+      {
+        "t": 17.19,
+        "line": 43
+      },
+      {
+        "t": 19.17,
+        "line": 44
+      },
+      {
+        "t": 20.58,
+        "line": 45
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "gBAtjLs2FCo": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 6
+      },
+      {
+        "t": 3.3,
+        "line": 7
+      },
+      {
+        "t": 7.3,
+        "line": 8
+      },
+      {
+        "t": 9.38,
+        "line": 9
+      },
+      {
+        "t": 11.19,
+        "line": 10
+      },
+      {
+        "t": 17.2,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "0la2Qo0Ncro": {
@@ -6386,9 +6725,30 @@
   },
   "148NBvzv7Jg": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 32
+      },
+      {
+        "t": 3.27,
+        "line": 33
+      },
+      {
+        "t": 7.58,
+        "line": 34
+      },
+      {
+        "t": 9.35,
+        "line": 35
+      },
+      {
+        "t": 11.3,
+        "line": 36
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "GedtXsJewbc": {
@@ -6505,8 +6865,33 @@
   },
   "pIwlwfINUIs": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
+    "anchors": [
+      {
+        "t": 0.36,
+        "line": 21
+      },
+      {
+        "t": 2.08,
+        "line": 22
+      },
+      {
+        "t": 4.1,
+        "line": 23
+      },
+      {
+        "t": 7.84,
+        "line": 24
+      },
+      {
+        "t": 9.71,
+        "line": 25
+      },
+      {
+        "t": 11.68,
+        "line": 26
+      }
+    ],
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -6664,9 +7049,30 @@
   },
   "-qHKwpeVOQg": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 32
+      },
+      {
+        "t": 3.35,
+        "line": 33
+      },
+      {
+        "t": 7.73,
+        "line": 34
+      },
+      {
+        "t": 9.36,
+        "line": 35
+      },
+      {
+        "t": 11.35,
+        "line": 36
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "Nm6gEcKL__I": {
@@ -6900,9 +7306,30 @@
   },
   "OOGuZ-SEMhA": {
     "songId": "nishina-panda-girl",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 36
+      },
+      {
+        "t": 3.66,
+        "line": 37
+      },
+      {
+        "t": 7.64,
+        "line": 38
+      },
+      {
+        "t": 11.15,
+        "line": 39
+      },
+      {
+        "t": 17.21,
+        "line": 40
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "aNjtZ6EowaU": {
@@ -9962,9 +10389,9 @@
     "instrumental": false
   },
   "N-bB7X18OYM": {
-    "songId": "nishina-panda-girl",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -9976,10 +10403,39 @@
     "instrumental": false
   },
   "nnsjg6zguKU": {
-    "songId": "nishina-bugs",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "songId": "nishina-panda-girl",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 21
+      },
+      {
+        "t": 2.05,
+        "line": 22
+      },
+      {
+        "t": 3.86,
+        "line": 23
+      },
+      {
+        "t": 8.23,
+        "line": 24
+      },
+      {
+        "t": 10,
+        "line": 25
+      },
+      {
+        "t": 11.94,
+        "line": 26
+      },
+      {
+        "t": 12.61,
+        "line": 27
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "XTck3jyE1Sg": {
@@ -10023,6 +10479,45 @@
     "anchors": [],
     "status": "pending",
     "versionType": null,
+    "instrumental": false
+  },
+  "CrXPBERe67E": {
+    "songId": "nishina-bugs",
+    "anchors": [],
+    "status": "pending",
+    "versionType": null,
+    "instrumental": false
+  },
+  "nywcYurtoRk": {
+    "songId": "nishina-panda-girl",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 11
+      },
+      {
+        "t": 3.19,
+        "line": 12
+      },
+      {
+        "t": 7.53,
+        "line": 13
+      },
+      {
+        "t": 9.54,
+        "line": 14
+      },
+      {
+        "t": 11.54,
+        "line": 15
+      },
+      {
+        "t": 12.79,
+        "line": 16
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   }
 }
