@@ -283,8 +283,23 @@ async function fetchBaseline(){
   const headers = { 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28' };
   if(t) headers['Authorization'] = `Bearer ${t}`;
   const url = `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${GH.path}?ref=${GH.branch}`;
-  const resp = await fetch(url, { headers });
-  if(!resp.ok) throw new Error('GitHub read failed: '+resp.status);
+
+  // 剛存入(寫)後馬上 F5、或連按 F5, 會踩 GitHub secondary rate limit
+  // (同路徑短時間突發 → 403/429)。退避自動重試讓它自愈; 401/404 這種重試無意義的立即放棄。
+  const BACKOFF = [0, 8, 20, 40];   // 秒; 第 0 次立即, 之後退避 (累計 ~68s 涵蓋限流窗口)
+  let resp = null;
+  for(let i=0; i<BACKOFF.length; i++){
+    if(BACKOFF[i]){
+      setSyncStatus('saving', `baseline 限流,${BACKOFF[i]}s 後自動重試 (${i}/${BACKOFF.length-1})`);
+      await new Promise(r => setTimeout(r, BACKOFF[i]*1000));
+    }
+    try{ resp = await fetch(url, { headers }); }
+    catch(e){ resp = null; }         // 網路層失敗 → 視為可重試
+    if(resp && resp.ok) break;
+    // 只對限流(403/429)與網路失敗重試; 其他(401/404/…)重試無意義, 直接跳出
+    if(resp && resp.status !== 403 && resp.status !== 429) break;
+  }
+  if(!resp || !resp.ok) throw new Error('GitHub read failed: ' + (resp ? resp.status : 'network'));
   const data = await resp.json();
   GH.sha = data.sha;
   GH.baseline = JSON.parse(base64ToUtf8(data.content));
@@ -380,7 +395,7 @@ async function boot(){
   if(getToken()){
     fetchBaseline().then(() => renderQueue?.()).catch(err => {
       console.warn('[boot] baseline fetch failed:', err);
-      setSyncStatus('error', 'baseline 讀取失敗');
+      setSyncStatus('error', 'baseline 讀取失敗 (' + (err && err.message ? err.message : err) + ')');
     });
   }
   try{
