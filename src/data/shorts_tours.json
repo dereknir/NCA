@@ -1,15 +1,29 @@
 {
   "meta": {
-    "total": 13,
+    "total": 16,
     "tour_names": [
       "Feeling",
       "MUSICK 2",
+      "SUPER COMPLEX",
       "クランベリージャムをかけて",
       "日々散漫"
     ],
     "unspecified_count": 1
   },
   "by_tour": {
+    "": [
+      {
+        "videoId": "uPITekAHlWM",
+        "title": "TOKYO ISLAND 2025🐾",
+        "url": "https://www.youtube.com/shorts/uPITekAHlWM",
+        "thumbnail": "https://i.ytimg.com/vi/uPITekAHlWM/hqdefault.jpg",
+        "viewCount": 12000,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": null
+      }
+    ],
     "日々散漫": [
       {
         "videoId": "SCPoDwj7Gac",
@@ -102,19 +116,6 @@
         "tourName": "Feeling"
       }
     ],
-    "": [
-      {
-        "videoId": "_cePTkvdH3A",
-        "title": "VIVA LA ROCK 2025",
-        "url": "https://www.youtube.com/shorts/_cePTkvdH3A",
-        "thumbnail": "https://i.ytimg.com/vi/_cePTkvdH3A/hqdefault.jpg",
-        "viewCount": 7500,
-        "versionType": null,
-        "instrumental": false,
-        "anchors": [],
-        "tourName": null
-      }
-    ],
     "MUSICK 2": [
       {
         "videoId": "Rj5CL1PqDTE",
@@ -133,6 +134,17 @@
         "url": "https://www.youtube.com/shorts/2_lPglzm1f4",
         "thumbnail": "https://i.ytimg.com/vi/2_lPglzm1f4/hqdefault.jpg",
         "viewCount": 6100,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "MUSICK 2"
+      },
+      {
+        "videoId": "3Caswxz692c",
+        "title": "nishina - MUSICK2 in Okayama",
+        "url": "https://www.youtube.com/shorts/3Caswxz692c",
+        "thumbnail": "https://i.ytimg.com/vi/3Caswxz692c/hqdefault.jpg",
+        "viewCount": 5300,
         "versionType": null,
         "instrumental": false,
         "anchors": [],
@@ -161,6 +173,30 @@
         "instrumental": false,
         "anchors": [],
         "tourName": "クランベリージャムをかけて"
+      }
+    ],
+    "SUPER COMPLEX": [
+      {
+        "videoId": "wQBKNHtjOhc",
+        "title": "nishina ZEPP TOUR 2024",
+        "url": "https://www.youtube.com/shorts/wQBKNHtjOhc",
+        "thumbnail": "https://i.ytimg.com/vi/wQBKNHtjOhc/hqdefault.jpg",
+        "viewCount": 2300,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "SUPER COMPLEX"
+      },
+      {
+        "videoId": "N_SRaclWjpw",
+        "title": "nishina tour SUPER COMPLEX from Osaka",
+        "url": "https://www.youtube.com/shorts/N_SRaclWjpw",
+        "thumbnail": "https://i.ytimg.com/vi/N_SRaclWjpw/hqdefault.jpg",
+        "viewCount": 1900,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "SUPER COMPLEX"
       }
     ]
   }

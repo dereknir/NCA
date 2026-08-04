@@ -1,10 +1,10 @@
 {
   "meta": {
-    "total": 39,
+    "total": 41,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 12,
+      "promo": 14,
       "mc": 6,
       "yearly": 5,
       "ad": 2,
@@ -120,7 +120,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 12,
+      "count": 14,
       "shorts": [
         {
           "videoId": "iw2deFw5p80",
@@ -173,6 +173,16 @@
           "anchors": []
         },
         {
+          "videoId": "_cePTkvdH3A",
+          "title": "VIVA LA ROCK 2025",
+          "url": "https://www.youtube.com/shorts/_cePTkvdH3A",
+          "thumbnail": "https://i.ytimg.com/vi/_cePTkvdH3A/hqdefault.jpg",
+          "viewCount": 7500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "jWxn_ZeQRH8",
           "title": "にしな🎬映画「モブ子の恋」🍀主題歌「クローバー」6月3日リリース決定",
           "url": "https://www.youtube.com/shorts/jWxn_ZeQRH8",
@@ -198,6 +208,16 @@
           "url": "https://www.youtube.com/shorts/_4YUnJsWbiA",
           "thumbnail": "https://i.ytimg.com/vi/_4YUnJsWbiA/hqdefault.jpg",
           "viewCount": 5600,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "8zamy2YvBZA",
+          "title": "WILD BUNCH Fes 2023",
+          "url": "https://www.youtube.com/shorts/8zamy2YvBZA",
+          "thumbnail": "https://i.ytimg.com/vi/8zamy2YvBZA/hqdefault.jpg",
+          "viewCount": 5500,
           "versionType": null,
           "instrumental": false,
           "anchors": []
