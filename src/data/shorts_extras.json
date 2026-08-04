@@ -9,7 +9,8 @@
       "yearly": 5,
       "ad": 2,
       "tv": 3,
-      "travel": 2
+      "travel": 2,
+      "live_song": 0
     }
   },
   "categories": {
@@ -478,6 +479,12 @@
           "anchors": []
         }
       ]
+    },
+    "live_song": {
+      "displayName": "出演演唱",
+      "emoji": "🎸",
+      "count": 0,
+      "shorts": []
     }
   }
 }
