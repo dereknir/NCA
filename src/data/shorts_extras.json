@@ -1,10 +1,10 @@
 {
   "meta": {
-    "total": 67,
+    "total": 68,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 18,
+      "promo": 19,
       "live_song": 22,
       "mc": 5,
       "yearly": 6,
@@ -121,8 +121,18 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 18,
+      "count": 19,
       "shorts": [
+        {
+          "videoId": "N-bB7X18OYM",
+          "title": "🐼パンダガール",
+          "url": "https://www.youtube.com/shorts/N-bB7X18OYM",
+          "thumbnail": "https://i.ytimg.com/vi/N-bB7X18OYM/hqdefault.jpg",
+          "viewCount": 35000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
         {
           "videoId": "iw2deFw5p80",
           "title": "tiny desk concerts JAPAN with spiritual brothers!",

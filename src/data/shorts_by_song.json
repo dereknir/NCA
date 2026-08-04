@@ -1,9 +1,9 @@
 {
   "meta": {
-    "song_count": 18,
-    "short_count": 154,
+    "song_count": 19,
+    "short_count": 171,
     "skipped": {
-      "pending": 715,
+      "pending": 699,
       "skip": 0,
       "no_song": 0,
       "no_anchors": 1,
@@ -3922,6 +3922,659 @@
           {
             "t": 26.19,
             "line": 57
+          }
+        ]
+      }
+    ],
+    "nishina-panda-girl": [
+      {
+        "videoId": "-taxutqYsAs",
+        "title": "Happy and sad",
+        "url": "https://www.youtube.com/shorts/-taxutqYsAs",
+        "thumbnail": "https://i.ytimg.com/vi/-taxutqYsAs/hqdefault.jpg",
+        "viewCount": 26000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 1.9,
+            "line": 9
+          },
+          {
+            "t": 4.06,
+            "line": 10
+          },
+          {
+            "t": 9.8,
+            "line": 11
+          },
+          {
+            "t": 14.74,
+            "line": 12
+          },
+          {
+            "t": 19.09,
+            "line": 13
+          },
+          {
+            "t": 20.8,
+            "line": 14
+          },
+          {
+            "t": 22.72,
+            "line": 15
+          },
+          {
+            "t": 24.22,
+            "line": 16
+          }
+        ]
+      },
+      {
+        "videoId": "UxV0bLP2goA",
+        "title": "Let’s do a backflip and send these shoes  to the moon",
+        "url": "https://www.youtube.com/shorts/UxV0bLP2goA",
+        "thumbnail": "https://i.ytimg.com/vi/UxV0bLP2goA/hqdefault.jpg",
+        "viewCount": 24000,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 16
+          },
+          {
+            "t": 3.3,
+            "line": 17
+          },
+          {
+            "t": 7.64,
+            "line": 18
+          },
+          {
+            "t": 9.19,
+            "line": 19
+          },
+          {
+            "t": 11.39,
+            "line": 20
+          },
+          {
+            "t": 12.86,
+            "line": 21
+          }
+        ]
+      },
+      {
+        "videoId": "nnsjg6zguKU",
+        "title": "YA!",
+        "url": "https://www.youtube.com/shorts/nnsjg6zguKU",
+        "thumbnail": "https://i.ytimg.com/vi/nnsjg6zguKU/hqdefault.jpg",
+        "viewCount": 14000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 21
+          },
+          {
+            "t": 2.05,
+            "line": 22
+          },
+          {
+            "t": 3.86,
+            "line": 23
+          },
+          {
+            "t": 8.23,
+            "line": 24
+          },
+          {
+            "t": 10,
+            "line": 25
+          },
+          {
+            "t": 11.94,
+            "line": 26
+          },
+          {
+            "t": 12.61,
+            "line": 27
+          }
+        ]
+      },
+      {
+        "videoId": "jM-ul7hH1ck",
+        "title": "Stabbed at the top by an evil Cupid",
+        "url": "https://www.youtube.com/shorts/jM-ul7hH1ck",
+        "thumbnail": "https://i.ytimg.com/vi/jM-ul7hH1ck/hqdefault.jpg",
+        "viewCount": 11000,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 2.16,
+            "line": 11
+          },
+          {
+            "t": 7.03,
+            "line": 12
+          },
+          {
+            "t": 11.27,
+            "line": 13
+          },
+          {
+            "t": 13.14,
+            "line": 14
+          },
+          {
+            "t": 15.28,
+            "line": 15
+          },
+          {
+            "t": 16.43,
+            "line": 16
+          }
+        ]
+      },
+      {
+        "videoId": "_etviI2uSqo",
+        "title": "We’re a two-don’t-make-one kind of relation",
+        "url": "https://www.youtube.com/shorts/_etviI2uSqo",
+        "thumbnail": "https://i.ytimg.com/vi/_etviI2uSqo/hqdefault.jpg",
+        "viewCount": 8600,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 2
+          },
+          {
+            "t": 2.91,
+            "line": 3
+          },
+          {
+            "t": 5.46,
+            "line": 4
+          },
+          {
+            "t": 10.79,
+            "line": 5
+          },
+          {
+            "t": 12.96,
+            "line": 6
+          }
+        ]
+      },
+      {
+        "videoId": "TeWqLTNYOys",
+        "title": "paku-paku",
+        "url": "https://www.youtube.com/shorts/TeWqLTNYOys",
+        "thumbnail": "https://i.ytimg.com/vi/TeWqLTNYOys/hqdefault.jpg",
+        "viewCount": 8500,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.59,
+            "line": 27
+          },
+          {
+            "t": 3.97,
+            "line": 28
+          },
+          {
+            "t": 8.01,
+            "line": 29
+          },
+          {
+            "t": 9.98,
+            "line": 30
+          },
+          {
+            "t": 11.84,
+            "line": 31
+          },
+          {
+            "t": 17.96,
+            "line": 32
+          },
+          {
+            "t": 22.63,
+            "line": 33
+          },
+          {
+            "t": 25.28,
+            "line": 34
+          },
+          {
+            "t": 27.15,
+            "line": 35
+          },
+          {
+            "t": 30.63,
+            "line": 36
+          }
+        ]
+      },
+      {
+        "videoId": "c6SoI6gwKs8",
+        "title": "Returning kindness with something mean",
+        "url": "https://www.youtube.com/shorts/c6SoI6gwKs8",
+        "thumbnail": "https://i.ytimg.com/vi/c6SoI6gwKs8/hqdefault.jpg",
+        "viewCount": 7300,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 11
+          },
+          {
+            "t": 5.18,
+            "line": 12
+          },
+          {
+            "t": 9.25,
+            "line": 13
+          },
+          {
+            "t": 11.26,
+            "line": 14
+          },
+          {
+            "t": 13.29,
+            "line": 15
+          },
+          {
+            "t": 14.91,
+            "line": 16
+          },
+          {
+            "t": 20.15,
+            "line": 17
+          },
+          {
+            "t": 24.48,
+            "line": 18
+          },
+          {
+            "t": 26.02,
+            "line": 19
+          },
+          {
+            "t": 28.01,
+            "line": 20
+          },
+          {
+            "t": 29.73,
+            "line": 21
+          }
+        ]
+      },
+      {
+        "videoId": "5Chryig6FFg",
+        "title": "Send these shoes to the moon",
+        "url": "https://www.youtube.com/shorts/5Chryig6FFg",
+        "thumbnail": "https://i.ytimg.com/vi/5Chryig6FFg/hqdefault.jpg",
+        "viewCount": 6400,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 16
+          },
+          {
+            "t": 3.36,
+            "line": 17
+          },
+          {
+            "t": 7.71,
+            "line": 18
+          },
+          {
+            "t": 9.14,
+            "line": 19
+          },
+          {
+            "t": 11.64,
+            "line": 20
+          },
+          {
+            "t": 13.13,
+            "line": 21
+          }
+        ]
+      },
+      {
+        "videoId": "_HLqNCtWJQw",
+        "title": "Stress-eating nonstop paku-paku",
+        "url": "https://www.youtube.com/shorts/_HLqNCtWJQw",
+        "thumbnail": "https://i.ytimg.com/vi/_HLqNCtWJQw/hqdefault.jpg",
+        "viewCount": 6400,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 27
+          },
+          {
+            "t": 5.98,
+            "line": 28
+          },
+          {
+            "t": 10.29,
+            "line": 29
+          },
+          {
+            "t": 12.25,
+            "line": 30
+          },
+          {
+            "t": 14.03,
+            "line": 31
+          }
+        ]
+      },
+      {
+        "videoId": "nywcYurtoRk",
+        "title": "今日もラブ履き違え",
+        "url": "https://www.youtube.com/shorts/nywcYurtoRk",
+        "thumbnail": "https://i.ytimg.com/vi/nywcYurtoRk/hqdefault.jpg",
+        "viewCount": 5800,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 11
+          },
+          {
+            "t": 3.19,
+            "line": 12
+          },
+          {
+            "t": 7.53,
+            "line": 13
+          },
+          {
+            "t": 9.54,
+            "line": 14
+          },
+          {
+            "t": 11.54,
+            "line": 15
+          },
+          {
+            "t": 12.79,
+            "line": 16
+          }
+        ]
+      },
+      {
+        "videoId": "kYZEZAWwels",
+        "title": "Even if it’s reversible , I’m not gonna tell you",
+        "url": "https://www.youtube.com/shorts/kYZEZAWwels",
+        "thumbnail": "https://i.ytimg.com/vi/kYZEZAWwels/hqdefault.jpg",
+        "viewCount": 5600,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 11
+          },
+          {
+            "t": 3.54,
+            "line": 12
+          },
+          {
+            "t": 7.69,
+            "line": 13
+          },
+          {
+            "t": 9.54,
+            "line": 14
+          },
+          {
+            "t": 11.5,
+            "line": 15
+          },
+          {
+            "t": 12.95,
+            "line": 16
+          },
+          {
+            "t": 18.28,
+            "line": 17
+          },
+          {
+            "t": 22.71,
+            "line": 18
+          },
+          {
+            "t": 24.17,
+            "line": 19
+          },
+          {
+            "t": 26.57,
+            "line": 20
+          },
+          {
+            "t": 28.06,
+            "line": 21
+          }
+        ]
+      },
+      {
+        "videoId": "ZtUPwjn62ME",
+        "title": "No way I’d want to kiss your cheek",
+        "url": "https://www.youtube.com/shorts/ZtUPwjn62ME",
+        "thumbnail": "https://i.ytimg.com/vi/ZtUPwjn62ME/hqdefault.jpg",
+        "viewCount": 5500,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 39
+          },
+          {
+            "t": 6.37,
+            "line": 40
+          },
+          {
+            "t": 11.07,
+            "line": 41
+          },
+          {
+            "t": 15.58,
+            "line": 42
+          },
+          {
+            "t": 17.19,
+            "line": 43
+          },
+          {
+            "t": 19.17,
+            "line": 44
+          },
+          {
+            "t": 20.58,
+            "line": 45
+          }
+        ]
+      },
+      {
+        "videoId": "gBAtjLs2FCo",
+        "title": "Happy and Sad",
+        "url": "https://www.youtube.com/shorts/gBAtjLs2FCo",
+        "thumbnail": "https://i.ytimg.com/vi/gBAtjLs2FCo/hqdefault.jpg",
+        "viewCount": 5500,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 6
+          },
+          {
+            "t": 3.3,
+            "line": 7
+          },
+          {
+            "t": 7.3,
+            "line": 8
+          },
+          {
+            "t": 9.38,
+            "line": 9
+          },
+          {
+            "t": 11.19,
+            "line": 10
+          },
+          {
+            "t": 17.2,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "148NBvzv7Jg",
+        "title": "Is this just a pointless cycle?",
+        "url": "https://www.youtube.com/shorts/148NBvzv7Jg",
+        "thumbnail": "https://i.ytimg.com/vi/148NBvzv7Jg/hqdefault.jpg",
+        "viewCount": 5000,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 32
+          },
+          {
+            "t": 3.27,
+            "line": 33
+          },
+          {
+            "t": 7.58,
+            "line": 34
+          },
+          {
+            "t": 9.35,
+            "line": 35
+          },
+          {
+            "t": 11.3,
+            "line": 36
+          }
+        ]
+      },
+      {
+        "videoId": "pIwlwfINUIs",
+        "title": "Black or white choices, just like a panda",
+        "url": "https://www.youtube.com/shorts/pIwlwfINUIs",
+        "thumbnail": "https://i.ytimg.com/vi/pIwlwfINUIs/hqdefault.jpg",
+        "viewCount": 5000,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.36,
+            "line": 21
+          },
+          {
+            "t": 2.08,
+            "line": 22
+          },
+          {
+            "t": 4.1,
+            "line": 23
+          },
+          {
+            "t": 7.84,
+            "line": 24
+          },
+          {
+            "t": 9.71,
+            "line": 25
+          },
+          {
+            "t": 11.68,
+            "line": 26
+          }
+        ]
+      },
+      {
+        "videoId": "-qHKwpeVOQg",
+        "title": "Even if you look away, let’s go home together sometimes",
+        "url": "https://www.youtube.com/shorts/-qHKwpeVOQg",
+        "thumbnail": "https://i.ytimg.com/vi/-qHKwpeVOQg/hqdefault.jpg",
+        "viewCount": 4700,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 32
+          },
+          {
+            "t": 3.35,
+            "line": 33
+          },
+          {
+            "t": 7.73,
+            "line": 34
+          },
+          {
+            "t": 9.36,
+            "line": 35
+          },
+          {
+            "t": 11.35,
+            "line": 36
+          }
+        ]
+      },
+      {
+        "videoId": "OOGuZ-SEMhA",
+        "title": "No, no, no, no, no, no way!",
+        "url": "https://www.youtube.com/shorts/OOGuZ-SEMhA",
+        "thumbnail": "https://i.ytimg.com/vi/OOGuZ-SEMhA/hqdefault.jpg",
+        "viewCount": 4500,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 36
+          },
+          {
+            "t": 3.66,
+            "line": 37
+          },
+          {
+            "t": 7.64,
+            "line": 38
+          },
+          {
+            "t": 11.15,
+            "line": 39
+          },
+          {
+            "t": 17.21,
+            "line": 40
           }
         ]
       }
