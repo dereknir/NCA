@@ -1968,7 +1968,7 @@
         "title": "さらば友よ、忘れてしまえよ",
         "url": "https://www.youtube.com/shorts/SCQ3YtiD89M",
         "thumbnail": "https://i.ytimg.com/vi/SCQ3YtiD89M/hqdefault.jpg",
-        "viewCount": 5300,
+        "viewCount": 5400,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -2189,7 +2189,7 @@
         "title": "nishina - 婀娜婀娜",
         "url": "https://www.youtube.com/shorts/xAl0usT49xc",
         "thumbnail": "https://i.ytimg.com/vi/xAl0usT49xc/hqdefault.jpg",
-        "viewCount": 4200,
+        "viewCount": 4300,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -2824,7 +2824,7 @@
         "title": "now loading loadingどうか応答せよ",
         "url": "https://www.youtube.com/shorts/YAgDIIf1plw",
         "thumbnail": "https://i.ytimg.com/vi/YAgDIIf1plw/hqdefault.jpg",
-        "viewCount": 9700,
+        "viewCount": 9800,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -3471,6 +3471,33 @@
         ]
       },
       {
+        "videoId": "7M0C7rqR7-E",
+        "title": "イカれた夜のメランルー",
+        "url": "https://www.youtube.com/shorts/7M0C7rqR7-E",
+        "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
+        "viewCount": 4400,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.48,
+            "line": 13
+          },
+          {
+            "t": 4.36,
+            "line": 14
+          },
+          {
+            "t": 6.38,
+            "line": 15
+          },
+          {
+            "t": 9.16,
+            "line": 16
+          }
+        ]
+      },
+      {
         "videoId": "K-jhMMdg7oE",
         "title": "めくりめく街 敗れた夢と",
         "url": "https://www.youtube.com/shorts/K-jhMMdg7oE",
@@ -3595,33 +3622,6 @@
           {
             "t": 13.86,
             "line": 45
-          }
-        ]
-      },
-      {
-        "videoId": "7M0C7rqR7-E",
-        "title": "イカれた夜のメランルー",
-        "url": "https://www.youtube.com/shorts/7M0C7rqR7-E",
-        "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
-        "viewCount": 3400,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.48,
-            "line": 13
-          },
-          {
-            "t": 4.36,
-            "line": 14
-          },
-          {
-            "t": 6.38,
-            "line": 15
-          },
-          {
-            "t": 9.16,
-            "line": 16
           }
         ]
       },
@@ -4221,6 +4221,41 @@
         ]
       },
       {
+        "videoId": "nywcYurtoRk",
+        "title": "今日もラブ履き違え",
+        "url": "https://www.youtube.com/shorts/nywcYurtoRk",
+        "thumbnail": "https://i.ytimg.com/vi/nywcYurtoRk/hqdefault.jpg",
+        "viewCount": 6500,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 11
+          },
+          {
+            "t": 3.19,
+            "line": 12
+          },
+          {
+            "t": 7.53,
+            "line": 13
+          },
+          {
+            "t": 9.54,
+            "line": 14
+          },
+          {
+            "t": 11.54,
+            "line": 15
+          },
+          {
+            "t": 12.79,
+            "line": 16
+          }
+        ]
+      },
+      {
         "videoId": "5Chryig6FFg",
         "title": "Send these shoes to the moon",
         "url": "https://www.youtube.com/shorts/5Chryig6FFg",
@@ -4283,41 +4318,6 @@
           {
             "t": 14.03,
             "line": 31
-          }
-        ]
-      },
-      {
-        "videoId": "nywcYurtoRk",
-        "title": "今日もラブ履き違え",
-        "url": "https://www.youtube.com/shorts/nywcYurtoRk",
-        "thumbnail": "https://i.ytimg.com/vi/nywcYurtoRk/hqdefault.jpg",
-        "viewCount": 5800,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 11
-          },
-          {
-            "t": 3.19,
-            "line": 12
-          },
-          {
-            "t": 7.53,
-            "line": 13
-          },
-          {
-            "t": 9.54,
-            "line": 14
-          },
-          {
-            "t": 11.54,
-            "line": 15
-          },
-          {
-            "t": 12.79,
-            "line": 16
           }
         ]
       },
