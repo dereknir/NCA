@@ -1,16 +1,16 @@
 {
   "meta": {
-    "total": 41,
+    "total": 67,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 14,
-      "mc": 6,
-      "yearly": 5,
+      "promo": 18,
+      "live_song": 22,
+      "mc": 5,
+      "yearly": 6,
       "ad": 2,
       "tv": 3,
-      "travel": 2,
-      "live_song": 0
+      "travel": 2
     }
   },
   "categories": {
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 14,
+      "count": 18,
       "shorts": [
         {
           "videoId": "iw2deFw5p80",
@@ -194,6 +194,16 @@
           "anchors": []
         },
         {
+          "videoId": "nU_zlmug_cw",
+          "title": "3.18 21:00 MUSIC VIDEO OUT",
+          "url": "https://www.youtube.com/shorts/nU_zlmug_cw",
+          "thumbnail": "https://i.ytimg.com/vi/nU_zlmug_cw/hqdefault.jpg",
+          "viewCount": 6600,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "fs8zHlzg7rE",
           "title": "いきものがかり meets 2 にしな「うるわしきひと」",
           "url": "https://www.youtube.com/shorts/fs8zHlzg7rE",
@@ -214,11 +224,11 @@
           "anchors": []
         },
         {
-          "videoId": "8zamy2YvBZA",
-          "title": "WILD BUNCH Fes 2023",
-          "url": "https://www.youtube.com/shorts/8zamy2YvBZA",
-          "thumbnail": "https://i.ytimg.com/vi/8zamy2YvBZA/hqdefault.jpg",
-          "viewCount": 5500,
+          "videoId": "ZPNS0tul3eU",
+          "title": "nishina Zepp Tour 2024",
+          "url": "https://www.youtube.com/shorts/ZPNS0tul3eU",
+          "thumbnail": "https://i.ytimg.com/vi/ZPNS0tul3eU/hqdefault.jpg",
+          "viewCount": 5000,
           "versionType": null,
           "instrumental": false,
           "anchors": []
@@ -244,11 +254,31 @@
           "anchors": []
         },
         {
+          "videoId": "2VF3uZmYXE8",
+          "title": "にしな 新曲「つくし」",
+          "url": "https://www.youtube.com/shorts/2VF3uZmYXE8",
+          "thumbnail": "https://i.ytimg.com/vi/2VF3uZmYXE8/hqdefault.jpg",
+          "viewCount": 4100,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "e-pmzZoe-MM",
           "title": "うるわしき あいのうた",
           "url": "https://www.youtube.com/shorts/e-pmzZoe-MM",
           "thumbnail": "https://i.ytimg.com/vi/e-pmzZoe-MM/hqdefault.jpg",
           "viewCount": 3100,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "ge-BgDs08z0",
+          "title": "indigo la End / 夜凪 feat.にしな",
+          "url": "https://www.youtube.com/shorts/ge-BgDs08z0",
+          "thumbnail": "https://i.ytimg.com/vi/ge-BgDs08z0/hqdefault.jpg",
+          "viewCount": 2800,
           "versionType": null,
           "instrumental": false,
           "anchors": []
@@ -262,13 +292,316 @@
           "versionType": null,
           "instrumental": false,
           "anchors": []
+        },
+        {
+          "videoId": "SdW7Z2GaJUg",
+          "title": "2月５日リリース にしな「つくし」",
+          "url": "https://www.youtube.com/shorts/SdW7Z2GaJUg",
+          "thumbnail": "https://i.ytimg.com/vi/SdW7Z2GaJUg/hqdefault.jpg",
+          "viewCount": 2200,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        }
+      ]
+    },
+    "live_song": {
+      "displayName": "出演演唱",
+      "emoji": "🎸",
+      "count": 22,
+      "shorts": [
+        {
+          "videoId": "w4JjAipFj1k",
+          "title": "JAPAN JAM 2023 ありがとうございました！",
+          "url": "https://www.youtube.com/shorts/w4JjAipFj1k",
+          "thumbnail": "https://i.ytimg.com/vi/w4JjAipFj1k/hqdefault.jpg",
+          "viewCount": 18000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "JAPAN JAM 2023",
+          "songId": "nishina-kedamono-no-friends",
+          "songTitle": "ケダモノのフレンズ"
+        },
+        {
+          "videoId": "0O4a0IntwNI",
+          "title": "JAPAN JAM 2024🐾",
+          "url": "https://www.youtube.com/shorts/0O4a0IntwNI",
+          "thumbnail": "https://i.ytimg.com/vi/0O4a0IntwNI/hqdefault.jpg",
+          "viewCount": 17000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "JAPAN JAM 2024",
+          "songId": "nishina-kedamono-no-friends",
+          "songTitle": "ケダモノのフレンズ"
+        },
+        {
+          "videoId": "pmJSVjlqetM",
+          "title": "🌞",
+          "url": "https://www.youtube.com/shorts/pmJSVjlqetM",
+          "thumbnail": "https://i.ytimg.com/vi/pmJSVjlqetM/hqdefault.jpg",
+          "viewCount": 15000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "JAPAN JAM 2024",
+          "songId": "nishina-u-plus",
+          "songTitle": "U+"
+        },
+        {
+          "videoId": "DujGcmQVB_M",
+          "title": "VIVA LA ROCK 2023",
+          "url": "https://www.youtube.com/shorts/DujGcmQVB_M",
+          "thumbnail": "https://i.ytimg.com/vi/DujGcmQVB_M/hqdefault.jpg",
+          "viewCount": 11000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "VIVA LA ROCK 2023",
+          "songId": "nishina-ainikoi",
+          "songTitle": "アイニコイ"
+        },
+        {
+          "videoId": "V2mdVqI5PvA",
+          "title": "METROCK2023 ありがとうございました🕶️",
+          "url": "https://www.youtube.com/shorts/V2mdVqI5PvA",
+          "thumbnail": "https://i.ytimg.com/vi/V2mdVqI5PvA/hqdefault.jpg",
+          "viewCount": 10000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "METROCK2023（東京）",
+          "songId": "nishina-kedamono-no-friends",
+          "songTitle": "ケダモノのフレンズ"
+        },
+        {
+          "videoId": "SFMtKhfp5Pw",
+          "title": "VIVA LA ROCK 2025✌️",
+          "url": "https://www.youtube.com/shorts/SFMtKhfp5Pw",
+          "thumbnail": "https://i.ytimg.com/vi/SFMtKhfp5Pw/hqdefault.jpg",
+          "viewCount": 9400,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "VIVA LA ROCK 2025",
+          "songId": "nishina-wawon",
+          "songTitle": "わをん"
+        },
+        {
+          "videoId": "43GGFCnMi24",
+          "title": "🌝RUSH BALL 2025",
+          "url": "https://www.youtube.com/shorts/43GGFCnMi24",
+          "thumbnail": "https://i.ytimg.com/vi/43GGFCnMi24/hqdefault.jpg",
+          "viewCount": 6800,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "RUSH BALL 2025",
+          "songId": "nishina-1999",
+          "songTitle": "1999"
+        },
+        {
+          "videoId": "mEkPr3A8U8g",
+          "title": "WurtS LIVEHOUSE TOUR IVat Zepp Nagoya",
+          "url": "https://www.youtube.com/shorts/mEkPr3A8U8g",
+          "thumbnail": "https://i.ytimg.com/vi/mEkPr3A8U8g/hqdefault.jpg",
+          "viewCount": 6800,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "WurtS LIVEHOUSE TOUR Ⅳ",
+          "songId": "nishina-santa-girl",
+          "songTitle": "サンタガール"
+        },
+        {
+          "videoId": "-VKLl_ZFTkM",
+          "title": "🪐COUNTDOWN JAPAN 2526🚀",
+          "url": "https://www.youtube.com/shorts/-VKLl_ZFTkM",
+          "thumbnail": "https://i.ytimg.com/vi/-VKLl_ZFTkM/hqdefault.jpg",
+          "viewCount": 6700,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "COUNTDOWN JAPAN 2526",
+          "songId": "nishina-kedamono-no-friends",
+          "songTitle": "ケダモノのフレンズ"
+        },
+        {
+          "videoId": "k4a2zg4nvzM",
+          "title": "a great view of MJ🎹 at NHK Hall",
+          "url": "https://www.youtube.com/shorts/k4a2zg4nvzM",
+          "thumbnail": "https://i.ytimg.com/vi/k4a2zg4nvzM/hqdefault.jpg",
+          "viewCount": 6000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": null,
+          "songId": null,
+          "songTitle": null
+        },
+        {
+          "videoId": "AI_kn8opUaE",
+          "title": "WurtS VS nishina",
+          "url": "https://www.youtube.com/shorts/AI_kn8opUaE",
+          "thumbnail": "https://i.ytimg.com/vi/AI_kn8opUaE/hqdefault.jpg",
+          "viewCount": 5900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "WurtS LIVEHOUSE TOUR Ⅳ",
+          "songId": "nishina-kedamono-no-friends",
+          "songTitle": "ケダモノのフレンズ"
+        },
+        {
+          "videoId": "8zamy2YvBZA",
+          "title": "WILD BUNCH Fes 2023",
+          "url": "https://www.youtube.com/shorts/8zamy2YvBZA",
+          "thumbnail": "https://i.ytimg.com/vi/8zamy2YvBZA/hqdefault.jpg",
+          "viewCount": 5500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "WILD BUNCH FEST.2023",
+          "songId": "nishina-tokyo-marble",
+          "songTitle": "東京マーブル"
+        },
+        {
+          "videoId": "NINFJtKKqAQ",
+          "title": "SWEET LOVE SHOWER SPRING 2024🌞",
+          "url": "https://www.youtube.com/shorts/NINFJtKKqAQ",
+          "thumbnail": "https://i.ytimg.com/vi/NINFJtKKqAQ/hqdefault.jpg",
+          "viewCount": 5200,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "SWEET LOVE SHOWER SPRING 2024",
+          "songId": "nishina-kedamono-no-friends",
+          "songTitle": "ケダモノのフレンズ"
+        },
+        {
+          "videoId": "CKnnZeApBD4",
+          "title": "📻Thank you for RADIO CRAZY 2025⚡️",
+          "url": "https://www.youtube.com/shorts/CKnnZeApBD4",
+          "thumbnail": "https://i.ytimg.com/vi/CKnnZeApBD4/hqdefault.jpg",
+          "viewCount": 4900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "FM802 ROCK FESTIVAL RADIO CRAZY 2025",
+          "songId": "nishina-1999",
+          "songTitle": "1999"
+        },
+        {
+          "videoId": "JgT8Tfu5dls",
+          "title": "TOMAKOMAI MIRAI FEST 2024🍅",
+          "url": "https://www.youtube.com/shorts/JgT8Tfu5dls",
+          "thumbnail": "https://i.ytimg.com/vi/JgT8Tfu5dls/hqdefault.jpg",
+          "viewCount": 4900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "TOMAKOMAI MIRAI FEST 2024（トマコマイ ミライ フェスト 2024）",
+          "songId": null,
+          "songTitle": null
+        },
+        {
+          "videoId": "8bJGMsUNMiw",
+          "title": "MERRY ROCK PARADE 2025🪅🐏🎄",
+          "url": "https://www.youtube.com/shorts/8bJGMsUNMiw",
+          "thumbnail": "https://i.ytimg.com/vi/8bJGMsUNMiw/hqdefault.jpg",
+          "viewCount": 4700,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "MERRY ROCK PARADE 2025",
+          "songId": "nishina-wawon",
+          "songTitle": "わをん"
+        },
+        {
+          "videoId": "SxoGpYjHGms",
+          "title": "TAKASAKI CITY ROCK FES.2025！",
+          "url": "https://www.youtube.com/shorts/SxoGpYjHGms",
+          "thumbnail": "https://i.ytimg.com/vi/SxoGpYjHGms/hqdefault.jpg",
+          "viewCount": 4500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "TAKASAKI CITY ROCK FES.2025",
+          "songId": "nishina-plum",
+          "songTitle": "plum"
+        },
+        {
+          "videoId": "0uX9IZM0Mo4",
+          "title": "2024.10.13 sendai",
+          "url": "https://www.youtube.com/shorts/0uX9IZM0Mo4",
+          "thumbnail": "https://i.ytimg.com/vi/0uX9IZM0Mo4/hqdefault.jpg",
+          "viewCount": 4500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "第４９回東北工業大学大学祭 - 祭高潮 - ARTIST LIVE 2024",
+          "songId": "nishina-kedamono-no-friends",
+          "songTitle": "ケダモノのフレンズ"
+        },
+        {
+          "videoId": "9NZXQa8LbtI",
+          "title": "ROCK KIDS 802-OCHIKEN Goes ON!!-SPECIAL LIVE HIGH!HIGH!HIGH! supported by ナカバヤシ",
+          "url": "https://www.youtube.com/shorts/9NZXQa8LbtI",
+          "thumbnail": "https://i.ytimg.com/vi/9NZXQa8LbtI/hqdefault.jpg",
+          "viewCount": 3800,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "ROCK KIDS 802-OCHIKEN Goes ON!!-SPECIAL LIVE HIGH!HIGH!HIGH! supported by ナカバヤ……",
+          "songId": "nishina-kedamono-no-friends",
+          "songTitle": "ケダモノのフレンズ"
+        },
+        {
+          "videoId": "JOa6aRmpXgo",
+          "title": "MINAMI WHEEL 2023",
+          "url": "https://www.youtube.com/shorts/JOa6aRmpXgo",
+          "thumbnail": "https://i.ytimg.com/vi/JOa6aRmpXgo/hqdefault.jpg",
+          "viewCount": 3700,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "Eggs presents FM802 MINAMI WHEEL 2023",
+          "songId": "nishina-cranberry-jam",
+          "songTitle": "クランベリージャムをかけて"
+        },
+        {
+          "videoId": "HTclEsGBcwI",
+          "title": "MERRY ROCK PARADE 2024🐏🚀",
+          "url": "https://www.youtube.com/shorts/HTclEsGBcwI",
+          "thumbnail": "https://i.ytimg.com/vi/HTclEsGBcwI/hqdefault.jpg",
+          "viewCount": 3600,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "MERRY ROCK PARADE 2024",
+          "songId": "nishina-wawon",
+          "songTitle": "わをん"
+        },
+        {
+          "videoId": "P7LCfZSIsY8",
+          "title": "名古屋！ありがとうございました🥏",
+          "url": "https://www.youtube.com/shorts/P7LCfZSIsY8",
+          "thumbnail": "https://i.ytimg.com/vi/P7LCfZSIsY8/hqdefault.jpg",
+          "viewCount": 2800,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "TREASURE05X 2023 20th Anniversary",
+          "songId": "nishina-ainikoi",
+          "songTitle": "アイニコイ"
         }
       ]
     },
     "mc": {
       "displayName": "MC / 演唱會講話",
       "emoji": "🎤",
-      "count": 6,
+      "count": 5,
       "shorts": [
         {
           "videoId": "JVi6D1nCdP0",
@@ -301,16 +634,6 @@
           "anchors": []
         },
         {
-          "videoId": "JgT8Tfu5dls",
-          "title": "TOMAKOMAI MIRAI FEST 2024🍅",
-          "url": "https://www.youtube.com/shorts/JgT8Tfu5dls",
-          "thumbnail": "https://i.ytimg.com/vi/JgT8Tfu5dls/hqdefault.jpg",
-          "viewCount": 4900,
-          "versionType": null,
-          "instrumental": false,
-          "anchors": []
-        },
-        {
           "videoId": "1bu6B8m6Xyk",
           "title": "Congratulations on your graduation!",
           "url": "https://www.youtube.com/shorts/1bu6B8m6Xyk",
@@ -335,7 +658,7 @@
     "yearly": {
       "displayName": "年度回顧",
       "emoji": "🎉",
-      "count": 5,
+      "count": 6,
       "shorts": [
         {
           "videoId": "ZMyrOv-gLNA",
@@ -383,6 +706,16 @@
           "url": "https://www.youtube.com/shorts/g7NqO8BDnwg",
           "thumbnail": "https://i.ytimg.com/vi/g7NqO8BDnwg/hqdefault.jpg",
           "viewCount": 4300,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "KAqlP5DPClw",
+          "title": "Thank you for 2024!🎸",
+          "url": "https://www.youtube.com/shorts/KAqlP5DPClw",
+          "thumbnail": "https://i.ytimg.com/vi/KAqlP5DPClw/hqdefault.jpg",
+          "viewCount": 2800,
           "versionType": null,
           "instrumental": false,
           "anchors": []
@@ -479,12 +812,6 @@
           "anchors": []
         }
       ]
-    },
-    "live_song": {
-      "displayName": "出演演唱",
-      "emoji": "🎸",
-      "count": 0,
-      "shorts": []
     }
   }
 }

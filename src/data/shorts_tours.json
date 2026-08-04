@@ -1,8 +1,9 @@
 {
   "meta": {
-    "total": 16,
+    "total": 33,
     "tour_names": [
       "Feeling",
+      "MUSICK",
       "MUSICK 2",
       "SUPER COMPLEX",
       "クランベリージャムをかけて",
@@ -11,26 +12,46 @@
     "unspecified_count": 1
   },
   "by_tour": {
-    "": [
+    "日々散漫": [
       {
-        "videoId": "uPITekAHlWM",
-        "title": "TOKYO ISLAND 2025🐾",
-        "url": "https://www.youtube.com/shorts/uPITekAHlWM",
-        "thumbnail": "https://i.ytimg.com/vi/uPITekAHlWM/hqdefault.jpg",
-        "viewCount": 12000,
+        "videoId": "gVT3oG3adHc",
+        "title": "にしな - 日々散漫ツアー",
+        "url": "https://www.youtube.com/shorts/gVT3oG3adHc",
+        "thumbnail": "https://i.ytimg.com/vi/gVT3oG3adHc/hqdefault.jpg",
+        "viewCount": 13000,
         "versionType": null,
         "instrumental": false,
         "anchors": [],
-        "tourName": null
-      }
-    ],
-    "日々散漫": [
+        "tourName": "日々散漫"
+      },
+      {
+        "videoId": "pH3TEhMzHsY",
+        "title": "2026.4.4 at Zepp Namba🍬",
+        "url": "https://www.youtube.com/shorts/pH3TEhMzHsY",
+        "thumbnail": "https://i.ytimg.com/vi/pH3TEhMzHsY/hqdefault.jpg",
+        "viewCount": 10000,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "日々散漫"
+      },
       {
         "videoId": "SCPoDwj7Gac",
         "title": "2026.4.18 at Zepp DiverCity⭐️",
         "url": "https://www.youtube.com/shorts/SCPoDwj7Gac",
         "thumbnail": "https://i.ytimg.com/vi/SCPoDwj7Gac/hqdefault.jpg",
         "viewCount": 9500,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "日々散漫"
+      },
+      {
+        "videoId": "FBJ-ofcWoKo",
+        "title": "2026.4.5 at Zepp Nagoya🐶",
+        "url": "https://www.youtube.com/shorts/FBJ-ofcWoKo",
+        "thumbnail": "https://i.ytimg.com/vi/FBJ-ofcWoKo/hqdefault.jpg",
+        "viewCount": 8200,
         "versionType": null,
         "instrumental": false,
         "anchors": [],
@@ -92,6 +113,17 @@
         "tourName": "日々散漫"
       },
       {
+        "videoId": "apr_3eZNPzA",
+        "title": "2026.6.6 at 金沢RED SUN🐶🐶🐶",
+        "url": "https://www.youtube.com/shorts/apr_3eZNPzA",
+        "thumbnail": "https://i.ytimg.com/vi/apr_3eZNPzA/hqdefault.jpg",
+        "viewCount": 3400,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "日々散漫"
+      },
+      {
         "videoId": "3sSSevmACgI",
         "title": "2026.6.13 at 高松オリーブホール⭐️",
         "url": "https://www.youtube.com/shorts/3sSSevmACgI",
@@ -101,6 +133,30 @@
         "instrumental": false,
         "anchors": [],
         "tourName": "日々散漫"
+      },
+      {
+        "videoId": "1-0XTkh5IDA",
+        "title": "2026.5.30 at CRAZYMAMA KINGDOM⭐️",
+        "url": "https://www.youtube.com/shorts/1-0XTkh5IDA",
+        "thumbnail": "https://i.ytimg.com/vi/1-0XTkh5IDA/hqdefault.jpg",
+        "viewCount": 2800,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "日々散漫"
+      }
+    ],
+    "": [
+      {
+        "videoId": "uPITekAHlWM",
+        "title": "TOKYO ISLAND 2025🐾",
+        "url": "https://www.youtube.com/shorts/uPITekAHlWM",
+        "thumbnail": "https://i.ytimg.com/vi/uPITekAHlWM/hqdefault.jpg",
+        "viewCount": 12000,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": null
       }
     ],
     "Feeling": [
@@ -114,6 +170,85 @@
         "instrumental": false,
         "anchors": [],
         "tourName": "Feeling"
+      },
+      {
+        "videoId": "qFGJ4_ramEY",
+        "title": "Feeling in Nagoya🍤",
+        "url": "https://www.youtube.com/shorts/qFGJ4_ramEY",
+        "thumbnail": "https://i.ytimg.com/vi/qFGJ4_ramEY/hqdefault.jpg",
+        "viewCount": 7100,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "Feeling"
+      },
+      {
+        "videoId": "65XQlG-k18I",
+        "title": "Feeling tour in Fukuoka!",
+        "url": "https://www.youtube.com/shorts/65XQlG-k18I",
+        "thumbnail": "https://i.ytimg.com/vi/65XQlG-k18I/hqdefault.jpg",
+        "viewCount": 4700,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "Feeling"
+      },
+      {
+        "videoId": "jQTNRsGGtDA",
+        "title": "Feeling in Niigata🐟",
+        "url": "https://www.youtube.com/shorts/jQTNRsGGtDA",
+        "thumbnail": "https://i.ytimg.com/vi/jQTNRsGGtDA/hqdefault.jpg",
+        "viewCount": 3900,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "Feeling"
+      },
+      {
+        "videoId": "9003mxoDv28",
+        "title": "Feeling in Osaka(Umeda)",
+        "url": "https://www.youtube.com/shorts/9003mxoDv28",
+        "thumbnail": "https://i.ytimg.com/vi/9003mxoDv28/hqdefault.jpg",
+        "viewCount": 3700,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "Feeling"
+      },
+      {
+        "videoId": "MATX72fFr7Q",
+        "title": "Feeling in Fukuoka",
+        "url": "https://www.youtube.com/shorts/MATX72fFr7Q",
+        "thumbnail": "https://i.ytimg.com/vi/MATX72fFr7Q/hqdefault.jpg",
+        "viewCount": 2700,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "Feeling"
+      }
+    ],
+    "クランベリージャムをかけて": [
+      {
+        "videoId": "aY6fNSKHcW8",
+        "title": "福岡！ありがとうございました🍓",
+        "url": "https://www.youtube.com/shorts/aY6fNSKHcW8",
+        "thumbnail": "https://i.ytimg.com/vi/aY6fNSKHcW8/hqdefault.jpg",
+        "viewCount": 7600,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "クランベリージャムをかけて"
+      },
+      {
+        "videoId": "sERSFSmDn0o",
+        "title": "WITH CRANBERRY JAM TOUR",
+        "url": "https://www.youtube.com/shorts/sERSFSmDn0o",
+        "thumbnail": "https://i.ytimg.com/vi/sERSFSmDn0o/hqdefault.jpg",
+        "viewCount": 2400,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "クランベリージャムをかけて"
       }
     ],
     "MUSICK 2": [
@@ -140,6 +275,28 @@
         "tourName": "MUSICK 2"
       },
       {
+        "videoId": "0la2Qo0Ncro",
+        "title": "nishina - MUSICK2 in Kanazawa",
+        "url": "https://www.youtube.com/shorts/0la2Qo0Ncro",
+        "thumbnail": "https://i.ytimg.com/vi/0la2Qo0Ncro/hqdefault.jpg",
+        "viewCount": 5500,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "MUSICK 2"
+      },
+      {
+        "videoId": "C_2JZ6gyS1M",
+        "title": "nishina - MUSICK2 in Nagoya",
+        "url": "https://www.youtube.com/shorts/C_2JZ6gyS1M",
+        "thumbnail": "https://i.ytimg.com/vi/C_2JZ6gyS1M/hqdefault.jpg",
+        "viewCount": 5500,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "MUSICK 2"
+      },
+      {
         "videoId": "3Caswxz692c",
         "title": "nishina - MUSICK2 in Okayama",
         "url": "https://www.youtube.com/shorts/3Caswxz692c",
@@ -160,28 +317,48 @@
         "instrumental": false,
         "anchors": [],
         "tourName": "MUSICK 2"
-      }
-    ],
-    "クランベリージャムをかけて": [
+      },
       {
-        "videoId": "sERSFSmDn0o",
-        "title": "WITH CRANBERRY JAM TOUR",
-        "url": "https://www.youtube.com/shorts/sERSFSmDn0o",
-        "thumbnail": "https://i.ytimg.com/vi/sERSFSmDn0o/hqdefault.jpg",
-        "viewCount": 2400,
+        "videoId": "KAIRNBdSmAw",
+        "title": "nishina - MUSICK2 in Sendai",
+        "url": "https://www.youtube.com/shorts/KAIRNBdSmAw",
+        "thumbnail": "https://i.ytimg.com/vi/KAIRNBdSmAw/hqdefault.jpg",
+        "viewCount": 4100,
         "versionType": null,
         "instrumental": false,
         "anchors": [],
-        "tourName": "クランベリージャムをかけて"
+        "tourName": "MUSICK 2"
       }
     ],
     "SUPER COMPLEX": [
+      {
+        "videoId": "qn5Taa-E3I0",
+        "title": "nishina「SUPER COMPLEX」from Osaka🐙",
+        "url": "https://www.youtube.com/shorts/qn5Taa-E3I0",
+        "thumbnail": "https://i.ytimg.com/vi/qn5Taa-E3I0/hqdefault.jpg",
+        "viewCount": 4200,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "SUPER COMPLEX"
+      },
       {
         "videoId": "wQBKNHtjOhc",
         "title": "nishina ZEPP TOUR 2024",
         "url": "https://www.youtube.com/shorts/wQBKNHtjOhc",
         "thumbnail": "https://i.ytimg.com/vi/wQBKNHtjOhc/hqdefault.jpg",
         "viewCount": 2300,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "SUPER COMPLEX"
+      },
+      {
+        "videoId": "P4_PyXZXi7s",
+        "title": "nishina Tour「SUPER COMPLEX」from Tokyo Day2",
+        "url": "https://www.youtube.com/shorts/P4_PyXZXi7s",
+        "thumbnail": "https://i.ytimg.com/vi/P4_PyXZXi7s/hqdefault.jpg",
+        "viewCount": 2000,
         "versionType": null,
         "instrumental": false,
         "anchors": [],
@@ -197,6 +374,19 @@
         "instrumental": false,
         "anchors": [],
         "tourName": "SUPER COMPLEX"
+      }
+    ],
+    "MUSICK": [
+      {
+        "videoId": "5ss09eEBrT4",
+        "title": "nishina \"weekly\" MUSICK",
+        "url": "https://www.youtube.com/shorts/5ss09eEBrT4",
+        "thumbnail": "https://i.ytimg.com/vi/5ss09eEBrT4/hqdefault.jpg",
+        "viewCount": 4800,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "MUSICK"
       }
     ]
   }
