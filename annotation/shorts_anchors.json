@@ -3408,9 +3408,9 @@
     "instrumental": false
   },
   "uPITekAHlWM": {
-    "songId": "nishina-panda-girl",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -4400,9 +4400,26 @@
   },
   "1G4zQP2I0xE": {
     "songId": "nishina-tokyo-marble",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 17
+      },
+      {
+        "t": 4.39,
+        "line": 18
+      },
+      {
+        "t": 8.78,
+        "line": 19
+      },
+      {
+        "t": 12.91,
+        "line": 20
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "kcldVMqD98Y": {
@@ -4624,7 +4641,7 @@
     "instrumental": false
   },
   "_cePTkvdH3A": {
-    "songId": "__tour_recap",
+    "songId": "__promo",
     "anchors": [],
     "status": "done",
     "versionType": null,
@@ -4822,9 +4839,66 @@
   },
   "srZc-qtQ380": {
     "songId": "nishina-tokyo-marble",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0.78,
+        "line": 23
+      },
+      {
+        "t": 2.92,
+        "line": 24
+      },
+      {
+        "t": 5.46,
+        "line": 25
+      },
+      {
+        "t": 9.71,
+        "line": 26
+      },
+      {
+        "t": 12.01,
+        "line": 27
+      },
+      {
+        "t": 14.69,
+        "line": 28
+      },
+      {
+        "t": 20.11,
+        "line": 29
+      },
+      {
+        "t": 22,
+        "line": 30
+      },
+      {
+        "t": 27.89,
+        "line": 31
+      },
+      {
+        "t": 30.67,
+        "line": 32
+      },
+      {
+        "t": 33.09,
+        "line": 33
+      },
+      {
+        "t": 36.78,
+        "line": 34
+      },
+      {
+        "t": 39.32,
+        "line": 35
+      },
+      {
+        "t": 41.87,
+        "line": 36
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "AZgvCmAY7nU": {
@@ -4910,9 +4984,34 @@
   },
   "NEX_J3XTqZo": {
     "songId": "nishina-tokyo-marble",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0.89,
+        "line": 23
+      },
+      {
+        "t": 3.59,
+        "line": 24
+      },
+      {
+        "t": 6.23,
+        "line": 25
+      },
+      {
+        "t": 10.55,
+        "line": 26
+      },
+      {
+        "t": 12.65,
+        "line": 27
+      },
+      {
+        "t": 15.26,
+        "line": 28
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "KEaeYWNB8FE": {
@@ -5402,9 +5501,46 @@
   },
   "chJ4yeAbW4A": {
     "songId": "nishina-tokyo-marble",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 17
+      },
+      {
+        "t": 4.16,
+        "line": 18
+      },
+      {
+        "t": 8.78,
+        "line": 19
+      },
+      {
+        "t": 12.83,
+        "line": 20
+      },
+      {
+        "t": 22.37,
+        "line": 21
+      },
+      {
+        "t": 26.99,
+        "line": 22
+      },
+      {
+        "t": 35.29,
+        "line": 23
+      },
+      {
+        "t": 37.7,
+        "line": 24
+      },
+      {
+        "t": 40.22,
+        "line": 25
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "Kp90_NsdpCw": {
@@ -5416,9 +5552,58 @@
   },
   "mhetfzwp70o": {
     "songId": "nishina-tokyo-marble",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 17
+      },
+      {
+        "t": 4.57,
+        "line": 18
+      },
+      {
+        "t": 9.11,
+        "line": 19
+      },
+      {
+        "t": 13.09,
+        "line": 20
+      },
+      {
+        "t": 22.45,
+        "line": 21
+      },
+      {
+        "t": 26.94,
+        "line": 22
+      },
+      {
+        "t": 35.7,
+        "line": 23
+      },
+      {
+        "t": 37.86,
+        "line": 24
+      },
+      {
+        "t": 40.55,
+        "line": 25
+      },
+      {
+        "t": 44.68,
+        "line": 26
+      },
+      {
+        "t": 46.94,
+        "line": 27
+      },
+      {
+        "t": 49.69,
+        "line": 28
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "B_vKXSdRlKw": {
@@ -5479,9 +5664,30 @@
   },
   "_C-ge_crXEE": {
     "songId": "nishina-tokyo-marble",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 41
+      },
+      {
+        "t": 2.3,
+        "line": 42
+      },
+      {
+        "t": 4.96,
+        "line": 43
+      },
+      {
+        "t": 9.24,
+        "line": 44
+      },
+      {
+        "t": 14.42,
+        "line": 45
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "BR2hWTFvlyw": {
@@ -5725,9 +5931,50 @@
   },
   "w2QTMR9UK_U": {
     "songId": "nishina-tokyo-marble",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0.9,
+        "line": 11
+      },
+      {
+        "t": 3.31,
+        "line": 12
+      },
+      {
+        "t": 5.75,
+        "line": 13
+      },
+      {
+        "t": 9.86,
+        "line": 14
+      },
+      {
+        "t": 12.2,
+        "line": 15
+      },
+      {
+        "t": 14.89,
+        "line": 16
+      },
+      {
+        "t": 37.93,
+        "line": 17
+      },
+      {
+        "t": 42.19,
+        "line": 18
+      },
+      {
+        "t": 46.77,
+        "line": 19
+      },
+      {
+        "t": 50.61,
+        "line": 20
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "x8mRewvMWb8": {
@@ -5801,9 +6048,9 @@
     "instrumental": false
   },
   "8zamy2YvBZA": {
-    "songId": "nishina-tokyo-marble",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -5871,11 +6118,12 @@
     "instrumental": false
   },
   "3Caswxz692c": {
-    "songId": "nishina-tokyo-marble",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "MUSICK 2"
   },
   "UsPI4qhpFFU": {
     "songId": "nishina-weekly",
@@ -6750,9 +6998,30 @@
   },
   "RQNx2-giFVk": {
     "songId": "nishina-tokyo-marble",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 26
+      },
+      {
+        "t": 2.69,
+        "line": 27
+      },
+      {
+        "t": 5.52,
+        "line": 28
+      },
+      {
+        "t": 10.7,
+        "line": 29
+      },
+      {
+        "t": 12.82,
+        "line": 30
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "A9XM9R43HX0": {
@@ -7045,9 +7314,34 @@
   },
   "FeBs6tCQTE0": {
     "songId": "nishina-tokyo-marble",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 1.51,
+        "line": 11
+      },
+      {
+        "t": 3.76,
+        "line": 12
+      },
+      {
+        "t": 6.48,
+        "line": 13
+      },
+      {
+        "t": 10.5,
+        "line": 14
+      },
+      {
+        "t": 12.76,
+        "line": 15
+      },
+      {
+        "t": 15.48,
+        "line": 16
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "viN4NGAs9Fc": {
@@ -7816,9 +8110,30 @@
   },
   "acLUD0jNQYo": {
     "songId": "nishina-tokyo-marble",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 12
+      },
+      {
+        "t": 2.84,
+        "line": 13
+      },
+      {
+        "t": 6.88,
+        "line": 14
+      },
+      {
+        "t": 9.12,
+        "line": 15
+      },
+      {
+        "t": 11.87,
+        "line": 16
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "fan--Qxcm9k": {
@@ -7843,7 +8158,7 @@
     "instrumental": false
   },
   "yhUf7bm5IWc": {
-    "songId": "nishina-tokyo-marble",
+    "songId": "nishina-rendezvous",
     "anchors": [],
     "status": "pending",
     "versionType": null,
@@ -8384,9 +8699,30 @@
   },
   "EZIkCMXFEDQ": {
     "songId": "nishina-tokyo-marble",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 21
+      },
+      {
+        "t": 4.82,
+        "line": 22
+      },
+      {
+        "t": 13.58,
+        "line": 23
+      },
+      {
+        "t": 15.81,
+        "line": 24
+      },
+      {
+        "t": 18.31,
+        "line": 25
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "E3TsGbEPGl4": {
@@ -8611,11 +8947,12 @@
     "instrumental": false
   },
   "wQBKNHtjOhc": {
-    "songId": "nishina-tokyo-marble",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "SUPER COMPLEX"
   },
   "y4J_-9A2aM8": {
     "songId": "nishina-u-plus",
@@ -8898,11 +9235,12 @@
     "instrumental": false
   },
   "N_SRaclWjpw": {
-    "songId": "nishina-tokyo-marble",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "SUPER COMPLEX"
   },
   "lpUfp8O260o": {
     "songId": "nishina-plum",
@@ -8927,9 +9265,34 @@
   },
   "8mbu7HEvB-c": {
     "songId": "nishina-tokyo-marble",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 11
+      },
+      {
+        "t": 2.31,
+        "line": 12
+      },
+      {
+        "t": 5.03,
+        "line": 13
+      },
+      {
+        "t": 9.07,
+        "line": 14
+      },
+      {
+        "t": 11.34,
+        "line": 15
+      },
+      {
+        "t": 13.94,
+        "line": 16
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "Vdv5MZ6F2TI": {
@@ -9508,7 +9871,7 @@
     "instrumental": false
   },
   "tud1RxEr5m8": {
-    "songId": null,
+    "songId": "nishina-glory",
     "anchors": [],
     "status": "pending",
     "versionType": null,
