@@ -168,7 +168,7 @@
   <section id="lyricsPanel"><div class="song-head">從左側選一支 short 開始</div></section>
 </main>
 
-<footer>快捷鍵: <kbd>space</kbd> 播放/暫停 · <kbd>←</kbd><kbd>→</kbd> ±2 秒 · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> 選版本 · <kbd>i</kbd> 純演奏 · <kbd>enter</kbd> 完成並跳下一支</footer>
+<footer>快捷鍵: <kbd>space</kbd> 播放/暫停 · <kbd>←</kbd><kbd>→</kbd> ±2 秒 · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd> 選版本 · <kbd>i</kbd> 純演奏 · <kbd>enter</kbd> 完成並跳下一支</footer>
 
 <div id="dropzone">
   <p><b>載入資料</b><br>把 <code>annotation_queue.json</code> 和 <code>lyrics.json</code> 一起拖進來,<br>或用 <code>python -m http.server</code> 啟動後放同目錄自動載入。</p>
@@ -220,6 +220,7 @@ const VERSION_TYPES = [
   { key:'mv',       label:'官方MV',    short:'MV'  },
   { key:'live',     label:'演唱會LIVE', short:'LIVE'},
   { key:'acoustic', label:'弾き語り',   short:'弾語'},
+  { key:'tft',      label:'🎧 TFT',    short:'TFT' },
   { key:'other',    label:'其他',      short:'他'  },
 ];
 
@@ -928,9 +929,9 @@ document.addEventListener('keydown', e=>{
   if(e.code==='ArrowLeft' && S.ready) S.player.seekTo(S.player.getCurrentTime()-2, true);
   if(e.code==='ArrowRight'&& S.ready) S.player.seekTo(S.player.getCurrentTime()+2, true);
   if(e.code==='Enter' && S.cur) finishCurrent('done');
-  // 1-4 數字鍵 = 快速選版本(不論 event.code 是 Digit1 還是 Numpad1)
-  const idx = { Digit1:0, Digit2:1, Digit3:2, Digit4:3,
-                Numpad1:0, Numpad2:1, Numpad3:2, Numpad4:3 }[e.code];
+  // 1-5 數字鍵 = 快速選版本(不論 event.code 是 Digit1 還是 Numpad1)
+  const idx = { Digit1:0, Digit2:1, Digit3:2, Digit4:3, Digit5:4,
+                Numpad1:0, Numpad2:1, Numpad3:2, Numpad4:3, Numpad5:4 }[e.code];
   if(idx !== undefined && S.cur){
     const k = VERSION_TYPES[idx].key;
     S.ann[S.cur.videoId].versionType = (S.ann[S.cur.videoId].versionType === k) ? null : k;
