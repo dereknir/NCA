@@ -83,7 +83,8 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
         </div>
       )}
       <div class="flex-1 min-w-0">
-        <h1 class="text-4xl font-bold mb-3" style="font-family: 'Noto Sans JP', sans-serif;">{title}</h1>
+        <!-- C 級像素簽名: 歌名像素字 + 打字機入場; 內文閱讀區完全不動 -->
+        <h1 id="songTitle" class="px-ja text-4xl mb-3" style="font-size:36px;letter-spacing:.04em">{title}</h1>
         {album && (
           <p class="text-sm text-gray-500 dark:text-gray-500 mb-5">
             💿 {album}{albumYear && ` (${albumYear})`}{trackNumber && ` · Track ${trackNumber}`}
@@ -512,4 +513,22 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
       font-size: 13px; line-height: 1.6; resize: none; outline: none;
     }
   </style>
+
+  <script is:inline>
+    /* C 級像素簽名: 歌名打字機入場 (無 JS / reduced-motion 時直接顯示完整標題) */
+    (function () {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const el = document.getElementById('songTitle');
+      if (!el) return;
+      const full = el.textContent;
+      if (!full || full.length > 40) return;   // 異常長標題不玩
+      el.textContent = '';
+      el.style.minHeight = '1.2em';            // 防抖動
+      let i = 0;
+      (function tick() {
+        el.textContent = full.slice(0, ++i);
+        if (i < full.length) setTimeout(tick, 70);
+      })();
+    })();
+  </script>
 </BaseLayout>

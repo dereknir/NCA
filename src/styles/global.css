@@ -242,3 +242,102 @@
 .fade-in {
   animation: fadeIn 0.5s ease-out;
 }
+
+/* ================================================================
+   Pixel 主視覺 D 層 (分區混搭) — 2026-08 拍板
+   語彙: fusion-pixel 字型 / 硬影 / 方角 / steps() 動畫
+   紀律: 像素字只用 12 / 24 / 36px (12px 網格整數倍, 其餘會糊)
+   分區: A 全像素 = live×3/annotator/gacha/新功能 (各自獨立 CSS)
+         B 外殼   = 列表頁 UI (這一層, 內文保留 Noto)
+         C 簽名   = 翻譯內頁標題等 (.px 局部套用)
+   字型子集: scripts/build_site_charset.py → build_pixel_fonts.py
+   ================================================================ */
+@font-face {
+  font-family: 'PX-ZH';
+  src: url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PX-JA';
+  src: url('/fonts/pixel/fp12-site-ja.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* 字型工具類 (中文優先 / 日文優先兩檔) */
+.px-font  { font-family: 'PX-ZH', 'PX-JA', var(--font-sans); font-weight: 400; }
+.px-ja    { font-family: 'PX-JA', 'PX-ZH', var(--font-sans); font-weight: 400; }
+
+/* 像素標題 — 蓋掉 tailwind 的 font-bold/text-* (unlayered 勝 utility layer) */
+h1.px, .px-h1 {
+  font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
+  font-weight: 400;
+  font-size: 36px;
+  letter-spacing: .06em;
+}
+h2.px, .px-h2 {
+  font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: .05em;
+}
+
+/* 像素卡殼 — 方角 + 2px 框 + 硬影 (內容文字不動) */
+.px-card {
+  border-radius: 0 !important;
+  border: 2px solid rgb(36 49 84);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, .45);
+  transition: transform .1s steps(2), box-shadow .1s steps(2), border-color .15s;
+}
+.px-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 rgba(0, 0, 0, .5);
+  border-color: rgb(61 99 255);
+}
+.px-card img { border-radius: 0 !important; }
+
+/* 像素按鈕 — 硬影 + 按壓位移吃影 */
+.px-btn {
+  font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
+  font-weight: 400;
+  font-size: 12px;
+  border-radius: 0 !important;
+  border: 2px solid rgb(36 49 84);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, .5);
+  transition: none;
+}
+.px-btn:hover { border-color: rgb(232 201 74); color: rgb(232 201 74); }
+.px-btn:active { transform: translate(3px, 3px); box-shadow: none; }
+.px-btn-pri {
+  background: rgb(37 99 235);
+  border-color: rgb(29 78 216);
+  color: #fff;
+}
+.px-btn-pri:hover { color: #fff; border-color: rgb(232 201 74); }
+
+/* 像素 badge/tab */
+.px-badge {
+  font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
+  font-weight: 400;
+  border-radius: 0 !important;
+  border-width: 2px;
+}
+
+/* hero 掃描線疊層 (只用在首頁 hero, 別全站鋪) */
+.px-scanline { position: relative; }
+.px-scanline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0, 0, 0, .18) 2px 4px);
+  z-index: 1;
+}
+
+/* steps() 閃爍 (星星/游標共用) */
+@keyframes px-blink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+.px-blink { animation: px-blink 1.2s steps(2) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .px-card, .px-btn { transition: none; }
+  .px-blink { animation: none; }
+}

@@ -49,7 +49,7 @@ function formatViews(n: number): string {
 
 <BaseLayout title="花絮" description="にしな 音樂之外的 shorts 內容分類展示">
   <div class="max-w-6xl mx-auto">
-    <h1 class="text-4xl font-bold mb-2">花絮</h1>
+    <h1 class="px text-4xl font-bold mb-2">花絮</h1>
     <p class="text-gray-600 dark:text-gray-400 mb-2">
       除了歌曲翻譯之外,にしな 的 YouTube shorts 還包含出演現場的演唱片段、演唱會 MC、
       廣告代言、電視節目片段和翻唱 —— 這裡是這些「正式作品以外」的各種片段。
@@ -69,7 +69,7 @@ function formatViews(n: number): string {
         <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-200 dark:border-gray-700 pb-3" id="extraTabs">
           {orderedCategories.map((cat, i) => (
             <button
-              class={`tab-btn px-4 py-2 rounded-lg text-sm font-medium transition ${
+              class={`tab-btn px-btn px-4 py-2 rounded-lg text-sm font-medium transition ${
                 i === activeIdx
                   ? 'bg-blue-500 text-white'
                   : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'

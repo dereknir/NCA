@@ -57,6 +57,10 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
+  <!-- Pixel 主視覺字型 (D 層外殼用, 首屏防閃字) -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp12-site-zh_hant.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp12-site-ja.woff2">
+
   <!-- 字體預連接與預載入（性能優化） -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -83,7 +87,7 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   <header class="sticky top-0 z-50 bg-[#0a0a15]/75 backdrop-blur-md border-b border-white/5">
     <nav class="container mx-auto px-4 py-4">
       <div class="flex justify-between items-center">
-        <a href="/" class="text-2xl font-bold text-white hover:text-blue-400 transition-colors">
+        <a href="/" class="px-font text-2xl text-white hover:text-blue-400 transition-colors">
           {SITE_CONFIG.title}
         </a>
 
@@ -97,7 +101,7 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
         <!-- Desktop nav -->
         <div class="hidden md:flex items-center gap-6">
           {NAVIGATION.map(item => (
-            <a href={item.href} class="hover:text-blue-400 transition-colors">
+            <a href={item.href} class="px-font text-[12px] hover:text-blue-400 transition-colors">
               {item.name}
             </a>
           ))}
@@ -108,7 +112,7 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
       <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-white/10 pt-4">
         <div class="flex flex-col gap-3">
           {NAVIGATION.map(item => (
-            <a href={item.href} class="hover:text-blue-400 transition-colors">
+            <a href={item.href} class="px-font text-[12px] hover:text-blue-400 transition-colors">
               {item.name}
             </a>
           ))}
@@ -171,8 +175,10 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
       margin-bottom: 2.5rem;
     }
     .site-footer-section h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
+      font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .1em;
       color: #fff;
       margin: 0 0 0.9rem;
     }

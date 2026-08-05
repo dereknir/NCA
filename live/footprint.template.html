@@ -92,6 +92,26 @@
   .icsb:hover{border-color:var(--accent);color:var(--accent)}
   @media(max-width:760px){#wrap{grid-template-columns:1fr}}
   footer{margin-top:60px;color:#5a6784;font-size:11.5px;text-align:center}
+
+  /* ===== A 級全像素換皮 (D 路線 2026-08) — chrome 像素, 場次/場地資料保留 Noto ===== */
+  @font-face{font-family:'PX-ZH';src:url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'PX-JA';src:url('/fonts/pixel/fp12-site-ja.woff2') format('woff2');font-display:swap}
+  h1{font-family:'PX-JA','PX-ZH',var(--font);font-weight:400;font-size:24px}
+  .site-topbar a:not(.crumb){font-family:'PX-ZH','PX-JA',var(--font);font-weight:400;font-size:24px}
+  .site-topbar a.crumb{font-family:'PX-ZH','PX-JA',var(--font);font-size:12px}
+  #map,#side,#unmapped,.fact,#cardBox{border-radius:0;border-width:2px}
+  #map,#side{box-shadow:6px 6px 0 rgba(0,0,0,.45)}
+  #play,.ly,#mkcard,#cardBox button{border-radius:0;border-width:2px;
+    font-family:'PX-ZH','PX-JA',var(--font);font-size:12px;box-shadow:3px 3px 0 rgba(0,0,0,.5)}
+  #play:active,.ly:active,#mkcard:active,#cardBox button:active{transform:translate(3px,3px);box-shadow:none}
+  .ly i{border-radius:0}
+  #side h3{font-family:'PX-ZH','PX-JA',var(--font);font-weight:400;font-size:24px}
+  .sgh{font-family:'PX-ZH','PX-JA',var(--font);font-size:12px}
+  .tnum{font-family:'PX-ZH','PX-JA',monospace;font-size:12px}
+  .fact b{font-family:'PX-ZH','PX-JA',var(--font);font-size:12px}
+  .stx{border-radius:0!important}
+  #sideNav button{border-radius:0;border-width:2px}
+  .icsb{border-radius:0}
 </style>
 </head>
 <body>

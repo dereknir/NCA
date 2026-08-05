@@ -8,7 +8,7 @@ const allProjects = (await getCollection('projects'))
 
 <BaseLayout title="作品集" description="程式作品與專案展示">
   <div class="max-w-5xl mx-auto">
-    <h1 class="text-4xl font-bold mb-4">作品集</h1>
+    <h1 class="px text-4xl font-bold mb-4">作品集</h1>
     <p class="text-gray-600 dark:text-gray-400 mb-8">我的程式專案與作品展示</p>
 
     {allProjects.length === 0 && (

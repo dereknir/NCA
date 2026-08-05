@@ -39,14 +39,14 @@ const stats = {
   description="歡迎來到 Derek 的個人網站。探索日文歌曲翻譯、閱讀生活日記，以及查看程式作品集。"
 >
   <!-- Hero Section: 全寬 100vw galaxy 背景 (slot="hero" 跳出 container) -->
-  <section slot="hero" class="hero-galaxy">
+  <section slot="hero" class="hero-galaxy px-scanline">
     <canvas class="hero-galaxy-canvas" aria-hidden="true"></canvas>
     <div class="hero-galaxy-content">
-      <h1 class="hero-galaxy-title">歡迎來到我的個人空間</h1>
-      <p class="hero-galaxy-sub">日文歌翻譯 · 生活日記 · 程式作品</p>
+      <h1 class="hero-galaxy-title px-font">歡迎來到我的個人空間</h1>
+      <p class="hero-galaxy-sub px-font">日文歌翻譯 · 生活日記 · 程式作品</p>
       <div class="hero-galaxy-cta">
-        <a href="/translations" class="hero-btn hero-btn-primary">探索翻譯</a>
-        <a href="/projects" class="hero-btn hero-btn-ghost">查看作品</a>
+        <a href="/translations" class="hero-btn hero-btn-primary px-btn px-btn-pri">探索翻譯</a>
+        <a href="/projects" class="hero-btn hero-btn-ghost px-btn">查看作品</a>
       </div>
 
       {stats.totalSongs > 0 && (
@@ -79,7 +79,7 @@ const stats = {
   {recentTranslations.length > 0 && (
     <section class="py-12">
       <div class="flex justify-between items-center mb-8">
-        <h2 class="text-3xl font-bold">最新翻譯</h2>
+        <h2 class="px text-3xl font-bold">最新翻譯</h2>
         <a href="/translations" class="text-blue-600 hover:text-blue-800">查看全部 →</a>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
@@ -100,7 +100,7 @@ const stats = {
   {recentDiary.length > 0 && (
     <section class="py-12">
       <div class="flex justify-between items-center mb-8">
-        <h2 class="text-3xl font-bold">最近日記</h2>
+        <h2 class="px text-3xl font-bold">最近日記</h2>
         <a href="/diary" class="text-blue-600 hover:text-blue-800">查看全部 →</a>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
@@ -121,7 +121,7 @@ const stats = {
   {featuredProjects.length > 0 && (
     <section class="py-12">
       <div class="flex justify-between items-center mb-8">
-        <h2 class="text-3xl font-bold">精選作品</h2>
+        <h2 class="px text-3xl font-bold">精選作品</h2>
         <a href="/projects" class="text-blue-600 hover:text-blue-800">查看全部 →</a>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
@@ -159,22 +159,26 @@ const stats = {
     }
     .hero-galaxy-content {
       position: relative;
-      z-index: 1;
+      z-index: 2;   /* 蓋過掃描線疊層 */
       text-align: center;
       max-width: 720px;
       margin: 0 auto;
     }
     .hero-galaxy-title {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
+      font-size: 36px;   /* 像素紀律: 12 的整數倍 */
+      font-weight: 400;
       margin: 0 0 1rem;
       color: #fff;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.06em;
+    }
+    @media (max-width: 640px) {
+      .hero-galaxy-title { font-size: 24px; }
     }
     .hero-galaxy-sub {
-      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-size: 12px;
       color: rgba(255, 255, 255, 0.65);
       margin: 0 0 2rem;
+      letter-spacing: .12em;
     }
     .hero-galaxy-cta {
       display: flex;
@@ -215,8 +219,9 @@ const stats = {
     }
     .hero-galaxy-stats > div { text-align: center; }
     .hero-stat-num {
-      font-size: 1.75rem;
-      font-weight: 700;
+      font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
+      font-size: 24px;   /* 像素紀律 */
+      font-weight: 400;
       color: #fff;
       line-height: 1.2;
       margin-bottom: 2px;
@@ -286,15 +291,14 @@ const stats = {
       resize();
       window.addEventListener('resize', resize);
 
-      /* reduced motion: 只畫一張靜態星圖, 不動 */
+      /* reduced motion: 只畫一張靜態星圖, 不動 (像素風: 方塊星) */
       if (reducedMotion) {
         ctx.fillStyle = '#040613';
         ctx.fillRect(0, 0, W, H);
         for (const s of stars) {
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          const px = Math.max(2, Math.round(s.r * 2));
           ctx.fillStyle = `rgba(230,240,255,${s.base})`;
-          ctx.fill();
+          ctx.fillRect(Math.round(s.x), Math.round(s.y), px, px);
         }
         return;
       }
@@ -310,13 +314,13 @@ const stats = {
         ctx.fillStyle = '#040613';
         ctx.fillRect(0, 0, W, H);
 
-        // 星星
+        // 星星 (像素風: 方塊 + 亮度量化成 3 階 = steps 閃爍)
         for (const s of stars) {
-          const tw = s.base + 0.3 * Math.sin(t * s.speed + s.phase);
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          const raw = s.base + 0.3 * Math.sin(t * s.speed + s.phase);
+          const tw = Math.round(raw * 3) / 3;
+          const px = Math.max(2, Math.round(s.r * 2));
           ctx.fillStyle = `rgba(230,240,255,${tw})`;
-          ctx.fill();
+          ctx.fillRect(Math.round(s.x), Math.round(s.y), px, px);
         }
 
         // 排程流星
@@ -334,28 +338,17 @@ const stats = {
           m.trail.push({ x: m.x, y: m.y });
           if (m.trail.length > 18) m.trail.shift();
 
-          for (let j = 0; j < m.trail.length - 1; j++) {
-            const p1 = m.trail[j], p2 = m.trail[j + 1];
-            const a = (j / m.trail.length) * 0.85;
-            ctx.strokeStyle = `rgba(255,240,220,${a})`;
-            ctx.lineWidth = 2.2 * (j / m.trail.length);
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
+          // 流星 (像素風: 方塊軌跡, 亮度量化, 無光暈)
+          for (let j = 0; j < m.trail.length; j++) {
+            const p = m.trail[j];
+            const a = Math.round((j / m.trail.length) * 3) / 3 * 0.85;
+            if (a <= 0) continue;
+            const sz = j > m.trail.length * 0.6 ? 3 : 2;
+            ctx.fillStyle = `rgba(255,240,220,${a})`;
+            ctx.fillRect(Math.round(p.x), Math.round(p.y), sz, sz);
           }
-          ctx.beginPath();
-          ctx.arc(m.x, m.y, 2.4, 0, Math.PI * 2);
           ctx.fillStyle = 'rgba(255,250,240,1)';
-          ctx.fill();
-
-          const gm = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, 10);
-          gm.addColorStop(0, 'rgba(255,240,200,0.5)');
-          gm.addColorStop(1, 'rgba(255,240,200,0)');
-          ctx.fillStyle = gm;
-          ctx.beginPath();
-          ctx.arc(m.x, m.y, 10, 0, Math.PI * 2);
-          ctx.fill();
+          ctx.fillRect(Math.round(m.x) - 2, Math.round(m.y) - 2, 4, 4);
 
           if (m.x < -60 || m.y > H + 60 || m.life > m.maxLife) meteors.splice(i, 1);
         }
