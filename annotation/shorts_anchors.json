@@ -2632,9 +2632,30 @@
   },
   "3mRXC09NZAk": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 7
+      },
+      {
+        "t": 2.81,
+        "line": 8
+      },
+      {
+        "t": 8.88,
+        "line": 9
+      },
+      {
+        "t": 17.27,
+        "line": 10
+      },
+      {
+        "t": 23.73,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "tft",
     "instrumental": false
   },
   "fANmxN631vw": {
@@ -2752,9 +2773,26 @@
   },
   "kWHu-HUPxIk": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 6.32,
+        "line": 9
+      },
+      {
+        "t": 14.81,
+        "line": 10
+      },
+      {
+        "t": 21.02,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "tft",
     "instrumental": false
   },
   "UxV0bLP2goA": {
@@ -3130,9 +3168,22 @@
   },
   "juS-Zax78OY": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 18
+      },
+      {
+        "t": 5.67,
+        "line": 19
+      },
+      {
+        "t": 14.02,
+        "line": 20
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "Qmrp0AnqIoc": {
@@ -3335,9 +3386,26 @@
   },
   "SvR78l_30wY": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 6.1,
+        "line": 9
+      },
+      {
+        "t": 13.93,
+        "line": 10
+      },
+      {
+        "t": 19.9,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "gDrZKaKX4q0": {
@@ -3497,9 +3565,26 @@
   },
   "o5rI6SIPuRo": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0.48,
+        "line": 20
+      },
+      {
+        "t": 6.34,
+        "line": 21
+      },
+      {
+        "t": 14.09,
+        "line": 22
+      },
+      {
+        "t": 20.16,
+        "line": 23
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "7U4aD7BiYMA": {
@@ -3511,9 +3596,26 @@
   },
   "QrQ7TsYXwyw": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 5.88,
+        "line": 9
+      },
+      {
+        "t": 13.91,
+        "line": 10
+      },
+      {
+        "t": 19.84,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "cwQTqCCo4pw": {
@@ -3532,9 +3634,26 @@
   },
   "2sKI9BKScMM": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 6.24,
+        "line": 9
+      },
+      {
+        "t": 14.68,
+        "line": 10
+      },
+      {
+        "t": 21.13,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "tft",
     "instrumental": false
   },
   "MxOV-c1TNCw": {
@@ -3648,9 +3767,26 @@
   },
   "bPoouVm07Uw": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 6.98,
+        "line": 1
+      },
+      {
+        "t": 13.77,
+        "line": 2
+      },
+      {
+        "t": 20.72,
+        "line": 3
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "x9TFwd0Brf4": {
@@ -3757,9 +3893,26 @@
   },
   "CdgtvBdqeB8": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 5.84,
+        "line": 9
+      },
+      {
+        "t": 13.66,
+        "line": 10
+      },
+      {
+        "t": 19.69,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "2CVnQuW7_e8": {
@@ -3834,9 +3987,26 @@
   },
   "Kfxptcz_uN0": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 5.96,
+        "line": 9
+      },
+      {
+        "t": 13.91,
+        "line": 10
+      },
+      {
+        "t": 19.56,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "c4v3q8BrfB4": {
@@ -4069,9 +4239,26 @@
   },
   "i4AEtaCMIa8": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 5.96,
+        "line": 21
+      },
+      {
+        "t": 13.87,
+        "line": 22
+      },
+      {
+        "t": 19.51,
+        "line": 23
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "PNjjglWpgSU": {
@@ -4335,9 +4522,26 @@
   },
   "Hcc8jmELs5E": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 5.9,
+        "line": 9
+      },
+      {
+        "t": 13.88,
+        "line": 10
+      },
+      {
+        "t": 19.67,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "WiqBNW_qCpM": {
@@ -4356,8 +4560,25 @@
   },
   "dBm7ZrOurYc": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 5.95,
+        "line": 21
+      },
+      {
+        "t": 13.78,
+        "line": 22
+      },
+      {
+        "t": 19.84,
+        "line": 23
+      }
+    ],
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -8230,10 +8451,10 @@
     "instrumental": false
   },
   "qeYX2uo4kbU": {
-    "songId": "nishina-seiran-yuuei",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false
   },
   "9003mxoDv28": {
@@ -8269,9 +8490,26 @@
   },
   "pwHq-doCEUM": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 6.06,
+        "line": 9
+      },
+      {
+        "t": 13.89,
+        "line": 10
+      },
+      {
+        "t": 20.1,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "6ojzI-LaPps": {
@@ -8425,9 +8663,30 @@
   },
   "st3l6xa0aZc": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 19
+      },
+      {
+        "t": 4.66,
+        "line": 20
+      },
+      {
+        "t": 10.3,
+        "line": 21
+      },
+      {
+        "t": 17.87,
+        "line": 22
+      },
+      {
+        "t": 24.28,
+        "line": 23
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "QV5YCIyve8s": {
@@ -8692,9 +8951,30 @@
   },
   "fan--Qxcm9k": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 5.97,
+        "line": 21
+      },
+      {
+        "t": 13.87,
+        "line": 22
+      },
+      {
+        "t": 19.91,
+        "line": 23
+      },
+      {
+        "t": 26.67,
+        "line": 24
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "m_mdQwqyx4A": {
@@ -8945,9 +9225,34 @@
   },
   "pB4-gpeh0_8": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 18
+      },
+      {
+        "t": 6.18,
+        "line": 19
+      },
+      {
+        "t": 14.19,
+        "line": 20
+      },
+      {
+        "t": 20.02,
+        "line": 21
+      },
+      {
+        "t": 27.91,
+        "line": 22
+      },
+      {
+        "t": 33.94,
+        "line": 23
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "W7RG1GQJhkY": {
@@ -9135,9 +9440,26 @@
   },
   "AuH_ZbiW1jI": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 6.08,
+        "line": 9
+      },
+      {
+        "t": 13.99,
+        "line": 10
+      },
+      {
+        "t": 20.15,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "MATX72fFr7Q": {
@@ -9243,9 +9565,26 @@
   },
   "uLOKREZwf-o": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 5.52,
+        "line": 9
+      },
+      {
+        "t": 13.39,
+        "line": 10
+      },
+      {
+        "t": 19.53,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "xPuyo5M30Fo": {
@@ -9535,9 +9874,30 @@
   },
   "mRn-aU6yGKg": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 5.45,
+        "line": 21
+      },
+      {
+        "t": 13.38,
+        "line": 22
+      },
+      {
+        "t": 19.09,
+        "line": 23
+      },
+      {
+        "t": 26.25,
+        "line": 24
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "ZoP8h5hdGP4": {
