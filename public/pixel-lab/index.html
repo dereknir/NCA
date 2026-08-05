@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixel Lab — 像素風主視覺提案</title>
+<style>
+  /* ============ 站台基調 (與 global 一致) ============ */
+  :root{
+    --bg:#0a0a15; --panel:#141d31; --panel-2:#1a2440; --line:#243154;
+    --text:#e8ecf6; --dim:#8b97b8; --accent:#3d63ff; --gold:#e8c94a;
+    --red:#d65555; --teal:#3aa981;
+    --font:"Noto Sans TC","Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.75}
+
+  /* 像素字型: 站台專用子集 (本頁 §4 講怎麼建的) */
+  @font-face{
+    font-family:'PX-ZH';
+    src:url('fonts/fp12-site-zh_hant.woff2') format('woff2');
+    font-display:swap;
+  }
+  @font-face{
+    font-family:'PX-JA';
+    src:url('fonts/fp12-site-ja.woff2') format('woff2');
+    font-display:swap;
+  }
+  /* 中文介面文字 → PX-ZH 優先; 日文字形差異由 PX-JA 支援 */
+  .px  {font-family:'PX-ZH','PX-JA',monospace}
+  .pxj {font-family:'PX-JA','PX-ZH',monospace}
+
+  .site-topbar{position:sticky;top:0;z-index:50;height:57px;background:rgba(10,10,21,.78);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .site-topbar-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:100%;
+    display:flex;align-items:center;gap:14px}
+  .site-topbar a{color:var(--text);font-size:20px;font-weight:700;text-decoration:none}
+  .site-topbar a:hover{color:var(--accent)}
+  .site-topbar a.crumb{color:var(--dim);font-size:13px;font-weight:400}
+
+  main{max-width:1060px;margin:0 auto;padding:46px 22px 140px}
+  h1{font-size:32px;letter-spacing:.08em}
+  h2{font-size:23px;margin:80px 0 6px;letter-spacing:.05em;color:var(--gold)}
+  h3{font-size:16px;margin:28px 0 10px}
+  .sub{color:var(--dim);font-size:13.5px;margin-top:8px;max-width:760px}
+  .toc{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+  .toc a{font-size:12.5px;border:1px solid var(--line);border-radius:99px;padding:5px 13px;
+    color:var(--dim);text-decoration:none}
+  .toc a:hover{border-color:var(--accent);color:var(--accent)}
+
+  .note{border-left:3px solid var(--accent);background:var(--panel);padding:14px 18px;
+    border-radius:0 10px 10px 0;font-size:13.5px;margin:18px 0;color:var(--dim)}
+  .note b{color:var(--text)}
+  .warn{border-left-color:var(--red)}
+  .good{border-left-color:var(--teal)}
+
+  /* ============ 提案卡 ============ */
+  .prop{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:22px 24px;margin-top:26px}
+  .prop-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .prop-head .tag{font-size:11px;border-radius:5px;padding:2px 9px;letter-spacing:.1em}
+  .tagA{background:#3b1f24;color:#ff9d9d}.tagB{background:#1f2a3b;color:#8fb3ff}
+  .tagC{background:#20311f;color:#a9dba0}.tagD{background:#33290f;color:#ffd970}
+  .prop-head h3{margin:0;font-size:19px}
+  .prop-sub{color:var(--dim);font-size:13px;margin-top:6px}
+  .pros{display:grid;grid-template-columns:1fr 1fr;gap:4px 26px;font-size:13px;
+    margin-top:14px;color:var(--dim)}
+  .pros li{margin-left:18px}
+  .pros .p::marker{content:'✚ ';color:var(--teal)}
+  .pros .m::marker{content:'▬ ';color:var(--red)}
+  .effort{margin-top:12px;font-size:12.5px;color:var(--gold)}
+
+  /* ============ live mock 共用骨架 ============ */
+  .mock{margin-top:18px;border:1px dashed var(--line);border-radius:10px;padding:18px;
+    display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;background:#0d1120}
+  .mk{width:300px;flex:none}
+  .mk-nav{display:flex;gap:14px;font-size:12.5px;padding:8px 12px;border-bottom:1px solid var(--line);
+    color:var(--dim);white-space:nowrap;overflow:hidden}
+  .mk-nav b{color:var(--text)}
+  .mk-hero{position:relative;height:104px;background:#040613;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;overflow:hidden;margin-top:10px}
+  .mk-hero .t{font-size:16px;font-weight:700;z-index:1}
+  .mk-hero .s{font-size:10.5px;color:var(--dim);z-index:1;margin-top:4px}
+  .mk-star{position:absolute;background:#e6f0ff;width:2px;height:2px;border-radius:50%}
+  .mk-card{display:flex;gap:12px;background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:12px;margin-top:12px;align-items:center}
+  .mk-card img{width:56px;height:56px;object-fit:cover;border-radius:6px;flex:none}
+  .mk-card .tt{font-size:14px;font-weight:600}
+  .mk-card .st{font-size:11px;color:var(--dim);margin-top:3px}
+  .mk-card .bd{font-size:9.5px;border:1px solid var(--gold);color:var(--gold);
+    padding:1px 6px;border-radius:4px;margin-top:6px;display:inline-block}
+  .mk-lyr{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;margin-top:12px}
+  .mk-lyr .ja{font-size:13.5px}
+  .mk-lyr .zh{font-size:12.5px;color:var(--dim);margin-top:4px}
+  .mk-btns{display:flex;gap:8px;margin-top:12px}
+  .mk-btn{font-size:12px;padding:6px 14px;border-radius:8px;border:1px solid var(--line);
+    background:var(--panel-2);color:var(--text);cursor:pointer;font-family:inherit}
+  .mk-btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+  .mk-label{font-size:11px;color:var(--dim);letter-spacing:.15em;margin-bottom:8px}
+
+  /* ============ 方案 A: 全面像素 ============ */
+  .vA .mk-nav,.vA .mk-hero .t,.vA .mk-hero .s,.vA .mk-card .tt,.vA .mk-card .st,
+  .vA .mk-card .bd,.vA .mk-btn,.vA .mk-lyr .zh{font-family:'PX-ZH','PX-JA',monospace}
+  .vA .mk-lyr .ja{font-family:'PX-JA','PX-ZH',monospace}
+  .vA .mk-hero .t{font-size:14px;font-weight:400}
+  .vA .mk-card,.vA .mk-lyr{border-radius:0;border-width:2px;
+    box-shadow:4px 4px 0 rgba(0,0,0,.45)}
+  .vA .mk-card img{border-radius:0;image-rendering:pixelated}
+  .vA .mk-btn{border-radius:0;border-width:2px;box-shadow:3px 3px 0 rgba(0,0,0,.5);
+    font-size:11px}
+  .vA .mk-btn:active{transform:translate(3px,3px);box-shadow:none}
+  .vA .mk-btn.pri{background:var(--accent)}
+  .vA .mk-star{border-radius:0;animation:tw 1.2s steps(2) infinite}
+  .vA .mk-hero{background:
+    repeating-linear-gradient(0deg,transparent 0 2px,rgba(0,0,0,.22) 2px 4px),#040613}
+  .vA .mk-card .bd{border-radius:0;border-width:2px}
+
+  /* ============ 方案 B: 像素外殼 ============ */
+  .vB .mk-nav,.vB .mk-hero .t,.vB .mk-hero .s,.vB .mk-card .bd,.vB .mk-btn
+    {font-family:'PX-ZH','PX-JA',monospace}
+  .vB .mk-hero .t{font-size:14px;font-weight:400}
+  .vB .mk-card,.vB .mk-lyr{border-radius:0;border-width:2px;box-shadow:4px 4px 0 rgba(0,0,0,.45)}
+  .vB .mk-card img{border-radius:0}
+  .vB .mk-btn{border-radius:0;border-width:2px;box-shadow:3px 3px 0 rgba(0,0,0,.5);font-size:11px}
+  .vB .mk-btn:active{transform:translate(3px,3px);box-shadow:none}
+  .vB .mk-star{border-radius:0;animation:tw 1.2s steps(2) infinite}
+  .vB .mk-card .bd{border-radius:0;border-width:2px}
+  /* 內文 (卡片標題/歌詞) 保留 Noto → 可讀性不動 */
+
+  /* ============ 方案 C: 輕點綴 ============ */
+  .vC .mk-card .bd{font-family:'PX-ZH',monospace;border-radius:0;border-width:2px}
+  .vC .mk-btn.pri{border-radius:0;box-shadow:3px 3px 0 rgba(61,99,255,.35)}
+  .vC .mk-btn.pri:active{transform:translate(2px,2px);box-shadow:none}
+  .vC .mk-star{border-radius:0;animation:tw 1.6s steps(2) infinite}
+  .vC .mk-hero .s{font-family:'PX-ZH','PX-JA',monospace;font-size:10px}
+  /* 其餘完全是現狀 */
+
+  @keyframes tw{0%,100%{opacity:1}50%{opacity:.25}}
+
+  /* ============ 技法實驗室 ============ */
+  .lab{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:20px}
+  .lab-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .lab-card h4{font-size:14px;margin-bottom:10px;color:var(--text)}
+  .lab-card .exp{font-size:12px;color:var(--dim);margin-top:10px;line-height:1.7}
+  .lab-card code{font-size:11px;background:#0d1120;border:1px solid var(--line);
+    padding:1px 6px;border-radius:4px;color:#9fb6e8}
+  pre{background:#0d1120;border:1px solid var(--line);border-radius:8px;padding:12px 14px;
+    font-size:11.5px;line-height:1.65;overflow-x:auto;color:#9fb6e8;margin-top:10px}
+
+  /* 邊框三法 */
+  .bd1{border:2px solid var(--accent);box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--line);
+    padding:10px 14px;font-size:12.5px;background:var(--panel-2)}
+  .bd2{clip-path:polygon(0 6px,6px 6px,6px 0,calc(100% - 6px) 0,calc(100% - 6px) 6px,100% 6px,
+    100% calc(100% - 6px),calc(100% - 6px) calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,
+    6px calc(100% - 6px),0 calc(100% - 6px));
+    background:var(--accent);padding:2px}
+  .bd2>div{clip-path:inherit;background:var(--panel-2);padding:10px 14px;font-size:12.5px}
+  .bd3{position:relative;background:var(--panel-2);padding:10px 14px;font-size:12.5px;
+    box-shadow:0 -2px 0 0 var(--gold),0 2px 0 0 var(--gold),-2px 0 0 0 var(--gold),2px 0 0 0 var(--gold),
+      0 -4px 0 0 rgba(232,201,74,.25),0 4px 0 0 rgba(232,201,74,.25)}
+
+  .px-btn{font-family:'PX-ZH',monospace;font-size:12px;color:var(--text);cursor:pointer;
+    background:var(--panel-2);border:2px solid var(--line);padding:8px 18px;
+    box-shadow:4px 4px 0 rgba(0,0,0,.55);transition:none}
+  .px-btn:hover{border-color:var(--gold);color:var(--gold)}
+  .px-btn:active{transform:translate(4px,4px);box-shadow:none}
+  .px-btn.blue{background:var(--accent);border-color:#2a49c9;color:#fff}
+
+  /* 抖色 demo */
+  .dither-wrap{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+  .dither-wrap figure{width:132px}
+  .dither-wrap img,.dither-wrap canvas{width:132px;height:132px;display:block;
+    image-rendering:pixelated;border:1px solid var(--line)}
+  .dither-wrap figcaption{font-size:10.5px;color:var(--dim);margin-top:6px;text-align:center}
+  .lab-ctl{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:11.5px;color:var(--dim)}
+  input[type=range]{accent-color:var(--accent);width:130px}
+
+  /* 打字機 & 掃描線 */
+  .type-line{font-family:'PX-JA','PX-ZH',monospace;font-size:14px;min-height:22px;color:var(--gold)}
+  .type-cursor{display:inline-block;width:8px;height:14px;background:var(--gold);
+    vertical-align:-2px;animation:tw .8s steps(1) infinite}
+  .crt{position:relative;background:#040613;padding:18px;text-align:center;overflow:hidden}
+  .crt::after{content:'';position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(0,0,0,.3) 2px 4px)}
+  .crt .t{font-family:'PX-ZH','PX-JA',monospace;font-size:15px;color:var(--text)}
+  .crt .s{font-size:10px;color:var(--dim);margin-top:6px;font-family:'PX-ZH',monospace}
+
+  /* 字型對照 */
+  .font-demo{display:grid;grid-template-columns:64px 1fr;gap:6px 16px;font-size:14px;
+    align-items:baseline;margin-top:8px}
+  .font-demo .k{font-size:11px;color:var(--dim);text-align:right}
+
+  /* ============ 遷移表 ============ */
+  table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:16px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--panel-2);font-size:12px;letter-spacing:.05em}
+  td .lv0{color:#5a6784}td .lv1{color:var(--teal)}td .lv2{color:var(--gold)}td .lv3{color:var(--red)}
+  .legend{font-size:11.5px;color:var(--dim);margin-top:8px}
+  .legend i{font-style:normal;margin-right:14px}
+
+  /* 推薦區 */
+  .verdict{background:linear-gradient(135deg,#141d31,#1a2440);border:2px solid var(--gold);
+    border-radius:0;box-shadow:6px 6px 0 rgba(232,201,74,.15);padding:24px 26px;margin-top:26px}
+  .verdict h3{margin:0 0 10px;font-family:'PX-ZH','PX-JA',monospace;font-weight:400;
+    color:var(--gold);font-size:17px}
+  .verdict ol{margin:10px 0 0 20px;font-size:13.5px}
+  .verdict li{margin-top:6px}
+  footer{margin-top:90px;color:#5a6784;font-size:11.5px;text-align:center}
+  @media(max-width:700px){.pros{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-topbar">
+  <div class="site-topbar-inner">
+    <a href="/">Derek's Site</a>
+    <a class="crumb" href="#">/ Pixel Lab(內部提案頁,未掛導航)</a>
+  </div>
+</header>
+<main>
+  <h1>像素風主視覺 — 四條路線的實物提案</h1>
+  <p class="sub">
+    動機:配合下一個未實裝功能,評估整站主視覺像素化。本頁不用文字空談 ——
+    同一組站台元件(導航/hero/翻譯卡/歌詞行/按鈕)用四種強度各做一份活的 mock,
+    並附技法實驗室、字型管線實測、以及每頁的遷移成本盤點。往下捲,看完拍板。
+  </p>
+  <div class="toc">
+    <a href="#props">① 四個方案</a>
+    <a href="#lab">② 技法實驗室</a>
+    <a href="#font">③ 字型管線(有地雷)</a>
+    <a href="#cost">④ 遷移成本表</a>
+    <a href="#verdict">⑤ 我的推薦</a>
+  </div>
+
+  <div class="note warn" style="margin-top:30px">
+    <b>先講最重要的實測發現:</b>gacha 現有的像素字型是「歌詞文本」子集 ——
+    歌詞全覆蓋,但站台 UI 常用字大量缺字(連「詞」「譯」「索」「設」都沒有)。
+    所以整站像素化<b>必須重建一份站台字集</b>,不能直接搬 gacha 的檔。
+    本頁用的字型就是我按新管線現做的站台子集(§3 有指令與大小),證明這條路走得通。
+  </div>
+
+  <!-- ============================================================ -->
+  <h2 id="props">① 四個方案 — 同一組元件,四種強度</h2>
+  <p class="sub">每個 mock 都是活的:字型真的是像素字型、按鈕可以按、星星在閃。</p>
+
+  <!-- 方案 A -->
+  <div class="prop">
+    <div class="prop-head">
+      <span class="tag tagA">方案 A</span><h3>全面像素</h3>
+      <span class="prop-sub">所有文字(含歌詞內文)換像素字型、封面抖色、硬框硬影、掃描線</span>
+    </div>
+    <div class="mock">
+      <div class="mk vA">
+        <div class="mk-label">LIVE MOCK — A</div>
+        <div class="mk-nav"><b>日文歌翻譯</b><span>歌詞宇宙</span><span>巡演</span><span>花絮</span></div>
+        <div class="mk-hero">
+          <span class="mk-star" style="top:18%;left:12%"></span>
+          <span class="mk-star" style="top:32%;left:78%;animation-delay:.4s"></span>
+          <span class="mk-star" style="top:70%;left:30%;animation-delay:.8s"></span>
+          <span class="mk-star" style="top:55%;left:60%;animation-delay:.2s"></span>
+          <div class="t">歡迎來到我的個人空間</div>
+          <div class="s">日文歌翻譯 · 生活日記 · 程式作品</div>
+        </div>
+        <div class="mk-card">
+          <img src="/covers/nishina/clover.jpg" alt="" data-dither="6">
+          <div><div class="tt">CLOVER</div><div class="st">にしな · 日々散漫</div>
+          <span class="bd">2026</span></div>
+        </div>
+        <div class="mk-lyr">
+          <div class="ja">触れたら壊れてしまいそうな夜の隙間</div>
+          <div class="zh">像是一碰就會碎掉的、夜的縫隙</div>
+        </div>
+        <div class="mk-btns"><button class="mk-btn pri">探索翻譯</button><button class="mk-btn">查看作品</button></div>
+      </div>
+      <ul class="pros" style="flex:1;min-width:240px">
+        <li class="p">風格統一到底,辨識度最強</li>
+        <li class="p">跟新功能(像素系)無縫</li>
+        <li class="m">歌詞內文可讀性明顯下降 — 你的核心內容是「讀翻譯」,12px 網格字讀長文吃力</li>
+        <li class="m">封面抖色動到藝人視覺素材,失真有風險</li>
+        <li class="m">動工量最大,每頁都要重驗排版</li>
+      </ul>
+    </div>
+    <div class="effort">動工量:■■■■■ 約 5-7 天(含 lyric-universe / kwic / live 三頁 / annotator 全改)</div>
+  </div>
+
+  <!-- 方案 B -->
+  <div class="prop">
+    <div class="prop-head">
+      <span class="tag tagB">方案 B</span><h3>像素外殼</h3>
+      <span class="prop-sub">UI 鍍膜:導航/標題/按鈕/badge/邊框全像素;歌詞與長文內文保留 Noto</span>
+    </div>
+    <div class="mock">
+      <div class="mk vB">
+        <div class="mk-label">LIVE MOCK — B</div>
+        <div class="mk-nav"><b>日文歌翻譯</b><span>歌詞宇宙</span><span>巡演</span><span>花絮</span></div>
+        <div class="mk-hero">
+          <span class="mk-star" style="top:18%;left:12%"></span>
+          <span class="mk-star" style="top:32%;left:78%;animation-delay:.4s"></span>
+          <span class="mk-star" style="top:70%;left:30%;animation-delay:.8s"></span>
+          <span class="mk-star" style="top:55%;left:60%;animation-delay:.2s"></span>
+          <div class="t">歡迎來到我的個人空間</div>
+          <div class="s">日文歌翻譯 · 生活日記 · 程式作品</div>
+        </div>
+        <div class="mk-card">
+          <img src="/covers/nishina/clover.jpg" alt="">
+          <div><div class="tt">CLOVER</div><div class="st">にしな · 日々散漫</div>
+          <span class="bd">2026</span></div>
+        </div>
+        <div class="mk-lyr">
+          <div class="ja">触れたら壊れてしまいそうな夜の隙間</div>
+          <div class="zh">像是一碰就會碎掉的、夜的縫隙</div>
+        </div>
+        <div class="mk-btns"><button class="mk-btn pri">探索翻譯</button><button class="mk-btn">查看作品</button></div>
+      </div>
+      <ul class="pros" style="flex:1;min-width:240px">
+        <li class="p">一眼像素,但歌詞照樣好讀 — 內容零犧牲</li>
+        <li class="p">封面原圖保留(對藝人素材最保險)</li>
+        <li class="p">實作集中在 BaseLayout + global tokens,一次生效全站</li>
+        <li class="m">「殼像素、文常規」的混搭,潔癖視角會覺得不徹底</li>
+        <li class="m">工具頁(annotator 等)另有獨立 CSS,要跟進一輪</li>
+      </ul>
+    </div>
+    <div class="effort">動工量:■■■□□ 約 2-3 天(Astro 頁共用層一次改;獨立 HTML 工具頁逐一補)</div>
+  </div>
+
+  <!-- 方案 C -->
+  <div class="prop">
+    <div class="prop-head">
+      <span class="tag tagC">方案 C</span><h3>輕點綴</h3>
+      <span class="prop-sub">現狀為底,只在 badge/主按鈕/星星/小標籤摻像素 — 最小可行的風格暗示</span>
+    </div>
+    <div class="mock">
+      <div class="mk vC">
+        <div class="mk-label">LIVE MOCK — C</div>
+        <div class="mk-nav"><b>日文歌翻譯</b><span>歌詞宇宙</span><span>巡演</span><span>花絮</span></div>
+        <div class="mk-hero">
+          <span class="mk-star" style="top:18%;left:12%"></span>
+          <span class="mk-star" style="top:32%;left:78%;animation-delay:.4s"></span>
+          <span class="mk-star" style="top:70%;left:30%;animation-delay:.8s"></span>
+          <span class="mk-star" style="top:55%;left:60%;animation-delay:.2s"></span>
+          <div class="t">歡迎來到我的個人空間</div>
+          <div class="s">日文歌翻譯 · 生活日記 · 程式作品</div>
+        </div>
+        <div class="mk-card">
+          <img src="/covers/nishina/clover.jpg" alt="">
+          <div><div class="tt">CLOVER</div><div class="st">にしな · 日々散漫</div>
+          <span class="bd">2026</span></div>
+        </div>
+        <div class="mk-lyr">
+          <div class="ja">触れたら壊れてしまいそうな夜の隙間</div>
+          <div class="zh">像是一碰就會碎掉的、夜的縫隙</div>
+        </div>
+        <div class="mk-btns"><button class="mk-btn pri">探索翻譯</button><button class="mk-btn">查看作品</button></div>
+      </div>
+      <ul class="pros" style="flex:1;min-width:240px">
+        <li class="p">半天到一天完工,風險趨近零</li>
+        <li class="p">閱讀體驗 100% 不動</li>
+        <li class="m">說是「像素風」有點勉強 — 更像彩蛋</li>
+        <li class="m">跟全像素的新功能擺在一起,反差仍在</li>
+      </ul>
+    </div>
+    <div class="effort">動工量:■□□□□ 約 0.5-1 天</div>
+  </div>
+
+  <!-- 方案 D -->
+  <div class="prop">
+    <div class="prop-head">
+      <span class="tag tagD">方案 D</span><h3>分區混搭(推薦)</h3>
+      <span class="prop-sub">按頁面性質給不同強度:遊戲/工具區全像素、瀏覽區像素外殼、閱讀區輕點綴</span>
+    </div>
+    <div class="mock" style="display:block">
+      <div class="mk-label">頁面地圖 — 三種強度怎麼分</div>
+      <table style="margin-top:6px">
+        <tr><th style="width:130px">強度</th><th>頁面</th><th>理由</th></tr>
+        <tr>
+          <td><span class="tag tagA">A 全像素</span></td>
+          <td>gacha(已是)· 新功能 · /live/ 三頁 · annotator</td>
+          <td>遊戲感/工具感的頁,像素加成最大,而且都是獨立 HTML,改動互不干擾</td>
+        </tr>
+        <tr>
+          <td><span class="tag tagB">B 外殼</span></td>
+          <td>首頁 · 翻譯列表 · 花絮 · setlists · 日記/作品列表</td>
+          <td>瀏覽型頁面 — 殼像素給足風格,卡片文字保持好掃讀</td>
+        </tr>
+        <tr>
+          <td><span class="tag tagC">C 點綴</span></td>
+          <td>翻譯內頁(歌詞閱讀區)· 歌詞宇宙 · KWIC · 星圖</td>
+          <td>長文閱讀與資料視覺化 — 內容即主角,只留角落的像素簽名</td>
+        </tr>
+      </table>
+      <ul class="pros" style="margin-top:16px">
+        <li class="p">每頁拿到「對它最合理」的強度 — 統一的是<b>語彙</b>(同字型/同硬影/同金色),不是強度</li>
+        <li class="p">新功能落在全像素區,毫無違和;歌詞閱讀零犧牲</li>
+        <li class="p">可以分批上線:先 B 層(共用層一改全站生效),再逐頁補 A 層</li>
+        <li class="m">需要一份「像素設計 token」文件管住三層,不然會漂移</li>
+      </ul>
+    </div>
+    <div class="effort">動工量:■■■□□ 首波 2-3 天(B 層 + tokens),A 層工具頁再 +2 天可分批</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2 id="lab">② 技法實驗室 — 每一招都是可以直接搬走的 CSS</h2>
+  <div class="lab">
+    <div class="lab-card">
+      <h4>像素邊框三法</h4>
+      <div class="bd1">① 雙層 box-shadow 描邊</div>
+      <div style="height:10px"></div>
+      <div class="bd2"><div>② clip-path 缺角(9-bit 感)</div></div>
+      <div style="height:10px"></div>
+      <div class="bd3">③ 上下錯位硬影(游標懸停試試)</div>
+      <div class="exp">全程無圖片、無圓角。①最便宜;②最有味;③適合強調卡。</div>
+    </div>
+
+    <div class="lab-card">
+      <h4>硬陰影按鈕 + 按壓位移</h4>
+      <button class="px-btn blue">探索翻譯</button>
+      <button class="px-btn" style="margin-left:8px">查看作品</button>
+      <div class="exp">
+        <code>box-shadow:4px 4px 0</code> 不模糊 + <code>:active</code> 位移吃掉陰影 =
+        實體按下去的手感。transition 要設 none,「瞬間」才像 8-bit。
+      </div>
+    </div>
+
+    <div class="lab-card">
+      <h4>封面抖色(Bayer 4×4 有序抖動)</h4>
+      <div class="dither-wrap">
+        <figure><img src="/covers/nishina/clover.jpg" alt=""><figcaption>原圖</figcaption></figure>
+        <figure><canvas id="ditherCv" width="66" height="66"></canvas><figcaption>抖色 + 8 色盤</figcaption></figure>
+      </div>
+      <div class="lab-ctl">粒度 <input type="range" id="ditherPx" min="3" max="12" value="6"><span id="ditherVal">6px</span></div>
+      <div class="exp">
+        canvas 縮小取樣 → Bayer 閾值 → 貼回 <code>image-rendering:pixelated</code>。
+        方案 A 才用;有動藝人素材的疑慮就止步於 hover 效果。
+      </div>
+    </div>
+
+    <div class="lab-card">
+      <h4>steps() 打字機(歌詞入場)</h4>
+      <div class="type-line" id="typeLine"></div><span class="type-cursor"></span>
+      <div class="exp">
+        CJK 比例字型不能用經典 width steps 法,改 JS 逐字 —
+        搭 <code>steps(1)</code> 游標。適合翻譯內頁的第一句入場。
+      </div>
+    </div>
+
+    <div class="lab-card">
+      <h4>掃描線 / CRT 疊層</h4>
+      <div class="crt">
+        <div class="t">にしな歌詞宇宙</div>
+        <div class="s">SCANLINE OVERLAY 2px</div>
+      </div>
+      <div class="exp">
+        <code>repeating-linear-gradient</code> 2px 一格疊最上層。
+        便宜且可逆 — 加在 hero 一處就有氛圍,別全站鋪(晃眼)。
+      </div>
+    </div>
+
+    <div class="lab-card">
+      <h4>像素字型 × 尺寸紀律</h4>
+      <div class="font-demo">
+        <span class="k">12px</span><span class="px" style="font-size:12px">歌詞翻譯 · 巡演設定 · 花絮索引</span>
+        <span class="k">24px</span><span class="px" style="font-size:24px">日文歌翻譯</span>
+        <span class="k">忌 15px</span><span class="px" style="font-size:15px">非整數倍會糊(對照看)</span>
+        <span class="k">ja 字形</span><span class="pxj" style="font-size:12px">触れたら壊れてしまいそうな夜の隙間</span>
+      </div>
+      <div class="exp">
+        fusion-pixel 是 12px 網格 — <b>只用 12 / 24 / 36px</b>,其餘尺寸必糊。
+        中日各一檔(zh_hant / ja)按語言掛,漢字字形才正確。
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2 id="font">③ 字型管線 — 實測數據與現成指令</h2>
+  <div class="note">
+    <b>覆蓋實測:</b>gacha 子集(歌詞字集)共 1,986 字 — 歌詞樣本 100% 覆蓋,
+    但站台 UI 測試字串缺「詞譯索絮卡設戰暫略章搭查殼移薦遷」等常用字。
+    <b>結論:站台像素化要自己的子集。</b>
+  </div>
+  <div class="note good">
+    <b>本頁字型就是新管線的產物</b>(fusion-pixel 2026.07.20 完整字型 → pyftsubset):
+    站台字集 = 全站 UI 文案 + 導航 + 常用緩衝字 + 假名全表 + ASCII。
+    woff2 成品:zh_hant 與 ja 兩檔合計約 <b id="fontSize">—</b>(頁面載入時實測),
+    比 gacha 現行 TTF 子集(484KB)還小。
+  </div>
+  <pre>
+# 1. 抽全站會用到的字 (Astro 頁 + public 工具頁全文掃描)
+python scripts/build_site_charset.py   # → data/site_charset.txt
+
+# 2. 子集 + woff2 (中日各一檔)
+pyftsubset fusion-pixel-12px-proportional-zh_hant.ttf \
+  --text-file=data/site_charset.txt --flavor=woff2 \
+  --output-file=public/fonts/fp12-site-zh_hant.woff2
+pyftsubset fusion-pixel-12px-proportional-ja.ttf ...同上
+
+# 3. BaseLayout 預載 (首屏不閃字)
+&lt;link rel="preload" as="font" type="font/woff2" crossorigin
+      href="/fonts/fp12-site-zh_hant.woff2"&gt;</pre>
+  <p class="sub" style="margin-top:12px">
+    維運:新增翻譯/新頁面帶進新字 → CI 重跑 charset+subset(掛進現有 workflow 一行的事)。
+    授權:fusion-pixel = OFL-1.1,gacha 已在用同家族,合規無虞。
+  </p>
+
+  <!-- ============================================================ -->
+  <h2 id="cost">④ 遷移成本表 — 每一頁動什麼</h2>
+  <table>
+    <tr><th>頁面 / 資產</th><th>技術形態</th><th>B 外殼</th><th>D 分區(推薦)</th><th>A 全像素</th></tr>
+    <tr><td>BaseLayout + global.css(導航/footer/卡片 token)</td><td>Astro 共用</td>
+      <td><span class="lv2">改一次全站生效</span></td><td><span class="lv2">同左(B 層基底)</span></td><td><span class="lv2">同左+內文字型</span></td></tr>
+    <tr><td>首頁 hero(星空 canvas)</td><td>index.astro</td>
+      <td><span class="lv1">星星方塊化+steps</span></td><td><span class="lv1">同左</span></td><td><span class="lv1">同左+掃描線</span></td></tr>
+    <tr><td>翻譯列表 / 花絮 / setlists / 日記 / 作品</td><td>Astro 頁</td>
+      <td><span class="lv1">吃 token 即完成</span></td><td><span class="lv1">同左</span></td><td><span class="lv2">另需縮圖抖色</span></td></tr>
+    <tr><td>翻譯內頁(歌詞閱讀)</td><td>[id].astro + .prose</td>
+      <td><span class="lv1">殼像素,內文不動</span></td><td><span class="lv1">C 點綴(內文完全不動)</span></td><td><span class="lv3">內文像素字,可讀性風險</span></td></tr>
+    <tr><td>/live/ 三頁(年表/公演史/足跡)</td><td>模板+inject</td>
+      <td><span class="lv2">模板 CSS 換皮重注入</span></td><td><span class="lv2">A 級全像素(本來就工具感)</span></td><td><span class="lv2">同左</span></td></tr>
+    <tr><td>annotator</td><td>獨立 HTML</td>
+      <td><span class="lv2">獨立改一輪</span></td><td><span class="lv2">A 級(內部工具隨你玩)</span></td><td><span class="lv2">同左</span></td></tr>
+    <tr><td>歌詞宇宙 / KWIC / 星圖</td><td>獨立 HTML(資料視覺化)</td>
+      <td><span class="lv2">殼改,圖表不動</span></td><td><span class="lv1">C 點綴(視覺化別搶戲)</span></td><td><span class="lv3">圖表像素化=重做</span></td></tr>
+    <tr><td>gacha</td><td>已全像素</td>
+      <td><span class="lv0">不動</span></td><td><span class="lv0">不動(它就是 A 級樣板)</span></td><td><span class="lv0">不動</span></td></tr>
+    <tr><td>字型子集管線</td><td>新 script + CI</td>
+      <td><span class="lv2">必要</span></td><td><span class="lv2">必要</span></td><td><span class="lv2">必要(字集更大)</span></td></tr>
+  </table>
+  <div class="legend">
+    <i><span class="lv0">灰=不動</span></i><i><span class="lv1">綠=順手</span></i>
+    <i><span class="lv2">金=半天~一天</span></i><i><span class="lv3">紅=大工程/有風險</span></i>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2 id="verdict">⑤ 我的推薦</h2>
+  <div class="verdict">
+    <h3>押 D:分區混搭 — 統一「語彙」,不統一「強度」</h3>
+    <p style="font-size:13.5px;color:var(--dim)">
+      這個站的靈魂是「讀翻譯」,全像素(A)會傷到它;輕點綴(C)又撐不起新功能的世界觀。
+      D 讓遊戲/工具頁全像素、瀏覽頁披像素殼、閱讀區只留簽名 —
+      三層共用同一組 token(fusion-pixel 字型、硬影、金/藍配色、steps 動畫),
+      走到哪都認得是同一個站,但每一頁都沒有為風格犧牲功能。
+    </p>
+    <ol>
+      <li><b>要你拍板的:</b>路線選哪條(A/B/C/D)?</li>
+      <li>若選 D:三層的頁面歸屬照 §①D 的表,還是要調?</li>
+      <li>封面圖:保留原圖(我推薦)還是 hover 才抖色?</li>
+      <li>字型尺寸紀律:內文像素字只出現在 A 級頁,同意?</li>
+    </ol>
+    <p style="font-size:12.5px;color:var(--dim);margin-top:14px">
+      拍板後首波交付:pixel tokens(CSS 變數層)+ BaseLayout/global 換裝 + 字型子集管線進 CI
+      — 一個 commit 內全站 B 層生效,A 層工具頁逐一跟上。
+    </p>
+  </div>
+
+  <footer>pixel-lab · 內部提案頁(未掛導航)· 字型 fusion-pixel(OFL-1.1)· 封面僅站內展示用</footer>
+</main>
+
+<script>
+/* ---------- 字型實際大小 (證明子集夠小) ---------- */
+(async () => {
+  try {
+    const sizes = await Promise.all(
+      ['fonts/fp12-site-zh_hant.woff2', 'fonts/fp12-site-ja.woff2'].map(async u => {
+        const r = await fetch(u); const b = await r.arrayBuffer(); return b.byteLength;
+      }));
+    const kb = Math.round(sizes.reduce((a, b) => a + b, 0) / 1024);
+    const el = document.getElementById('fontSize');
+    if (el) el.textContent = kb + ' KB';
+  } catch (e) { /* 字型還沒生成時安靜跳過 */ }
+})();
+
+/* ---------- Bayer 4×4 抖色 demo ---------- */
+(() => {
+  const cv = document.getElementById('ditherCv');
+  const slider = document.getElementById('ditherPx');
+  const val = document.getElementById('ditherVal');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const img = new Image();
+  img.src = '/covers/nishina/clover.jpg';
+  /* 站台色系 8 色盤 (深空藍家族 + 金) */
+  const PAL = [[10,10,21],[20,29,49],[36,49,84],[61,99,255],[139,152,184],[232,236,246],[232,201,74],[214,85,85]];
+  const B4 = [[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]];  // Bayer 4×4
+  function nearest(r,g,b){
+    let bi=0, bd=1e9;
+    for(let i=0;i<PAL.length;i++){
+      const d=(r-PAL[i][0])**2+(g-PAL[i][1])**2+(b-PAL[i][2])**2;
+      if(d<bd){bd=d;bi=i}
+    }
+    return PAL[bi];
+  }
+  function render(){
+    const px = +slider.value;
+    val.textContent = px + 'px';
+    const N = Math.max(11, Math.round(132/px));   // 取樣格數
+    cv.width = N; cv.height = N;
+    ctx.imageSmoothingEnabled = true;
+    ctx.drawImage(img, 0, 0, N, N);
+    const d = ctx.getImageData(0, 0, N, N);
+    for(let y=0;y<N;y++) for(let x=0;x<N;x++){
+      const i=(y*N+x)*4;
+      const t=(B4[y%4][x%4]/16-.5)*48;   // 抖動閾值擾動
+      const [r,g,b]=nearest(d.data[i]+t, d.data[i+1]+t, d.data[i+2]+t);
+      d.data[i]=r; d.data[i+1]=g; d.data[i+2]=b;
+    }
+    ctx.putImageData(d,0,0);
+  }
+  img.onload = render;
+  slider.oninput = render;
+})();
+
+/* ---------- 打字機 (JS 逐字, CJK 安全) ---------- */
+(() => {
+  const el = document.getElementById('typeLine');
+  if (!el) return;
+  const LINES = ['触れたら壊れてしまいそうな夜の隙間', '像是一碰就會碎掉的、夜的縫隙'];
+  let li = 0, ci = 0;
+  (function tick(){
+    const s = LINES[li];
+    el.textContent = s.slice(0, ci);
+    if (ci < s.length) { ci++; setTimeout(tick, 110); }
+    else { setTimeout(() => { li = (li+1)%LINES.length; ci = 0; tick(); }, 2400); }
+  })();
+})();
+
+/* ---------- 方案 A 的封面即時抖色 (小圖) ---------- */
+(() => {
+  document.querySelectorAll('img[data-dither]').forEach(im => {
+    const apply = () => {
+      const n = 14;   // 粗粒度
+      const c = document.createElement('canvas'); c.width = n; c.height = n;
+      const x = c.getContext('2d');
+      x.drawImage(im, 0, 0, n, n);
+      im.src = c.toDataURL();
+      im.style.imageRendering = 'pixelated';
+    };
+    if (im.complete && im.naturalWidth) apply(); else im.onload = apply;
+  });
+})();
+</script>
+</body>
+</html>
