@@ -15,7 +15,7 @@ interface Short {
   url?: string;
   thumbnail?: string;
   viewCount?: number;
-  versionType?: 'live' | 'mv' | 'acoustic' | 'other' | null;
+  versionType?: 'live' | 'mv' | 'acoustic' | 'tft' | 'other' | null;
   anchors: Anchor[];
 }
 interface Props {
@@ -34,8 +34,12 @@ const VERSION_META = {
   live:     { label: 'LIVE',    icon: '🎤' },
   mv:       { label: 'MV',      icon: '📀' },
   acoustic: { label: '弾き語り', icon: '🎸' },
-  other:    { label: '其他',    icon: '🎧' },
+  tft:      { label: 'TFT',     icon: '🎧' },
+  other:    { label: '其他',    icon: '🎬' },
 };
+// 防禦: 未知 versionType (annotator 新增類別還沒同步到這) 一律當 other, 不炸 build
+const vMeta = (k?: string | null) =>
+  VERSION_META[(k || 'other') as keyof typeof VERSION_META] ?? VERSION_META.other;
 
 function formatViews(n?: number): string {
   if (!n) return '—';
@@ -60,7 +64,7 @@ const componentId = `shelf-${Math.random().toString(36).slice(2, 9)}`;
     <button class="shelf-chip active" data-filter="all" role="tab">
       全部 <span class="shelf-chip-count">{counts.all}</span>
     </button>
-    {(['live','mv','acoustic','other'] as const)
+    {(['live','mv','acoustic','tft','other'] as const)
       .filter(k => counts[k])
       .map(k => (
         <button class="shelf-chip" data-filter={k} role="tab">
@@ -83,8 +87,8 @@ const componentId = `shelf-${Math.random().toString(36).slice(2, 9)}`;
           <div class="shelf-thumb">
             <img src={s.thumbnail} loading="lazy" alt={s.title} />
             <span class={`shelf-badge shelf-badge-${s.versionType || 'other'}`}>
-              {VERSION_META[(s.versionType || 'other') as keyof typeof VERSION_META].icon}
-              {VERSION_META[(s.versionType || 'other') as keyof typeof VERSION_META].label}
+              {vMeta(s.versionType).icon}
+              {vMeta(s.versionType).label}
             </span>
             <span class="shelf-play-icon">▶</span>
           </div>
@@ -255,6 +259,7 @@ const componentId = `shelf-${Math.random().toString(36).slice(2, 9)}`;
   .shelf-badge-live { background: rgba(239, 68, 68, 0.88); }
   .shelf-badge-mv { background: rgba(59, 130, 246, 0.88); }
   .shelf-badge-acoustic { background: rgba(245, 158, 11, 0.88); }
+  .shelf-badge-tft { background: rgba(168, 85, 247, 0.88); }
   .shelf-badge-other { background: rgba(107, 114, 128, 0.88); }
   .shelf-play-icon {
     position: absolute;

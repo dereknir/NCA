@@ -20,7 +20,7 @@ interface Short {
   title?: string;
   thumbnail?: string;
   viewCount?: number;
-  versionType?: 'live' | 'mv' | 'acoustic' | 'other' | null;
+  versionType?: 'live' | 'mv' | 'acoustic' | 'tft' | 'other' | null;
   instrumental?: boolean;
   anchors: Anchor[];
 }
@@ -593,7 +593,7 @@ if (!shorts || shorts.length === 0) return null;
     videoId: string;
     title?: string;
     thumbnail?: string;
-    versionType?: 'live' | 'mv' | 'acoustic' | 'other' | null;
+    versionType?: 'live' | 'mv' | 'acoustic' | 'tft' | 'other' | null;
     anchors: Anchor[];
   }
   interface YTPlayerLike {
@@ -644,17 +644,19 @@ if (!shorts || shorts.length === 0) return null;
   const shortsById = new Map(shortsAll.map(s => [s.videoId, s]));
 
   /* ==== 版本分組 ==== */
-  const VERSION_ORDER = ['live', 'mv', 'acoustic', 'other'] as const;
+  const VERSION_ORDER = ['live', 'mv', 'acoustic', 'tft', 'other'] as const;
   const VERSION_META = {
     live: { label: 'LIVE', icon: '🎤' },
     mv: { label: 'MV', icon: '📀' },
     acoustic: { label: '弾き語り', icon: '🎸' },
-    other: { label: '其他', icon: '🎧' },
+    tft: { label: 'TFT', icon: '🎧' },
+    other: { label: '其他', icon: '🎬' },
   };
-  const byVersion: Record<string, Short[]> = { live: [], mv: [], acoustic: [], other: [] };
+  const byVersion: Record<string, Short[]> = { live: [], mv: [], acoustic: [], tft: [], other: [] };
   for (const s of shortsAll) {
     const k = s.versionType || 'other';
-    byVersion[k].push(s);
+    // 防禦: 未知 versionType (annotator 新類別還沒同步到這) 進 other, 不讓 undefined.push 炸掉 Stage
+    (byVersion[k] || byVersion.other).push(s);
   }
 
   /* ==== State ==== */
@@ -934,8 +936,8 @@ if (!shorts || shorts.length === 0) return null;
       state.lyricLineEls.forEach(el => el.classList.remove('stage-active'));
     }
     updateStripActive();
-    // 若當前的 activeVersion 不含這支, 切到它的 version
-    const vt = short.versionType || 'other';
+    // 若當前的 activeVersion 不含這支, 切到它的 version (未知類型正規化成 other)
+    const vt = byVersion[short.versionType || 'other'] ? (short.versionType || 'other') : 'other';
     if (state.activeVersion !== vt) selectVersion(vt);
     // 標記 URL hash (在此 Stage 已開啟時)
     if (stage.dataset.open === 'true') {
@@ -992,7 +994,7 @@ if (!shorts || shorts.length === 0) return null;
     const short = shortsById.get(videoId)!;
     const initialVersion = opts.filter && opts.filter !== 'all' && byVersion[opts.filter]?.length
       ? opts.filter
-      : (short.versionType || 'other');
+      : (byVersion[short.versionType || 'other'] ? (short.versionType || 'other') : 'other');
     selectVersion(initialVersion);
     cloneLyricsInto();
     loadShort(videoId);
