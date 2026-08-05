@@ -1,6 +1,6 @@
 {
   "meta": {
-    "total": 33,
+    "total": 35,
     "tour_names": [
       "Feeling",
       "MUSICK",
@@ -9,7 +9,7 @@
       "クランベリージャムをかけて",
       "日々散漫"
     ],
-    "unspecified_count": 1
+    "unspecified_count": 3
   },
   "by_tour": {
     "日々散漫": [
@@ -153,6 +153,28 @@
         "url": "https://www.youtube.com/shorts/uPITekAHlWM",
         "thumbnail": "https://i.ytimg.com/vi/uPITekAHlWM/hqdefault.jpg",
         "viewCount": 13000,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": null
+      },
+      {
+        "videoId": "68Vw65m-A2U",
+        "title": "Feeling in Ebisu",
+        "url": "https://www.youtube.com/shorts/68Vw65m-A2U",
+        "thumbnail": "https://i.ytimg.com/vi/68Vw65m-A2U/hqdefault.jpg",
+        "viewCount": 3200,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": null
+      },
+      {
+        "videoId": "WZ02xijoSPY",
+        "title": "nishina Tour 「SUPER COMPLEX」",
+        "url": "https://www.youtube.com/shorts/WZ02xijoSPY",
+        "thumbnail": "https://i.ytimg.com/vi/WZ02xijoSPY/hqdefault.jpg",
+        "viewCount": 2600,
         "versionType": null,
         "instrumental": false,
         "anchors": [],

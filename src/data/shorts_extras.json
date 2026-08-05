@@ -1,10 +1,10 @@
 {
   "meta": {
-    "total": 68,
+    "total": 71,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 19,
+      "promo": 22,
       "live_song": 22,
       "mc": 5,
       "yearly": 6,
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 19,
+      "count": 22,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -149,6 +149,16 @@
           "url": "https://www.youtube.com/shorts/ZPJg55iafRI",
           "thumbnail": "https://i.ytimg.com/vi/ZPJg55iafRI/hqdefault.jpg",
           "viewCount": 18000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "E9mlR4Zf0cM",
+          "title": "New goods!",
+          "url": "https://www.youtube.com/shorts/E9mlR4Zf0cM",
+          "thumbnail": "https://i.ytimg.com/vi/E9mlR4Zf0cM/hqdefault.jpg",
+          "viewCount": 12000,
           "versionType": null,
           "instrumental": false,
           "anchors": []
@@ -274,6 +284,16 @@
           "anchors": []
         },
         {
+          "videoId": "iLoKBVKZYgM",
+          "title": "bugs - 1.31 release",
+          "url": "https://www.youtube.com/shorts/iLoKBVKZYgM",
+          "thumbnail": "https://i.ytimg.com/vi/iLoKBVKZYgM/hqdefault.jpg",
+          "viewCount": 3500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "e-pmzZoe-MM",
           "title": "うるわしき あいのうた",
           "url": "https://www.youtube.com/shorts/e-pmzZoe-MM",
@@ -309,6 +329,16 @@
           "url": "https://www.youtube.com/shorts/SdW7Z2GaJUg",
           "thumbnail": "https://i.ytimg.com/vi/SdW7Z2GaJUg/hqdefault.jpg",
           "viewCount": 2200,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "2bpwRJBHO4E",
+          "title": "nishina | bugs - 2.1 - 21:00 Music Video OUT",
+          "url": "https://www.youtube.com/shorts/2bpwRJBHO4E",
+          "thumbnail": "https://i.ytimg.com/vi/2bpwRJBHO4E/hqdefault.jpg",
+          "viewCount": 1600,
           "versionType": null,
           "instrumental": false,
           "anchors": []

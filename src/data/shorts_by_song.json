@@ -1,9 +1,9 @@
 {
   "meta": {
     "song_count": 19,
-    "short_count": 171,
+    "short_count": 175,
     "skipped": {
-      "pending": 699,
+      "pending": 692,
       "skip": 0,
       "no_song": 0,
       "no_anchors": 1,
@@ -1602,6 +1602,33 @@
     ],
     "nishina-seiran-yuuei": [
       {
+        "videoId": "8oZ5JI2ycF4",
+        "title": "Farewell, my friend, forget it all happened",
+        "url": "https://www.youtube.com/shorts/8oZ5JI2ycF4",
+        "thumbnail": "https://i.ytimg.com/vi/8oZ5JI2ycF4/hqdefault.jpg",
+        "viewCount": 74000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 20
+          },
+          {
+            "t": 5.46,
+            "line": 21
+          },
+          {
+            "t": 13.65,
+            "line": 22
+          },
+          {
+            "t": 19.66,
+            "line": 23
+          }
+        ]
+      },
+      {
         "videoId": "aE5U_gwzzQg",
         "title": "永遠に僕らは大人になれずに",
         "url": "https://www.youtube.com/shorts/aE5U_gwzzQg",
@@ -1744,6 +1771,33 @@
           {
             "t": 19.42,
             "line": 9
+          }
+        ]
+      },
+      {
+        "videoId": "Ck3-sNc1QHg",
+        "title": "Farewell, my friend, forget it all happened",
+        "url": "https://www.youtube.com/shorts/Ck3-sNc1QHg",
+        "thumbnail": "https://i.ytimg.com/vi/Ck3-sNc1QHg/hqdefault.jpg",
+        "viewCount": 17000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 20
+          },
+          {
+            "t": 6.11,
+            "line": 21
+          },
+          {
+            "t": 13.77,
+            "line": 22
+          },
+          {
+            "t": 19.72,
+            "line": 23
           }
         ]
       },
@@ -1937,6 +1991,33 @@
         ]
       },
       {
+        "videoId": "EWFVgH24zFI",
+        "title": "名残惜しさは振り払って もう行かなきゃ",
+        "url": "https://www.youtube.com/shorts/EWFVgH24zFI",
+        "thumbnail": "https://i.ytimg.com/vi/EWFVgH24zFI/hqdefault.jpg",
+        "viewCount": 6500,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 16
+          },
+          {
+            "t": 6.83,
+            "line": 17
+          },
+          {
+            "t": 13.68,
+            "line": 18
+          },
+          {
+            "t": 19.59,
+            "line": 19
+          }
+        ]
+      },
+      {
         "videoId": "r4CM9Os2E8Q",
         "title": "青いプール金魚を放とう",
         "url": "https://www.youtube.com/shorts/r4CM9Os2E8Q",
@@ -2098,6 +2179,49 @@
           {
             "t": 5.72,
             "line": 9
+          }
+        ]
+      },
+      {
+        "videoId": "SKOITeZKDcI",
+        "title": "Let’s release the goldfish in the blue pool",
+        "url": "https://www.youtube.com/shorts/SKOITeZKDcI",
+        "thumbnail": "https://i.ytimg.com/vi/SKOITeZKDcI/hqdefault.jpg",
+        "viewCount": 2100,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 6.72,
+            "line": 1
+          },
+          {
+            "t": 13.83,
+            "line": 2
+          },
+          {
+            "t": 20.65,
+            "line": 3
+          },
+          {
+            "t": 27,
+            "line": 4
+          },
+          {
+            "t": 34.09,
+            "line": 5
+          },
+          {
+            "t": 41.12,
+            "line": 6
+          },
+          {
+            "t": 46.81,
+            "line": 7
           }
         ]
       }
