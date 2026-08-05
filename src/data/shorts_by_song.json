@@ -1,9 +1,9 @@
 {
   "meta": {
     "song_count": 19,
-    "short_count": 175,
+    "short_count": 195,
     "skipped": {
-      "pending": 692,
+      "pending": 671,
       "skip": 0,
       "no_song": 0,
       "no_anchors": 1,
@@ -1648,6 +1648,37 @@
         ]
       },
       {
+        "videoId": "3mRXC09NZAk",
+        "title": "THE FIRST TAKE - nishina / Seiran Yuei",
+        "url": "https://www.youtube.com/shorts/3mRXC09NZAk",
+        "thumbnail": "https://i.ytimg.com/vi/3mRXC09NZAk/hqdefault.jpg",
+        "viewCount": 36000,
+        "versionType": "tft",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 7
+          },
+          {
+            "t": 2.81,
+            "line": 8
+          },
+          {
+            "t": 8.88,
+            "line": 9
+          },
+          {
+            "t": 17.27,
+            "line": 10
+          },
+          {
+            "t": 23.73,
+            "line": 11
+          }
+        ]
+      },
+      {
         "videoId": "fyWT9erHnW4",
         "title": "ただ好き勝手に泳いでいく",
         "url": "https://www.youtube.com/shorts/fyWT9erHnW4",
@@ -1670,6 +1701,33 @@
           },
           {
             "t": 19.41,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "kWHu-HUPxIk",
+        "title": "THE FIRST TAKE - nishina / 青藍遊泳",
+        "url": "https://www.youtube.com/shorts/kWHu-HUPxIk",
+        "thumbnail": "https://i.ytimg.com/vi/kWHu-HUPxIk/hqdefault.jpg",
+        "viewCount": 25000,
+        "versionType": "tft",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 6.32,
+            "line": 9
+          },
+          {
+            "t": 14.81,
+            "line": 10
+          },
+          {
+            "t": 21.02,
             "line": 11
           }
         ]
@@ -1829,6 +1887,29 @@
         ]
       },
       {
+        "videoId": "juS-Zax78OY",
+        "title": "Because I have to go",
+        "url": "https://www.youtube.com/shorts/juS-Zax78OY",
+        "thumbnail": "https://i.ytimg.com/vi/juS-Zax78OY/hqdefault.jpg",
+        "viewCount": 15000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 18
+          },
+          {
+            "t": 5.67,
+            "line": 19
+          },
+          {
+            "t": 14.02,
+            "line": 20
+          }
+        ]
+      },
+      {
         "videoId": "rvzFeJ0lcBo",
         "title": "永遠に僕らは大人になれずに",
         "url": "https://www.youtube.com/shorts/rvzFeJ0lcBo",
@@ -1878,6 +1959,195 @@
           },
           {
             "t": 19.35,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "SvR78l_30wY",
+        "title": "Always planning on how to steal the stardust tonight",
+        "url": "https://www.youtube.com/shorts/SvR78l_30wY",
+        "thumbnail": "https://i.ytimg.com/vi/SvR78l_30wY/hqdefault.jpg",
+        "viewCount": 14000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 6.1,
+            "line": 9
+          },
+          {
+            "t": 13.93,
+            "line": 10
+          },
+          {
+            "t": 19.9,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "o5rI6SIPuRo",
+        "title": "the stardust tonight",
+        "url": "https://www.youtube.com/shorts/o5rI6SIPuRo",
+        "thumbnail": "https://i.ytimg.com/vi/o5rI6SIPuRo/hqdefault.jpg",
+        "viewCount": 13000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.48,
+            "line": 20
+          },
+          {
+            "t": 6.34,
+            "line": 21
+          },
+          {
+            "t": 14.09,
+            "line": 22
+          },
+          {
+            "t": 20.16,
+            "line": 23
+          }
+        ]
+      },
+      {
+        "videoId": "QrQ7TsYXwyw",
+        "title": "We’re just swimming around as we please",
+        "url": "https://www.youtube.com/shorts/QrQ7TsYXwyw",
+        "thumbnail": "https://i.ytimg.com/vi/QrQ7TsYXwyw/hqdefault.jpg",
+        "viewCount": 13000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 5.88,
+            "line": 9
+          },
+          {
+            "t": 13.91,
+            "line": 10
+          },
+          {
+            "t": 19.84,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "2sKI9BKScMM",
+        "title": "We’re just swimming around as we please",
+        "url": "https://www.youtube.com/shorts/2sKI9BKScMM",
+        "thumbnail": "https://i.ytimg.com/vi/2sKI9BKScMM/hqdefault.jpg",
+        "viewCount": 12000,
+        "versionType": "tft",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 6.24,
+            "line": 9
+          },
+          {
+            "t": 14.68,
+            "line": 10
+          },
+          {
+            "t": 21.13,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "bPoouVm07Uw",
+        "title": "Let’s release the goldfish in the blue pool",
+        "url": "https://www.youtube.com/shorts/bPoouVm07Uw",
+        "thumbnail": "https://i.ytimg.com/vi/bPoouVm07Uw/hqdefault.jpg",
+        "viewCount": 12000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 6.98,
+            "line": 1
+          },
+          {
+            "t": 13.77,
+            "line": 2
+          },
+          {
+            "t": 20.72,
+            "line": 3
+          }
+        ]
+      },
+      {
+        "videoId": "CdgtvBdqeB8",
+        "title": "We’re just swimming around as we please",
+        "url": "https://www.youtube.com/shorts/CdgtvBdqeB8",
+        "thumbnail": "https://i.ytimg.com/vi/CdgtvBdqeB8/hqdefault.jpg",
+        "viewCount": 11000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 5.84,
+            "line": 9
+          },
+          {
+            "t": 13.66,
+            "line": 10
+          },
+          {
+            "t": 19.69,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "Kfxptcz_uN0",
+        "title": "We’re just swimming around as we please",
+        "url": "https://www.youtube.com/shorts/Kfxptcz_uN0",
+        "thumbnail": "https://i.ytimg.com/vi/Kfxptcz_uN0/hqdefault.jpg",
+        "viewCount": 11000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 5.96,
+            "line": 9
+          },
+          {
+            "t": 13.91,
+            "line": 10
+          },
+          {
+            "t": 19.56,
             "line": 11
           }
         ]
@@ -1960,6 +2230,87 @@
           {
             "t": 20.82,
             "line": 3
+          }
+        ]
+      },
+      {
+        "videoId": "i4AEtaCMIa8",
+        "title": "We’re just swimming around desperately",
+        "url": "https://www.youtube.com/shorts/i4AEtaCMIa8",
+        "thumbnail": "https://i.ytimg.com/vi/i4AEtaCMIa8/hqdefault.jpg",
+        "viewCount": 10000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 20
+          },
+          {
+            "t": 5.96,
+            "line": 21
+          },
+          {
+            "t": 13.87,
+            "line": 22
+          },
+          {
+            "t": 19.51,
+            "line": 23
+          }
+        ]
+      },
+      {
+        "videoId": "Hcc8jmELs5E",
+        "title": "We’re just swimming around as we please",
+        "url": "https://www.youtube.com/shorts/Hcc8jmELs5E",
+        "thumbnail": "https://i.ytimg.com/vi/Hcc8jmELs5E/hqdefault.jpg",
+        "viewCount": 9100,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 5.9,
+            "line": 9
+          },
+          {
+            "t": 13.88,
+            "line": 10
+          },
+          {
+            "t": 19.67,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "dBm7ZrOurYc",
+        "title": "Farewell, my friend, forget it all happened",
+        "url": "https://www.youtube.com/shorts/dBm7ZrOurYc",
+        "thumbnail": "https://i.ytimg.com/vi/dBm7ZrOurYc/hqdefault.jpg",
+        "viewCount": 8900,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 20
+          },
+          {
+            "t": 5.95,
+            "line": 21
+          },
+          {
+            "t": 13.78,
+            "line": 22
+          },
+          {
+            "t": 19.84,
+            "line": 23
           }
         ]
       },
@@ -2164,6 +2515,130 @@
         ]
       },
       {
+        "videoId": "pwHq-doCEUM",
+        "title": "We’re just swimming around as we please",
+        "url": "https://www.youtube.com/shorts/pwHq-doCEUM",
+        "thumbnail": "https://i.ytimg.com/vi/pwHq-doCEUM/hqdefault.jpg",
+        "viewCount": 3600,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 6.06,
+            "line": 9
+          },
+          {
+            "t": 13.89,
+            "line": 10
+          },
+          {
+            "t": 20.1,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "st3l6xa0aZc",
+        "title": "Always planning on how to steal the stardust tonight",
+        "url": "https://www.youtube.com/shorts/st3l6xa0aZc",
+        "thumbnail": "https://i.ytimg.com/vi/st3l6xa0aZc/hqdefault.jpg",
+        "viewCount": 3500,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 19
+          },
+          {
+            "t": 4.66,
+            "line": 20
+          },
+          {
+            "t": 10.3,
+            "line": 21
+          },
+          {
+            "t": 17.87,
+            "line": 22
+          },
+          {
+            "t": 24.28,
+            "line": 23
+          }
+        ]
+      },
+      {
+        "videoId": "fan--Qxcm9k",
+        "title": "Always planning on how to steal the stardust tonight",
+        "url": "https://www.youtube.com/shorts/fan--Qxcm9k",
+        "thumbnail": "https://i.ytimg.com/vi/fan--Qxcm9k/hqdefault.jpg",
+        "viewCount": 3300,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 20
+          },
+          {
+            "t": 5.97,
+            "line": 21
+          },
+          {
+            "t": 13.87,
+            "line": 22
+          },
+          {
+            "t": 19.91,
+            "line": 23
+          },
+          {
+            "t": 26.67,
+            "line": 24
+          }
+        ]
+      },
+      {
+        "videoId": "pB4-gpeh0_8",
+        "title": "Forever, I’ll never grow up",
+        "url": "https://www.youtube.com/shorts/pB4-gpeh0_8",
+        "thumbnail": "https://i.ytimg.com/vi/pB4-gpeh0_8/hqdefault.jpg",
+        "viewCount": 2900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 18
+          },
+          {
+            "t": 6.18,
+            "line": 19
+          },
+          {
+            "t": 14.19,
+            "line": 20
+          },
+          {
+            "t": 20.02,
+            "line": 21
+          },
+          {
+            "t": 27.91,
+            "line": 22
+          },
+          {
+            "t": 33.94,
+            "line": 23
+          }
+        ]
+      },
+      {
         "videoId": "I7HgEbU6POM",
         "title": "永遠に僕らは大人になれずに",
         "url": "https://www.youtube.com/shorts/I7HgEbU6POM",
@@ -2179,6 +2654,91 @@
           {
             "t": 5.72,
             "line": 9
+          }
+        ]
+      },
+      {
+        "videoId": "AuH_ZbiW1jI",
+        "title": "We’re just swimming around as we please",
+        "url": "https://www.youtube.com/shorts/AuH_ZbiW1jI",
+        "thumbnail": "https://i.ytimg.com/vi/AuH_ZbiW1jI/hqdefault.jpg",
+        "viewCount": 2700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 6.08,
+            "line": 9
+          },
+          {
+            "t": 13.99,
+            "line": 10
+          },
+          {
+            "t": 20.15,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "uLOKREZwf-o",
+        "title": "We’re just swimming around as we please",
+        "url": "https://www.youtube.com/shorts/uLOKREZwf-o",
+        "thumbnail": "https://i.ytimg.com/vi/uLOKREZwf-o/hqdefault.jpg",
+        "viewCount": 2600,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 5.52,
+            "line": 9
+          },
+          {
+            "t": 13.39,
+            "line": 10
+          },
+          {
+            "t": 19.53,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "mRn-aU6yGKg",
+        "title": "Forever, I’ll never grow up",
+        "url": "https://www.youtube.com/shorts/mRn-aU6yGKg",
+        "thumbnail": "https://i.ytimg.com/vi/mRn-aU6yGKg/hqdefault.jpg",
+        "viewCount": 2300,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 20
+          },
+          {
+            "t": 5.45,
+            "line": 21
+          },
+          {
+            "t": 13.38,
+            "line": 22
+          },
+          {
+            "t": 19.09,
+            "line": 23
+          },
+          {
+            "t": 26.25,
+            "line": 24
           }
         ]
       },

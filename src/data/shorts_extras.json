@@ -1,11 +1,11 @@
 {
   "meta": {
-    "total": 71,
+    "total": 72,
     "by_category": {
       "daily": 4,
       "cover": 5,
       "promo": 22,
-      "live_song": 22,
+      "live_song": 23,
       "mc": 5,
       "yearly": 6,
       "ad": 2,
@@ -348,7 +348,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 22,
+      "count": 23,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -596,6 +596,19 @@
           "appearanceName": "ROCK KIDS 802-OCHIKEN Goes ON!!-SPECIAL LIVE HIGH!HIGH!HIGH! supported by ナカバヤ……",
           "songId": "nishina-kedamono-no-friends",
           "songTitle": "ケダモノのフレンズ"
+        },
+        {
+          "videoId": "qeYX2uo4kbU",
+          "title": "Surprise Live for gradutaion",
+          "url": "https://www.youtube.com/shorts/qeYX2uo4kbU",
+          "thumbnail": "https://i.ytimg.com/vi/qeYX2uo4kbU/hqdefault.jpg",
+          "viewCount": 3700,
+          "versionType": "other",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": null,
+          "songId": null,
+          "songTitle": null
         },
         {
           "videoId": "JOa6aRmpXgo",
