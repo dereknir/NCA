@@ -1,11 +1,11 @@
 {
   "meta": {
-    "total": 74,
+    "total": 75,
     "by_category": {
       "daily": 4,
       "cover": 5,
       "promo": 24,
-      "live_song": 23,
+      "live_song": 24,
       "mc": 5,
       "yearly": 6,
       "ad": 2,
@@ -368,7 +368,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 23,
+      "count": 24,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -447,6 +447,19 @@
           "appearanceName": "VIVA LA ROCK 2025",
           "songId": "nishina-wawon",
           "songTitle": "わをん"
+        },
+        {
+          "videoId": "LGcFwJweiQE",
+          "title": "VIVA LA ROCK",
+          "url": "https://www.youtube.com/shorts/LGcFwJweiQE",
+          "thumbnail": "https://i.ytimg.com/vi/LGcFwJweiQE/hqdefault.jpg",
+          "viewCount": 8700,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "VIVA LA ROCK 2025",
+          "songId": null,
+          "songTitle": null
         },
         {
           "videoId": "mEkPr3A8U8g",
