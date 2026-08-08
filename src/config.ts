@@ -64,6 +64,7 @@ export const NAVIGATION = [
   { name: "Live 演出", href: "/live/" },
   { name: "花絮", href: "/extras/" },
   { name: "歌詞卡ガチャ", href: "/gacha/" },
+  { name: "にしなの宇宙", href: "/galaxy/" },
   { name: "日記", href: "/diary" },
   { name: "作品集", href: "/projects" },
   { name: "關於我", href: "/about" },

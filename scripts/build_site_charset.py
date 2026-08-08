@@ -71,6 +71,17 @@ def main():
     if annot.exists():
         chars |= set(strip_markup(annot.read_text(encoding="utf-8"), keep_script=True))
 
+    # 資料驅動、但會被「像素字型」渲染的字串: footprint 側欄 .sgh 顯示系列名/巡演名
+    import json as _json
+    series = ROOT / "live" / "data" / "nishina_appearance_series.json"
+    if series.exists():
+        for s in _json.loads(series.read_text(encoding="utf-8"))["series"]:
+            chars |= set(s["series"])
+    tours = ROOT / "live" / "data" / "tour_stops.json"
+    if tours.exists():
+        for t in _json.loads(tours.read_text(encoding="utf-8"))["tours"]:
+            chars |= set(t["name"])
+
     lab = ROOT / "public" / "pixel-lab" / "index.html"
     if lab.exists():
         chars |= set(strip_markup(lab.read_text(encoding="utf-8")))

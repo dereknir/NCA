@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>にしなの宇宙</title>
+<!-- 行星 shader 改編自 Deep-Fold「PixelPlanets」(Godot, MIT)之 Unity 移植版
+     hmcGit/UniPixelPlanet (MIT, (c) Harry Kilian)。WebGL 移植:本站。 -->
+<style>
+  :root{--bg:#07070f;--text:#e8ecf6;--dim:#8b97b8;--gold:#e8c94a;
+        --font:"Noto Sans TC","Hiragino Sans",system-ui,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:var(--font)}
+  canvas.layer{position:fixed;inset:0}
+  .body-cv{position:fixed;image-rendering:pixelated;cursor:pointer;transform:translate(-50%,-50%);
+        transition:filter .2s}
+  .body-cv:hover{filter:drop-shadow(0 0 14px rgba(232,201,74,.55)) brightness(1.12)}
+  .body-cv.sun{cursor:default}
+  .body-cv.sun:hover{filter:none}
+  .plabel{position:fixed;transform:translate(-50%,0);text-align:center;pointer-events:none;
+        transition:opacity .25s;opacity:.55}
+  .plabel .n{font-size:11px;color:var(--dim);letter-spacing:.12em}
+  .plabel .p{font-size:13.5px;color:var(--text);margin-top:2px;display:none}
+  .plabel.full{opacity:1}
+  .plabel.full .p{display:block}
+  .plabel .v{color:var(--gold);font-size:10px;margin-top:2px;letter-spacing:.15em}
+  #title{position:fixed;top:26px;left:30px;z-index:8}
+  #title h1{font-size:22px;letter-spacing:.18em}
+  #title .s{color:var(--dim);font-size:12px;margin-top:6px;letter-spacing:.06em}
+  #flare{position:fixed;z-index:8;max-width:250px;font-size:12.5px;color:var(--gold);
+        line-height:1.7;opacity:0;transition:opacity 1.2s;pointer-events:none;
+        text-shadow:0 0 8px rgba(7,7,15,.9)}
+  #flare.show{opacity:.94}
+  #flare .f{color:var(--dim);font-size:11px}
+  #hud{position:fixed;right:26px;bottom:22px;z-index:8;text-align:right;color:var(--dim);
+        font-size:12px;letter-spacing:.1em;line-height:1.9}
+  #hud b{color:var(--gold)}
+  #hint{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);color:#5a6784;
+        font-size:12px;letter-spacing:.1em;z-index:8}
+  #toast{position:fixed;bottom:60px;left:50%;transform:translateX(-50%);background:#141d31;
+        border:1px solid #243154;border-radius:99px;padding:9px 20px;font-size:13px;
+        opacity:0;transition:opacity .25s;z-index:20;pointer-events:none}
+  #toast.show{opacity:1}
+  #warp{position:fixed;inset:0;background:radial-gradient(circle at var(--wx) var(--wy),
+        rgba(232,201,74,.3), rgba(7,7,15,.97) 62%);opacity:0;pointer-events:none;
+        transition:opacity .45s;z-index:15}
+  #warp.on{opacity:1}
+  #modeBtn{position:fixed;top:28px;right:28px;z-index:9;background:#141d31;color:var(--text);
+        border:1px solid #243154;border-radius:99px;padding:9px 18px;font-size:13px;
+        cursor:pointer;font-family:inherit;letter-spacing:.08em}
+  #modeBtn:hover{border-color:var(--gold);color:var(--gold)}
+  #console{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9;
+        background:rgba(20,29,49,.88);border:1px solid #243154;border-radius:12px;
+        padding:10px 20px;font-size:12.5px;display:none;gap:22px;align-items:center;
+        letter-spacing:.05em;backdrop-filter:blur(2px)}
+  #console b{color:var(--gold)}
+  #console .lbl{color:var(--dim)}
+  body[data-mode="cockpit"] .body-cv,
+  body[data-mode="cockpit"] .plabel,
+  body[data-mode="cockpit"] #flare,
+  body[data-mode="cockpit"] #hint{display:none!important}
+  body[data-mode="cockpit"] #console{display:flex}
+  @media(prefers-reduced-motion:reduce){.body-cv{transition:none} #modeBtn{display:none}}
+</style>
+</head>
+<body>
+<canvas id="space" class="layer"></canvas>
+<canvas id="fx" class="layer" style="z-index:2;pointer-events:none"></canvas>
+<div id="title"><h1>にしなの宇宙</h1><div class="s">NISHINA SOLAR SYSTEM — β2</div>
+  <a href="/" style="display:inline-block;margin-top:10px;color:#5a6784;font-size:11.5px;
+     letter-spacing:.08em;text-decoration:none">← Derek's Site</a></div>
+<div id="flare"></div>
+<div id="hud"></div>
+<div id="hint">點擊行星航行 ・ 太陽 = にしな</div>
+<button id="modeBtn">🚀 操縦席へ</button>
+<div id="console"><span id="cTarget"><span class="lbl">針路:</span>自由巡航</span>
+  <span><span class="lbl">速度:</span><b id="cSpd">0.4</b></span>
+  <span><span class="lbl">探索:</span><b id="cExp">0</b>/8</span></div>
+<div id="toast"></div>
+<div id="warp"></div>
+
+<script>
+/* ===== 站長策展區 ===== */
+const ROUTES = {
+  mercury: '/live/timeline/',    // 水星 → 年表
+  venus:   '/lyric-universe/',   // 金星 → 歌詞宇宙
+  earth:   '/translations/',     // 地球 → 歌詞翻譯
+  mars:    '/live/',             // 火星 → LIVE hub
+  jupiter: '/gacha/',            // 木星 → 扭蛋遊戲廳
+  saturn:  '/setlists/',         // 土星 → 公転(巡演 Setlist)
+  uranus:  '/star-map/',         // 天王星 → 歌詞星圖
+  neptune: '/about/',            // 海王星 → About
+};
+const FLARE_TEXT = { years: 3, name: 'RUSH BALL 2023', sub: '泉大津フェニックス(大阪)' };
+/* ===================== */
+
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rng = seed => () => { seed = (seed * 1103515245 + 12345) >>> 0; return seed / 4294967296; };
+const hash = (a, b, c = 0) => {
+  let h = (a * 374761393 + b * 668265263 + c * 2246822519) >>> 0;
+  h = (h ^ (h >>> 13)) * 1274126177 >>> 0;
+  return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+};
+const BAYER = [[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]];
+const mix = (a, b, t) => [0,1,2].map(i => Math.round(a[i]*(1-t) + b[i]*t));
+const shades = base => [mix(base, [255,255,255], .38), base, mix(base, [7,7,15], .55)];
+
+/* ---------- WebGL 像素行星(Deep-Fold PixelPlanets 移植;失敗自動降級手繪) ---------- */
+const SHADER_SRC = {"star": "#version 100\nprecision mediump float;\nvarying vec2 v_uv;\nuniform float u_time;\nuniform float u_seed;\nuniform float u_pixels;\nuniform vec2 u_light;\nuniform float u_size;\nuniform float u_ts;\n\nuniform vec3 u_c0; uniform vec3 u_c1; uniform vec3 u_c2;\nuniform vec3 u_c3; uniform vec3 u_c4; uniform vec3 u_c5;\n\nfloat rand(vec2 coord) {\n  coord = mod(coord, vec2(2.0, 1.0) * floor(u_size + 0.5));\n  return fract(sin(dot(coord, vec2(12.9898, 78.233))) * 43758.5453 * u_seed);\n}\nfloat noise(vec2 coord) {\n  vec2 i = floor(coord);\n  vec2 f = fract(coord);\n  float a = rand(i);\n  float b = rand(i + vec2(1.0, 0.0));\n  float c = rand(i + vec2(0.0, 1.0));\n  float d = rand(i + vec2(1.0, 1.0));\n  vec2 cubic = f * f * (3.0 - 2.0 * f);\n  return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;\n}\nfloat fbm(vec2 coord) {\n  float value = 0.0;\n  float scale = 0.5;\n  for (int i = 0; i < 4; i++) {\n    value += noise(coord) * scale;\n    coord *= 2.0;\n    scale *= 0.5;\n  }\n  return value;\n}\nfloat circleNoise(vec2 uv) {\n  float uv_y = floor(uv.y);\n  uv.x += uv_y * 0.31;\n  vec2 f = fract(uv);\n  float h = rand(vec2(floor(uv.x), floor(uv_y)));\n  float m = length(f - 0.25 - (h * 0.5));\n  float r = h * 0.25;\n  return smoothstep(r - 0.10 * r, r, m);\n}\nvec2 spherify(vec2 uv) {\n  vec2 centered = uv * 2.0 - 1.0;\n  float z = sqrt(max(0.0001, 1.0 - dot(centered, centered)));\n  vec2 sphere = centered / (z + 1.0);\n  return sphere * 0.5 + 0.5;\n}\nbool dither(vec2 uv1, vec2 uv2) {\n  return mod(uv1.x + uv2.y, 2.0 / u_pixels) <= 1.0 / u_pixels;\n}\nvoid main() {\n  vec2 uv = floor(v_uv * u_pixels) / u_pixels;\n  bool dith = dither(uv, uv);\n  vec2 c0 = uv - 0.5;\n  float d = length(c0);\n  float angle = atan(c0.y, c0.x);\n  float coreR = 0.26;\n  vec3 col = vec3(0.0);\n  float alpha = 0.0;\n  if (d < coreR) {\n    vec2 suv = spherify(c0 / (coreR * 2.0) + 0.5);\n    float f = fbm(suv * u_size + vec2(u_time * 0.35, u_time * 0.14));\n    float c = (1.0 - d / coreR * 0.55) * (f + 0.65) * 1.7;\n    if (dith) c *= 1.06;\n    float p = floor(c * 4.0);\n    col = u_c3;\n    if (p > 1.5) col = u_c2;\n    if (p > 2.5) col = u_c1;\n    if (p > 3.5) col = u_c0;\n    alpha = 1.0;\n  } else if (d < 0.5) {\n    // 日冕火舌:極座標 fbm 往外流\n    float f = fbm(vec2(angle * 2.2 + u_seed, d * 9.0 - u_time * 1.1));\n    float edge = (d - coreR) / (0.5 - coreR);\n    float fire = f - edge * 1.15;\n    if (fire > 0.12) {\n      col = fire > 0.34 ? u_c1 : (fire > 0.22 ? u_c2 : u_c4);\n      if (dith && fire < 0.18) col = u_c4 * 0.8;\n      alpha = 1.0;\n    }\n  }\n  gl_FragColor = vec4(col, alpha);\n}\n", "noatmo": "#version 100\nprecision mediump float;\nvarying vec2 v_uv;\nuniform float u_time;\nuniform float u_seed;\nuniform float u_pixels;\nuniform vec2 u_light;\nuniform float u_size;\nuniform float u_ts;\n\nuniform vec3 u_c0; uniform vec3 u_c1; uniform vec3 u_c2;\nuniform vec3 u_c3; uniform vec3 u_c4; uniform vec3 u_c5;\n\nfloat rand(vec2 coord) {\n  coord = mod(coord, vec2(2.0, 1.0) * floor(u_size + 0.5));\n  return fract(sin(dot(coord, vec2(12.9898, 78.233))) * 43758.5453 * u_seed);\n}\nfloat noise(vec2 coord) {\n  vec2 i = floor(coord);\n  vec2 f = fract(coord);\n  float a = rand(i);\n  float b = rand(i + vec2(1.0, 0.0));\n  float c = rand(i + vec2(0.0, 1.0));\n  float d = rand(i + vec2(1.0, 1.0));\n  vec2 cubic = f * f * (3.0 - 2.0 * f);\n  return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;\n}\nfloat fbm(vec2 coord) {\n  float value = 0.0;\n  float scale = 0.5;\n  for (int i = 0; i < 4; i++) {\n    value += noise(coord) * scale;\n    coord *= 2.0;\n    scale *= 0.5;\n  }\n  return value;\n}\nfloat circleNoise(vec2 uv) {\n  float uv_y = floor(uv.y);\n  uv.x += uv_y * 0.31;\n  vec2 f = fract(uv);\n  float h = rand(vec2(floor(uv.x), floor(uv_y)));\n  float m = length(f - 0.25 - (h * 0.5));\n  float r = h * 0.25;\n  return smoothstep(r - 0.10 * r, r, m);\n}\nvec2 spherify(vec2 uv) {\n  vec2 centered = uv * 2.0 - 1.0;\n  float z = sqrt(max(0.0001, 1.0 - dot(centered, centered)));\n  vec2 sphere = centered / (z + 1.0);\n  return sphere * 0.5 + 0.5;\n}\nbool dither(vec2 uv1, vec2 uv2) {\n  return mod(uv1.x + uv2.y, 2.0 / u_pixels) <= 1.0 / u_pixels;\n}\nfloat crater(vec2 uv) {\n  float c = 1.0;\n  for (int i = 0; i < 2; i++) {\n    c *= circleNoise(uv * u_size * 0.5 + 1.3 * float(i) + 11.0 + vec2(u_time * u_ts * 0.5, 0.0));\n  }\n  return 1.0 - c;\n}\nvoid main() {\n  vec2 uv = floor(v_uv * u_pixels) / u_pixels;\n  bool dith = dither(uv, uv);\n  float a = step(distance(uv, vec2(0.5)), 0.5);\n  uv = spherify(uv);\n  float d_light = distance(uv, u_light);\n  float f = fbm(uv * u_size + vec2(u_time * u_ts, 0.0));\n  float cr = crater(uv);\n  float c = d_light * pow(f, 0.9) * 2.2;\n  if (cr > 0.5) c += 0.9;\n  if (dith) c *= 1.06;\n  float p = floor(c * 4.0);\n  vec3 col = u_c0;\n  if (p > 0.5) col = u_c1;\n  if (p > 1.5) col = u_c2;\n  if (p > 2.5) col = u_c3;\n  if (p > 3.5) col = u_c4;\n  gl_FragColor = vec4(col, a);\n}\n", "dry": "#version 100\nprecision mediump float;\nvarying vec2 v_uv;\nuniform float u_time;\nuniform float u_seed;\nuniform float u_pixels;\nuniform vec2 u_light;\nuniform float u_size;\nuniform float u_ts;\n\nuniform vec3 u_c0; uniform vec3 u_c1; uniform vec3 u_c2;\nuniform vec3 u_c3; uniform vec3 u_c4; uniform vec3 u_c5;\n\nfloat rand(vec2 coord) {\n  coord = mod(coord, vec2(2.0, 1.0) * floor(u_size + 0.5));\n  return fract(sin(dot(coord, vec2(12.9898, 78.233))) * 43758.5453 * u_seed);\n}\nfloat noise(vec2 coord) {\n  vec2 i = floor(coord);\n  vec2 f = fract(coord);\n  float a = rand(i);\n  float b = rand(i + vec2(1.0, 0.0));\n  float c = rand(i + vec2(0.0, 1.0));\n  float d = rand(i + vec2(1.0, 1.0));\n  vec2 cubic = f * f * (3.0 - 2.0 * f);\n  return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;\n}\nfloat fbm(vec2 coord) {\n  float value = 0.0;\n  float scale = 0.5;\n  for (int i = 0; i < 4; i++) {\n    value += noise(coord) * scale;\n    coord *= 2.0;\n    scale *= 0.5;\n  }\n  return value;\n}\nfloat circleNoise(vec2 uv) {\n  float uv_y = floor(uv.y);\n  uv.x += uv_y * 0.31;\n  vec2 f = fract(uv);\n  float h = rand(vec2(floor(uv.x), floor(uv_y)));\n  float m = length(f - 0.25 - (h * 0.5));\n  float r = h * 0.25;\n  return smoothstep(r - 0.10 * r, r, m);\n}\nvec2 spherify(vec2 uv) {\n  vec2 centered = uv * 2.0 - 1.0;\n  float z = sqrt(max(0.0001, 1.0 - dot(centered, centered)));\n  vec2 sphere = centered / (z + 1.0);\n  return sphere * 0.5 + 0.5;\n}\nbool dither(vec2 uv1, vec2 uv2) {\n  return mod(uv1.x + uv2.y, 2.0 / u_pixels) <= 1.0 / u_pixels;\n}\nvoid main() {\n  vec2 uv = floor(v_uv * u_pixels) / u_pixels;\n  bool dith = dither(uv, uv);\n  float a = step(distance(uv, vec2(0.5)), 0.5);\n  uv = spherify(uv);\n  float d_light = distance(uv, u_light);\n  float f = fbm(uv * u_size + vec2(u_time * u_ts, 0.0));\n  if (d_light < 0.362) d_light *= 0.9;\n  if (d_light < 0.525) d_light *= 0.9;\n  float c = d_light * pow(f, 0.8) * 2.3;\n  if (dith) { c += 0.02; c *= 1.05; }\n  float p = floor(c * 4.0);\n  vec3 col = u_c0;\n  if (p > 0.5) col = u_c1;\n  if (p > 1.5) col = u_c2;\n  if (p > 2.5) col = u_c3;\n  if (p > 3.5) col = u_c4;\n  gl_FragColor = vec4(col, a);\n}\n", "wet": "#version 100\nprecision mediump float;\nvarying vec2 v_uv;\nuniform float u_time;\nuniform float u_seed;\nuniform float u_pixels;\nuniform vec2 u_light;\nuniform float u_size;\nuniform float u_ts;\n\nuniform vec3 u_c0; uniform vec3 u_c1; uniform vec3 u_c2;\nuniform vec3 u_c3; uniform vec3 u_c4; uniform vec3 u_c5;\n\nfloat rand(vec2 coord) {\n  coord = mod(coord, vec2(2.0, 1.0) * floor(u_size + 0.5));\n  return fract(sin(dot(coord, vec2(12.9898, 78.233))) * 43758.5453 * u_seed);\n}\nfloat noise(vec2 coord) {\n  vec2 i = floor(coord);\n  vec2 f = fract(coord);\n  float a = rand(i);\n  float b = rand(i + vec2(1.0, 0.0));\n  float c = rand(i + vec2(0.0, 1.0));\n  float d = rand(i + vec2(1.0, 1.0));\n  vec2 cubic = f * f * (3.0 - 2.0 * f);\n  return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;\n}\nfloat fbm(vec2 coord) {\n  float value = 0.0;\n  float scale = 0.5;\n  for (int i = 0; i < 4; i++) {\n    value += noise(coord) * scale;\n    coord *= 2.0;\n    scale *= 0.5;\n  }\n  return value;\n}\nfloat circleNoise(vec2 uv) {\n  float uv_y = floor(uv.y);\n  uv.x += uv_y * 0.31;\n  vec2 f = fract(uv);\n  float h = rand(vec2(floor(uv.x), floor(uv_y)));\n  float m = length(f - 0.25 - (h * 0.5));\n  float r = h * 0.25;\n  return smoothstep(r - 0.10 * r, r, m);\n}\nvec2 spherify(vec2 uv) {\n  vec2 centered = uv * 2.0 - 1.0;\n  float z = sqrt(max(0.0001, 1.0 - dot(centered, centered)));\n  vec2 sphere = centered / (z + 1.0);\n  return sphere * 0.5 + 0.5;\n}\nbool dither(vec2 uv1, vec2 uv2) {\n  return mod(uv1.x + uv2.y, 2.0 / u_pixels) <= 1.0 / u_pixels;\n}\nvoid main() {\n  vec2 uv = floor(v_uv * u_pixels) / u_pixels;\n  bool dith = dither(uv, uv);\n  float a = step(distance(uv, vec2(0.5)), 0.5);\n  vec2 suv = spherify(uv);\n  float d_light = distance(suv, u_light);\n  // 海\n  float w = floor(max(0.0, d_light - 0.18) * 3.2);\n  vec3 col = u_c0;\n  if (w > 0.5) col = mix(u_c0, u_c1, 0.5);\n  if (w > 1.5) col = u_c1;\n  // 陸\n  float land = fbm(suv * u_size + vec2(u_seed * 3.1 + u_time * u_ts, u_seed));\n  if (land > 0.56) {\n    float lp = floor(max(0.0, d_light - 0.18) * 3.2);\n    col = u_c2;\n    if (lp > 0.5) col = mix(u_c2, u_c3, 0.6);\n    if (lp > 1.5) col = u_c3;\n  }\n  // 雲(隨時間漂移)\n  float cl = fbm(suv * u_size * 1.4 + vec2(u_time * u_ts * 2.0, u_seed * 7.0));\n  if (cl > 0.55) {\n    col = (d_light < 0.5) ? u_c5 : u_c4;\n    if (dith && cl < 0.60) col = mix(col, u_c1, 0.4);\n  }\n  if (dith) col *= 1.04;\n  gl_FragColor = vec4(col, a);\n}\n", "gas1": "#version 100\nprecision mediump float;\nvarying vec2 v_uv;\nuniform float u_time;\nuniform float u_seed;\nuniform float u_pixels;\nuniform vec2 u_light;\nuniform float u_size;\nuniform float u_ts;\n\nuniform vec3 u_c0; uniform vec3 u_c1; uniform vec3 u_c2;\nuniform vec3 u_c3; uniform vec3 u_c4; uniform vec3 u_c5;\n\nfloat rand(vec2 coord) {\n  coord = mod(coord, vec2(2.0, 1.0) * floor(u_size + 0.5));\n  return fract(sin(dot(coord, vec2(12.9898, 78.233))) * 43758.5453 * u_seed);\n}\nfloat noise(vec2 coord) {\n  vec2 i = floor(coord);\n  vec2 f = fract(coord);\n  float a = rand(i);\n  float b = rand(i + vec2(1.0, 0.0));\n  float c = rand(i + vec2(0.0, 1.0));\n  float d = rand(i + vec2(1.0, 1.0));\n  vec2 cubic = f * f * (3.0 - 2.0 * f);\n  return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;\n}\nfloat fbm(vec2 coord) {\n  float value = 0.0;\n  float scale = 0.5;\n  for (int i = 0; i < 4; i++) {\n    value += noise(coord) * scale;\n    coord *= 2.0;\n    scale *= 0.5;\n  }\n  return value;\n}\nfloat circleNoise(vec2 uv) {\n  float uv_y = floor(uv.y);\n  uv.x += uv_y * 0.31;\n  vec2 f = fract(uv);\n  float h = rand(vec2(floor(uv.x), floor(uv_y)));\n  float m = length(f - 0.25 - (h * 0.5));\n  float r = h * 0.25;\n  return smoothstep(r - 0.10 * r, r, m);\n}\nvec2 spherify(vec2 uv) {\n  vec2 centered = uv * 2.0 - 1.0;\n  float z = sqrt(max(0.0001, 1.0 - dot(centered, centered)));\n  vec2 sphere = centered / (z + 1.0);\n  return sphere * 0.5 + 0.5;\n}\nbool dither(vec2 uv1, vec2 uv2) {\n  return mod(uv1.x + uv2.y, 2.0 / u_pixels) <= 1.0 / u_pixels;\n}\nfloat turbulence(vec2 uv) {\n  float cn = 0.0;\n  for (int i = 0; i < 8; i++) {\n    cn += circleNoise(uv * u_size * 0.3 + float(i + 1) + vec2(u_time * u_ts * 0.4, 0.0));\n  }\n  return cn;\n}\nvoid main() {\n  vec2 uv = floor(v_uv * u_pixels) / u_pixels;\n  bool dith = dither(uv, uv);\n  float a = step(distance(uv, vec2(0.5)), 0.5);\n  vec2 suv = spherify(uv);\n  float d_light = distance(suv, u_light);\n  float turb = turbulence(suv);\n  float band = fbm(vec2(suv.x * u_size * 0.6 + u_time * u_ts, suv.y * u_size * 2.6) + turb * 0.35);\n  // 大紅斑:低頻噪聲的高值區\n  float spot = fbm(suv * 2.3 + vec2(u_seed * 5.0 + u_time * u_ts * 0.7, 1.0));\n  float c = band * (0.15 + d_light) * 2.4;\n  if (dith) c *= 1.06;\n  float p = floor(c * 4.0);\n  vec3 col = u_c0;\n  if (p > 0.5) col = u_c1;\n  if (p > 1.5) col = u_c2;\n  if (p > 2.5) col = u_c3;\n  if (p > 3.5) col = u_c4;\n  if (spot > 0.72 && d_light < 0.85) col = u_c5;\n  gl_FragColor = vec4(col, a);\n}\n", "gas2": "#version 100\nprecision mediump float;\nvarying vec2 v_uv;\nuniform float u_time;\nuniform float u_seed;\nuniform float u_pixels;\nuniform vec2 u_light;\nuniform float u_size;\nuniform float u_ts;\n\nuniform vec3 u_c0; uniform vec3 u_c1; uniform vec3 u_c2;\nuniform vec3 u_c3; uniform vec3 u_c4; uniform vec3 u_c5;\n\nfloat rand(vec2 coord) {\n  coord = mod(coord, vec2(2.0, 1.0) * floor(u_size + 0.5));\n  return fract(sin(dot(coord, vec2(12.9898, 78.233))) * 43758.5453 * u_seed);\n}\nfloat noise(vec2 coord) {\n  vec2 i = floor(coord);\n  vec2 f = fract(coord);\n  float a = rand(i);\n  float b = rand(i + vec2(1.0, 0.0));\n  float c = rand(i + vec2(0.0, 1.0));\n  float d = rand(i + vec2(1.0, 1.0));\n  vec2 cubic = f * f * (3.0 - 2.0 * f);\n  return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;\n}\nfloat fbm(vec2 coord) {\n  float value = 0.0;\n  float scale = 0.5;\n  for (int i = 0; i < 4; i++) {\n    value += noise(coord) * scale;\n    coord *= 2.0;\n    scale *= 0.5;\n  }\n  return value;\n}\nfloat circleNoise(vec2 uv) {\n  float uv_y = floor(uv.y);\n  uv.x += uv_y * 0.31;\n  vec2 f = fract(uv);\n  float h = rand(vec2(floor(uv.x), floor(uv_y)));\n  float m = length(f - 0.25 - (h * 0.5));\n  float r = h * 0.25;\n  return smoothstep(r - 0.10 * r, r, m);\n}\nvec2 spherify(vec2 uv) {\n  vec2 centered = uv * 2.0 - 1.0;\n  float z = sqrt(max(0.0001, 1.0 - dot(centered, centered)));\n  vec2 sphere = centered / (z + 1.0);\n  return sphere * 0.5 + 0.5;\n}\nbool dither(vec2 uv1, vec2 uv2) {\n  return mod(uv1.x + uv2.y, 2.0 / u_pixels) <= 1.0 / u_pixels;\n}\nvoid main() {\n  vec2 uv = floor(v_uv * u_pixels) / u_pixels;\n  bool dith = dither(uv, uv);\n  vec2 c0 = uv - 0.5;\n  // 環空間:傾斜 + 壓扁\n  float ang = -0.42;\n  vec2 r0 = vec2(c0.x * cos(ang) - c0.y * sin(ang), c0.x * sin(ang) + c0.y * cos(ang));\n  vec2 rr = vec2(r0.x, r0.y * 3.4);\n  float rd = length(rr);\n  bool inRing = rd > 0.36 && rd < 0.50;\n  bool ringFront = r0.y > 0.0;\n  float pr = 0.30;\n  bool inPlanet = length(c0) < pr;\n  vec3 col = vec3(0.0);\n  float alpha = 0.0;\n  if (inPlanet) {\n    vec2 puv = c0 / (pr * 2.0) + 0.5;\n    vec2 suv = spherify(puv);\n    float d_light = distance(suv, u_light);\n    float band = fbm(vec2(suv.x * u_size * 0.5 + u_time * u_ts, suv.y * u_size * 3.0));\n    float c = band * (0.15 + d_light) * 2.4;\n    if (dith) c *= 1.06;\n    float p = floor(c * 4.0);\n    col = u_c0;\n    if (p > 0.5) col = u_c1;\n    if (p > 1.5) col = u_c2;\n    if (p > 2.5) col = u_c3;\n    alpha = 1.0;\n  }\n  if (inRing && (ringFront || !inPlanet)) {\n    float rb = fbm(vec2(rd * 34.0, atan(rr.y, rr.x) * 1.2) + u_seed);\n    float d_light2 = distance(uv, u_light);\n    vec3 rcol = mix(u_c4, u_c5, step(0.5, rb));\n    rcol *= 1.0 - d_light2 * 0.4;\n    if (dith) rcol *= 1.05;\n    float ra = smoothstep(0.36, 0.375, rd) * (1.0 - smoothstep(0.485, 0.50, rd));\n    if (rb > 0.25) { col = rcol; alpha = max(alpha, ra); }\n    else if (!inPlanet) { alpha = max(alpha, 0.0); }\n  }\n  gl_FragColor = vec4(col, alpha);\n}\n", "ice": "#version 100\nprecision mediump float;\nvarying vec2 v_uv;\nuniform float u_time;\nuniform float u_seed;\nuniform float u_pixels;\nuniform vec2 u_light;\nuniform float u_size;\nuniform float u_ts;\n\nuniform vec3 u_c0; uniform vec3 u_c1; uniform vec3 u_c2;\nuniform vec3 u_c3; uniform vec3 u_c4; uniform vec3 u_c5;\n\nfloat rand(vec2 coord) {\n  coord = mod(coord, vec2(2.0, 1.0) * floor(u_size + 0.5));\n  return fract(sin(dot(coord, vec2(12.9898, 78.233))) * 43758.5453 * u_seed);\n}\nfloat noise(vec2 coord) {\n  vec2 i = floor(coord);\n  vec2 f = fract(coord);\n  float a = rand(i);\n  float b = rand(i + vec2(1.0, 0.0));\n  float c = rand(i + vec2(0.0, 1.0));\n  float d = rand(i + vec2(1.0, 1.0));\n  vec2 cubic = f * f * (3.0 - 2.0 * f);\n  return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;\n}\nfloat fbm(vec2 coord) {\n  float value = 0.0;\n  float scale = 0.5;\n  for (int i = 0; i < 4; i++) {\n    value += noise(coord) * scale;\n    coord *= 2.0;\n    scale *= 0.5;\n  }\n  return value;\n}\nfloat circleNoise(vec2 uv) {\n  float uv_y = floor(uv.y);\n  uv.x += uv_y * 0.31;\n  vec2 f = fract(uv);\n  float h = rand(vec2(floor(uv.x), floor(uv_y)));\n  float m = length(f - 0.25 - (h * 0.5));\n  float r = h * 0.25;\n  return smoothstep(r - 0.10 * r, r, m);\n}\nvec2 spherify(vec2 uv) {\n  vec2 centered = uv * 2.0 - 1.0;\n  float z = sqrt(max(0.0001, 1.0 - dot(centered, centered)));\n  vec2 sphere = centered / (z + 1.0);\n  return sphere * 0.5 + 0.5;\n}\nbool dither(vec2 uv1, vec2 uv2) {\n  return mod(uv1.x + uv2.y, 2.0 / u_pixels) <= 1.0 / u_pixels;\n}\nvoid main() {\n  vec2 uv = floor(v_uv * u_pixels) / u_pixels;\n  bool dith = dither(uv, uv);\n  float a = step(distance(uv, vec2(0.5)), 0.5);\n  vec2 suv = spherify(uv);\n  float d_light = distance(suv, u_light);\n  float f = fbm(suv * u_size + vec2(u_time * u_ts, 0.0));\n  float c = d_light * pow(f + 0.35, 1.2) * 2.2;\n  if (dith) c *= 1.05;\n  float p = floor(c * 4.0);\n  vec3 col = u_c0;\n  if (p > 0.5) col = u_c1;\n  if (p > 1.5) col = u_c2;\n  if (p > 2.5) col = u_c3;\n  // 冰湖/風暴帶\n  float lake = fbm(suv * u_size * 0.8 + vec2(u_seed * 9.0 + u_time * u_ts, 0.0));\n  if (lake > 0.62) col = mix(col, u_c4, 0.85);\n  // 薄雲\n  float cl = fbm(suv * u_size * 1.6 + vec2(u_time * u_ts * 1.8, u_seed * 4.0));\n  if (cl > 0.64) col = mix(col, u_c5, 0.8);\n  gl_FragColor = vec4(col, a);\n}\n", "bg": "#version 100\nprecision mediump float;\nvarying vec2 v_uv;\nuniform float u_time;\nuniform float u_seed;\nuniform float u_pixels;\nuniform vec2 u_light;\nuniform float u_size;\nuniform float u_ts;\nuniform vec3 u_c0; uniform vec3 u_c1; uniform vec3 u_c2;\nuniform vec3 u_c3; uniform vec3 u_c4; uniform vec3 u_c5;\n\nfloat rand(vec2 coord) {\n  coord = mod(coord, vec2(2.0, 1.0) * floor(u_size + 0.5));\n  return fract(sin(dot(coord, vec2(12.9898, 78.233))) * 43758.5453 * u_seed);\n}\nfloat noise(vec2 coord) {\n  vec2 i = floor(coord);\n  vec2 f = fract(coord);\n  float a = rand(i);\n  float b = rand(i + vec2(1.0, 0.0));\n  float c = rand(i + vec2(0.0, 1.0));\n  float d = rand(i + vec2(1.0, 1.0));\n  vec2 cubic = f * f * (3.0 - 2.0 * f);\n  return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;\n}\nfloat fbm(vec2 coord) {\n  float value = 0.0;\n  float scale = 0.5;\n  for (int i = 0; i < 4; i++) {\n    value += noise(coord) * scale;\n    coord *= 2.0;\n    scale *= 0.5;\n  }\n  return value;\n}\nfloat circleNoise(vec2 uv) {\n  float uv_y = floor(uv.y);\n  uv.x += uv_y * 0.31;\n  vec2 f = fract(uv);\n  float h = rand(vec2(floor(uv.x), floor(uv_y)));\n  float m = length(f - 0.25 - (h * 0.5));\n  float r = h * 0.25;\n  return smoothstep(r - 0.10 * r, r, m);\n}\nvec2 spherify(vec2 uv) {\n  vec2 centered = uv * 2.0 - 1.0;\n  float z = sqrt(max(0.0001, 1.0 - dot(centered, centered)));\n  vec2 sphere = centered / (z + 1.0);\n  return sphere * 0.5 + 0.5;\n}\nbool dither(vec2 uv1, vec2 uv2) {\n  return mod(uv1.x + uv2.y, 2.0 / u_pixels) <= 1.0 / u_pixels;\n}\nvoid main() {\n  vec2 uv = floor(v_uv * u_pixels) / u_pixels;\n  bool dith = dither(uv, uv);\n  float n = fbm(uv * u_size + u_seed) * 0.7\n          + fbm(uv * u_size * 2.6 + u_seed * 7.0) * 0.4;\n  vec3 col = u_c4;                       // 深空底\n  if (n > 0.50) col = u_c3;\n  if (n > 0.60) col = u_c2;\n  if (n > 0.69) col = u_c1;\n  if (n > 0.77) col = u_c0;\n  if (dith && n > 0.47) col = mix(col, u_c3, 0.45);\n  // 星點:格點雜湊\n  float s1 = rand(uv * 61.0);\n  if (s1 > 0.994) col = mix(u_c5, vec3(1.0), step(0.998, s1));\n  gl_FragColor = vec4(col, 1.0);\n}\n"};
+const GLP = (() => {
+  try {
+    const cv = document.createElement('canvas');
+    cv.width = cv.height = 128;
+    const gl = cv.getContext('webgl', { premultipliedAlpha: false, alpha: true });
+    if (!gl) return null;
+    const VS = 'attribute vec2 a_pos;varying vec2 v_uv;void main(){gl_Position=vec4(a_pos,0.,1.);v_uv=vec2((a_pos.x+1.)*.5,(1.-a_pos.y)*.5);}';
+    const compile = (type, src) => {
+      const sh = gl.createShader(type);
+      gl.shaderSource(sh, src);
+      gl.compileShader(sh);
+      if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
+        console.warn('shader fail:', gl.getShaderInfoLog(sh));
+        return null;
+      }
+      return sh;
+    };
+    const vs = compile(gl.VERTEX_SHADER, VS);
+    const progs = {};
+    for (const [name, src] of Object.entries(SHADER_SRC)) {
+      const fs = compile(gl.FRAGMENT_SHADER, src);
+      if (!fs) { progs[name] = null; continue; }
+      const p = gl.createProgram();
+      gl.attachShader(p, vs);
+      gl.attachShader(p, fs);
+      gl.linkProgram(p);
+      progs[name] = gl.getProgramParameter(p, gl.LINK_STATUS) ? p : null;
+      if (!progs[name]) console.warn('link fail:', name, gl.getProgramInfoLog(p));
+    }
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+    function render(b, t, light) {
+      const p = progs[b.glType];
+      if (!p) return null;
+      gl.viewport(0, 0, 128, 128);
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.useProgram(p);
+      const loc = gl.getAttribLocation(p, 'a_pos');
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.enableVertexAttribArray(loc);
+      gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+      const u1 = (n, v) => { const l = gl.getUniformLocation(p, n); if (l) gl.uniform1f(l, v); };
+      u1('u_time', t * 0.001);
+      u1('u_seed', b.glSeed || 3.1);
+      u1('u_pixels', b.glPixels);
+      u1('u_size', b.glSize);
+      u1('u_ts', b.glTs != null ? b.glTs : 0.15);
+      const ll = gl.getUniformLocation(p, 'u_light');
+      if (ll) gl.uniform2f(ll, light[0], light[1]);
+      (b.palette || []).forEach((c, i) => {
+        const l = gl.getUniformLocation(p, 'u_c' + i);
+        if (l) gl.uniform3f(l, c[0]/255, c[1]/255, c[2]/255);
+      });
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      return cv;
+    }
+    return { progs, render };
+  } catch (e) {
+    console.warn('WebGL 不可用,降級手繪行星', e);
+    return null;
+  }
+})();
+function lightUV(b) {
+  if (!b.orbit) return [0.5, 0.5];
+  let dx, dy2;
+  if (MODE === 'cockpit') {
+    // 相機空間中指向太陽的方向
+    const [wx2, , wz2] = worldPos(b);
+    const cy = Math.cos(cam.yaw), sy = Math.sin(cam.yaw);
+    const tx = -wx2, tz = -wz2;   // 太陽在原點
+    dx = tx * cy - tz * sy;
+    dy2 = 0;
+  } else {
+    const [x, y] = vertical
+      ? [SUNX + Math.sin(b.angle) * 54, SUNY + b.orbit * ORBMAX]
+      : orbitPos(b);
+    dx = SUNX - x;
+    dy2 = SUNY - y;
+  }
+  const m = Math.hypot(dx, dy2) || 1;
+  return [0.5 + dx / m * 0.42, 0.5 + dy2 / m * 0.42];
+}
+
+/* ---------- 球體(帶自轉相位:特徵在經度空間取樣) ---------- */
+function sphere(put, N, R, cx, cy, tones, feature, phase = 0) {
+  const LON = 64;
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    const dx = x - cx, dy = y - cy;
+    if (dx*dx + dy*dy > R*R) continue;
+    const nx = dx / R;
+    const lon = ((Math.asin(Math.max(-1, Math.min(1, nx))) / Math.PI + 0.5 + phase) % 1 + 1) % 1;
+    const u = (lon * LON) | 0;
+    let t = (nx + 1) / 2 * 2.6 + (BAYER[y % 4][x % 4] / 16 - 0.5) * 0.9;
+    let tone = tones[Math.max(0, Math.min(tones.length - 1, t | 0))];
+    if (feature) tone = feature(u, y, dx, dy, R, tone) || tone;
+    put(x, y, tone);
+  }
+}
+
+/* ---------- 行星繪製器(u = 經度格,自轉時特徵滾動) ---------- */
+const PAINTERS = {
+  mercury: (put, N, ph) => sphere(put, N, N*.42, N/2, N/2, shades([139,152,184]),
+    (u, y) => hash(u, y) < .06 ? [70,80,105] : null, ph),
+  venus: (put, N, ph) => sphere(put, N, N*.42, N/2, N/2, shades([225,81,142]),
+    (u, y) => ((y*2 + ((Math.sin(u*.55)*2)|0)) % 7 === 0) ? [246,150,190] : null, ph),
+  earth: (put, N, ph) => sphere(put, N, N*.42, N/2, N/2, shades([55,138,221]),
+    (u, y) => {
+      const v = hash((u/5)|0, (y/3)|0) * .6 + hash((u/11)|0, (y/6)|0, 7) * .4;
+      return v > .62 ? [58,169,129] : null;
+    }, ph),
+  mars: (put, N, ph) => sphere(put, N, N*.42, N/2, N/2, shades([214,85,85]),
+    (u, y, dx, dy, R) => {
+      if (dy < -R*.72) return [246,238,230];
+      return hash(u, y, 3) < .08 ? [150,52,52] : null;
+    }, ph),
+  jupiter: (put, N, ph) => {
+    const bands = [[239,159,39],[212,124,44],[246,196,120],[200,110,60],[239,159,39],[224,150,90]];
+    sphere(put, N, N*.45, N/2, N/2, shades([239,159,39]), (u, y, dx, dy, R) => {
+      const band = bands[Math.abs(((y + ((Math.sin(u*.5)*1.5)|0)) / 5) | 0) % bands.length];
+      const spotU = ((u - 40 + 64) % 64);
+      if (spotU > 0 && spotU < 12 && dy > R*.15 && dy < R*.42) return [198,74,58];
+      return mix(band, [7,7,15], ((dx/R)+1)/2 * .5);
+    }, ph);
+  },
+  saturn: (put, N, ph) => {
+    const R = N*.30, c = N/2;
+    const ring = front => {
+      for (let a = 0; a < 6.283; a += .012) {
+        const s = Math.sin(a);
+        if (front ? s < 0 : s >= 0) continue;
+        for (const k of [1.55, 1.75, 1.95])
+          put(c + Math.cos(a)*R*k, c + s*R*k*.34, k === 1.75 ? [217,185,108] : [160,134,80]);
+      }
+    };
+    ring(false);
+    const bands = [[217,185,108],[196,160,92],[232,206,140]];
+    sphere(put, N, R, c, c, shades([217,185,108]), (u, y, dx, dy, RR) =>
+      mix(bands[Math.abs((y/4)|0) % bands.length], [7,7,15], ((dx/RR)+1)/2*.5), ph);
+    ring(true);
+  },
+  uranus: (put, N, ph) => sphere(put, N, N*.40, N/2, N/2, shades([77,208,196]),
+    (u) => (u % 9 === 0) ? [140,232,222] : null, ph),
+  neptune: (put, N, ph) => sphere(put, N, N*.40, N/2, N/2, shades([83,74,183]),
+    (u, y, dx, dy, R) => {
+      const su = (u + 20) % 64;
+      return (dy > -R*.15 && dy < R*.05 && su > 8 && su < 30) ? [40,34,110] : null;
+    }, ph),
+};
+
+/* ---------- 太陽 v2:活火日冕 ---------- */
+const SUN_N = 84, SUN_R = 22;
+function paintSun(ctx, t) {
+  const img = ctx.createImageData(SUN_N, SUN_N);
+  const d = img.data, c = SUN_N / 2;
+  const put = (x, y, col) => {
+    x |= 0; y |= 0;
+    if (x < 0 || y < 0 || x >= SUN_N || y >= SUN_N) return;
+    const i = (y * SUN_N + x) * 4;
+    d[i] = col[0]; d[i+1] = col[1]; d[i+2] = col[2]; d[i+3] = 255;
+  };
+  const FIRE = [[255,246,214],[255,222,120],[238,178,60],[206,120,38],[150,66,34]];
+  for (let a = 0; a < 6.283; a += .028) {
+    const n = Math.sin(a*3 + t*.0016) * .5 + Math.sin(a*7 - t*.0027) * .3
+            + Math.sin(a*13 + t*.004) * .2;
+    const len = SUN_R * (1.12 + .5 * (n * .5 + .5));
+    for (let r = SUN_R - 1; r < len; r++) {
+      const f = (r - SUN_R + 1) / (len - SUN_R + 1);
+      const col = FIRE[Math.min(4, 1 + (f * 4) | 0)];
+      if (hash((a*100)|0, r, (t/90)|0) < .82)
+        put(c + Math.cos(a)*r, c + Math.sin(a)*r, col);
+    }
+  }
+  for (let y = -SUN_R; y <= SUN_R; y++) for (let x = -SUN_R; x <= SUN_R; x++) {
+    const d2 = x*x + y*y;
+    if (d2 > SUN_R*SUN_R) continue;
+    const f = Math.sqrt(d2) / SUN_R;
+    let col = f < .42 ? FIRE[0] : f < .74 ? FIRE[1] : FIRE[2];
+    if (hash(x + 60, y + 60, (t/140)|0) < .07) col = mix(col, [255,255,255], .5);
+    if (f > .74 && (BAYER[(y+SUN_R)%4][(x+SUN_R)%4]/16) > (1-f)*3.2) col = FIRE[2];
+    put(c + x, c + y, col);
+  }
+  const pa = ((t / 2600) | 0) % 7 * .9 + .4;
+  if (((t / 2600) % 1) < .6) {
+    for (let s = 0; s < 1; s += .04) {
+      const r = SUN_R * (1.05 + Math.sin(s * Math.PI) * .55);
+      const a2 = pa + s * .5;
+      put(c + Math.cos(a2)*r, c + Math.sin(a2)*r, FIRE[1]);
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+}
+
+/* ---------- 天體配置 ---------- */
+const BODIES = [
+  { id:'sun', nameJa:'☀', page:'にしな', base:SUN_N, scale:3.4, orbit:0, speed:0, cls:'sun',
+    glType:'star', glPixels:64, glSize:5, glSeed:2.7, glTs:.3,
+    palette:[[255,248,220],[255,224,116],[240,178,54],[208,118,34],[148,64,30],[0,0,0]] },
+  { id:'mercury', ecc:.62, tilt:-.06, flat:.40, nameJa:'水星', page:'年表', base:12, scale:3, orbit:.17, speed:.00042, spin:.00009,
+    glType:'noatmo', glPixels:16, glSize:8, glSeed:4.3, glTs:.10,
+    palette:[[225,232,250],[160,172,205],[104,118,150],[64,74,104],[30,38,62],[0,0,0]] },
+  { id:'venus', ecc:.50, tilt:.10,  flat:.44, nameJa:'金星', page:'歌詞宇宙', base:16, scale:3, orbit:.25, speed:.00030, spin:.00005,
+    glType:'dry', glPixels:22, glSize:7, glSeed:6.1, glTs:.05,
+    palette:[[255,196,220],[240,100,160],[190,64,116],[128,42,82],[64,24,46],[0,0,0]] },
+  { id:'earth', ecc:.52, tilt:-.04, flat:.42, nameJa:'地球', page:'歌詞翻譯', base:18, scale:3, orbit:.345, speed:.00022, spin:.00012,
+    glType:'wet', glPixels:24, glSize:6, glSeed:5.4, glTs:.12,
+    palette:[[92,168,255],[26,84,160],[70,190,110],[26,120,72],[170,190,220],[245,248,255]] },
+  { id:'mars', ecc:.54, tilt:.16,  flat:.46, nameJa:'火星', page:'LIVE', base:15, scale:3, orbit:.44, speed:.00017, spin:.00012,
+    glType:'dry', glPixels:20, glSize:8, glSeed:3.7, glTs:.12,
+    palette:[[255,168,130],[230,96,72],[178,62,50],[116,40,34],[58,24,22],[0,0,0]] },
+  { id:'jupiter', ecc:.50, tilt:-.10, flat:.40, nameJa:'木星', page:'扭蛋遊戲廳', base:30, scale:3, orbit:.565, speed:.00011, spin:.00022,
+    glType:'gas1', glPixels:44, glSize:7, glSeed:4.9, glTs:.22,
+    palette:[[255,214,138],[244,168,54],[214,120,40],[160,80,32],[96,48,22],[214,72,52]] },
+  { id:'saturn', ecc:.52, tilt:.06,  flat:.45, nameJa:'土星', page:'公転', base:34, scale:3, orbit:.70, speed:.00008, spin:.00018,
+    glType:'gas2', glPixels:48, glSize:6, glSeed:5.8, glTs:.18,
+    palette:[[246,224,160],[228,196,120],[190,156,92],[134,108,64],[232,200,128],[150,124,76]] },
+  { id:'uranus', ecc:.50, tilt:-.16, flat:.38, nameJa:'天王星', page:'星圖', base:16, scale:3, orbit:.82, speed:.00006, spin:.00010,
+    glType:'ice', glPixels:22, glSize:7, glSeed:7.2, glTs:.10,
+    palette:[[210,255,248],[96,224,210],[46,170,160],[24,112,106],[12,80,84],[240,255,252]] },
+  { id:'neptune', ecc:.52, tilt:.12,  flat:.47, nameJa:'海王星', page:'About', base:16, scale:3, orbit:.93, speed:.00005, spin:.00010,
+    glType:'ice', glPixels:22, glSize:7, glSeed:8.8, glTs:.10,
+    palette:[[178,168,255],[104,92,220],[66,58,170],[40,34,116],[24,20,80],[205,198,255]] },
+];
+const rand0 = rng(20210625);
+BODIES.forEach((b, i) => {
+  b.angle = (i / 8) * 6.283 + (rand0() - .5) * .7;   // 均布+微擾
+  b.phase = rand0();
+});
+
+/* ---------- 探索度 ---------- */
+let explored = {};
+try { explored = JSON.parse(localStorage.getItem('nishina-galaxy-explored') || '{}'); } catch (e) {}
+const saveExp = () => { try { localStorage.setItem('nishina-galaxy-explored', JSON.stringify(explored)); } catch (e) {} };
+function updateHud() {
+  const n = Object.keys(explored).length;
+  document.getElementById('hud').innerHTML =
+    '探索 <b>' + n + '</b> / 8 行星' + (n === 8 ? '<br><b>✦ 全宇宙制覇</b>' : '');
+}
+
+/* ---------- 模式:map(星図) / cockpit(操縦席) ---------- */
+let MODE = 'map';
+try { if (localStorage.getItem('nishina-galaxy-mode') === 'cockpit' && !reduced) MODE = 'cockpit'; } catch (e) {}
+function setMode(m) {
+  MODE = m;
+  document.body.dataset.mode = m;
+  document.getElementById('modeBtn').textContent = m === 'map' ? '🚀 操縦席へ' : '🗺 星図へ';
+  document.getElementById('hint').textContent = m === 'map'
+    ? '點擊行星航行 ・ 太陽 = にしな'
+    : '';
+  try { localStorage.setItem('nishina-galaxy-mode', m); } catch (e) {}
+}
+document.getElementById('modeBtn').onclick = () => setMode(MODE === 'map' ? 'cockpit' : 'map');
+
+/* ---------- 星空(三層視差) ---------- */
+const space = document.getElementById('space');
+const sctx = space.getContext('2d');
+const fx = document.getElementById('fx');
+const fctx = fx.getContext('2d');
+let VW, VH, SUNX, SUNY, ORBMAX, vertical;
+let mx = .5, my = .5;
+const STARS = [];
+{
+  const r = rng(624);
+  for (let i = 0; i < 380; i++)
+    STARS.push({ x: r(), y: r(), depth: r() < .5 ? 1 : r() < .85 ? 2 : 3,
+                 c: r() < .55 ? '#8b97b8' : r() < .88 ? '#cdd6ee' : '#e8c94a',
+                 tw: r() * 6.283 });
+}
+let nebula = null;
+function makeNebulaGL() {
+  try {
+    const cv = document.createElement('canvas');
+    cv.width = 480; cv.height = 280;
+    const gl = cv.getContext('webgl', { premultipliedAlpha: false });
+    if (!gl) return null;
+    const cmp = (t, src) => {
+      const sh = gl.createShader(t);
+      gl.shaderSource(sh, src);
+      gl.compileShader(sh);
+      return gl.getShaderParameter(sh, gl.COMPILE_STATUS) ? sh : null;
+    };
+    const vs = cmp(gl.VERTEX_SHADER, 'attribute vec2 a_pos;varying vec2 v_uv;void main(){gl_Position=vec4(a_pos,0.,1.);v_uv=vec2((a_pos.x+1.)*.5,(1.-a_pos.y)*.5);}');
+    const fs = cmp(gl.FRAGMENT_SHADER, SHADER_SRC.bg);
+    if (!vs || !fs) return null;
+    const p = gl.createProgram();
+    gl.attachShader(p, vs); gl.attachShader(p, fs); gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) return null;
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+    gl.viewport(0, 0, 480, 280);
+    gl.useProgram(p);
+    const loc = gl.getAttribLocation(p, 'a_pos');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const u1 = (nm, v) => { const l = gl.getUniformLocation(p, nm); if (l) gl.uniform1f(l, v); };
+    u1('u_time', 0); u1('u_seed', 6.24); u1('u_pixels', 240); u1('u_size', 5); u1('u_ts', 0);
+    const cols = [[46,38,88],[30,28,62],[19,20,44],[12,13,28],[5,6,14],[139,152,184]];
+    cols.forEach((c, i) => {
+      const l = gl.getUniformLocation(p, 'u_c' + i);
+      if (l) gl.uniform3f(l, c[0]/255, c[1]/255, c[2]/255);
+    });
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    return cv;
+  } catch (e) { return null; }
+}
+function makeNebula() {
+  const g = makeNebulaGL();
+  if (g) return g;
+  // 低解析度霧染,放大時交給平滑取樣 → 柔軟的深空
+  const nc = document.createElement('canvas');
+  nc.width = 240; nc.height = 140;
+  const n = nc.getContext('2d');
+  n.fillStyle = '#07070f';
+  n.fillRect(0, 0, 240, 140);
+  const r = rng(31);
+  const blob = (x, y, rad, col, a) => {
+    const g = n.createRadialGradient(x, y, 0, x, y, rad);
+    g.addColorStop(0, col.replace('A', a));
+    g.addColorStop(1, col.replace('A', '0'));
+    n.fillStyle = g;
+    n.fillRect(0, 0, 240, 140);
+  };
+  for (let i = 0; i < 6; i++)
+    blob(r()*240, r()*140, 45 + r()*70,
+         ['rgba(26,36,64,A)','rgba(42,31,78,A)','rgba(18,42,60,A)'][i % 3], (0.5 + r()*0.3).toFixed(2));
+  blob(240*0.13, 140*0.52, 95, 'rgba(120,84,30,A)', '0.30');   // 太陽側暖霧
+  // 銀河帶:對角淡星塵
+  for (let i = 0; i < 900; i++) {
+    const t = r();
+    const x = t*260 - 10, y = 120 - t*110 + (r()-.5)*26;
+    n.fillStyle = 'rgba(139,152,184,' + (0.03 + r()*0.05).toFixed(3) + ')';
+    n.fillRect(x, y, 1, 1);
+  }
+  // 邊角暗角
+  const v = n.createRadialGradient(120, 70, 40, 120, 70, 150);
+  v.addColorStop(0, 'rgba(0,0,0,0)');
+  v.addColorStop(1, 'rgba(0,0,0,0.5)');
+  n.fillStyle = v;
+  n.fillRect(0, 0, 240, 140);
+  return nc;
+}
+function layout() {
+  VW = innerWidth; VH = innerHeight;
+  space.width = VW; space.height = VH;
+  fx.width = VW; fx.height = VH;
+  vertical = VW < 700;
+  if (vertical) { SUNX = VW / 2; SUNY = 120; ORBMAX = VH - 230; }
+  else { SUNX = VW * 0.13; SUNY = VH * 0.52; ORBMAX = VW * 0.62; }
+  nebula = makeNebula();
+}
+/* 克卜勒式:太陽在焦點,各軌道自有傾角/離心率/扁率 */
+function orbitPos(b) {
+  const rr = b.orbit * ORBMAX;
+  const e = b.ecc || .52, fl = b.flat || .42, tl = b.tilt || 0;
+  const ox = e * rr + Math.cos(b.angle) * rr * .78;
+  const oy = Math.sin(b.angle) * rr * .78 * fl;
+  const c = Math.cos(tl), s2 = Math.sin(tl);
+  return [SUNX + ox * c - oy * s2, SUNY + ox * s2 + oy * c,
+          Math.max(-1, Math.min(1, oy / (rr * .78 * fl)))];
+}
+function drawSpace(t) {
+  sctx.imageSmoothingEnabled = false;   // 像素星雲要硬邊
+  sctx.drawImage(nebula, (mx-.5)*-10, (my-.5)*-8, VW+20, VH+16);
+  // 太陽照亮附近太空
+  const glow = sctx.createRadialGradient(SUNX, SUNY, 20, SUNX, SUNY, Math.max(VW, VH) * .38);
+  glow.addColorStop(0, 'rgba(238,178,60,0.13)');
+  glow.addColorStop(1, 'rgba(238,178,60,0)');
+  sctx.fillStyle = glow;
+  sctx.fillRect(0, 0, VW, VH);
+  for (const st of STARS) {
+    const a = .5 + .5 * Math.sin(t * .001 + st.tw);
+    sctx.globalAlpha = a * (st.depth === 3 ? 1 : st.depth === 2 ? .8 : .55);
+    sctx.fillStyle = st.c;
+    const parx = (mx - .5) * st.depth * 14, pary = (my - .5) * st.depth * 10;
+    sctx.fillRect(((st.x * VW - parx) | 0), ((st.y * VH - pary) | 0), st.depth === 3 ? 2 : 1, st.depth === 3 ? 2 : 1);
+  }
+  sctx.strokeStyle = 'rgba(139,152,184,0.14)';
+  sctx.lineWidth = 1;
+  for (const b of BODIES) {
+    if (!b.orbit) continue;
+    sctx.globalAlpha = b._hover ? .55 : .2;
+    sctx.beginPath();
+    if (vertical) {
+      const y = SUNY + b.orbit * ORBMAX;
+      sctx.moveTo(SUNX - 60, y); sctx.lineTo(SUNX + 60, y);
+    } else {
+      const rr = b.orbit * ORBMAX;
+      const e = b.ecc || .52, fl = b.flat || .42, tl = b.tilt || 0;
+      sctx.ellipse(SUNX + e * rr * Math.cos(tl), SUNY + e * rr * Math.sin(tl),
+                   rr * .78, rr * .78 * fl, tl, 0, 6.283);
+    }
+    sctx.stroke();
+  }
+  sctx.globalAlpha = 1;
+}
+
+/* ---------- 天體 DOM ---------- */
+const toast = document.getElementById('toast');
+let toastT = null;
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => toast.classList.remove('show'), 2400);
+}
+for (const b of BODIES) {
+  b.el = document.createElement('canvas');
+  b.el.className = 'body-cv' + (b.id === 'sun' ? ' sun' : '');
+  b._gl = !!(GLP && GLP.progs[b.glType]);
+  b.el.width = b.el.height = b._gl ? 128 : b.base;
+  b.ctx = b.el.getContext('2d');
+  b.el.style.width = (b.base * b.scale) + 'px';
+  b.el.title = b.nameJa + '・' + b.page;
+  document.body.appendChild(b.el);
+  b.lbl = document.createElement('div');
+  b.lbl.className = 'plabel';
+  document.body.appendChild(b.lbl);
+  if (b.id !== 'sun') b.el.addEventListener('click', () => travel(b));
+  b.el.addEventListener('mouseenter', () => { b._hover = true; b.lbl.classList.add('full'); });
+  b.el.addEventListener('mouseleave', () => { b._hover = false; b.lbl.classList.remove('full'); });
+}
+function paintBody(b, t) {
+  if (b._gl) {
+    const src = GLP.render(b, t, lightUV(b));
+    if (src) {
+      b.ctx.clearRect(0, 0, 128, 128);
+      b.ctx.imageSmoothingEnabled = false;
+      b.ctx.drawImage(src, 0, 0);
+      return;
+    }
+  }
+  if (b.id === 'sun') { paintSun(b.ctx, t); return; }
+  const img = b.ctx.createImageData(b.base, b.base);
+  const put = (x, y, c) => {
+    x |= 0; y |= 0;
+    if (x < 0 || y < 0 || x >= b.base || y >= b.base || !c) return;
+    const i = (y * b.base + x) * 4;
+    img.data[i] = c[0]; img.data[i+1] = c[1]; img.data[i+2] = c[2]; img.data[i+3] = 255;
+  };
+  PAINTERS[b.id](put, b.base, b.phase);
+  b.ctx.putImageData(img, 0, 0);
+}
+
+/* ---------- 像素飛船 ---------- */
+const SHIP_MAP = ['..W..', '.WLW.', '.WLW.', 'WLLLW', 'WWWWW', '.F.F.'];
+const SHIP_COL = { W: [205,214,238], L: [61,99,255], F: [232,201,74] };
+const ship = { x: 0, y: 0, tx: 0, ty: 0, mode: 'idle', target: null, trail: [] };
+const DUST = [];
+{
+  const r = rng(99);
+  for (let i = 0; i < 16; i++)
+    DUST.push({ x: r(), y: r(), vx: (r()-.5)*.00003, vy: (r()-.5)*.00002, a: .06+r()*.1 });
+}
+let meteor = null, meteorNext = 6000;
+function drawShip(t) {
+  fctx.clearRect(0, 0, VW, VH);
+  if (reduced) return;
+  // 漂浮塵埃
+  for (const d of DUST) {
+    d.x = (d.x + d.vx * (window.__dt||16) + 1) % 1;
+    d.y = (d.y + d.vy * (window.__dt||16) + 1) % 1;
+    fctx.fillStyle = 'rgba(139,152,184,' + d.a + ')';
+    fctx.fillRect((d.x*VW)|0, (d.y*VH)|0, 1, 1);
+  }
+  // 流星:偶爾一顆,斜劃
+  if (!meteor && t > meteorNext) {
+    const r = rng(t|0);
+    meteor = { x: VW*(.3+r()*.6), y: -20, vx: -3.2-r()*2, vy: 2.2+r()*1.5, life: 60 };
+    meteorNext = t + 12000 + r()*18000;
+  }
+  if (meteor) {
+    for (let k = 0; k < 7; k++) {
+      fctx.fillStyle = 'rgba(205,214,238,' + (0.7 - k*.1) + ')';
+      fctx.fillRect((meteor.x - meteor.vx*k*1.6)|0, (meteor.y - meteor.vy*k*1.6)|0, 2, 2);
+    }
+    meteor.x += meteor.vx; meteor.y += meteor.vy;
+    if (--meteor.life <= 0 || meteor.x < -30 || meteor.y > VH+30) meteor = null;
+  }
+  if (ship.mode === 'idle') {
+    ship.tx = SUNX + Math.cos(t * .00025) * 120 + (mx - .5) * 40;
+    ship.ty = SUNY + Math.sin(t * .0004) * 80 + (my - .5) * 30;
+  }
+  const spd = ship.mode === 'travel' ? .09 : .02;
+  ship.x += (ship.tx - ship.x) * spd;
+  ship.y += (ship.ty - ship.y) * spd;
+  if (Math.abs(ship.tx - ship.x) + Math.abs(ship.ty - ship.y) > 3)
+    ship.trail.push({ x: ship.x, y: ship.y + 8, life: 14 });
+  ship.trail = ship.trail.filter(p => --p.life > 0);
+  for (const p of ship.trail) {
+    fctx.fillStyle = p.life > 7 ? '#e8c94a' : '#8a5a2a';
+    fctx.fillRect((p.x + (hash(p.life, 1)*4-2)) | 0, p.y | 0, 2, 2);
+  }
+  const S = 3;
+  SHIP_MAP.forEach((row, j) => [...row].forEach((ch, i) => {
+    const c = SHIP_COL[ch];
+    if (!c) return;
+    if (ch === 'F' && ((t / 90) | 0) % 2) return;
+    fctx.fillStyle = 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')';
+    fctx.fillRect((ship.x + (i - 2.5) * S) | 0, (ship.y + (j - 3) * S) | 0, S, S);
+  }));
+  if (ship.mode === 'travel' && ship.target) {
+    if (Math.hypot(ship.tx - ship.x, ship.ty - ship.y) < 14) doWarp(ship.target);
+  }
+}
+function travel(b) {
+  explored[b.id] = Date.now();
+  saveExp(); updateHud();
+  if (reduced) return doWarp(b);
+  ship.mode = 'travel';
+  ship.target = b;
+  const r = b.el.getBoundingClientRect();
+  ship.tx = r.left + r.width / 2;
+  ship.ty = r.top - 16;
+  showToast('航行中 → ' + b.nameJa + '・' + b.page);
+}
+function doWarp(b) {
+  ship.mode = 'idle'; ship.target = null;
+  cam.target = null;
+  const warp = document.getElementById('warp');
+  const r = b.el.getBoundingClientRect();
+  const wx = b._sx != null && MODE === 'cockpit' ? b._sx : r.left + r.width / 2;
+  const wy = b._sy != null && MODE === 'cockpit' ? b._sy : r.top + r.height / 2;
+  warp.style.setProperty('--wx', wx + 'px');
+  warp.style.setProperty('--wy', wy + 'px');
+  const go = () => {
+    const url = ROUTES[b.id];
+    if (url) location.href = url;
+    else { warp.classList.remove('on'); showToast('著陸:' + b.nameJa + '・' + b.page + '(ROUTES 未填,原型模式)'); }
+  };
+  if (reduced) return go();
+  warp.classList.add('on');
+  setTimeout(go, 480);
+}
+
+/* ---------- 操縦席:偽3D第一人稱 ---------- */
+const WORLD_R = 900;                                    // 軌道世界尺度
+const cam = { x: 0, y: 90, z: -1350, yaw: 0, pitch: .06, roll: 0, spd: .4, target: null };
+const NDUST = [];
+{
+  const r = rng(555);
+  for (let i = 0; i < 46; i++)
+    NDUST.push({ x: (r()-.5)*520, y: (r()-.5)*520, z: (r()-.5)*520 });
+}
+const wrapN = v => ((v + 260) % 520 + 520) % 520 - 260;
+const CSTARS = [];
+{
+  const r = rng(777);
+  for (let i = 0; i < 340; i++)
+    CSTARS.push({ x: (r()-.5)*3200, y: (r()-.5)*3200, z: (r()-.5)*3200,
+                  c: r() < .6 ? '#8b97b8' : r() < .9 ? '#cdd6ee' : '#e8c94a' });
+}
+const wrapC = v => ((v + 1600) % 3200 + 3200) % 3200 - 1600;
+function worldPos(b) {
+  const R = b.orbit * WORLD_R;
+  return [Math.cos(b.angle) * R, 0, Math.sin(b.angle) * R];
+}
+function project(dx, dy, dz) {
+  const cy = Math.cos(cam.yaw), sy = Math.sin(cam.yaw);
+  const cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch);
+  const rx = dx * cy - dz * sy;
+  let rz = dx * sy + dz * cy;
+  const ry = dy * cp + rz * sp;
+  rz = -dy * sp + rz * cp;
+  if (rz < 8) return null;
+  const F = 430;
+  return [VW/2 + rx / rz * F, VH/2 + ry / rz * F, rz];
+}
+function renderCockpit(t) {
+  sctx.imageSmoothingEnabled = true;
+  sctx.drawImage(nebula, -10, -8, VW + 20, VH + 16);
+  // 轉向:自由=滑鼠;自動駕駛=朝目標
+  let yawT, pitchT;
+  if (cam.target) {
+    const [tx, ty, tz] = worldPos(cam.target);
+    yawT = Math.atan2(tx - cam.x, tz - cam.z);
+    pitchT = -Math.atan2(ty - cam.y, Math.hypot(tx - cam.x, tz - cam.z)) * .9;
+    const dist = Math.hypot(tx - cam.x, ty - cam.y, tz - cam.z);
+    const want = dist < 480 ? Math.max(1.6, dist / 480 * 7.5) : 7.5;   // 進場減速
+    cam.spd += (want - cam.spd) * .04;
+    cam._dist = dist;
+  } else {
+    yawT = (mx - .5) * 2.6;
+    pitchT = (my - .5) * 1.3;
+    cam.spd += (.4 - cam.spd) * .04;
+  }
+  let dy = yawT - cam.yaw;
+  dy = ((dy + Math.PI) % 6.283 + 6.283) % 6.283 - Math.PI;
+  cam.yaw += dy * .055;
+  cam.pitch += (pitchT - cam.pitch) * .055;
+  cam.roll += (Math.max(-.4, Math.min(.4, -dy * 3.2)) - cam.roll) * .06;   // 轉彎側傾
+  const fw = [Math.sin(cam.yaw) * Math.cos(cam.pitch), -Math.sin(cam.pitch), Math.cos(cam.yaw) * Math.cos(cam.pitch)];
+  const rc = Math.cos(cam.roll), rs = Math.sin(cam.roll);
+  const roll = p => p && [VW/2 + (p[0]-VW/2)*rc - (p[1]-VH/2)*rs,
+                          VH/2 + (p[0]-VW/2)*rs + (p[1]-VH/2)*rc, p[2]];
+  const dt = window.__dt || 16;
+  cam.x += fw[0] * cam.spd * dt * .06;
+  cam.y += fw[1] * cam.spd * dt * .06;
+  cam.z += fw[2] * cam.spd * dt * .06;
+  // 星流(速度越快拖越長)
+  for (const st of CSTARS) {
+    const dx = wrapC(st.x - cam.x), dyy = wrapC(st.y - cam.y), dz = wrapC(st.z - cam.z);
+    const p = roll(project(dx, dyy, dz));
+    if (!p) continue;
+    const p2 = roll(project(dx + fw[0] * cam.spd * 7, dyy + fw[1] * cam.spd * 7, dz + fw[2] * cam.spd * 7));
+    sctx.strokeStyle = st.c;
+    sctx.globalAlpha = Math.min(1, 900 / p[2]) * .9;
+    sctx.lineWidth = p[2] < 400 ? 2 : 1;
+    sctx.beginPath();
+    sctx.moveTo(p[0], p[1]);
+    sctx.lineTo(p2 ? p2[0] : p[0] + .6, p2 ? p2[1] : p[1] + .6);
+    sctx.stroke();
+  }
+  sctx.globalAlpha = 1;
+  // 近場塵埃:速度感的主要來源
+  sctx.strokeStyle = 'rgba(205,214,238,.5)';
+  sctx.lineWidth = 1;
+  for (const d of NDUST) {
+    const dx = wrapN(d.x - cam.x), dyy = wrapN(d.y - cam.y), dz = wrapN(d.z - cam.z);
+    const p = roll(project(dx, dyy, dz));
+    if (!p || p[2] > 300) continue;
+    const p2 = roll(project(dx + fw[0] * cam.spd * 3.5, dyy + fw[1] * cam.spd * 3.5, dz + fw[2] * cam.spd * 3.5));
+    if (!p2) continue;
+    sctx.globalAlpha = Math.min(.6, 90 / p[2]);
+    sctx.beginPath();
+    sctx.moveTo(p[0], p[1]);
+    sctx.lineTo(p2[0], p2[1]);
+    sctx.stroke();
+  }
+  sctx.globalAlpha = 1;
+  // 天體(遠→近)
+  const order = [];
+  for (const b of BODIES) {
+    const [wx2, wy2, wz2] = b.orbit ? worldPos(b) : [0, 0, 0];
+    const p = roll(project(wx2 - cam.x, wy2 - cam.y, wz2 - cam.z));
+    b._sx = b._sy = null;
+    if (!p) continue;
+    order.push([p[2], b, p]);
+  }
+  order.sort((a, b2) => b2[0] - a[0]);
+  sctx.imageSmoothingEnabled = false;
+  for (const [rz, b, p] of order) {
+    const sizeW = b.base * b.scale * (b.id === 'sun' ? 1.15 : 1);
+    const s2 = sizeW * 300 / rz;
+    if (s2 < 2) continue;
+    if (b.id === 'sun') {
+      const g = sctx.createRadialGradient(p[0], p[1], s2 * .3, p[0], p[1], s2 * 1.6);
+      g.addColorStop(0, 'rgba(238,178,60,.35)');
+      g.addColorStop(1, 'rgba(238,178,60,0)');
+      sctx.fillStyle = g;
+      sctx.fillRect(p[0] - s2 * 1.6, p[1] - s2 * 1.6, s2 * 3.2, s2 * 3.2);
+    }
+    sctx.drawImage(b.el, p[0] - s2 / 2, p[1] - s2 / 2, s2, s2);
+    b._sx = p[0]; b._sy = p[1]; b._sr = s2 / 2; b._srz = rz;
+    if (b.id !== 'sun' && s2 > 7 && rz < 2600) {
+      sctx.font = '12px ' + getComputedStyle(document.body).fontFamily;
+      sctx.textAlign = 'center';
+      sctx.fillStyle = cam.target === b ? '#e8c94a' : 'rgba(139,152,184,.85)';
+      sctx.fillText(b.nameJa + '・' + b.page, p[0], p[1] + s2 / 2 + 16);
+    }
+  }
+  // 目標鎖定框(四角括號,呼吸)
+  if (cam.target && cam.target._sx != null) {
+    const b = cam.target;
+    const r2 = Math.max(16, b._sr + 10 + Math.sin(t * .006) * 2);
+    sctx.strokeStyle = '#e8c94a';
+    sctx.lineWidth = 1.5;
+    const seg = Math.max(5, r2 * .4);
+    for (const [ox, oy] of [[-1,-1],[1,-1],[-1,1],[1,1]]) {
+      sctx.beginPath();
+      sctx.moveTo(b._sx + ox*r2 - ox*seg, b._sy + oy*r2);
+      sctx.lineTo(b._sx + ox*r2, b._sy + oy*r2);
+      sctx.lineTo(b._sx + ox*r2, b._sy + oy*r2 - oy*seg);
+      sctx.stroke();
+    }
+  }
+  // 準星
+  sctx.strokeStyle = 'rgba(232,201,74,.5)';
+  sctx.lineWidth = 1;
+  sctx.beginPath();
+  sctx.moveTo(VW/2 - 9, VH/2); sctx.lineTo(VW/2 - 3, VH/2);
+  sctx.moveTo(VW/2 + 3, VH/2); sctx.lineTo(VW/2 + 9, VH/2);
+  sctx.moveTo(VW/2, VH/2 - 9); sctx.lineTo(VW/2, VH/2 - 3);
+  sctx.moveTo(VW/2, VH/2 + 3); sctx.lineTo(VW/2, VH/2 + 9);
+  sctx.stroke();
+  // 座艙框:四角支柱 + 底部儀表暗帶 + 暗角
+  sctx.fillStyle = 'rgba(12,16,30,.92)';
+  const st2 = Math.min(VW, VH) * .16;
+  for (const [cx2, cy2, dx2, dy2] of [[0,0,1,1],[VW,0,-1,1],[0,VH,1,-1],[VW,VH,-1,-1]]) {
+    sctx.beginPath();
+    sctx.moveTo(cx2, cy2 + dy2*st2*1.5);
+    sctx.lineTo(cx2, cy2);
+    sctx.lineTo(cx2 + dx2*st2*1.5, cy2);
+    sctx.lineTo(cx2 + dx2*st2*1.1, cy2 + dy2*8);
+    sctx.lineTo(cx2 + dx2*8, cy2 + dy2*st2*1.1);
+    sctx.closePath();
+    sctx.fill();
+    sctx.strokeStyle = '#243154';
+    sctx.stroke();
+  }
+  const vg = sctx.createRadialGradient(VW/2, VH/2, Math.min(VW,VH)*.32, VW/2, VH/2, Math.max(VW,VH)*.72);
+  vg.addColorStop(0, 'rgba(0,0,0,0)');
+  vg.addColorStop(1, 'rgba(4,6,14,.55)');
+  sctx.fillStyle = vg;
+  sctx.fillRect(0, 0, VW, VH);
+  // 雷達(左下):前方=上,行星方位與距離
+  const RX = 86, RY = VH - 92, RR = 52;
+  sctx.fillStyle = 'rgba(14,20,38,.85)';
+  sctx.beginPath(); sctx.arc(RX, RY, RR, 0, 6.283); sctx.fill();
+  sctx.strokeStyle = '#243154';
+  sctx.beginPath(); sctx.arc(RX, RY, RR, 0, 6.283); sctx.stroke();
+  sctx.beginPath(); sctx.arc(RX, RY, RR*.55, 0, 6.283); sctx.stroke();
+  sctx.strokeStyle = 'rgba(139,152,184,.4)';
+  sctx.beginPath(); sctx.moveTo(RX, RY-RR); sctx.lineTo(RX, RY-RR+6); sctx.stroke();
+  for (const b of BODIES) {
+    const [wx2, , wz2] = b.orbit ? worldPos(b) : [0, 0, 0];
+    const ddx = wx2 - cam.x, ddz = wz2 - cam.z;
+    const bear = Math.atan2(ddx, ddz) - cam.yaw;
+    const dd = Math.min(1, Math.hypot(ddx, ddz) / 2400);
+    const bx2 = RX + Math.sin(bear) * dd * (RR-6);
+    const by2 = RY - Math.cos(bear) * dd * (RR-6);
+    if (b.id === 'sun') { sctx.fillStyle = '#e8c94a'; sctx.fillRect(bx2-2, by2-2, 4, 4); }
+    else {
+      const isT = cam.target === b;
+      sctx.fillStyle = isT ? (((t/300)|0) % 2 ? '#e8c94a' : '#fff') : '#8b97b8';
+      sctx.fillRect(bx2-1.5, by2-1.5, isT ? 4 : 3, isT ? 4 : 3);
+    }
+  }
+  sctx.fillStyle = '#8b97b8';
+  sctx.fillRect(RX-1, RY-1, 2, 2);
+  // 抵達
+  if (cam.target) {
+    const [tx, ty, tz] = worldPos(cam.target);
+    if (Math.hypot(tx - cam.x, ty - cam.y, tz - cam.z) < 130) doWarp(cam.target);
+  }
+  // 儀表
+  document.getElementById('cTarget').innerHTML = cam.target
+    ? '<span class="lbl">針路:</span><b>' + cam.target.nameJa + '</b>・' + cam.target.page
+      + (cam._dist ? ' <span class="lbl">距離</span> ' + (cam._dist|0) : '')
+    : '<span class="lbl">針路:</span>自由巡航(點行星設定)';
+  document.getElementById('cSpd').textContent = cam.spd.toFixed(1);
+  document.getElementById('cExp').textContent = Object.keys(explored).length;
+}
+space.addEventListener('click', e => {
+  if (MODE !== 'cockpit') return;
+  let hit = null;
+  for (const b of BODIES) {
+    if (b.id === 'sun' || b._sx == null) continue;
+    const d = Math.hypot(e.clientX - b._sx, e.clientY - b._sy);
+    if (d < Math.max(16, b._sr + 8) && (!hit || b._srz < hit._srz)) hit = b;
+  }
+  if (hit) {
+    cam.target = hit;
+    explored[hit.id] = Date.now();
+    saveExp(); updateHud();
+    showToast('針路設定 → ' + hit.nameJa + '・' + hit.page);
+  } else if (cam.target) {
+    cam.target = null;
+    showToast('自動駕駛解除');
+  }
+});
+
+/* ---------- 主迴圈 ---------- */
+let lastPaint = 0;
+function frame(t) {
+  const repaint = t - lastPaint > 110;
+  if (repaint) lastPaint = t;
+  for (const b of BODIES) {
+    if (!reduced) {
+      let w = b.speed || 0;
+      if (b.orbit && !vertical) {
+        const rr = b.orbit * ORBMAX;
+        const px2 = (b.ecc || .52) * rr + Math.cos(b.angle) * rr * .78;
+        const py2 = Math.sin(b.angle) * rr * .78 * (b.flat || .42);
+        const k = (rr * .78) / (Math.hypot(px2, py2) || 1);
+        w *= Math.min(3.5, Math.max(.5, k * k));   // 近日俯衝,遠日漂移(夾限防瞬移)
+      }
+      b.angle += w * (window.__dt || 16);
+      b.phase = ((b.phase + (b.spin || 0) * (window.__dt || 16)) % 1 + 1) % 1;
+    }
+    if (b._gl || repaint || !b._painted) { paintBody(b, t); b._painted = true; }
+  }
+  if (MODE === 'cockpit') {
+    renderCockpit(t);
+    fctx.clearRect(0, 0, VW, VH);
+    requestAnimationFrame(frame);
+    return;
+  }
+  drawSpace(t);
+  for (const b of BODIES) {
+    let x, y, depth = 0;
+    if (!b.orbit) { x = SUNX; y = SUNY; }
+    else if (vertical) {
+      x = SUNX + Math.sin(b.angle) * 54;
+      y = SUNY + b.orbit * ORBMAX;
+    } else {
+      [x, y, depth] = orbitPos(b);
+    }
+    const dscale = 1 + depth * .22;
+    b.el.style.left = x + 'px';
+    b.el.style.top = y + 'px';
+    b.el.style.width = (b.base * b.scale * dscale) + 'px';
+    b.el.style.zIndex = b.id === 'sun' ? 4 : (depth >= 0 ? 5 : 3);
+    if (b.id !== 'sun')
+      b.el.style.filter = 'brightness(' + (1 + depth * .18).toFixed(2) + ')';
+    b.lbl.style.left = x + 'px';
+    b.lbl.style.top = (y + b.base * b.scale * dscale / 2 + 6) + 'px';
+    b.lbl.style.zIndex = b.el.style.zIndex;
+    b.lbl.innerHTML = '<div class="n">' + b.nameJa + '</div><div class="p">' + b.page + '</div>'
+      + (explored[b.id] ? '<div class="v">▲ 探索済</div>' : '');
+  }
+  drawShip(t);
+  requestAnimationFrame(frame);
+}
+let last = performance.now();
+(function tick(t) { window.__dt = Math.min(48, t - last); last = t; requestAnimationFrame(tick); })(last);
+
+addEventListener('mousemove', e => { mx = e.clientX / VW; my = e.clientY / VH; });
+
+function placeFlare() {
+  const f = document.getElementById('flare');
+  f.innerHTML = '✦ ' + FLARE_TEXT.years + ' 年前的今天<br>' + FLARE_TEXT.name
+    + '<br><span class="f">' + FLARE_TEXT.sub + '</span>';
+  // 避開日冕半徑(太陽畫布半寬 ≈143px)與行星標籤帶
+  if (vertical) { f.style.left = '24px'; f.style.top = (SUNY + 170) + 'px'; }
+  else { f.style.left = (SUNX + 165) + 'px'; f.style.top = (SUNY - 175) + 'px'; }
+}
+/* 耀斑呼吸:載入 2s 後亮 9s,之後每 45s 閃現一次;hover 太陽隨時召喚 */
+const flareEl = document.getElementById('flare');
+let flareT = null;
+function flareShow(ms) {
+  flareEl.classList.add('show');
+  clearTimeout(flareT);
+  if (ms) flareT = setTimeout(() => flareEl.classList.remove('show'), ms);
+}
+if (!reduced) {
+  setTimeout(() => flareShow(9000), 2000);
+  setInterval(() => flareShow(9000), 45000);
+} else {
+  flareEl.classList.add('show');   // reduced-motion:恆亮不閃
+}
+layout(); placeFlare(); updateHud();
+setMode(MODE);
+ship.x = SUNX + 120; ship.y = SUNY;
+addEventListener('resize', () => { layout(); placeFlare(); });
+BODIES[0].el.addEventListener('mouseenter', () => flareShow(0));
+BODIES[0].el.addEventListener('mouseleave', () => flareShow(2500));
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
