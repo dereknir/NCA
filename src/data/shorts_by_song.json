@@ -1,9 +1,9 @@
 {
   "meta": {
-    "song_count": 20,
-    "short_count": 206,
+    "song_count": 21,
+    "short_count": 220,
     "skipped": {
-      "pending": 665,
+      "pending": 660,
       "skip": 0,
       "no_song": 0,
       "no_anchors": 1,
@@ -5618,6 +5618,638 @@
           {
             "t": 7.74,
             "line": 21
+          }
+        ]
+      }
+    ],
+    "nishina-weekly": [
+      {
+        "videoId": "L_Vm4Lc86sw",
+        "title": "(規則的なアルゴリズム)",
+        "url": "https://www.youtube.com/shorts/L_Vm4Lc86sw",
+        "thumbnail": "https://i.ytimg.com/vi/L_Vm4Lc86sw/hqdefault.jpg",
+        "viewCount": 33000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.47,
+            "line": 0
+          },
+          {
+            "t": 2.6,
+            "line": 1
+          },
+          {
+            "t": 5.15,
+            "line": 2
+          },
+          {
+            "t": 6.97,
+            "line": 3
+          },
+          {
+            "t": 10.08,
+            "line": 4
+          },
+          {
+            "t": 12.28,
+            "line": 5
+          },
+          {
+            "t": 14.6,
+            "line": 6
+          },
+          {
+            "t": 16.89,
+            "line": 7
+          }
+        ]
+      },
+      {
+        "videoId": "_YFTzgCa8yo",
+        "title": "焦らずゆけばいいさ",
+        "url": "https://www.youtube.com/shorts/_YFTzgCa8yo",
+        "thumbnail": "https://i.ytimg.com/vi/_YFTzgCa8yo/hqdefault.jpg",
+        "viewCount": 16000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 28
+          },
+          {
+            "t": 0.66,
+            "line": 29
+          },
+          {
+            "t": 4.67,
+            "line": 30
+          },
+          {
+            "t": 5.98,
+            "line": 31
+          },
+          {
+            "t": 9.64,
+            "line": 32
+          },
+          {
+            "t": 10.81,
+            "line": 33
+          },
+          {
+            "t": 14.23,
+            "line": 34
+          },
+          {
+            "t": 15.51,
+            "line": 35
+          }
+        ]
+      },
+      {
+        "videoId": "-Ds4iTwZc5w",
+        "title": "nishina newsong \"weekly\"",
+        "url": "https://www.youtube.com/shorts/-Ds4iTwZc5w",
+        "thumbnail": "https://i.ytimg.com/vi/-Ds4iTwZc5w/hqdefault.jpg",
+        "viewCount": 15000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 2.88,
+            "line": 1
+          },
+          {
+            "t": 4.98,
+            "line": 2
+          },
+          {
+            "t": 7.33,
+            "line": 3
+          },
+          {
+            "t": 9.98,
+            "line": 4
+          },
+          {
+            "t": 12.29,
+            "line": 5
+          },
+          {
+            "t": 14.79,
+            "line": 6
+          },
+          {
+            "t": 17.06,
+            "line": 7
+          },
+          {
+            "t": 20.64,
+            "line": 8
+          }
+        ]
+      },
+      {
+        "videoId": "L0fjY18WLog",
+        "title": "I'm feeling pretty beat",
+        "url": "https://www.youtube.com/shorts/L0fjY18WLog",
+        "thumbnail": "https://i.ytimg.com/vi/L0fjY18WLog/hqdefault.jpg",
+        "viewCount": 14000,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 2.72,
+            "line": 1
+          },
+          {
+            "t": 5.02,
+            "line": 2
+          },
+          {
+            "t": 7.22,
+            "line": 3
+          },
+          {
+            "t": 9.92,
+            "line": 4
+          },
+          {
+            "t": 12.08,
+            "line": 5
+          },
+          {
+            "t": 14.63,
+            "line": 6
+          },
+          {
+            "t": 16.67,
+            "line": 7
+          },
+          {
+            "t": 20.73,
+            "line": 8
+          }
+        ]
+      },
+      {
+        "videoId": "Kjvj4xxyNx0",
+        "title": "(Singing an irregular rhythm)",
+        "url": "https://www.youtube.com/shorts/Kjvj4xxyNx0",
+        "thumbnail": "https://i.ytimg.com/vi/Kjvj4xxyNx0/hqdefault.jpg",
+        "viewCount": 11000,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 2.91,
+            "line": 1
+          },
+          {
+            "t": 5.32,
+            "line": 2
+          },
+          {
+            "t": 7.55,
+            "line": 3
+          },
+          {
+            "t": 10.24,
+            "line": 4
+          },
+          {
+            "t": 12.48,
+            "line": 5
+          },
+          {
+            "t": 14.98,
+            "line": 6
+          },
+          {
+            "t": 17.15,
+            "line": 7
+          },
+          {
+            "t": 21.12,
+            "line": 8
+          }
+        ]
+      },
+      {
+        "videoId": "z_xXIvom11I",
+        "title": "めんどい事ばっかね",
+        "url": "https://www.youtube.com/shorts/z_xXIvom11I",
+        "thumbnail": "https://i.ytimg.com/vi/z_xXIvom11I/hqdefault.jpg",
+        "viewCount": 11000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 14
+          },
+          {
+            "t": 2.65,
+            "line": 15
+          },
+          {
+            "t": 4.94,
+            "line": 16
+          },
+          {
+            "t": 6.85,
+            "line": 17
+          },
+          {
+            "t": 9.54,
+            "line": 18
+          },
+          {
+            "t": 11.99,
+            "line": 19
+          },
+          {
+            "t": 14.32,
+            "line": 20
+          }
+        ]
+      },
+      {
+        "videoId": "zKROw-O1atQ",
+        "title": "たまに素直なエモーション",
+        "url": "https://www.youtube.com/shorts/zKROw-O1atQ",
+        "thumbnail": "https://i.ytimg.com/vi/zKROw-O1atQ/hqdefault.jpg",
+        "viewCount": 9900,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 14
+          },
+          {
+            "t": 2.53,
+            "line": 15
+          },
+          {
+            "t": 4.83,
+            "line": 16
+          },
+          {
+            "t": 6.68,
+            "line": 17
+          },
+          {
+            "t": 9.27,
+            "line": 18
+          },
+          {
+            "t": 11.6,
+            "line": 19
+          },
+          {
+            "t": 14.39,
+            "line": 20
+          },
+          {
+            "t": 16.41,
+            "line": 21
+          },
+          {
+            "t": 20.38,
+            "line": 22
+          },
+          {
+            "t": 23.06,
+            "line": 23
+          },
+          {
+            "t": 25.59,
+            "line": 24
+          },
+          {
+            "t": 30.15,
+            "line": 25
+          },
+          {
+            "t": 32.53,
+            "line": 26
+          },
+          {
+            "t": 35.03,
+            "line": 27
+          },
+          {
+            "t": 38.1,
+            "line": 28
+          },
+          {
+            "t": 39.08,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "iuId9l1EwFo",
+        "title": "😜weekly",
+        "url": "https://www.youtube.com/shorts/iuId9l1EwFo",
+        "thumbnail": "https://i.ytimg.com/vi/iuId9l1EwFo/hqdefault.jpg",
+        "viewCount": 9500,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 2.61,
+            "line": 0
+          },
+          {
+            "t": 5.4,
+            "line": 1
+          },
+          {
+            "t": 7.91,
+            "line": 2
+          },
+          {
+            "t": 9.94,
+            "line": 3
+          },
+          {
+            "t": 12.62,
+            "line": 4
+          }
+        ]
+      },
+      {
+        "videoId": "rk95ny-PzqU",
+        "title": "Take it easy, you'll be fine",
+        "url": "https://www.youtube.com/shorts/rk95ny-PzqU",
+        "thumbnail": "https://i.ytimg.com/vi/rk95ny-PzqU/hqdefault.jpg",
+        "viewCount": 9200,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.99,
+            "line": 0
+          },
+          {
+            "t": 2.86,
+            "line": 1
+          },
+          {
+            "t": 5.49,
+            "line": 2
+          },
+          {
+            "t": 7.58,
+            "line": 3
+          },
+          {
+            "t": 10.39,
+            "line": 4
+          },
+          {
+            "t": 12.74,
+            "line": 5
+          },
+          {
+            "t": 15.16,
+            "line": 6
+          },
+          {
+            "t": 17.26,
+            "line": 7
+          },
+          {
+            "t": 21.03,
+            "line": 8
+          }
+        ]
+      },
+      {
+        "videoId": "x1av012lyuc",
+        "title": "チューイングガムの味も無くなる愛しい日々",
+        "url": "https://www.youtube.com/shorts/x1av012lyuc",
+        "thumbnail": "https://i.ytimg.com/vi/x1av012lyuc/hqdefault.jpg",
+        "viewCount": 9100,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 2.76,
+            "line": 9
+          },
+          {
+            "t": 5.38,
+            "line": 10
+          },
+          {
+            "t": 9.96,
+            "line": 11
+          },
+          {
+            "t": 12.51,
+            "line": 12
+          },
+          {
+            "t": 14.96,
+            "line": 13
+          }
+        ]
+      },
+      {
+        "videoId": "mod3TOMk0EM",
+        "title": "weekly jam session",
+        "url": "https://www.youtube.com/shorts/mod3TOMk0EM",
+        "thumbnail": "https://i.ytimg.com/vi/mod3TOMk0EM/hqdefault.jpg",
+        "viewCount": 8900,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 2.04,
+            "line": 0
+          },
+          {
+            "t": 5.08,
+            "line": 1
+          },
+          {
+            "t": 7.46,
+            "line": 2
+          },
+          {
+            "t": 9.97,
+            "line": 3
+          },
+          {
+            "t": 12.64,
+            "line": 4
+          },
+          {
+            "t": 14.97,
+            "line": 5
+          },
+          {
+            "t": 17.51,
+            "line": 6
+          },
+          {
+            "t": 19.82,
+            "line": 7
+          },
+          {
+            "t": 23.76,
+            "line": 8
+          }
+        ]
+      },
+      {
+        "videoId": "MQ16sFL3994",
+        "title": "チューイングガムの味も無くなる愛しい日々",
+        "url": "https://www.youtube.com/shorts/MQ16sFL3994",
+        "thumbnail": "https://i.ytimg.com/vi/MQ16sFL3994/hqdefault.jpg",
+        "viewCount": 7700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 44
+          },
+          {
+            "t": 2.71,
+            "line": 45
+          },
+          {
+            "t": 5.31,
+            "line": 46
+          },
+          {
+            "t": 9.82,
+            "line": 47
+          },
+          {
+            "t": 12.44,
+            "line": 48
+          },
+          {
+            "t": 14.93,
+            "line": 49
+          }
+        ]
+      },
+      {
+        "videoId": "XtQ1j121eeU",
+        "title": "nishina - weekly",
+        "url": "https://www.youtube.com/shorts/XtQ1j121eeU",
+        "thumbnail": "https://i.ytimg.com/vi/XtQ1j121eeU/hqdefault.jpg",
+        "viewCount": 5700,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 2.59,
+            "line": 1
+          },
+          {
+            "t": 4.96,
+            "line": 2
+          },
+          {
+            "t": 7.24,
+            "line": 3
+          },
+          {
+            "t": 9.9,
+            "line": 4
+          },
+          {
+            "t": 12.21,
+            "line": 5
+          },
+          {
+            "t": 14.54,
+            "line": 6
+          },
+          {
+            "t": 16.85,
+            "line": 7
+          }
+        ]
+      },
+      {
+        "videoId": "lJjpLUXRRnM",
+        "title": "たまに素直なエモーション",
+        "url": "https://www.youtube.com/shorts/lJjpLUXRRnM",
+        "thumbnail": "https://i.ytimg.com/vi/lJjpLUXRRnM/hqdefault.jpg",
+        "viewCount": 1700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 18
+          },
+          {
+            "t": 2.65,
+            "line": 19
+          },
+          {
+            "t": 4.98,
+            "line": 20
+          },
+          {
+            "t": 7.12,
+            "line": 21
+          },
+          {
+            "t": 10.98,
+            "line": 22
+          },
+          {
+            "t": 13.69,
+            "line": 23
+          },
+          {
+            "t": 16.21,
+            "line": 24
+          },
+          {
+            "t": 20.8,
+            "line": 25
+          },
+          {
+            "t": 23.35,
+            "line": 26
+          },
+          {
+            "t": 25.91,
+            "line": 27
           }
         ]
       }

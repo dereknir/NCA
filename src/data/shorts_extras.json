@@ -1,12 +1,12 @@
 {
   "meta": {
-    "total": 75,
+    "total": 77,
     "by_category": {
       "daily": 4,
       "cover": 5,
       "promo": 24,
       "live_song": 24,
-      "mc": 5,
+      "mc": 7,
       "yearly": 6,
       "ad": 2,
       "tv": 3,
@@ -687,7 +687,7 @@
     "mc": {
       "displayName": "MC / 演唱會講話",
       "emoji": "🎤",
-      "count": 5,
+      "count": 7,
       "shorts": [
         {
           "videoId": "JVi6D1nCdP0",
@@ -695,6 +695,16 @@
           "url": "https://www.youtube.com/shorts/JVi6D1nCdP0",
           "thumbnail": "https://i.ytimg.com/vi/JVi6D1nCdP0/hqdefault.jpg",
           "viewCount": 15000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "KLPVGh7YxEg",
+          "title": "weekly",
+          "url": "https://www.youtube.com/shorts/KLPVGh7YxEg",
+          "thumbnail": "https://i.ytimg.com/vi/KLPVGh7YxEg/hqdefault.jpg",
+          "viewCount": 12000,
           "versionType": null,
           "instrumental": false,
           "anchors": []
@@ -715,6 +725,16 @@
           "url": "https://www.youtube.com/shorts/wChOVv7Gfzc",
           "thumbnail": "https://i.ytimg.com/vi/wChOVv7Gfzc/hqdefault.jpg",
           "viewCount": 6900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "sJXnAjW8V3U",
+          "title": "nishina weekly",
+          "url": "https://www.youtube.com/shorts/sJXnAjW8V3U",
+          "thumbnail": "https://i.ytimg.com/vi/sJXnAjW8V3U/hqdefault.jpg",
+          "viewCount": 6700,
           "versionType": null,
           "instrumental": false,
           "anchors": []
