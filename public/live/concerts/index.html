@@ -74,11 +74,18 @@
   h1{font-family:'PX-JA','PX-ZH',var(--font);font-weight:400;font-size:24px}
   .site-topbar a:not(.crumb){font-family:'PX-ZH','PX-JA',var(--font);font-weight:400;font-size:24px}
   .site-topbar a.crumb{font-family:'PX-ZH','PX-JA',var(--font);font-size:12px}
-  .card{border-radius:0;border-width:2px;box-shadow:5px 5px 0 rgba(0,0,0,.45)}
+  .card{border-radius:0;border-width:2px;
+        clip-path:polygon(0 6px,6px 6px,6px 0,calc(100% - 6px) 0,calc(100% - 6px) 6px,100% 6px,
+          100% calc(100% - 6px),calc(100% - 6px) calc(100% - 6px),calc(100% - 6px) 100%,
+          6px 100%,6px calc(100% - 6px),0 calc(100% - 6px));
+        filter:drop-shadow(5px 5px 0 rgba(0,0,0,.45))}
   .num{font-family:'PX-ZH','PX-JA',var(--font);font-size:24px}
-  .links a,.stbtn{border-radius:0;border-width:2px;font-family:'PX-ZH','PX-JA',var(--font);font-size:12px}
-  .stbtn{box-shadow:3px 3px 0 rgba(0,0,0,.5)}
-  .stbtn:active{transform:translate(3px,3px);box-shadow:none}
+  .links a,.stbtn{border-radius:0;border-width:2px;font-family:'PX-ZH','PX-JA',var(--font);font-size:12px;
+        clip-path:polygon(0 4px,4px 4px,4px 0,calc(100% - 4px) 0,calc(100% - 4px) 4px,100% 4px,
+          100% calc(100% - 4px),calc(100% - 4px) calc(100% - 4px),calc(100% - 4px) 100%,
+          4px 100%,4px calc(100% - 4px),0 calc(100% - 4px))}
+  .stbtn{filter:drop-shadow(3px 3px 0 rgba(0,0,0,.5))}
+  .stbtn:active{transform:translate(3px,3px);filter:none}
   .stamp{font-family:'PX-ZH','PX-JA',var(--font);border-radius:0}
   .slmenu{border-radius:0;border-width:2px;box-shadow:5px 5px 0 rgba(0,0,0,.5)}
   .slmenu a{border-radius:0!important;font-family:'PX-ZH','PX-JA',var(--font);font-size:12px}

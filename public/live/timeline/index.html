@@ -79,10 +79,17 @@
   .site-topbar a.crumb{font-family:'PX-ZH','PX-JA',var(--font);font-size:12px}
   .yr{font-family:'PX-ZH','PX-JA',var(--font);font-size:24px}
   .chip{font-family:'PX-ZH','PX-JA',var(--font);font-size:12px;border-radius:0;border-width:2px;
-        box-shadow:3px 3px 0 rgba(0,0,0,.5)}
-  .chip:active{transform:translate(3px,3px);box-shadow:none}
+        clip-path:polygon(0 4px,4px 4px,4px 0,calc(100% - 4px) 0,calc(100% - 4px) 4px,100% 4px,
+          100% calc(100% - 4px),calc(100% - 4px) calc(100% - 4px),calc(100% - 4px) 100%,
+          4px 100%,4px calc(100% - 4px),0 calc(100% - 4px));
+        filter:drop-shadow(3px 3px 0 rgba(0,0,0,.5))}
+  .chip:active{transform:translate(3px,3px);filter:none}
   .badge,.sbadge,.ics{border-radius:0;font-family:'PX-ZH','PX-JA',var(--font)}
-  #next,#today{border-radius:0;border-width:2px;box-shadow:5px 5px 0 rgba(0,0,0,.45)}
+  #next,#today{border-radius:0;border-width:2px;
+        clip-path:polygon(0 6px,6px 6px,6px 0,calc(100% - 6px) 0,calc(100% - 6px) 6px,100% 6px,
+          100% calc(100% - 6px),calc(100% - 6px) calc(100% - 6px),calc(100% - 6px) 100%,
+          6px 100%,6px calc(100% - 6px),0 calc(100% - 6px));
+        filter:drop-shadow(5px 5px 0 rgba(0,0,0,.45))}
   #today .hd{font-family:'PX-ZH','PX-JA',var(--font);font-size:12px}
   #today .big{font-family:'PX-ZH','PX-JA',var(--font);font-size:24px}
   #today .go{border-radius:0;font-family:'PX-ZH','PX-JA',var(--font)}

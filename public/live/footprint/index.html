@@ -101,9 +101,14 @@
   .site-topbar a.crumb{font-family:'PX-ZH','PX-JA',var(--font);font-size:12px}
   #map,#side,#unmapped,.fact,#cardBox{border-radius:0;border-width:2px}
   #map,#side{box-shadow:6px 6px 0 rgba(0,0,0,.45)}
+  /* 缺角只給按鈕; #map/#side 大面板保留 box-shadow — 足跡の旅每 430ms 重繪 SVG, drop-shadow 濾鏡太貴 */
   #play,.ly,#mkcard,#cardBox button{border-radius:0;border-width:2px;
-    font-family:'PX-ZH','PX-JA',var(--font);font-size:12px;box-shadow:3px 3px 0 rgba(0,0,0,.5)}
-  #play:active,.ly:active,#mkcard:active,#cardBox button:active{transform:translate(3px,3px);box-shadow:none}
+    font-family:'PX-ZH','PX-JA',var(--font);font-size:12px;
+    clip-path:polygon(0 4px,4px 4px,4px 0,calc(100% - 4px) 0,calc(100% - 4px) 4px,100% 4px,
+      100% calc(100% - 4px),calc(100% - 4px) calc(100% - 4px),calc(100% - 4px) 100%,
+      4px 100%,4px calc(100% - 4px),0 calc(100% - 4px));
+    filter:drop-shadow(3px 3px 0 rgba(0,0,0,.5))}
+  #play:active,.ly:active,#mkcard:active,#cardBox button:active{transform:translate(3px,3px);filter:none}
   .ly i{border-radius:0}
   #side h3{font-family:'PX-ZH','PX-JA',var(--font);font-weight:400;font-size:24px}
   .sgh{font-family:'PX-ZH','PX-JA',var(--font);font-size:12px}

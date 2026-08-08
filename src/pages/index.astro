@@ -189,13 +189,10 @@ const stats = {
     }
     .hero-btn {
       padding: 0.75rem 1.75rem;
-      border-radius: 0.5rem;
-      font-weight: 500;
       text-decoration: none;
-      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
       display: inline-block;
+      /* 像素化後 hover 浮起/transition 交給 .px-btn 管 (按壓位移需要 transform 淨空) */
     }
-    .hero-btn:hover { transform: translateY(-1px); }
     .hero-btn-primary {
       background: rgb(37 99 235);
       color: #fff;

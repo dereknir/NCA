@@ -281,32 +281,51 @@ h2.px, .px-h2 {
   letter-spacing: .05em;
 }
 
-/* 像素卡殼 — 方角 + 2px 框 + 硬影 (內容文字不動) */
+/* 像素卡殼 — 缺角(clip-path 9-bit 感) + 2px 框 + 硬影
+   注意: clip-path 會裁掉 box-shadow, 硬影改走 drop-shadow(沿缺角輪廓, 無模糊) */
 .px-card {
   border-radius: 0 !important;
   border: 2px solid rgb(36 49 84);
-  box-shadow: 5px 5px 0 rgba(0, 0, 0, .45);
-  transition: transform .1s steps(2), box-shadow .1s steps(2), border-color .15s;
+  clip-path: polygon(
+    0 6px, 6px 6px, 6px 0,
+    calc(100% - 6px) 0, calc(100% - 6px) 6px, 100% 6px,
+    100% calc(100% - 6px), calc(100% - 6px) calc(100% - 6px), calc(100% - 6px) 100%,
+    6px 100%, 6px calc(100% - 6px), 0 calc(100% - 6px));
+  filter: drop-shadow(5px 5px 0 rgba(0, 0, 0, .45));
+  transition: transform .1s steps(2), filter .1s steps(2), border-color .15s;
 }
 .px-card:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 rgba(0, 0, 0, .5);
+  filter: drop-shadow(7px 7px 0 rgba(0, 0, 0, .5));
   border-color: rgb(61 99 255);
 }
 .px-card img { border-radius: 0 !important; }
 
-/* 像素按鈕 — 硬影 + 按壓位移吃影 */
+/* 像素按鈕 — 缺角 + 硬影(drop-shadow) + 按壓位移吃影
+   !important: 按壓位移不能被任何頁面自帶的 hover transform/transition 蓋掉 */
 .px-btn {
   font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
   font-weight: 400;
   font-size: 12px;
   border-radius: 0 !important;
   border: 2px solid rgb(36 49 84);
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, .5);
-  transition: none;
+  clip-path: polygon(
+    0 4px, 4px 4px, 4px 0,
+    calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px,
+    100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+    4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px));
+  filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, .5));
+  transition: none !important;
 }
-.px-btn:hover { border-color: rgb(232 201 74); color: rgb(232 201 74); }
-.px-btn:active { transform: translate(3px, 3px); box-shadow: none; }
+.px-btn:hover {
+  border-color: rgb(232 201 74);
+  color: rgb(232 201 74);
+  transform: none !important;   /* 壓掉頁面自帶的 hover 浮起, 保住按壓手感 */
+}
+.px-btn:active {
+  transform: translate(3px, 3px) !important;
+  filter: none;
+}
 .px-btn-pri {
   background: rgb(37 99 235);
   border-color: rgb(29 78 216);
