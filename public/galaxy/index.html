@@ -91,7 +91,9 @@ const ROUTES = {
   uranus:  '/star-map/',         // 天王星 → 歌詞星圖
   neptune: '/about/',            // 海王星 → About
 };
-const FLARE_TEXT = { years: 3, name: 'RUSH BALL 2023', sub: '泉大津フェニックス(大阪)' };
+/* 太陽閃焰「N 年前的今天」: 開機 fetch /live/events.json (inject.py 產出) 前端計算;
+   同月日多筆用「年中第幾天」輪播選一, 沒命中/fetch 失敗 = 閃焰整段隱藏, 不顯示假資料 */
+let FLARE_TEXT = null;
 /* ===================== */
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -928,6 +930,7 @@ let last = performance.now();
 addEventListener('mousemove', e => { mx = e.clientX / VW; my = e.clientY / VH; });
 
 function placeFlare() {
+  if (!FLARE_TEXT) return;   // 事件池還沒載到 / 今天沒有回憶 → 不顯示
   const f = document.getElementById('flare');
   f.innerHTML = '✦ ' + FLARE_TEXT.years + ' 年前的今天<br>' + FLARE_TEXT.name
     + '<br><span class="f">' + FLARE_TEXT.sub + '</span>';
@@ -943,12 +946,31 @@ function flareShow(ms) {
   clearTimeout(flareT);
   if (ms) flareT = setTimeout(() => flareEl.classList.remove('show'), ms);
 }
-if (!reduced) {
-  setTimeout(() => flareShow(9000), 2000);
-  setInterval(() => flareShow(9000), 45000);
-} else {
-  flareEl.classList.add('show');   // reduced-motion:恆亮不閃
+function initFlareCycle() {
+  if (!reduced) {
+    setTimeout(() => flareShow(9000), 2000);
+    setInterval(() => flareShow(9000), 45000);
+  } else {
+    flareEl.classList.add('show');   // reduced-motion:恆亮不閃
+  }
 }
+/* 開機抓事件池, 命中才點燃閃焰 */
+fetch('/live/events.json')
+  .then(r => r.ok ? r.json() : null)
+  .then(list => {
+    if (!list || !list.length) return;
+    const now = new Date();
+    const md = String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+    const yr = now.getFullYear();
+    const pool = list.filter(e => e.d.slice(5) === md && +e.d.slice(0, 4) < yr);
+    if (!pool.length) return;
+    const doy = Math.floor((now - new Date(yr, 0, 0)) / 86400000);
+    const e = pool[doy % pool.length];
+    FLARE_TEXT = { years: yr - +e.d.slice(0, 4), name: e.n, sub: e.s || '' };
+    placeFlare();
+    initFlareCycle();
+  })
+  .catch(() => {});
 layout(); placeFlare(); updateHud();
 setMode(MODE);
 ship.x = SUNX + 120; ship.y = SUNY;

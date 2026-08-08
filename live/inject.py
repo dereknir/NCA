@@ -43,6 +43,22 @@ for tpl, page, blobs in JOBS:
     out.write_text(html, encoding='utf-8')
     print(f'✓ {out.relative_to(HERE.parent)}({len(html)//1024}KB)')
 
+# galaxy 的太陽閃焰「N 年前的今天」吃這份輕量池 (fetch /live/events.json 前端計算;
+# 沒命中的日子閃焰隱藏)。欄位: d=日期 n=名稱 s=副標(場地)
+ev_obj = json.load(open(D / 'nishina_live_events.json', encoding='utf-8'))
+tours_obj = json.load(open(D / 'tour_stops.json', encoding='utf-8'))
+pool = []
+for a in ev_obj['appearance']:
+    if a.get('event_date'):
+        pool.append({'d': a['event_date'], 'n': a['name'], 's': a.get('venue') or ''})
+for t in tours_obj['tours']:
+    for st in t['stops']:
+        pool.append({'d': st['date'], 'n': t['name'], 's': f"{st['venue']}({st['pref']})"})
+pool.sort(key=lambda x: x['d'])
+ev_out = PUB / 'events.json'
+ev_out.write_text(json.dumps(pool, ensure_ascii=False), encoding='utf-8')
+print(f'✓ {ev_out.relative_to(HERE.parent)}({len(pool)} 筆事件池)')
+
 # 順手同步「出演場次清單」給 annotator (__live_song 出演演唱的場次 dropdown)
 # 這樣 live 資料更新時, annotator 的場次選單自動跟上, 不會漏。
 ev_obj = json.load(open(D / 'nishina_live_events.json', encoding='utf-8'))
