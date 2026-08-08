@@ -70,6 +70,13 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
   )}
 
   <article class="max-w-4xl mx-auto">
+    {/* Spotify 式頂部返回鍵 — VT 圈內點了封面會反向 morph 飛回列表 */}
+    <a href="/translations" aria-label="返回翻譯列表"
+       class="px-font inline-flex items-center justify-center w-9 h-9 mb-5 text-[16px]
+              bg-[#1a2440] text-gray-200 border-2 border-[#243154]
+              shadow-[3px_3px_0_rgba(0,0,0,.5)] hover:text-[#e8c94a] hover:border-[#e8c94a]
+              active:translate-x-[3px] active:translate-y-[3px] active:shadow-none
+              transition-none select-none">‹</a>
     <header class="mb-8 flex flex-col sm:flex-row gap-6 items-start">
       {coverImage && (
         <div class="w-full sm:w-56 flex-shrink-0">
