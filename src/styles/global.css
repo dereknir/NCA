@@ -360,3 +360,13 @@ h2.px, .px-h2 {
   .px-card, .px-btn { transition: none; }
   .px-blink { animation: none; }
 }
+
+/* ---- View Transitions: 像素抖動溶解換頁 (translations 圈內) ----
+   root 淡出淡入走 steps(4) = 8-bit 頓挫感; 封面 morph (transition:name)
+   走瀏覽器預設的平滑位移縮放 — 一頓一滑, 對比即風格。 */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) { animation: px-vt-out 160ms steps(4) both; }
+  ::view-transition-new(root) { animation: px-vt-in 160ms steps(4) both; }
+}
+@keyframes px-vt-out { to { opacity: 0; } }
+@keyframes px-vt-in { from { opacity: 0; } }

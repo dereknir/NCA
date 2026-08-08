@@ -61,7 +61,7 @@ const totalSongs = allTranslations.length;
 const overallProgress = totalSongs > 0 ? Math.round((totalTranslated / totalSongs) * 100) : 0;
 ---
 
-<BaseLayout title="日文歌翻譯" description="日文歌曲中文翻譯收藏">
+<BaseLayout title="日文歌翻譯" description="日文歌曲中文翻譯收藏" viewTransitions={true}>
   <div class="max-w-4xl mx-auto">
     <h1 class="px text-4xl font-bold mb-2">日文歌翻譯</h1>
     <p class="text-gray-600 dark:text-gray-400 mb-6">收錄我喜愛的日文歌曲翻譯，包含原文與中文對照</p>
@@ -149,6 +149,7 @@ const overallProgress = totalSongs > 0 ? Math.round((totalTranslated / totalSong
                             height="40"
                             loading="lazy"
                             class="w-10 h-10 rounded object-cover shrink-0"
+                            transition:name={`cover-${t.id}`}
                           />
                         )}
                         <div class="min-w-0">

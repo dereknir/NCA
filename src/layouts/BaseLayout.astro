@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import { SITE_CONFIG, NAVIGATION } from '../config';
 
 interface Props {
@@ -8,6 +9,10 @@ interface Props {
   image?: string;
   article?: boolean;
   publishDate?: Date;
+  /** View Transitions (像素溶解換頁 + 封面 morph)。
+   *  目前只在 translations 列表/內頁圈內開 — 兩頁都開才有效果;
+   *  開了的頁面所有 client script 都要能在 astro:page-load 重跑, 別亂加頁。 */
+  viewTransitions?: boolean;
 }
 
 const {
@@ -15,7 +20,8 @@ const {
   description = SITE_CONFIG.description,
   image = SITE_CONFIG.defaultOGImage,
   article = false,
-  publishDate
+  publishDate,
+  viewTransitions = false
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -60,6 +66,8 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   <!-- Pixel 主視覺字型 (D 層外殼用, 首屏防閃字) -->
   <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp12-site-zh_hant.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp12-site-ja.woff2">
+
+  {viewTransitions && <ClientRouter />}
 
   <!-- 字體預連接與預載入（性能優化） -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

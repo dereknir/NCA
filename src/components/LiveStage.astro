@@ -631,9 +631,21 @@ if (!shorts || shorts.length === 0) return null;
     if (window.__scrollLockCount === 0) delete document.body.dataset.scrollLocked;
   }
 
+  /* ==== instance API: 持久監聽器 (document/window 級只註冊一次) 轉發給「當前頁」的 stage ====
+     View Transitions 語義: module script 整個瀏覽階段只執行一次, 換頁後 DOM 全新
+     → 初始化包進 initStage(), astro:page-load 重跑; 持久監聽器經 api 轉發避免累積。 */
+  let api: {
+    openStage: (id: string, opts?: { filter?: string; pushHistory?: boolean }) => void;
+    closeStage: (opts?: { fromPopstate?: boolean }) => void;
+    hasShort: (id: string) => boolean;
+  } | null = null;
+
+  function initStage() {
   /* ==== 讀取 root & 資料 ==== */
   const stage = document.getElementById('live-stage');
-  if (!stage) { throw new Error('LiveStage: root not found'); }
+  if (!stage) { api = null; return; }
+  if (stage.dataset.vtInit === 'true') return;
+  stage.dataset.vtInit = 'true';
   const shortsAll: Short[] = JSON.parse(stage.dataset.shorts || '[]');
   const songTitle = stage.dataset.songTitle || '';
   const coverImage = stage.dataset.coverImage || '';
@@ -1058,26 +1070,6 @@ if (!shorts || shorts.length === 0) return null;
     }
   });
 
-  /* ==== 監聽 shelf:play 事件 ==== */
-  document.addEventListener('shelf:play', ((e: CustomEvent) => {
-    e.preventDefault();
-    const detail = e.detail || {};
-    if (!detail.videoId) return;
-    openStage(detail.videoId, { filter: detail.filter });
-  }) as EventListener);
-
-  /* ==== popstate: 瀏覽器返回鍵 ==== */
-  window.addEventListener('popstate', () => {
-    const hashMatch = location.hash.match(/^#live=(.+)$/);
-    if (hashMatch && shortsById.has(hashMatch[1])) {
-      // hash 還在 (前進?) → 打開 (不再 pushHistory)
-      openStage(hashMatch[1], { pushHistory: false });
-    } else {
-      // hash 已消失 → 關閉
-      closeStage({ fromPopstate: true });
-    }
-  });
-
   /* ==== 頁面載入時檢查深連結 ==== */
   function handleInitialHash() {
     const m = location.hash.match(/^#live=(.+)$/);
@@ -1090,6 +1082,36 @@ if (!shorts || shorts.length === 0) return null;
   if (document.readyState === 'complete') {
     handleInitialHash();
   } else {
-    window.addEventListener('load', handleInitialHash);
+    window.addEventListener('load', handleInitialHash, { once: true });
+  }
+  api = { openStage, closeStage, hasShort: (id: string) => shortsById.has(id) };
+  }   /* ==== initStage 結束 ==== */
+
+  /* ==== 持久監聽器 (module 生命週期只註冊一次, 轉發給當前 instance) ==== */
+  document.addEventListener('shelf:play', ((e: CustomEvent) => {
+    e.preventDefault();
+    const detail = e.detail || {};
+    if (!detail.videoId || !api) return;
+    api.openStage(detail.videoId, { filter: detail.filter });
+  }) as EventListener);
+
+  window.addEventListener('popstate', () => {
+    if (!api) return;
+    const hashMatch = location.hash.match(/^#live=(.+)$/);
+    if (hashMatch && api.hasShort(hashMatch[1])) {
+      // hash 還在 (前進?) → 打開 (不再 pushHistory)
+      api.openStage(hashMatch[1], { pushHistory: false });
+    } else {
+      // hash 已消失 → 關閉
+      api.closeStage({ fromPopstate: true });
+    }
+  });
+
+  /* View Transitions: 換頁後重掃新 DOM (vtInit 防同 DOM 重複); 首載雙保險 */
+  document.addEventListener('astro:page-load', () => initStage());
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => initStage());
+  } else {
+    initStage();
   }
 </script>

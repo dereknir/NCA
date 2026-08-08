@@ -58,6 +58,7 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
   image={image}
   article={true}
   publishDate={new Date(publishDate)}
+  viewTransitions={true}
 >
   {isTranslated && <TocDrawer />}
   {songShorts.length > 0 && (
@@ -79,6 +80,7 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
             height="224"
             loading="eager"
             class="w-full aspect-square object-cover rounded-lg shadow-md"
+            transition:name={`cover-${translation.id}`}
           />
         </div>
       )}
@@ -205,23 +207,28 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
 
   <script is:inline>
     /* 把 ShortsShelf 塞到「歌詞 / 翻譯」H2 之前;
-       這是唯一的節點搬移,不改動 markdown 內容順序、不動翻譯筆記 H3 結構。 */
+       這是唯一的節點搬移,不改動 markdown 內容順序、不動翻譯筆記 H3 結構。
+       VT 語義: 同文腳本跨頁不重跑 → 掛 astro:page-load (首載也會觸發), 函式冪等
+       (mount 已移除就 return), 不另行立即呼叫以免首載跑兩次。 */
     (function () {
-      const mount = document.querySelector('[data-shelf-mount]');
-      const prose = document.querySelector('[data-song-content]');
-      if (!mount || !prose) return;
-      const lyricsH2 = Array.from(prose.querySelectorAll('h2')).find(function (h) {
-        return (h.textContent || '').indexOf('歌詞') >= 0;
-      });
-      const shelfEl = mount.firstElementChild;
-      if (!shelfEl) return;
-      if (lyricsH2 && lyricsH2.parentNode) {
-        lyricsH2.parentNode.insertBefore(shelfEl, lyricsH2);
-      } else {
-        // 找不到 H2 就退化為插在文章開頭
-        prose.parentNode.insertBefore(shelfEl, prose);
+      function moveShelf() {
+        const mount = document.querySelector('[data-shelf-mount]');
+        const prose = document.querySelector('[data-song-content]');
+        if (!mount || !prose) return;
+        const lyricsH2 = Array.from(prose.querySelectorAll('h2')).find(function (h) {
+          return (h.textContent || '').indexOf('歌詞') >= 0;
+        });
+        const shelfEl = mount.firstElementChild;
+        if (!shelfEl) return;
+        if (lyricsH2 && lyricsH2.parentNode) {
+          lyricsH2.parentNode.insertBefore(shelfEl, lyricsH2);
+        } else {
+          // 找不到 H2 就退化為插在文章開頭
+          prose.parentNode.insertBefore(shelfEl, prose);
+        }
+        mount.remove();
       }
-      mount.remove();
+      document.addEventListener('astro:page-load', moveShelf);
     })();
   </script>
 
@@ -515,20 +522,25 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
   </style>
 
   <script is:inline>
-    /* C 級像素簽名: 歌名打字機入場 (無 JS / reduced-motion 時直接顯示完整標題) */
+    /* C 級像素簽名: 歌名打字機入場 (無 JS / reduced-motion 時直接顯示完整標題)
+       VT 語義: 掛 astro:page-load (首載+換頁都觸發), el.dataset.typed 防同一顆標題跑兩次 */
     (function () {
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const el = document.getElementById('songTitle');
-      if (!el) return;
-      const full = el.textContent;
-      if (!full || full.length > 40) return;   // 異常長標題不玩
-      el.textContent = '';
-      el.style.minHeight = '1.2em';            // 防抖動
-      let i = 0;
-      (function tick() {
-        el.textContent = full.slice(0, ++i);
-        if (i < full.length) setTimeout(tick, 70);
-      })();
+      function typeTitle() {
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const el = document.getElementById('songTitle');
+        if (!el || el.dataset.typed) return;
+        el.dataset.typed = '1';
+        const full = el.textContent;
+        if (!full || full.length > 40) return;   // 異常長標題不玩
+        el.textContent = '';
+        el.style.minHeight = '1.2em';            // 防抖動
+        let i = 0;
+        (function tick() {
+          el.textContent = full.slice(0, ++i);
+          if (i < full.length) setTimeout(tick, 70);
+        })();
+      }
+      document.addEventListener('astro:page-load', typeTitle);
     })();
   </script>
 </BaseLayout>

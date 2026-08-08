@@ -421,4 +421,7 @@ const componentId = `shelf-${Math.random().toString(36).slice(2, 9)}`;
   } else {
     bootstrap();
   }
+  // View Transitions: module script 整個生命週期只跑一次,
+  // 換頁後靠 astro:page-load 重掃新 DOM (root.dataset.initialized 防重複)
+  document.addEventListener('astro:page-load', bootstrap);
 </script>
