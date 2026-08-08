@@ -3289,9 +3289,9 @@
     "instrumental": false
   },
   "KLPVGh7YxEg": {
-    "songId": "nishina-weekly",
+    "songId": "__mc",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -3498,9 +3498,46 @@
   },
   "L0fjY18WLog": {
     "songId": "nishina-weekly",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 2.72,
+        "line": 1
+      },
+      {
+        "t": 5.02,
+        "line": 2
+      },
+      {
+        "t": 7.22,
+        "line": 3
+      },
+      {
+        "t": 9.92,
+        "line": 4
+      },
+      {
+        "t": 12.08,
+        "line": 5
+      },
+      {
+        "t": 14.63,
+        "line": 6
+      },
+      {
+        "t": 16.67,
+        "line": 7
+      },
+      {
+        "t": 20.73,
+        "line": 8
+      }
+    ],
+    "status": "done",
+    "versionType": "other",
     "instrumental": false
   },
   "gVT3oG3adHc": {
@@ -3998,9 +4035,46 @@
   },
   "Kjvj4xxyNx0": {
     "songId": "nishina-weekly",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 2.91,
+        "line": 1
+      },
+      {
+        "t": 5.32,
+        "line": 2
+      },
+      {
+        "t": 7.55,
+        "line": 3
+      },
+      {
+        "t": 10.24,
+        "line": 4
+      },
+      {
+        "t": 12.48,
+        "line": 5
+      },
+      {
+        "t": 14.98,
+        "line": 6
+      },
+      {
+        "t": 17.15,
+        "line": 7
+      },
+      {
+        "t": 21.12,
+        "line": 8
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "NGeVP5i6Uts": {
@@ -10982,9 +11056,9 @@
     "tourName": "MUSICK"
   },
   "sJXnAjW8V3U": {
-    "songId": "nishina-weekly",
+    "songId": "__mc",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -11091,46 +11165,6 @@
     ],
     "status": "done",
     "versionType": "live",
-    "instrumental": false
-  },
-  "L_Vm4Lc86sw": {
-    "songId": "nishina-weekly",
-    "anchors": [
-      {
-        "t": 0,
-        "line": 0
-      },
-      {
-        "t": 2.88,
-        "line": 1
-      },
-      {
-        "t": 5.14,
-        "line": 2
-      },
-      {
-        "t": 6.78,
-        "line": 3
-      },
-      {
-        "t": 10.27,
-        "line": 4
-      },
-      {
-        "t": 12.42,
-        "line": 5
-      },
-      {
-        "t": 14.65,
-        "line": 6
-      },
-      {
-        "t": 16.92,
-        "line": 7
-      }
-    ],
-    "status": "pending",
-    "versionType": null,
     "instrumental": false
   },
   "m8pxw2GNhoo": {
@@ -11321,6 +11355,506 @@
     ],
     "status": "done",
     "versionType": "mv",
+    "instrumental": false
+  },
+  "L_Vm4Lc86sw": {
+    "songId": "nishina-weekly",
+    "anchors": [
+      {
+        "t": 0.47,
+        "line": 0
+      },
+      {
+        "t": 2.6,
+        "line": 1
+      },
+      {
+        "t": 5.15,
+        "line": 2
+      },
+      {
+        "t": 6.97,
+        "line": 3
+      },
+      {
+        "t": 10.08,
+        "line": 4
+      },
+      {
+        "t": 12.28,
+        "line": 5
+      },
+      {
+        "t": 14.6,
+        "line": 6
+      },
+      {
+        "t": 16.89,
+        "line": 7
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "_YFTzgCa8yo": {
+    "songId": "nishina-weekly",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 28
+      },
+      {
+        "t": 0.66,
+        "line": 29
+      },
+      {
+        "t": 4.67,
+        "line": 30
+      },
+      {
+        "t": 5.98,
+        "line": 31
+      },
+      {
+        "t": 9.64,
+        "line": 32
+      },
+      {
+        "t": 10.81,
+        "line": 33
+      },
+      {
+        "t": 14.23,
+        "line": 34
+      },
+      {
+        "t": 15.51,
+        "line": 35
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "-Ds4iTwZc5w": {
+    "songId": "nishina-weekly",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 2.88,
+        "line": 1
+      },
+      {
+        "t": 4.98,
+        "line": 2
+      },
+      {
+        "t": 7.33,
+        "line": 3
+      },
+      {
+        "t": 9.98,
+        "line": 4
+      },
+      {
+        "t": 12.29,
+        "line": 5
+      },
+      {
+        "t": 14.79,
+        "line": 6
+      },
+      {
+        "t": 17.06,
+        "line": 7
+      },
+      {
+        "t": 20.64,
+        "line": 8
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "z_xXIvom11I": {
+    "songId": "nishina-weekly",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 14
+      },
+      {
+        "t": 2.65,
+        "line": 15
+      },
+      {
+        "t": 4.94,
+        "line": 16
+      },
+      {
+        "t": 6.85,
+        "line": 17
+      },
+      {
+        "t": 9.54,
+        "line": 18
+      },
+      {
+        "t": 11.99,
+        "line": 19
+      },
+      {
+        "t": 14.32,
+        "line": 20
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "zKROw-O1atQ": {
+    "songId": "nishina-weekly",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 14
+      },
+      {
+        "t": 2.53,
+        "line": 15
+      },
+      {
+        "t": 4.83,
+        "line": 16
+      },
+      {
+        "t": 6.68,
+        "line": 17
+      },
+      {
+        "t": 9.27,
+        "line": 18
+      },
+      {
+        "t": 11.6,
+        "line": 19
+      },
+      {
+        "t": 14.39,
+        "line": 20
+      },
+      {
+        "t": 16.41,
+        "line": 21
+      },
+      {
+        "t": 20.38,
+        "line": 22
+      },
+      {
+        "t": 23.06,
+        "line": 23
+      },
+      {
+        "t": 25.59,
+        "line": 24
+      },
+      {
+        "t": 30.15,
+        "line": 25
+      },
+      {
+        "t": 32.53,
+        "line": 26
+      },
+      {
+        "t": 35.03,
+        "line": 27
+      },
+      {
+        "t": 38.1,
+        "line": 28
+      },
+      {
+        "t": 39.08,
+        "line": 29
+      }
+    ],
+    "status": "done",
+    "versionType": null,
+    "instrumental": false
+  },
+  "iuId9l1EwFo": {
+    "songId": "nishina-weekly",
+    "anchors": [
+      {
+        "t": 2.61,
+        "line": 0
+      },
+      {
+        "t": 5.4,
+        "line": 1
+      },
+      {
+        "t": 7.91,
+        "line": 2
+      },
+      {
+        "t": 9.94,
+        "line": 3
+      },
+      {
+        "t": 12.62,
+        "line": 4
+      }
+    ],
+    "status": "done",
+    "versionType": "other",
+    "instrumental": false
+  },
+  "rk95ny-PzqU": {
+    "songId": "nishina-weekly",
+    "anchors": [
+      {
+        "t": 0.99,
+        "line": 0
+      },
+      {
+        "t": 2.86,
+        "line": 1
+      },
+      {
+        "t": 5.49,
+        "line": 2
+      },
+      {
+        "t": 7.58,
+        "line": 3
+      },
+      {
+        "t": 10.39,
+        "line": 4
+      },
+      {
+        "t": 12.74,
+        "line": 5
+      },
+      {
+        "t": 15.16,
+        "line": 6
+      },
+      {
+        "t": 17.26,
+        "line": 7
+      },
+      {
+        "t": 21.03,
+        "line": 8
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
+    "instrumental": false
+  },
+  "x1av012lyuc": {
+    "songId": "nishina-weekly",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 2.76,
+        "line": 9
+      },
+      {
+        "t": 5.38,
+        "line": 10
+      },
+      {
+        "t": 9.96,
+        "line": 11
+      },
+      {
+        "t": 12.51,
+        "line": 12
+      },
+      {
+        "t": 14.96,
+        "line": 13
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "mod3TOMk0EM": {
+    "songId": "nishina-weekly",
+    "anchors": [
+      {
+        "t": 2.04,
+        "line": 0
+      },
+      {
+        "t": 5.08,
+        "line": 1
+      },
+      {
+        "t": 7.46,
+        "line": 2
+      },
+      {
+        "t": 9.97,
+        "line": 3
+      },
+      {
+        "t": 12.64,
+        "line": 4
+      },
+      {
+        "t": 14.97,
+        "line": 5
+      },
+      {
+        "t": 17.51,
+        "line": 6
+      },
+      {
+        "t": 19.82,
+        "line": 7
+      },
+      {
+        "t": 23.76,
+        "line": 8
+      }
+    ],
+    "status": "done",
+    "versionType": "other",
+    "instrumental": false
+  },
+  "MQ16sFL3994": {
+    "songId": "nishina-weekly",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 44
+      },
+      {
+        "t": 2.71,
+        "line": 45
+      },
+      {
+        "t": 5.31,
+        "line": 46
+      },
+      {
+        "t": 9.82,
+        "line": 47
+      },
+      {
+        "t": 12.44,
+        "line": 48
+      },
+      {
+        "t": 14.93,
+        "line": 49
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "XtQ1j121eeU": {
+    "songId": "nishina-weekly",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 2.59,
+        "line": 1
+      },
+      {
+        "t": 4.96,
+        "line": 2
+      },
+      {
+        "t": 7.24,
+        "line": 3
+      },
+      {
+        "t": 9.9,
+        "line": 4
+      },
+      {
+        "t": 12.21,
+        "line": 5
+      },
+      {
+        "t": 14.54,
+        "line": 6
+      },
+      {
+        "t": 16.85,
+        "line": 7
+      }
+    ],
+    "status": "done",
+    "versionType": "other",
+    "instrumental": false
+  },
+  "lJjpLUXRRnM": {
+    "songId": "nishina-weekly",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 18
+      },
+      {
+        "t": 2.65,
+        "line": 19
+      },
+      {
+        "t": 4.98,
+        "line": 20
+      },
+      {
+        "t": 7.12,
+        "line": 21
+      },
+      {
+        "t": 10.98,
+        "line": 22
+      },
+      {
+        "t": 13.69,
+        "line": 23
+      },
+      {
+        "t": 16.21,
+        "line": 24
+      },
+      {
+        "t": 20.8,
+        "line": 25
+      },
+      {
+        "t": 23.35,
+        "line": 26
+      },
+      {
+        "t": 25.91,
+        "line": 27
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   }
 }
