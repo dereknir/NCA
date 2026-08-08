@@ -63,9 +63,11 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <!-- Pixel 主視覺字型 (D 層外殼用, 首屏防閃字) -->
+  <!-- Pixel 主視覺字型 (全站統一: PX12=UI/標題, PX10=內文; 首屏防閃字) -->
   <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp12-site-zh_hant.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp12-site-ja.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp10-site-zh_hant.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp10-site-ja.woff2">
 
   {viewTransitions && <ClientRouter />}
 

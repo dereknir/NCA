@@ -370,3 +370,63 @@ h2.px, .px-h2 {
 }
 @keyframes px-vt-out { to { opacity: 0; } }
 @keyframes px-vt-in { from { opacity: 0; } }
+
+/* ================================================================
+   全站像素統一 (2026-08 拍板) — 內文也走像素字
+   雙網格: PX12 (12px 網格) = UI/標題 12/24/36; PX10 (10px 網格) = 內文 20px
+   Noto 留在 fallback 鏈 (emoji/罕字 per-glyph 補位), 字集由
+   build_site_charset.py 掃全站內容全文保證覆蓋。
+   ================================================================ */
+@font-face {
+  font-family: 'PX10-ZH';
+  src: url('/fonts/pixel/fp10-site-zh_hant.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PX10-JA';
+  src: url('/fonts/pixel/fp10-site-ja.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* 內文預設: 全站文字底色換像素 (Noto 墊後) */
+body {
+  font-family: 'PX10-ZH', 'PX10-JA', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
+}
+
+/* prose 內文 → 20px (10 網格×2); 標題走 PX12 網格尺寸 */
+.prose p, .prose li, .prose blockquote {
+  font-size: 20px;
+  line-height: 1.85;
+}
+.prose h2 {
+  font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: .05em;
+}
+.prose h3 {
+  font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
+  font-size: 24px;
+  font-weight: 400;
+}
+
+/* 歌詞行: ja/zh 20px, romaji 10px (拉丁小字) */
+.lyrics-line .ja, .lyrics-ja {
+  font-family: 'PX10-JA', 'PX10-ZH', var(--font-jp);
+  font-size: 20px;
+}
+.lyrics-line .zh, .lyrics-zh {
+  font-family: 'PX10-ZH', 'PX10-JA', var(--font-sans);
+  font-size: 20px;
+}
+.lyrics-line .romaji {
+  font-size: 10px;
+  letter-spacing: .04em;
+}
+.lyrics-singer { font-size: 12px; }
+
+/* 小字歸位: tailwind text-sm(14px)/text-xs 全壓到 12px 網格點
+   (unlayered 蓋 utility layer; 13/14px 在像素網格上會糊) */
+.text-sm { font-size: 12px; }
+.text-xs { font-size: 12px; }
+.text-\[11px\] { font-size: 12px; }

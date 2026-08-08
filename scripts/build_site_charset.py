@@ -61,8 +61,11 @@ def main():
             chars |= set(strip_markup(p.read_text(encoding="utf-8")))
     chars |= set((ROOT / "src" / "config.ts").read_text(encoding="utf-8"))
 
-    for p in (ROOT / "src" / "content" / "translations").glob("*.md"):
-        chars |= set(frontmatter_fields(p.read_text(encoding="utf-8")))
+    # 全站像素統一 (2026-08): 內文也走像素字 → 內容全文都要進字集
+    # (歌詞 ja/romaji/zh、翻譯筆記、日記、作品說明 — 缺一個字就混排 fallback)
+    for coll in ["translations", "diary", "projects"]:
+        for p in (ROOT / "src" / "content" / coll).glob("*.md"):
+            chars |= set(strip_markup(p.read_text(encoding="utf-8")))
 
     for p in ROOT.glob("live/*.template.html"):
         chars |= set(strip_markup(p.read_text(encoding="utf-8"), keep_script=True))
