@@ -3154,9 +3154,34 @@
   },
   "b37M2A5bXlU": {
     "songId": "nishina-bugs",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 28
+      },
+      {
+        "t": 5.58,
+        "line": 29
+      },
+      {
+        "t": 9.39,
+        "line": 30
+      },
+      {
+        "t": 13.31,
+        "line": 31
+      },
+      {
+        "t": 15.67,
+        "line": 32
+      },
+      {
+        "t": 18.75,
+        "line": 33
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "5u40Mg3J2bs": {
@@ -3451,7 +3476,7 @@
     "instrumental": false
   },
   "ZTcB7mQel5s": {
-    "songId": "nishina-bugs",
+    "songId": "nishina-plum",
     "anchors": [],
     "status": "pending",
     "versionType": null,
@@ -3760,9 +3785,34 @@
   },
   "nmqDNOVCa0k": {
     "songId": "nishina-bugs",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 10
+      },
+      {
+        "t": 4.03,
+        "line": 11
+      },
+      {
+        "t": 9.03,
+        "line": 12
+      },
+      {
+        "t": 12.69,
+        "line": 13
+      },
+      {
+        "t": 16.79,
+        "line": 14
+      },
+      {
+        "t": 19.39,
+        "line": 15
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "bPoouVm07Uw": {
@@ -3833,9 +3883,26 @@
   },
   "mHCLUW4lEHs": {
     "songId": "nishina-bugs",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 39
+      },
+      {
+        "t": 5.12,
+        "line": 40
+      },
+      {
+        "t": 8.91,
+        "line": 41
+      },
+      {
+        "t": 12.96,
+        "line": 42
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "z0UAzd5Tj34": {
@@ -3938,9 +4005,34 @@
   },
   "NGeVP5i6Uts": {
     "songId": "nishina-bugs",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 19
+      },
+      {
+        "t": 4.19,
+        "line": 20
+      },
+      {
+        "t": 7.94,
+        "line": 21
+      },
+      {
+        "t": 15.41,
+        "line": 22
+      },
+      {
+        "t": 19.28,
+        "line": 23
+      },
+      {
+        "t": 23.19,
+        "line": 24
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "zFb7lIkX7Sk": {
@@ -10910,9 +11002,30 @@
   },
   "CrXPBERe67E": {
     "songId": "nishina-bugs",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 39
+      },
+      {
+        "t": 5.25,
+        "line": 40
+      },
+      {
+        "t": 8.72,
+        "line": 41
+      },
+      {
+        "t": 13.14,
+        "line": 42
+      },
+      {
+        "t": 15.77,
+        "line": 43
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "nywcYurtoRk": {
@@ -10976,6 +11089,196 @@
     ],
     "status": "done",
     "versionType": "live",
+    "instrumental": false
+  },
+  "m8pxw2GNhoo": {
+    "songId": "nishina-bugs",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 31
+      },
+      {
+        "t": 3.12,
+        "line": 32
+      },
+      {
+        "t": 6.1,
+        "line": 33
+      },
+      {
+        "t": 10.59,
+        "line": 34
+      },
+      {
+        "t": 13.72,
+        "line": 35
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "uspHpy2t1QM": {
+    "songId": "nishina-bugs",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 39
+      },
+      {
+        "t": 5,
+        "line": 40
+      },
+      {
+        "t": 8.53,
+        "line": 41
+      },
+      {
+        "t": 12.84,
+        "line": 42
+      },
+      {
+        "t": 15.33,
+        "line": 43
+      },
+      {
+        "t": 18.21,
+        "line": 44
+      },
+      {
+        "t": 22.87,
+        "line": 45
+      },
+      {
+        "t": 26.08,
+        "line": 46
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
+    "instrumental": false
+  },
+  "QtNjGPca0Lw": {
+    "songId": "nishina-bugs",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 42
+      },
+      {
+        "t": 2.52,
+        "line": 43
+      },
+      {
+        "t": 5.43,
+        "line": 44
+      },
+      {
+        "t": 9.97,
+        "line": 45
+      },
+      {
+        "t": 13.19,
+        "line": 46
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
+    "instrumental": false
+  },
+  "_OYBrjxPjtg": {
+    "songId": "nishina-bugs",
+    "anchors": [
+      {
+        "t": 0.99,
+        "line": 39
+      },
+      {
+        "t": 5.79,
+        "line": 40
+      },
+      {
+        "t": 9,
+        "line": 41
+      },
+      {
+        "t": 13.58,
+        "line": 42
+      },
+      {
+        "t": 16.24,
+        "line": 43
+      },
+      {
+        "t": 19.08,
+        "line": 44
+      },
+      {
+        "t": 23.58,
+        "line": 45
+      },
+      {
+        "t": 26.7,
+        "line": 46
+      }
+    ],
+    "status": "done",
+    "versionType": null,
+    "instrumental": false
+  },
+  "iyhFtKxwHTc": {
+    "songId": "nishina-bugs",
+    "anchors": [
+      {
+        "t": 0.48,
+        "line": 44
+      },
+      {
+        "t": 5.79,
+        "line": 45
+      },
+      {
+        "t": 9.05,
+        "line": 46
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
+    "instrumental": false
+  },
+  "Hq29mBuaqAg": {
+    "songId": "__promo",
+    "anchors": [],
+    "status": "done",
+    "versionType": null,
+    "instrumental": false
+  },
+  "8_UlbWOtQxU": {
+    "songId": "__promo",
+    "anchors": [],
+    "status": "done",
+    "versionType": null,
+    "instrumental": false
+  },
+  "0Qnv5rmR7Ss": {
+    "songId": "nishina-bugs",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 19
+      },
+      {
+        "t": 3.99,
+        "line": 20
+      },
+      {
+        "t": 7.74,
+        "line": 21
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   }
 }
