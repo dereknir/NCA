@@ -1,10 +1,10 @@
 {
   "meta": {
-    "total": 72,
+    "total": 74,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 22,
+      "promo": 24,
       "live_song": 23,
       "mc": 5,
       "yearly": 6,
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 22,
+      "count": 24,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -329,6 +329,26 @@
           "url": "https://www.youtube.com/shorts/SdW7Z2GaJUg",
           "thumbnail": "https://i.ytimg.com/vi/SdW7Z2GaJUg/hqdefault.jpg",
           "viewCount": 2200,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "Hq29mBuaqAg",
+          "title": "bugs 1.31 release",
+          "url": "https://www.youtube.com/shorts/Hq29mBuaqAg",
+          "thumbnail": "https://i.ytimg.com/vi/Hq29mBuaqAg/hqdefault.jpg",
+          "viewCount": 1900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "8_UlbWOtQxU",
+          "title": "bugs - 1.31 release",
+          "url": "https://www.youtube.com/shorts/8_UlbWOtQxU",
+          "thumbnail": "https://i.ytimg.com/vi/8_UlbWOtQxU/hqdefault.jpg",
+          "viewCount": 1700,
           "versionType": null,
           "instrumental": false,
           "anchors": []

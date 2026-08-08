@@ -1,9 +1,9 @@
 {
   "meta": {
-    "song_count": 19,
-    "short_count": 195,
+    "song_count": 20,
+    "short_count": 206,
     "skipped": {
-      "pending": 671,
+      "pending": 666,
       "skip": 0,
       "no_song": 0,
       "no_anchors": 1,
@@ -5259,6 +5259,365 @@
           {
             "t": 17.21,
             "line": 40
+          }
+        ]
+      }
+    ],
+    "nishina-bugs": [
+      {
+        "videoId": "b37M2A5bXlU",
+        "title": "Come closer, I wanna cast a spell on you",
+        "url": "https://www.youtube.com/shorts/b37M2A5bXlU",
+        "thumbnail": "https://i.ytimg.com/vi/b37M2A5bXlU/hqdefault.jpg",
+        "viewCount": 15000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 28
+          },
+          {
+            "t": 5.58,
+            "line": 29
+          },
+          {
+            "t": 9.39,
+            "line": 30
+          },
+          {
+            "t": 13.31,
+            "line": 31
+          },
+          {
+            "t": 15.67,
+            "line": 32
+          },
+          {
+            "t": 18.75,
+            "line": 33
+          }
+        ]
+      },
+      {
+        "videoId": "nmqDNOVCa0k",
+        "title": "We’re all egoists in the end",
+        "url": "https://www.youtube.com/shorts/nmqDNOVCa0k",
+        "thumbnail": "https://i.ytimg.com/vi/nmqDNOVCa0k/hqdefault.jpg",
+        "viewCount": 12000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 10
+          },
+          {
+            "t": 4.03,
+            "line": 11
+          },
+          {
+            "t": 9.03,
+            "line": 12
+          },
+          {
+            "t": 12.69,
+            "line": 13
+          },
+          {
+            "t": 16.79,
+            "line": 14
+          },
+          {
+            "t": 19.39,
+            "line": 15
+          }
+        ]
+      },
+      {
+        "videoId": "mHCLUW4lEHs",
+        "title": "Pick up the pace,I can’t control it anymore",
+        "url": "https://www.youtube.com/shorts/mHCLUW4lEHs",
+        "thumbnail": "https://i.ytimg.com/vi/mHCLUW4lEHs/hqdefault.jpg",
+        "viewCount": 11000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 39
+          },
+          {
+            "t": 5.12,
+            "line": 40
+          },
+          {
+            "t": 8.91,
+            "line": 41
+          },
+          {
+            "t": 12.96,
+            "line": 42
+          }
+        ]
+      },
+      {
+        "videoId": "NGeVP5i6Uts",
+        "title": "GOOD or BAD? Two options aren’t enough",
+        "url": "https://www.youtube.com/shorts/NGeVP5i6Uts",
+        "thumbnail": "https://i.ytimg.com/vi/NGeVP5i6Uts/hqdefault.jpg",
+        "viewCount": 11000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 19
+          },
+          {
+            "t": 4.19,
+            "line": 20
+          },
+          {
+            "t": 7.94,
+            "line": 21
+          },
+          {
+            "t": 15.41,
+            "line": 22
+          },
+          {
+            "t": 19.28,
+            "line": 23
+          },
+          {
+            "t": 23.19,
+            "line": 24
+          }
+        ]
+      },
+      {
+        "videoId": "CrXPBERe67E",
+        "title": "BEAUTIFUL DIRTY GUYS",
+        "url": "https://www.youtube.com/shorts/CrXPBERe67E",
+        "thumbnail": "https://i.ytimg.com/vi/CrXPBERe67E/hqdefault.jpg",
+        "viewCount": 9400,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 39
+          },
+          {
+            "t": 5.25,
+            "line": 40
+          },
+          {
+            "t": 8.72,
+            "line": 41
+          },
+          {
+            "t": 13.14,
+            "line": 42
+          },
+          {
+            "t": 15.77,
+            "line": 43
+          }
+        ]
+      },
+      {
+        "videoId": "m8pxw2GNhoo",
+        "title": "ここは安楽unreality",
+        "url": "https://www.youtube.com/shorts/m8pxw2GNhoo",
+        "thumbnail": "https://i.ytimg.com/vi/m8pxw2GNhoo/hqdefault.jpg",
+        "viewCount": 4900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 31
+          },
+          {
+            "t": 3.12,
+            "line": 32
+          },
+          {
+            "t": 6.1,
+            "line": 33
+          },
+          {
+            "t": 10.59,
+            "line": 34
+          },
+          {
+            "t": 13.72,
+            "line": 35
+          }
+        ]
+      },
+      {
+        "videoId": "uspHpy2t1QM",
+        "title": "This is virtual insanity",
+        "url": "https://www.youtube.com/shorts/uspHpy2t1QM",
+        "thumbnail": "https://i.ytimg.com/vi/uspHpy2t1QM/hqdefault.jpg",
+        "viewCount": 4700,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 39
+          },
+          {
+            "t": 5,
+            "line": 40
+          },
+          {
+            "t": 8.53,
+            "line": 41
+          },
+          {
+            "t": 12.84,
+            "line": 42
+          },
+          {
+            "t": 15.33,
+            "line": 43
+          },
+          {
+            "t": 18.21,
+            "line": 44
+          },
+          {
+            "t": 22.87,
+            "line": 45
+          },
+          {
+            "t": 26.08,
+            "line": 46
+          }
+        ]
+      },
+      {
+        "videoId": "QtNjGPca0Lw",
+        "title": "This is virtual insanity",
+        "url": "https://www.youtube.com/shorts/QtNjGPca0Lw",
+        "thumbnail": "https://i.ytimg.com/vi/QtNjGPca0Lw/hqdefault.jpg",
+        "viewCount": 3700,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 42
+          },
+          {
+            "t": 2.52,
+            "line": 43
+          },
+          {
+            "t": 5.43,
+            "line": 44
+          },
+          {
+            "t": 9.97,
+            "line": 45
+          },
+          {
+            "t": 13.19,
+            "line": 46
+          }
+        ]
+      },
+      {
+        "videoId": "_OYBrjxPjtg",
+        "title": "BEAUTIFUL DIRTY GUYS & GIRLS",
+        "url": "https://www.youtube.com/shorts/_OYBrjxPjtg",
+        "thumbnail": "https://i.ytimg.com/vi/_OYBrjxPjtg/hqdefault.jpg",
+        "viewCount": 2700,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.99,
+            "line": 39
+          },
+          {
+            "t": 5.79,
+            "line": 40
+          },
+          {
+            "t": 9,
+            "line": 41
+          },
+          {
+            "t": 13.58,
+            "line": 42
+          },
+          {
+            "t": 16.24,
+            "line": 43
+          },
+          {
+            "t": 19.08,
+            "line": 44
+          },
+          {
+            "t": 23.58,
+            "line": 45
+          },
+          {
+            "t": 26.7,
+            "line": 46
+          }
+        ]
+      },
+      {
+        "videoId": "iyhFtKxwHTc",
+        "title": "BEAUTIFUL DIRTY GIRLS",
+        "url": "https://www.youtube.com/shorts/iyhFtKxwHTc",
+        "thumbnail": "https://i.ytimg.com/vi/iyhFtKxwHTc/hqdefault.jpg",
+        "viewCount": 2500,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.48,
+            "line": 44
+          },
+          {
+            "t": 5.79,
+            "line": 45
+          },
+          {
+            "t": 9.05,
+            "line": 46
+          }
+        ]
+      },
+      {
+        "videoId": "0Qnv5rmR7Ss",
+        "title": "GOOD or BAD?",
+        "url": "https://www.youtube.com/shorts/0Qnv5rmR7Ss",
+        "thumbnail": "https://i.ytimg.com/vi/0Qnv5rmR7Ss/hqdefault.jpg",
+        "viewCount": 1600,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 19
+          },
+          {
+            "t": 3.99,
+            "line": 20
+          },
+          {
+            "t": 7.74,
+            "line": 21
           }
         ]
       }
