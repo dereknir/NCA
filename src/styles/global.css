@@ -393,11 +393,17 @@ body {
   font-family: 'PX10-ZH', 'PX10-JA', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
 }
 
-/* prose 內文 → 20px (10 網格×2); 標題走 PX12 網格尺寸 */
+/* prose 內文 → 20px (10 網格×2); 標題走 PX12 網格尺寸
+   T 調參 (2026-08 拍板): 像素字的疲勞主因是「密」— 行高 2.2 / 字距 +5%
+   (20px×.05em=1px, 正好一格) / 行寬限 36em / 對比降半階 */
 .prose p, .prose li, .prose blockquote {
   font-size: 20px;
-  line-height: 1.85;
+  line-height: 2.2;
+  letter-spacing: .05em;
+  max-width: 36em;
+  color: #ccd5ea;
 }
+.prose p + p { margin-top: 1.4rem; }
 .prose h2 {
   font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
   font-size: 24px;
@@ -410,14 +416,22 @@ body {
   font-weight: 400;
 }
 
-/* 歌詞行: ja/zh 20px, romaji 10px (拉丁小字) */
+/* 歌詞行 (T+J 拍板):
+   J — 日文行 = DotGothic16 (為可讀性設計的點陣字, 歌詞閱讀主力)
+   T — 中文行 = PX10 + 行高 2.15 / 字距 1px / 對比降半階
+   繁中沒有 DotGothic16 等級的字型 (cubic-11 已是天花板且已內建於 PX), 故不對稱 */
 .lyrics-line .ja, .lyrics-ja {
-  font-family: 'PX10-JA', 'PX10-ZH', var(--font-jp);
+  font-family: 'DotGothic16', 'PX10-JA', 'PX10-ZH', var(--font-jp);
   font-size: 20px;
+  line-height: 2.15;
+  letter-spacing: .03em;
 }
 .lyrics-line .zh, .lyrics-zh {
   font-family: 'PX10-ZH', 'PX10-JA', var(--font-sans);
   font-size: 20px;
+  line-height: 2.15;
+  letter-spacing: .05em;
+  color: #a7b3d4;
 }
 .lyrics-line .romaji {
   font-size: 10px;
