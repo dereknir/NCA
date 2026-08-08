@@ -4734,11 +4734,12 @@
     "instrumental": false
   },
   "LGcFwJweiQE": {
-    "songId": "nishina-weekly",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "VIVA LA ROCK 2025"
   },
   "1_g4UaCyLAA": {
     "songId": "nishina-bugs",
@@ -5788,7 +5789,7 @@
     "instrumental": false
   },
   "175bukXjOSM": {
-    "songId": "nishina-weekly",
+    "songId": "nishina-seiran-yuuei",
     "anchors": [],
     "status": "pending",
     "versionType": null,
@@ -7106,11 +7107,12 @@
     "instrumental": false
   },
   "m3T91-rRJeI": {
-    "songId": "nishina-weekly",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "MUSICK 2"
   },
   "Ss4sdve5Kxs": {
     "songId": "nishina-weekly",
@@ -11089,6 +11091,46 @@
     ],
     "status": "done",
     "versionType": "live",
+    "instrumental": false
+  },
+  "L_Vm4Lc86sw": {
+    "songId": "nishina-weekly",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 2.88,
+        "line": 1
+      },
+      {
+        "t": 5.14,
+        "line": 2
+      },
+      {
+        "t": 6.78,
+        "line": 3
+      },
+      {
+        "t": 10.27,
+        "line": 4
+      },
+      {
+        "t": 12.42,
+        "line": 5
+      },
+      {
+        "t": 14.65,
+        "line": 6
+      },
+      {
+        "t": 16.92,
+        "line": 7
+      }
+    ],
+    "status": "pending",
+    "versionType": null,
     "instrumental": false
   },
   "m8pxw2GNhoo": {
