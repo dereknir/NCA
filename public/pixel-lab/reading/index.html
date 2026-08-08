@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixel Lab II — 長文閱讀救援提案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+  @font-face{font-family:'PX-ZH';src:url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'PX-JA';src:url('/fonts/pixel/fp12-site-ja.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'PX10-ZH';src:url('/fonts/pixel/fp10-site-zh_hant.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'PX10-JA';src:url('/fonts/pixel/fp10-site-ja.woff2') format('woff2');font-display:swap}
+  :root{--bg:#0a0a15;--panel:#141d31;--panel-2:#1a2440;--line:#243154;--text:#e8ecf6;
+    --dim:#8b97b8;--accent:#3d63ff;--gold:#e8c94a;--teal:#3aa981;--red:#d65555;
+    --font:"Noto Sans TC","Noto Sans JP",system-ui,sans-serif;
+    --px10:'PX10-ZH','PX10-JA',var(--font);--px10j:'PX10-JA','PX10-ZH',var(--font);
+    --px12:'PX-ZH','PX-JA',var(--font);--px12j:'PX-JA','PX-ZH',var(--font);
+    --dot:'DotGothic16','PX10-JA',sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--px10);font-size:20px;line-height:1.8}
+  .site-topbar{position:sticky;top:0;z-index:50;height:57px;background:rgba(10,10,21,.8);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .site-topbar-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:100%;
+    display:flex;align-items:center;gap:14px}
+  .site-topbar a{font-family:var(--px12);color:var(--text);font-size:24px;text-decoration:none}
+  .site-topbar a.crumb{color:var(--dim);font-size:12px}
+  main{max-width:1080px;margin:0 auto;padding:44px 22px 140px}
+  h1{font-family:var(--px12);font-weight:400;font-size:36px;letter-spacing:.06em}
+  h2{font-family:var(--px12);font-weight:400;font-size:24px;color:var(--gold);
+     letter-spacing:.05em;margin:70px 0 8px}
+  .sub{color:var(--dim);font-size:12px;font-family:var(--px12);margin-top:10px;max-width:780px;line-height:2}
+  .note{border-left:3px solid var(--accent);background:var(--panel);padding:14px 18px;
+    border-radius:0 10px 10px 0;font-size:12px;font-family:var(--px12);line-height:2;
+    margin:18px 0;color:var(--dim)}
+  .note b{color:var(--text)}
+  .note.dead{border-left-color:var(--red)}
+
+  /* 提案卡 + 樣本框 */
+  .prop{background:var(--panel);border:2px solid var(--line);box-shadow:5px 5px 0 rgba(0,0,0,.45);
+    padding:24px 26px;margin-top:30px}
+  .prop-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .tag{font-family:var(--px12);font-size:12px;padding:2px 10px;letter-spacing:.1em}
+  .tagT{background:#33290f;color:#ffd970}.tagB{background:#1f2a3b;color:#8fb3ff}
+  .tagJ{background:#20311f;color:#a9dba0}.tagR{background:#2b1f3b;color:#cfa9ff}
+  .tagG{background:#3b1f24;color:#ff9d9d}
+  .prop-head h3{font-family:var(--px12);font-weight:400;font-size:24px;margin:0}
+  .prop-sub{color:var(--dim);font-size:12px;font-family:var(--px12);line-height:2}
+  .sample{border:1px dashed var(--line);background:#0d1120;padding:26px 28px;margin-top:16px}
+  .sample .cap{font-family:var(--px12);font-size:12px;color:var(--dim);letter-spacing:.15em;margin-bottom:18px}
+  .lyr{margin-bottom:16px}
+  .prosebox{margin-top:26px;border-top:1px solid rgba(36,49,84,.6);padding-top:20px}
+  .prosebox h4{font-family:var(--px12);font-weight:400;font-size:24px;margin-bottom:12px}
+  .pros{display:grid;grid-template-columns:1fr 1fr;gap:4px 26px;font-size:12px;
+    font-family:var(--px12);margin-top:16px;color:var(--dim);line-height:2}
+  .pros li{margin-left:18px}
+  .pros .p::marker{content:'+ ';color:var(--teal)}
+  .pros .m::marker{content:'- ';color:var(--red)}
+  .cost{margin-top:10px;font-size:12px;font-family:var(--px12);color:var(--gold)}
+
+  /* ── 現狀 (基準線): PX10 20px, 目前上線的樣子 ── */
+  .v0 .ja{font-family:var(--px10j);font-size:20px;line-height:1.8}
+  .v0 .zh{font-family:var(--px10);font-size:20px;line-height:1.8;color:var(--dim);margin-top:2px}
+  .v0 .prose-p{font-family:var(--px10);font-size:20px;line-height:1.85}
+
+  /* ── 方案 T: 排版調參 (字不變, 排版救) ── */
+  .vT{--ls:.05em}
+  .vT .ja{font-family:var(--px10j);font-size:20px;line-height:2.15;letter-spacing:var(--ls)}
+  .vT .zh{font-family:var(--px10);font-size:20px;line-height:2.15;letter-spacing:var(--ls);
+    color:#a7b3d4;margin-top:4px}
+  .vT .lyr{margin-bottom:26px}
+  .vT .prose-p{font-family:var(--px10);font-size:20px;line-height:2.2;letter-spacing:var(--ls);
+    max-width:36em;color:#ccd5ea}
+  .vT .prose-p + .prose-p{margin-top:22px}
+
+  /* 柔邊 (壓在任何方案上的疊加開關) */
+  .soft .ja,.soft .zh,.soft .prose-p{text-shadow:0 0 .6px currentColor}
+
+  /* ── 方案 B: 內文升 24px (12 網格) ── */
+  .vB .ja{font-family:var(--px12j);font-size:24px;line-height:2}
+  .vB .zh{font-family:var(--px12);font-size:24px;line-height:2;color:#a7b3d4;margin-top:4px}
+  .vB .lyr{margin-bottom:24px}
+  .vB .prose-p{font-family:var(--px12);font-size:24px;line-height:2.05;max-width:30em;color:#ccd5ea}
+
+  /* ── 方案 J: 日文行 DotGothic16 ── */
+  .vJ .ja{font-family:var(--dot);font-size:21px;line-height:2.1;letter-spacing:.03em}
+  .vJ .zh{font-family:var(--px10);font-size:20px;line-height:2.1;letter-spacing:.05em;
+    color:#a7b3d4;margin-top:4px}
+  .vJ .lyr{margin-bottom:26px}
+  .vJ .prose-p{font-family:var(--px10);font-size:20px;line-height:2.2;letter-spacing:.05em;max-width:36em;color:#ccd5ea}
+
+  /* 控制列 */
+  #ctl{position:sticky;top:57px;z-index:40;background:rgba(10,10,21,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:12px 0;margin:0 -22px;display:flex;gap:10px;
+    justify-content:center;flex-wrap:wrap}
+  .ctl-btn{font-family:var(--px12);font-size:12px;color:var(--dim);background:var(--panel-2);
+    border:2px solid var(--line);box-shadow:3px 3px 0 rgba(0,0,0,.5);padding:7px 16px;cursor:pointer}
+  .ctl-btn.on{color:var(--gold);border-color:var(--gold)}
+  .ctl-btn:active{transform:translate(3px,3px);box-shadow:none}
+  table{width:100%;border-collapse:collapse;font-size:12px;font-family:var(--px12);margin-top:16px;line-height:2}
+  th,td{border:1px solid var(--line);padding:8px 12px;text-align:left}
+  th{background:var(--panel-2)}
+  .verdict{background:linear-gradient(135deg,#141d31,#1a2440);border:2px solid var(--gold);
+    box-shadow:6px 6px 0 rgba(232,201,74,.15);padding:24px 28px;margin-top:30px}
+  .verdict h3{font-family:var(--px12);font-weight:400;color:var(--gold);font-size:24px;margin-bottom:12px}
+  .verdict p,.verdict li{font-size:20px;font-family:var(--px10);line-height:2;color:#ccd5ea}
+  .verdict ol{margin:8px 0 0 24px}
+  footer{margin-top:90px;color:#5a6784;font-size:12px;font-family:var(--px12);text-align:center}
+  @media(max-width:700px){.pros{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-topbar">
+  <div class="site-topbar-inner">
+    <a href="/">Derek's Site</a>
+    <a class="crumb" href="/pixel-lab/">/ Pixel Lab</a>
+    <a class="crumb" href="#">/ II 閱讀救援</a>
+  </div>
+</header>
+<main>
+  <h1>長文閱讀救援 — 保持像素的四條路</h1>
+  <p class="sub">
+    命題:總覽頁的統一很讚、內頁歌詞與介紹讀起來吃力 — 且不回 Noto。
+    下面每個方案都用同一段真實內容(CLOVER 歌詞 × 8 行 + 翻譯筆記一段)實測,
+    用你的眼睛讀完再選。頂部有「柔邊」開關,可疊加在任何方案上比較。
+  </p>
+
+  <div id="ctl">
+    <button class="ctl-btn" id="softBtn">✦ 柔邊 OFF(0.6px 微光暈,類抗鋸齒)</button>
+  </div>
+
+  <div class="note dead">
+    <b>先報一條死訊:</b>「更高解析像素字型」這條最理想的路走不通 —
+    上游 ark-pixel 16px 網格實測繁中覆蓋率只有 <b>8%</b>(3,214 字 vs 你內容需要 2,802 字),
+    原創字型還在逐字手繪,等它畫完估計要以年計。已驗證,死心。
+  </div>
+
+  <!-- ═══ 基準線 ═══ -->
+  <h2>基準線 — 現在上線的樣子(PX10 · 20px · 行高 1.8)</h2>
+  <div class="prop">
+    <div class="sample v0" data-soft>
+      <div class="cap">LYRICS SAMPLE · 現狀</div>
+      <div class="lyr"><div class="ja">口笛を吹けば空高く弾んだ</div><div class="zh">只要吹起口哨,心就會在天空中高高彈跳</div></div>
+      <div class="lyr"><div class="ja">足踏み鳴らせば花が笑った</div><div class="zh">只要踏響腳步,花兒就會綻放笑容</div></div>
+      <div class="lyr"><div class="ja">あの白詰草の足元にクローバー</div><div class="zh">在那白三葉草的腳邊,長著幸運草</div></div>
+      <div class="lyr"><div class="ja">帰り道の夕暮れ 夕飯の匂い</div><div class="zh">回家路上的晚霞,晚餐飄來的香氣</div></div>
+      <div class="prosebox">
+        <h4>翻譯筆記樣本 · 現狀</h4>
+        <p class="prose-p">《モブ子の恋》(路人女孩的戀愛)是漫畫家タカラ的作品,由「モブ子」——一個看起來像動漫背景裡「隨便一個路人」的高中女生——當主角。這種安靜平淡的戀愛故事,配上這首歌溫柔的旋律,恰好互相成就。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ 方案 T ═══ -->
+  <h2>方案 T — 排版調參(字型不動,版式救)</h2>
+  <div class="prop">
+    <div class="prop-head"><span class="tag tagT">T</span><h3>行高 2.15 · 字距 +5% · 行寬限 36em · 對比降半階</h3></div>
+    <p class="prop-sub">像素字的疲勞主因不是字形,是「密」— 網格字需要比平滑字型更多留白。零新資源,純 CSS。</p>
+    <div class="sample vT" data-soft>
+      <div class="cap">LYRICS SAMPLE · T</div>
+      <div class="lyr"><div class="ja">口笛を吹けば空高く弾んだ</div><div class="zh">只要吹起口哨,心就會在天空中高高彈跳</div></div>
+      <div class="lyr"><div class="ja">足踏み鳴らせば花が笑った</div><div class="zh">只要踏響腳步,花兒就會綻放笑容</div></div>
+      <div class="lyr"><div class="ja">あの白詰草の足元にクローバー</div><div class="zh">在那白三葉草的腳邊,長著幸運草</div></div>
+      <div class="lyr"><div class="ja">帰り道の夕暮れ 夕飯の匂い</div><div class="zh">回家路上的晚霞,晚餐飄來的香氣</div></div>
+      <div class="prosebox">
+        <h4>翻譯筆記樣本 · T</h4>
+        <p class="prose-p">《モブ子の恋》(路人女孩的戀愛)是漫畫家タカラ的作品,由「モブ子」——一個看起來像動漫背景裡「隨便一個路人」的高中女生——當主角。這種安靜平淡的戀愛故事,配上這首歌溫柔的旋律,恰好互相成就。</p>
+      </div>
+    </div>
+    <ul class="pros">
+      <li class="p">零新資源、半天內全站生效</li>
+      <li class="p">語彙 100% 不變,總覽頁的讚維持原樣</li>
+      <li class="m">吃力感只能緩解 60-70%,不是根治</li>
+      <li class="m">行高變大,長歌詞頁會更長</li>
+    </ul>
+    <div class="cost">成本:■□□□□ 純 CSS 調參</div>
+  </div>
+
+  <!-- ═══ 方案 B ═══ -->
+  <h2>方案 B — 內文升 24px(12 網格 ×2)</h2>
+  <div class="prop">
+    <div class="prop-head"><span class="tag tagB">B</span><h3>字大一號,筆畫細節翻倍</h3></div>
+    <p class="prop-sub">24px 渲染時每筆畫有更多像素,複雜字(讓/邊/聲)清晰度立刻上來 — 代價是版面變壯。</p>
+    <div class="sample vB" data-soft>
+      <div class="cap">LYRICS SAMPLE · B</div>
+      <div class="lyr"><div class="ja">口笛を吹けば空高く弾んだ</div><div class="zh">只要吹起口哨,心就會在天空中高高彈跳</div></div>
+      <div class="lyr"><div class="ja">足踏み鳴らせば花が笑った</div><div class="zh">只要踏響腳步,花兒就會綻放笑容</div></div>
+      <div class="lyr"><div class="ja">あの白詰草の足元にクローバー</div><div class="zh">在那白三葉草的腳邊,長著幸運草</div></div>
+      <div class="lyr"><div class="ja">帰り道の夕暮れ 夕飯の匂い</div><div class="zh">回家路上的晚霞,晚餐飄來的香氣</div></div>
+      <div class="prosebox">
+        <h4>翻譯筆記樣本 · B</h4>
+        <p class="prose-p">《モブ子の恋》(路人女孩的戀愛)是漫畫家タカラ的作品,由「モブ子」——一個看起來像動漫背景裡「隨便一個路人」的高中女生——當主角。這種安靜平淡的戀愛故事,配上這首歌溫柔的旋律,恰好互相成就。</p>
+      </div>
+    </div>
+    <ul class="pros">
+      <li class="p">可讀性提升最大(每字像素量 ×1.44)</li>
+      <li class="p">還是同一家族字型,語彙零漂移</li>
+      <li class="m">內文比標題(24px)一樣大,層級感要重調</li>
+      <li class="m">手機上一行塞不了幾個字,換行變碎</li>
+    </ul>
+    <div class="cost">成本:■■□□□ CSS + 層級尺寸重調一輪</div>
+  </div>
+
+  <!-- ═══ 方案 J ═══ -->
+  <h2>方案 J — 日文行換 DotGothic16(可讀性設計的點陣字)</h2>
+  <div class="prop">
+    <div class="prop-head"><span class="tag tagJ">J</span><h3>ja = DotGothic16 · zh = PX10 調參版</h3></div>
+    <p class="prop-sub">
+      DotGothic16 是專為「點陣風但好讀」設計的日文字型(Google Fonts, 免費)。
+      歌詞的日文行是閱讀主力,它扛;中文行維持 PX10 + T 的排版。繁中沒有等級相當的字型,這是不對稱的原因。
+    </p>
+    <div class="sample vJ" data-soft>
+      <div class="cap">LYRICS SAMPLE · J</div>
+      <div class="lyr"><div class="ja">口笛を吹けば空高く弾んだ</div><div class="zh">只要吹起口哨,心就會在天空中高高彈跳</div></div>
+      <div class="lyr"><div class="ja">足踏み鳴らせば花が笑った</div><div class="zh">只要踏響腳步,花兒就會綻放笑容</div></div>
+      <div class="lyr"><div class="ja">あの白詰草の足元にクローバー</div><div class="zh">在那白三葉草的腳邊,長著幸運草</div></div>
+      <div class="lyr"><div class="ja">帰り道の夕暮れ 夕飯の匂い</div><div class="zh">回家路上的晚霞,晚餐飄來的香氣</div></div>
+      <div class="prosebox">
+        <h4>翻譯筆記樣本 · J(筆記=中文,仍是 PX10+T)</h4>
+        <p class="prose-p">《モブ子の恋》(路人女孩的戀愛)是漫畫家タカラ的作品,由「モブ子」——一個看起來像動漫背景裡「隨便一個路人」的高中女生——當主角。這種安靜平淡的戀愛故事,配上這首歌溫柔的旋律,恰好互相成就。</p>
+      </div>
+    </div>
+    <ul class="pros">
+      <li class="p">日文行可讀性接近平滑字型,點陣魂還在</li>
+      <li class="p">歌詞頁「讀日文對中文」的主流程最受惠</li>
+      <li class="m">第三個字型家族進場,語彙多一種聲音</li>
+      <li class="m">中文筆記沒被救到(還是要靠 T)</li>
+    </ul>
+    <div class="cost">成本:■■□□□ 字型接入 + 歌詞行規則(筆記部分同 T)</div>
+  </div>
+
+  <!-- ═══ 方案 R ═══ -->
+  <h2>方案 R — 讀者自選(疊加項,跟任何方案共存)</h2>
+  <div class="prop">
+    <div class="prop-head"><span class="tag tagR">R</span><h3>內頁角落一顆「Aa」:字級 20/24 + 柔邊開關,localStorage 記住</h3></div>
+    <p class="prop-sub">
+      你自己讀覺得 OK、訪客不一定 — 把選擇權給讀者。預設值 = 你拍板的方案,
+      調整只影響歌詞與筆記區,UI 外殼不動。本頁頂部那顆柔邊鈕就是原型。
+    </p>
+    <ul class="pros">
+      <li class="p">眾口難調的終極解,像素預設不妥協</li>
+      <li class="p">跟 T/B/J 任何一案疊加</li>
+      <li class="m">多一個 UI 元素 + localStorage 邏輯要維護</li>
+    </ul>
+    <div class="cost">成本:■■□□□ 內頁小工具一顆</div>
+  </div>
+
+  <!-- ═══ 總表 ═══ -->
+  <h2>並排總表</h2>
+  <table>
+    <tr><th>方案</th><th>救的是</th><th>語彙代價</th><th>成本</th></tr>
+    <tr><td>T 排版調參</td><td>整體疲勞 -60%</td><td>零</td><td>半天</td></tr>
+    <tr><td>B 升 24px</td><td>字形清晰度(最大)</td><td>零(同家族)</td><td>1 天</td></tr>
+    <tr><td>J DotGothic16</td><td>日文行(歌詞主力)</td><td>+1 字型家族</td><td>1 天</td></tr>
+    <tr><td>R 讀者自選</td><td>眾口難調</td><td>零</td><td>半天</td></tr>
+    <tr><td style="color:#ff9d9d">G 高解析網格</td><td colspan="3" style="color:#5a6784">已死 — ark16 繁中覆蓋 8%,不可行</td></tr>
+  </table>
+
+  <!-- ═══ 推薦 ═══ -->
+  <div class="verdict">
+    <h3>我的推薦:T + J,R 當保險</h3>
+    <p>
+      T 是無論如何都該做的地板(零成本、全內文受益)。歌詞頁的閱讀主力是日文行,
+      J 讓它接近平滑字型的可讀性、又不背叛點陣魂 — 中文行短(翻譯多一行一句),
+      吃 T 的排版就夠。筆記長文若讀完 T 版還是累,再把 B 的 24px 只給筆記段落,
+      歌詞維持 20px。R 最後上,把剩下的主觀差異交給讀者。
+    </p>
+    <ol>
+      <li>拍板路線:T / T+J / T+B / 全都要?</li>
+      <li>柔邊(頂部開關試過後):要不要當預設?</li>
+      <li>R 的預設字級跟你拍板的一致即可,做不做?</li>
+    </ol>
+  </div>
+
+  <footer>pixel-lab II · 閱讀救援提案 · 樣本:CLOVER(にしな)+ 該曲翻譯筆記</footer>
+</main>
+<script>
+  // 柔邊開關: 疊加在所有樣本上, 即時比較
+  const btn = document.getElementById('softBtn');
+  let on = false;
+  btn.addEventListener('click', () => {
+    on = !on;
+    btn.classList.toggle('on', on);
+    btn.textContent = on ? '✦ 柔邊 ON(0.6px 微光暈,類抗鋸齒)' : '✦ 柔邊 OFF(0.6px 微光暈,類抗鋸齒)';
+    document.querySelectorAll('[data-soft]').forEach(el => el.classList.toggle('soft', on));
+  });
+</script>
+</body>
+</html>
