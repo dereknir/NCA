@@ -1,11 +1,103 @@
 {
   "meta": {
     "topN": 0,
-    "totalInQueue": 1306,
+    "totalInQueue": 1307,
     "songCount": 36,
     "unmatchedCount": 835
   },
   "queue": {
+    "nishina-its-a-piece-of-cake": [
+      {
+        "videoId": "szHj8or2uvk",
+        "title": "音楽なんかなくて生きていけるのに #にしな #nishina #ライブ #shorts",
+        "viewCount": 9600,
+        "thumbnail": "https://i.ytimg.com/vi/szHj8or2uvk/hqdefault.jpg",
+        "songId": "nishina-its-a-piece-of-cake",
+        "lineHint": 27,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "QrOg_eDfKFE",
+        "title": "nishina - It’s a piece of cake teaser #nishina #newmusic #shorts",
+        "viewCount": 9000,
+        "thumbnail": "https://i.ytimg.com/vi/QrOg_eDfKFE/hqdefault.jpg",
+        "songId": "nishina-its-a-piece-of-cake",
+        "lineHint": 6,
+        "matchScore": 93.75,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "PT6dxvX4eKo",
+        "title": "音楽なんかなくて生きていけるのに #にしな #nishina #ライブ #shorts",
+        "viewCount": 7000,
+        "thumbnail": "https://i.ytimg.com/vi/PT6dxvX4eKo/hqdefault.jpg",
+        "songId": "nishina-its-a-piece-of-cake",
+        "lineHint": 27,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "mLqnghKGE3k",
+        "title": "It's a piece of cake with someday's feeling #nishina #live #shorts",
+        "viewCount": 7000,
+        "thumbnail": "https://i.ytimg.com/vi/mLqnghKGE3k/hqdefault.jpg",
+        "songId": "nishina-its-a-piece-of-cake",
+        "lineHint": 6,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "QVYhe0oWw_g",
+        "title": "It's a piece of cake from MUSICK #にしな #nishina #live #shorts",
+        "viewCount": 5900,
+        "thumbnail": "https://i.ytimg.com/vi/QVYhe0oWw_g/hqdefault.jpg",
+        "songId": "nishina-its-a-piece-of-cake",
+        "lineHint": 6,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "-rt1AQKGEig",
+        "title": "Don’t be afraid #nishina #live #shorts",
+        "viewCount": 3800,
+        "thumbnail": "https://i.ytimg.com/vi/-rt1AQKGEig/hqdefault.jpg",
+        "songId": "nishina-its-a-piece-of-cake",
+        "lineHint": 21,
+        "matchScore": 92.3076923076923,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "gCc02p8BveU",
+        "title": "It’s a piece of cake #nishina #music #shorts",
+        "viewCount": 2700,
+        "thumbnail": "https://i.ytimg.com/vi/gCc02p8BveU/hqdefault.jpg",
+        "songId": "nishina-its-a-piece-of-cake",
+        "lineHint": 6,
+        "matchScore": 93.75,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "Q496RmOuKq4",
+        "title": "Don’t be afraid The seasons are gonna change anyway #nishina #newmusic #shorts",
+        "viewCount": 2200,
+        "thumbnail": "https://i.ytimg.com/vi/Q496RmOuKq4/hqdefault.jpg",
+        "songId": "nishina-its-a-piece-of-cake",
+        "lineHint": 21,
+        "matchScore": 92.3076923076923,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "5tToehQ8zL0",
+        "title": "そんなくだらんこと出会えて本当によかった #にしな #nishina #ライブ #shorts",
+        "viewCount": 1500,
+        "thumbnail": "https://i.ytimg.com/vi/5tToehQ8zL0/hqdefault.jpg",
+        "songId": "nishina-its-a-piece-of-cake",
+        "lineHint": 29,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      }
+    ],
     "nishina-rendezvous": [
       {
         "videoId": "5ph18LjfOe0",
@@ -98,6 +190,16 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "IX_U2M1lqZw",
+        "title": "収まりきる愛は欲しくはないの #にしな #nishina #ランデブー # #ライブ #shorts",
+        "viewCount": 3500,
+        "thumbnail": "https://i.ytimg.com/vi/IX_U2M1lqZw/hqdefault.jpg",
+        "songId": "nishina-rendezvous",
+        "lineHint": 22,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "FDMtotAEx2g",
         "title": "大気圏超えてどこまでもgo #にしな #ランデブー #shorts",
         "viewCount": 2700,
@@ -116,16 +218,6 @@
         "lineHint": 6,
         "matchScore": 87.5,
         "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "IX_U2M1lqZw",
-        "title": "収まりきる愛は欲しくはないの #にしな #nishina #ランデブー # #ライブ #shorts",
-        "viewCount": 1500,
-        "thumbnail": "https://i.ytimg.com/vi/IX_U2M1lqZw/hqdefault.jpg",
-        "songId": "nishina-rendezvous",
-        "lineHint": 22,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
       }
     ],
     "nishina-weekly": [
@@ -182,7 +274,7 @@
       {
         "videoId": "zKROw-O1atQ",
         "title": "たまに素直なエモーション #にしな #nishina #weekly #ライブ #shorts",
-        "viewCount": 9900,
+        "viewCount": 10000,
         "thumbnail": "https://i.ytimg.com/vi/zKROw-O1atQ/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 21,
@@ -272,7 +364,7 @@
       {
         "videoId": "lJjpLUXRRnM",
         "title": "たまに素直なエモーション #にしな #nishina #weekly #ライブ #shorts",
-        "viewCount": 3300,
+        "viewCount": 4100,
         "thumbnail": "https://i.ytimg.com/vi/lJjpLUXRRnM/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 21,
@@ -324,7 +416,7 @@
       {
         "videoId": "25xNPfCd6Lg",
         "title": "好きだった　ずっとそのままずっと #にしな #nishina #春一番 #ライブ #shorts",
-        "viewCount": 8000,
+        "viewCount": 8100,
         "thumbnail": "https://i.ytimg.com/vi/25xNPfCd6Lg/hqdefault.jpg",
         "songId": "nishina-haru-ichiban",
         "lineHint": 9,
@@ -344,7 +436,7 @@
       {
         "videoId": "X_jxaIa35C4",
         "title": "好きだった こっそり溶かして飲み干した # #にしな #nishina #春一番 #ライブ #shorts",
-        "viewCount": 6300,
+        "viewCount": 6800,
         "thumbnail": "https://i.ytimg.com/vi/X_jxaIa35C4/hqdefault.jpg",
         "songId": "nishina-haru-ichiban",
         "lineHint": 9,
@@ -484,22 +576,22 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "uH_MtCmfOGo",
+        "title": "触れたら壊れてしまいそうな夜の隙間 #にしな #nishina #ダーリン #ライブ #shorts",
+        "viewCount": 7900,
+        "thumbnail": "https://i.ytimg.com/vi/uH_MtCmfOGo/hqdefault.jpg",
+        "songId": "nishina-darling",
+        "lineHint": 21,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "hWP91UjFFH0",
         "title": "背中合わせで伝わる呼吸 #にしな #ダーリン #shorts",
         "viewCount": 7900,
         "thumbnail": "https://i.ytimg.com/vi/hWP91UjFFH0/hqdefault.jpg",
         "songId": "nishina-darling",
         "lineHint": 9,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "uH_MtCmfOGo",
-        "title": "触れたら壊れてしまいそうな夜の隙間 #にしな #nishina #ダーリン #ライブ #shorts",
-        "viewCount": 7800,
-        "thumbnail": "https://i.ytimg.com/vi/uH_MtCmfOGo/hqdefault.jpg",
-        "songId": "nishina-darling",
-        "lineHint": 21,
         "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
@@ -596,7 +688,7 @@
       {
         "videoId": "1rtwKF5PdpI",
         "title": "さよなら私の愛しい人 #にしな #nishina #ダーリン #ライブ #shorts",
-        "viewCount": 4100,
+        "viewCount": 4200,
         "thumbnail": "https://i.ytimg.com/vi/1rtwKF5PdpI/hqdefault.jpg",
         "songId": "nishina-darling",
         "lineHint": 26,
@@ -728,7 +820,7 @@
       {
         "videoId": "m8pxw2GNhoo",
         "title": "ここは安楽unreality #にしな #nishina #bugs #ライブ #shorts",
-        "viewCount": 5000,
+        "viewCount": 5100,
         "thumbnail": "https://i.ytimg.com/vi/m8pxw2GNhoo/hqdefault.jpg",
         "songId": "nishina-bugs",
         "lineHint": 35,
@@ -970,7 +1062,7 @@
       {
         "videoId": "7M0C7rqR7-E",
         "title": "イカれた夜のメランルー #にしな #nishina #東京マーブル #ライブ #shorts",
-        "viewCount": 5300,
+        "viewCount": 5500,
         "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
         "songId": "nishina-tokyo-marble",
         "lineHint": 12,
@@ -1042,7 +1134,7 @@
       {
         "videoId": "nywcYurtoRk",
         "title": "今日もラブ履き違え #にしな #nishina #パンダガール #shorts",
-        "viewCount": 7300,
+        "viewCount": 7400,
         "thumbnail": "https://i.ytimg.com/vi/nywcYurtoRk/hqdefault.jpg",
         "songId": "nishina-panda-girl",
         "lineHint": 11,
@@ -1184,7 +1276,7 @@
       {
         "videoId": "EWFVgH24zFI",
         "title": "名残惜しさは振り払って もう行かなきゃ #にしな #nishina #青藍遊泳 #shorts",
-        "viewCount": 6800,
+        "viewCount": 6900,
         "thumbnail": "https://i.ytimg.com/vi/EWFVgH24zFI/hqdefault.jpg",
         "songId": "nishina-seiran-yuuei",
         "lineHint": 18,
@@ -3064,7 +3156,7 @@
       {
         "videoId": "jC1LKVLw1ac",
         "title": "ちゅってして拘束する #にしな #ヘビースモーク #shorts",
-        "viewCount": 191000,
+        "viewCount": 192000,
         "thumbnail": "https://i.ytimg.com/vi/jC1LKVLw1ac/hqdefault.jpg",
         "songId": "nishina-heavy-smoke",
         "lineHint": 20,
@@ -3594,7 +3686,7 @@
       {
         "videoId": "Cus43_ZF12A",
         "title": "御心のままの生き様 #にしな #nishina #婀娜婀娜 #shorts",
-        "viewCount": 5300,
+        "viewCount": 5400,
         "thumbnail": "https://i.ytimg.com/vi/Cus43_ZF12A/hqdefault.jpg",
         "songId": "nishina-adaada",
         "lineHint": 20,
@@ -3646,7 +3738,7 @@
       {
         "videoId": "aMcwrv1lS10",
         "title": "貴方が好きだった #にしな #nishina #ホットミルク #ライブ #shorts",
-        "viewCount": 7400,
+        "viewCount": 7500,
         "thumbnail": "https://i.ytimg.com/vi/aMcwrv1lS10/hqdefault.jpg",
         "songId": "nishina-hot-milk",
         "lineHint": 15,
@@ -4306,88 +4398,6 @@
         "matchMethod": "lyric_match"
       }
     ],
-    "nishina-its-a-piece-of-cake": [
-      {
-        "videoId": "szHj8or2uvk",
-        "title": "音楽なんかなくて生きていけるのに #にしな #nishina #ライブ #shorts",
-        "viewCount": 9600,
-        "thumbnail": "https://i.ytimg.com/vi/szHj8or2uvk/hqdefault.jpg",
-        "songId": "nishina-its-a-piece-of-cake",
-        "lineHint": 27,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "QrOg_eDfKFE",
-        "title": "nishina - It’s a piece of cake teaser #nishina #newmusic #shorts",
-        "viewCount": 9000,
-        "thumbnail": "https://i.ytimg.com/vi/QrOg_eDfKFE/hqdefault.jpg",
-        "songId": "nishina-its-a-piece-of-cake",
-        "lineHint": 6,
-        "matchScore": 93.75,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "PT6dxvX4eKo",
-        "title": "音楽なんかなくて生きていけるのに #にしな #nishina #ライブ #shorts",
-        "viewCount": 7000,
-        "thumbnail": "https://i.ytimg.com/vi/PT6dxvX4eKo/hqdefault.jpg",
-        "songId": "nishina-its-a-piece-of-cake",
-        "lineHint": 27,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "mLqnghKGE3k",
-        "title": "It's a piece of cake with someday's feeling #nishina #live #shorts",
-        "viewCount": 7000,
-        "thumbnail": "https://i.ytimg.com/vi/mLqnghKGE3k/hqdefault.jpg",
-        "songId": "nishina-its-a-piece-of-cake",
-        "lineHint": 6,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "QVYhe0oWw_g",
-        "title": "It's a piece of cake from MUSICK #にしな #nishina #live #shorts",
-        "viewCount": 5900,
-        "thumbnail": "https://i.ytimg.com/vi/QVYhe0oWw_g/hqdefault.jpg",
-        "songId": "nishina-its-a-piece-of-cake",
-        "lineHint": 6,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "-rt1AQKGEig",
-        "title": "Don’t be afraid #nishina #live #shorts",
-        "viewCount": 3800,
-        "thumbnail": "https://i.ytimg.com/vi/-rt1AQKGEig/hqdefault.jpg",
-        "songId": "nishina-its-a-piece-of-cake",
-        "lineHint": 21,
-        "matchScore": 92.3076923076923,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "gCc02p8BveU",
-        "title": "It’s a piece of cake #nishina #music #shorts",
-        "viewCount": 2700,
-        "thumbnail": "https://i.ytimg.com/vi/gCc02p8BveU/hqdefault.jpg",
-        "songId": "nishina-its-a-piece-of-cake",
-        "lineHint": 6,
-        "matchScore": 93.75,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "Q496RmOuKq4",
-        "title": "Don’t be afraid The seasons are gonna change anyway #nishina #newmusic #shorts",
-        "viewCount": 2200,
-        "thumbnail": "https://i.ytimg.com/vi/Q496RmOuKq4/hqdefault.jpg",
-        "songId": "nishina-its-a-piece-of-cake",
-        "lineHint": 21,
-        "matchScore": 92.3076923076923,
-        "matchMethod": "lyric_match"
-      }
-    ],
     "nishina-u-plus": [
       {
         "videoId": "0oWYtFMdnbQ",
@@ -4566,7 +4576,7 @@
       {
         "videoId": "AEoMfrzrptc",
         "title": "その手の平で踊らせて #にしな #透明な黒と鉄分のある赤 #shorts",
-        "viewCount": 6900,
+        "viewCount": 7000,
         "thumbnail": "https://i.ytimg.com/vi/AEoMfrzrptc/hqdefault.jpg",
         "songId": "nishina-toumei-na-kuro",
         "lineHint": 16,
@@ -6490,6 +6500,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "MgVtJNJTTe0",
+        "title": "Take it easy, you'll be fine #nishina #newmusic #shorts",
+        "viewCount": 8700,
+        "thumbnail": "https://i.ytimg.com/vi/MgVtJNJTTe0/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 62.06896551724138,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "LGcFwJweiQE",
         "title": "VIVA LA ROCK #nishina #fes #shorts",
         "viewCount": 8700,
@@ -6587,16 +6607,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 60.0,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "MgVtJNJTTe0",
-        "title": "Take it easy, you'll be fine #nishina #newmusic #shorts",
-        "viewCount": 8600,
-        "thumbnail": "https://i.ytimg.com/vi/MgVtJNJTTe0/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 62.06896551724138,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -7500,6 +7510,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "tD9GhrjUKsw",
+        "title": "宇宙旅行でもいこうか！ #にしな #nishina #あれが恋だったのかな #ライブ #shorts",
+        "viewCount": 6700,
+        "thumbnail": "https://i.ytimg.com/vi/tD9GhrjUKsw/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 53.333333333333336,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "ZhSkT8BFIjE",
         "title": "nishina new photo📸 #にしな #nishina #newphoto #shorts",
         "viewCount": 6700,
@@ -7618,16 +7638,6 @@
         "lineHint": 10,
         "matchScore": 70.0,
         "matchMethod": "review"
-      },
-      {
-        "videoId": "tD9GhrjUKsw",
-        "title": "宇宙旅行でもいこうか！ #にしな #nishina #あれが恋だったのかな #ライブ #shorts",
-        "viewCount": 6600,
-        "thumbnail": "https://i.ytimg.com/vi/tD9GhrjUKsw/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 53.333333333333336,
-        "matchMethod": "out_of_catalog"
       },
       {
         "videoId": "jWxn_ZeQRH8",
@@ -9580,6 +9590,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "YxB0vAr2ev0",
+        "title": "幸せはいつもそばに #にしな #nishina #クローバー #newmusic #shorts",
+        "viewCount": 4600,
+        "thumbnail": "https://i.ytimg.com/vi/YxB0vAr2ev0/hqdefault.jpg",
+        "songId": "nishina-nekoze",
+        "lineHint": 6,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
+      },
+      {
         "videoId": "juj5EzxeNBo",
         "title": "Decadent and romantic “So stupid, just  stop” #にしな #にしな #nishina #newmusic #shorts",
         "viewCount": 4600,
@@ -9716,16 +9736,6 @@
         "thumbnail": "https://i.ytimg.com/vi/zTFFRK-bSvw/hqdefault.jpg",
         "songId": "nishina-hot-milk",
         "lineHint": 33,
-        "matchScore": 66.66666666666667,
-        "matchMethod": "review"
-      },
-      {
-        "videoId": "YxB0vAr2ev0",
-        "title": "幸せはいつもそばに #にしな #nishina #クローバー #newmusic #shorts",
-        "viewCount": 4500,
-        "thumbnail": "https://i.ytimg.com/vi/YxB0vAr2ev0/hqdefault.jpg",
-        "songId": "nishina-nekoze",
-        "lineHint": 6,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
       },
