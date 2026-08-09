@@ -1,11 +1,11 @@
 {
   "meta": {
-    "total": 77,
+    "total": 83,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 24,
-      "live_song": 24,
+      "promo": 27,
+      "live_song": 27,
       "mc": 7,
       "yearly": 6,
       "ad": 2,
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 24,
+      "count": 27,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -149,6 +149,16 @@
           "url": "https://www.youtube.com/shorts/ZPJg55iafRI",
           "thumbnail": "https://i.ytimg.com/vi/ZPJg55iafRI/hqdefault.jpg",
           "viewCount": 18000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "bAPIV9sSFLg",
+          "title": "nishina tour 2026",
+          "url": "https://www.youtube.com/shorts/bAPIV9sSFLg",
+          "thumbnail": "https://i.ytimg.com/vi/bAPIV9sSFLg/hqdefault.jpg",
+          "viewCount": 15000,
           "versionType": null,
           "instrumental": false,
           "anchors": []
@@ -200,6 +210,16 @@
           "thumbnail": "https://i.ytimg.com/vi/_cePTkvdH3A/hqdefault.jpg",
           "viewCount": 7500,
           "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "E5bGnsg6Bi0",
+          "title": "にしな - 1.21 release / ドレスコード",
+          "url": "https://www.youtube.com/shorts/E5bGnsg6Bi0",
+          "thumbnail": "https://i.ytimg.com/vi/E5bGnsg6Bi0/hqdefault.jpg",
+          "viewCount": 6700,
+          "versionType": "other",
           "instrumental": false,
           "anchors": []
         },
@@ -334,6 +354,16 @@
           "anchors": []
         },
         {
+          "videoId": "h6_BrqVFBvc",
+          "title": "plum on 9.4",
+          "url": "https://www.youtube.com/shorts/h6_BrqVFBvc",
+          "thumbnail": "https://i.ytimg.com/vi/h6_BrqVFBvc/hqdefault.jpg",
+          "viewCount": 2000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "Hq29mBuaqAg",
           "title": "bugs 1.31 release",
           "url": "https://www.youtube.com/shorts/Hq29mBuaqAg",
@@ -368,7 +398,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 24,
+      "count": 27,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -408,6 +438,32 @@
           "appearanceName": "JAPAN JAM 2024",
           "songId": "nishina-u-plus",
           "songTitle": "U+"
+        },
+        {
+          "videoId": "dzmzxGApUpk",
+          "title": "🦈SWEET LOVE SHOWER 2025🚀",
+          "url": "https://www.youtube.com/shorts/dzmzxGApUpk",
+          "thumbnail": "https://i.ytimg.com/vi/dzmzxGApUpk/hqdefault.jpg",
+          "viewCount": 14000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "SPACE SHOWER SWEET LOVE SHOWER 2025 30th ANNIVERSARY",
+          "songId": null,
+          "songTitle": null
+        },
+        {
+          "videoId": "Rl5rdd2JDDk",
+          "title": "🏝️SPACE SHOWER SWEET LOVE SHOWER 2025",
+          "url": "https://www.youtube.com/shorts/Rl5rdd2JDDk",
+          "thumbnail": "https://i.ytimg.com/vi/Rl5rdd2JDDk/hqdefault.jpg",
+          "viewCount": 13000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "SPACE SHOWER SWEET LOVE SHOWER 2025 30th ANNIVERSARY",
+          "songId": null,
+          "songTitle": null
         },
         {
           "videoId": "DujGcmQVB_M",
@@ -668,6 +724,19 @@
           "appearanceName": "MERRY ROCK PARADE 2024",
           "songId": "nishina-wawon",
           "songTitle": "わをん"
+        },
+        {
+          "videoId": "YkObokSE9nY",
+          "title": "🏫川崎学園祭（岡山）ありがとうございました！",
+          "url": "https://www.youtube.com/shorts/YkObokSE9nY",
+          "thumbnail": "https://i.ytimg.com/vi/YkObokSE9nY/hqdefault.jpg",
+          "viewCount": 3100,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "LIVE at 川崎学園祭",
+          "songId": "nishina-friday-kids-china-town",
+          "songTitle": "FRIDAY KIDS CHINA TOWN"
         },
         {
           "videoId": "P7LCfZSIsY8",
