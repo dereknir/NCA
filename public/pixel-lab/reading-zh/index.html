@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixel Lab III — 中文閱讀區字型提案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=LXGW+WenKai+TC&family=Iansui&family=Noto+Serif+TC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* jf 粉圓: 僅提案 demo 用 CDN; 若拍板則自行 subset 進站 (OFL 開源) */
+  @font-face{font-family:'openhuninn';src:url('https://cdn.jsdelivr.net/gh/justfont/open-huninn-font@master/font/jf-openhuninn-2.1.ttf') format('truetype');font-display:swap}
+  @font-face{font-family:'PX-ZH';src:url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'PX-JA';src:url('/fonts/pixel/fp12-site-ja.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'PX10-ZH';src:url('/fonts/pixel/fp10-site-zh_hant.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'PX10-JA';src:url('/fonts/pixel/fp10-site-ja.woff2') format('woff2');font-display:swap}
+  :root{--bg:#0a0a15;--panel:#141d31;--panel-2:#1a2440;--line:#243154;--text:#e8ecf6;
+    --dim:#8b97b8;--accent:#3d63ff;--gold:#e8c94a;--teal:#3aa981;--red:#d65555;
+    --font:"Noto Sans TC",system-ui,sans-serif;
+    --px12:'PX-ZH','PX-JA',var(--font);
+    --dot:'DotGothic16','PX10-JA',sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--px12);font-size:12px;line-height:2}
+  .site-topbar{position:sticky;top:0;z-index:50;height:57px;background:rgba(10,10,21,.8);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .site-topbar-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:100%;
+    display:flex;align-items:center;gap:14px}
+  .site-topbar a{font-family:var(--px12);color:var(--text);font-size:24px;text-decoration:none}
+  .site-topbar a.crumb{color:var(--dim);font-size:12px}
+  main{max-width:1080px;margin:0 auto;padding:44px 22px 140px}
+  h1{font-weight:400;font-size:36px;letter-spacing:.06em}
+  h2{font-weight:400;font-size:24px;color:var(--gold);letter-spacing:.05em;margin:70px 0 8px}
+  .sub{color:var(--dim);font-size:12px;margin-top:10px;max-width:780px}
+  .note{border-left:3px solid var(--accent);background:var(--panel);padding:14px 18px;
+    border-radius:0 10px 10px 0;font-size:12px;margin:18px 0;color:var(--dim)}
+  .note b{color:var(--text)}
+  .prop{background:var(--panel);border:2px solid var(--line);box-shadow:5px 5px 0 rgba(0,0,0,.45);
+    padding:24px 26px;margin-top:30px}
+  .prop-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .tag{font-size:12px;padding:2px 10px;letter-spacing:.1em}
+  .tagK{background:#33290f;color:#ffd970}.tagI{background:#20311f;color:#a9dba0}
+  .tagS{background:#1f2a3b;color:#8fb3ff}.tagH{background:#2b1f3b;color:#cfa9ff}
+  .tag0{background:#3b1f24;color:#ff9d9d}
+  .prop-head h3{font-weight:400;font-size:24px;margin:0}
+  .prop-sub{color:var(--dim);font-size:12px}
+  .sample{border:1px dashed var(--line);background:#0d1120;padding:26px 30px;margin-top:16px}
+  .sample .cap{font-size:12px;color:var(--dim);letter-spacing:.15em;margin-bottom:18px}
+  .ja{font-family:var(--dot);font-size:20px;line-height:2.1;letter-spacing:.03em;color:var(--text)}
+  .lyr{margin-bottom:24px}
+  .prosebox{margin-top:26px;border-top:1px solid rgba(36,49,84,.6);padding-top:20px}
+  .prosebox h4{font-weight:400;font-size:24px;margin-bottom:12px;color:var(--text)}
+  .pros{display:grid;grid-template-columns:1fr 1fr;gap:4px 26px;font-size:12px;
+    margin-top:16px;color:var(--dim)}
+  .pros li{margin-left:18px}
+  .pros .p::marker{content:'+ ';color:var(--teal)}
+  .pros .m::marker{content:'- ';color:var(--red)}
+  .cost{margin-top:10px;font-size:12px;color:var(--gold)}
+
+  /* ── 各候選的 zh 樣式 (歌詞 zh 行 + 筆記段落) ── */
+  .v0 .zh{font-family:'PX10-ZH','PX10-JA',var(--font);font-size:20px;line-height:2.15;
+    letter-spacing:.05em;color:#a7b3d4;margin-top:4px}
+  .v0 .prose-p{font-family:'PX10-ZH','PX10-JA',var(--font);font-size:20px;line-height:2.2;
+    letter-spacing:.05em;max-width:36em;color:#ccd5ea}
+
+  .vK .zh{font-family:'LXGW WenKai TC',var(--font);font-size:22px;line-height:2;
+    letter-spacing:.03em;color:#b6c2e0;margin-top:4px}
+  .vK .prose-p{font-family:'LXGW WenKai TC',var(--font);font-size:22px;line-height:2.1;
+    letter-spacing:.03em;max-width:36em;color:#d4dcf0}
+
+  .vI .zh{font-family:'Iansui',var(--font);font-size:21px;line-height:2;
+    letter-spacing:.03em;color:#b6c2e0;margin-top:4px}
+  .vI .prose-p{font-family:'Iansui',var(--font);font-size:21px;line-height:2.1;
+    letter-spacing:.03em;max-width:36em;color:#d4dcf0}
+
+  .vS .zh{font-family:'Noto Serif TC',serif;font-size:20px;line-height:2;
+    letter-spacing:.04em;color:#b6c2e0;margin-top:4px}
+  .vS .prose-p{font-family:'Noto Serif TC',serif;font-size:20px;line-height:2.15;
+    letter-spacing:.04em;max-width:36em;color:#d4dcf0}
+
+  .vH .zh{font-family:'openhuninn',var(--font);font-size:20px;line-height:2;
+    letter-spacing:.02em;color:#b6c2e0;margin-top:4px}
+  .vH .prose-p{font-family:'openhuninn',var(--font);font-size:20px;line-height:2.1;
+    letter-spacing:.02em;max-width:36em;color:#d4dcf0}
+
+  table{width:100%;border-collapse:collapse;font-size:12px;margin-top:16px}
+  th,td{border:1px solid var(--line);padding:8px 12px;text-align:left;line-height:2}
+  th{background:var(--panel-2)}
+  .verdict{background:linear-gradient(135deg,#141d31,#1a2440);border:2px solid var(--gold);
+    box-shadow:6px 6px 0 rgba(232,201,74,.15);padding:24px 28px;margin-top:30px}
+  .verdict h3{font-weight:400;color:var(--gold);font-size:24px;margin-bottom:12px}
+  .verdict p,.verdict li{font-size:22px;font-family:'LXGW WenKai TC',var(--font);
+    line-height:2.05;color:#d4dcf0}
+  .verdict ol{margin:8px 0 0 24px}
+  footer{margin-top:90px;color:#5a6784;font-size:12px;text-align:center}
+  @media(max-width:700px){.pros{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-topbar">
+  <div class="site-topbar-inner">
+    <a href="/">Derek's Site</a>
+    <a class="crumb" href="/pixel-lab/">/ Pixel Lab</a>
+    <a class="crumb" href="/pixel-lab/reading/">/ II</a>
+    <a class="crumb" href="#">/ III 中文字型</a>
+  </div>
+</header>
+<main>
+  <h1>中文閱讀區字型 — 四位候選人</h1>
+  <p class="sub">
+    範圍:歌曲介紹、歌詞翻譯 zh 行、翻譯筆記的中文。像素語彙其他地方全保留
+    (UI/標題/總覽頁/日文行 DotGothic16 不動)。設計敘事:外殼是機器的聲音,
+    內文是人的聲音 — 中文字選「有性格但可讀」的,跟像素殼形成對話而非妥協。
+    每案都是同一段 CLOVER 真實內容,日文行一併顯示,判斷的是「配對」不是單字型。
+  </p>
+  <div class="note">
+    <b>四位都是 OFL 開源、可商用、Google Fonts 直掛</b>(粉圓需自架,demo 走 CDN)。
+    拍板後實作 = 字型鏈一換 + 尺寸微調,像素字集管線可同步瘦身(內文字撤出 PX10)。
+  </div>
+
+  <!-- 基準線 -->
+  <h2>基準線 — 現狀(PX10 像素,你說讀不動的那個)</h2>
+  <div class="prop">
+    <div class="sample v0">
+      <div class="cap">SAMPLE · 現狀 PX10</div>
+      <div class="lyr"><div class="ja">口笛を吹けば空高く弾んだ</div><div class="zh">只要吹起口哨,心就會在天空中高高彈跳</div></div>
+      <div class="lyr"><div class="ja">帰り道の夕暮れ 夕飯の匂い</div><div class="zh">回家路上的晚霞,晚餐飄來的香氣</div></div>
+      <div class="prosebox"><h4>翻譯筆記 · 現狀</h4>
+        <p class="prose-p">《モブ子の恋》(路人女孩的戀愛)是漫畫家タカラ的作品,由「モブ子」——一個看起來像動漫背景裡「隨便一個路人」的高中女生——當主角。這種安靜平淡的戀愛故事,配上這首歌溫柔的旋律,恰好互相成就。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- K 霞鶩文楷 -->
+  <h2>候選 K — 霞鶩文楷 TC(LXGW WenKai TC)· 手寫楷體</h2>
+  <div class="prop">
+    <div class="prop-head"><span class="tag tagK">K</span><h3>「手寫歌詞本」的溫度</h3>
+      <span class="prop-sub">Klee 系楷體 · 歌詞站界的人氣王 · 手寫感但工整可讀</span></div>
+    <div class="sample vK">
+      <div class="cap">SAMPLE · K 文楷 22px</div>
+      <div class="lyr"><div class="ja">口笛を吹けば空高く弾んだ</div><div class="zh">只要吹起口哨,心就會在天空中高高彈跳</div></div>
+      <div class="lyr"><div class="ja">帰り道の夕暮れ 夕飯の匂い</div><div class="zh">回家路上的晚霞,晚餐飄來的香氣</div></div>
+      <div class="prosebox"><h4>翻譯筆記 · K</h4>
+        <p class="prose-p">《モブ子の恋》(路人女孩的戀愛)是漫畫家タカラ的作品,由「モブ子」——一個看起來像動漫背景裡「隨便一個路人」的高中女生——當主角。這種安靜平淡的戀愛故事,配上這首歌溫柔的旋律,恰好互相成就。</p>
+      </div>
+    </div>
+    <ul class="pros">
+      <li class="p">「機器殼 × 手寫心」的對話感最強 — 像在像素遊戲機裡夾了一本手抄歌詞本</li>
+      <li class="p">長文閱讀最不累的一款(筆畫有呼吸)</li>
+      <li class="m">手寫感重,喜惡分明 — 不喜歡就是不喜歡</li>
+      <li class="m">字面偏小,要用 22px 補(已示範)</li>
+    </ul>
+    <div class="cost">Google Fonts 直掛 · OFL</div>
+  </div>
+
+  <!-- I 芫荽 -->
+  <h2>候選 I — 芫荽(Iansui)· 台灣字形優化的 Klee 系</h2>
+  <div class="prop">
+    <div class="prop-head"><span class="tag tagI">I</span><h3>比文楷收斂半步的手寫感</h3>
+      <span class="prop-sub">同為 Klee 血統 · 依台灣教育部字形調整 · 更「標準字」一點</span></div>
+    <div class="sample vI">
+      <div class="cap">SAMPLE · I 芫荽 21px</div>
+      <div class="lyr"><div class="ja">口笛を吹けば空高く弾んだ</div><div class="zh">只要吹起口哨,心就會在天空中高高彈跳</div></div>
+      <div class="lyr"><div class="ja">帰り道の夕暮れ 夕飯の匂い</div><div class="zh">回家路上的晚霞,晚餐飄來的香氣</div></div>
+      <div class="prosebox"><h4>翻譯筆記 · I</h4>
+        <p class="prose-p">《モブ子の恋》(路人女孩的戀愛)是漫畫家タカラ的作品,由「モブ子」——一個看起來像動漫背景裡「隨便一個路人」的高中女生——當主角。這種安靜平淡的戀愛故事,配上這首歌溫柔的旋律,恰好互相成就。</p>
+      </div>
+    </div>
+    <ul class="pros">
+      <li class="p">手寫溫度保留、但比文楷更工整 — 折衷派首選</li>
+      <li class="p">台灣字形標準,教育部寫法(對繁中讀者最「順眼」)</li>
+      <li class="m">性格比文楷淡一點,「對話感」弱半分</li>
+    </ul>
+    <div class="cost">Google Fonts 直掛 · OFL</div>
+  </div>
+
+  <!-- S 思源宋 -->
+  <h2>候選 S — 思源宋體 TC(Noto Serif TC)· 印刷書卷</h2>
+  <div class="prop">
+    <div class="prop-head"><span class="tag tagS">S</span><h3>正經出版物的氣質</h3>
+      <span class="prop-sub">襯線宋體 · 歌詞集/詩集的印刷感 · 與 Noto Sans 同家但完全不同臉</span></div>
+    <div class="sample vS">
+      <div class="cap">SAMPLE · S 思源宋 20px</div>
+      <div class="lyr"><div class="ja">口笛を吹けば空高く弾んだ</div><div class="zh">只要吹起口哨,心就會在天空中高高彈跳</div></div>
+      <div class="lyr"><div class="ja">帰り道の夕暮れ 夕飯の匂い</div><div class="zh">回家路上的晚霞,晚餐飄來的香氣</div></div>
+      <div class="prosebox"><h4>翻譯筆記 · S</h4>
+        <p class="prose-p">《モブ子の恋》(路人女孩的戀愛)是漫畫家タカラ的作品,由「モブ子」——一個看起來像動漫背景裡「隨便一個路人」的高中女生——當主角。這種安靜平淡的戀愛故事,配上這首歌溫柔的旋律,恰好互相成就。</p>
+      </div>
+    </div>
+    <ul class="pros">
+      <li class="p">「出版級歌詞集」的莊重感,最不會膩</li>
+      <li class="p">深色底上宋體橫細豎粗,層次漂亮</li>
+      <li class="m">氣質偏冷靜,跟像素殼的「玩」有點距離</li>
+      <li class="m">嚴格說是「原字型的兄弟」— 你若想離 Noto 遠一點,它最近</li>
+    </ul>
+    <div class="cost">Google Fonts 直掛 · OFL</div>
+  </div>
+
+  <!-- H 粉圓 -->
+  <h2>候選 H — jf 粉圓(open 粉圓)· 圓體</h2>
+  <div class="prop">
+    <div class="prop-head"><span class="tag tagH">H</span><h3>可愛但不幼稚的圓</h3>
+      <span class="prop-sub">justfont 開源圓體 · 台灣網站常客 · 遊戲感跟像素殼天然親</span></div>
+    <div class="sample vH">
+      <div class="cap">SAMPLE · H 粉圓 20px</div>
+      <div class="lyr"><div class="ja">口笛を吹けば空高く弾んだ</div><div class="zh">只要吹起口哨,心就會在天空中高高彈跳</div></div>
+      <div class="lyr"><div class="ja">帰り道の夕暮れ 夕飯の匂い</div><div class="zh">回家路上的晚霞,晚餐飄來的香氣</div></div>
+      <div class="prosebox"><h4>翻譯筆記 · H</h4>
+        <p class="prose-p">《モブ子の恋》(路人女孩的戀愛)是漫畫家タカラ的作品,由「モブ子」——一個看起來像動漫背景裡「隨便一個路人」的高中女生——當主角。這種安靜平淡的戀愛故事,配上這首歌溫柔的旋律,恰好互相成就。</p>
+      </div>
+    </div>
+    <ul class="pros">
+      <li class="p">圓潤 × 像素方角 = 遊戲 UI 的經典配對</li>
+      <li class="p">親和力最高,跟 gacha/galaxy 的玩心一致</li>
+      <li class="m">不在 Google Fonts — 要自己 subset 自架(管線現成,但多一步)</li>
+      <li class="m">「可愛」對情歌 OK,對暗色系歌詞(BUG/HEAVY SMOKE)可能不搭</li>
+    </ul>
+    <div class="cost">自架 subset(用現有 pyftsubset 管線)· OFL</div>
+  </div>
+
+  <h2>並排總表</h2>
+  <table>
+    <tr><th>候選</th><th>氣質</th><th>與像素殼的關係</th><th>接入</th></tr>
+    <tr><td>K 霞鶩文楷</td><td>手寫歌詞本</td><td>對話(機器殼×手寫心)</td><td>Google Fonts</td></tr>
+    <tr><td>I 芫荽</td><td>工整手寫</td><td>對話(收斂版)</td><td>Google Fonts</td></tr>
+    <tr><td>S 思源宋</td><td>印刷書卷</td><td>並置(各自莊重)</td><td>Google Fonts</td></tr>
+    <tr><td>H 粉圓</td><td>圓潤遊戲感</td><td>同隊(都在玩)</td><td>自架 subset</td></tr>
+  </table>
+
+  <div class="verdict">
+    <h3>我的推薦:K 霞鶩文楷,次選 I 芫荽</h3>
+    <p>
+      理由用文楷自己現身說法 — 你現在讀的這段就是 22px 的霞鶩文楷。
+      歌詞翻譯是「人把歌聽進心裡再寫出來」的東西,手寫楷體的溫度跟這件事同構;
+      而它站在像素殼旁邊時,不是風格妥協,是「機器與人」的對照敘事。
+      如果你覺得手寫感太重,芫荽是同血統但更工整的退半步。
+      決定就一句話:K / I / S / H,選字母。
+    </p>
+  </div>
+
+  <footer>pixel-lab III · 中文閱讀區字型提案 · 樣本:CLOVER(にしな)</footer>
+</main>
+</body>
+</html>
