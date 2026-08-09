@@ -3442,9 +3442,30 @@
   },
   "4dG9XmhS3Ws": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 10
+      },
+      {
+        "t": 3.25,
+        "line": 11
+      },
+      {
+        "t": 11.73,
+        "line": 12
+      },
+      {
+        "t": 14.47,
+        "line": 13
+      },
+      {
+        "t": 21.72,
+        "line": 14
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "dzmzxGApUpk": {
@@ -4146,9 +4167,34 @@
   },
   "CX_uJCYVc5M": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 14
+      },
+      {
+        "t": 6.48,
+        "line": 15
+      },
+      {
+        "t": 8.96,
+        "line": 16
+      },
+      {
+        "t": 11.73,
+        "line": 17
+      },
+      {
+        "t": 14.85,
+        "line": 18
+      },
+      {
+        "t": 18.98,
+        "line": 19
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "Kfxptcz_uN0": {
@@ -4644,9 +4690,30 @@
   },
   "LePlzdeItIM": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 1.14,
+        "line": 15
+      },
+      {
+        "t": 3.5,
+        "line": 16
+      },
+      {
+        "t": 6.39,
+        "line": 17
+      },
+      {
+        "t": 10.02,
+        "line": 18
+      },
+      {
+        "t": 14.06,
+        "line": 19
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "6JR7eA40EWo": {
@@ -5371,9 +5438,58 @@
   },
   "XtoXGR5xpWw": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 3.85,
+        "line": 21
+      },
+      {
+        "t": 6.87,
+        "line": 22
+      },
+      {
+        "t": 11.45,
+        "line": 23
+      },
+      {
+        "t": 14.9,
+        "line": 24
+      },
+      {
+        "t": 19.7,
+        "line": 25
+      },
+      {
+        "t": 23.53,
+        "line": 26
+      },
+      {
+        "t": 29.56,
+        "line": 27
+      },
+      {
+        "t": 34.89,
+        "line": 28
+      },
+      {
+        "t": 37.45,
+        "line": 29
+      },
+      {
+        "t": 40.15,
+        "line": 30
+      },
+      {
+        "t": 43.24,
+        "line": 31
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "GIOGZqU18bw": {
@@ -5498,7 +5614,7 @@
     "instrumental": false
   },
   "fN8PwwuTN7o": {
-    "songId": "nishina-rendezvous",
+    "songId": "nishina-darling",
     "anchors": [],
     "status": "pending",
     "versionType": null,
@@ -5763,7 +5879,7 @@
     "instrumental": false
   },
   "erhPLM2Kfk4": {
-    "songId": "nishina-rendezvous",
+    "songId": "nishina-darling",
     "anchors": [],
     "status": "pending",
     "versionType": null,
@@ -5793,7 +5909,7 @@
     "liveSongId": "nishina-kedamono-no-friends"
   },
   "1peeN6xMKB8": {
-    "songId": "nishina-rendezvous",
+    "songId": "nishina-darling",
     "anchors": [],
     "status": "pending",
     "versionType": null,
@@ -5871,9 +5987,30 @@
   },
   "R226Jim-0GE": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0.88,
+        "line": 33
+      },
+      {
+        "t": 3.75,
+        "line": 34
+      },
+      {
+        "t": 6.59,
+        "line": 35
+      },
+      {
+        "t": 9.66,
+        "line": 36
+      },
+      {
+        "t": 13.55,
+        "line": 37
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "ZTJ2iZgJBDY": {
@@ -7386,9 +7523,30 @@
   },
   "daJBmm9OIo0": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 5
+      },
+      {
+        "t": 2.83,
+        "line": 6
+      },
+      {
+        "t": 5.72,
+        "line": 7
+      },
+      {
+        "t": 8.86,
+        "line": 8
+      },
+      {
+        "t": 12.84,
+        "line": 9
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "OjxXvKLppg0": {
@@ -7449,9 +7607,42 @@
   },
   "PXt34_gJkC8": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 3.82,
+        "line": 21
+      },
+      {
+        "t": 6.76,
+        "line": 22
+      },
+      {
+        "t": 11.51,
+        "line": 23
+      },
+      {
+        "t": 14.99,
+        "line": 24
+      },
+      {
+        "t": 19.67,
+        "line": 25
+      },
+      {
+        "t": 23.51,
+        "line": 26
+      },
+      {
+        "t": 29.4,
+        "line": 27
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "8bJGMsUNMiw": {
@@ -8106,9 +8297,30 @@
   },
   "7V3yydJunss": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0.39,
+        "line": 0
+      },
+      {
+        "t": 3.24,
+        "line": 1
+      },
+      {
+        "t": 11.79,
+        "line": 2
+      },
+      {
+        "t": 14.78,
+        "line": 3
+      },
+      {
+        "t": 22.12,
+        "line": 4
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "CZPpisme_nI": {
@@ -8599,9 +8811,38 @@
   },
   "fiBdM0Jr7IY": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 26
+      },
+      {
+        "t": 6.2,
+        "line": 27
+      },
+      {
+        "t": 10.9,
+        "line": 28
+      },
+      {
+        "t": 13.86,
+        "line": 29
+      },
+      {
+        "t": 16.74,
+        "line": 30
+      },
+      {
+        "t": 19.6,
+        "line": 31
+      },
+      {
+        "t": 23.6,
+        "line": 32
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "2lXRP-8LGmI": {
@@ -9161,9 +9402,30 @@
   },
   "yhUf7bm5IWc": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 5
+      },
+      {
+        "t": 2.77,
+        "line": 6
+      },
+      {
+        "t": 5.82,
+        "line": 7
+      },
+      {
+        "t": 8.9,
+        "line": 8
+      },
+      {
+        "t": 12.96,
+        "line": 9
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "3sSSevmACgI": {
@@ -9516,9 +9778,46 @@
   },
   "HatcVZLkVxo": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 14
+      },
+      {
+        "t": 6.58,
+        "line": 15
+      },
+      {
+        "t": 9.08,
+        "line": 16
+      },
+      {
+        "t": 11.8,
+        "line": 17
+      },
+      {
+        "t": 14.95,
+        "line": 18
+      },
+      {
+        "t": 18.94,
+        "line": 19
+      },
+      {
+        "t": 28.34,
+        "line": 20
+      },
+      {
+        "t": 31.74,
+        "line": 21
+      },
+      {
+        "t": 34.92,
+        "line": 22
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "p7E7fhZ4Ueo": {
@@ -9820,9 +10119,38 @@
   },
   "DKMwtEGWRzM": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 10
+      },
+      {
+        "t": 2.9,
+        "line": 11
+      },
+      {
+        "t": 11.61,
+        "line": 12
+      },
+      {
+        "t": 14.57,
+        "line": 13
+      },
+      {
+        "t": 21.78,
+        "line": 14
+      },
+      {
+        "t": 28.22,
+        "line": 15
+      },
+      {
+        "t": 30.7,
+        "line": 16
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "pei8V1wDOPo": {
@@ -9841,9 +10169,26 @@
   },
   "Tkm0LzYyw7w": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 33
+      },
+      {
+        "t": 2.66,
+        "line": 34
+      },
+      {
+        "t": 5.55,
+        "line": 35
+      },
+      {
+        "t": 8.56,
+        "line": 36
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "c1wfOsKtb4c": {
@@ -10188,11 +10533,12 @@
     "instrumental": false
   },
   "mT702VVzw-c": {
-    "songId": "nishina-rendezvous",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "SUPER COMPLEX"
   },
   "fHpSUmTw9Ec": {
     "songId": "nishina-hot-milk",
@@ -10378,9 +10724,30 @@
   },
   "_SlM1ZfY2mQ": {
     "songId": "nishina-rendezvous",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 28
+      },
+      {
+        "t": 2.5,
+        "line": 29
+      },
+      {
+        "t": 5.35,
+        "line": 30
+      },
+      {
+        "t": 8.45,
+        "line": 31
+      },
+      {
+        "t": 12.49,
+        "line": 32
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false
   },
   "8mbu7HEvB-c": {
@@ -11850,6 +12217,405 @@
       },
       {
         "t": 25.91,
+        "line": 27
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "5ph18LjfOe0": {
+    "songId": "nishina-rendezvous",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 5
+      },
+      {
+        "t": 2.69,
+        "line": 6
+      },
+      {
+        "t": 5.56,
+        "line": 7
+      },
+      {
+        "t": 9.09,
+        "line": 8
+      },
+      {
+        "t": 13.52,
+        "line": 9
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "Y5JhUqVgefo": {
+    "songId": "nishina-rendezvous",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 5
+      },
+      {
+        "t": 2.26,
+        "line": 6
+      },
+      {
+        "t": 5.2,
+        "line": 7
+      },
+      {
+        "t": 8.2,
+        "line": 8
+      },
+      {
+        "t": 12.28,
+        "line": 9
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "iBBMIazDybA": {
+    "songId": "nishina-rendezvous",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 33
+      },
+      {
+        "t": 2.61,
+        "line": 34
+      },
+      {
+        "t": 5.28,
+        "line": 35
+      },
+      {
+        "t": 8.43,
+        "line": 36
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "HbkTRANKCrw": {
+    "songId": "nishina-rendezvous",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 33
+      },
+      {
+        "t": 2.95,
+        "line": 34
+      },
+      {
+        "t": 5.88,
+        "line": 35
+      },
+      {
+        "t": 9.01,
+        "line": 36
+      },
+      {
+        "t": 12.85,
+        "line": 37
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "D2KKflqZXlY": {
+    "songId": "nishina-rendezvous",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 17
+      },
+      {
+        "t": 3.29,
+        "line": 18
+      },
+      {
+        "t": 7.41,
+        "line": 19
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "qckfLd6jVdk": {
+    "songId": "nishina-rendezvous",
+    "anchors": [
+      {
+        "t": 0.76,
+        "line": 5
+      },
+      {
+        "t": 3,
+        "line": 6
+      },
+      {
+        "t": 5.88,
+        "line": 7
+      },
+      {
+        "t": 9.1,
+        "line": 8
+      },
+      {
+        "t": 13.01,
+        "line": 9
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
+    "instrumental": false
+  },
+  "U7EWnIcn4II": {
+    "songId": "nishina-rendezvous",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 13
+      },
+      {
+        "t": 3.17,
+        "line": 14
+      },
+      {
+        "t": 9.48,
+        "line": 15
+      },
+      {
+        "t": 12.16,
+        "line": 16
+      },
+      {
+        "t": 14.91,
+        "line": 17
+      },
+      {
+        "t": 18.03,
+        "line": 18
+      },
+      {
+        "t": 22.09,
+        "line": 19
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "yersq1mwdFU": {
+    "songId": "nishina-rendezvous",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 14
+      },
+      {
+        "t": 5.79,
+        "line": 15
+      },
+      {
+        "t": 8.63,
+        "line": 16
+      },
+      {
+        "t": 11.54,
+        "line": 17
+      },
+      {
+        "t": 14.64,
+        "line": 18
+      },
+      {
+        "t": 18.77,
+        "line": 19
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "s4Jo34vFsis": {
+    "songId": "nishina-rendezvous",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 33
+      },
+      {
+        "t": 2.6,
+        "line": 34
+      },
+      {
+        "t": 5.56,
+        "line": 35
+      },
+      {
+        "t": 8.66,
+        "line": 36
+      },
+      {
+        "t": 12.94,
+        "line": 37
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "FDMtotAEx2g": {
+    "songId": "nishina-rendezvous",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 19
+      },
+      {
+        "t": 9.23,
+        "line": 20
+      },
+      {
+        "t": 12.33,
+        "line": 21
+      },
+      {
+        "t": 16.07,
+        "line": 22
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
+    "instrumental": false
+  },
+  "JA2Y9ZIFnOQ": {
+    "songId": "nishina-darling",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 4.46,
+        "line": 1
+      },
+      {
+        "t": 11.54,
+        "line": 2
+      },
+      {
+        "t": 16.47,
+        "line": 3
+      },
+      {
+        "t": 20.48,
+        "line": 4
+      },
+      {
+        "t": 27.72,
+        "line": 5
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "IX_U2M1lqZw": {
+    "songId": "nishina-rendezvous",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 3.81,
+        "line": 21
+      },
+      {
+        "t": 7.32,
+        "line": 22
+      },
+      {
+        "t": 12.31,
+        "line": 23
+      },
+      {
+        "t": 16.06,
+        "line": 24
+      },
+      {
+        "t": 21.33,
+        "line": 25
+      },
+      {
+        "t": 25.59,
+        "line": 26
+      },
+      {
+        "t": 32.49,
+        "line": 27
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "Y9Hhh3MSFYo": {
+    "songId": "nishina-haru-ichiban",
+    "anchors": [],
+    "status": "pending",
+    "versionType": null,
+    "instrumental": false
+  },
+  "uH_MtCmfOGo": {
+    "songId": "nishina-darling",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 21
+      },
+      {
+        "t": 8.26,
+        "line": 22
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
+    "instrumental": false
+  },
+  "1rtwKF5PdpI": {
+    "songId": "nishina-darling",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 23
+      },
+      {
+        "t": 4.2,
+        "line": 24
+      },
+      {
+        "t": 8.69,
+        "line": 25
+      },
+      {
+        "t": 16.08,
+        "line": 26
+      },
+      {
+        "t": 19.93,
         "line": 27
       }
     ],
