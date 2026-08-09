@@ -91,6 +91,22 @@ def verify_coverage():
             print(f"✓ fp{size} 覆蓋 100%")
 
 
+OPENHUNINN_URL = "https://cdn.jsdelivr.net/gh/justfont/open-huninn-font@master/font/jf-openhuninn-2.1.ttf"
+
+
+def subset_openhuninn():
+    """jf 粉圓 (H 拍板 2026-08): 中文閱讀區內文字 → public/fonts/openhuninn-site.woff2"""
+    from fontTools import subset as fts
+    src = SRC_DIR / "jf-openhuninn-2.1.ttf"
+    if not src.exists():
+        SRC_DIR.mkdir(exist_ok=True)
+        print("↓ 下載 jf-openhuninn 2.1 (~4.7MB, 只需一次) …")
+        urllib.request.urlretrieve(OPENHUNINN_URL, src)
+    out = ROOT / "public" / "fonts" / "openhuninn-site.woff2"
+    fts.main([str(src), f"--text-file={CHARSET}", "--flavor=woff2", f"--output-file={out}"])
+    print(f"✓ {out.relative_to(ROOT)} ({out.stat().st_size // 1024}KB)")
+
+
 def main():
     if not CHARSET.exists():
         print("先跑 scripts/build_site_charset.py", file=sys.stderr)
@@ -99,6 +115,7 @@ def main():
         ensure_sources(size)
         for lang in LANGS:
             subset(size, lang)
+    subset_openhuninn()
     verify_coverage()
 
 

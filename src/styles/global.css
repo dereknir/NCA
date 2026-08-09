@@ -382,6 +382,13 @@ h2.px, .px-h2 {
   src: url('/fonts/pixel/fp10-site-zh_hant.woff2') format('woff2');
   font-display: swap;
 }
+/* jf 粉圓 (H 拍板 2026-08): 中文閱讀區的「人的聲音」— 歌曲介紹/歌詞 zh/翻譯筆記
+   568KB subset, 不 preload (內文字型 lazy + swap 即可) */
+@font-face {
+  font-family: 'openhuninn';
+  src: url('/fonts/openhuninn-site.woff2') format('woff2');
+  font-display: swap;
+}
 @font-face {
   font-family: 'PX10-JA';
   src: url('/fonts/pixel/fp10-site-ja.woff2') format('woff2');
@@ -397,11 +404,12 @@ body {
    T 調參 (2026-08 拍板): 像素字的疲勞主因是「密」— 行高 2.2 / 字距 +5%
    (20px×.05em=1px, 正好一格) / 行寬限 36em / 對比降半階 */
 .prose p, .prose li, .prose blockquote {
+  font-family: 'openhuninn', 'Noto Sans TC', 'Noto Sans JP', sans-serif;   /* H 粉圓 */
   font-size: 20px;
-  line-height: 2.2;
-  letter-spacing: .05em;
+  line-height: 2.1;
+  letter-spacing: .02em;
   max-width: 36em;
-  color: #ccd5ea;
+  color: #d4dcf0;
 }
 .prose p + p { margin-top: 1.4rem; }
 .prose h2 {
@@ -427,14 +435,14 @@ body {
   letter-spacing: .03em;
 }
 .lyrics-line .zh, .lyrics-zh {
-  font-family: 'PX10-ZH', 'PX10-JA', var(--font-sans);
+  font-family: 'openhuninn', 'Noto Sans TC', var(--font-sans);   /* H 粉圓 */
   font-size: 20px;
-  line-height: 2.15;
-  letter-spacing: .05em;
-  color: #a7b3d4;
+  line-height: 2.05;
+  letter-spacing: .02em;
+  color: #b6c2e0;
 }
 .lyrics-line .romaji {
-  font-size: 10px;
+  font-size: 12px;   /* 10px 太小, 拍板加大 (12 = PX12 網格點, 仍 crisp) */
   letter-spacing: .04em;
 }
 .lyrics-singer { font-size: 12px; }

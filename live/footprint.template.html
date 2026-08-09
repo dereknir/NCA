@@ -8,9 +8,13 @@
 <!-- og:image 用根相對路徑; 正式網域拍板後換成絕對 URL (FB 爬蟲較挑) -->
 <meta property="og:image" content="/og/footprint.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 <style>
+  @font-face{font-family:'openhuninn';src:url('/fonts/openhuninn-site.woff2') format('woff2');font-display:swap}
   :root{--bg:#0a0a15;--panel:#141d31;--line:#243154;--text:#e8ecf6;--dim:#8b97b8;
-        --accent:#3d63ff;--gold:#e8c94a;--font:"Noto Sans TC","Hiragino Sans",system-ui,sans-serif}
+        --accent:#3d63ff;--gold:#e8c94a;--font:'DotGothic16','openhuninn',"Noto Sans TC","Hiragino Sans",system-ui,sans-serif}
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6}
   .site-topbar{position:sticky;top:0;z-index:50;height:57px;background:rgba(10,10,21,0.75);
