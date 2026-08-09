@@ -3146,9 +3146,9 @@
     "instrumental": false
   },
   "bAPIV9sSFLg": {
-    "songId": "nishina-sugar-spot",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -3345,9 +3345,9 @@
     "instrumental": false
   },
   "h6_BrqVFBvc": {
-    "songId": "nishina-plum",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
     "instrumental": false
   },
@@ -3469,11 +3469,12 @@
     "instrumental": false
   },
   "dzmzxGApUpk": {
-    "songId": "nishina-cranberry-jam",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "SPACE SHOWER SWEET LOVE SHOWER 2025 30th ANNIVERSARY"
   },
   "aHvslMI9Ois": {
     "songId": "nishina-u-plus",
@@ -3633,11 +3634,12 @@
     "instrumental": false
   },
   "Rl5rdd2JDDk": {
-    "songId": "nishina-mashiro",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "SPACE SHOWER SWEET LOVE SHOWER 2025 30th ANNIVERSARY"
   },
   "5XcPLQTKSzM": {
     "songId": "nishina-sugar-spot",
@@ -5124,9 +5126,26 @@
   },
   "weQwfeErYiA": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 6.28,
+        "line": 9
+      },
+      {
+        "t": 14.55,
+        "line": 10
+      },
+      {
+        "t": 17.88,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "tft",
     "instrumental": false
   },
   "Al-9ppLMtus": {
@@ -5302,9 +5321,26 @@
   },
   "iDoS4qNSnPE": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 5.76,
+        "line": 9
+      },
+      {
+        "t": 13.62,
+        "line": 10
+      },
+      {
+        "t": 19.53,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "fFiKPOqHV64": {
@@ -5393,9 +5429,26 @@
   },
   "yQgomjw4m4M": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 5.99,
+        "line": 21
+      },
+      {
+        "t": 13.88,
+        "line": 22
+      },
+      {
+        "t": 19.68,
+        "line": 23
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "Va-ak8tpS40": {
@@ -5429,9 +5482,26 @@
   },
   "pwcDCe3HDrc": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 5.75,
+        "line": 9
+      },
+      {
+        "t": 13.67,
+        "line": 10
+      },
+      {
+        "t": 19.55,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "kgbrYaCB0Ns": {
@@ -5500,9 +5570,26 @@
   },
   "r1y0gbNv0uI": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 5.91,
+        "line": 9
+      },
+      {
+        "t": 13.77,
+        "line": 10
+      },
+      {
+        "t": 19.83,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "c6SoI6gwKs8": {
@@ -6075,9 +6162,9 @@
     "instrumental": false
   },
   "E5bGnsg6Bi0": {
-    "songId": "nishina-dress-code",
+    "songId": "__promo",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": "other",
     "instrumental": false
   },
@@ -6112,11 +6199,12 @@
     "instrumental": false
   },
   "jizxMwZn3xA": {
-    "songId": "nishina-tsukushi",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "MUSICK"
   },
   "E2DQcNQwKi4": {
     "songId": "nishina-mashiro",
@@ -6162,9 +6250,26 @@
   },
   "175bukXjOSM": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 5.66,
+        "line": 21
+      },
+      {
+        "t": 13.61,
+        "line": 22
+      },
+      {
+        "t": 19.44,
+        "line": 23
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "R226Jim-0GE": {
@@ -6225,17 +6330,35 @@
   },
   "pC3disJ4b0s": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 5.77,
+        "line": 9
+      },
+      {
+        "t": 13.95,
+        "line": 10
+      },
+      {
+        "t": 19.66,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "LGDFgeJH_DM": {
-    "songId": "nishina-dress-code",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "日々散漫"
   },
   "OrAWBxAhpbo": {
     "songId": "nishina-adaada",
@@ -6296,9 +6419,26 @@
   },
   "5F1KS0dIUTQ": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0.93,
+        "line": 12
+      },
+      {
+        "t": 7.8,
+        "line": 13
+      },
+      {
+        "t": 14.71,
+        "line": 14
+      },
+      {
+        "t": 21.39,
+        "line": 15
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "7Ibg4oXp7fc": {
@@ -6845,9 +6985,26 @@
   },
   "U8aIYOOyWC0": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 5.92,
+        "line": 9
+      },
+      {
+        "t": 13.78,
+        "line": 10
+      },
+      {
+        "t": 19.81,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "Lm2MMRJi4no": {
@@ -7048,11 +7205,12 @@
     "instrumental": false
   },
   "aBvOpamhRaA": {
-    "songId": "nishina-heavy-smoke",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "Feeling"
   },
   "w2QTMR9UK_U": {
     "songId": "nishina-tokyo-marble",
@@ -7202,9 +7360,26 @@
   },
   "5xCSZ8qDkb8": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 6.1,
+        "line": 21
+      },
+      {
+        "t": 13.84,
+        "line": 22
+      },
+      {
+        "t": 19.83,
+        "line": 23
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "aoZ3rMC0BJY": {
@@ -7288,9 +7463,26 @@
   },
   "a4I5biv0yWc": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 6.1,
+        "line": 21
+      },
+      {
+        "t": 13.98,
+        "line": 22
+      },
+      {
+        "t": 19.87,
+        "line": 23
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "KY1VRcke79A": {
@@ -7382,9 +7574,22 @@
   },
   "-Vh6E39-0sk": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 22
+      },
+      {
+        "t": 6.34,
+        "line": 23
+      },
+      {
+        "t": 13.22,
+        "line": 24
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "VPWimDPjDLs": {
@@ -7775,9 +7980,42 @@
   },
   "GUCDBTtejRE": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 12
+      },
+      {
+        "t": 6.92,
+        "line": 13
+      },
+      {
+        "t": 13.71,
+        "line": 14
+      },
+      {
+        "t": 20.9,
+        "line": 15
+      },
+      {
+        "t": 27.55,
+        "line": 16
+      },
+      {
+        "t": 34.05,
+        "line": 17
+      },
+      {
+        "t": 41.35,
+        "line": 18
+      },
+      {
+        "t": 46.91,
+        "line": 19
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "7F9GklA1IOw": {
@@ -7964,9 +8202,26 @@
   },
   "OjxXvKLppg0": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 5.86,
+        "line": 21
+      },
+      {
+        "t": 13.64,
+        "line": 22
+      },
+      {
+        "t": 19.49,
+        "line": 23
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "CtWiuYuiJhc": {
@@ -8039,9 +8294,30 @@
   },
   "AiwHJf_2Q-M": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 7
+      },
+      {
+        "t": 2.62,
+        "line": 8
+      },
+      {
+        "t": 9.01,
+        "line": 9
+      },
+      {
+        "t": 17.1,
+        "line": 10
+      },
+      {
+        "t": 23.47,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "tft",
     "instrumental": false
   },
   "nIDdfuQXr80": {
@@ -8702,11 +8978,12 @@
     "instrumental": false
   },
   "4hG_Roelrkw": {
-    "songId": "nishina-heavy-smoke",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "MUSICK 2"
   },
   "9vpFW50o378": {
     "songId": "nishina-nekoze",
@@ -8894,9 +9171,30 @@
   },
   "6Z37MZ-7_6o": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 5.89,
+        "line": 21
+      },
+      {
+        "t": 13.81,
+        "line": 22
+      },
+      {
+        "t": 19.86,
+        "line": 23
+      },
+      {
+        "t": 26.7,
+        "line": 24
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "cpECB2X9xc8": {
@@ -9067,16 +9365,54 @@
   },
   "t3nQBkat65Q": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 5.59,
+        "line": 9
+      },
+      {
+        "t": 13.46,
+        "line": 10
+      },
+      {
+        "t": 19.57,
+        "line": 11
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "MMVdIIfAN0c": {
     "songId": "nishina-seiran-yuuei",
-    "anchors": [],
-    "status": "pending",
-    "versionType": null,
+    "anchors": [
+      {
+        "t": 0,
+        "line": 20
+      },
+      {
+        "t": 5.71,
+        "line": 21
+      },
+      {
+        "t": 13.64,
+        "line": 22
+      },
+      {
+        "t": 19.67,
+        "line": 23
+      },
+      {
+        "t": 26.57,
+        "line": 24
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false
   },
   "aGvH89gwKBs": {
@@ -9520,11 +9856,12 @@
     "instrumental": false
   },
   "TVToEKl_z2E": {
-    "songId": "nishina-sugar-spot",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "Feeling"
   },
   "99t0ESGWhEo": {
     "songId": "nishina-haru-ichiban",
@@ -10091,11 +10428,13 @@
     "instrumental": false
   },
   "YkObokSE9nY": {
-    "songId": "nishina-friday-kids-china-town",
+    "songId": "__live_song",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "appearanceName": "LIVE at 川崎学園祭",
+    "liveSongId": "nishina-friday-kids-china-town"
   },
   "nndI6LsbOic": {
     "songId": "nishina-plum",
@@ -10878,18 +11217,20 @@
     "tourName": "クランベリージャムをかけて"
   },
   "gEh0D1jo-0Q": {
-    "songId": "nishina-sugar-spot",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "SUPER COMPLEX"
   },
   "oZud3cTL1U0": {
-    "songId": "nishina-cranberry-jam",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "pending",
+    "status": "done",
     "versionType": null,
-    "instrumental": false
+    "instrumental": false,
+    "tourName": "SUPER COMPLEX"
   },
   "9vu5lgiMlDI": {
     "songId": "nishina-plum",
@@ -13174,6 +13515,43 @@
     ],
     "status": "done",
     "versionType": "live",
+    "instrumental": false
+  },
+  "aY6fXV1c-70": {
+    "songId": "__tour_recap",
+    "anchors": [],
+    "status": "done",
+    "versionType": null,
+    "instrumental": false,
+    "tourName": "クランベリージャムをかけて"
+  },
+  "IW2QkIv8xhI": {
+    "songId": "nishina-cranberry-jam",
+    "anchors": [],
+    "status": "pending",
+    "versionType": null,
+    "instrumental": false
+  },
+  "oDMTSpMacdI": {
+    "songId": "__tour_recap",
+    "anchors": [],
+    "status": "done",
+    "versionType": null,
+    "instrumental": false,
+    "tourName": "クランベリージャムをかけて"
+  },
+  "qbCP1cxHwcw": {
+    "songId": "nishina-heavy-smoke",
+    "anchors": [],
+    "status": "pending",
+    "versionType": null,
+    "instrumental": false
+  },
+  "mDwpnYpYRE0": {
+    "songId": "nishina-twinkle-little-star",
+    "anchors": [],
+    "status": "pending",
+    "versionType": null,
     "instrumental": false
   }
 }
