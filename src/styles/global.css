@@ -442,8 +442,11 @@ body {
   color: #b6c2e0;
 }
 .lyrics-line .romaji {
-  font-size: 12px;   /* 10px 太小, 拍板加大 (12 = PX12 網格點, 仍 crisp) */
-  letter-spacing: .04em;
+  /* 跟日文行同家 DotGothic16 (拉丁字型有, 輪廓字不吃網格紀律);
+     之前繼承 body PX10 → 12px 非 10 的倍數, 又小又微糊 */
+  font-family: 'DotGothic16', monospace;
+  font-size: 14px;
+  letter-spacing: .05em;
 }
 .lyrics-singer { font-size: 12px; }
 
