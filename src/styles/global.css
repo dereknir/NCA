@@ -412,6 +412,20 @@ body {
   color: #d4dcf0;
 }
 .prose p + p { margin-top: 1.4rem; }
+/* 表格: td 內容跟內文同聲 (粉圓); th 表頭維持像素 = 「標題是機器的聲音」規則 */
+.prose td {
+  font-family: 'openhuninn', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
+  font-size: 18px;   /* 表格較密, 比內文 20px 收一級 */
+  line-height: 1.9;
+  color: #d4dcf0;
+}
+.prose th {
+  font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
+  font-weight: 400;
+  font-size: 12px;   /* PX12 網格點, crisp */
+  letter-spacing: .08em;
+  color: #e8ecf6;
+}
 .prose h2 {
   font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
   font-size: 24px;
