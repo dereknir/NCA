@@ -35,9 +35,11 @@ const cfg = { nameJa, title, sub, glType, seed, palette, pageBg: '#0a0a15' };
     function go() {
       var el = document.querySelector('[data-phero]');
       if (!el || el.dataset.mounted) return;
-      if (!window.PlanetHero) { setTimeout(go, 40); return; }
+      /* 注意: planet-hero.js 是頂層 const 宣告 — classic script 的 const
+         不上 window, 只能用裸名 typeof 檢查 (window.PlanetHero 永遠 undefined) */
+      if (typeof PlanetHero === 'undefined') { setTimeout(go, 40); return; }
       el.dataset.mounted = '1';
-      var inst = window.PlanetHero.mount(el, cfg);
+      var inst = PlanetHero.mount(el, cfg);
       // VT 換頁時銷毀 (停掉 rAF loop), 新頁的 script 會再 mount 自己的
       document.addEventListener('astro:before-swap', function h() {
         inst.destroy();

@@ -313,9 +313,9 @@ document.querySelectorAll('section').forEach(s => io.observe(s));
   function go() {
     var el = document.querySelector('[data-phero]');
     if (!el || el.dataset.mounted) return;
-    if (!window.PlanetHero) { setTimeout(go, 40); return; }
+    if (typeof PlanetHero === 'undefined') { setTimeout(go, 40); return; }
     el.dataset.mounted = '1';
-    window.PlanetHero.mount(el, cfg);
+    PlanetHero.mount(el, cfg);
   }
   go();
 })();
