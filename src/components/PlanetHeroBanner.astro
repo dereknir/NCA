@@ -1,0 +1,50 @@
+---
+/**
+ * PlanetHeroBanner — 行星著陸場景 hero (galaxy 敘事閉環)
+ *
+ * 每個「galaxy 行星 → 站內頁」的落地頁頂部, 都是該行星的地表:
+ * 行星色盤視差山稜 + 停泊小船 + 環境粒子 (由 /js/planet-hero.js 繪製)。
+ * 用法: <PlanetHeroBanner slot="hero" nameJa="地球" title="日文歌翻譯" ... />
+ * 樣式在 global.css 的 .phero-sec 區塊 (canvas 是 JS 動態插入, scoped style 蓋不到)。
+ * VT 相容: mount 掛 astro:page-load + dataset guard, before-swap 銷毀舊 instance。
+ */
+interface Props {
+  nameJa: string;    // 行星名 (水星/金星/…)
+  title: string;     // 頁面主題 (顯示於 overlay)
+  sub: string;       // 英文副標
+  glType: string;    // planet-hero 地形類型 (wet/dry/ice/gas1/gas2/noatmo)
+  seed: number;      // 對齊 galaxy 該行星的 glSeed (同一顆星同一片地)
+  palette: number[][];
+}
+const { nameJa, title, sub, glType, seed, palette } = Astro.props;
+const cfg = { nameJa, title, sub, glType, seed, palette, pageBg: '#0a0a15' };
+---
+
+<div class="phero-sec" data-phero>
+  <div class="ph-overlay">
+    <div class="pn">{nameJa} — NISHINA SOLAR SYSTEM</div>
+    <h1>{title}</h1>
+    <div class="ps">{sub}</div>
+  </div>
+  <div class="ph-hint">▼</div>
+</div>
+
+<script is:inline src="/js/planet-hero.js"></script>
+<script is:inline define:vars={{ cfg }}>
+  (function () {
+    function go() {
+      var el = document.querySelector('[data-phero]');
+      if (!el || el.dataset.mounted) return;
+      if (!window.PlanetHero) { setTimeout(go, 40); return; }
+      el.dataset.mounted = '1';
+      var inst = window.PlanetHero.mount(el, cfg);
+      // VT 換頁時銷毀 (停掉 rAF loop), 新頁的 script 會再 mount 自己的
+      document.addEventListener('astro:before-swap', function h() {
+        inst.destroy();
+        document.removeEventListener('astro:before-swap', h);
+      });
+    }
+    go();
+    document.addEventListener('astro:page-load', go);
+  })();
+</script>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PlanetHeroBanner from '../../components/PlanetHeroBanner.astro';
 import { getCollection } from 'astro:content';
 
 const allTranslations = await getCollection('translations');
@@ -62,6 +63,8 @@ const overallProgress = totalSongs > 0 ? Math.round((totalTranslated / totalSong
 ---
 
 <BaseLayout title="日文歌翻譯" description="日文歌曲中文翻譯收藏" viewTransitions={true}>
+  <PlanetHeroBanner slot="hero" nameJa="地球" title="日文歌翻譯" sub="LYRICS TRANSLATION ARCHIVE"
+    glType="wet" seed={5.4} palette={[[92,168,255],[26,84,160],[70,190,110],[26,120,72],[170,190,220],[245,248,255]]} />
   <div class="max-w-4xl mx-auto">
     <h1 class="px text-4xl font-bold mb-2">日文歌翻譯</h1>
     <p class="text-gray-600 dark:text-gray-400 mb-6">收錄我喜愛的日文歌曲翻譯，包含原文與中文對照</p>

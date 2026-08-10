@@ -1,8 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PlanetHeroBanner from '../components/PlanetHeroBanner.astro';
 ---
 
 <BaseLayout title="關於我" description="認識 Derek">
+  <PlanetHeroBanner slot="hero" nameJa="海王星" title="關於我" sub="ABOUT"
+    glType="ice" seed={8.8} palette={[[178,168,255],[104,92,220],[66,58,170],[40,34,116],[24,20,80],[205,198,255]]} />
   <div class="max-w-3xl mx-auto">
     <h1 class="px text-4xl font-bold mb-8">關於我</h1>
 

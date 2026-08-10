@@ -84,6 +84,18 @@
   .bonds .pair span{color:var(--dim);margin:0 6px}
   .bonds .stat{color:var(--dim);font-size:11.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
   footer{color:var(--dim);font-size:12px;margin-top:90px;text-align:center}
+
+  /* ---- PlanetHero 著陸場景 (galaxy 敘事閉環, 站內適配) ---- */
+  @font-face{font-family:'PX-ZH';src:url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'PX-JA';src:url('/fonts/pixel/fp12-site-ja.woff2') format('woff2');font-display:swap}
+  .phero-sec{position:relative;height:50vh;overflow:hidden;flex-shrink:0}
+  .phero-sec .ph-canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+  .phero-sec .ph-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+    align-items:flex-start;padding:0 8%;pointer-events:none;z-index:2}
+  .phero-sec .pn{font-family:'PX-ZH','PX-JA',var(--font);color:rgba(232,236,246,.55);font-size:12px;letter-spacing:.35em}
+  .phero-sec h1{font-family:'PX-ZH','PX-JA',var(--font);font-weight:400;font-size:36px;letter-spacing:.14em;
+    margin:8px 0 6px;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+  .phero-sec .ps{font-family:'PX-ZH','PX-JA',var(--font);color:rgba(232,236,246,.7);font-size:12px;letter-spacing:.2em}
 </style>
 </head>
 <body>
@@ -92,6 +104,14 @@
     <a href="/">Derek's Site</a>
   </div>
 </header>
+<div class="phero-sec" data-phero>
+  <div class="ph-overlay">
+    <div class="pn">金星 — NISHINA SOLAR SYSTEM</div>
+    <h1>歌詞宇宙</h1>
+    <div class="ps">LYRIC UNIVERSE</div>
+  </div>
+</div>
+
 <main>
   <h1>にしな歌詞宇宙</h1>
   <p class="sub" style="margin-top:10px">用資料回答:她的歌詞世界是由什麼構成的</p>
@@ -285,6 +305,20 @@ const io = new IntersectionObserver(
   es => es.forEach(e => e.isIntersecting && e.target.classList.add('vis')),
   { threshold: 0.12 });
 document.querySelectorAll('section').forEach(s => io.observe(s));
+</script>
+<script src="/js/planet-hero.js"></script>
+<script>
+(function () {
+  var cfg = {"nameJa": "金星", "title": "歌詞宇宙", "sub": "LYRIC UNIVERSE", "glType": "dry", "seed": 6.1, "palette": [[255, 196, 220], [240, 100, 160], [190, 64, 116], [128, 42, 82], [64, 24, 46], [0, 0, 0]], "pageBg": "#0a0a15"};
+  function go() {
+    var el = document.querySelector('[data-phero]');
+    if (!el || el.dataset.mounted) return;
+    if (!window.PlanetHero) { setTimeout(go, 40); return; }
+    el.dataset.mounted = '1';
+    window.PlanetHero.mount(el, cfg);
+  }
+  go();
+})();
 </script>
 </body>
 </html>

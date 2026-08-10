@@ -10,6 +10,7 @@
  * 資料更新流程: 改 live/data/*.json → python live/inject.py → commit
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PlanetHeroBanner from '../../components/PlanetHeroBanner.astro';
 import events from '../../../live/data/nishina_live_events.json';
 import news from '../../../live/data/nishina_news_classified.json';
 import tours from '../../../live/data/tour_stops.json';
@@ -21,6 +22,8 @@ const stops = tours.meta.total_stops;
 ---
 
 <BaseLayout title="にしな 演出資料" description="にしな 公演史・出演足跡・年表">
+  <PlanetHeroBanner slot="hero" nameJa="火星" title="Live 演出" sub="LIVE DATA HUB"
+    glType="dry" seed={3.7} palette={[[255,168,130],[230,96,72],[178,62,50],[116,40,34],[58,24,22],[0,0,0]]} />
   <div class="max-w-4xl mx-auto">
     <h1 class="px text-4xl font-bold mb-2">にしな 演出資料</h1>
     <p class="text-gray-400 text-sm mb-10">

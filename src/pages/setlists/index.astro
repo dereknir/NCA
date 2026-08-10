@@ -7,6 +7,7 @@
  * embed page 的 __NEXT_DATA__ tracklist)
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PlanetHeroBanner from '../../components/PlanetHeroBanner.astro';
 import setlists from '../../data/setlists.json';
 import tourRecaps from '../../data/shorts_tours.json';
 
@@ -49,6 +50,8 @@ function formatViews(n: number): string {
 ---
 
 <BaseLayout title="巡演 Setlist" description="にしな 歷年巡演的完整曲目清單">
+  <PlanetHeroBanner slot="hero" nameJa="土星" title="巡演 Setlist" sub="TOUR SETLISTS ・ 公転"
+    glType="gas2" seed={5.8} palette={[[246,224,160],[228,196,120],[190,156,92],[134,108,64],[232,200,128],[150,124,76]]} />
   <div class="max-w-5xl mx-auto">
     <h1 class="px text-4xl font-bold mb-2">巡演 Setlist</h1>
     <p class="text-gray-600 dark:text-gray-400 mb-2">

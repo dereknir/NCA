@@ -113,6 +113,18 @@
     .artist.locked::after{left:50%;top:56px;transform:translateX(-50%)}
     #bookPanel{order:3}
   }
+
+  /* ---- PlanetHero 著陸場景 (galaxy 敘事閉環, 站內適配) ---- */
+  @font-face{font-family:'PX-ZH';src:url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'PX-JA';src:url('/fonts/pixel/fp12-site-ja.woff2') format('woff2');font-display:swap}
+  .phero-sec{position:relative;height:40vh;overflow:hidden;flex-shrink:0}
+  .phero-sec .ph-canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+  .phero-sec .ph-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+    align-items:flex-start;padding:0 8%;pointer-events:none;z-index:2}
+  .phero-sec .pn{font-family:'PX-ZH','PX-JA',var(--font);color:rgba(232,236,246,.55);font-size:12px;letter-spacing:.35em}
+  .phero-sec h1{font-family:'PX-ZH','PX-JA',var(--font);font-weight:400;font-size:36px;letter-spacing:.14em;
+    margin:8px 0 6px;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+  .phero-sec .ps{font-family:'PX-ZH','PX-JA',var(--font);color:rgba(232,236,246,.7);font-size:12px;letter-spacing:.2em}
 </style>
 </head>
 <body>
@@ -125,6 +137,14 @@
     <a href="/star-map/">歌詞星圖</a>
   </div>
 </nav>
+<div class="phero-sec" data-phero>
+  <div class="ph-overlay">
+    <div class="pn">木星 — NISHINA SOLAR SYSTEM</div>
+    <h1>歌詞卡ガチャ</h1>
+    <div class="ps">LYRIC CARD GACHA</div>
+  </div>
+</div>
+
 
 <h1>にしなカードガチャ <span class="beta">β</span></h1>
 <p class="sub">點扭蛋機抽一張獨一無二的歌詞卡・演出中再點一下可跳過</p>
@@ -583,6 +603,20 @@ const FONTS = [
     $('hint').textContent = '載入失敗:請以 http server 啟動';
     console.error(e);
   }
+})();
+</script>
+<script src="/js/planet-hero.js"></script>
+<script>
+(function () {
+  var cfg = {"nameJa": "木星", "title": "歌詞卡ガチャ", "sub": "LYRIC CARD GACHA", "glType": "gas1", "seed": 4.9, "palette": [[255, 214, 138], [244, 168, 54], [214, 120, 40], [160, 80, 32], [96, 48, 22], [214, 72, 52]], "pageBg": "#0a0a15"};
+  function go() {
+    var el = document.querySelector('[data-phero]');
+    if (!el || el.dataset.mounted) return;
+    if (!window.PlanetHero) { setTimeout(go, 40); return; }
+    el.dataset.mounted = '1';
+    window.PlanetHero.mount(el, cfg);
+  }
+  go();
 })();
 </script>
 </body>

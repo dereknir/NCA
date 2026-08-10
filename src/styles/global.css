@@ -469,3 +469,25 @@ body {
 .text-sm { font-size: 12px; }
 .text-xs { font-size: 12px; }
 .text-\[11px\] { font-size: 12px; }
+
+/* ---- PlanetHero 著陸場景 (行星頁 hero, galaxy 敘事閉環) ---- */
+.phero-sec { position: relative; height: 50vh; min-height: 300px; overflow: hidden; }
+@media (max-width: 700px) { .phero-sec { height: 38vh; } }
+.phero-sec .ph-canvas { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+.phero-sec .ph-overlay {
+  position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;
+  align-items: flex-start; padding: 0 8%; pointer-events: none; z-index: 2;
+}
+.phero-sec .pn { font-family: 'PX-ZH','PX-JA',var(--font-sans); color: rgba(232,236,246,.55); font-size: 12px; letter-spacing: .35em; }
+.phero-sec h1 {
+  font-family: 'PX-ZH','PX-JA',var(--font-sans); font-weight: 400; font-size: 36px;
+  letter-spacing: .14em; margin: 10px 0 8px; color: #fff; text-shadow: 0 2px 14px rgba(0,0,0,.5);
+}
+@media (max-width: 700px) { .phero-sec h1 { font-size: 24px; } }
+.phero-sec .ps { font-family: 'PX-ZH','PX-JA',var(--font-sans); color: rgba(232,236,246,.7); font-size: 12px; letter-spacing: .2em; }
+.phero-sec .ph-hint {
+  position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+  color: rgba(232,236,246,.5); font-size: 16px; z-index: 2; animation: phbob 1.6s ease-in-out infinite;
+}
+@keyframes phbob { 50% { transform: translate(-50%, 6px); } }
+@media (prefers-reduced-motion: reduce) { .phero-sec .ph-hint { animation: none; } }
