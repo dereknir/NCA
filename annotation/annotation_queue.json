@@ -1,11 +1,233 @@
 {
   "meta": {
     "topN": 0,
-    "totalInQueue": 1307,
+    "totalInQueue": 1308,
     "songCount": 36,
     "unmatchedCount": 835
   },
   "queue": {
+    "nishina-seiran-yuuei": [
+      {
+        "videoId": "aE5U_gwzzQg",
+        "title": "永遠に僕らは大人になれずに #shorts",
+        "viewCount": 59000,
+        "thumbnail": "https://i.ytimg.com/vi/aE5U_gwzzQg/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 8,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "fyWT9erHnW4",
+        "title": "ただ好き勝手に泳いでいく #にしな #青藍遊泳 #shorts",
+        "viewCount": 27000,
+        "thumbnail": "https://i.ytimg.com/vi/fyWT9erHnW4/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 11,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "PCTEG-DYr74",
+        "title": "さらば友よ、忘れてしまえよ #にしな #青藍遊泳 #shorts",
+        "viewCount": 24000,
+        "thumbnail": "https://i.ytimg.com/vi/PCTEG-DYr74/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 10,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "bNIPQRvUIUk",
+        "title": "ただ好き勝手に泳いでいく #にしな #青藍遊泳 #shorts",
+        "viewCount": 20000,
+        "thumbnail": "https://i.ytimg.com/vi/bNIPQRvUIUk/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 11,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "SwAtwiWvSdE",
+        "title": "永遠に僕らは大人になれずに #にしな #nishina  #ライブ #shorts",
+        "viewCount": 19000,
+        "thumbnail": "https://i.ytimg.com/vi/SwAtwiWvSdE/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 8,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "6TZIGpZS8ZE",
+        "title": "さらば友よ #にしな #青藍遊泳 #shorts",
+        "viewCount": 18000,
+        "thumbnail": "https://i.ytimg.com/vi/6TZIGpZS8ZE/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 10,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "g9gTdmCa3FE",
+        "title": "永遠に僕らは大人になれずに #にしな #nishina #shorts",
+        "viewCount": 15000,
+        "thumbnail": "https://i.ytimg.com/vi/g9gTdmCa3FE/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 8,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "rvzFeJ0lcBo",
+        "title": "永遠に僕らは大人になれずに #にしな #青藍遊泳 #shorts",
+        "viewCount": 14000,
+        "thumbnail": "https://i.ytimg.com/vi/rvzFeJ0lcBo/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 8,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "fkIAFNC331I",
+        "title": "夜空の星屑　盗む事ばかり企んでいる #にしな #青藍遊泳 #shorts",
+        "viewCount": 14000,
+        "thumbnail": "https://i.ytimg.com/vi/fkIAFNC331I/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 9,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "YzDus5M3URQ",
+        "title": "門出の夜に忍び込んで 青いプール金魚を放とう #にしな #nishina #青藍遊泳 #ライブ #shorts",
+        "viewCount": 10000,
+        "thumbnail": "https://i.ytimg.com/vi/YzDus5M3URQ/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 0,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "K0SLZrb9IwA",
+        "title": "さらば友よ、忘れてしまえよ #にしな #nishina #ライブ #shorts",
+        "viewCount": 10000,
+        "thumbnail": "https://i.ytimg.com/vi/K0SLZrb9IwA/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 10,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "wF9oCsyWkkQ",
+        "title": "ただ必死になって泳いでいく #にしな #青藍遊泳 #shorts",
+        "viewCount": 10000,
+        "thumbnail": "https://i.ytimg.com/vi/wF9oCsyWkkQ/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 23,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "I11HYAJFsaE",
+        "title": "ただ好き勝手に泳いでいく #にしな #nishina #ライブ #shorts",
+        "viewCount": 7000,
+        "thumbnail": "https://i.ytimg.com/vi/I11HYAJFsaE/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 11,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "EWFVgH24zFI",
+        "title": "名残惜しさは振り払って もう行かなきゃ #にしな #nishina #青藍遊泳 #shorts",
+        "viewCount": 6900,
+        "thumbnail": "https://i.ytimg.com/vi/EWFVgH24zFI/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 18,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "r4CM9Os2E8Q",
+        "title": "青いプール金魚を放とう #にしな #青藍遊泳 #shorts",
+        "viewCount": 6200,
+        "thumbnail": "https://i.ytimg.com/vi/r4CM9Os2E8Q/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 1,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "SCQ3YtiD89M",
+        "title": "さらば友よ、忘れてしまえよ #にしな #nishina #青藍遊泳 #ライブ #shorts",
+        "viewCount": 5400,
+        "thumbnail": "https://i.ytimg.com/vi/SCQ3YtiD89M/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 10,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "pPFXZ99O0DM",
+        "title": "もう行かなきゃ #にしな #shorts",
+        "viewCount": 5200,
+        "thumbnail": "https://i.ytimg.com/vi/pPFXZ99O0DM/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 19,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "gz_lzqzgVFU",
+        "title": "染み込んだ夜の向こう #にしな #青藍遊泳 #shorts",
+        "viewCount": 4900,
+        "thumbnail": "https://i.ytimg.com/vi/gz_lzqzgVFU/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 5,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "YIYUTvpTaA0",
+        "title": "もう行かなきゃ #にしな #青藍遊泳 #shorts",
+        "viewCount": 3900,
+        "thumbnail": "https://i.ytimg.com/vi/YIYUTvpTaA0/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 19,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "XuetlAe3bgc",
+        "title": "さらば友よ、忘れてしまえよ #にしな #青藍遊泳",
+        "viewCount": 3600,
+        "thumbnail": "https://i.ytimg.com/vi/XuetlAe3bgc/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 10,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "I7HgEbU6POM",
+        "title": "永遠に僕らは大人になれずに",
+        "viewCount": 2900,
+        "thumbnail": "https://i.ytimg.com/vi/I7HgEbU6POM/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 8,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "4bBr2ut6KNU",
+        "title": "赤い奇跡を僕らは見つけた #にしな #nishina #青藍遊泳 #ライブ #shorts",
+        "viewCount": 1600,
+        "thumbnail": "https://i.ytimg.com/vi/4bBr2ut6KNU/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 13,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      }
+    ],
     "nishina-its-a-piece-of-cake": [
       {
         "videoId": "szHj8or2uvk",
@@ -68,6 +290,16 @@
         "matchMethod": "lyric_match"
       },
       {
+        "videoId": "5tToehQ8zL0",
+        "title": "そんなくだらんこと出会えて本当によかった #にしな #nishina #ライブ #shorts",
+        "viewCount": 3000,
+        "thumbnail": "https://i.ytimg.com/vi/5tToehQ8zL0/hqdefault.jpg",
+        "songId": "nishina-its-a-piece-of-cake",
+        "lineHint": 29,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
         "videoId": "gCc02p8BveU",
         "title": "It’s a piece of cake #nishina #music #shorts",
         "viewCount": 2700,
@@ -85,16 +317,6 @@
         "songId": "nishina-its-a-piece-of-cake",
         "lineHint": 21,
         "matchScore": 92.3076923076923,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "5tToehQ8zL0",
-        "title": "そんなくだらんこと出会えて本当によかった #にしな #nishina #ライブ #shorts",
-        "viewCount": 1500,
-        "thumbnail": "https://i.ytimg.com/vi/5tToehQ8zL0/hqdefault.jpg",
-        "songId": "nishina-its-a-piece-of-cake",
-        "lineHint": 29,
-        "matchScore": 100.0,
         "matchMethod": "lyric_match"
       }
     ],
@@ -192,7 +414,7 @@
       {
         "videoId": "IX_U2M1lqZw",
         "title": "収まりきる愛は欲しくはないの #にしな #nishina #ランデブー # #ライブ #shorts",
-        "viewCount": 3500,
+        "viewCount": 4200,
         "thumbnail": "https://i.ytimg.com/vi/IX_U2M1lqZw/hqdefault.jpg",
         "songId": "nishina-rendezvous",
         "lineHint": 22,
@@ -364,7 +586,7 @@
       {
         "videoId": "lJjpLUXRRnM",
         "title": "たまに素直なエモーション #にしな #nishina #weekly #ライブ #shorts",
-        "viewCount": 4100,
+        "viewCount": 4400,
         "thumbnail": "https://i.ytimg.com/vi/lJjpLUXRRnM/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 21,
@@ -436,7 +658,7 @@
       {
         "videoId": "X_jxaIa35C4",
         "title": "好きだった こっそり溶かして飲み干した # #にしな #nishina #春一番 #ライブ #shorts",
-        "viewCount": 6800,
+        "viewCount": 7200,
         "thumbnail": "https://i.ytimg.com/vi/X_jxaIa35C4/hqdefault.jpg",
         "songId": "nishina-haru-ichiban",
         "lineHint": 9,
@@ -688,7 +910,7 @@
       {
         "videoId": "1rtwKF5PdpI",
         "title": "さよなら私の愛しい人 #にしな #nishina #ダーリン #ライブ #shorts",
-        "viewCount": 4200,
+        "viewCount": 4400,
         "thumbnail": "https://i.ytimg.com/vi/1rtwKF5PdpI/hqdefault.jpg",
         "songId": "nishina-darling",
         "lineHint": 26,
@@ -820,7 +1042,7 @@
       {
         "videoId": "m8pxw2GNhoo",
         "title": "ここは安楽unreality #にしな #nishina #bugs #ライブ #shorts",
-        "viewCount": 5100,
+        "viewCount": 5200,
         "thumbnail": "https://i.ytimg.com/vi/m8pxw2GNhoo/hqdefault.jpg",
         "songId": "nishina-bugs",
         "lineHint": 35,
@@ -1134,224 +1356,12 @@
       {
         "videoId": "nywcYurtoRk",
         "title": "今日もラブ履き違え #にしな #nishina #パンダガール #shorts",
-        "viewCount": 7400,
+        "viewCount": 7500,
         "thumbnail": "https://i.ytimg.com/vi/nywcYurtoRk/hqdefault.jpg",
         "songId": "nishina-panda-girl",
         "lineHint": 11,
         "matchScore": 100.0,
         "matchMethod": "hashtag"
-      }
-    ],
-    "nishina-seiran-yuuei": [
-      {
-        "videoId": "aE5U_gwzzQg",
-        "title": "永遠に僕らは大人になれずに #shorts",
-        "viewCount": 59000,
-        "thumbnail": "https://i.ytimg.com/vi/aE5U_gwzzQg/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 8,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "fyWT9erHnW4",
-        "title": "ただ好き勝手に泳いでいく #にしな #青藍遊泳 #shorts",
-        "viewCount": 27000,
-        "thumbnail": "https://i.ytimg.com/vi/fyWT9erHnW4/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 11,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "PCTEG-DYr74",
-        "title": "さらば友よ、忘れてしまえよ #にしな #青藍遊泳 #shorts",
-        "viewCount": 24000,
-        "thumbnail": "https://i.ytimg.com/vi/PCTEG-DYr74/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 10,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "bNIPQRvUIUk",
-        "title": "ただ好き勝手に泳いでいく #にしな #青藍遊泳 #shorts",
-        "viewCount": 20000,
-        "thumbnail": "https://i.ytimg.com/vi/bNIPQRvUIUk/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 11,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "SwAtwiWvSdE",
-        "title": "永遠に僕らは大人になれずに #にしな #nishina  #ライブ #shorts",
-        "viewCount": 19000,
-        "thumbnail": "https://i.ytimg.com/vi/SwAtwiWvSdE/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 8,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "6TZIGpZS8ZE",
-        "title": "さらば友よ #にしな #青藍遊泳 #shorts",
-        "viewCount": 18000,
-        "thumbnail": "https://i.ytimg.com/vi/6TZIGpZS8ZE/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 10,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "g9gTdmCa3FE",
-        "title": "永遠に僕らは大人になれずに #にしな #nishina #shorts",
-        "viewCount": 15000,
-        "thumbnail": "https://i.ytimg.com/vi/g9gTdmCa3FE/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 8,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "rvzFeJ0lcBo",
-        "title": "永遠に僕らは大人になれずに #にしな #青藍遊泳 #shorts",
-        "viewCount": 14000,
-        "thumbnail": "https://i.ytimg.com/vi/rvzFeJ0lcBo/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 8,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "fkIAFNC331I",
-        "title": "夜空の星屑　盗む事ばかり企んでいる #にしな #青藍遊泳 #shorts",
-        "viewCount": 14000,
-        "thumbnail": "https://i.ytimg.com/vi/fkIAFNC331I/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 9,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "YzDus5M3URQ",
-        "title": "門出の夜に忍び込んで 青いプール金魚を放とう #にしな #nishina #青藍遊泳 #ライブ #shorts",
-        "viewCount": 10000,
-        "thumbnail": "https://i.ytimg.com/vi/YzDus5M3URQ/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 0,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "K0SLZrb9IwA",
-        "title": "さらば友よ、忘れてしまえよ #にしな #nishina #ライブ #shorts",
-        "viewCount": 10000,
-        "thumbnail": "https://i.ytimg.com/vi/K0SLZrb9IwA/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 10,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "wF9oCsyWkkQ",
-        "title": "ただ必死になって泳いでいく #にしな #青藍遊泳 #shorts",
-        "viewCount": 10000,
-        "thumbnail": "https://i.ytimg.com/vi/wF9oCsyWkkQ/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 23,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "I11HYAJFsaE",
-        "title": "ただ好き勝手に泳いでいく #にしな #nishina #ライブ #shorts",
-        "viewCount": 7000,
-        "thumbnail": "https://i.ytimg.com/vi/I11HYAJFsaE/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 11,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "EWFVgH24zFI",
-        "title": "名残惜しさは振り払って もう行かなきゃ #にしな #nishina #青藍遊泳 #shorts",
-        "viewCount": 6900,
-        "thumbnail": "https://i.ytimg.com/vi/EWFVgH24zFI/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 18,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "r4CM9Os2E8Q",
-        "title": "青いプール金魚を放とう #にしな #青藍遊泳 #shorts",
-        "viewCount": 6200,
-        "thumbnail": "https://i.ytimg.com/vi/r4CM9Os2E8Q/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 1,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "SCQ3YtiD89M",
-        "title": "さらば友よ、忘れてしまえよ #にしな #nishina #青藍遊泳 #ライブ #shorts",
-        "viewCount": 5400,
-        "thumbnail": "https://i.ytimg.com/vi/SCQ3YtiD89M/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 10,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "pPFXZ99O0DM",
-        "title": "もう行かなきゃ #にしな #shorts",
-        "viewCount": 5200,
-        "thumbnail": "https://i.ytimg.com/vi/pPFXZ99O0DM/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 19,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "gz_lzqzgVFU",
-        "title": "染み込んだ夜の向こう #にしな #青藍遊泳 #shorts",
-        "viewCount": 4900,
-        "thumbnail": "https://i.ytimg.com/vi/gz_lzqzgVFU/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 5,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "YIYUTvpTaA0",
-        "title": "もう行かなきゃ #にしな #青藍遊泳 #shorts",
-        "viewCount": 3900,
-        "thumbnail": "https://i.ytimg.com/vi/YIYUTvpTaA0/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 19,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "XuetlAe3bgc",
-        "title": "さらば友よ、忘れてしまえよ #にしな #青藍遊泳",
-        "viewCount": 3600,
-        "thumbnail": "https://i.ytimg.com/vi/XuetlAe3bgc/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 10,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "I7HgEbU6POM",
-        "title": "永遠に僕らは大人になれずに",
-        "viewCount": 2900,
-        "thumbnail": "https://i.ytimg.com/vi/I7HgEbU6POM/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 8,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
       }
     ],
     "nishina-friday-kids-china-town": [
@@ -3276,7 +3286,7 @@
       {
         "videoId": "C1ngQJtngcI",
         "title": "ヘビースモーク #nishina #shorts",
-        "viewCount": 7300,
+        "viewCount": 7400,
         "thumbnail": "https://i.ytimg.com/vi/C1ngQJtngcI/hqdefault.jpg",
         "songId": "nishina-heavy-smoke",
         "lineHint": 8,
@@ -3408,7 +3418,7 @@
       {
         "videoId": "ZHX1DaN2sqE",
         "title": "ねぇ私のことちゃんと愛してる？ #にしな #nishina #ワンルーム #ライブ #shorts",
-        "viewCount": 6100,
+        "viewCount": 6200,
         "thumbnail": "https://i.ytimg.com/vi/ZHX1DaN2sqE/hqdefault.jpg",
         "songId": "nishina-one-room",
         "lineHint": 24,
@@ -4116,7 +4126,7 @@
       {
         "videoId": "x533JTqkIyw",
         "title": "善も悪もひっくるめて #にしな #nishina #1999 #ライブ #shorts",
-        "viewCount": 6600,
+        "viewCount": 6700,
         "thumbnail": "https://i.ytimg.com/vi/x533JTqkIyw/hqdefault.jpg",
         "songId": "nishina-1999",
         "lineHint": 14,
@@ -4832,7 +4842,7 @@
       {
         "videoId": "cXqFzxa2FAI",
         "title": "にしな 路上ライブ #shorts",
-        "viewCount": 42000,
+        "viewCount": 43000,
         "thumbnail": "https://i.ytimg.com/vi/cXqFzxa2FAI/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 25,
@@ -7330,6 +7340,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "KEaeYWNB8FE",
+        "title": "Go crazy and dance #nishina #live #shorts",
+        "viewCount": 7000,
+        "thumbnail": "https://i.ytimg.com/vi/KEaeYWNB8FE/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 60.0,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "srZc-qtQ380",
         "title": "Passion beating at love’s rhythm #nishina #live #shorts",
         "viewCount": 7000,
@@ -7380,16 +7400,6 @@
         "matchMethod": "review"
       },
       {
-        "videoId": "KEaeYWNB8FE",
-        "title": "Go crazy and dance #nishina #live #shorts",
-        "viewCount": 6900,
-        "thumbnail": "https://i.ytimg.com/vi/KEaeYWNB8FE/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 60.0,
-        "matchMethod": "out_of_catalog"
-      },
-      {
         "videoId": "alSL9J5Bl_Y",
         "title": "(A structured algorithm) #nishina #newmusic #shorts",
         "viewCount": 6900,
@@ -7428,6 +7438,16 @@
         "lineHint": 8,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
+      },
+      {
+        "videoId": "tD9GhrjUKsw",
+        "title": "宇宙旅行でもいこうか！ #にしな #nishina #あれが恋だったのかな #ライブ #shorts",
+        "viewCount": 6800,
+        "thumbnail": "https://i.ytimg.com/vi/tD9GhrjUKsw/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 53.333333333333336,
+        "matchMethod": "out_of_catalog"
       },
       {
         "videoId": "LgCDAVJpD0Q",
@@ -7507,16 +7527,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 50.0,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "tD9GhrjUKsw",
-        "title": "宇宙旅行でもいこうか！ #にしな #nishina #あれが恋だったのかな #ライブ #shorts",
-        "viewCount": 6700,
-        "thumbnail": "https://i.ytimg.com/vi/tD9GhrjUKsw/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 53.333333333333336,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -8620,6 +8630,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "GH0LFs6TILY",
+        "title": "nishina - glory #にしな #nishina #newmusic #shorts",
+        "viewCount": 5500,
+        "thumbnail": "https://i.ytimg.com/vi/GH0LFs6TILY/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 58.33333333333333,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "x8mRewvMWb8",
         "title": "A twisted mass, no longer a beast #にしな #nishina #newmusic #shorts",
         "viewCount": 5500,
@@ -8707,16 +8727,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 60.86956521739131,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "GH0LFs6TILY",
-        "title": "nishina - glory #にしな #nishina #newmusic #shorts",
-        "viewCount": 5400,
-        "thumbnail": "https://i.ytimg.com/vi/GH0LFs6TILY/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 58.33333333333333,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -9070,6 +9080,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "7F9GklA1IOw",
+        "title": "あぁ うるわしき あいのうた #にしな #nishina #shorts",
+        "viewCount": 5000,
+        "thumbnail": "https://i.ytimg.com/vi/7F9GklA1IOw/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 50.0,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "pIwlwfINUIs",
         "title": "Black or white choices, just like a panda #nishina #newmusic #shorts",
         "viewCount": 5000,
@@ -9187,16 +9207,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 60.0,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "7F9GklA1IOw",
-        "title": "あぁ うるわしき あいのうた #にしな #nishina #shorts",
-        "viewCount": 4900,
-        "thumbnail": "https://i.ytimg.com/vi/7F9GklA1IOw/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 50.0,
         "matchMethod": "out_of_catalog"
       },
       {
