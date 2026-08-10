@@ -13,10 +13,9 @@
 <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 <style>
   @font-face{font-family:'openhuninn';src:url('/fonts/openhuninn-site.woff2') format('woff2');font-display:swap}
-  :root{--bg:#0a0a15;--panel:#141d31;--line:#243154;--text:#e8ecf6;--dim:#8b97b8;
+  :root{--bg:#120b10;--panel:#141d31;--line:#243154;--text:#e8ecf6;--dim:#8b97b8;
         --accent:#3d63ff;--gold:#e8c94a;--font:'DotGothic16','openhuninn',"Noto Sans TC","Hiragino Sans",system-ui,sans-serif}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.7}
   .site-topbar{position:sticky;top:0;z-index:50;height:57px;background:rgba(10,10,21,0.75);
         backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .site-topbar-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:100%;
@@ -24,6 +23,8 @@
   .site-topbar a{color:var(--text);font-size:20px;font-weight:700;text-decoration:none;transition:color .15s}
   .site-topbar a:hover{color:var(--accent)}
   .site-topbar a.crumb{color:var(--dim);font-size:13px;font-weight:400}
+
+  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.7}
   main{max-width:760px;margin:0 auto;padding:48px 22px 120px}
   h1{font-size:30px;letter-spacing:.08em}
   .sub{color:var(--dim);font-size:13px;margin-top:6px}
@@ -76,6 +77,21 @@
   #att b{color:#d65555}
   footer{margin-top:70px;color:#5a6784;font-size:11.5px;text-align:center}
 
+  /* ---- planet hero ---- */
+  #phero{position:relative;height:62vh;min-height:340px;margin:-24px -20px 26px;overflow:hidden}
+  @media(max-width:700px){#phero{height:46vh;margin:-16px -12px 20px}}
+  .ph-canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+  .ph-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+    align-items:flex-start;padding:0 8%;pointer-events:none;z-index:2}
+  .ph-overlay .pn{color:rgba(232,236,246,.55);font-size:13px;letter-spacing:.35em}
+  .ph-overlay h1{font-size:clamp(28px,5vw,46px);letter-spacing:.14em;margin:10px 0 8px;
+    color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+  .ph-overlay .ps{color:rgba(232,236,246,.7);font-size:13px;letter-spacing:.2em}
+  .ph-hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);color:rgba(232,236,246,.5);
+    font-size:16px;z-index:2;animation:phbob 1.6s ease-in-out infinite}
+  @keyframes phbob{50%{transform:translate(-50%,6px)}}
+  @media(prefers-reduced-motion:reduce){.ph-hint{animation:none}}
+
   /* ===== A 級全像素換皮 (D 路線 2026-08) — chrome 像素, 巡演名/站點資料保留 Noto ===== */
   @font-face{font-family:'PX-ZH';src:url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2');font-display:swap}
   @font-face{font-family:'PX-JA';src:url('/fonts/pixel/fp12-site-ja.woff2') format('woff2');font-display:swap}
@@ -99,6 +115,10 @@
   .slmenu a{border-radius:0!important;font-family:'PX-ZH','PX-JA',var(--font);font-size:12px}
   .stx{border-radius:0!important}
   .stops b{font-family:'PX-ZH','PX-JA',var(--font)}
+  /* ===== hero 著陸場景像素字 (站內適配) ===== */
+  .ph-overlay .pn,.ph-overlay .ps{font-family:'PX-ZH','PX-JA',var(--font);font-size:12px}
+  .ph-overlay h1{font-family:'PX-ZH','PX-JA',var(--font);font-weight:400;font-size:36px}
+  @media(max-width:700px){.ph-overlay h1{font-size:24px}}
 </style>
 </head>
 <body>
@@ -108,6 +128,167 @@
     <a class="crumb" href="/live/">/ Live 演出</a>
   </div>
 </header>
+<div id="phero">
+  <div class="ph-overlay">
+    <div class="pn">火星 — NISHINA SOLAR SYSTEM</div>
+    <h1>公演史</h1>
+    <div class="ps">ONEMAN TOURS 2021—2026</div>
+  </div>
+  <div class="ph-hint">▼</div>
+</div>
+<script>
+/* planet-hero.js — 行星頁頂著陸場景(にしなの宇宙)
+   用法:PlanetHero.mount(document.getElementById('hero'), CONFIG)
+   CONFIG = { nameJa, title, sub, glType, seed, palette(6色RGB陣列), pageBg }
+   零依賴;reduced-motion 靜態呈現;滾出視窗自動暫停。 */
+const PlanetHero = (() => {
+  const rng = seed => () => { seed = (seed * 1103515245 + 12345) >>> 0; return seed / 4294967296; };
+  const hash = (a, b) => {
+    let h = (a * 374761393 + b * 668265263) >>> 0;
+    h = (h ^ (h >>> 13)) * 1274126177 >>> 0;
+    return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+  };
+  const SHIP_MAP = ['..W..', '.WLW.', '.WLW.', 'WLLLW', 'WWWWW', '.F.F.'];
+  const SHIP_COL = { W: [205, 214, 238], L: [61, 99, 255], F: [232, 201, 74] };
+
+  function mount(container, cfg) {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pal = cfg.palette;
+    const rgb = c => 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')';
+    const rgba = (c, a) => 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a.toFixed(3) + ')';
+    const cv = document.createElement('canvas');
+    cv.className = 'ph-canvas';
+    container.prepend(cv);
+    const g = cv.getContext('2d');
+    let W = 0, H = 0, scrollOff = 0, running = true;
+
+    const RSTEP = 14;
+    const rough = cfg.glType === 'ice' ? 34 : cfg.glType === 'wet' ? 14 : 26;
+    let ridgeF = [], ridgeM = [];
+    const mkRidge = (sd, amp) => {
+      const r2 = rng(sd);
+      const pts = [];
+      let y = 0;
+      for (let x = 0; x <= W + RSTEP * 2; x += RSTEP) {
+        y += (r2() - .5) * amp;
+        y = Math.max(-amp * 2.2, Math.min(amp * 1.2, y));
+        pts.push(y);
+      }
+      return pts;
+    };
+    const stars = [];
+    {
+      const r = rng((cfg.seed * 977) | 0);
+      for (let i = 0; i < 70; i++)
+        stars.push({ x: r(), y: r() * .55, tw: r() * 6.283,
+                     c: r() < .6 ? '#8b97b8' : r() < .9 ? '#cdd6ee' : '#e8c94a' });
+    }
+    function layout() {
+      W = container.clientWidth;
+      H = container.clientHeight;
+      cv.width = W; cv.height = H;
+      ridgeF = mkRidge((cfg.seed * 131) | 0, rough);
+      ridgeM = mkRidge((cfg.seed * 173) | 0, rough * 1.3);
+    }
+    function draw(t) {
+      // 天空
+      const sky = g.createLinearGradient(0, 0, 0, H);
+      sky.addColorStop(0, rgb(pal[3]));
+      sky.addColorStop(.55, rgb(pal[1]));
+      sky.addColorStop(1, rgb(pal[0]));
+      g.fillStyle = sky;
+      g.fillRect(0, 0, W, H);
+      // 星
+      for (const st of stars) {
+        const a = reduced ? .6 : .35 + .5 * Math.sin(t * .0012 + st.tw);
+        g.globalAlpha = Math.max(0, a) * .8;
+        g.fillStyle = st.c;
+        g.fillRect((st.x * W) | 0, (st.y * H * .8) | 0, 1, 1);
+      }
+      g.globalAlpha = 1;
+      // 視差山稜(滾動時分層退場)
+      const p1 = scrollOff * .10, p2 = scrollOff * .16, p3 = scrollOff * .24;
+      const drawRidge = (pts, base, col) => {
+        g.fillStyle = col;
+        g.beginPath();
+        g.moveTo(0, base + pts[0]);
+        pts.forEach((y, i) => g.lineTo(i * RSTEP, base + y));
+        g.lineTo(W + RSTEP, H + 40);
+        g.lineTo(0, H + 40);
+        g.closePath();
+        g.fill();
+      };
+      drawRidge(ridgeF, H * .68 + p1, rgb(pal[3]));
+      drawRidge(ridgeM, H * .74 + p2, rgb(pal[2]));
+      const gy = H * .86 + p3;
+      g.fillStyle = rgb(pal[1]);
+      g.fillRect(0, gy, W, H - gy + 40);
+      g.fillStyle = rgba(pal[0], .5);
+      for (let x = 0; x < W; x += 6)
+        if (hash(x, 7) > .6) g.fillRect(x, gy - 2, 3, 2);
+      // 停泊的船 + 信標
+      const S = Math.max(4, Math.min(6, (W / 180) | 0));
+      const sx = W * .5, sy = gy - 6 * S - 4 + p3;
+      SHIP_MAP.forEach((row, j) => [...row].forEach((ch, i2) => {
+        const c = SHIP_COL[ch];
+        if (!c || ch === 'F') return;
+        g.fillStyle = rgb(c);
+        g.fillRect(sx + (i2 - 2.5) * S, sy + (j - 3) * S, S, S);
+      }));
+      g.fillStyle = '#cdd6ee';
+      g.fillRect(sx - 3 * S, sy + 3 * S, S, S + 3);
+      g.fillRect(sx + 2 * S, sy + 3 * S, S, S + 3);
+      if (reduced || ((t / 480) | 0) % 2) {
+        g.fillStyle = '#d65555';
+        g.fillRect(sx - S / 2, sy - 3 * S - 5, S * .8, S * .8);
+      }
+      // 環境粒子:風塵 / 飄雪
+      if (!reduced) {
+        const snow = cfg.glType === 'ice';
+        for (let i = 0; i < 12; i++) {
+          const wx2 = ((t * (snow ? .02 : .06) * (1 + i * .13) + i * 137) % (W + 40)) - 20;
+          const wy2 = snow
+            ? ((t * .03 * (1 + i * .07) + i * 91) % H)
+            : gy - 10 - (i % 5) * 12 + Math.sin(t * .001 + i) * 4;
+          g.fillStyle = rgba(pal[snow ? 5 : 0], snow ? .7 : .3);
+          g.fillRect(wx2 | 0, (wy2 + (snow ? 0 : p3)) | 0, 2, snow ? 2 : 1);
+        }
+      }
+      // 底部縫合:淡入頁面底色
+      const fade = g.createLinearGradient(0, H * .8, 0, H);
+      fade.addColorStop(0, 'rgba(0,0,0,0)');
+      fade.addColorStop(1, cfg.pageBg || '#0a0a15');
+      g.fillStyle = fade;
+      g.fillRect(0, H * .8, W, H * .2);
+    }
+    let visible = true;
+    if ('IntersectionObserver' in window)
+      new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(container);
+    function frame(t) {
+      if (!running) return;
+      if (visible) {
+        scrollOff = Math.min(window.scrollY || 0, H);
+        draw(t);
+      }
+      if (reduced) return;   // 靜態一幀
+      requestAnimationFrame(frame);
+    }
+    layout();
+    addEventListener('resize', layout);
+    requestAnimationFrame(frame);
+    return { destroy() { running = false; cv.remove(); } };
+  }
+  return { mount };
+})();
+if (typeof module !== 'undefined') module.exports = PlanetHero;
+
+PlanetHero.mount(document.getElementById('phero'), {
+  nameJa: '火星', title: '公演史', sub: 'ONEMAN TOURS 2021—2026',
+  glType: 'dry', seed: 3.7,
+  palette: [[255,168,130],[230,96,72],[178,62,50],[116,40,34],[58,24,22],[0,0,0]],
+  pageBg: '#120b10'
+});
+</script>
 <main>
   <h1>にしな公演史</h1>
   <p class="sub">個人公演全 10 場・2021「hatsu」→ 2026「日々散漫」</p>
@@ -117,7 +298,7 @@
 </main>
 <script>
 const DATA = /*__DATA__*/null;
-/* 站上路徑(injection 產物掛在 public/live/ 底下) */
+/* TODO(Claude Code):填站上路徑;留空字串 = 停用該互通連結 */
 const ROUTES = { timeline: '/live/timeline/', footprint: '/live/footprint/' };
 /* 各場 setlist 歌單(lnk.to 浮層收割;順序對齊 DATA.oneman;null=尚未收割) */
 const SETLISTS = /*__SETLISTS__*/null;
