@@ -65,6 +65,31 @@
   body[data-mode="cockpit"] #flare,
   body[data-mode="cockpit"] #hint{display:none!important}
   body[data-mode="cockpit"] #console{display:flex}
+  #destList{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:9;display:none;
+    background:rgba(16,24,44,.85);border:1px solid #243154;border-radius:12px;padding:8px 6px;
+    backdrop-filter:blur(2px);min-width:172px}
+  body[data-mode="cockpit"] #destList{display:block}
+  @media(max-width:700px){body[data-mode="cockpit"] #destList{display:none}}
+  .dl-row{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;cursor:pointer;
+    font-size:12.5px;color:var(--text)}
+  .dl-row:hover{background:rgba(61,99,255,.14)}
+  .dl-row.on .dl-n,.dl-row.on .dl-p{color:var(--gold)}
+  .dl-row i{width:8px;height:8px;border-radius:2px;flex:none}
+  .dl-n{letter-spacing:.06em}
+  .dl-p{color:var(--dim);flex:1}
+  .dl-d{color:var(--dim);font-size:10.5px;font-variant-numeric:tabular-nums}
+  #cometCard{position:fixed;left:50%;bottom:76px;transform:translateX(-50%) translateY(12px);z-index:12;
+    background:rgba(16,24,44,.94);border:1px solid #2a5a5a;border-radius:14px;padding:16px 20px;
+    min-width:260px;opacity:0;pointer-events:none;transition:.25s;backdrop-filter:blur(3px)}
+  #cometCard.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+  .cc-x{position:absolute;top:8px;right:10px;background:none;border:none;color:var(--dim);cursor:pointer;font-size:13px}
+  .cc-n{color:#4dd0c4;font-size:14.5px;letter-spacing:.04em;padding-right:20px}
+  .cc-v{color:var(--dim);font-size:12px;margin-top:5px}
+  .cc-d{color:var(--gold);font-size:20px;margin-top:9px;letter-spacing:.06em}
+  .cc-btns{display:flex;gap:10px;margin-top:12px}
+  .cc-b{font-size:12px;border:1px solid #243154;border-radius:99px;padding:6px 14px;background:transparent;
+    color:var(--text);cursor:pointer;font-family:inherit;text-decoration:none}
+  .cc-b:hover{border-color:#4dd0c4;color:#4dd0c4}
   @media(prefers-reduced-motion:reduce){.body-cv{transition:none} #modeBtn{display:none}}
 </style>
 </head>
@@ -80,6 +105,17 @@
 <div id="console"><span id="cTarget"><span class="lbl">針路:</span>自由巡航</span>
   <span><span class="lbl">速度:</span><b id="cSpd">0.4</b></span>
   <span><span class="lbl">探索:</span><b id="cExp">0</b>/8</span></div>
+<div id="destList"></div>
+<div id="cometCard">
+  <button class="cc-x" onclick="this.parentElement.classList.remove('show')">✕</button>
+  <div class="cc-n" id="ccN"></div>
+  <div class="cc-v" id="ccV"></div>
+  <div class="cc-d" id="ccD"></div>
+  <div class="cc-btns">
+    <button class="cc-b" id="ccIcs">📅 行事曆</button>
+    <a class="cc-b" id="ccUrl" target="_blank" rel="noopener" style="display:none">↗ 詳細</a>
+  </div>
+</div>
 <div id="toast"></div>
 <div id="warp"></div>
 <canvas id="landing" style="position:fixed;inset:0;z-index:14;display:none"></canvas>
@@ -96,8 +132,7 @@ const ROUTES = {
   uranus:  '/star-map/',         // 天王星 → 歌詞星圖
   neptune: '/about/',            // 海王星 → About
 };
-/* 太陽閃焰「N 年前的今天」: 開機 fetch /live/events.json (inject.py 產出) 前端計算;
-   同月日多筆用「年中第幾天」輪播選一, 沒命中/fetch 失敗 = 閃焰整段隱藏, 不顯示假資料 */
+/* flare 接真資料: fetch /live/events.json 前端計算, 沒命中隱藏 */
 let FLARE_TEXT = null;
 /* ===================== */
 
@@ -338,6 +373,69 @@ const BODIES = [
     glType:'ice', glPixels:22, glSize:7, glSeed:8.8, glTs:.10,
     palette:[[178,168,255],[104,92,220],[66,58,170],[40,34,116],[24,20,80],[205,198,255]] },
 ];
+/* ---------- A:彗星 = 接近中的現場 ----------
+   DEMO 樣本資料。整合(Claude Code):改為注入 watch-eplus 的 upcoming.json,
+   格式 [{name, date:'YYYY-MM-DD', venue, url}],days 由本模組自算。 */
+const COMETS_RAW = (() => {
+  const d = n => { const x = new Date(); x.setDate(x.getDate() + n); return x.toISOString().slice(0, 10); };
+  return [
+    { name: 'MUSIC FESTA(サンプル)', date: d(3),  venue: '幕張メッセ', url: '' },
+    { name: 'RUSH BALL 2026(サンプル)', date: d(18), venue: '泉大津フェニックス', url: '' },
+    { name: 'ワンマン追加公演(サンプル)', date: d(47), venue: 'Zepp DiverCity', url: '' },
+  ];
+})();
+const COMETS = COMETS_RAW.map((c, i) => {
+  const days = Math.max(0, Math.ceil((new Date(c.date) - Date.now()) / 86400000));
+  const r = rng(c.name.length * 131 + i * 977);
+  return { ...c, days,
+    o: .14 + Math.min(1.08, days / 55) * .92,          // 距日(軌道係數)
+    a: (r() - .5) * 2.1,                                // 進入方位
+    wy: (r() - .5) * 90 };                              // 操縦席高度
+});
+function cometPosMap(c) {
+  if (vertical) {
+    return [SUNX + Math.sin(c.a * 3) * 70, SUNY + c.o * ORBMAX];
+  }
+  return [SUNX + Math.cos(c.a) * c.o * ORBMAX,
+          SUNY + Math.sin(c.a) * c.o * ORBMAX * .6];
+}
+function drawComets(t) {
+  const mxp = mx * VW, myp = my * VH;
+  let hover = null;
+  for (const c of COMETS) {
+    const [x, y] = cometPosMap(c);
+    c._mx = x; c._my = y;
+    const dirx = x - SUNX, diry = y - SUNY;
+    const dm = Math.hypot(dirx, diry) || 1;
+    const ux = dirx / dm, uy = diry / dm;
+    const urgent = c.days <= 7;
+    const tail = 16 + (1.06 - Math.min(1.06, c.o)) * 110 + (urgent ? 26 : 0);
+    const segs = (tail / 5) | 0;
+    for (let i = 1; i <= segs; i++) {
+      const f = i / segs;
+      const jx = Math.sin(t * .004 + i * 1.7 + c.a * 9) * f * 2.4;
+      sctx.fillStyle = i < segs * .35 ? 'rgba(205,230,255,' + (0.75 * (1 - f)).toFixed(3) + ')'
+        : 'rgba(77,208,196,' + (0.55 * (1 - f)).toFixed(3) + ')';
+      sctx.fillRect((x + ux * i * 5 + jx - uy * f * 3) | 0, (y + uy * i * 5 + jx * .4 + ux * f * 3) | 0,
+                    f < .5 ? 2 : 1, f < .5 ? 2 : 1);
+    }
+    const pr = urgent ? 2.5 + Math.sin(t * .006) * 1 : 2;
+    sctx.fillStyle = '#ffffff';
+    sctx.fillRect(x - pr / 2, y - pr / 2, pr, pr);
+    sctx.fillStyle = 'rgba(160,240,255,.6)';
+    sctx.fillRect(x - pr, y - pr, pr * 2, pr * 2 - pr);
+    if (Math.hypot(mxp - x, myp - y) < 15) hover = c;
+  }
+  if (hover) {
+    sctx.font = '12px ' + getComputedStyle(document.body).fontFamily;
+    sctx.textAlign = hover._mx > VW - 220 ? 'right' : 'left';
+    sctx.fillStyle = '#4dd0c4';
+    sctx.fillText('☄ ' + hover.name, hover._mx + (hover._mx > VW - 220 ? -12 : 12), hover._my - 6);
+    sctx.fillStyle = '#e8c94a';
+    sctx.fillText('あと ' + hover.days + ' 日', hover._mx + (hover._mx > VW - 220 ? -12 : 12), hover._my + 10);
+    space.style.cursor = 'pointer';
+  } else if (MODE === 'map') space.style.cursor = '';
+}
 const rand0 = rng(20210625);
 BODIES.forEach((b, i) => {
   b.angle = (i / 8) * 6.283 + (rand0() - .5) * .7;   // 均布+微擾
@@ -510,6 +608,7 @@ function drawSpace(t) {
     sctx.stroke();
   }
   sctx.globalAlpha = 1;
+  drawComets(t);
 }
 
 /* ---------- 天體 DOM ---------- */
@@ -664,7 +763,7 @@ function landingSeq(b, wx, wy) {
     l.rel = 'prefetch'; l.href = url;
     document.head.appendChild(l);
   }
-  const P0 = 760, P1 = 1220, P2 = 1780, P3 = 2680, HOLD = 1400;
+  const P0 = 760, P1 = 1220, P2 = 1800, P3 = gas ? 2160 : 2080, IRIS = 380, HOLD = 1250;
   const rr = rng((b.glSeed * 97) | 0);
   const streaks = [];
   for (let i = 0; i < 120; i++)
@@ -674,21 +773,6 @@ function landingSeq(b, wx, wy) {
   for (let i = 0; i < 26; i++)
     haze.push({ x: rr(), y: rr(), sp: .8 + rr() * 1.6 });
   const dust = [];
-  const RSTEP = 14;
-  const mkRidge = (sd, amp) => {
-    const r2 = rng(sd);
-    const pts = [];
-    let y = 0;
-    for (let x = 0; x <= VW + RSTEP * 2; x += RSTEP) {
-      y += (r2() - .5) * amp;
-      y = Math.max(-amp * 2.2, Math.min(amp * 1.2, y));
-      pts.push(y);
-    }
-    return pts;
-  };
-  const rough = b.glType === 'ice' ? 34 : b.glType === 'wet' ? 14 : 26;
-  const ridgeF = mkRidge((b.glSeed * 131) | 0, rough);
-  const ridgeM = mkRidge((b.glSeed * 173) | 0, rough * 1.3);
   const ease = k => k < .5 ? 4*k*k*k : 1 - Math.pow(-2*k + 2, 3) / 2;
   const beat = k => k < .32 ? k * .55 : .176 + Math.pow((k - .32) / .68, 1.7) * .824;
   let done = false, t0 = null, dusted = false;
@@ -742,7 +826,7 @@ function landingSeq(b, wx, wy) {
     if (done) return;
     if (t0 === null) t0 = ts;
     const t = ts - t0;
-    if (url && t >= P3 + HOLD + 340) return finish();   // 原型模式停留場景,點擊返航
+    if (url && t >= P3 + IRIS + HOLD + 320) return finish();   // 原型模式停留舷窗,點擊返航
     g.clearRect(0, 0, VW, VH);
 
     if (t < P0) {
@@ -832,127 +916,107 @@ function landingSeq(b, wx, wy) {
       g.restore();
       caption(gas ? 'ガス雲層へ降下' : '大気圏突入', '減速中');
     } else {
-      /* P3 第三人稱著陸場景:你的船降落在這顆星球上 */
-      const kD = ease(Math.min(1, (t - P2) / (P3 - P2)));
-      const landed = t >= P3 && !gas;
-      const sj = landed ? [0, 0] : shake(t, (1 - kD) * 3);
-      g.save();
-      g.translate(sj[0], sj[1]);
-      drawSky(-8);
-      g.globalAlpha = Math.max(0, .5 - kD * .35);
-      for (let i = 0; i < 46; i++) {
-        const st = streaks[i];
-        g.fillStyle = st.c;
-        if (Math.sin(t * .002 + st.a * 9) > -.2)
-          g.fillRect((st.a / 6.283) * VW, (st.r0 / 106) * VH * .5, 1, 1);
-      }
-      g.globalAlpha = 1;
-      if (!gas) {
-        const baseF = VH * (1.18 - kD * .5);
-        const baseM = VH * (1.24 - kD * .52);
-        const drawRidge = (pts, base, col) => {
-          g.fillStyle = col;
-          g.beginPath();
-          g.moveTo(0, base + pts[0]);
-          pts.forEach((y, i) => g.lineTo(i * RSTEP, base + y));
-          g.lineTo(VW + RSTEP, VH + 20);
-          g.lineTo(0, VH + 20);
-          g.closePath();
-          g.fill();
-        };
-        drawRidge(ridgeF, baseF, rgb(pal[3]));
-        drawRidge(ridgeM, baseM, rgb(pal[2]));
-        const gy = VH * (1.3 - kD * .42);
-        g.fillStyle = rgb(pal[1]);
-        g.fillRect(-8, gy, VW + 16, VH - gy + 8);
-        g.fillStyle = rgba(pal[0], .5);
-        for (let x = 0; x < VW; x += 6)
-          if (hash(x, 7) > .6) g.fillRect(x, gy - 2, 3, 2);
-        const S = 6;
-        const yLand = gy - 6 * S - 4;
-        let sy2;
-        if (!landed) sy2 = -60 + (yLand + 60) * (1 - Math.pow(1 - kD, 3));
-        else {
-          const kb = Math.min(1, (t - P3) / 340);
-          sy2 = yLand + Math.sin(kb * Math.PI) * 5 * (1 - kb);
+      const kT = Math.min(1, (t - P2) / (P3 - P2));
+      const ir = ease(Math.min(1, Math.max(0, (t - P3) / IRIS)));
+      // 舷窗幾何
+      const pcx = VW / 2, pcy = VH * .47;
+      const coverR = Math.hypot(VW, VH) * .62, portR = Math.min(VW, VH) * .34;
+      const R = coverR + (portR - coverR) * ir;
+      // 船殼(虹膜外)
+      if (ir > 0) {
+        g.fillStyle = '#0a0e1a';
+        g.fillRect(0, 0, VW, VH);
+        g.strokeStyle = 'rgba(36,49,84,.55)';
+        g.lineWidth = 1;
+        for (let y = 40; y < VH; y += 52) {
+          g.beginPath(); g.moveTo(0, y); g.lineTo(VW, y); g.stroke();
         }
-        const sx2 = VW / 2 + Math.sin(kD * 5.2) * (1 - kD) * 26;
-        SHIP_MAP.forEach((row, j) => [...row].forEach((ch, i2) => {
-          const c = SHIP_COL[ch];
-          if (!c) return;
-          if (ch === 'F') {
-            if (landed || ((t / 80) | 0) % 2) return;
-            g.fillStyle = '#e8c94a';
-            const fl = 1 + ((t / 60) | 0) % 3;
-            g.fillRect(sx2 + (i2 - 2.5) * S, sy2 + (j - 3) * S + S, S, S * fl);
-            return;
-          }
-          g.fillStyle = 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')';
-          g.fillRect(sx2 + (i2 - 2.5) * S, sy2 + (j - 3) * S, S, S);
-        }));
-        if (landed) {
-          g.fillStyle = '#cdd6ee';
-          g.fillRect(sx2 - 3 * S, sy2 + 3 * S, S, S + 3);
-          g.fillRect(sx2 + 2 * S, sy2 + 3 * S, S, S + 3);
-          if (((t / 480) | 0) % 2) {
-            g.fillStyle = '#d65555';
-            g.fillRect(sx2 - S / 2, sy2 - 3 * S - 5, S * .8, S * .8);
-          }
-          if (!dusted) {
-            dusted = true;
-            for (let i = 0; i < 30; i++)
-              dust.push({ x: sx2 + (rr() - .5) * 30, y: yLand + 6 * S,
-                          vx: (rr() < .5 ? -1 : 1) * (1 + rr() * 3.4), vy: -(.5 + rr() * 1.6),
-                          life: 26 + rr() * 22 });
-          }
+      }
+      // 窗內景色
+      g.save();
+      g.beginPath();
+      g.arc(pcx, pcy, R, 0, 6.283);
+      g.clip();
+      drawSky(0);
+      if (!gas) {
+        // 地表帶(貼圖下半)+ 地平線輝光
+        const gw = R * 3.2;
+        g.imageSmoothingEnabled = false;
+        g.drawImage(b.el, 20, 78, 88, 34, pcx - gw / 2, pcy + R * (.02 + (1 - kT) * .3), gw, gw * .5);
+        const hz = g.createLinearGradient(0, pcy - R * .05, 0, pcy + R * .18);
+        hz.addColorStop(0, rgba(pal[0], .35));
+        hz.addColorStop(1, rgba(pal[0], 0));
+        g.fillStyle = hz;
+        g.fillRect(pcx - R, pcy - R * .05, R * 2, R * .25);
+        // 觸地揚塵(一次)+ 窗外飄塵 idle
+        if (!dusted && kT > .3) {
+          dusted = true;
+          for (let i = 0; i < 22; i++)
+            dust.push({ x: pcx + (rr() - .5) * R * 1.6, y: pcy + R * .3,
+                        vx: (rr() - .5) * 3, vy: -1 - rr() * 2, life: 34 + rr() * 18 });
         }
         for (const d of dust) {
-          d.x += d.vx; d.y += d.vy; d.vy += .09; d.vx *= .96; d.life--;
+          d.x += d.vx; d.y += d.vy; d.vy += .1; d.life--;
           if (d.life <= 0) continue;
-          g.fillStyle = rgba(pal[0], Math.min(.65, d.life / 40));
+          g.fillStyle = rgba(pal[0], Math.min(.6, d.life / 40));
           g.fillRect(d.x | 0, d.y | 0, 3, 3);
         }
-        const snow = b.glType === 'ice';
-        for (let i = 0; i < 14; i++) {
-          const wx2 = ((t * (snow ? .02 : .07) * (1 + i * .13) + i * 137) % (VW + 40)) - 20;
-          const wy2 = snow
-            ? ((t * .03 * (1 + i * .07) + i * 91) % VH)
-            : gy - 10 - (i % 5) * 14 + Math.sin(t * .001 + i) * 4;
-          g.fillStyle = rgba(pal[snow ? 5 : 0], snow ? .7 : .3);
-          g.fillRect(wx2 | 0, wy2 | 0, 2, snow ? 2 : 1);
+        for (let i = 0; i < 8; i++) {   // idle 微塵
+          const mx2 = pcx + Math.sin(t * .0004 + i * 2.1) * R * .8;
+          const my2 = pcy + R * .1 + Math.sin(t * .0007 + i * 1.3) * R * .12 - i * R * .04;
+          g.fillStyle = rgba(pal[0], .28);
+          g.fillRect(mx2 | 0, my2 | 0, 2, 2);
         }
-        caption(landed ? '着陸完了' : '着陸態勢',
-                b.nameJa + '・' + b.page + (url ? '' : '(クリックで星図へ)'));
       } else {
+        // 氣體行星:雲帶自窗外流過(懸浮在雲層裡)
         g.imageSmoothingEnabled = false;
-        const d1 = (t * .02) % 300, d2 = (t * .035) % 300;
-        g.globalAlpha = .85;
-        g.drawImage(b.el, 16, 34, 96, 36, -d1, VH * .52, VW * 1.6, VH * .3);
-        g.globalAlpha = .95;
-        g.drawImage(b.el, 16, 66, 96, 36, -300 + d2, VH * .68, VW * 1.6, VH * .34);
+        const drift1 = (t * .018) % 256 - 128;
+        const drift2 = (t * .031) % 256 - 128;
+        g.globalAlpha = .9;
+        g.drawImage(b.el, 16, 30, 96, 40, pcx - R * 1.6 - drift1, pcy - R * .5, R * 3.2, R * .9);
+        g.globalAlpha = .7;
+        g.drawImage(b.el, 16, 62, 96, 40, pcx - R * 1.6 - drift2, pcy + R * .1, R * 3.2, R * .9);
         g.globalAlpha = 1;
-        const S = 6;
-        const sy2 = VH * .42 + Math.sin(t * .0018) * 9;
-        const sx2 = VW / 2 + Math.sin(t * .0009) * 14;
-        SHIP_MAP.forEach((row, j) => [...row].forEach((ch, i2) => {
-          const c = SHIP_COL[ch];
-          if (!c) return;
-          if (ch === 'F') {
-            if (((t / 90) | 0) % 2) return;
-            g.fillStyle = '#e8c94a';
-            g.fillRect(sx2 + (i2 - 2.5) * S, sy2 + (j - 3) * S + S, S, S);
-            return;
-          }
-          g.fillStyle = 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')';
-          g.fillRect(sx2 + (i2 - 2.5) * S, sy2 + (j - 3) * S, S, S);
-        }));
-        g.fillStyle = rgba(pal[0], .1 + Math.sin(t * .0014) * .05);
-        g.fillRect(-8, -8, VW + 16, VH + 16);
-        caption('雲海浮遊', b.nameJa + '・' + b.page + (url ? '' : '(クリックで星図へ)'));
+        g.fillStyle = rgba(pal[0], .12 + Math.sin(t * .0016) * .05);
+        g.fillRect(pcx - R, pcy - R, R * 2, R * 2);
+      }
+      // 玻璃反光(兩道斜光)
+      if (ir > .5) {
+        g.globalAlpha = .07 * ir;
+        g.fillStyle = '#ffffff';
+        g.save();
+        g.translate(pcx, pcy);
+        g.rotate(-.6);
+        g.fillRect(-R, -R * .55, R * 2, R * .18);
+        g.fillRect(-R, -R * .1, R * 2, R * .07);
+        g.restore();
+        g.globalAlpha = 1;
       }
       g.restore();
-      if (url && t > P3 + HOLD) {
-        g.fillStyle = 'rgba(4,5,9,' + Math.min(1, (t - P3 - HOLD) / 300).toFixed(3) + ')';
+      // 窗框 + 鉚釘
+      if (ir > 0) {
+        g.strokeStyle = '#1a2440';
+        g.lineWidth = 7;
+        g.beginPath(); g.arc(pcx, pcy, R + 3, 0, 6.283); g.stroke();
+        g.strokeStyle = 'rgba(139,152,184,.4)';
+        g.lineWidth = 1.5;
+        g.beginPath(); g.arc(pcx, pcy, R - 2, 0, 6.283); g.stroke();
+        if (ir > .8) {
+          g.fillStyle = '#39435e';
+          for (const a of [.79, 2.36, 3.93, 5.5]) {
+            g.fillRect(pcx + Math.cos(a) * (R + 13) - 2, pcy + Math.sin(a) * (R + 13) - 2, 5, 5);
+          }
+        }
+      }
+      // 觸地前的暗轉補償(未收窗時仍看得到著陸畫面殘影)
+      if (ir === 0 && !gas) {
+        // kT<1 期間:沿用突入尾景由 drawSky+地表帶呈現(已畫)
+      }
+      caption(ir > .6 ? '着陸完了' : (gas ? '雲海通過' : 'タッチダウン'),
+              b.nameJa + '・' + b.page + (url ? '' : '(クリックで星図へ)'));
+      // URL 模式:凝視後淡出交頁
+      if (url && t > P3 + IRIS + HOLD) {
+        g.fillStyle = 'rgba(4,5,9,' + Math.min(1, (t - P3 - IRIS - HOLD) / 300).toFixed(3) + ')';
         g.fillRect(0, 0, VW, VH);
       }
     }
@@ -980,9 +1044,10 @@ const CSTARS = [];
                   c: r() < .6 ? '#8b97b8' : r() < .9 ? '#cdd6ee' : '#e8c94a' });
 }
 const wrapC = v => ((v + 1600) % 3200 + 3200) % 3200 - 1600;
+const WY = { mercury: -34, venus: 54, earth: -54, mars: 12, jupiter: 76, saturn: -76, uranus: 34, neptune: -12 };
 function worldPos(b) {
   const R = b.orbit * WORLD_R;
-  return [Math.cos(b.angle) * R, 0, Math.sin(b.angle) * R];
+  return [Math.cos(b.angle) * R, WY[b.id] || 0, Math.sin(b.angle) * R];
 }
 function project(dx, dy, dz) {
   const cy = Math.cos(cam.yaw), sy = Math.sin(cam.yaw);
@@ -1005,7 +1070,7 @@ function renderCockpit(t) {
     yawT = Math.atan2(tx - cam.x, tz - cam.z);
     pitchT = -Math.atan2(ty - cam.y, Math.hypot(tx - cam.x, tz - cam.z)) * .9;
     const dist = Math.hypot(tx - cam.x, ty - cam.y, tz - cam.z);
-    const want = dist < 480 ? Math.max(1.6, dist / 480 * 7.5) : 7.5;   // 進場減速
+    const want = dist < 480 ? Math.max(1.6, dist / 480 * 7.5) : Math.min(16, 7.5 + dist / 400);   // 進場減速/遠距加速
     cam.spd += (want - cam.spd) * .04;
     cam._dist = dist;
   } else {
@@ -1088,6 +1153,44 @@ function renderCockpit(t) {
       sctx.fillText(b.nameJa + '・' + b.page, p[0], p[1] + s2 / 2 + 16);
     }
   }
+  // 彗星(操縦席):投影 + 尾流 + 雷達青點
+  for (const c of COMETS) {
+    const cwx = Math.cos(c.a) * c.o * WORLD_R, cwz = Math.sin(c.a) * c.o * WORLD_R;
+    const p = roll(project(cwx - cam.x, c.wy - cam.y, cwz - cam.z));
+    c._cx = c._cy = null;
+    if (p) {
+      const sz = Math.max(2, 900 / p[2]);
+      const sunP = roll(project(-cam.x, -cam.y, -cam.z));
+      let tx2 = .7, ty2 = -.7;
+      if (sunP) { const dm2 = Math.hypot(p[0] - sunP[0], p[1] - sunP[1]) || 1;
+        tx2 = (p[0] - sunP[0]) / dm2; ty2 = (p[1] - sunP[1]) / dm2; }
+      for (let i = 1; i <= 10; i++) {
+        sctx.fillStyle = 'rgba(77,208,196,' + (0.5 * (1 - i / 10)).toFixed(3) + ')';
+        sctx.fillRect(p[0] + tx2 * i * sz * .8, p[1] + ty2 * i * sz * .8, Math.max(1, sz * .4), Math.max(1, sz * .4));
+      }
+      sctx.fillStyle = '#ffffff';
+      sctx.fillRect(p[0] - sz / 2, p[1] - sz / 2, sz, sz);
+      c._cx = p[0]; c._cy = p[1];
+      if (p[2] < 2200) {
+        sctx.font = '11px ' + getComputedStyle(document.body).fontFamily;
+        sctx.textAlign = 'center';
+        sctx.fillStyle = 'rgba(77,208,196,.9)';
+        sctx.fillText('☄ D-' + c.days, p[0], p[1] + sz / 2 + 13);
+      }
+    }
+    // 雷達
+    const ddx = cwx - cam.x, ddz = cwz - cam.z;
+    const bear = Math.atan2(ddx, ddz) - cam.yaw;
+    const dd = Math.min(1, Math.hypot(ddx, ddz) / 2400);
+    const bx3 = RX + Math.sin(bear) * dd * (RR - 7);
+    const by3 = RY - Math.cos(bear) * dd * (RR - 7);
+    sctx.fillStyle = '#4dd0c4';
+    sctx.save();
+    sctx.translate(bx3, by3);
+    sctx.rotate(.785);
+    sctx.fillRect(-2, -2, 4, 4);
+    sctx.restore();
+  }
   // 目標鎖定框(四角括號,呼吸)
   if (cam.target && cam.target._sx != null) {
     const b = cam.target;
@@ -1132,31 +1235,74 @@ function renderCockpit(t) {
   vg.addColorStop(1, 'rgba(4,6,14,.55)');
   sctx.fillStyle = vg;
   sctx.fillRect(0, 0, VW, VH);
-  // 雷達(左下):前方=上,行星方位與距離
-  const RX = 86, RY = VH - 92, RR = 52;
-  sctx.fillStyle = 'rgba(14,20,38,.85)';
+  // 雷達 v2(左下):掃描線+餘暉,光點可點擊設定針路
+  const RX = 98, RY = VH - 108, RR = 64;
+  RBLIPS = [];
+  sctx.fillStyle = 'rgba(12,18,34,.88)';
   sctx.beginPath(); sctx.arc(RX, RY, RR, 0, 6.283); sctx.fill();
   sctx.strokeStyle = '#243154';
-  sctx.beginPath(); sctx.arc(RX, RY, RR, 0, 6.283); sctx.stroke();
-  sctx.beginPath(); sctx.arc(RX, RY, RR*.55, 0, 6.283); sctx.stroke();
-  sctx.strokeStyle = 'rgba(139,152,184,.4)';
-  sctx.beginPath(); sctx.moveTo(RX, RY-RR); sctx.lineTo(RX, RY-RR+6); sctx.stroke();
+  sctx.lineWidth = 1;
+  for (const rk of [1, .66, .33]) {
+    sctx.beginPath(); sctx.arc(RX, RY, RR * rk, 0, 6.283); sctx.stroke();
+  }
+  sctx.beginPath(); sctx.moveTo(RX - RR, RY); sctx.lineTo(RX + RR, RY);
+  sctx.moveTo(RX, RY - RR); sctx.lineTo(RX, RY + RR); sctx.stroke();
+  // 掃描線與餘暉扇面
+  const swA = (t * .0012) % 6.283;
+  for (let i = 0; i < 14; i++) {
+    const a2 = swA - i * .055;
+    sctx.strokeStyle = 'rgba(77,208,196,' + (0.30 * (1 - i / 14)).toFixed(3) + ')';
+    sctx.beginPath();
+    sctx.moveTo(RX, RY);
+    sctx.lineTo(RX + Math.sin(a2) * RR, RY - Math.cos(a2) * RR);
+    sctx.stroke();
+  }
+  const mxp = mx * VW, myp = my * VH;
+  let hoverB = null;
   for (const b of BODIES) {
     const [wx2, , wz2] = b.orbit ? worldPos(b) : [0, 0, 0];
     const ddx = wx2 - cam.x, ddz = wz2 - cam.z;
     const bear = Math.atan2(ddx, ddz) - cam.yaw;
     const dd = Math.min(1, Math.hypot(ddx, ddz) / 2400);
-    const bx2 = RX + Math.sin(bear) * dd * (RR-6);
-    const by2 = RY - Math.cos(bear) * dd * (RR-6);
-    if (b.id === 'sun') { sctx.fillStyle = '#e8c94a'; sctx.fillRect(bx2-2, by2-2, 4, 4); }
-    else {
+    const bx2 = RX + Math.sin(bear) * dd * (RR - 7);
+    const by2 = RY - Math.cos(bear) * dd * (RR - 7);
+    // 掃過餘暉:靠近掃描線的光點更亮
+    let ang = ((swA - bear) % 6.283 + 6.283) % 6.283;
+    const glow = Math.max(0, 1 - ang / 1.5);
+    if (b.id === 'sun') {
+      sctx.fillStyle = '#e8c94a';
+      sctx.fillRect(bx2 - 2, by2 - 2, 5, 5);
+    } else {
+      RBLIPS.push({ x: bx2, y: by2, b });
       const isT = cam.target === b;
-      sctx.fillStyle = isT ? (((t/300)|0) % 2 ? '#e8c94a' : '#fff') : '#8b97b8';
-      sctx.fillRect(bx2-1.5, by2-1.5, isT ? 4 : 3, isT ? 4 : 3);
+      const near = Math.hypot(mxp - bx2, myp - by2) < 12;
+      if (near) hoverB = { b, bx2, by2 };
+      sctx.fillStyle = isT ? (((t / 300) | 0) % 2 ? '#e8c94a' : '#fff')
+        : 'rgba(' + (near ? '232,201,74,' : '139,152,184,') + Math.min(1, .45 + glow).toFixed(3) + ')';
+      const sz = isT || near ? 5 : 3 + glow * 1.5;
+      sctx.fillRect(bx2 - sz / 2, by2 - sz / 2, sz, sz);
     }
   }
-  sctx.fillStyle = '#8b97b8';
-  sctx.fillRect(RX-1, RY-1, 2, 2);
+  if (hoverB) {   // hover 星名
+    sctx.font = '12px ' + getComputedStyle(document.body).fontFamily;
+    sctx.textAlign = 'left';
+    sctx.fillStyle = '#e8c94a';
+    sctx.fillText(hoverB.b.nameJa + '・' + hoverB.b.page, RX + RR + 12, RY);
+  }
+  space.style.cursor = hoverB ? 'pointer' : '';
+  sctx.fillStyle = '#cdd6ee';
+  sctx.fillRect(RX - 1, RY - 1, 3, 3);
+  // 目的地面板:距離更新 + 高亮
+  if (((t / 200) | 0) !== window.__dlt) {
+    window.__dlt = (t / 200) | 0;
+    for (const b of BODIES) {
+      if (!b._row) continue;
+      const [wx2, wy3, wz2] = worldPos(b);
+      const d3 = Math.hypot(wx2 - cam.x, wy3 - cam.y, wz2 - cam.z) | 0;
+      document.getElementById('dld-' + b.id).textContent = d3;
+      b._row.classList.toggle('on', cam.target === b);
+    }
+  }
   // 抵達
   if (cam.target) {
     const [tx, ty, tz] = worldPos(cam.target);
@@ -1170,24 +1316,63 @@ function renderCockpit(t) {
   document.getElementById('cSpd').textContent = cam.spd.toFixed(1);
   document.getElementById('cExp').textContent = Object.keys(explored).length;
 }
+function openCometCard(c) {
+  document.getElementById('ccN').textContent = '☄ ' + c.name;
+  document.getElementById('ccV').textContent = c.date + '・' + (c.venue || '');
+  document.getElementById('ccD').textContent = c.days === 0 ? '本日!' : 'あと ' + c.days + ' 日';
+  const u = document.getElementById('ccUrl');
+  if (c.url) { u.href = c.url; u.style.display = ''; } else u.style.display = 'none';
+  document.getElementById('ccIcs').onclick = () => {
+    const dt = c.date.replace(/-/g, '');
+    const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'BEGIN:VEVENT',
+      'DTSTART;VALUE=DATE:' + dt, 'SUMMARY:' + c.name.replace(/,/g, ' '),
+      'LOCATION:' + (c.venue || ''), 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+    a.download = 'nishina-' + dt + '.ics';
+    a.click();
+  };
+  document.getElementById('cometCard').classList.add('show');
+}
+function setTarget(b) {
+  cam.target = b;
+  explored[b.id] = Date.now();
+  saveExp(); updateHud();
+  showToast('針路設定 → ' + b.nameJa + '・' + b.page);
+}
+let RBLIPS = [];
 space.addEventListener('click', e => {
-  if (MODE !== 'cockpit') return;
+  if (MODE === 'map') {
+    const c = COMETS.find(c2 => c2._mx != null && Math.hypot(e.clientX - c2._mx, e.clientY - c2._my) < 15);
+    if (c) openCometCard(c);
+    return;
+  }
+  const cc = COMETS.find(c2 => c2._cx != null && Math.hypot(e.clientX - c2._cx, e.clientY - c2._cy) < 16);
+  if (cc) { openCometCard(cc); return; }
+  const rb = RBLIPS.find(p => Math.hypot(e.clientX - p.x, e.clientY - p.y) < 12);
+  if (rb) { setTarget(rb.b); return; }             // 雷達點擊優先
   let hit = null;
   for (const b of BODIES) {
     if (b.id === 'sun' || b._sx == null) continue;
     const d = Math.hypot(e.clientX - b._sx, e.clientY - b._sy);
     if (d < Math.max(16, b._sr + 8) && (!hit || b._srz < hit._srz)) hit = b;
   }
-  if (hit) {
-    cam.target = hit;
-    explored[hit.id] = Date.now();
-    saveExp(); updateHud();
-    showToast('針路設定 → ' + hit.nameJa + '・' + hit.page);
-  } else if (cam.target) {
-    cam.target = null;
-    showToast('自動駕駛解除');
-  }
+  if (hit) setTarget(hit);
+  else if (cam.target) { cam.target = null; showToast('自動駕駛解除'); }
 });
+// 目的地面板
+const destList = document.getElementById('destList');
+for (const b of BODIES) {
+  if (b.id === 'sun') continue;
+  const row = document.createElement('div');
+  row.className = 'dl-row';
+  row.innerHTML = '<i style="background:rgb(' + b.palette[1].join(',') + ')"></i>'
+    + '<span class="dl-n">' + b.nameJa + '</span><span class="dl-p">' + b.page + '</span>'
+    + '<span class="dl-d" id="dld-' + b.id + '">—</span>';
+  row.onclick = () => setTarget(b);
+  b._row = row;
+  destList.appendChild(row);
+}
 
 /* ---------- 主迴圈 ---------- */
 let lastPaint = 0;
@@ -1247,7 +1432,7 @@ let last = performance.now();
 addEventListener('mousemove', e => { mx = e.clientX / VW; my = e.clientY / VH; });
 
 function placeFlare() {
-  if (!FLARE_TEXT) return;   // 事件池還沒載到 / 今天沒有回憶 → 不顯示
+  if (!FLARE_TEXT) return;
   const f = document.getElementById('flare');
   f.innerHTML = '✦ ' + FLARE_TEXT.years + ' 年前的今天<br>' + FLARE_TEXT.name
     + '<br><span class="f">' + FLARE_TEXT.sub + '</span>';
@@ -1271,7 +1456,6 @@ function initFlareCycle() {
     flareEl.classList.add('show');   // reduced-motion:恆亮不閃
   }
 }
-/* 開機抓事件池, 命中才點燃閃焰 */
 fetch('/live/events.json')
   .then(r => r.ok ? r.json() : null)
   .then(list => {
