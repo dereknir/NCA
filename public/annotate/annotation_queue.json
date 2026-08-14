@@ -1,9 +1,9 @@
 {
   "meta": {
     "topN": 0,
-    "totalInQueue": 1311,
+    "totalInQueue": 1312,
     "songCount": 36,
-    "unmatchedCount": 835
+    "unmatchedCount": 836
   },
   "queue": {
     "nishina-mashiro": [
@@ -200,7 +200,7 @@
       {
         "videoId": "D9ZI8ibMr18",
         "title": "言えない忘れたい溶けない夜と #にしな #nishina #真白 #ライブ #shorts",
-        "viewCount": 1300,
+        "viewCount": 2200,
         "thumbnail": "https://i.ytimg.com/vi/D9ZI8ibMr18/hqdefault.jpg",
         "songId": "nishina-mashiro",
         "lineHint": 7,
@@ -402,7 +402,7 @@
       {
         "videoId": "ARm9okBhln0",
         "title": "願う小さな希望が叶うように #にしな #nishina  #1999 #ライブ #shorts",
-        "viewCount": 2400,
+        "viewCount": 2800,
         "thumbnail": "https://i.ytimg.com/vi/ARm9okBhln0/hqdefault.jpg",
         "songId": "nishina-1999",
         "lineHint": 5,
@@ -574,7 +574,7 @@
       {
         "videoId": "BsP49LMUV1o",
         "title": "君はヘビースモーカー #にしな #nishina #ヘビースモーク #ライブ #shorts",
-        "viewCount": 3900,
+        "viewCount": 4200,
         "thumbnail": "https://i.ytimg.com/vi/BsP49LMUV1o/hqdefault.jpg",
         "songId": "nishina-heavy-smoke",
         "lineHint": 2,
@@ -784,6 +784,16 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "4bBr2ut6KNU",
+        "title": "赤い奇跡を僕らは見つけた #にしな #nishina #青藍遊泳 #ライブ #shorts",
+        "viewCount": 5300,
+        "thumbnail": "https://i.ytimg.com/vi/4bBr2ut6KNU/hqdefault.jpg",
+        "songId": "nishina-seiran-yuuei",
+        "lineHint": 13,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "pPFXZ99O0DM",
         "title": "もう行かなきゃ #にしな #shorts",
         "viewCount": 5200,
@@ -800,16 +810,6 @@
         "thumbnail": "https://i.ytimg.com/vi/gz_lzqzgVFU/hqdefault.jpg",
         "songId": "nishina-seiran-yuuei",
         "lineHint": 5,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "4bBr2ut6KNU",
-        "title": "赤い奇跡を僕らは見つけた #にしな #nishina #青藍遊泳 #ライブ #shorts",
-        "viewCount": 4800,
-        "thumbnail": "https://i.ytimg.com/vi/4bBr2ut6KNU/hqdefault.jpg",
-        "songId": "nishina-seiran-yuuei",
-        "lineHint": 13,
         "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
@@ -1132,7 +1132,7 @@
       {
         "videoId": "rk95ny-PzqU",
         "title": "Take it easy, you'll be fine #nishina #newmusic #shorts #weekly",
-        "viewCount": 9200,
+        "viewCount": 9300,
         "thumbnail": "https://i.ytimg.com/vi/rk95ny-PzqU/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 34,
@@ -1192,7 +1192,7 @@
       {
         "videoId": "lJjpLUXRRnM",
         "title": "たまに素直なエモーション #にしな #nishina #weekly #ライブ #shorts",
-        "viewCount": 4900,
+        "viewCount": 5000,
         "thumbnail": "https://i.ytimg.com/vi/lJjpLUXRRnM/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 21,
@@ -1526,7 +1526,7 @@
       {
         "videoId": "1rtwKF5PdpI",
         "title": "さよなら私の愛しい人 #にしな #nishina #ダーリン #ライブ #shorts",
-        "viewCount": 4500,
+        "viewCount": 4600,
         "thumbnail": "https://i.ytimg.com/vi/1rtwKF5PdpI/hqdefault.jpg",
         "songId": "nishina-darling",
         "lineHint": 26,
@@ -1658,7 +1658,7 @@
       {
         "videoId": "m8pxw2GNhoo",
         "title": "ここは安楽unreality #にしな #nishina #bugs #ライブ #shorts",
-        "viewCount": 5300,
+        "viewCount": 5400,
         "thumbnail": "https://i.ytimg.com/vi/m8pxw2GNhoo/hqdefault.jpg",
         "songId": "nishina-bugs",
         "lineHint": 35,
@@ -1972,7 +1972,7 @@
       {
         "videoId": "nywcYurtoRk",
         "title": "今日もラブ履き違え #にしな #nishina #パンダガール #shorts",
-        "viewCount": 7600,
+        "viewCount": 7700,
         "thumbnail": "https://i.ytimg.com/vi/nywcYurtoRk/hqdefault.jpg",
         "songId": "nishina-panda-girl",
         "lineHint": 11,
@@ -2580,7 +2580,7 @@
       {
         "videoId": "WaY1kJlZhZ0",
         "title": "いのちはただ美し #にしな #nishina #つくし #ライブ #shorts",
-        "viewCount": 7900,
+        "viewCount": 8000,
         "thumbnail": "https://i.ytimg.com/vi/WaY1kJlZhZ0/hqdefault.jpg",
         "songId": "nishina-tsukushi",
         "lineHint": 19,
@@ -3384,6 +3384,16 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "UNhhJAJFFmk",
+        "title": "愛をうたおう #にしな #nishina #アイニコイ # #ライブ #shorts",
+        "viewCount": 7500,
+        "thumbnail": "https://i.ytimg.com/vi/UNhhJAJFFmk/hqdefault.jpg",
+        "songId": "nishina-ainikoi",
+        "lineHint": 9,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "ymVk2WcgnIA",
         "title": "いつでもどこでも仰せのままにベイビ #にしな #nishina #ライブ #live #shorts",
         "viewCount": 7500,
@@ -3392,16 +3402,6 @@
         "lineHint": 8,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "UNhhJAJFFmk",
-        "title": "愛をうたおう #にしな #nishina #アイニコイ # #ライブ #shorts",
-        "viewCount": 7400,
-        "thumbnail": "https://i.ytimg.com/vi/UNhhJAJFFmk/hqdefault.jpg",
-        "songId": "nishina-ainikoi",
-        "lineHint": 9,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
       },
       {
         "videoId": "S2u7ghhrAAc",
@@ -6360,6 +6360,16 @@
         "matchMethod": "non_song"
       },
       {
+        "videoId": "LePlzdeItIM",
+        "title": "Get dizzy and then kiss #にしな #nishina #live #shorts",
+        "viewCount": 9500,
+        "thumbnail": "https://i.ytimg.com/vi/LePlzdeItIM/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 50.0,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "FFkHaIUKK1I",
         "title": "You’re so subtle #nishina #live #shorts",
         "viewCount": 9500,
@@ -6368,16 +6378,6 @@
         "lineHint": 10,
         "matchScore": 70.58823529411764,
         "matchMethod": "review"
-      },
-      {
-        "videoId": "LePlzdeItIM",
-        "title": "Get dizzy and then kiss #にしな #nishina #live #shorts",
-        "viewCount": 9400,
-        "thumbnail": "https://i.ytimg.com/vi/LePlzdeItIM/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 50.0,
-        "matchMethod": "out_of_catalog"
       },
       {
         "videoId": "6JR7eA40EWo",
@@ -7560,6 +7560,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "jWxn_ZeQRH8",
+        "title": "にしな🎬映画「モブ子の恋」🍀主題歌「クローバー」6月3日リリース決定 #にしな #nishina #モブ子の恋 #クローバー #shorts",
+        "viewCount": 6700,
+        "thumbnail": "https://i.ytimg.com/vi/jWxn_ZeQRH8/hqdefault.jpg",
+        "songId": "nishina-weekly",
+        "lineHint": 25,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
+      },
+      {
         "videoId": "ZhSkT8BFIjE",
         "title": "nishina new photo📸 #にしな #nishina #newphoto #shorts",
         "viewCount": 6700,
@@ -7677,16 +7687,6 @@
         "songId": "nishina-in-your-eyes",
         "lineHint": 10,
         "matchScore": 70.0,
-        "matchMethod": "review"
-      },
-      {
-        "videoId": "jWxn_ZeQRH8",
-        "title": "にしな🎬映画「モブ子の恋」🍀主題歌「クローバー」6月3日リリース決定 #にしな #nishina #モブ子の恋 #クローバー #shorts",
-        "viewCount": 6600,
-        "thumbnail": "https://i.ytimg.com/vi/jWxn_ZeQRH8/hqdefault.jpg",
-        "songId": "nishina-weekly",
-        "lineHint": 25,
-        "matchScore": 66.66666666666667,
         "matchMethod": "review"
       },
       {
@@ -13188,6 +13188,16 @@
         "lineHint": 22,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
+      },
+      {
+        "videoId": "fCAlagSgsXE",
+        "title": "RISING SUN ROCK FESTIVAL 2026 in EZO🌞ありがとうございました！ #にしな #nishina #フェス #ライブ #shorts",
+        "viewCount": 689,
+        "thumbnail": "https://i.ytimg.com/vi/fCAlagSgsXE/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 55.55555555555556,
+        "matchMethod": "out_of_catalog"
       }
     ]
   }
