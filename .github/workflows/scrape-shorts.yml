@@ -128,10 +128,14 @@ jobs:
           reports = {}
           for key in ['news', 'eplus']:
               p = os.path.join(tmp, f'{key}_report.txt')
-              reports[key] = open(p, encoding='utf-8').read().strip() if os.path.exists(p) \
-                             else f'[{key}] ⚠ 無報告 (步驟未執行?)'
+              r = open(p, encoding='utf-8').read().strip() if os.path.exists(p) \
+                  else f'[{key}] ⚠ 無報告 (步驟未執行?)'
+              # 格式統一: 每段必須以 [類別] 表頭開場, 底下條列內容
+              if not r.startswith(f'[{key}]'):
+                  r = f'[{key}]\n' + r
+              reports[key] = r
               lines.append('')
-              lines.append(reports[key])
+              lines.append(r)
           open(os.path.join(tmp, 'digest.txt'), 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
           # subject 摘要: shorts +N · news +M · eplus ★K/-
           def num(text, pat, zero):

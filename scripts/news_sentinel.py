@@ -62,7 +62,8 @@ def main():
     news = json.loads(NEWS_FILE.read_text(encoding="utf-8"))
     known = {canon(n["url"]) for n in news}
 
-    req = urllib.request.Request(FEED_URL, headers={"User-Agent": UA})
+    req = urllib.request.Request(FEED_URL, headers={
+        "User-Agent": UA, "Accept": "application/rss+xml, application/xml;q=0.9, */*;q=0.5"})
     xml = urllib.request.urlopen(req, timeout=30).read()
     root = ET.fromstring(xml)
     items = root.findall(".//item")
@@ -124,4 +125,10 @@ def emit(lines, exit_code=0):
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
-    main()
+    try:
+        main()
+    except SystemExit:
+        raise
+    except Exception as exc:
+        # 失敗也要自我報告進日報 — 別讓死因被通用訊息吞掉
+        emit([f"[news] ⚠ 執行失敗: {type(exc).__name__}: {str(exc)[:120]}"], exit_code=1)

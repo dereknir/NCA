@@ -87,11 +87,11 @@ def parse(html):
 
 def main():
     if not robots_allows():
-        print('robots.txt 已禁止本頁,停止抓取。改用官方 news 人工收割流程。')
+        print('[eplus] ⚠ robots.txt 已禁止本頁, 停止抓取 — 改人工流程')
         sys.exit(2)
     events = parse(fetch())
     if not events:
-        print('⚠ 解析到 0 場——頁面結構可能改版,請把 HTML 丟回給 fable 修 parser')
+        print('[eplus] ⚠ 解析 0 筆 — 頁面可能又改版, 需修 parser')
         sys.exit(1)
     prev = json.loads(STATE.read_text(encoding='utf-8')) if STATE.exists() else []
     prev_keys = {(e['date'], e['name']) for e in prev}
@@ -100,13 +100,12 @@ def main():
     OUT.write_text(json.dumps(
         dict(fetched=time.strftime('%Y-%m-%d'), source=URL, events=events),
         ensure_ascii=False, indent=1), encoding='utf-8')
-    print(f'現售場次 {len(events)} 筆 → upcoming.json')
     if fresh:
-        print(f'★ 新場次 {len(fresh)} 筆:')
+        print(f'[eplus] 現售 {len(events)} 場・★ 新場次 {len(fresh)} 筆:')
         for e in fresh:
-            print(f"  {e['date']}  {e['name']}  @{e['venue']}({e['pref']})")
+            print(f"  ・{e['date']} {e['name']} @{e['venue']}({e['pref']})")
     else:
-        print('無新場次')
+        print(f'[eplus] 現售 {len(events)} 場・無新場次')
 
 if __name__ == '__main__':
     sys.stdout.reconfigure(encoding='utf-8')
