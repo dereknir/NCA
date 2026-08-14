@@ -73,6 +73,20 @@ jobs:
         run: cp src/data/setlists.json public/annotate/setlists.json
         continue-on-error: true    # 上一步 continue-on-error 若沒生檔, 這步跳過
 
+      # ---- 哨兵 (每日 1 GET each; 失敗不阻塞其他, 結果進日報) ----
+      - name: Sentinel — eplus 現售場次 (JSON-LD)
+        continue-on-error: true
+        run: python live/watch-eplus.py > "$RUNNER_TEMP/eplus_report.txt" 2>&1 || true
+
+      - name: Sentinel — 官方 news RSS (自動分類入庫)
+        continue-on-error: true
+        run: |
+          REPORT_PATH="$RUNNER_TEMP/news_report.txt" python scripts/news_sentinel.py || true
+          [ -f "$RUNNER_TEMP/news_report.txt" ] || echo "[news] ⚠ 哨兵執行失敗 (網路/解析), 見 workflow log" > "$RUNNER_TEMP/news_report.txt"
+
+      - name: Rebuild live 三頁 (news 有新條目時跟著更新; 冪等)
+        run: python live/inject.py
+
       - name: Commit + push if changed
         id: commit
         run: |
@@ -92,8 +106,46 @@ jobs:
             echo "committed=yes" >> $GITHUB_OUTPUT
           fi
 
-      # 電郵通知 (兩種結果都寄; secrets 未設時 step 失敗但不阻塞 job)
-      - name: Email — success
+      # ---- 日報 (整合 shorts + news + eplus 當天收穫; 無碎碎念) ----
+      - name: Build daily digest
+        id: digest
+        if: success()
+        run: |
+          python - << 'PYEOF'
+          import json, os, re
+          tmp = os.environ['RUNNER_TEMP']
+          lines = []
+          d = json.load(open('annotation/recent_new_shorts.json', encoding='utf-8'))
+          if d['count']:
+              lines.append(f"[shorts] 新增 {d['count']} 支:")
+              for it in d['items'][:10]:
+                  t = it['title'].split('#')[0].strip() or it['title'][:40]
+                  lines.append(f"  ・{t} ({it['viewCount']:,} views)")
+              if d['count'] > 10:
+                  lines.append(f"  …其餘 {d['count']-10} 支")
+          else:
+              lines.append('[shorts] 無新增')
+          reports = {}
+          for key in ['news', 'eplus']:
+              p = os.path.join(tmp, f'{key}_report.txt')
+              reports[key] = open(p, encoding='utf-8').read().strip() if os.path.exists(p) \
+                             else f'[{key}] ⚠ 無報告 (步驟未執行?)'
+              lines.append('')
+              lines.append(reports[key])
+          open(os.path.join(tmp, 'digest.txt'), 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
+          # subject 摘要: shorts +N · news +M · eplus ★K/-
+          def num(text, pat, zero):
+              m = re.search(pat, text)
+              return m.group(1) if m else zero
+          news_n = num(reports['news'], r'新增 (\d+) 條', '0')
+          ep_n = num(reports['eplus'], r'新場次 (\d+) 筆', '0')
+          summary = f"shorts +{d['count']} · news +{news_n} · eplus " + (f"★{ep_n} 新場次" if ep_n != '0' else '無新')
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as f:
+              f.write(f'summary={summary}\n')
+          PYEOF
+
+      # 電郵通知 (secrets 未設時 step 失敗但不阻塞 job)
+      - name: Email — 日報
         if: success()
         continue-on-error: true
         uses: dawidd6/action-send-mail@v3
@@ -103,20 +155,10 @@ jobs:
           secure: true
           username: ${{ secrets.GMAIL_USER }}
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
-          subject: "✓ NCA shorts refresh — +${{ steps.commit.outputs.new_count }} new"
+          subject: "✓ NCA 日報 — ${{ steps.digest.outputs.summary }}"
           to: dereknir6409@gmail.com
           from: NCA Bot <${{ secrets.GMAIL_USER }}>
-          body: |
-            NCA 每日 shorts 刷新成功。
-
-            本次新增: ${{ steps.commit.outputs.new_count }} 支
-            已 commit 並 push: ${{ steps.commit.outputs.committed }}
-
-            檢視完整 log:
-            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
-            annotation_queue.json 已同步到 /annotate/,
-            Vercel 部署完成後可直接開始標註新資料。
+          body: file://${{ runner.temp }}/digest.txt
 
       - name: Email — failure
         if: failure()

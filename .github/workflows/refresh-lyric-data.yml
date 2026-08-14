@@ -37,8 +37,15 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install deps (fugashi + unidic-lite for 日文斷詞)
-        run: pip install fugashi unidic-lite rapidfuzz
+      - name: Install deps (fugashi + unidic-lite for 日文斷詞; fonttools 供字型子集)
+        run: pip install fugashi unidic-lite rapidfuzz fonttools brotli
+
+      # 字型源檔快取 (fusion-pixel 12/10px + jf 粉圓, 冷抓 ~100MB; key pin 版本)
+      - name: Cache font sources
+        uses: actions/cache@v4
+        with:
+          path: fonts_src
+          key: fonts-src-fusion-2026.07.20-huninn-2.1
 
       - name: Export lyrics.json (md → data/lyrics.json)
         run: python scripts/export_lyrics_json.py
@@ -52,6 +59,12 @@ jobs:
       - name: Sync lyrics.json → /annotate/ (so 新編輯的 title/album 也同步下拉)
         run: cp data/lyrics.json public/annotate/lyrics.json
 
+      # 新歌名/新內文的字若不在字集裡, 像素標題/粉圓內文會混排 fallback → 一起重生
+      - name: Rebuild font subsets (charset 掃全站 → pyftsubset)
+        run: |
+          python scripts/build_site_charset.py
+          python scripts/build_pixel_fonts.py
+
       - name: Commit + push if changed
         id: commit
         run: |
@@ -63,7 +76,9 @@ jobs:
                   src/data/kwic_index.json \
                   public/lyric-universe/index.html \
                   public/kwic/index.html \
-                  public/annotate/lyrics.json
+                  public/annotate/lyrics.json \
+                  data/site_charset.txt \
+                  public/fonts/
           if git diff --staged --quiet; then
             echo "committed=no" >> $GITHUB_OUTPUT
             echo "→ 衍生檔跟目前 md 已同步, 沒東西可 commit"

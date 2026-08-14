@@ -21,7 +21,7 @@ import json, re, sys, time, urllib.request
 from pathlib import Path
 
 URL = 'https://eplus.jp/sf/word/0000130029'
-UA = 'nishina-fansite-watcher/1.0 (non-commercial fan site; contact: your-email@example.com)'
+UA = 'nishina-fansite-watcher/1.0 (non-commercial fan site; contact: dereknir6409@gmail.com)'
 STATE = Path(__file__).parent / 'eplus_state.json'
 OUT = Path(__file__).parent / 'upcoming.json'
 
@@ -49,28 +49,32 @@ def fetch():
     return urllib.request.urlopen(req, timeout=30).read().decode('utf-8', 'ignore')
 
 def parse(html):
-    """eplus 公演連結格式:日期(可區間)+販售別+活動名+場地(縣)"""
+    """eplus 票卡自帶 JSON-LD Event 結構化資料 (2026-08-11 改版驗證:
+    每個 detail 連結內嵌 schema.org Event, 含 name/startDate/location) —
+    比舊文字 regex 可靠, parser 已改吃 JSON-LD。"""
     events = []
-    for m in re.finditer(r'<a[^>]+href="(https://eplus\.jp/sf/detail/[^"]+)"[^>]*>(.*?)</a>', html, re.S):
-        url, body = m.group(1), re.sub(r'<[^>]+>', '', m.group(2))
-        body = re.sub(r'\s+', ' ', body).strip()
-        dm = re.match(r'(\d{4}/\d{1,2}/\d{1,2})\([^)]+\)(?:(\d{4}/\d{1,2}/\d{1,2})\([^)]+\))?', body)
-        if not dm: continue
-        rest = body[dm.end():]
-        rest = re.sub(r'^(先着|抽選|プレリザーブ|一般発売)', '', rest).strip()
-        # eplus 將活動名與場地無分隔連寫,不硬拆:name = 完整標籤(活動+場地)
-        vm = re.search(r'^(.*?)[（(]([^)）]*?[都道府県])[)）]', rest)
-        name, pref = (vm.group(1).strip(), vm.group(2)) if vm else (rest, '')
-        venue = ''
-        iso = dm.group(1).replace('/', '-')
-        y, mo, d = iso.split('-')
-        events.append(dict(
-            date=f'{y}-{int(mo):02d}-{int(d):02d}',
-            date_end=(lambda e: f"{e[0]}-{int(e[1]):02d}-{int(e[2]):02d}" if e else None)(
-                dm.group(2).split('/') if dm.group(2) else None),
-            name=name, venue=venue, pref=pref.replace('県', '').replace('府', '')
-                 .replace('東京都', '東京').replace('都', '') if pref else '',
-            url=url.split('?')[0]))
+    for m in re.finditer(r'<script type="application/ld\+json">\s*(\{[\s\S]*?\})\s*</script>', html):
+        try:
+            obj = json.loads(m.group(1), strict=False)
+        except Exception:
+            continue
+        if obj.get('@type') != 'Event':
+            continue
+        name = (obj.get('name') or '').strip()
+        url = (obj.get('url') or '').split('?')[0]
+        start = (obj.get('startDate') or '')[:10]
+        end = (obj.get('endDate') or '')[:10] or None
+        if not name or not start:
+            continue
+        loc = obj.get('location') or {}
+        venue = (loc.get('name') or '').strip()
+        addr = loc.get('address') or {}
+        pref = (addr.get('addressRegion') or '')
+        pref = (pref.replace('県', '').replace('府', '')
+                .replace('東京都', '東京').rstrip('都') if pref else '')
+        if pref == '': pref = ''
+        events.append(dict(date=start, date_end=(end if end != start else None),
+                           name=name, venue=venue, pref=pref, url=url))
     # 同活動多販售檔期會重複 → 以 (date,name) 去重
     seen, out = set(), []
     for e in events:
@@ -78,6 +82,7 @@ def parse(html):
         if k in seen: continue
         seen.add(k)
         out.append(e)
+    out.sort(key=lambda e: e['date'])
     return out
 
 def main():
@@ -104,4 +109,5 @@ def main():
         print('無新場次')
 
 if __name__ == '__main__':
+    sys.stdout.reconfigure(encoding='utf-8')
     main()

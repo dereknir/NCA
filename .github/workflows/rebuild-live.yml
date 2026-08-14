@@ -1,0 +1,49 @@
+name: Rebuild live pages (data/template push)
+
+# 政策「更新後的重建流程」自動化: 改 live/data/*.json 或模板 → inject.py → 三頁+events+場次清單重生。
+# 觸發者是「人」推的資料/模板變更 (哨兵的自動變更在 scrape-shorts 內已自帶 inject,
+# 且 bot push 本來就不會觸發 workflow — 無自迴圈)。
+# 產物只寫 public/, 不在觸發路徑內 → 不會自己觸發自己。
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'live/data/**.json'
+      - 'live/*.template.html'
+      - 'live/inject.py'
+  workflow_dispatch: {}
+
+concurrency:
+  group: rebuild-live-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Inject → public/live 三頁 + events.json + annotator 場次清單
+        run: python live/inject.py
+
+      - name: Commit + push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/live/ public/annotate/appearances.json
+          if git diff --staged --quiet; then
+            echo "→ 產物與資料已同步, 沒東西可 commit"
+          else
+            git commit -m "chore(live): inject rebuild (data/template push)"
+            git push origin HEAD:develop
+          fi
