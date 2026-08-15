@@ -1,9 +1,9 @@
 {
   "meta": {
     "topN": 0,
-    "totalInQueue": 1312,
+    "totalInQueue": 1313,
     "songCount": 36,
-    "unmatchedCount": 836
+    "unmatchedCount": 837
   },
   "queue": {
     "nishina-mashiro": [
@@ -200,7 +200,7 @@
       {
         "videoId": "D9ZI8ibMr18",
         "title": "言えない忘れたい溶けない夜と #にしな #nishina #真白 #ライブ #shorts",
-        "viewCount": 2400,
+        "viewCount": 2800,
         "thumbnail": "https://i.ytimg.com/vi/D9ZI8ibMr18/hqdefault.jpg",
         "songId": "nishina-mashiro",
         "lineHint": 7,
@@ -402,7 +402,7 @@
       {
         "videoId": "ARm9okBhln0",
         "title": "願う小さな希望が叶うように #にしな #nishina  #1999 #ライブ #shorts",
-        "viewCount": 3000,
+        "viewCount": 3400,
         "thumbnail": "https://i.ytimg.com/vi/ARm9okBhln0/hqdefault.jpg",
         "songId": "nishina-1999",
         "lineHint": 5,
@@ -562,22 +562,22 @@
         "matchMethod": "lyric_match"
       },
       {
+        "videoId": "BsP49LMUV1o",
+        "title": "君はヘビースモーカー #にしな #nishina #ヘビースモーク #ライブ #shorts",
+        "viewCount": 4700,
+        "thumbnail": "https://i.ytimg.com/vi/BsP49LMUV1o/hqdefault.jpg",
+        "songId": "nishina-heavy-smoke",
+        "lineHint": 2,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "FLz7I271jlo",
         "title": "貴方色に私もなりたい #にしな #ヘビースモーク #shorts",
         "viewCount": 4600,
         "thumbnail": "https://i.ytimg.com/vi/FLz7I271jlo/hqdefault.jpg",
         "songId": "nishina-heavy-smoke",
         "lineHint": 13,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "BsP49LMUV1o",
-        "title": "君はヘビースモーカー #にしな #nishina #ヘビースモーク #ライブ #shorts",
-        "viewCount": 4300,
-        "thumbnail": "https://i.ytimg.com/vi/BsP49LMUV1o/hqdefault.jpg",
-        "songId": "nishina-heavy-smoke",
-        "lineHint": 2,
         "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
@@ -776,7 +776,7 @@
       {
         "videoId": "4bBr2ut6KNU",
         "title": "赤い奇跡を僕らは見つけた #にしな #nishina #青藍遊泳 #ライブ #shorts",
-        "viewCount": 5400,
+        "viewCount": 5500,
         "thumbnail": "https://i.ytimg.com/vi/4bBr2ut6KNU/hqdefault.jpg",
         "songId": "nishina-seiran-yuuei",
         "lineHint": 13,
@@ -1192,7 +1192,7 @@
       {
         "videoId": "lJjpLUXRRnM",
         "title": "たまに素直なエモーション #にしな #nishina #weekly #ライブ #shorts",
-        "viewCount": 5000,
+        "viewCount": 5100,
         "thumbnail": "https://i.ytimg.com/vi/lJjpLUXRRnM/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 21,
@@ -1444,6 +1444,16 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "Ap_0LcWWTKs",
+        "title": "さよなら私の愛しい人 #shorts",
+        "viewCount": 7300,
+        "thumbnail": "https://i.ytimg.com/vi/Ap_0LcWWTKs/hqdefault.jpg",
+        "songId": "nishina-darling",
+        "lineHint": 26,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
         "videoId": "nxZoVMwQ9mg",
         "title": "さよならは私が言ってあげる #にしな #ダーリン #shorts",
         "viewCount": 7200,
@@ -1452,16 +1462,6 @@
         "lineHint": 12,
         "matchScore": 100.0,
         "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "Ap_0LcWWTKs",
-        "title": "さよなら私の愛しい人 #shorts",
-        "viewCount": 7200,
-        "thumbnail": "https://i.ytimg.com/vi/Ap_0LcWWTKs/hqdefault.jpg",
-        "songId": "nishina-darling",
-        "lineHint": 26,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
       },
       {
         "videoId": "Wl3HDiLVPxY",
@@ -1820,7 +1820,7 @@
       {
         "videoId": "YAgDIIf1plw",
         "title": "now loading loadingどうか応答せよ #にしな #nishina #東京マーブル #ライブ #shorts",
-        "viewCount": 9800,
+        "viewCount": 9900,
         "thumbnail": "https://i.ytimg.com/vi/YAgDIIf1plw/hqdefault.jpg",
         "songId": "nishina-tokyo-marble",
         "lineHint": 16,
@@ -1900,7 +1900,7 @@
       {
         "videoId": "7M0C7rqR7-E",
         "title": "イカれた夜のメランルー #にしな #nishina #東京マーブル #ライブ #shorts",
-        "viewCount": 5700,
+        "viewCount": 5800,
         "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
         "songId": "nishina-tokyo-marble",
         "lineHint": 12,
@@ -5230,6 +5230,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "juS-Zax78OY",
+        "title": "Because I have to go #nishina #live #shorts",
+        "viewCount": 16000,
+        "thumbnail": "https://i.ytimg.com/vi/juS-Zax78OY/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 57.14285714285714,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "_j3hf3qqvvk",
         "title": "Can’t you tell friend from foe? #nishina #live #shorts",
         "viewCount": 16000,
@@ -5287,16 +5297,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 60.0,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "juS-Zax78OY",
-        "title": "Because I have to go #nishina #live #shorts",
-        "viewCount": 15000,
-        "thumbnail": "https://i.ytimg.com/vi/juS-Zax78OY/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 57.14285714285714,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -6320,6 +6320,26 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "ZXQqz1BKHUQ",
+        "title": "If you’re hands are lonely #nishina #thefirsttake #shorts",
+        "viewCount": 9700,
+        "thumbnail": "https://i.ytimg.com/vi/ZXQqz1BKHUQ/hqdefault.jpg",
+        "songId": "nishina-in-your-eyes",
+        "lineHint": 10,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
+      },
+      {
+        "videoId": "FFkHaIUKK1I",
+        "title": "You’re so subtle #nishina #live #shorts",
+        "viewCount": 9600,
+        "thumbnail": "https://i.ytimg.com/vi/FFkHaIUKK1I/hqdefault.jpg",
+        "songId": "nishina-in-your-eyes",
+        "lineHint": 10,
+        "matchScore": 70.58823529411764,
+        "matchMethod": "review"
+      },
+      {
         "videoId": "xYxptclbs3Q",
         "title": "Limits are just in my mind #nishina #newmusic #shorts",
         "viewCount": 9600,
@@ -6340,16 +6360,6 @@
         "matchMethod": "out_of_catalog"
       },
       {
-        "videoId": "ZXQqz1BKHUQ",
-        "title": "If you’re hands are lonely #nishina #thefirsttake #shorts",
-        "viewCount": 9600,
-        "thumbnail": "https://i.ytimg.com/vi/ZXQqz1BKHUQ/hqdefault.jpg",
-        "songId": "nishina-in-your-eyes",
-        "lineHint": 10,
-        "matchScore": 66.66666666666667,
-        "matchMethod": "review"
-      },
-      {
         "videoId": "SCPoDwj7Gac",
         "title": "2026.4.18 at Zepp DiverCity⭐️ #にしな #nishina #ライブ #shorts",
         "viewCount": 9500,
@@ -6368,16 +6378,6 @@
         "lineHint": null,
         "matchScore": 50.0,
         "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "FFkHaIUKK1I",
-        "title": "You’re so subtle #nishina #live #shorts",
-        "viewCount": 9500,
-        "thumbnail": "https://i.ytimg.com/vi/FFkHaIUKK1I/hqdefault.jpg",
-        "songId": "nishina-in-your-eyes",
-        "lineHint": 10,
-        "matchScore": 70.58823529411764,
-        "matchMethod": "review"
       },
       {
         "videoId": "6JR7eA40EWo",
@@ -7190,6 +7190,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "tD9GhrjUKsw",
+        "title": "宇宙旅行でもいこうか！ #にしな #nishina #あれが恋だったのかな #ライブ #shorts",
+        "viewCount": 7200,
+        "thumbnail": "https://i.ytimg.com/vi/tD9GhrjUKsw/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 53.333333333333336,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "FIqlco7mHN8",
         "title": "nishina / glory #にしな #nishina #newmusic #shorts",
         "viewCount": 7200,
@@ -7257,16 +7267,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 54.54545454545454,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "tD9GhrjUKsw",
-        "title": "宇宙旅行でもいこうか！ #にしな #nishina #あれが恋だったのかな #ライブ #shorts",
-        "viewCount": 7100,
-        "thumbnail": "https://i.ytimg.com/vi/tD9GhrjUKsw/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 53.333333333333336,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -8350,6 +8350,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "7DUGYcUOPBs",
+        "title": "Endlessly pouring love songs #nishina #newmusic #shorts",
+        "viewCount": 5900,
+        "thumbnail": "https://i.ytimg.com/vi/7DUGYcUOPBs/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 15,
+        "matchScore": 76.92307692307692,
+        "matchMethod": "review"
+      },
+      {
         "videoId": "CavV6NCZBOM",
         "title": "I can’t control it anymore #nishina #live #shorts",
         "viewCount": 5900,
@@ -8448,16 +8458,6 @@
         "lineHint": null,
         "matchScore": 50.0,
         "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "7DUGYcUOPBs",
-        "title": "Endlessly pouring love songs #nishina #newmusic #shorts",
-        "viewCount": 5800,
-        "thumbnail": "https://i.ytimg.com/vi/7DUGYcUOPBs/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 15,
-        "matchScore": 76.92307692307692,
-        "matchMethod": "review"
       },
       {
         "videoId": "WAQgCqXTOvQ",
@@ -10790,6 +10790,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "FLNxjHL3NCI",
+        "title": "Become the color of you #nishina  #live #shorts",
+        "viewCount": 3800,
+        "thumbnail": "https://i.ytimg.com/vi/FLNxjHL3NCI/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 62.5,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "X5zHYg5YtyM",
         "title": "If your lips are lonely #nishina #live #shorts",
         "viewCount": 3800,
@@ -10898,16 +10908,6 @@
         "lineHint": 22,
         "matchScore": 80.0,
         "matchMethod": "review"
-      },
-      {
-        "videoId": "FLNxjHL3NCI",
-        "title": "Become the color of you #nishina  #live #shorts",
-        "viewCount": 3700,
-        "thumbnail": "https://i.ytimg.com/vi/FLNxjHL3NCI/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 62.5,
-        "matchMethod": "out_of_catalog"
       },
       {
         "videoId": "JOa6aRmpXgo",
@@ -11440,16 +11440,6 @@
         "matchMethod": "review"
       },
       {
-        "videoId": "110uagIacec",
-        "title": "Your lips laid the trap that I fell into #nishina #jpop #shorts",
-        "viewCount": 3200,
-        "thumbnail": "https://i.ytimg.com/vi/110uagIacec/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 62.5,
-        "matchMethod": "out_of_catalog"
-      },
-      {
         "videoId": "953gorf9nUM",
         "title": "I can handle cuts and depression #nishina #live #shorts",
         "viewCount": 3200,
@@ -11568,6 +11558,16 @@
         "lineHint": 20,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
+      },
+      {
+        "videoId": "110uagIacec",
+        "title": "Your lips laid the trap that I fell into #nishina #jpop #shorts",
+        "viewCount": 3100,
+        "thumbnail": "https://i.ytimg.com/vi/110uagIacec/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 62.5,
+        "matchMethod": "out_of_catalog"
       },
       {
         "videoId": "W9bn5Qp3hQw",
@@ -11730,6 +11730,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "ge-BgDs08z0",
+        "title": "indigo la End / 夜凪 feat.にしな #shorts",
+        "viewCount": 2900,
+        "thumbnail": "https://i.ytimg.com/vi/ge-BgDs08z0/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 51.85185185185186,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "pgDkCw7b57c",
         "title": "I wish I could forget the actions that were taken #nishina #live #shorts",
         "viewCount": 2900,
@@ -11847,16 +11857,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 54.54545454545454,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "ge-BgDs08z0",
-        "title": "indigo la End / 夜凪 feat.にしな #shorts",
-        "viewCount": 2800,
-        "thumbnail": "https://i.ytimg.com/vi/ge-BgDs08z0/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 51.85185185185186,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -12590,6 +12590,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "1nBPDVncspo",
+        "title": "nishina - new goods 2026 in summer #にしな #nishina #shorts",
+        "viewCount": 2200,
+        "thumbnail": "https://i.ytimg.com/vi/1nBPDVncspo/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 52.63157894736843,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "SdW7Z2GaJUg",
         "title": "2月５日リリース にしな「つくし」 #nishina #newsong #shorts",
         "viewCount": 2200,
@@ -13000,6 +13010,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "fCAlagSgsXE",
+        "title": "RISING SUN ROCK FESTIVAL 2026 in EZO🌞ありがとうございました！ #にしな #nishina #フェス #ライブ #shorts",
+        "viewCount": 1800,
+        "thumbnail": "https://i.ytimg.com/vi/fCAlagSgsXE/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 55.55555555555556,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "ZVswewSuGiA",
         "title": "Just like Adam and Eve #nishina #music #shorts",
         "viewCount": 1800,
@@ -13188,16 +13208,6 @@
         "lineHint": 22,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
-      },
-      {
-        "videoId": "fCAlagSgsXE",
-        "title": "RISING SUN ROCK FESTIVAL 2026 in EZO🌞ありがとうございました！ #にしな #nishina #フェス #ライブ #shorts",
-        "viewCount": 1000,
-        "thumbnail": "https://i.ytimg.com/vi/fCAlagSgsXE/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 55.55555555555556,
-        "matchMethod": "out_of_catalog"
       }
     ]
   }
