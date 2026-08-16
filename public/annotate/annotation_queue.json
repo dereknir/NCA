@@ -1,11 +1,513 @@
 {
   "meta": {
     "topN": 0,
-    "totalInQueue": 1313,
+    "totalInQueue": 1314,
     "songCount": 36,
     "unmatchedCount": 837
   },
   "queue": {
+    "nishina-wawon": [
+      {
+        "videoId": "bmrJImkLLwc",
+        "title": "「わをん」という曲を作りました。 #nishina #わをん #shorts",
+        "viewCount": 31000,
+        "thumbnail": "https://i.ytimg.com/vi/bmrJImkLLwc/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 41,
+        "matchScore": 36.36363636363637,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "JI86pWwhdf4",
+        "title": "あい、五十音はそこから始まって #にしな #わをん #shorts",
+        "viewCount": 23000,
+        "thumbnail": "https://i.ytimg.com/vi/JI86pWwhdf4/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 0,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "oBzHEw-UA84",
+        "title": "本当は多分誰にも分からない #にしな #nishina #ライブ #shorts",
+        "viewCount": 17000,
+        "thumbnail": "https://i.ytimg.com/vi/oBzHEw-UA84/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 7,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "gB4XJgjjLQE",
+        "title": "愛、胸に響き続ける #にしな #わをん #shorts",
+        "viewCount": 17000,
+        "thumbnail": "https://i.ytimg.com/vi/gB4XJgjjLQE/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 49,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "oeTX8gltjqc",
+        "title": "Telling you “We love you” #にしな #nishina #newmusic #shorts",
+        "viewCount": 15000,
+        "thumbnail": "https://i.ytimg.com/vi/oeTX8gltjqc/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 87.5,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "Nq2YQjY92KI",
+        "title": "The “I love you” we couldn’t say The “Farewell” and “I’m sorry” #nishina #live #shorts",
+        "viewCount": 11000,
+        "thumbnail": "https://i.ytimg.com/vi/Nq2YQjY92KI/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 87.5,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "GN4b4L_aWRU",
+        "title": "この世の全て最悪で手放したい時もある # #にしな # #nishina #わをん #ライブ #shorts",
+        "viewCount": 10000,
+        "thumbnail": "https://i.ytimg.com/vi/GN4b4L_aWRU/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 40,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "RTb_v1E9_hI",
+        "title": "相変わらずの中に見つけたい #にしな #わをん #shorts",
+        "viewCount": 10000,
+        "thumbnail": "https://i.ytimg.com/vi/RTb_v1E9_hI/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 17,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "uP2ew_MK7NM",
+        "title": "愛、やがて和音に繋がって #にしな #わをん #shorts",
+        "viewCount": 10000,
+        "thumbnail": "https://i.ytimg.com/vi/uP2ew_MK7NM/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 48,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "dg1ZJtpBbPQ",
+        "title": "I just want to love you #nishina #live #shorts",
+        "viewCount": 9700,
+        "thumbnail": "https://i.ytimg.com/vi/dg1ZJtpBbPQ/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 93.33333333333333,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "b9GoHmxPYgc",
+        "title": "あい、五十音はそこから始まって #にしな #nishina #わをん #ライブ #shorts",
+        "viewCount": 7600,
+        "thumbnail": "https://i.ytimg.com/vi/b9GoHmxPYgc/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 0,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "zQve_a0BLoI",
+        "title": "The younger I was, the more I dreamt,I loved you #nishina #にしな #shorts",
+        "viewCount": 7400,
+        "thumbnail": "https://i.ytimg.com/vi/zQve_a0BLoI/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 87.5,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "784GdaN19Ok",
+        "title": "Living feels like it has no reason #nishina #わをん #shorts",
+        "viewCount": 7300,
+        "thumbnail": "https://i.ytimg.com/vi/784GdaN19Ok/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 10,
+        "matchScore": 69.56521739130434,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "lnGlarrf7ms",
+        "title": "i 、自分を含むことも知って #にしな #わをん  #shorts",
+        "viewCount": 7100,
+        "thumbnail": "https://i.ytimg.com/vi/lnGlarrf7ms/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 1,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "NaWofAEa0aE",
+        "title": "愛、やがて和音に繋がって #にしな #nishina #ライブ #shorts",
+        "viewCount": 6900,
+        "thumbnail": "https://i.ytimg.com/vi/NaWofAEa0aE/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 48,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "Ujpk_XXqfL8",
+        "title": "The “I love you” we couldn’t say,the  “Farewell” and “I’m sorry” #にしな #nishina #live #shorts",
+        "viewCount": 6200,
+        "thumbnail": "https://i.ytimg.com/vi/Ujpk_XXqfL8/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 87.5,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "CmiqByIpr1E",
+        "title": "本気になり、傷つく日もある #にしな #わをん #shorts",
+        "viewCount": 6200,
+        "thumbnail": "https://i.ytimg.com/vi/CmiqByIpr1E/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 37,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "Yz_Z2hBNY7Y",
+        "title": "この世の全て最悪で手放したい時もある #にしな #nishina #わをん #ライブ #shorts",
+        "viewCount": 5900,
+        "thumbnail": "https://i.ytimg.com/vi/Yz_Z2hBNY7Y/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 40,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "JX8FrhH_VXU",
+        "title": "ai,—love you #nishina #live #shorts",
+        "viewCount": 5900,
+        "thumbnail": "https://i.ytimg.com/vi/JX8FrhH_VXU/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 93.33333333333333,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "tUyqQQ5MEJM",
+        "title": "The “I love you” we couldn’t say #nishina #live #shorts",
+        "viewCount": 5700,
+        "thumbnail": "https://i.ytimg.com/vi/tUyqQQ5MEJM/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 87.5,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "dhN7fimPUg8",
+        "title": "愛、やがて和音に繋がって #にしな #わをん #shorts",
+        "viewCount": 5600,
+        "thumbnail": "https://i.ytimg.com/vi/dhN7fimPUg8/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 48,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "2257QnSv5nQ",
+        "title": "この世の全て最悪で手放したい時もある #にしな #わをん #shorts",
+        "viewCount": 5100,
+        "thumbnail": "https://i.ytimg.com/vi/2257QnSv5nQ/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 40,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "ZUVknBY-5Bg",
+        "title": "I loved you #nishina #live #shorts",
+        "viewCount": 5000,
+        "thumbnail": "https://i.ytimg.com/vi/ZUVknBY-5Bg/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 87.5,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "jrdyrmuwSgY",
+        "title": "無いものねだりに意味などない #にしな #わをん #shorts",
+        "viewCount": 4800,
+        "thumbnail": "https://i.ytimg.com/vi/jrdyrmuwSgY/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 16,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "EZVjBmiG4CI",
+        "title": "in loneliness planet #nishina #live #shorts",
+        "viewCount": 4700,
+        "thumbnail": "https://i.ytimg.com/vi/EZVjBmiG4CI/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 14,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "pV0nYiIM--4",
+        "title": "非常感謝您的收聽！ #nishina #wawon #shorts",
+        "viewCount": 4600,
+        "thumbnail": "https://i.ytimg.com/vi/pV0nYiIM--4/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 0,
+        "matchScore": 0.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "XRkaZcYKkQk",
+        "title": "I loved you #nishina #jpop #shorts",
+        "viewCount": 4600,
+        "thumbnail": "https://i.ytimg.com/vi/XRkaZcYKkQk/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 87.5,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "Fl4jfue9iIc",
+        "title": "我愛你 #nishina #wawon #shorts",
+        "viewCount": 4400,
+        "thumbnail": "https://i.ytimg.com/vi/Fl4jfue9iIc/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 33,
+        "matchScore": 50.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "5JnguwMf6j0",
+        "title": "この世の全て最悪で手放したい時もある #にしな #わをん #shorts",
+        "viewCount": 4300,
+        "thumbnail": "https://i.ytimg.com/vi/5JnguwMf6j0/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 40,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "jiJ3xE7M6vM",
+        "title": "誤魔化し笑う私は24/7 #にしな #わをん #shorts",
+        "viewCount": 4300,
+        "thumbnail": "https://i.ytimg.com/vi/jiJ3xE7M6vM/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 12,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "bC1LLZRFe-s",
+        "title": "And turn foolishness into kindness #にしな #わをん #shorts",
+        "viewCount": 4300,
+        "thumbnail": "https://i.ytimg.com/vi/bC1LLZRFe-s/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 14,
+        "matchScore": 55.55555555555556,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "OXmCO-RRoJ0",
+        "title": "生きることなどno reason #にしな #わをん #shorts",
+        "viewCount": 4200,
+        "thumbnail": "https://i.ytimg.com/vi/OXmCO-RRoJ0/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 10,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "ydhIRHODOoM",
+        "title": "大人になった分、分からなくなったけど #にしな #わをん #shorts",
+        "viewCount": 4100,
+        "thumbnail": "https://i.ytimg.com/vi/ydhIRHODOoM/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 5,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "mWiZXo_3G_o",
+        "title": "The “I love you” we couldn’t say The “Farewell” and “I’m sorry” #nishina #live #shorts",
+        "viewCount": 3800,
+        "thumbnail": "https://i.ytimg.com/vi/mWiZXo_3G_o/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 87.5,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "3BHUCypuD_8",
+        "title": "本当は多分誰にも分からない #にしな #わをん #shorts",
+        "viewCount": 3200,
+        "thumbnail": "https://i.ytimg.com/vi/3BHUCypuD_8/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 7,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "3nBWGzuTqM4",
+        "title": "答えの無い問いの繰り返し #にしな #わをん #shorts",
+        "viewCount": 3100,
+        "thumbnail": "https://i.ytimg.com/vi/3nBWGzuTqM4/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 35,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "pfLxN73ojR8",
+        "title": "誰かの幸せを願う日もある #にしな #わをん #shorts",
+        "viewCount": 3000,
+        "thumbnail": "https://i.ytimg.com/vi/pfLxN73ojR8/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 42,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "xUdlD49rjxY",
+        "title": "I love you #にしな #わをん #shorts",
+        "viewCount": 2900,
+        "thumbnail": "https://i.ytimg.com/vi/xUdlD49rjxY/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 93.33333333333333,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "WkKy6HpISik",
+        "title": "ai,—love you #nishina #wawon #shorts",
+        "viewCount": 2800,
+        "thumbnail": "https://i.ytimg.com/vi/WkKy6HpISik/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 93.33333333333333,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "ZKzMc5pjg7s",
+        "title": "Some days I just can’t forget #nishina #わをん #shorts",
+        "viewCount": 2800,
+        "thumbnail": "https://i.ytimg.com/vi/ZKzMc5pjg7s/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 15,
+        "matchScore": 44.44444444444444,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "3G4L0rqfEBs",
+        "title": "The “I love you” we couldn’t say #nishina #live #shorts",
+        "viewCount": 2500,
+        "thumbnail": "https://i.ytimg.com/vi/3G4L0rqfEBs/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 87.5,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "xiPy5ePLcE0",
+        "title": "I’m broken and battered And I just want to love you #nishina #jpop #shorts",
+        "viewCount": 2400,
+        "thumbnail": "https://i.ytimg.com/vi/xiPy5ePLcE0/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 93.33333333333333,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "6Y4H1CEBLno",
+        "title": "in loneliness planet #nishina #newmusic #shorts",
+        "viewCount": 2200,
+        "thumbnail": "https://i.ytimg.com/vi/6Y4H1CEBLno/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 14,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "OPvr3zls_gg",
+        "title": "愛、やがて和音に繋がって #にしな #わをん #shorts",
+        "viewCount": 2100,
+        "thumbnail": "https://i.ytimg.com/vi/OPvr3zls_gg/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 48,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "RCKqDe1oV_U",
+        "title": "謳歌するごとく生きる24/7 #にしな #わをん #shorts",
+        "viewCount": 1800,
+        "thumbnail": "https://i.ytimg.com/vi/RCKqDe1oV_U/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 28,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "sdsnIP3sNGQ",
+        "title": "なぜか忘れられぬ日もある #にしな #わをん #shorts",
+        "viewCount": 1700,
+        "thumbnail": "https://i.ytimg.com/vi/sdsnIP3sNGQ/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 39,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "N6uGeaN5MKU",
+        "title": "あい、五十音はそこから始まって #にしな #わをん #shorts",
+        "viewCount": 1600,
+        "thumbnail": "https://i.ytimg.com/vi/N6uGeaN5MKU/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 0,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "mVP0H5ALxfE",
+        "title": "I loved you #nishina #live #shorts",
+        "viewCount": 1600,
+        "thumbnail": "https://i.ytimg.com/vi/mVP0H5ALxfE/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 87.5,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "KARbx4yPctQ",
+        "title": "愛、love you #nishina #newmusic #shorts",
+        "viewCount": 1400,
+        "thumbnail": "https://i.ytimg.com/vi/KARbx4yPctQ/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "zM5P_wZRjZ8",
+        "title": "生きることなどno reason #にしな #nishina #わをん #ライブ #shorts",
+        "viewCount": 1300,
+        "thumbnail": "https://i.ytimg.com/vi/zM5P_wZRjZ8/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 10,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      }
+    ],
     "nishina-mashiro": [
       {
         "videoId": "qQTqWtnvZnI",
@@ -200,7 +702,7 @@
       {
         "videoId": "D9ZI8ibMr18",
         "title": "言えない忘れたい溶けない夜と #にしな #nishina #真白 #ライブ #shorts",
-        "viewCount": 2800,
+        "viewCount": 3100,
         "thumbnail": "https://i.ytimg.com/vi/D9ZI8ibMr18/hqdefault.jpg",
         "songId": "nishina-mashiro",
         "lineHint": 7,
@@ -390,22 +892,22 @@
         "matchMethod": "lyric_match"
       },
       {
+        "videoId": "ARm9okBhln0",
+        "title": "願う小さな希望が叶うように #にしな #nishina  #1999 #ライブ #shorts",
+        "viewCount": 3500,
+        "thumbnail": "https://i.ytimg.com/vi/ARm9okBhln0/hqdefault.jpg",
+        "songId": "nishina-1999",
+        "lineHint": 5,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "Ej0wWtCnevg",
         "title": "あのよの続きをしようよ #にしな #1999 #shorts",
         "viewCount": 3500,
         "thumbnail": "https://i.ytimg.com/vi/Ej0wWtCnevg/hqdefault.jpg",
         "songId": "nishina-1999",
         "lineHint": 10,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "ARm9okBhln0",
-        "title": "願う小さな希望が叶うように #にしな #nishina  #1999 #ライブ #shorts",
-        "viewCount": 3400,
-        "thumbnail": "https://i.ytimg.com/vi/ARm9okBhln0/hqdefault.jpg",
-        "songId": "nishina-1999",
-        "lineHint": 5,
         "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
@@ -564,7 +1066,7 @@
       {
         "videoId": "BsP49LMUV1o",
         "title": "君はヘビースモーカー #にしな #nishina #ヘビースモーク #ライブ #shorts",
-        "viewCount": 4700,
+        "viewCount": 4800,
         "thumbnail": "https://i.ytimg.com/vi/BsP49LMUV1o/hqdefault.jpg",
         "songId": "nishina-heavy-smoke",
         "lineHint": 2,
@@ -776,7 +1278,7 @@
       {
         "videoId": "4bBr2ut6KNU",
         "title": "赤い奇跡を僕らは見つけた #にしな #nishina #青藍遊泳 #ライブ #shorts",
-        "viewCount": 5500,
+        "viewCount": 5600,
         "thumbnail": "https://i.ytimg.com/vi/4bBr2ut6KNU/hqdefault.jpg",
         "songId": "nishina-seiran-yuuei",
         "lineHint": 13,
@@ -898,7 +1400,7 @@
       {
         "videoId": "5tToehQ8zL0",
         "title": "そんなくだらんこと出会えて本当によかった #にしな #nishina #ライブ #shorts",
-        "viewCount": 4600,
+        "viewCount": 4700,
         "thumbnail": "https://i.ytimg.com/vi/5tToehQ8zL0/hqdefault.jpg",
         "songId": "nishina-its-a-piece-of-cake",
         "lineHint": 29,
@@ -1030,7 +1532,7 @@
       {
         "videoId": "IX_U2M1lqZw",
         "title": "収まりきる愛は欲しくはないの #にしな #nishina #ランデブー # #ライブ #shorts",
-        "viewCount": 5300,
+        "viewCount": 5400,
         "thumbnail": "https://i.ytimg.com/vi/IX_U2M1lqZw/hqdefault.jpg",
         "songId": "nishina-rendezvous",
         "lineHint": 22,
@@ -1274,7 +1776,7 @@
       {
         "videoId": "X_jxaIa35C4",
         "title": "好きだった こっそり溶かして飲み干した # #にしな #nishina #春一番 #ライブ #shorts",
-        "viewCount": 7600,
+        "viewCount": 7700,
         "thumbnail": "https://i.ytimg.com/vi/X_jxaIa35C4/hqdefault.jpg",
         "songId": "nishina-haru-ichiban",
         "lineHint": 9,
@@ -1972,7 +2474,7 @@
       {
         "videoId": "nywcYurtoRk",
         "title": "今日もラブ履き違え #にしな #nishina #パンダガール #shorts",
-        "viewCount": 7700,
+        "viewCount": 7800,
         "thumbnail": "https://i.ytimg.com/vi/nywcYurtoRk/hqdefault.jpg",
         "songId": "nishina-panda-girl",
         "lineHint": 11,
@@ -2866,498 +3368,6 @@
         "thumbnail": "https://i.ytimg.com/vi/Hqzgou1T_O0/hqdefault.jpg",
         "songId": "nishina-glory",
         "lineHint": 30,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      }
-    ],
-    "nishina-wawon": [
-      {
-        "videoId": "bmrJImkLLwc",
-        "title": "「わをん」という曲を作りました。 #nishina #わをん #shorts",
-        "viewCount": 31000,
-        "thumbnail": "https://i.ytimg.com/vi/bmrJImkLLwc/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 41,
-        "matchScore": 36.36363636363637,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "JI86pWwhdf4",
-        "title": "あい、五十音はそこから始まって #にしな #わをん #shorts",
-        "viewCount": 23000,
-        "thumbnail": "https://i.ytimg.com/vi/JI86pWwhdf4/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 0,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "oBzHEw-UA84",
-        "title": "本当は多分誰にも分からない #にしな #nishina #ライブ #shorts",
-        "viewCount": 17000,
-        "thumbnail": "https://i.ytimg.com/vi/oBzHEw-UA84/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 7,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "gB4XJgjjLQE",
-        "title": "愛、胸に響き続ける #にしな #わをん #shorts",
-        "viewCount": 17000,
-        "thumbnail": "https://i.ytimg.com/vi/gB4XJgjjLQE/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 49,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "oeTX8gltjqc",
-        "title": "Telling you “We love you” #にしな #nishina #newmusic #shorts",
-        "viewCount": 15000,
-        "thumbnail": "https://i.ytimg.com/vi/oeTX8gltjqc/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 87.5,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "Nq2YQjY92KI",
-        "title": "The “I love you” we couldn’t say The “Farewell” and “I’m sorry” #nishina #live #shorts",
-        "viewCount": 11000,
-        "thumbnail": "https://i.ytimg.com/vi/Nq2YQjY92KI/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 87.5,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "GN4b4L_aWRU",
-        "title": "この世の全て最悪で手放したい時もある # #にしな # #nishina #わをん #ライブ #shorts",
-        "viewCount": 10000,
-        "thumbnail": "https://i.ytimg.com/vi/GN4b4L_aWRU/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 40,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "RTb_v1E9_hI",
-        "title": "相変わらずの中に見つけたい #にしな #わをん #shorts",
-        "viewCount": 10000,
-        "thumbnail": "https://i.ytimg.com/vi/RTb_v1E9_hI/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 17,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "uP2ew_MK7NM",
-        "title": "愛、やがて和音に繋がって #にしな #わをん #shorts",
-        "viewCount": 10000,
-        "thumbnail": "https://i.ytimg.com/vi/uP2ew_MK7NM/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 48,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "dg1ZJtpBbPQ",
-        "title": "I just want to love you #nishina #live #shorts",
-        "viewCount": 9700,
-        "thumbnail": "https://i.ytimg.com/vi/dg1ZJtpBbPQ/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 93.33333333333333,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "b9GoHmxPYgc",
-        "title": "あい、五十音はそこから始まって #にしな #nishina #わをん #ライブ #shorts",
-        "viewCount": 7600,
-        "thumbnail": "https://i.ytimg.com/vi/b9GoHmxPYgc/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 0,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "zQve_a0BLoI",
-        "title": "The younger I was, the more I dreamt,I loved you #nishina #にしな #shorts",
-        "viewCount": 7400,
-        "thumbnail": "https://i.ytimg.com/vi/zQve_a0BLoI/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 87.5,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "784GdaN19Ok",
-        "title": "Living feels like it has no reason #nishina #わをん #shorts",
-        "viewCount": 7300,
-        "thumbnail": "https://i.ytimg.com/vi/784GdaN19Ok/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 10,
-        "matchScore": 69.56521739130434,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "lnGlarrf7ms",
-        "title": "i 、自分を含むことも知って #にしな #わをん  #shorts",
-        "viewCount": 7100,
-        "thumbnail": "https://i.ytimg.com/vi/lnGlarrf7ms/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 1,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "NaWofAEa0aE",
-        "title": "愛、やがて和音に繋がって #にしな #nishina #ライブ #shorts",
-        "viewCount": 6900,
-        "thumbnail": "https://i.ytimg.com/vi/NaWofAEa0aE/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 48,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "Ujpk_XXqfL8",
-        "title": "The “I love you” we couldn’t say,the  “Farewell” and “I’m sorry” #にしな #nishina #live #shorts",
-        "viewCount": 6200,
-        "thumbnail": "https://i.ytimg.com/vi/Ujpk_XXqfL8/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 87.5,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "CmiqByIpr1E",
-        "title": "本気になり、傷つく日もある #にしな #わをん #shorts",
-        "viewCount": 6200,
-        "thumbnail": "https://i.ytimg.com/vi/CmiqByIpr1E/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 37,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "JX8FrhH_VXU",
-        "title": "ai,—love you #nishina #live #shorts",
-        "viewCount": 5900,
-        "thumbnail": "https://i.ytimg.com/vi/JX8FrhH_VXU/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 93.33333333333333,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "Yz_Z2hBNY7Y",
-        "title": "この世の全て最悪で手放したい時もある #にしな #nishina #わをん #ライブ #shorts",
-        "viewCount": 5800,
-        "thumbnail": "https://i.ytimg.com/vi/Yz_Z2hBNY7Y/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 40,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "tUyqQQ5MEJM",
-        "title": "The “I love you” we couldn’t say #nishina #live #shorts",
-        "viewCount": 5700,
-        "thumbnail": "https://i.ytimg.com/vi/tUyqQQ5MEJM/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 87.5,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "dhN7fimPUg8",
-        "title": "愛、やがて和音に繋がって #にしな #わをん #shorts",
-        "viewCount": 5600,
-        "thumbnail": "https://i.ytimg.com/vi/dhN7fimPUg8/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 48,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "2257QnSv5nQ",
-        "title": "この世の全て最悪で手放したい時もある #にしな #わをん #shorts",
-        "viewCount": 5100,
-        "thumbnail": "https://i.ytimg.com/vi/2257QnSv5nQ/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 40,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "ZUVknBY-5Bg",
-        "title": "I loved you #nishina #live #shorts",
-        "viewCount": 5000,
-        "thumbnail": "https://i.ytimg.com/vi/ZUVknBY-5Bg/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 87.5,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "jrdyrmuwSgY",
-        "title": "無いものねだりに意味などない #にしな #わをん #shorts",
-        "viewCount": 4800,
-        "thumbnail": "https://i.ytimg.com/vi/jrdyrmuwSgY/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 16,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "EZVjBmiG4CI",
-        "title": "in loneliness planet #nishina #live #shorts",
-        "viewCount": 4700,
-        "thumbnail": "https://i.ytimg.com/vi/EZVjBmiG4CI/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 14,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "pV0nYiIM--4",
-        "title": "非常感謝您的收聽！ #nishina #wawon #shorts",
-        "viewCount": 4600,
-        "thumbnail": "https://i.ytimg.com/vi/pV0nYiIM--4/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 0,
-        "matchScore": 0.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "XRkaZcYKkQk",
-        "title": "I loved you #nishina #jpop #shorts",
-        "viewCount": 4600,
-        "thumbnail": "https://i.ytimg.com/vi/XRkaZcYKkQk/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 87.5,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "Fl4jfue9iIc",
-        "title": "我愛你 #nishina #wawon #shorts",
-        "viewCount": 4400,
-        "thumbnail": "https://i.ytimg.com/vi/Fl4jfue9iIc/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 33,
-        "matchScore": 50.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "5JnguwMf6j0",
-        "title": "この世の全て最悪で手放したい時もある #にしな #わをん #shorts",
-        "viewCount": 4300,
-        "thumbnail": "https://i.ytimg.com/vi/5JnguwMf6j0/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 40,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "jiJ3xE7M6vM",
-        "title": "誤魔化し笑う私は24/7 #にしな #わをん #shorts",
-        "viewCount": 4300,
-        "thumbnail": "https://i.ytimg.com/vi/jiJ3xE7M6vM/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 12,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "bC1LLZRFe-s",
-        "title": "And turn foolishness into kindness #にしな #わをん #shorts",
-        "viewCount": 4300,
-        "thumbnail": "https://i.ytimg.com/vi/bC1LLZRFe-s/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 14,
-        "matchScore": 55.55555555555556,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "OXmCO-RRoJ0",
-        "title": "生きることなどno reason #にしな #わをん #shorts",
-        "viewCount": 4200,
-        "thumbnail": "https://i.ytimg.com/vi/OXmCO-RRoJ0/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 10,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "ydhIRHODOoM",
-        "title": "大人になった分、分からなくなったけど #にしな #わをん #shorts",
-        "viewCount": 4100,
-        "thumbnail": "https://i.ytimg.com/vi/ydhIRHODOoM/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 5,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "mWiZXo_3G_o",
-        "title": "The “I love you” we couldn’t say The “Farewell” and “I’m sorry” #nishina #live #shorts",
-        "viewCount": 3800,
-        "thumbnail": "https://i.ytimg.com/vi/mWiZXo_3G_o/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 87.5,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "3BHUCypuD_8",
-        "title": "本当は多分誰にも分からない #にしな #わをん #shorts",
-        "viewCount": 3200,
-        "thumbnail": "https://i.ytimg.com/vi/3BHUCypuD_8/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 7,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "3nBWGzuTqM4",
-        "title": "答えの無い問いの繰り返し #にしな #わをん #shorts",
-        "viewCount": 3100,
-        "thumbnail": "https://i.ytimg.com/vi/3nBWGzuTqM4/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 35,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "pfLxN73ojR8",
-        "title": "誰かの幸せを願う日もある #にしな #わをん #shorts",
-        "viewCount": 3000,
-        "thumbnail": "https://i.ytimg.com/vi/pfLxN73ojR8/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 42,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "xUdlD49rjxY",
-        "title": "I love you #にしな #わをん #shorts",
-        "viewCount": 2900,
-        "thumbnail": "https://i.ytimg.com/vi/xUdlD49rjxY/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 93.33333333333333,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "WkKy6HpISik",
-        "title": "ai,—love you #nishina #wawon #shorts",
-        "viewCount": 2800,
-        "thumbnail": "https://i.ytimg.com/vi/WkKy6HpISik/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 93.33333333333333,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "ZKzMc5pjg7s",
-        "title": "Some days I just can’t forget #nishina #わをん #shorts",
-        "viewCount": 2800,
-        "thumbnail": "https://i.ytimg.com/vi/ZKzMc5pjg7s/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 15,
-        "matchScore": 44.44444444444444,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "3G4L0rqfEBs",
-        "title": "The “I love you” we couldn’t say #nishina #live #shorts",
-        "viewCount": 2500,
-        "thumbnail": "https://i.ytimg.com/vi/3G4L0rqfEBs/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 87.5,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "xiPy5ePLcE0",
-        "title": "I’m broken and battered And I just want to love you #nishina #jpop #shorts",
-        "viewCount": 2400,
-        "thumbnail": "https://i.ytimg.com/vi/xiPy5ePLcE0/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 93.33333333333333,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "6Y4H1CEBLno",
-        "title": "in loneliness planet #nishina #newmusic #shorts",
-        "viewCount": 2200,
-        "thumbnail": "https://i.ytimg.com/vi/6Y4H1CEBLno/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 14,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "OPvr3zls_gg",
-        "title": "愛、やがて和音に繋がって #にしな #わをん #shorts",
-        "viewCount": 2100,
-        "thumbnail": "https://i.ytimg.com/vi/OPvr3zls_gg/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 48,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "RCKqDe1oV_U",
-        "title": "謳歌するごとく生きる24/7 #にしな #わをん #shorts",
-        "viewCount": 1800,
-        "thumbnail": "https://i.ytimg.com/vi/RCKqDe1oV_U/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 28,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "sdsnIP3sNGQ",
-        "title": "なぜか忘れられぬ日もある #にしな #わをん #shorts",
-        "viewCount": 1700,
-        "thumbnail": "https://i.ytimg.com/vi/sdsnIP3sNGQ/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 39,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "N6uGeaN5MKU",
-        "title": "あい、五十音はそこから始まって #にしな #わをん #shorts",
-        "viewCount": 1600,
-        "thumbnail": "https://i.ytimg.com/vi/N6uGeaN5MKU/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 0,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "mVP0H5ALxfE",
-        "title": "I loved you #nishina #live #shorts",
-        "viewCount": 1600,
-        "thumbnail": "https://i.ytimg.com/vi/mVP0H5ALxfE/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 87.5,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "KARbx4yPctQ",
-        "title": "愛、love you #nishina #newmusic #shorts",
-        "viewCount": 1400,
-        "thumbnail": "https://i.ytimg.com/vi/KARbx4yPctQ/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
       }
@@ -8210,6 +8220,16 @@
         "matchMethod": "non_song"
       },
       {
+        "videoId": "UVKVuaNhPKs",
+        "title": "dress code / nishina #nishina #newmusic #shorts",
+        "viewCount": 6000,
+        "thumbnail": "https://i.ytimg.com/vi/UVKVuaNhPKs/hqdefault.jpg",
+        "songId": "nishina-hot-milk",
+        "lineHint": 33,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
+      },
+      {
         "videoId": "FVcBlMGtVUk",
         "title": "What we’ve been given, let’s pass to someone else #nishina #newmusic #shorts",
         "viewCount": 6000,
@@ -8306,16 +8326,6 @@
         "thumbnail": "https://i.ytimg.com/vi/BLncmFMM84c/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 28,
-        "matchScore": 66.66666666666667,
-        "matchMethod": "review"
-      },
-      {
-        "videoId": "UVKVuaNhPKs",
-        "title": "dress code / nishina #nishina #newmusic #shorts",
-        "viewCount": 5900,
-        "thumbnail": "https://i.ytimg.com/vi/UVKVuaNhPKs/hqdefault.jpg",
-        "songId": "nishina-hot-milk",
-        "lineHint": 33,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
       },
@@ -8550,6 +8560,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "ZtUPwjn62ME",
+        "title": "No way I’d want to kiss your cheek #nishina #jpop #shorts",
+        "viewCount": 5600,
+        "thumbnail": "https://i.ytimg.com/vi/ZtUPwjn62ME/hqdefault.jpg",
+        "songId": "nishina-weekly",
+        "lineHint": 8,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
+      },
+      {
         "videoId": "nenSvRTxF5M",
         "title": "The night quietly puts out the flames of love #nishina #live #shorts",
         "viewCount": 5600,
@@ -8676,16 +8696,6 @@
         "thumbnail": "https://i.ytimg.com/vi/x8mRewvMWb8/hqdefault.jpg",
         "songId": "nishina-hot-milk",
         "lineHint": 33,
-        "matchScore": 66.66666666666667,
-        "matchMethod": "review"
-      },
-      {
-        "videoId": "ZtUPwjn62ME",
-        "title": "No way I’d want to kiss your cheek #nishina #jpop #shorts",
-        "viewCount": 5500,
-        "thumbnail": "https://i.ytimg.com/vi/ZtUPwjn62ME/hqdefault.jpg",
-        "songId": "nishina-weekly",
-        "lineHint": 8,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
       },
@@ -10347,6 +10357,16 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 60.0,
+        "matchMethod": "out_of_catalog"
+      },
+      {
+        "videoId": "1nBPDVncspo",
+        "title": "nishina - new goods 2026 in summer #にしな #nishina #shorts",
+        "viewCount": 4100,
+        "thumbnail": "https://i.ytimg.com/vi/1nBPDVncspo/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 52.63157894736843,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -12440,6 +12460,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "fCAlagSgsXE",
+        "title": "RISING SUN ROCK FESTIVAL 2026 in EZO🌞ありがとうございました！ #にしな #nishina #フェス #ライブ #shorts",
+        "viewCount": 2300,
+        "thumbnail": "https://i.ytimg.com/vi/fCAlagSgsXE/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 55.55555555555556,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "gEh0D1jo-0Q",
         "title": "nishina Tour「SUPER COMPLEX」from Nagoya final #nishina #live #shorts #supercomplex",
         "viewCount": 2300,
@@ -12587,16 +12617,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 62.5,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "1nBPDVncspo",
-        "title": "nishina - new goods 2026 in summer #にしな #nishina #shorts",
-        "viewCount": 2200,
-        "thumbnail": "https://i.ytimg.com/vi/1nBPDVncspo/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 52.63157894736843,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -13007,16 +13027,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 61.53846153846154,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "fCAlagSgsXE",
-        "title": "RISING SUN ROCK FESTIVAL 2026 in EZO🌞ありがとうございました！ #にしな #nishina #フェス #ライブ #shorts",
-        "viewCount": 1800,
-        "thumbnail": "https://i.ytimg.com/vi/fCAlagSgsXE/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 55.55555555555556,
         "matchMethod": "out_of_catalog"
       },
       {
