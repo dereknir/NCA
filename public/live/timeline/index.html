@@ -340,7 +340,8 @@ const key = d => {
 };
 DATA.forEach(i => i._k = key(i.date));
 DATA.sort((a, b) => b._k.localeCompare(a._k));   // 新到舊
-const TODAY = new Date().toISOString().slice(0, 10);
+// 日期基準用 JST (演出都在日本; toISOString 是 UTC, 台北 0-8 時會差一天)
+const TODAY = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
 let q = new URLSearchParams(location.search).get('q') || '';
 
 /* ① .ics 行事曆(全日事件,前端生成零後端) */
@@ -355,14 +356,16 @@ function icsFor(dateISO, title, url) {
   a.click();
 }
 function renderNext() {
-  const fut = [...DATA].filter(i => i._k > TODAY && i.class === 'LIVE').sort((a, b) => a._k.localeCompare(b._k));
+  // >= : 「今天開演」的場次要顯示成就是今天, 不是跳到下一場
+  const fut = [...DATA].filter(i => i._k >= TODAY && i.class === 'LIVE').sort((a, b) => a._k.localeCompare(b._k));
   if (!fut.length) return;
   const n = fut[0];
   const days = Math.ceil((new Date(n._k) - new Date(TODAY)) / 86400000);
   const el = document.getElementById('next');
   el.style.display = 'block';
+  const when = days > 0 ? `還有 <b>${days}</b> 天` : '🔥 <b>就是今天</b>';
   el.innerHTML = `下一場:<b>${esc(n.title.replace(/^【[^】]+】\s*/, '').slice(0, 40))}</b>
-    ・${n._k.slice(5).replace('-', '/')}・還有 <b>${days}</b> 天
+    ・${n._k.slice(5).replace('-', '/')}・${when}
     <button class="ics" data-k="${n._k}" data-t="${esc(n.title)}" data-u="${esc(n.url)}">📅 加入行事曆</button>`;
 }
 

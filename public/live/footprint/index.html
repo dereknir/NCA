@@ -572,7 +572,7 @@ side.addEventListener('click', e => {
 renderMap();
 updateStats();
 
-const TODAY = new Date().toISOString().slice(0, 10);
+const TODAY = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);   // JST 基準
 
 /* ④ 足跡の旅:按時間點亮縣 */
 for (const [id, key] of [['lyOne', 'one'], ['lyApp', 'app']])
