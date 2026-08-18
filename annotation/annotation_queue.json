@@ -1,9 +1,9 @@
 {
   "meta": {
     "topN": 0,
-    "totalInQueue": 1315,
+    "totalInQueue": 1316,
     "songCount": 36,
-    "unmatchedCount": 837
+    "unmatchedCount": 838
   },
   "queue": {
     "nishina-wawon": [
@@ -338,6 +338,16 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "WgeaUQs7FRs",
+        "title": "SUMMER SONIC 2026 TOKYO #にしな #nishina #わをん #ライブ #shorts",
+        "viewCount": 3900,
+        "thumbnail": "https://i.ytimg.com/vi/WgeaUQs7FRs/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 50,
+        "matchScore": 50.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "mWiZXo_3G_o",
         "title": "The “I love you” we couldn’t say The “Farewell” and “I’m sorry” #nishina #live #shorts",
         "viewCount": 3800,
@@ -418,6 +428,16 @@
         "matchMethod": "lyric_match"
       },
       {
+        "videoId": "zM5P_wZRjZ8",
+        "title": "生きることなどno reason #にしな #nishina #わをん #ライブ #shorts",
+        "viewCount": 2400,
+        "thumbnail": "https://i.ytimg.com/vi/zM5P_wZRjZ8/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 10,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "xiPy5ePLcE0",
         "title": "I’m broken and battered And I just want to love you #nishina #jpop #shorts",
         "viewCount": 2400,
@@ -448,16 +468,6 @@
         "matchMethod": "hashtag"
       },
       {
-        "videoId": "zM5P_wZRjZ8",
-        "title": "生きることなどno reason #にしな #nishina #わをん #ライブ #shorts",
-        "viewCount": 2000,
-        "thumbnail": "https://i.ytimg.com/vi/zM5P_wZRjZ8/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 10,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
         "videoId": "RCKqDe1oV_U",
         "title": "謳歌するごとく生きる24/7 #にしな #わをん #shorts",
         "viewCount": 1800,
@@ -475,16 +485,6 @@
         "songId": "nishina-wawon",
         "lineHint": 39,
         "matchScore": 100.0,
-        "matchMethod": "hashtag"
-      },
-      {
-        "videoId": "WgeaUQs7FRs",
-        "title": "SUMMER SONIC 2026 TOKYO #にしな #nishina #わをん #ライブ #shorts",
-        "viewCount": 1600,
-        "thumbnail": "https://i.ytimg.com/vi/WgeaUQs7FRs/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 50,
-        "matchScore": 50.0,
         "matchMethod": "hashtag"
       },
       {
@@ -712,7 +712,7 @@
       {
         "videoId": "D9ZI8ibMr18",
         "title": "言えない忘れたい溶けない夜と #にしな #nishina #真白 #ライブ #shorts",
-        "viewCount": 3300,
+        "viewCount": 3400,
         "thumbnail": "https://i.ytimg.com/vi/D9ZI8ibMr18/hqdefault.jpg",
         "songId": "nishina-mashiro",
         "lineHint": 7,
@@ -894,7 +894,7 @@
       {
         "videoId": "ARm9okBhln0",
         "title": "願う小さな希望が叶うように #にしな #nishina  #1999 #ライブ #shorts",
-        "viewCount": 3600,
+        "viewCount": 3700,
         "thumbnail": "https://i.ytimg.com/vi/ARm9okBhln0/hqdefault.jpg",
         "songId": "nishina-1999",
         "lineHint": 5,
@@ -1542,7 +1542,7 @@
       {
         "videoId": "IX_U2M1lqZw",
         "title": "収まりきる愛は欲しくはないの #にしな #nishina #ランデブー # #ライブ #shorts",
-        "viewCount": 5400,
+        "viewCount": 5500,
         "thumbnail": "https://i.ytimg.com/vi/IX_U2M1lqZw/hqdefault.jpg",
         "songId": "nishina-rendezvous",
         "lineHint": 22,
@@ -1704,7 +1704,7 @@
       {
         "videoId": "lJjpLUXRRnM",
         "title": "たまに素直なエモーション #にしな #nishina #weekly #ライブ #shorts",
-        "viewCount": 5100,
+        "viewCount": 5200,
         "thumbnail": "https://i.ytimg.com/vi/lJjpLUXRRnM/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 21,
@@ -2412,7 +2412,7 @@
       {
         "videoId": "7M0C7rqR7-E",
         "title": "イカれた夜のメランルー #にしな #nishina #東京マーブル #ライブ #shorts",
-        "viewCount": 5800,
+        "viewCount": 5900,
         "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
         "songId": "nishina-tokyo-marble",
         "lineHint": 12,
@@ -7130,6 +7130,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "tD9GhrjUKsw",
+        "title": "宇宙旅行でもいこうか！ #にしな #nishina #あれが恋だったのかな #ライブ #shorts",
+        "viewCount": 7300,
+        "thumbnail": "https://i.ytimg.com/vi/tD9GhrjUKsw/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 53.333333333333336,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "GIOGZqU18bw",
         "title": "にしな - クローバー Music Video teaser #にしな #nishina #クローバー #モブ子の恋 #shorts",
         "viewCount": 7300,
@@ -7207,16 +7217,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 54.54545454545454,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "tD9GhrjUKsw",
-        "title": "宇宙旅行でもいこうか！ #にしな #nishina #あれが恋だったのかな #ライブ #shorts",
-        "viewCount": 7200,
-        "thumbnail": "https://i.ytimg.com/vi/tD9GhrjUKsw/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 53.333333333333336,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -7960,6 +7960,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "jeoqBaMeGuc",
+        "title": "Because everyone believes in illusions #nishina #live #shorts",
+        "viewCount": 6400,
+        "thumbnail": "https://i.ytimg.com/vi/jeoqBaMeGuc/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 54.54545454545454,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "19XGpiBB8bY",
         "title": "If your lips are lonely #nishina #live #shorts",
         "viewCount": 6400,
@@ -8018,16 +8028,6 @@
         "lineHint": 15,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
-      },
-      {
-        "videoId": "jeoqBaMeGuc",
-        "title": "Because everyone believes in illusions #nishina #live #shorts",
-        "viewCount": 6300,
-        "thumbnail": "https://i.ytimg.com/vi/jeoqBaMeGuc/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 54.54545454545454,
-        "matchMethod": "out_of_catalog"
       },
       {
         "videoId": "1fM-9IHFofg",
@@ -8940,6 +8940,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "1nBPDVncspo",
+        "title": "nishina - new goods 2026 in summer #にしな #nishina #shorts",
+        "viewCount": 5200,
+        "thumbnail": "https://i.ytimg.com/vi/1nBPDVncspo/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 52.63157894736843,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "pQ1tQK79ILc",
         "title": "Not for anyone else,I’ll move on just for me #nishina #newmusic #shorts",
         "viewCount": 5200,
@@ -9467,16 +9477,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 57.14285714285714,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "1nBPDVncspo",
-        "title": "nishina - new goods 2026 in summer #にしな #nishina #shorts",
-        "viewCount": 4700,
-        "thumbnail": "https://i.ytimg.com/vi/1nBPDVncspo/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 52.63157894736843,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -11860,6 +11860,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "fCAlagSgsXE",
+        "title": "RISING SUN ROCK FESTIVAL 2026 in EZO🌞ありがとうございました！ #にしな #nishina #フェス #ライブ #shorts",
+        "viewCount": 2800,
+        "thumbnail": "https://i.ytimg.com/vi/fCAlagSgsXE/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 55.55555555555556,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "1-0XTkh5IDA",
         "title": "2026.5.30 at CRAZYMAMA KINGDOM⭐️ #にしな #nishina #ライブ #shorts",
         "viewCount": 2800,
@@ -12127,16 +12137,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 63.1578947368421,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "fCAlagSgsXE",
-        "title": "RISING SUN ROCK FESTIVAL 2026 in EZO🌞ありがとうございました！ #にしな #nishina #フェス #ライブ #shorts",
-        "viewCount": 2600,
-        "thumbnail": "https://i.ytimg.com/vi/fCAlagSgsXE/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 55.55555555555556,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -13147,6 +13147,16 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 57.14285714285714,
+        "matchMethod": "out_of_catalog"
+      },
+      {
+        "videoId": "97w-vXiJacM",
+        "title": "🌞RISING SUN ROCK FESTIVAL 2026 in EZO #にしな #nishina #ライブ #フェス #shorts",
+        "viewCount": 1500,
+        "thumbnail": "https://i.ytimg.com/vi/97w-vXiJacM/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 50.0,
         "matchMethod": "out_of_catalog"
       },
       {
