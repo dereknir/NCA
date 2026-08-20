@@ -1,9 +1,9 @@
 {
   "meta": {
-    "generated": "2026-08-20T03:19:18+08:00",
+    "generated": "2026-08-21T03:25:12+08:00",
     "source": "https://nishina.lnk.to/live_setlist",
     "tour_count": 10,
-    "total_tracks": 161
+    "total_tracks": 182
   },
   "tours": [
     {
@@ -727,10 +727,179 @@
       "date": "2024.2.12 - 2024.4.28",
       "spotify": "https://open.spotify.com/playlist/3VlJ2gdW4JW7q5jY7lLSOO",
       "applemusic": "https://music.apple.com/jp/playlist/pl.3448e5f8b94f42aba0f01045033a657a",
-      "tracks": [],
-      "track_count": 0,
-      "matched_count": 0,
-      "cover": null
+      "tracks": [
+        {
+          "index": 1,
+          "title": "春一番",
+          "artist": "nishina",
+          "uid": "f6de8e69e43f2981",
+          "matched_song_id": "nishina-haru-ichiban",
+          "match_score": 100
+        },
+        {
+          "index": 2,
+          "title": "東京マーブル",
+          "artist": "nishina",
+          "uid": "6859ebd624edaa5d",
+          "matched_song_id": "nishina-tokyo-marble",
+          "match_score": 100
+        },
+        {
+          "index": 3,
+          "title": "夜間飛行",
+          "artist": "nishina",
+          "uid": "e151b73d8eefa3f1",
+          "matched_song_id": "nishina-yakan-hikou",
+          "match_score": 100
+        },
+        {
+          "index": 4,
+          "title": "ケダモノのフレンズ",
+          "artist": "nishina",
+          "uid": "b7c1315a5bf1682b",
+          "matched_song_id": "nishina-kedamono-no-friends",
+          "match_score": 100
+        },
+        {
+          "index": 5,
+          "title": "真白",
+          "artist": "nishina",
+          "uid": "9b64af016915a581",
+          "matched_song_id": "nishina-mashiro",
+          "match_score": 100
+        },
+        {
+          "index": 6,
+          "title": "夜になって",
+          "artist": "nishina",
+          "uid": "5ac3ba45df8298eb",
+          "matched_song_id": "nishina-yoru-ni-natte",
+          "match_score": 100
+        },
+        {
+          "index": 7,
+          "title": "FRIDAY KIDS CHINA TOWN",
+          "artist": "nishina",
+          "uid": "50d94139dabac474",
+          "matched_song_id": "nishina-friday-kids-china-town",
+          "match_score": 100
+        },
+        {
+          "index": 8,
+          "title": "透明な黒と鉄分のある赤",
+          "artist": "nishina, くじら",
+          "uid": "804c87b659d671ba",
+          "matched_song_id": "nishina-toumei-na-kuro",
+          "match_score": 100
+        },
+        {
+          "index": 9,
+          "title": "ワンルーム",
+          "artist": "nishina",
+          "uid": "0ef92d3a729cab8c",
+          "matched_song_id": "nishina-one-room",
+          "match_score": 100
+        },
+        {
+          "index": 10,
+          "title": "It's a piece of cake",
+          "artist": "nishina",
+          "uid": "44d26ec0fece7260",
+          "matched_song_id": "nishina-its-a-piece-of-cake",
+          "match_score": 100
+        },
+        {
+          "index": 11,
+          "title": "ダーリン",
+          "artist": "nishina",
+          "uid": "1f360a65548a7ff4",
+          "matched_song_id": "nishina-darling",
+          "match_score": 100
+        },
+        {
+          "index": 12,
+          "title": "U+",
+          "artist": "nishina",
+          "uid": "5a71e69b9ff806b0",
+          "matched_song_id": "nishina-u-plus",
+          "match_score": 100
+        },
+        {
+          "index": 13,
+          "title": "クランベリージャムをかけて",
+          "artist": "nishina",
+          "uid": "9f6013f01eb38b63",
+          "matched_song_id": "nishina-cranberry-jam",
+          "match_score": 100
+        },
+        {
+          "index": 14,
+          "title": "bugs",
+          "artist": "nishina",
+          "uid": "3bdb85e63aa9f1db",
+          "matched_song_id": "nishina-bugs",
+          "match_score": 100
+        },
+        {
+          "index": 15,
+          "title": "スローモーション",
+          "artist": "nishina",
+          "uid": "3aa28cdcd779bfea",
+          "matched_song_id": "nishina-slow-motion",
+          "match_score": 100
+        },
+        {
+          "index": 16,
+          "title": "ヘビースモーク",
+          "artist": "nishina",
+          "uid": "cfe7aa2757da569f",
+          "matched_song_id": "nishina-heavy-smoke",
+          "match_score": 100
+        },
+        {
+          "index": 17,
+          "title": "青藍遊泳",
+          "artist": "nishina",
+          "uid": "38651f4860bde3e6",
+          "matched_song_id": "nishina-seiran-yuuei",
+          "match_score": 100
+        },
+        {
+          "index": 18,
+          "title": "1999",
+          "artist": "nishina",
+          "uid": "3c65dc5de6b19d28",
+          "matched_song_id": "nishina-1999",
+          "match_score": 100
+        },
+        {
+          "index": 19,
+          "title": "ホットミルク",
+          "artist": "nishina",
+          "uid": "77e37165ecf903b0",
+          "matched_song_id": "nishina-hot-milk",
+          "match_score": 100
+        },
+        {
+          "index": 20,
+          "title": "シュガースポット",
+          "artist": "nishina",
+          "uid": "5fc41f9826054254",
+          "matched_song_id": "nishina-sugar-spot",
+          "match_score": 100
+        },
+        {
+          "index": 21,
+          "title": "アイニコイ",
+          "artist": "nishina",
+          "uid": "41ca3378d5891306",
+          "matched_song_id": "nishina-ainikoi",
+          "match_score": 100
+        }
+      ],
+      "track_count": 21,
+      "matched_count": 21,
+      "cover": "/setlists/covers/3VlJ2gdW4JW7q5jY7lLSOO.jpg"
     },
     {
       "title": "クランベリージャムをかけて",

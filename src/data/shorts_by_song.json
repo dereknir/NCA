@@ -5942,7 +5942,7 @@
         "title": "ここは安楽unreality",
         "url": "https://www.youtube.com/shorts/m8pxw2GNhoo",
         "thumbnail": "https://i.ytimg.com/vi/m8pxw2GNhoo/hqdefault.jpg",
-        "viewCount": 5400,
+        "viewCount": 5500,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -8840,6 +8840,25 @@
         ]
       },
       {
+        "videoId": "uH_MtCmfOGo",
+        "title": "触れたら壊れてしまいそうな夜の隙間",
+        "url": "https://www.youtube.com/shorts/uH_MtCmfOGo",
+        "thumbnail": "https://i.ytimg.com/vi/uH_MtCmfOGo/hqdefault.jpg",
+        "viewCount": 8000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 21
+          },
+          {
+            "t": 8.26,
+            "line": 22
+          }
+        ]
+      },
+      {
         "videoId": "hWP91UjFFH0",
         "title": "背中合わせで伝わる呼吸",
         "url": "https://www.youtube.com/shorts/hWP91UjFFH0",
@@ -8859,25 +8878,6 @@
           {
             "t": 8.33,
             "line": 11
-          }
-        ]
-      },
-      {
-        "videoId": "uH_MtCmfOGo",
-        "title": "触れたら壊れてしまいそうな夜の隙間",
-        "url": "https://www.youtube.com/shorts/uH_MtCmfOGo",
-        "thumbnail": "https://i.ytimg.com/vi/uH_MtCmfOGo/hqdefault.jpg",
-        "viewCount": 7900,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 21
-          },
-          {
-            "t": 8.26,
-            "line": 22
           }
         ]
       },
