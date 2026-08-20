@@ -17,7 +17,7 @@ watch-eplus.py — にしな eplus 公演頁定時監視(在你自己的機器/C
   - UA 表明身分與聯絡方式
   - robots.txt 放行本頁(2026-08 驗證);若未來被禁,腳本會自動偵測並停手
 """
-import json, re, sys, time, urllib.request
+import json, re, sys, time, urllib.request, urllib.error
 from pathlib import Path
 
 URL = 'https://eplus.jp/sf/word/0000130029'
@@ -45,8 +45,20 @@ def robots_allows():
     return allow
 
 def fetch():
-    req = urllib.request.Request(URL, headers={'User-Agent': UA, 'Accept-Language': 'ja'})
-    return urllib.request.urlopen(req, timeout=30).read().decode('utf-8', 'ignore')
+    """溫和重試: 瞬時 403/5xx 間隔 20s 最多 3 次 — 仍是「每日個位數請求」量級,
+    不偽裝 UA 不繞 WAF; 持續被拒就乾淨回報, 明日再試。"""
+    last = None
+    for attempt in range(3):
+        if attempt:
+            time.sleep(20)
+        try:
+            req = urllib.request.Request(URL, headers={'User-Agent': UA, 'Accept-Language': 'ja'})
+            return urllib.request.urlopen(req, timeout=30).read().decode('utf-8', 'ignore')
+        except urllib.error.HTTPError as e:
+            last = e
+            if e.code not in (403, 429, 500, 502, 503):
+                raise
+    raise last
 
 def parse(html):
     """eplus 票卡自帶 JSON-LD Event 結構化資料 (2026-08-11 改版驗證:
@@ -109,4 +121,15 @@ def main():
 
 if __name__ == '__main__':
     sys.stdout.reconfigure(encoding='utf-8')
-    main()
+    try:
+        main()
+    except SystemExit:
+        raise
+    except urllib.error.HTTPError as e:
+        # 一行自我報告進日報, 別倒整包 traceback
+        hint = ' (售票站 WAF 拒絕雲端 IP, 明日再試; 連續多日再議退路)' if e.code == 403 else ''
+        print(f'[eplus] ⚠ 執行失敗: HTTP {e.code}{hint}')
+        sys.exit(1)
+    except Exception as exc:
+        print(f'[eplus] ⚠ 執行失敗: {type(exc).__name__}: {str(exc)[:100]}')
+        sys.exit(1)
