@@ -154,16 +154,6 @@
           "anchors": []
         },
         {
-          "videoId": "bAPIV9sSFLg",
-          "title": "nishina tour 2026",
-          "url": "https://www.youtube.com/shorts/bAPIV9sSFLg",
-          "thumbnail": "https://i.ytimg.com/vi/bAPIV9sSFLg/hqdefault.jpg",
-          "viewCount": 15000,
-          "versionType": null,
-          "instrumental": false,
-          "anchors": []
-        },
-        {
           "videoId": "E9mlR4Zf0cM",
           "title": "New goods!",
           "url": "https://www.youtube.com/shorts/E9mlR4Zf0cM",
@@ -392,6 +382,16 @@
           "versionType": null,
           "instrumental": false,
           "anchors": []
+        },
+        {
+          "videoId": "bAPIV9sSFLg",
+          "title": "YouTube Short",
+          "url": "https://www.youtube.com/shorts/bAPIV9sSFLg",
+          "thumbnail": "https://i.ytimg.com/vi/bAPIV9sSFLg/hqdefault.jpg",
+          "viewCount": 0,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
         }
       ]
     },
@@ -438,32 +438,6 @@
           "appearanceName": "JAPAN JAM 2024",
           "songId": "nishina-u-plus",
           "songTitle": "U+"
-        },
-        {
-          "videoId": "dzmzxGApUpk",
-          "title": "🦈SWEET LOVE SHOWER 2025🚀",
-          "url": "https://www.youtube.com/shorts/dzmzxGApUpk",
-          "thumbnail": "https://i.ytimg.com/vi/dzmzxGApUpk/hqdefault.jpg",
-          "viewCount": 14000,
-          "versionType": null,
-          "instrumental": false,
-          "anchors": [],
-          "appearanceName": "SPACE SHOWER SWEET LOVE SHOWER 2025 30th ANNIVERSARY",
-          "songId": null,
-          "songTitle": null
-        },
-        {
-          "videoId": "Rl5rdd2JDDk",
-          "title": "🏝️SPACE SHOWER SWEET LOVE SHOWER 2025",
-          "url": "https://www.youtube.com/shorts/Rl5rdd2JDDk",
-          "thumbnail": "https://i.ytimg.com/vi/Rl5rdd2JDDk/hqdefault.jpg",
-          "viewCount": 13000,
-          "versionType": null,
-          "instrumental": false,
-          "anchors": [],
-          "appearanceName": "SPACE SHOWER SWEET LOVE SHOWER 2025 30th ANNIVERSARY",
-          "songId": null,
-          "songTitle": null
         },
         {
           "videoId": "DujGcmQVB_M",
@@ -516,19 +490,6 @@
           "appearanceName": "VIVA LA ROCK 2025",
           "songId": null,
           "songTitle": null
-        },
-        {
-          "videoId": "43GGFCnMi24",
-          "title": "🌝RUSH BALL 2025",
-          "url": "https://www.youtube.com/shorts/43GGFCnMi24",
-          "thumbnail": "https://i.ytimg.com/vi/43GGFCnMi24/hqdefault.jpg",
-          "viewCount": 6900,
-          "versionType": null,
-          "instrumental": false,
-          "anchors": [],
-          "appearanceName": "RUSH BALL 2025",
-          "songId": "nishina-1999",
-          "songTitle": "1999"
         },
         {
           "videoId": "mEkPr3A8U8g",
@@ -750,6 +711,45 @@
           "appearanceName": "TREASURE05X 2023 20th Anniversary",
           "songId": "nishina-ainikoi",
           "songTitle": "アイニコイ"
+        },
+        {
+          "videoId": "dzmzxGApUpk",
+          "title": "YouTube Short",
+          "url": "https://www.youtube.com/shorts/dzmzxGApUpk",
+          "thumbnail": "https://i.ytimg.com/vi/dzmzxGApUpk/hqdefault.jpg",
+          "viewCount": 0,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "SPACE SHOWER SWEET LOVE SHOWER 2025 30th ANNIVERSARY",
+          "songId": null,
+          "songTitle": null
+        },
+        {
+          "videoId": "Rl5rdd2JDDk",
+          "title": "YouTube Short",
+          "url": "https://www.youtube.com/shorts/Rl5rdd2JDDk",
+          "thumbnail": "https://i.ytimg.com/vi/Rl5rdd2JDDk/hqdefault.jpg",
+          "viewCount": 0,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "SPACE SHOWER SWEET LOVE SHOWER 2025 30th ANNIVERSARY",
+          "songId": null,
+          "songTitle": null
+        },
+        {
+          "videoId": "43GGFCnMi24",
+          "title": "YouTube Short",
+          "url": "https://www.youtube.com/shorts/43GGFCnMi24",
+          "thumbnail": "https://i.ytimg.com/vi/43GGFCnMi24/hqdefault.jpg",
+          "viewCount": 0,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "RUSH BALL 2025",
+          "songId": "nishina-1999",
+          "songTitle": "1999"
         }
       ]
     },

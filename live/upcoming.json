@@ -1,23 +1,7 @@
 {
- "fetched": "2026-08-23",
+ "fetched": "2026-08-24",
  "source": "https://eplus.jp/sf/word/0000130029",
  "events": [
-  {
-   "date": "2026-08-21",
-   "date_end": "2026-08-23",
-   "name": "WILD BUNCH FEST. 2026",
-   "venue": "山口きらら博記念公園",
-   "pref": "山口",
-   "url": "https://eplus.jp/sf/detail/1016240001-P0030026P021004"
-  },
-  {
-   "date": "2026-08-22",
-   "date_end": "2026-08-23",
-   "name": "WILD BUNCH FEST. 2026",
-   "venue": "山口きらら博記念公園",
-   "pref": "山口",
-   "url": "https://eplus.jp/sf/detail/1016240001-P0030026P021007"
-  },
   {
    "date": "2026-08-29",
    "date_end": "2026-08-30",
@@ -33,6 +17,22 @@
    "venue": "泉大津フェニックス",
    "pref": "大阪",
    "url": "https://eplus.jp/sf/detail/0078140049-P0030153P021001"
+  },
+  {
+   "date": "2026-09-09",
+   "date_end": null,
+   "name": "SHINJUKU LOFT 50th ANNIVERSARY  「音鳴足知」vol.3",
+   "venue": "新宿 LOFT",
+   "pref": "東京",
+   "url": "https://eplus.jp/sf/detail/4559140001-P0030001P021001"
+  },
+  {
+   "date": "2026-10-10",
+   "date_end": null,
+   "name": "TOKYO ISLAND 2026",
+   "venue": "東京･海の森公園",
+   "pref": "東京",
+   "url": "https://eplus.jp/sf/detail/1630630001-P0030014P021001"
   }
  ]
 }
