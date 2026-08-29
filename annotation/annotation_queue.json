@@ -1,9 +1,9 @@
 {
   "meta": {
     "topN": 0,
-    "totalInQueue": 1327,
+    "totalInQueue": 1328,
     "songCount": 36,
-    "unmatchedCount": 844
+    "unmatchedCount": 845
   },
   "queue": {
     "nishina-friday-kids-china-town": [
@@ -168,22 +168,22 @@
         "matchMethod": "hashtag"
       },
       {
+        "videoId": "BF2VgaXkojg",
+        "title": "表裏イッタイボクノナニヲシッテンノ？ #にしな #nishina #ライブ #shorts",
+        "viewCount": 3500,
+        "thumbnail": "https://i.ytimg.com/vi/BF2VgaXkojg/hqdefault.jpg",
+        "songId": "nishina-friday-kids-china-town",
+        "lineHint": 30,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
         "videoId": "COCrqF5MqN4",
         "title": "Fried crispy chicken boy #nishina #jpop #shorts",
         "viewCount": 3100,
         "thumbnail": "https://i.ytimg.com/vi/COCrqF5MqN4/hqdefault.jpg",
         "songId": "nishina-friday-kids-china-town",
         "lineHint": 14,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "BF2VgaXkojg",
-        "title": "表裏イッタイボクノナニヲシッテンノ？ #にしな #nishina #ライブ #shorts",
-        "viewCount": 2900,
-        "thumbnail": "https://i.ytimg.com/vi/BF2VgaXkojg/hqdefault.jpg",
-        "songId": "nishina-friday-kids-china-town",
-        "lineHint": 30,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
       },
@@ -452,7 +452,7 @@
       {
         "videoId": "MuaYVPznNO8",
         "title": "どうして隣にいるのに ずっと遠いの #にしな #nishina #ダーリン # #ライブ #shorts",
-        "viewCount": 2600,
+        "viewCount": 2800,
         "thumbnail": "https://i.ytimg.com/vi/MuaYVPznNO8/hqdefault.jpg",
         "songId": "nishina-darling",
         "lineHint": 4,
@@ -594,7 +594,7 @@
       {
         "videoId": "IeGrfZZDuKo",
         "title": "愛をくれた貴方が全部いけない #にしな #nishina #スローモーション # #ライブ #shorts",
-        "viewCount": 4100,
+        "viewCount": 4300,
         "thumbnail": "https://i.ytimg.com/vi/IeGrfZZDuKo/hqdefault.jpg",
         "songId": "nishina-slow-motion",
         "lineHint": 23,
@@ -696,7 +696,7 @@
       {
         "videoId": "s4cnI83-wxQ",
         "title": "愛を知り雲は赤らむ #にしな #nishina #つくし #ライブ #shorts",
-        "viewCount": 2800,
+        "viewCount": 2900,
         "thumbnail": "https://i.ytimg.com/vi/s4cnI83-wxQ/hqdefault.jpg",
         "songId": "nishina-tsukushi",
         "lineHint": 15,
@@ -2768,7 +2768,7 @@
       {
         "videoId": "m8pxw2GNhoo",
         "title": "ここは安楽unreality #にしな #nishina #bugs #ライブ #shorts",
-        "viewCount": 5500,
+        "viewCount": 5600,
         "thumbnail": "https://i.ytimg.com/vi/m8pxw2GNhoo/hqdefault.jpg",
         "songId": "nishina-bugs",
         "lineHint": 35,
@@ -2788,7 +2788,7 @@
       {
         "videoId": "QtNjGPca0Lw",
         "title": "This is virtual insanity #nishina #music #shorts",
-        "viewCount": 3700,
+        "viewCount": 3800,
         "thumbnail": "https://i.ytimg.com/vi/QtNjGPca0Lw/hqdefault.jpg",
         "songId": "nishina-bugs",
         "lineHint": 18,
@@ -4006,7 +4006,7 @@
       {
         "videoId": "W6F_CqBi5DU",
         "title": "nishina plum #nishina #plum #shorts",
-        "viewCount": 4200,
+        "viewCount": 4300,
         "thumbnail": "https://i.ytimg.com/vi/W6F_CqBi5DU/hqdefault.jpg",
         "songId": "nishina-plum",
         "lineHint": 29,
@@ -4180,7 +4180,7 @@
       {
         "videoId": "H5QLZ2niswQ",
         "title": "待ち合わす場所歌舞伎町  #にしな #nishina #婀娜婀娜 #ライブ #shorts",
-        "viewCount": 3100,
+        "viewCount": 3200,
         "thumbnail": "https://i.ytimg.com/vi/H5QLZ2niswQ/hqdefault.jpg",
         "songId": "nishina-adaada",
         "lineHint": 24,
@@ -10020,6 +10020,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "Hp4CJ5e4Few",
+        "title": "🐳WILD BUNCH FEST. 2026 #にしな #nishina #ライブ #フェス #shorts",
+        "viewCount": 4400,
+        "thumbnail": "https://i.ytimg.com/vi/Hp4CJ5e4Few/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 50.0,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "LMGnETijfsM",
         "title": "I’m just a fool who can’t stop dreaming #nishina #live #shorts",
         "viewCount": 4400,
@@ -10100,6 +10110,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "7V3yydJunss",
+        "title": "The fire of life burns out fast #nishina  #live #shorts",
+        "viewCount": 4400,
+        "thumbnail": "https://i.ytimg.com/vi/7V3yydJunss/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 53.84615384615385,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "uBCKcqMrnpU",
         "title": "こわくてきれいなわたしのぜんぶ #にしな #nishina #ウンナナクール #shorts",
         "viewCount": 4400,
@@ -10148,6 +10168,16 @@
         "lineHint": 33,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
+      },
+      {
+        "videoId": "v2kNdSlgU78",
+        "title": "WILD BUNCH FEST. 2026🐳ありがとうございました🌞  #にしな #nishina #ライブ#フェス #shorts",
+        "viewCount": 4300,
+        "thumbnail": "https://i.ytimg.com/vi/v2kNdSlgU78/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 55.55555555555556,
+        "matchMethod": "out_of_catalog"
       },
       {
         "videoId": "LguhovOxwWo",
@@ -10300,33 +10330,13 @@
         "matchMethod": "out_of_catalog"
       },
       {
-        "videoId": "7V3yydJunss",
-        "title": "The fire of life burns out fast #nishina  #live #shorts",
-        "viewCount": 4300,
-        "thumbnail": "https://i.ytimg.com/vi/7V3yydJunss/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 53.84615384615385,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "Hp4CJ5e4Few",
-        "title": "🐳WILD BUNCH FEST. 2026 #にしな #nishina #ライブ #フェス #shorts",
+        "videoId": "97w-vXiJacM",
+        "title": "🌞RISING SUN ROCK FESTIVAL 2026 in EZO #にしな #nishina #ライブ #フェス #shorts",
         "viewCount": 4200,
-        "thumbnail": "https://i.ytimg.com/vi/Hp4CJ5e4Few/hqdefault.jpg",
+        "thumbnail": "https://i.ytimg.com/vi/97w-vXiJacM/hqdefault.jpg",
         "songId": null,
         "lineHint": null,
         "matchScore": 50.0,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "v2kNdSlgU78",
-        "title": "WILD BUNCH FEST. 2026🐳ありがとうございました🌞  #にしな #nishina #ライブ#フェス #shorts",
-        "viewCount": 4200,
-        "thumbnail": "https://i.ytimg.com/vi/v2kNdSlgU78/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 55.55555555555556,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -10450,10 +10460,10 @@
         "matchMethod": "out_of_catalog"
       },
       {
-        "videoId": "97w-vXiJacM",
-        "title": "🌞RISING SUN ROCK FESTIVAL 2026 in EZO #にしな #nishina #ライブ #フェス #shorts",
+        "videoId": "YGKCAmL42io",
+        "title": "WILD BUNCH FEST. 2026🐳 #にしな #nishina #ライブ #フェス",
         "viewCount": 4100,
-        "thumbnail": "https://i.ytimg.com/vi/97w-vXiJacM/hqdefault.jpg",
+        "thumbnail": "https://i.ytimg.com/vi/YGKCAmL42io/hqdefault.jpg",
         "songId": null,
         "lineHint": null,
         "matchScore": 50.0,
@@ -10800,6 +10810,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "3893RTdOBIY",
+        "title": "💡SUMMER SONIC 2026 TOKYO # #にしな #nishina # #ライブ #フェス #shorts",
+        "viewCount": 3800,
+        "thumbnail": "https://i.ytimg.com/vi/3893RTdOBIY/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 54.54545454545454,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "8gagPpbu0AI",
         "title": "Ideologies spread through Kabukicho #にしな #nishina #newmusic #shorts",
         "viewCount": 3800,
@@ -10958,16 +10978,6 @@
         "lineHint": 15,
         "matchScore": 69.23076923076923,
         "matchMethod": "review"
-      },
-      {
-        "videoId": "3893RTdOBIY",
-        "title": "💡SUMMER SONIC 2026 TOKYO # #にしな #nishina # #ライブ #フェス #shorts",
-        "viewCount": 3700,
-        "thumbnail": "https://i.ytimg.com/vi/3893RTdOBIY/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 54.54545454545454,
-        "matchMethod": "out_of_catalog"
       },
       {
         "videoId": "6ojzI-LaPps",
@@ -11210,6 +11220,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "2-dSPN4afKc",
+        "title": "🐤SUMMER SONIC 2026 TOKYO #にしな #nishina #ライブ #フェス #shorts",
+        "viewCount": 3500,
+        "thumbnail": "https://i.ytimg.com/vi/2-dSPN4afKc/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 54.54545454545454,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "s5bY0UMqglc",
         "title": "The night quietly puts out the flames of love #nishina #live #shorts",
         "viewCount": 3500,
@@ -11317,16 +11337,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 50.0,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "2-dSPN4afKc",
-        "title": "🐤SUMMER SONIC 2026 TOKYO #にしな #nishina #ライブ #フェス #shorts",
-        "viewCount": 3400,
-        "thumbnail": "https://i.ytimg.com/vi/2-dSPN4afKc/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 54.54545454545454,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -12420,16 +12430,6 @@
         "matchMethod": "out_of_catalog"
       },
       {
-        "videoId": "YGKCAmL42io",
-        "title": "WILD BUNCH FEST. 2026🐳 #にしな #nishina #ライブ #フェス",
-        "viewCount": 2400,
-        "thumbnail": "https://i.ytimg.com/vi/YGKCAmL42io/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 50.0,
-        "matchMethod": "out_of_catalog"
-      },
-      {
         "videoId": "k7KUnOQ2yZo",
         "title": "SUPER nishina's BAND #nishina #live shorts",
         "viewCount": 2400,
@@ -13030,6 +13030,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "nOd0Dk2dTOY",
+        "title": "RUSH BALL 2026、ありがとうございました🌞 #にしな #nishina #ライブ #フェス #shorts",
+        "viewCount": 1900,
+        "thumbnail": "https://i.ytimg.com/vi/nOd0Dk2dTOY/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 55.55555555555556,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "HdY8dNZRG9Y",
         "title": "We’re two angels nobody can blame #nishina #jpop #shorts",
         "viewCount": 1900,
@@ -13300,6 +13310,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "tLbOhOsJb7U",
+        "title": "All we can do is learn from mistakes #nishina #live #shorts",
+        "viewCount": 1400,
+        "thumbnail": "https://i.ytimg.com/vi/tLbOhOsJb7U/hqdefault.jpg",
+        "songId": "nishina-hot-milk",
+        "lineHint": 33,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
+      },
+      {
         "videoId": "dDu8mADBlxs",
         "title": "Don’t stop your hands as they play #nishina  #music #shorts",
         "viewCount": 1400,
@@ -13308,6 +13328,16 @@
         "lineHint": 28,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
+      },
+      {
+        "videoId": "RLDY4ngOZZs",
+        "title": "🇰🇷WONDERLIVET 2026 #にしな #nishina #live #musicfestival #shorts",
+        "viewCount": 1300,
+        "thumbnail": "https://i.ytimg.com/vi/RLDY4ngOZZs/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 53.84615384615385,
+        "matchMethod": "out_of_catalog"
       },
       {
         "videoId": "rsOdQeVfl-4",
@@ -13320,16 +13350,6 @@
         "matchMethod": "review"
       },
       {
-        "videoId": "tLbOhOsJb7U",
-        "title": "All we can do is learn from mistakes #nishina #live #shorts",
-        "viewCount": 1300,
-        "thumbnail": "https://i.ytimg.com/vi/tLbOhOsJb7U/hqdefault.jpg",
-        "songId": "nishina-hot-milk",
-        "lineHint": 33,
-        "matchScore": 66.66666666666667,
-        "matchMethod": "review"
-      },
-      {
         "videoId": "H71IDyHegP4",
         "title": "Joy never really fades #nishina #newmusic #shorts",
         "viewCount": 1300,
@@ -13338,16 +13358,6 @@
         "lineHint": 22,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
-      },
-      {
-        "videoId": "RLDY4ngOZZs",
-        "title": "🇰🇷WONDERLIVET 2026 #にしな #nishina #live #musicfestival #shorts",
-        "viewCount": 1000,
-        "thumbnail": "https://i.ytimg.com/vi/RLDY4ngOZZs/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 53.84615384615385,
-        "matchMethod": "out_of_catalog"
       }
     ]
   }
