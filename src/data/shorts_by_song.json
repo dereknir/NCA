@@ -144,7 +144,7 @@
         "title": "君もずっと気づいていたんだろう",
         "url": "https://www.youtube.com/shorts/-ySrumQg_CI",
         "thumbnail": "https://i.ytimg.com/vi/-ySrumQg_CI/hqdefault.jpg",
-        "viewCount": 8500,
+        "viewCount": 8600,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -735,6 +735,41 @@
     ],
     "nishina-mashiro": [
       {
+        "videoId": "s2voQdf06H8",
+        "title": "バイバイ手放した純情",
+        "url": "https://www.youtube.com/shorts/s2voQdf06H8",
+        "thumbnail": "https://i.ytimg.com/vi/s2voQdf06H8/hqdefault.jpg",
+        "viewCount": 63000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 2.55,
+            "line": 1
+          },
+          {
+            "t": 5.06,
+            "line": 2
+          },
+          {
+            "t": 9.87,
+            "line": 3
+          },
+          {
+            "t": 12.44,
+            "line": 4
+          },
+          {
+            "t": 14.83,
+            "line": 5
+          }
+        ]
+      },
+      {
         "videoId": "qQTqWtnvZnI",
         "title": "曖昧に笑う悪いひと",
         "url": "https://www.youtube.com/shorts/qQTqWtnvZnI",
@@ -770,41 +805,6 @@
           {
             "t": 19.85,
             "line": 19
-          }
-        ]
-      },
-      {
-        "videoId": "s2voQdf06H8",
-        "title": "バイバイ手放した純情",
-        "url": "https://www.youtube.com/shorts/s2voQdf06H8",
-        "thumbnail": "https://i.ytimg.com/vi/s2voQdf06H8/hqdefault.jpg",
-        "viewCount": 62000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 0
-          },
-          {
-            "t": 2.55,
-            "line": 1
-          },
-          {
-            "t": 5.06,
-            "line": 2
-          },
-          {
-            "t": 9.87,
-            "line": 3
-          },
-          {
-            "t": 12.44,
-            "line": 4
-          },
-          {
-            "t": 14.83,
-            "line": 5
           }
         ]
       },
@@ -3356,7 +3356,7 @@
         "title": "身を焦がすほどの恋がまたしたい",
         "url": "https://www.youtube.com/shorts/UP6KM-5fiYY",
         "thumbnail": "https://i.ytimg.com/vi/UP6KM-5fiYY/hqdefault.jpg",
-        "viewCount": 4500,
+        "viewCount": 4600,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -4474,6 +4474,33 @@
         ]
       },
       {
+        "videoId": "7M0C7rqR7-E",
+        "title": "イカれた夜のメランルー",
+        "url": "https://www.youtube.com/shorts/7M0C7rqR7-E",
+        "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
+        "viewCount": 6200,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.48,
+            "line": 13
+          },
+          {
+            "t": 4.36,
+            "line": 14
+          },
+          {
+            "t": 6.38,
+            "line": 15
+          },
+          {
+            "t": 9.16,
+            "line": 16
+          }
+        ]
+      },
+      {
         "videoId": "yLy4iFt1sUo",
         "title": "どこに逃げたって行き止まりね",
         "url": "https://www.youtube.com/shorts/yLy4iFt1sUo",
@@ -4548,33 +4575,6 @@
           {
             "t": 40.22,
             "line": 25
-          }
-        ]
-      },
-      {
-        "videoId": "7M0C7rqR7-E",
-        "title": "イカれた夜のメランルー",
-        "url": "https://www.youtube.com/shorts/7M0C7rqR7-E",
-        "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
-        "viewCount": 6100,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.48,
-            "line": 13
-          },
-          {
-            "t": 4.36,
-            "line": 14
-          },
-          {
-            "t": 6.38,
-            "line": 15
-          },
-          {
-            "t": 9.16,
-            "line": 16
           }
         ]
       },
@@ -7383,7 +7383,7 @@
         "title": "😜weekly",
         "url": "https://www.youtube.com/shorts/iuId9l1EwFo",
         "thumbnail": "https://i.ytimg.com/vi/iuId9l1EwFo/hqdefault.jpg",
-        "viewCount": 9500,
+        "viewCount": 9600,
         "versionType": "other",
         "instrumental": false,
         "anchors": [
