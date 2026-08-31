@@ -630,7 +630,7 @@
         "title": "種のそばが酸っぱいのは私の可愛げ",
         "url": "https://www.youtube.com/shorts/-xjIN_OK23Q",
         "thumbnail": "https://i.ytimg.com/vi/-xjIN_OK23Q/hqdefault.jpg",
-        "viewCount": 5700,
+        "viewCount": 5800,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -2454,7 +2454,7 @@
         "title": "名残惜しさは振り払って もう行かなきゃ",
         "url": "https://www.youtube.com/shorts/EWFVgH24zFI",
         "thumbnail": "https://i.ytimg.com/vi/EWFVgH24zFI/hqdefault.jpg",
-        "viewCount": 7100,
+        "viewCount": 7200,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -2925,6 +2925,37 @@
         ]
       },
       {
+        "videoId": "MMVdIIfAN0c",
+        "title": "We’re just swimming around desperately",
+        "url": "https://www.youtube.com/shorts/MMVdIIfAN0c",
+        "thumbnail": "https://i.ytimg.com/vi/MMVdIIfAN0c/hqdefault.jpg",
+        "viewCount": 4100,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 20
+          },
+          {
+            "t": 5.71,
+            "line": 21
+          },
+          {
+            "t": 13.64,
+            "line": 22
+          },
+          {
+            "t": 19.67,
+            "line": 23
+          },
+          {
+            "t": 26.57,
+            "line": 24
+          }
+        ]
+      },
+      {
         "videoId": "t3nQBkat65Q",
         "title": "Always planning on how to steal the stardust tonight",
         "url": "https://www.youtube.com/shorts/t3nQBkat65Q",
@@ -2948,37 +2979,6 @@
           {
             "t": 19.57,
             "line": 11
-          }
-        ]
-      },
-      {
-        "videoId": "MMVdIIfAN0c",
-        "title": "We’re just swimming around desperately",
-        "url": "https://www.youtube.com/shorts/MMVdIIfAN0c",
-        "thumbnail": "https://i.ytimg.com/vi/MMVdIIfAN0c/hqdefault.jpg",
-        "viewCount": 4000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 20
-          },
-          {
-            "t": 5.71,
-            "line": 21
-          },
-          {
-            "t": 13.64,
-            "line": 22
-          },
-          {
-            "t": 19.67,
-            "line": 23
-          },
-          {
-            "t": 26.57,
-            "line": 24
           }
         ]
       },
@@ -6892,6 +6892,33 @@
         ]
       },
       {
+        "videoId": "Tkm0LzYyw7w",
+        "title": "And nobody else matters",
+        "url": "https://www.youtube.com/shorts/Tkm0LzYyw7w",
+        "thumbnail": "https://i.ytimg.com/vi/Tkm0LzYyw7w/hqdefault.jpg",
+        "viewCount": 2600,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 33
+          },
+          {
+            "t": 2.66,
+            "line": 34
+          },
+          {
+            "t": 5.55,
+            "line": 35
+          },
+          {
+            "t": 8.56,
+            "line": 36
+          }
+        ]
+      },
+      {
         "videoId": "DKMwtEGWRzM",
         "title": "When our relative velocity hits 0",
         "url": "https://www.youtube.com/shorts/DKMwtEGWRzM",
@@ -6927,33 +6954,6 @@
           {
             "t": 30.7,
             "line": 16
-          }
-        ]
-      },
-      {
-        "videoId": "Tkm0LzYyw7w",
-        "title": "And nobody else matters",
-        "url": "https://www.youtube.com/shorts/Tkm0LzYyw7w",
-        "thumbnail": "https://i.ytimg.com/vi/Tkm0LzYyw7w/hqdefault.jpg",
-        "viewCount": 2500,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 33
-          },
-          {
-            "t": 2.66,
-            "line": 34
-          },
-          {
-            "t": 5.55,
-            "line": 35
-          },
-          {
-            "t": 8.56,
-            "line": 36
           }
         ]
       },
