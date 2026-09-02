@@ -1458,7 +1458,7 @@
         "title": "貴方はきっとそのままでいい",
         "url": "https://www.youtube.com/shorts/zLxyDQNWqUs",
         "thumbnail": "https://i.ytimg.com/vi/zLxyDQNWqUs/hqdefault.jpg",
-        "viewCount": 3100,
+        "viewCount": 3200,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -4364,6 +4364,33 @@
         ]
       },
       {
+        "videoId": "7M0C7rqR7-E",
+        "title": "イカれた夜のメランルー",
+        "url": "https://www.youtube.com/shorts/7M0C7rqR7-E",
+        "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
+        "viewCount": 6300,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.48,
+            "line": 13
+          },
+          {
+            "t": 4.36,
+            "line": 14
+          },
+          {
+            "t": 6.38,
+            "line": 15
+          },
+          {
+            "t": 9.16,
+            "line": 16
+          }
+        ]
+      },
+      {
         "videoId": "UGJrnvFR9cU",
         "title": "now loading loading",
         "url": "https://www.youtube.com/shorts/UGJrnvFR9cU",
@@ -4470,33 +4497,6 @@
           {
             "t": 49.69,
             "line": 28
-          }
-        ]
-      },
-      {
-        "videoId": "7M0C7rqR7-E",
-        "title": "イカれた夜のメランルー",
-        "url": "https://www.youtube.com/shorts/7M0C7rqR7-E",
-        "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
-        "viewCount": 6200,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.48,
-            "line": 13
-          },
-          {
-            "t": 4.36,
-            "line": 14
-          },
-          {
-            "t": 6.38,
-            "line": 15
-          },
-          {
-            "t": 9.16,
-            "line": 16
           }
         ]
       },
@@ -7894,54 +7894,11 @@
         ]
       },
       {
-        "videoId": "OgoBzOhnftA",
-        "title": "Saturday, I’m not going anywhere",
-        "url": "https://www.youtube.com/shorts/OgoBzOhnftA",
-        "thumbnail": "https://i.ytimg.com/vi/OgoBzOhnftA/hqdefault.jpg",
-        "viewCount": 5300,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 0
-          },
-          {
-            "t": 2.73,
-            "line": 1
-          },
-          {
-            "t": 5.46,
-            "line": 2
-          },
-          {
-            "t": 7.17,
-            "line": 3
-          },
-          {
-            "t": 9.96,
-            "line": 4
-          },
-          {
-            "t": 12.49,
-            "line": 5
-          },
-          {
-            "t": 14.79,
-            "line": 6
-          },
-          {
-            "t": 16.88,
-            "line": 7
-          }
-        ]
-      },
-      {
         "videoId": "lJjpLUXRRnM",
         "title": "たまに素直なエモーション",
         "url": "https://www.youtube.com/shorts/lJjpLUXRRnM",
         "thumbnail": "https://i.ytimg.com/vi/lJjpLUXRRnM/hqdefault.jpg",
-        "viewCount": 5300,
+        "viewCount": 5400,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -7984,6 +7941,49 @@
           {
             "t": 25.91,
             "line": 27
+          }
+        ]
+      },
+      {
+        "videoId": "OgoBzOhnftA",
+        "title": "Saturday, I’m not going anywhere",
+        "url": "https://www.youtube.com/shorts/OgoBzOhnftA",
+        "thumbnail": "https://i.ytimg.com/vi/OgoBzOhnftA/hqdefault.jpg",
+        "viewCount": 5300,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 2.73,
+            "line": 1
+          },
+          {
+            "t": 5.46,
+            "line": 2
+          },
+          {
+            "t": 7.17,
+            "line": 3
+          },
+          {
+            "t": 9.96,
+            "line": 4
+          },
+          {
+            "t": 12.49,
+            "line": 5
+          },
+          {
+            "t": 14.79,
+            "line": 6
+          },
+          {
+            "t": 16.88,
+            "line": 7
           }
         ]
       },
