@@ -167,7 +167,7 @@
         "title": "もしも臆病風が吹き込んで",
         "url": "https://www.youtube.com/shorts/IGTWRcxIU9A",
         "thumbnail": "https://i.ytimg.com/vi/IGTWRcxIU9A/hqdefault.jpg",
-        "viewCount": 6800,
+        "viewCount": 6900,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -5364,7 +5364,7 @@
         "title": "今日もラブ履き違え",
         "url": "https://www.youtube.com/shorts/nywcYurtoRk",
         "thumbnail": "https://i.ytimg.com/vi/nywcYurtoRk/hqdefault.jpg",
-        "viewCount": 8400,
+        "viewCount": 8500,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -7773,6 +7773,49 @@
         ]
       },
       {
+        "videoId": "UUwZu9Y5yfQ",
+        "title": "Life can be such a pain",
+        "url": "https://www.youtube.com/shorts/UUwZu9Y5yfQ",
+        "thumbnail": "https://i.ytimg.com/vi/UUwZu9Y5yfQ/hqdefault.jpg",
+        "viewCount": 5700,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 14
+          },
+          {
+            "t": 2.58,
+            "line": 15
+          },
+          {
+            "t": 4.79,
+            "line": 16
+          },
+          {
+            "t": 6.95,
+            "line": 17
+          },
+          {
+            "t": 9.67,
+            "line": 18
+          },
+          {
+            "t": 11.84,
+            "line": 19
+          },
+          {
+            "t": 14.24,
+            "line": 20
+          },
+          {
+            "t": 16.56,
+            "line": 21
+          }
+        ]
+      },
+      {
         "videoId": "XtQ1j121eeU",
         "title": "nishina - weekly",
         "url": "https://www.youtube.com/shorts/XtQ1j121eeU",
@@ -7812,49 +7855,6 @@
           {
             "t": 16.85,
             "line": 7
-          }
-        ]
-      },
-      {
-        "videoId": "UUwZu9Y5yfQ",
-        "title": "Life can be such a pain",
-        "url": "https://www.youtube.com/shorts/UUwZu9Y5yfQ",
-        "thumbnail": "https://i.ytimg.com/vi/UUwZu9Y5yfQ/hqdefault.jpg",
-        "viewCount": 5600,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 14
-          },
-          {
-            "t": 2.58,
-            "line": 15
-          },
-          {
-            "t": 4.79,
-            "line": 16
-          },
-          {
-            "t": 6.95,
-            "line": 17
-          },
-          {
-            "t": 9.67,
-            "line": 18
-          },
-          {
-            "t": 11.84,
-            "line": 19
-          },
-          {
-            "t": 14.24,
-            "line": 20
-          },
-          {
-            "t": 16.56,
-            "line": 21
           }
         ]
       },
