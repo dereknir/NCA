@@ -2265,7 +2265,7 @@
         "title": "We’re just swimming around as we please",
         "url": "https://www.youtube.com/shorts/Hcc8jmELs5E",
         "thumbnail": "https://i.ytimg.com/vi/Hcc8jmELs5E/hqdefault.jpg",
-        "viewCount": 9100,
+        "viewCount": 9200,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -2454,7 +2454,7 @@
         "title": "名残惜しさは振り払って もう行かなきゃ",
         "url": "https://www.youtube.com/shorts/EWFVgH24zFI",
         "thumbnail": "https://i.ytimg.com/vi/EWFVgH24zFI/hqdefault.jpg",
-        "viewCount": 7200,
+        "viewCount": 7300,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -6647,7 +6647,7 @@
         "title": "Let’s make a satellite for two",
         "url": "https://www.youtube.com/shorts/daJBmm9OIo0",
         "thumbnail": "https://i.ytimg.com/vi/daJBmm9OIo0/hqdefault.jpg",
-        "viewCount": 4800,
+        "viewCount": 4900,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -7859,46 +7859,11 @@
         ]
       },
       {
-        "videoId": "UsPI4qhpFFU",
-        "title": "Suddenly, it swells up and pops",
-        "url": "https://www.youtube.com/shorts/UsPI4qhpFFU",
-        "thumbnail": "https://i.ytimg.com/vi/UsPI4qhpFFU/hqdefault.jpg",
-        "viewCount": 5400,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 8
-          },
-          {
-            "t": 2.73,
-            "line": 9
-          },
-          {
-            "t": 5.05,
-            "line": 10
-          },
-          {
-            "t": 9.58,
-            "line": 11
-          },
-          {
-            "t": 12.32,
-            "line": 12
-          },
-          {
-            "t": 14.78,
-            "line": 13
-          }
-        ]
-      },
-      {
         "videoId": "lJjpLUXRRnM",
         "title": "たまに素直なエモーション",
         "url": "https://www.youtube.com/shorts/lJjpLUXRRnM",
         "thumbnail": "https://i.ytimg.com/vi/lJjpLUXRRnM/hqdefault.jpg",
-        "viewCount": 5400,
+        "viewCount": 5500,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -7941,6 +7906,41 @@
           {
             "t": 25.91,
             "line": 27
+          }
+        ]
+      },
+      {
+        "videoId": "UsPI4qhpFFU",
+        "title": "Suddenly, it swells up and pops",
+        "url": "https://www.youtube.com/shorts/UsPI4qhpFFU",
+        "thumbnail": "https://i.ytimg.com/vi/UsPI4qhpFFU/hqdefault.jpg",
+        "viewCount": 5400,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 2.73,
+            "line": 9
+          },
+          {
+            "t": 5.05,
+            "line": 10
+          },
+          {
+            "t": 9.58,
+            "line": 11
+          },
+          {
+            "t": 12.32,
+            "line": 12
+          },
+          {
+            "t": 14.78,
+            "line": 13
           }
         ]
       },
