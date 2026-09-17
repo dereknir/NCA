@@ -4368,7 +4368,7 @@
         "title": "イカれた夜のメランルー",
         "url": "https://www.youtube.com/shorts/7M0C7rqR7-E",
         "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
-        "viewCount": 6600,
+        "viewCount": 6700,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -5073,7 +5073,7 @@
         "title": "EDEN / GeG feat.にしな、唾奇",
         "url": "https://www.youtube.com/shorts/6xvRNydvGxA",
         "thumbnail": "https://i.ytimg.com/vi/6xvRNydvGxA/hqdefault.jpg",
-        "viewCount": 107000,
+        "viewCount": 108000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -5309,46 +5309,11 @@
         ]
       },
       {
-        "videoId": "nywcYurtoRk",
-        "title": "今日もラブ履き違え",
-        "url": "https://www.youtube.com/shorts/nywcYurtoRk",
-        "thumbnail": "https://i.ytimg.com/vi/nywcYurtoRk/hqdefault.jpg",
-        "viewCount": 8600,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 11
-          },
-          {
-            "t": 3.19,
-            "line": 12
-          },
-          {
-            "t": 7.53,
-            "line": 13
-          },
-          {
-            "t": 9.54,
-            "line": 14
-          },
-          {
-            "t": 11.54,
-            "line": 15
-          },
-          {
-            "t": 12.79,
-            "line": 16
-          }
-        ]
-      },
-      {
         "videoId": "TeWqLTNYOys",
         "title": "paku-paku",
         "url": "https://www.youtube.com/shorts/TeWqLTNYOys",
         "thumbnail": "https://i.ytimg.com/vi/TeWqLTNYOys/hqdefault.jpg",
-        "viewCount": 8500,
+        "viewCount": 8600,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -5391,6 +5356,41 @@
           {
             "t": 30.63,
             "line": 36
+          }
+        ]
+      },
+      {
+        "videoId": "nywcYurtoRk",
+        "title": "今日もラブ履き違え",
+        "url": "https://www.youtube.com/shorts/nywcYurtoRk",
+        "thumbnail": "https://i.ytimg.com/vi/nywcYurtoRk/hqdefault.jpg",
+        "viewCount": 8600,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 11
+          },
+          {
+            "t": 3.19,
+            "line": 12
+          },
+          {
+            "t": 7.53,
+            "line": 13
+          },
+          {
+            "t": 9.54,
+            "line": 14
+          },
+          {
+            "t": 11.54,
+            "line": 15
+          },
+          {
+            "t": 12.79,
+            "line": 16
           }
         ]
       },
