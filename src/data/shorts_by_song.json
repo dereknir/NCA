@@ -186,7 +186,7 @@
         "title": "ねぇ私のことちゃんと愛してる？",
         "url": "https://www.youtube.com/shorts/ZHX1DaN2sqE",
         "thumbnail": "https://i.ytimg.com/vi/ZHX1DaN2sqE/hqdefault.jpg",
-        "viewCount": 6200,
+        "viewCount": 6300,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -2373,7 +2373,7 @@
         "title": "Forever, I’ll never grow up",
         "url": "https://www.youtube.com/shorts/yQgomjw4m4M",
         "thumbnail": "https://i.ytimg.com/vi/yQgomjw4m4M/hqdefault.jpg",
-        "viewCount": 7800,
+        "viewCount": 7900,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -8821,6 +8821,25 @@
         ]
       },
       {
+        "videoId": "uH_MtCmfOGo",
+        "title": "触れたら壊れてしまいそうな夜の隙間",
+        "url": "https://www.youtube.com/shorts/uH_MtCmfOGo",
+        "thumbnail": "https://i.ytimg.com/vi/uH_MtCmfOGo/hqdefault.jpg",
+        "viewCount": 8300,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 21
+          },
+          {
+            "t": 8.26,
+            "line": 22
+          }
+        ]
+      },
+      {
         "videoId": "GG59BpYAJes",
         "title": "覗けば愛しい思い出ばかりで苦しくなる",
         "url": "https://www.youtube.com/shorts/GG59BpYAJes",
@@ -8835,25 +8854,6 @@
           },
           {
             "t": 7.74,
-            "line": 22
-          }
-        ]
-      },
-      {
-        "videoId": "uH_MtCmfOGo",
-        "title": "触れたら壊れてしまいそうな夜の隙間",
-        "url": "https://www.youtube.com/shorts/uH_MtCmfOGo",
-        "thumbnail": "https://i.ytimg.com/vi/uH_MtCmfOGo/hqdefault.jpg",
-        "viewCount": 8200,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 21
-          },
-          {
-            "t": 8.26,
             "line": 22
           }
         ]
