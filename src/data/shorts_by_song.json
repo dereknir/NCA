@@ -1710,7 +1710,7 @@
         "title": "THE FIRST TAKE - nishina / 青藍遊泳",
         "url": "https://www.youtube.com/shorts/kWHu-HUPxIk",
         "thumbnail": "https://i.ytimg.com/vi/kWHu-HUPxIk/hqdefault.jpg",
-        "viewCount": 26000,
+        "viewCount": 27000,
         "versionType": "tft",
         "instrumental": false,
         "anchors": [
@@ -5942,7 +5942,7 @@
         "title": "ここは安楽unreality",
         "url": "https://www.youtube.com/shorts/m8pxw2GNhoo",
         "thumbnail": "https://i.ytimg.com/vi/m8pxw2GNhoo/hqdefault.jpg",
-        "viewCount": 5800,
+        "viewCount": 5900,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -8250,7 +8250,7 @@
         "title": "Limits are just in my mind",
         "url": "https://www.youtube.com/shorts/A6q5cpvoymg",
         "thumbnail": "https://i.ytimg.com/vi/A6q5cpvoymg/hqdefault.jpg",
-        "viewCount": 4600,
+        "viewCount": 4700,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -9090,34 +9090,11 @@
         ]
       },
       {
-        "videoId": "hN7gyHCy_yY",
-        "title": "覗けば愛しい思い出ばかりで苦しくなる",
-        "url": "https://www.youtube.com/shorts/hN7gyHCy_yY",
-        "thumbnail": "https://i.ytimg.com/vi/hN7gyHCy_yY/hqdefault.jpg",
-        "viewCount": 4900,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 21
-          },
-          {
-            "t": 8.18,
-            "line": 22
-          },
-          {
-            "t": 17.08,
-            "line": 23
-          }
-        ]
-      },
-      {
         "videoId": "1rtwKF5PdpI",
         "title": "さよなら私の愛しい人",
         "url": "https://www.youtube.com/shorts/1rtwKF5PdpI",
         "thumbnail": "https://i.ytimg.com/vi/1rtwKF5PdpI/hqdefault.jpg",
-        "viewCount": 4900,
+        "viewCount": 5000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -9140,6 +9117,29 @@
           {
             "t": 19.93,
             "line": 27
+          }
+        ]
+      },
+      {
+        "videoId": "hN7gyHCy_yY",
+        "title": "覗けば愛しい思い出ばかりで苦しくなる",
+        "url": "https://www.youtube.com/shorts/hN7gyHCy_yY",
+        "thumbnail": "https://i.ytimg.com/vi/hN7gyHCy_yY/hqdefault.jpg",
+        "viewCount": 4900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 21
+          },
+          {
+            "t": 8.18,
+            "line": 22
+          },
+          {
+            "t": 17.08,
+            "line": 23
           }
         ]
       },
