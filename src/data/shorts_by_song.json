@@ -2018,33 +2018,6 @@
         ]
       },
       {
-        "videoId": "QrQ7TsYXwyw",
-        "title": "We’re just swimming around as we please",
-        "url": "https://www.youtube.com/shorts/QrQ7TsYXwyw",
-        "thumbnail": "https://i.ytimg.com/vi/QrQ7TsYXwyw/hqdefault.jpg",
-        "viewCount": 13000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 8
-          },
-          {
-            "t": 5.88,
-            "line": 9
-          },
-          {
-            "t": 13.91,
-            "line": 10
-          },
-          {
-            "t": 19.84,
-            "line": 11
-          }
-        ]
-      },
-      {
         "videoId": "2sKI9BKScMM",
         "title": "We’re just swimming around as we please",
         "url": "https://www.youtube.com/shorts/2sKI9BKScMM",
@@ -2311,33 +2284,6 @@
           {
             "t": 19.84,
             "line": 23
-          }
-        ]
-      },
-      {
-        "videoId": "weQwfeErYiA",
-        "title": "Farewell, my friend, forget it all happened",
-        "url": "https://www.youtube.com/shorts/weQwfeErYiA",
-        "thumbnail": "https://i.ytimg.com/vi/weQwfeErYiA/hqdefault.jpg",
-        "viewCount": 8600,
-        "versionType": "tft",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 8
-          },
-          {
-            "t": 6.28,
-            "line": 9
-          },
-          {
-            "t": 14.55,
-            "line": 10
-          },
-          {
-            "t": 17.88,
-            "line": 11
           }
         ]
       },
@@ -3294,6 +3240,60 @@
             "line": 7
           }
         ]
+      },
+      {
+        "videoId": "QrQ7TsYXwyw",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/QrQ7TsYXwyw",
+        "thumbnail": "https://i.ytimg.com/vi/QrQ7TsYXwyw/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 5.88,
+            "line": 9
+          },
+          {
+            "t": 13.91,
+            "line": 10
+          },
+          {
+            "t": 19.84,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "weQwfeErYiA",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/weQwfeErYiA",
+        "thumbnail": "https://i.ytimg.com/vi/weQwfeErYiA/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "tft",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 6.28,
+            "line": 9
+          },
+          {
+            "t": 14.55,
+            "line": 10
+          },
+          {
+            "t": 17.88,
+            "line": 11
+          }
+        ]
       }
     ],
     "nishina-adaada": [
@@ -3787,37 +3787,6 @@
           },
           {
             "t": 8.91,
-            "line": 45
-          }
-        ]
-      },
-      {
-        "videoId": "01hHbdHbTzw",
-        "title": "The melancholy of a crazy night",
-        "url": "https://www.youtube.com/shorts/01hHbdHbTzw",
-        "thumbnail": "https://i.ytimg.com/vi/01hHbdHbTzw/hqdefault.jpg",
-        "viewCount": 11000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 41
-          },
-          {
-            "t": 2.4,
-            "line": 42
-          },
-          {
-            "t": 4.74,
-            "line": 43
-          },
-          {
-            "t": 8.88,
-            "line": 44
-          },
-          {
-            "t": 13.96,
             "line": 45
           }
         ]
@@ -4983,6 +4952,37 @@
           {
             "t": 13.94,
             "line": 16
+          }
+        ]
+      },
+      {
+        "videoId": "01hHbdHbTzw",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/01hHbdHbTzw",
+        "thumbnail": "https://i.ytimg.com/vi/01hHbdHbTzw/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 41
+          },
+          {
+            "t": 2.4,
+            "line": 42
+          },
+          {
+            "t": 4.74,
+            "line": 43
+          },
+          {
+            "t": 8.88,
+            "line": 44
+          },
+          {
+            "t": 13.96,
+            "line": 45
           }
         ]
       }
