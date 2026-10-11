@@ -1,11 +1,11 @@
 [
  {
   "date": "2026-10-10",
-  "date_end": null,
+  "date_end": "2026-10-11",
   "name": "TOKYO ISLAND 2026",
   "venue": "東京･海の森公園",
   "pref": "東京",
-  "url": "https://eplus.jp/sf/detail/1630630001-P0030014P021001"
+  "url": "https://eplus.jp/sf/detail/1630630001-P0030014P021004"
  },
  {
   "date": "2026-10-11",
@@ -14,5 +14,13 @@
   "venue": "東京･海の森公園",
   "pref": "東京",
   "url": "https://eplus.jp/sf/detail/1630630001-P0030014P021002"
+ },
+ {
+  "date": "2026-10-12",
+  "date_end": null,
+  "name": "TOKYO ISLAND 2026",
+  "venue": "東京･海の森公園",
+  "pref": "東京",
+  "url": "https://eplus.jp/sf/detail/1630630001-P0030014P021003"
  }
 ]
