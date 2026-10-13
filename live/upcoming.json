@@ -1,22 +1,22 @@
 {
- "fetched": "2026-10-11",
+ "fetched": "2026-10-13",
  "source": "https://eplus.jp/sf/word/0000130029",
  "events": [
   {
    "date": "2026-10-10",
-   "date_end": "2026-10-11",
+   "date_end": "2026-10-12",
    "name": "TOKYO ISLAND 2026",
    "venue": "東京･海の森公園",
    "pref": "東京",
-   "url": "https://eplus.jp/sf/detail/1630630001-P0030014P021004"
+   "url": "https://eplus.jp/sf/detail/1630630001-P0030014P021006"
   },
   {
    "date": "2026-10-11",
-   "date_end": null,
+   "date_end": "2026-10-12",
    "name": "TOKYO ISLAND 2026",
    "venue": "東京･海の森公園",
    "pref": "東京",
-   "url": "https://eplus.jp/sf/detail/1630630001-P0030014P021002"
+   "url": "https://eplus.jp/sf/detail/1630630001-P0030014P021005"
   },
   {
    "date": "2026-10-12",
@@ -25,6 +25,14 @@
    "venue": "東京･海の森公園",
    "pref": "東京",
    "url": "https://eplus.jp/sf/detail/1630630001-P0030014P021003"
+  },
+  {
+   "date": "2026-11-11",
+   "date_end": null,
+   "name": "GLICO LIVE “NEXT” SPECIAL",
+   "venue": "心斎橋BIGCAT",
+   "pref": "大阪",
+   "url": "https://eplus.jp/sf/detail/0590600004-P0030064P021001"
   }
  ]
 }
