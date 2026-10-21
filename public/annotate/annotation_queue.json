@@ -1,11 +1,43 @@
 {
   "meta": {
     "topN": 0,
-    "totalInQueue": 1383,
+    "totalInQueue": 1384,
     "songCount": 38,
     "unmatchedCount": 857
   },
   "queue": {
+    "nishina-twinkle-little-star": [
+      {
+        "videoId": "i_gKR8lwP5U",
+        "title": "だって誰もそれぞれに懸命 美しくもがいている #にしな #nishina #ライブ #弾き語り #shorts",
+        "viewCount": 6400,
+        "thumbnail": "https://i.ytimg.com/vi/i_gKR8lwP5U/hqdefault.jpg",
+        "songId": "nishina-twinkle-little-star",
+        "lineHint": 28,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "5H9rF_KhD2w",
+        "title": "どこへでも自由に飛ぶだけさ #にしな #nishina   #ライブ #弾き語り #shorts",
+        "viewCount": 5200,
+        "thumbnail": "https://i.ytimg.com/vi/5H9rF_KhD2w/hqdefault.jpg",
+        "songId": "nishina-twinkle-little-star",
+        "lineHint": 57,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "jF7hxYuO2zY",
+        "title": "夜空の星を頼りに今日も歩くよ #にしな #nishina #ライブ #弾き語り #shorts",
+        "viewCount": 2000,
+        "thumbnail": "https://i.ytimg.com/vi/jF7hxYuO2zY/hqdefault.jpg",
+        "songId": "nishina-twinkle-little-star",
+        "lineHint": 13,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      }
+    ],
     "nishina-weekly": [
       {
         "videoId": "L_Vm4Lc86sw",
@@ -30,7 +62,7 @@
       {
         "videoId": "-Ds4iTwZc5w",
         "title": "nishina newsong \"weekly\" #nishina #live #shorts",
-        "viewCount": 15000,
+        "viewCount": 16000,
         "thumbnail": "https://i.ytimg.com/vi/-Ds4iTwZc5w/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 8,
@@ -138,6 +170,16 @@
         "matchMethod": "lyric_match"
       },
       {
+        "videoId": "rB1v8aWEqG0",
+        "title": "焦らずゆけばいいさ #にしな #nishina #weekly #ライブ #shorts",
+        "viewCount": 6700,
+        "thumbnail": "https://i.ytimg.com/vi/rB1v8aWEqG0/hqdefault.jpg",
+        "songId": "nishina-weekly",
+        "lineHint": 33,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "sJXnAjW8V3U",
         "title": "nishina weekly #nishina #newmusic #shorts",
         "viewCount": 6700,
@@ -170,7 +212,7 @@
       {
         "videoId": "5ss09eEBrT4",
         "title": "nishina \"weekly\" MUSICK #nishina #live #shorts",
-        "viewCount": 4800,
+        "viewCount": 4900,
         "thumbnail": "https://i.ytimg.com/vi/5ss09eEBrT4/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 8,
@@ -186,16 +228,6 @@
         "lineHint": 42,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "rB1v8aWEqG0",
-        "title": "焦らずゆけばいいさ #にしな #nishina #weekly #ライブ #shorts",
-        "viewCount": 3900,
-        "thumbnail": "https://i.ytimg.com/vi/rB1v8aWEqG0/hqdefault.jpg",
-        "songId": "nishina-weekly",
-        "lineHint": 33,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
       }
     ],
     "nishina-adaada": [
@@ -222,7 +254,7 @@
       {
         "videoId": "IMGJHTsMXOQ",
         "title": "獣になれない歪な塊 #にしな #nishina #婀娜婀娜 #ライブ #shorts",
-        "viewCount": 5800,
+        "viewCount": 5900,
         "thumbnail": "https://i.ytimg.com/vi/IMGJHTsMXOQ/hqdefault.jpg",
         "songId": "nishina-adaada",
         "lineHint": 0,
@@ -272,7 +304,7 @@
       {
         "videoId": "6aUJwVW3X2Y",
         "title": "待ち合わす場所歌舞伎町 #にしな #nishina #婀娜婀娜 #ライブ #shorts",
-        "viewCount": 1400,
+        "viewCount": 1600,
         "thumbnail": "https://i.ytimg.com/vi/6aUJwVW3X2Y/hqdefault.jpg",
         "songId": "nishina-adaada",
         "lineHint": 24,
@@ -484,7 +516,7 @@
       {
         "videoId": "kWjoc7PlsNM",
         "title": "そっと口づけて赤く食べ残した罠 #にしな #nishina #真白 #ライブ #shorts",
-        "viewCount": 4800,
+        "viewCount": 5100,
         "thumbnail": "https://i.ytimg.com/vi/kWjoc7PlsNM/hqdefault.jpg",
         "songId": "nishina-mashiro",
         "lineHint": 22,
@@ -546,7 +578,7 @@
       {
         "videoId": "gmz_Ee5aE28",
         "title": "🐼ストレスで過食とまんない、ぱくぱく #にしな #nishina #パンダガール #ライブ #shorts",
-        "viewCount": 6800,
+        "viewCount": 7100,
         "thumbnail": "https://i.ytimg.com/vi/gmz_Ee5aE28/hqdefault.jpg",
         "songId": "nishina-panda-girl",
         "lineHint": 27,
@@ -556,6 +588,16 @@
     ],
     "nishina-sugar-spot": [
       {
+        "videoId": "OappIxHkIqc",
+        "title": "腐るほどまだ何もやりきっちゃいないだろう #にしな #nishina #シュガースポット #ライブ #shorts",
+        "viewCount": 11000,
+        "thumbnail": "https://i.ytimg.com/vi/OappIxHkIqc/hqdefault.jpg",
+        "songId": "nishina-sugar-spot",
+        "lineHint": 39,
+        "matchScore": 100.0,
+        "matchMethod": "hashtag"
+      },
+      {
         "videoId": "nopQjFzb07w",
         "title": "約束なしでもまた出会える #にしな #nishina #ライブ #shorts",
         "viewCount": 11000,
@@ -564,16 +606,6 @@
         "lineHint": 51,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "OappIxHkIqc",
-        "title": "腐るほどまだ何もやりきっちゃいないだろう #にしな #nishina #シュガースポット #ライブ #shorts",
-        "viewCount": 10000,
-        "thumbnail": "https://i.ytimg.com/vi/OappIxHkIqc/hqdefault.jpg",
-        "songId": "nishina-sugar-spot",
-        "lineHint": 39,
-        "matchScore": 100.0,
-        "matchMethod": "hashtag"
       },
       {
         "videoId": "pH8lSV1CzIA",
@@ -640,7 +672,7 @@
       {
         "videoId": "dFQyp-rBjHc",
         "title": "最後まで、わがままで ごめんねダーリン #にしな #nishina #ドレスコード #ライブ #shorts",
-        "viewCount": 5600,
+        "viewCount": 5700,
         "thumbnail": "https://i.ytimg.com/vi/dFQyp-rBjHc/hqdefault.jpg",
         "songId": "nishina-dress-code",
         "lineHint": 34,
@@ -832,7 +864,7 @@
       {
         "videoId": "rSZR2WQmgt4",
         "title": "もうすぐ君の元へ #にしな #nishina #東京マーブル #ライブ #shorts",
-        "viewCount": 6400,
+        "viewCount": 6500,
         "thumbnail": "https://i.ytimg.com/vi/rSZR2WQmgt4/hqdefault.jpg",
         "songId": "nishina-tokyo-marble",
         "lineHint": 27,
@@ -1304,7 +1336,7 @@
       {
         "videoId": "w-2Ge0PZfbs",
         "title": "TOKYO ISLAND 2026🌳ありがとうございました🌞 #にしな #nishina #わをん #ライブ #shorts",
-        "viewCount": 3300,
+        "viewCount": 3400,
         "thumbnail": "https://i.ytimg.com/vi/w-2Ge0PZfbs/hqdefault.jpg",
         "songId": "nishina-wawon",
         "lineHint": 50,
@@ -1840,7 +1872,7 @@
       {
         "videoId": "vK__Re-wGCM",
         "title": "貴方以上に身体を蝕め #にしな #nishina #ヘビースモーク #ライブ #shorts",
-        "viewCount": 5000,
+        "viewCount": 5100,
         "thumbnail": "https://i.ytimg.com/vi/vK__Re-wGCM/hqdefault.jpg",
         "songId": "nishina-heavy-smoke",
         "lineHint": 23,
@@ -1992,7 +2024,7 @@
       {
         "videoId": "vQE06PALYLU",
         "title": "僕らはきっと変わらぬ愛を歌う #にしな #nishina #1999 #ライブ #shorts",
-        "viewCount": 6200,
+        "viewCount": 6300,
         "thumbnail": "https://i.ytimg.com/vi/vQE06PALYLU/hqdefault.jpg",
         "songId": "nishina-1999",
         "lineHint": 27,
@@ -2136,28 +2168,6 @@
         "thumbnail": "https://i.ytimg.com/vi/OM85dw6zj9A/hqdefault.jpg",
         "songId": "nishina-1999",
         "lineHint": 10,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      }
-    ],
-    "nishina-twinkle-little-star": [
-      {
-        "videoId": "i_gKR8lwP5U",
-        "title": "だって誰もそれぞれに懸命 美しくもがいている #にしな #nishina #ライブ #弾き語り #shorts",
-        "viewCount": 6400,
-        "thumbnail": "https://i.ytimg.com/vi/i_gKR8lwP5U/hqdefault.jpg",
-        "songId": "nishina-twinkle-little-star",
-        "lineHint": 28,
-        "matchScore": 100.0,
-        "matchMethod": "lyric_match"
-      },
-      {
-        "videoId": "5H9rF_KhD2w",
-        "title": "どこへでも自由に飛ぶだけさ #にしな #nishina   #ライブ #弾き語り #shorts",
-        "viewCount": 5200,
-        "thumbnail": "https://i.ytimg.com/vi/5H9rF_KhD2w/hqdefault.jpg",
-        "songId": "nishina-twinkle-little-star",
-        "lineHint": 57,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
       }
@@ -2438,7 +2448,7 @@
       {
         "videoId": "m8pxw2GNhoo",
         "title": "ここは安楽unreality #にしな #nishina #bugs #ライブ #shorts",
-        "viewCount": 6100,
+        "viewCount": 6200,
         "thumbnail": "https://i.ytimg.com/vi/m8pxw2GNhoo/hqdefault.jpg",
         "songId": "nishina-bugs",
         "lineHint": 35,
@@ -6794,6 +6804,16 @@
         "matchMethod": "review"
       },
       {
+        "videoId": "1nBPDVncspo",
+        "title": "nishina - new goods 2026 in summer #にしな #nishina #shorts",
+        "viewCount": 9800,
+        "thumbnail": "https://i.ytimg.com/vi/1nBPDVncspo/hqdefault.jpg",
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 52.63157894736843,
+        "matchMethod": "out_of_catalog"
+      },
+      {
         "videoId": "FFkHaIUKK1I",
         "title": "You’re so subtle #nishina #live #shorts",
         "viewCount": 9800,
@@ -6831,16 +6851,6 @@
         "songId": null,
         "lineHint": null,
         "matchScore": 57.14285714285714,
-        "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "1nBPDVncspo",
-        "title": "nishina - new goods 2026 in summer #にしな #nishina #shorts",
-        "viewCount": 9700,
-        "thumbnail": "https://i.ytimg.com/vi/1nBPDVncspo/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 52.63157894736843,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -6986,7 +6996,7 @@
       {
         "videoId": "1_g4UaCyLAA",
         "title": "We’re all egoists in the end #nishina #live #shorts",
-        "viewCount": 9000,
+        "viewCount": 9100,
         "thumbnail": "https://i.ytimg.com/vi/1_g4UaCyLAA/hqdefault.jpg",
         "songId": null,
         "lineHint": null,
@@ -8914,6 +8924,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "b3Fxtm51Hos",
+        "title": "Creating all of the world’s borderlines #nishina #live #shorts",
+        "viewCount": 6000,
+        "thumbnail": "https://i.ytimg.com/vi/b3Fxtm51Hos/hqdefault.jpg",
+        "songId": "nishina-u-plus",
+        "lineHint": 1,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
+      },
+      {
         "videoId": "bHFqRI47cUc",
         "title": "I’ll have lost another choice #nishina #music #shorts",
         "viewCount": 6000,
@@ -8980,16 +9000,6 @@
         "thumbnail": "https://i.ytimg.com/vi/U8aIYOOyWC0/hqdefault.jpg",
         "songId": "nishina-weekly",
         "lineHint": 22,
-        "matchScore": 66.66666666666667,
-        "matchMethod": "review"
-      },
-      {
-        "videoId": "b3Fxtm51Hos",
-        "title": "Creating all of the world’s borderlines #nishina #live #shorts",
-        "viewCount": 5900,
-        "thumbnail": "https://i.ytimg.com/vi/b3Fxtm51Hos/hqdefault.jpg",
-        "songId": "nishina-u-plus",
-        "lineHint": 1,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
       },
@@ -12704,6 +12714,16 @@
         "matchMethod": "out_of_catalog"
       },
       {
+        "videoId": "D_JV5XSV6m0",
+        "title": "Your lucky nishina track next week!? #にしな #nishina",
+        "viewCount": 2700,
+        "thumbnail": "https://i.ytimg.com/vi/D_JV5XSV6m0/hqdefault.jpg",
+        "songId": "nishina-weekly",
+        "lineHint": 8,
+        "matchScore": 80.0,
+        "matchMethod": "review"
+      },
+      {
         "videoId": "RLDY4ngOZZs",
         "title": "🇰🇷WONDERLIVET 2026 #にしな #nishina #live #musicfestival #shorts",
         "viewCount": 2700,
@@ -12812,16 +12832,6 @@
         "lineHint": null,
         "matchScore": 63.1578947368421,
         "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "D_JV5XSV6m0",
-        "title": "Your lucky nishina track next week!? #にしな #nishina",
-        "viewCount": 2600,
-        "thumbnail": "https://i.ytimg.com/vi/D_JV5XSV6m0/hqdefault.jpg",
-        "songId": "nishina-weekly",
-        "lineHint": 8,
-        "matchScore": 80.0,
-        "matchMethod": "review"
       },
       {
         "videoId": "8HJF7P0p46k",
