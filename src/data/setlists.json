@@ -1,9 +1,9 @@
 {
   "meta": {
-    "generated": "2026-10-25T05:20:36+08:00",
+    "generated": "2026-10-26T05:19:46+08:00",
     "source": "https://nishina.lnk.to/live_setlist",
     "tour_count": 10,
-    "total_tracks": 182
+    "total_tracks": 161
   },
   "tours": [
     {
@@ -199,7 +199,7 @@
       ],
       "track_count": 23,
       "matched_count": 23,
-      "cover": "/setlists/covers/1s5bfpq5tnkdVx1plJ6AGI.jpg"
+      "cover": "/setlists/covers/1s5bfpq5tnkdVx1plJ6AGI.webp"
     },
     {
       "title": "MUSICK 2",
@@ -370,7 +370,7 @@
       ],
       "track_count": 20,
       "matched_count": 20,
-      "cover": "/setlists/covers/6fWlDjCNGGvZrNgSHvb4eD.jpg"
+      "cover": "/setlists/covers/6fWlDjCNGGvZrNgSHvb4eD.webp"
     },
     {
       "title": "MUSICK",
@@ -541,186 +541,17 @@
       ],
       "track_count": 20,
       "matched_count": 20,
-      "cover": "/setlists/covers/1nIgFT41iAHOJYsKw2Xjf2.jpg"
+      "cover": "/setlists/covers/1nIgFT41iAHOJYsKw2Xjf2.webp"
     },
     {
       "title": "SUPER COMPLEX",
       "date": "2024.11.10 - 2024.11.29",
       "spotify": "https://open.spotify.com/playlist/0YUgiCWovlW7dFlqySbydX",
       "applemusic": "https://music.apple.com/jp/playlist/pl.c7a8f9ca8c6f458fb3b5a1c51a287344",
-      "tracks": [
-        {
-          "index": 1,
-          "title": "plum",
-          "artist": "nishina",
-          "uid": "dcdc1f7198a1c917",
-          "matched_song_id": "nishina-plum",
-          "match_score": 100
-        },
-        {
-          "index": 2,
-          "title": "bugs",
-          "artist": "nishina",
-          "uid": "b90384c58d18ceee",
-          "matched_song_id": "nishina-bugs",
-          "match_score": 100
-        },
-        {
-          "index": 3,
-          "title": "FRIDAY KIDS CHINA TOWN",
-          "artist": "nishina",
-          "uid": "f55356db139dd8d4",
-          "matched_song_id": "nishina-friday-kids-china-town",
-          "match_score": 100
-        },
-        {
-          "index": 4,
-          "title": "スローモーション",
-          "artist": "nishina",
-          "uid": "4091baff4a830371",
-          "matched_song_id": "nishina-slow-motion",
-          "match_score": 100
-        },
-        {
-          "index": 5,
-          "title": "夜になって",
-          "artist": "nishina",
-          "uid": "ffc2d023ba5eeb91",
-          "matched_song_id": "nishina-yoru-ni-natte",
-          "match_score": 100
-        },
-        {
-          "index": 6,
-          "title": "真白",
-          "artist": "nishina",
-          "uid": "33afa61de2a6abb4",
-          "matched_song_id": "nishina-mashiro",
-          "match_score": 100
-        },
-        {
-          "index": 7,
-          "title": "debbie",
-          "artist": "nishina",
-          "uid": "bf5d05dca3fcc721",
-          "matched_song_id": "nishina-debbie",
-          "match_score": 100
-        },
-        {
-          "index": 8,
-          "title": "透明な黒と鉄分のある赤",
-          "artist": "nishina, くじら",
-          "uid": "69a54d6faae466d9",
-          "matched_song_id": "nishina-toumei-na-kuro",
-          "match_score": 100
-        },
-        {
-          "index": 9,
-          "title": "ワンルーム",
-          "artist": "nishina",
-          "uid": "b6bc24a91bdbc656",
-          "matched_song_id": "nishina-one-room",
-          "match_score": 100
-        },
-        {
-          "index": 10,
-          "title": "ヘビースモーク",
-          "artist": "nishina",
-          "uid": "1243a8e5c78383bf",
-          "matched_song_id": "nishina-heavy-smoke",
-          "match_score": 100
-        },
-        {
-          "index": 11,
-          "title": "It's a piece of cake",
-          "artist": "nishina",
-          "uid": "2020df5dc3afeab2",
-          "matched_song_id": "nishina-its-a-piece-of-cake",
-          "match_score": 100
-        },
-        {
-          "index": 12,
-          "title": "ケダモノのフレンズ",
-          "artist": "nishina",
-          "uid": "c177da7d4fa0837f",
-          "matched_song_id": "nishina-kedamono-no-friends",
-          "match_score": 100
-        },
-        {
-          "index": 13,
-          "title": "ランデブー",
-          "artist": "nishina",
-          "uid": "8366f0e335802489",
-          "matched_song_id": "nishina-rendezvous",
-          "match_score": 100
-        },
-        {
-          "index": 14,
-          "title": "東京マーブル",
-          "artist": "nishina",
-          "uid": "98310906c644d7cb",
-          "matched_song_id": "nishina-tokyo-marble",
-          "match_score": 100
-        },
-        {
-          "index": 15,
-          "title": "クランベリージャムをかけて",
-          "artist": "nishina",
-          "uid": "ad928c2c894d6a15",
-          "matched_song_id": "nishina-cranberry-jam",
-          "match_score": 100
-        },
-        {
-          "index": 16,
-          "title": "シュガースポット",
-          "artist": "nishina",
-          "uid": "497811441e057b2c",
-          "matched_song_id": "nishina-sugar-spot",
-          "match_score": 100
-        },
-        {
-          "index": 17,
-          "title": "わをん",
-          "artist": "nishina",
-          "uid": "880f15ef721669a7",
-          "matched_song_id": "nishina-wawon",
-          "match_score": 100
-        },
-        {
-          "index": 18,
-          "title": "ダーリン",
-          "artist": "nishina",
-          "uid": "841b1e92b15b08ed",
-          "matched_song_id": "nishina-darling",
-          "match_score": 100
-        },
-        {
-          "index": 19,
-          "title": "青藍遊泳",
-          "artist": "nishina",
-          "uid": "174ac8a75baaae00",
-          "matched_song_id": "nishina-seiran-yuuei",
-          "match_score": 100
-        },
-        {
-          "index": 20,
-          "title": "ねこぜ",
-          "artist": "nishina",
-          "uid": "0d748e07c21c5e58",
-          "matched_song_id": "nishina-nekoze",
-          "match_score": 100
-        },
-        {
-          "index": 21,
-          "title": "アイニコイ",
-          "artist": "nishina",
-          "uid": "392b57b3f2df6b8d",
-          "matched_song_id": "nishina-ainikoi",
-          "match_score": 100
-        }
-      ],
-      "track_count": 21,
-      "matched_count": 21,
-      "cover": "/setlists/covers/0YUgiCWovlW7dFlqySbydX.jpg"
+      "tracks": [],
+      "track_count": 0,
+      "matched_count": 0,
+      "cover": null
     },
     {
       "title": "Feeling",
@@ -1046,7 +877,7 @@
       ],
       "track_count": 17,
       "matched_count": 17,
-      "cover": "/setlists/covers/18bM7AAML1Kj7VsLIM1aLZ.jpg"
+      "cover": "/setlists/covers/18bM7AAML1Kj7VsLIM1aLZ.webp"
     },
     {
       "title": "1999限定弾き語りツアー",
@@ -1161,7 +992,7 @@
       ],
       "track_count": 13,
       "matched_count": 13,
-      "cover": "/setlists/covers/1yExuvFwGLG2L3KMKFOz1x.jpg"
+      "cover": "/setlists/covers/1yExuvFwGLG2L3KMKFOz1x.webp"
     },
     {
       "title": "1999ツアー",
@@ -1316,7 +1147,7 @@
       ],
       "track_count": 18,
       "matched_count": 18,
-      "cover": "/setlists/covers/1y8FRxF92u2nl7mcyL3KdE.jpg"
+      "cover": "/setlists/covers/1y8FRxF92u2nl7mcyL3KdE.webp"
     },
     {
       "title": "虎虎",
@@ -1471,7 +1302,7 @@
       ],
       "track_count": 18,
       "matched_count": 18,
-      "cover": "/setlists/covers/1bqDfHhi8YLKcCwpoJmXeI.jpg"
+      "cover": "/setlists/covers/1bqDfHhi8YLKcCwpoJmXeI.webp"
     },
     {
       "title": "hatsu",
