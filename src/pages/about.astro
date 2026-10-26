@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PlanetHeroBanner from '../components/PlanetHeroBanner.astro';
+import { SITE_CONFIG } from '../config';
 ---
 
 <BaseLayout title="關於我" description="認識 Derek">
@@ -54,11 +55,11 @@ import PlanetHeroBanner from '../components/PlanetHeroBanner.astro';
       <div>
         <h3 class="text-xl font-bold mb-4">聯絡我</h3>
         <div class="flex flex-wrap gap-4">
-          <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+          <a href={SITE_CONFIG.social.github} target="_blank" rel="noopener noreferrer"
              class="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition">
             GitHub
           </a>
-          <a href="mailto:your@email.com"
+          <a href={`mailto:${SITE_CONFIG.social.email}`}
              class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
             Email
           </a>

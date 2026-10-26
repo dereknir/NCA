@@ -14,12 +14,12 @@ export const SITE_CONFIG = {
   locale: "zh_TW",
 
   // 預設圖片
-  defaultOGImage: "/og-default.jpg",
+  defaultOGImage: "/og/default.png",   // scripts/og-default.mjs 產生 (1200×630 像素風)
 
   // 社交媒體連結
   social: {
-    github: "https://github.com/",
-    email: "your@email.com",
+    github: "https://github.com/dereknir",
+    email: "dereknir6409@gmail.com",
   },
 
   // 內容設定
