@@ -22,10 +22,10 @@ npm run dev            # 開 http://localhost:4321/gacha/
 - 印刷:print seed 顯示為 hex,同 seed 可重現同一張(未來引繼碼基礎)
 - 稀有度視覺:N 隨機框 / R 實線框 / SR·LIVE 金框(engine.frame 的 gold 參數)
 
-## 站長策展區(gacha.html 頂部)
+## 站長策展區(index.html 頂部)
 songUrl 路由 / RATES / CURATED 三處,全在 `===== 站長策展區 =====` 註解內。
 accent 與 motif 目前為暫定 hash 分配(6 首已定案),frontmatter 策展後
-重跑 `scripts/build-gacha-pool.ts` 再生成 pool.json + 字型子集。
+重新產出 pool.json(repo 內目前沒有專用腳本, 手動維護;LIVE 池由 `scripts/build_gacha_live_pool.py` 生成 live_pool.json)。字型子集不在此產生, 走全站的 `scripts/build_site_charset.py` → `scripts/build_pixel_fonts.py`。
 
 ## 檔案
-gacha.html / engine.js(引擎,node 可測)/ pool.json;字型走全站共用的 /fonts/pixel/fp{12,10,8}-site-{ja,zh_hant}.woff2(scripts/build_pixel_fonts.py 生成, 字集已含 gacha 字串)
+index.html / engine.js(引擎,node 可測)/ machine.js / backpack.js / pool.json / live_pool.json;字型走全站共用的 /fonts/pixel/fp{12,10,8}-site-{ja,zh_hant}.woff2(scripts/build_pixel_fonts.py 生成, 字集已含 gacha 字串)

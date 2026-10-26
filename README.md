@@ -27,7 +27,7 @@ GitHub Actions 定期更新。
 - **Astro 7** (static output) + **Tailwind CSS 4** + MDX; Node 22; `astro check` 做型別檢查
 - 像素字型: fusion-pixel (12/10/8px) 與 jf open 粉圓, 依全站字集子集化成 woff2 (`scripts/build_pixel_fonts.py`)
 - Python 3.11 資料管線 (`requirements.txt`; 重型 ML 另見 `requirements-ml.txt`)
-- 部署: Vercel 讀 `develop` 分支, `vercel.json` 只指定 build 指令與輸出目錄
+- 部署: Vercel 讀 `develop` 分支, `vercel.json` 指定 framework preset (astro)、build/dev 指令與輸出目錄
 
 ## 本地開發
 

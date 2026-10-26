@@ -139,7 +139,7 @@ Header 只佔 grid 左欄，側欄從頁面最頂就 sticky。
 
 ## Derek 沒明說但重要的判斷
 
-- **喜歡標注工具（`annotator.html`）的三欄配置**（左 queue、中 player、右 lyrics）——覺得很好看、想比照
+- **喜歡標注工具（`public/annotate/index.html`,站上 /annotate/）的三欄配置**（左 queue、中 player、右 lyrics）——覺得很好看、想比照
 - **喜歡「原本的寬版」歌詞閱讀感**
 - **不喜歡目前一堆內容一路往下堆的感覺**——是這場討論的起點
 

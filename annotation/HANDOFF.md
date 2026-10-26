@@ -4,7 +4,7 @@
 
 ## 專案是什麼
 
-Derek 經營一個 にしな(nishina)歌詞翻譯網站(Next.js/Astro 類前端,部署在 Vercel,深藍色 dark theme,43 首歌、日文/羅馬拼音/繁中三語對照)。目標新功能:**在每首歌的歌詞頁嵌入該曲的 YouTube live shorts,播放時歌詞逐句 highlight 同步**。一首歌可能有多個 live 版本(多個 tab / 時間軸)。
+Derek 經營一個 にしな(nishina)歌詞翻譯網站(Next.js/Astro 類前端,部署在 Vercel,深藍色 dark theme,全部歌曲(目前 51 首)日文/羅馬拼音/繁中三語對照)。目標新功能:**在每首歌的歌詞頁嵌入該曲的 YouTube live shorts,播放時歌詞逐句 highlight 同步**。一首歌可能有多個 live 版本(多個 tab / 時間軸)。
 
 因為 shorts 是從演出隨機剪的、長度不一,無法自動知道影片從歌的哪一句開始 → 需要人工標注「時間點 ↔ 歌詞行」的 anchor。本套件就是為此建的標注流水線。
 
@@ -15,7 +15,7 @@ Derek 經營一個 にしな(nishina)歌詞翻譯網站(Next.js/Astro 類前端,
 | `../data/nishina_shorts.json` | yt-dlp 抓的官方頻道全部 shorts metadata(`scripts/clean_shorts.py` 精簡版, 每日 workflow 更新) | ✅ 資料已抓 |
 | `../data/lyrics.json` | 全部歌曲的歌詞庫,`meta.schema` 內有完整欄位文件(本資料夾不再放副本, 直接讀 `data/`) | ✅ 從網站 md 生成 |
 | `build_annotation_queue.py` | 配對腳本:hashtag + 歌詞句模糊比對(rapidfuzz);路徑以 repo root 為準, 任何 cwd 都能跑 | ✅ 已跑通,可重跑 |
-| `annotation_queue.json` | **標注佇列**:36 首歌/100 支(每首取觀看數 top 3) | ✅ 已生成 |
+| `annotation_queue.json` | **標注佇列**:全部 shorts 依歌分組(預設 top-n 0 = 全留;2026-10 為 42 首歌有配對 / 1388 支),鏡像到 `public/annotate/` | ✅ 每日 workflow 重生 |
 | `review_queue.json` | 配不到或低信心的(cover、庫外新歌、非歌曲) | ✅ 已生成 |
 | `../public/annotate/index.html` | **標注工具本體**,單檔,無 build step;部署在站上 `/annotate/`(本資料夾不再放舊副本) | ✅ 已上線, 含 🤖 待審審核模式 |
 
@@ -61,7 +61,7 @@ npm run dev
 - anchor 是**句級**,不做逐字。schema 預留擴充:未來要逐字時在 anchor 加可選 `char` 欄位,向後相容。
 - `data/lyrics.json` 由網站的 `src/content/translations/*.md` 生成,是下游產物——歌詞內容有錯要改上游 md,不要直接改這個 JSON。
 - 嵌入一律走 YouTube 官方 IFrame(videoId),不下載、不轉載影片內容,版權乾淨。
-- 標注工具是內部工具,不部署到 production;將來若放進 repo,置於 dev-only 路由或獨立資料夾。
+- 標注工具是內部工具:放在 `public/annotate/`(站上 `/annotate/`),不連進正式導覽、不進 sitemap,`public/robots.txt` 已 Disallow。
 
 ## Derek 的工作習慣(協作參考)
 

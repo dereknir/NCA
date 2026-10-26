@@ -31,6 +31,7 @@ QUEUE_F = ROOT / 'annotation' / 'annotation_queue.json'
 ANCHORS_F = ROOT / 'annotation' / 'shorts_anchors.json'
 LYRICS_F = ROOT / 'data' / 'lyrics.json'
 OUT_F = ROOT / 'annotation' / 'auto_anchors.json'
+PUB_F = ROOT / 'public' / 'annotate' / 'auto_anchors.json'   # annotator 🤖 面板讀這份; scripts/check_sync.py 在 CI 比對兩份一致
 DEFAULT_AUDIO = Path(os.environ.get('LOCALAPPDATA') or Path.home()) / 'nca-audio-cache'
 TRUSTED_METHODS = {'hashtag', 'lyric_match'}
 MIN_LINE = 4          # 假名長度不足的歌詞句不參與對齊 (太短會亂配)
@@ -294,6 +295,14 @@ def validate(args, songs, items, anchors_h, audio_dir):
     if dts:
         print(f"  時間誤差 中位 {dts[len(dts)//2]:.2f}s · ≤0.5s {sum(d<=.5 for d in dts)/len(dts):.0%} · ≤1.0s {sum(d<=1 for d in dts)/len(dts):.0%} · ≤2.0s {sum(d<=2 for d in dts)/len(dts):.0%}")
 
+def write_out(out_path, data, indent=1):
+    """寫 auto_anchors.json; 寫的是正式輸出 (非 shard 的自訂 --out) 時同步鏡像到 public/annotate/"""
+    out_path.write_text(json.dumps(data, ensure_ascii=False, indent=indent), encoding='utf-8')
+    if out_path.resolve() == OUT_F.resolve():
+        PUB_F.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(out_path, PUB_F)
+
+
 # ---------- 合併: A/B 級寫進 shorts_anchors.json (status=auto) ----------
 def merge(out_path):
     auto = json.loads(out_path.read_text(encoding='utf-8'))['items']
@@ -312,9 +321,8 @@ def merge(out_path):
                         'source': 'auto', 'autoGrade': r['grade']}
         n += 1
     ANCHORS_F.write_text(json.dumps(anchors, ensure_ascii=False, indent=2), encoding='utf-8')
-    pub = ROOT / 'public' / 'annotate' / 'auto_anchors.json'         # annotator 的 🤖 面板讀這份 (候選歌/逐字稿)
-    shutil.copyfile(out_path, pub)
-    print(f'[merge] 寫入 {n} 支 status=auto (跳過 {skipped} 支人工進行中) → {ANCHORS_F.name}; 建議檔同步到 {pub.relative_to(ROOT)}')
+    shutil.copyfile(out_path, PUB_F)                                  # annotator 的 🤖 面板讀這份 (候選歌/逐字稿)
+    print(f'[merge] 寫入 {n} 支 status=auto (跳過 {skipped} 支人工進行中) → {ANCHORS_F.name}; 建議檔同步到 {PUB_F.relative_to(ROOT)}')
 
 # ---------- CLI ----------
 def main():
@@ -340,7 +348,7 @@ def main():
             part = json.loads(Path(p).read_text(encoding='utf-8'))
             base['items'].update(part.get('items', {}))
         base['meta'] = {'model': 'small+medium', 'updated': time.strftime('%Y-%m-%d %H:%M'), 'count': len(base['items'])}
-        out_path.write_text(json.dumps(base, ensure_ascii=False, indent=1), encoding='utf-8')
+        write_out(out_path, base)
         print(f'[combine] 合併 {len(args.combine)} 份 → {out_path.name} 共 {len(base["items"])} 支')
         return
     if args.merge:
@@ -366,7 +374,7 @@ def main():
     print(f'[auto] 待處理 {len(ids)} 支 · model={args.model} · 音訊快取 {audio_dir}', flush=True)
     def save():
         out['meta'] = {'model': args.model, 'updated': time.strftime('%Y-%m-%d %H:%M'), 'count': len(out['items'])}
-        out_path.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding='utf-8')
+        write_out(out_path, out)
     t0 = time.time()
     with ThreadPoolExecutor(1) as ex:                    # 背景序列預下載, 主執行緒同時轉寫
         futs = {v: ex.submit(download, v, audio_dir) for v in ids}

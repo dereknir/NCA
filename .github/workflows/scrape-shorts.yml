@@ -46,11 +46,11 @@ jobs:
       - name: Classify (hashtag + fuzzy)
         run: python scripts/classify_shorts.py
 
+      - name: Export lyrics.json (md → data/lyrics.json, 並鏡像到 public/annotate/; 要在建佇列之前)
+        run: python scripts/export_lyrics_json.py
+
       - name: Build annotation queue (data/nishina_shorts.json + data/lyrics.json)
         run: python annotation/build_annotation_queue.py
-
-      - name: Export lyrics.json (md → data/lyrics.json, 並鏡像到 public/annotate/)
-        run: python scripts/export_lyrics_json.py
 
       - name: Diff report → recent_new_shorts.json
         run: python scripts/build_recent_new.py

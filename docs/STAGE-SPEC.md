@@ -66,7 +66,7 @@ markdown 結構不動,只是不再用 JS 搬節點——所有 section 按原始
 - Stage 內樣式:ja 字級 ~26px、zh ~15px,行距拉開;romaji 預設隱藏(右上角小 toggle 可開)
 - 非 active 行降低透明度(~0.45),active 行全亮 + 微放大 — Apple Music 質感
 
-### 2.4 同步邏輯(核心,可整段參考 annotator.html 的 startPoll)
+### 2.4 同步邏輯(核心,可整段參考 public/annotate/index.html 的 startPoll)
 - YouTube IFrame API,單一 player 實例,切版本用 `loadVideoById`
 - 250ms poll `getCurrentTime()` → 在該 short 的 anchors(已按 t 排序)做**二分搜尋**找 active line
 - active line 變更 → highlight + `scrollIntoView({block:'center', behavior:'smooth'})`

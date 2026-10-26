@@ -625,13 +625,13 @@ playBtn.onclick = () => {
 if (matchMedia('(prefers-reduced-motion: reduce)').matches) playBtn.style.display = 'none';
 
 /* ⑥ 參戰履歷像素卡(吃蓋章資料;字型走像素管線同款,載不到時 monospace 降級) */
-const FONT_BASE = '/gacha/fonts/';   // TODO(Claude Code):對齊站內 gacha 字型路徑
+const FONT_BASE = '/fonts/pixel/';   // 全站共用的像素字型子集 (scripts/build_pixel_fonts.py), gacha 也用同一份
 let passFontsReady = null;
 function loadPassFonts() {
   if (passFontsReady) return passFontsReady;
   passFontsReady = Promise.all([
-    ['JP12', FONT_BASE + 'fusion-pixel-12px-proportional-ja.sub.ttf'],
-    ['TC12', FONT_BASE + 'fusion-pixel-12px-proportional-zh_hant.sub.ttf'],
+    ['JP12', FONT_BASE + 'fp12-site-ja.woff2'],
+    ['TC12', FONT_BASE + 'fp12-site-zh_hant.woff2'],
   ].map(async ([n, u]) => {
     const f = new FontFace(n, `url(${u})`);
     await f.load(); document.fonts.add(f);
