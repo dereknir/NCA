@@ -2620,7 +2620,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -2689,7 +2689,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -2849,7 +2849,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 37
       },
       {
@@ -2969,7 +2969,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -3006,7 +3006,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -3040,7 +3040,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -3124,7 +3124,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -3180,7 +3180,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -3265,7 +3265,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -3317,7 +3317,7 @@
     "songId": "nishina-debbie",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -3397,7 +3397,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -3423,7 +3423,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -3461,7 +3461,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -3477,7 +3477,7 @@
         "line": 26
       },
       {
-        "t": 20.0,
+        "t": 20,
         "line": 27
       },
       {
@@ -3495,7 +3495,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -3585,7 +3585,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -3619,7 +3619,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -3738,7 +3738,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 39
       },
       {
@@ -3780,7 +3780,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
@@ -3912,7 +3912,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -3953,7 +3953,7 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 42
       },
       {
@@ -3983,7 +3983,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 28
       },
       {
@@ -4013,7 +4013,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 35
       },
       {
@@ -4050,7 +4050,7 @@
     "songId": "nishina-ainikoi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -4139,7 +4139,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 36
       },
       {
@@ -4180,7 +4180,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -4212,7 +4212,7 @@
         "line": 26
       },
       {
-        "t": 42.0,
+        "t": 42,
         "line": 27
       },
       {
@@ -4230,7 +4230,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -4246,7 +4246,7 @@
         "line": 33
       },
       {
-        "t": 12.0,
+        "t": 12,
         "line": 34
       },
       {
@@ -4264,7 +4264,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -4334,7 +4334,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 5
       },
       {
@@ -4372,7 +4372,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -4414,7 +4414,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 40
       },
       {
@@ -4556,7 +4556,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -4590,7 +4590,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -4648,7 +4648,7 @@
     "songId": "nishina-plum",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -4702,7 +4702,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -4736,7 +4736,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -4857,7 +4857,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -4895,11 +4895,11 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
-        "t": 5.0,
+        "t": 5,
         "line": 7
       },
       {
@@ -4929,7 +4929,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -4951,7 +4951,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 21
       },
       {
@@ -4989,7 +4989,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 56
       },
       {
@@ -5051,7 +5051,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -5075,7 +5075,7 @@
         "line": 5
       },
       {
-        "t": 17.0,
+        "t": 17,
         "line": 6
       },
       {
@@ -5194,11 +5194,11 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
-        "t": 3.0,
+        "t": 3,
         "line": 27
       },
       {
@@ -5236,7 +5236,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -5244,7 +5244,7 @@
         "line": 15
       },
       {
-        "t": 18.0,
+        "t": 18,
         "line": 16
       },
       {
@@ -5297,7 +5297,7 @@
     "songId": "nishina-weekly",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 53
       },
       {
@@ -5358,7 +5358,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -5452,7 +5452,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -5489,7 +5489,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -5519,7 +5519,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 38
       },
       {
@@ -5564,7 +5564,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 4
       },
       {
@@ -5618,7 +5618,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -5668,7 +5668,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -5688,7 +5688,7 @@
         "line": 36
       },
       {
-        "t": 24.0,
+        "t": 24,
         "line": 37
       }
     ],
@@ -5702,7 +5702,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -5792,7 +5792,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -5822,7 +5822,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 36
       },
       {
@@ -5932,7 +5932,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -5966,7 +5966,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -6004,7 +6004,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -6038,7 +6038,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -6066,7 +6066,7 @@
         "line": 12
       },
       {
-        "t": 15.0,
+        "t": 15,
         "line": 13
       },
       {
@@ -6088,7 +6088,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -6228,7 +6228,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -6295,7 +6295,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -6329,7 +6329,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -6369,7 +6369,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 17
       },
       {
@@ -6411,7 +6411,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -6437,7 +6437,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -6445,7 +6445,7 @@
         "line": 28
       },
       {
-        "t": 7.0,
+        "t": 7,
         "line": 29
       },
       {
@@ -6457,7 +6457,7 @@
         "line": 31
       },
       {
-        "t": 21.0,
+        "t": 21,
         "line": 32
       }
     ],
@@ -6485,7 +6485,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -6505,7 +6505,7 @@
         "line": 4
       },
       {
-        "t": 15.0,
+        "t": 15,
         "line": 5
       }
     ],
@@ -6526,7 +6526,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -6563,7 +6563,7 @@
     "songId": "nishina-yonagi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 20
       },
       {
@@ -6705,7 +6705,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 44
       },
       {
@@ -6786,7 +6786,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -6840,7 +6840,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -6878,7 +6878,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -6898,7 +6898,7 @@
         "line": 10
       },
       {
-        "t": 30.0,
+        "t": 30,
         "line": 11
       }
     ],
@@ -6942,7 +6942,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -6975,7 +6975,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -7037,7 +7037,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -7078,7 +7078,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 53
       },
       {
@@ -7252,7 +7252,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -7310,7 +7310,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 1
       },
       {
@@ -7330,7 +7330,7 @@
         "line": 5
       },
       {
-        "t": 19.0,
+        "t": 19,
         "line": 6
       },
       {
@@ -7372,7 +7372,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -7394,7 +7394,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 37
       },
       {
@@ -7460,7 +7460,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -7468,7 +7468,7 @@
         "line": 33
       },
       {
-        "t": 8.0,
+        "t": 8,
         "line": 34
       },
       {
@@ -7508,7 +7508,7 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 39
       },
       {
@@ -7542,7 +7542,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -7591,7 +7591,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -7615,7 +7615,7 @@
         "line": 37
       },
       {
-        "t": 28.0,
+        "t": 28,
         "line": 38
       }
     ],
@@ -7671,7 +7671,7 @@
     "songId": "nishina-rinne",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -7760,7 +7760,7 @@
     "songId": "nishina-yakan-hikou",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -7786,7 +7786,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -7851,7 +7851,7 @@
     "songId": "nishina-plum",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 31
       },
       {
@@ -8121,7 +8121,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 17
       },
       {
@@ -8163,7 +8163,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -8221,7 +8221,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -8251,7 +8251,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -8281,7 +8281,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -8344,7 +8344,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -8382,7 +8382,7 @@
     "songId": "nishina-plum",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -8408,7 +8408,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 36
       },
       {
@@ -8424,11 +8424,11 @@
         "line": 39
       },
       {
-        "t": 12.0,
+        "t": 12,
         "line": 40
       },
       {
-        "t": 14.0,
+        "t": 14,
         "line": 41
       }
     ],
@@ -8442,7 +8442,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 36
       },
       {
@@ -8476,7 +8476,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -8518,7 +8518,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -8592,7 +8592,7 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -8626,7 +8626,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -8664,7 +8664,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -8714,7 +8714,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -8740,7 +8740,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -8785,7 +8785,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -8827,7 +8827,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 4
       },
       {
@@ -8906,7 +8906,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 35
       },
       {
@@ -9020,7 +9020,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -9058,7 +9058,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -9096,7 +9096,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -9130,7 +9130,7 @@
     "songId": "nishina-toumei-na-kuro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -9228,7 +9228,7 @@
     "songId": "nishina-clover",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -9254,7 +9254,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -9276,7 +9276,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -9325,7 +9325,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -9358,7 +9358,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -9382,7 +9382,7 @@
         "line": 27
       },
       {
-        "t": 53.0,
+        "t": 53,
         "line": 28
       }
     ],
@@ -9396,7 +9396,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -9438,7 +9438,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -9496,7 +9496,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
@@ -9525,7 +9525,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -9585,7 +9585,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -9605,7 +9605,7 @@
         "line": 4
       },
       {
-        "t": 15.0,
+        "t": 15,
         "line": 5
       },
       {
@@ -9623,7 +9623,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -9657,7 +9657,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -9747,7 +9747,7 @@
     "songId": "nishina-one-room",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -9841,7 +9841,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 10
       },
       {
@@ -9865,7 +9865,7 @@
         "line": 15
       },
       {
-        "t": 21.0,
+        "t": 21,
         "line": 16
       },
       {
@@ -9980,11 +9980,11 @@
     "songId": "nishina-toumei-na-kuro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
-        "t": 4.0,
+        "t": 4,
         "line": 10
       },
       {
@@ -10015,7 +10015,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 36
       },
       {
@@ -10066,7 +10066,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -10116,7 +10116,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -10153,7 +10153,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 20
       },
       {
@@ -10222,7 +10222,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 21
       },
       {
@@ -10252,7 +10252,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -10264,7 +10264,7 @@
         "line": 21
       },
       {
-        "t": 15.0,
+        "t": 15,
         "line": 22
       },
       {
@@ -10282,7 +10282,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -10320,7 +10320,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 20
       },
       {
@@ -10328,11 +10328,11 @@
         "line": 21
       },
       {
-        "t": 9.0,
+        "t": 9,
         "line": 22
       },
       {
-        "t": 18.0,
+        "t": 18,
         "line": 23
       }
     ],
@@ -10346,7 +10346,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -10401,7 +10401,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -10409,7 +10409,7 @@
         "line": 25
       },
       {
-        "t": 15.0,
+        "t": 15,
         "line": 26
       }
     ],
@@ -10475,7 +10475,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -10531,7 +10531,7 @@
     "songId": "nishina-one-room",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -10585,7 +10585,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 56
       },
       {
@@ -10714,7 +10714,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -10752,7 +10752,7 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 42
       },
       {
@@ -10782,7 +10782,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 37
       },
       {
@@ -10856,7 +10856,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 31
       },
       {
@@ -10878,7 +10878,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -10982,7 +10982,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -11008,7 +11008,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -11042,7 +11042,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -11106,7 +11106,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -11128,7 +11128,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -11161,7 +11161,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 44
       },
       {
@@ -11191,7 +11191,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -11213,7 +11213,7 @@
     "songId": "nishina-yakan-hikou",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -11246,7 +11246,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -11319,7 +11319,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -11434,7 +11434,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -11532,7 +11532,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -11554,7 +11554,7 @@
     "songId": "nishina-twinkle-little-star",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -11604,7 +11604,7 @@
     "songId": "nishina-rinne",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 20
       },
       {
@@ -11637,7 +11637,7 @@
     "songId": "nishina-yonagi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -11645,7 +11645,7 @@
         "line": 15
       },
       {
-        "t": 5.0,
+        "t": 5,
         "line": 16
       },
       {
@@ -11685,7 +11685,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -11801,7 +11801,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 10
       },
       {
@@ -11904,7 +11904,7 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 39
       },
       {
@@ -11934,7 +11934,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 1
       },
       {
@@ -12017,7 +12017,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -12059,7 +12059,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -12107,7 +12107,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -12161,7 +12161,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -12194,7 +12194,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -12231,7 +12231,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 11
       },
       {
@@ -12243,7 +12243,7 @@
         "line": 13
       },
       {
-        "t": 7.0,
+        "t": 7,
         "line": 14
       },
       {
@@ -12337,7 +12337,7 @@
     "songId": "nishina-one-room",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -12359,7 +12359,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -12381,7 +12381,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
@@ -12467,7 +12467,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -12532,7 +12532,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -12540,7 +12540,7 @@
         "line": 4
       },
       {
-        "t": 10.0,
+        "t": 10,
         "line": 5
       }
     ],
@@ -12601,7 +12601,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -12687,7 +12687,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 52
       },
       {
@@ -12797,7 +12797,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -12855,7 +12855,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -12901,7 +12901,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -12931,7 +12931,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 53
       },
       {
@@ -12986,11 +12986,11 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
-        "t": 8.0,
+        "t": 8,
         "line": 23
       },
       {
@@ -13012,7 +13012,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -13078,7 +13078,7 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -13120,7 +13120,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -13166,7 +13166,7 @@
     "songId": "nishina-one-room",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -13292,7 +13292,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 8.0,
+        "t": 8,
         "line": 0
       },
       {
@@ -13354,7 +13354,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -13388,7 +13388,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 10
       },
       {
@@ -13429,11 +13429,11 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
-        "t": 3.0,
+        "t": 3,
         "line": 24
       },
       {
@@ -13471,7 +13471,7 @@
     "songId": "nishina-rinne",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -13581,7 +13581,7 @@
     "songId": "nishina-yonagi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 28
       },
       {
@@ -13601,7 +13601,7 @@
         "line": 32
       },
       {
-        "t": 13.0,
+        "t": 13,
         "line": 33
       },
       {
@@ -13630,7 +13630,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -13699,7 +13699,7 @@
     "songId": "nishina-plum",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -13729,7 +13729,7 @@
     "songId": "nishina-rinne",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 4
       },
       {
@@ -13755,7 +13755,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
@@ -13974,7 +13974,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -14008,7 +14008,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -14066,7 +14066,7 @@
     "songId": "nishina-yakan-hikou",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -14220,7 +14220,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -14302,7 +14302,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -14384,7 +14384,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -14515,7 +14515,7 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 39
       },
       {
@@ -14602,7 +14602,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -14686,7 +14686,7 @@
     "songId": "nishina-yakan-hikou",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -14694,7 +14694,7 @@
         "line": 19
       },
       {
-        "t": 9.0,
+        "t": 9,
         "line": 20
       },
       {
@@ -14749,7 +14749,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -14795,7 +14795,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -14845,7 +14845,7 @@
     "songId": "nishina-ainikoi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -14906,7 +14906,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -14975,7 +14975,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 4
       },
       {
@@ -15008,7 +15008,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 10
       },
       {
@@ -15054,7 +15054,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -15088,7 +15088,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -15112,7 +15112,7 @@
         "line": 37
       },
       {
-        "t": 30.0,
+        "t": 30,
         "line": 38
       }
     ],
@@ -15206,11 +15206,11 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
-        "t": 2.0,
+        "t": 2,
         "line": 20
       },
       {
@@ -15226,7 +15226,7 @@
         "line": 23
       },
       {
-        "t": 17.0,
+        "t": 17,
         "line": 24
       },
       {
@@ -15244,7 +15244,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -15282,7 +15282,7 @@
     "songId": "nishina-one-room",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -15312,7 +15312,7 @@
     "songId": "nishina-toumei-na-kuro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 20
       },
       {
@@ -15370,7 +15370,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 28
       },
       {
@@ -15420,7 +15420,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -15538,7 +15538,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -15604,7 +15604,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -15654,7 +15654,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -15662,7 +15662,7 @@
         "line": 20
       },
       {
-        "t": 9.0,
+        "t": 9,
         "line": 21
       },
       {
@@ -15714,7 +15714,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -15722,7 +15722,7 @@
         "line": 4
       },
       {
-        "t": 10.0,
+        "t": 10,
         "line": 5
       }
     ],
@@ -15765,7 +15765,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -15799,7 +15799,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -15836,7 +15836,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -15866,7 +15866,7 @@
     "songId": "nishina-one-room",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -15896,7 +15896,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 17
       },
       {
@@ -15930,7 +15930,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -16037,7 +16037,7 @@
     "songId": "nishina-yakan-hikou",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -16070,7 +16070,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -16111,7 +16111,7 @@
     "songId": "nishina-rinne",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 16
       },
       {
@@ -16152,11 +16152,11 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
-        "t": 4.0,
+        "t": 4,
         "line": 7
       },
       {
@@ -16172,7 +16172,7 @@
         "line": 10
       },
       {
-        "t": 16.0,
+        "t": 16,
         "line": 11
       },
       {
@@ -16184,7 +16184,7 @@
         "line": 13
       },
       {
-        "t": 30.0,
+        "t": 30,
         "line": 14
       }
     ],
@@ -16205,7 +16205,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -16227,7 +16227,7 @@
     "songId": "nishina-plum",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 5
       },
       {
@@ -16305,7 +16305,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -16347,7 +16347,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -16458,7 +16458,7 @@
     "songId": "nishina-ainikoi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -16629,7 +16629,7 @@
         "line": 47
       },
       {
-        "t": 30.0,
+        "t": 30,
         "line": 48
       }
     ],
@@ -16643,7 +16643,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -16685,7 +16685,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 2
       },
       {
@@ -16715,7 +16715,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -16803,7 +16803,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -16875,7 +16875,7 @@
     "songId": "nishina-plum",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 17
       },
       {
@@ -16909,7 +16909,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -16925,7 +16925,7 @@
         "line": 22
       },
       {
-        "t": 31.0,
+        "t": 31,
         "line": 23
       }
     ],
@@ -16939,7 +16939,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -17023,7 +17023,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -17092,7 +17092,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 4
       },
       {
@@ -17159,7 +17159,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 31
       },
       {
@@ -17223,7 +17223,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -17253,11 +17253,11 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
-        "t": 3.0,
+        "t": 3,
         "line": 1
       },
       {
@@ -17384,7 +17384,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 53
       },
       {
@@ -17430,7 +17430,7 @@
     "songId": "nishina-clover",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -17438,7 +17438,7 @@
         "line": 23
       },
       {
-        "t": 12.0,
+        "t": 12,
         "line": 24
       },
       {
@@ -17553,7 +17553,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 5
       },
       {
@@ -17591,7 +17591,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -17633,7 +17633,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -17686,7 +17686,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -17745,7 +17745,7 @@
     "songId": "nishina-one-room",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 29
       },
       {
@@ -17792,7 +17792,7 @@
     "songId": "nishina-plum",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -17822,7 +17822,7 @@
     "songId": "nishina-plum",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 5
       },
       {
@@ -17903,7 +17903,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 31
       },
       {
@@ -17931,7 +17931,7 @@
         "line": 37
       },
       {
-        "t": 30.0,
+        "t": 30,
         "line": 38
       },
       {
@@ -17970,7 +17970,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 29
       },
       {
@@ -17996,7 +17996,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -18083,7 +18083,7 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 41
       },
       {
@@ -18113,7 +18113,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -18178,7 +18178,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -18221,7 +18221,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 36
       },
       {
@@ -18287,7 +18287,7 @@
     "songId": "nishina-yonagi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 29
       },
       {
@@ -18371,7 +18371,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -18421,7 +18421,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 20
       },
       {
@@ -18495,7 +18495,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -18541,7 +18541,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -18575,7 +18575,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 11
       },
       {
@@ -18593,7 +18593,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -18621,7 +18621,7 @@
         "line": 6
       },
       {
-        "t": 21.0,
+        "t": 21,
         "line": 7
       },
       {
@@ -18665,7 +18665,7 @@
     "songId": "nishina-yakan-hikou",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -18691,7 +18691,7 @@
     "songId": "nishina-clover",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -18717,7 +18717,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
@@ -18725,7 +18725,7 @@
         "line": 10
       },
       {
-        "t": 9.0,
+        "t": 9,
         "line": 11
       },
       {
@@ -18856,7 +18856,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -18906,7 +18906,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -18972,7 +18972,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -19050,7 +19050,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -19092,7 +19092,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -19114,7 +19114,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -19144,7 +19144,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 40
       },
       {
@@ -19190,7 +19190,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -19284,7 +19284,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -19351,7 +19351,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -19373,7 +19373,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -19381,7 +19381,7 @@
         "line": 15
       },
       {
-        "t": 10.0,
+        "t": 10,
         "line": 16
       },
       {
@@ -19389,7 +19389,7 @@
         "line": 17
       },
       {
-        "t": 23.0,
+        "t": 23,
         "line": 18
       }
     ],
@@ -19403,7 +19403,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -19427,7 +19427,7 @@
         "line": 18
       },
       {
-        "t": 21.0,
+        "t": 21,
         "line": 19
       },
       {
@@ -19453,7 +19453,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -19515,7 +19515,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
@@ -19537,7 +19537,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 2
       },
       {
@@ -19555,7 +19555,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -19714,7 +19714,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -19772,7 +19772,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 53
       },
       {
@@ -19814,7 +19814,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 37
       },
       {
@@ -19852,7 +19852,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -19894,7 +19894,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -19934,7 +19934,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 37
       },
       {
@@ -19994,7 +19994,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 60
       },
       {
@@ -20020,7 +20020,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -20042,7 +20042,7 @@
     "songId": "nishina-one-room",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -20064,7 +20064,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 20
       },
       {
@@ -20086,7 +20086,7 @@
     "songId": "nishina-debbie",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 28
       },
       {
@@ -20120,7 +20120,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 34
       },
       {
@@ -20209,7 +20209,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -20229,7 +20229,7 @@
         "line": 34
       },
       {
-        "t": 16.0,
+        "t": 16,
         "line": 35
       },
       {
@@ -20289,7 +20289,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 11
       },
       {
@@ -20327,7 +20327,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -20368,7 +20368,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -20488,7 +20488,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -20514,7 +20514,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 16
       },
       {
@@ -20564,7 +20564,7 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 36
       },
       {
@@ -20594,7 +20594,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -20678,7 +20678,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -20707,7 +20707,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -20749,7 +20749,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -20783,7 +20783,7 @@
     "songId": "nishina-yonagi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -20929,7 +20929,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 34
       },
       {
@@ -20955,7 +20955,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -20989,7 +20989,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -21043,7 +21043,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -21096,7 +21096,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 49
       },
       {
@@ -21126,7 +21126,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -21180,7 +21180,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 50
       },
       {
@@ -21210,7 +21210,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
@@ -21306,7 +21306,7 @@
     "songId": "nishina-yakan-hikou",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -21328,7 +21328,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -21384,7 +21384,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -21422,7 +21422,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 10
       },
       {
@@ -21456,7 +21456,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -21510,7 +21510,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 53
       },
       {
@@ -21560,7 +21560,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -21598,7 +21598,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -21640,7 +21640,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -21662,7 +21662,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -21720,7 +21720,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -21782,7 +21782,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -21842,7 +21842,7 @@
         "line": 14
       },
       {
-        "t": 8.0,
+        "t": 8,
         "line": 15
       },
       {
@@ -21934,7 +21934,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -21984,7 +21984,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -22024,7 +22024,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -22070,7 +22070,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -22103,7 +22103,7 @@
     "songId": "nishina-yakan-hikou",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 10
       },
       {
@@ -22203,7 +22203,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -22241,7 +22241,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -22273,7 +22273,7 @@
         "line": 7
       },
       {
-        "t": 36.0,
+        "t": 36,
         "line": 8
       }
     ],
@@ -22287,7 +22287,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 43
       },
       {
@@ -22317,7 +22317,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 29
       },
       {
@@ -22343,7 +22343,7 @@
     "songId": "nishina-one-room",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 17
       },
       {
@@ -22377,7 +22377,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 46
       },
       {
@@ -22453,7 +22453,7 @@
     "songId": "nishina-plum",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 17
       },
       {
@@ -22521,7 +22521,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -22591,7 +22591,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -22641,7 +22641,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -22707,7 +22707,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 50
       },
       {
@@ -22723,7 +22723,7 @@
         "line": 53
       },
       {
-        "t": 14.0,
+        "t": 14,
         "line": 54
       },
       {
@@ -22752,7 +22752,7 @@
     "songId": "nishina-toumei-na-kuro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -22798,7 +22798,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -22860,7 +22860,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 29
       },
       {
@@ -22886,7 +22886,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 28
       },
       {
@@ -22916,7 +22916,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -23019,7 +23019,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -23053,7 +23053,7 @@
     "songId": "nishina-one-room",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 11
       },
       {
@@ -23087,7 +23087,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 4
       },
       {
@@ -23125,7 +23125,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -23186,7 +23186,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -23335,7 +23335,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 4
       },
       {
@@ -23420,7 +23420,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -23428,7 +23428,7 @@
         "line": 24
       },
       {
-        "t": 9.0,
+        "t": 9,
         "line": 25
       },
       {
@@ -23454,7 +23454,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -23476,7 +23476,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -23518,7 +23518,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 50
       },
       {
@@ -23580,7 +23580,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -23606,7 +23606,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -23643,7 +23643,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -23669,7 +23669,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 20
       },
       {
@@ -23695,7 +23695,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 47
       },
       {
@@ -23736,7 +23736,7 @@
     "songId": "nishina-plum",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -23826,7 +23826,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
@@ -23848,7 +23848,7 @@
     "songId": "nishina-debbie",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -23890,7 +23890,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -23920,7 +23920,7 @@
     "songId": "nishina-plum",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -23950,7 +23950,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -23984,7 +23984,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -24010,7 +24010,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 37
       },
       {
@@ -24074,7 +24074,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -24108,7 +24108,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -24145,7 +24145,7 @@
     "songId": "nishina-debbie",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 17
       },
       {
@@ -24175,7 +24175,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -24561,7 +24561,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
@@ -24585,7 +24585,7 @@
         "line": 14
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -24669,27 +24669,39 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 3.62,
+        "line": 1
+      },
+      {
+        "t": 6.35,
+        "line": 2
+      },
+      {
+        "t": 9.25,
         "line": 3
       },
       {
-        "t": 11.42,
+        "t": 11.34,
         "line": 4
       },
       {
-        "t": 14.6,
+        "t": 14.43,
         "line": 5
       },
       {
-        "t": 17.86,
+        "t": 17.76,
         "line": 6
       },
       {
-        "t": 20.64,
+        "t": 20.5,
         "line": 7
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -24744,7 +24756,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 35
       },
       {
@@ -24836,7 +24848,7 @@
     "songId": "nishina-twinkle-little-star",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 54
       },
       {
@@ -26145,7 +26157,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -26201,7 +26213,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 17
       },
       {
@@ -26245,7 +26257,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 5
       },
       {
@@ -26261,7 +26273,7 @@
         "line": 8
       },
       {
-        "t": 14.0,
+        "t": 14,
         "line": 9
       },
       {
@@ -26283,7 +26295,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -26313,7 +26325,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -26355,7 +26367,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 31
       },
       {
@@ -26377,7 +26389,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -26403,7 +26415,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 5
       },
       {
@@ -26447,7 +26459,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
@@ -26465,7 +26477,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -26477,7 +26489,7 @@
         "line": 29
       },
       {
-        "t": 12.0,
+        "t": 12,
         "line": 30
       },
       {
@@ -26499,7 +26511,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -26533,7 +26545,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 16
       },
       {
@@ -26575,7 +26587,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -26601,7 +26613,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -26647,7 +26659,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -26685,7 +26697,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -26707,7 +26719,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 47
       },
       {
@@ -26723,7 +26735,7 @@
         "line": 50
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
@@ -26787,7 +26799,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -26821,7 +26833,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 37
       },
       {
@@ -26859,11 +26871,11 @@
         "line": 36
       },
       {
-        "t": 3.0,
+        "t": 3,
         "line": 37
       },
       {
-        "t": 6.0,
+        "t": 6,
         "line": 38
       },
       {
@@ -26883,7 +26895,7 @@
         "line": 42
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -26893,7 +26905,7 @@
     "songId": "nishina-tokyo-marble",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -26927,7 +26939,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -26977,7 +26989,7 @@
         "line": 13
       },
       {
-        "t": 20.0,
+        "t": 20,
         "line": 14
       }
     ],
@@ -26991,7 +27003,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -27011,8 +27023,8 @@
         "line": 12
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -27021,7 +27033,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -27059,7 +27071,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -27101,27 +27113,39 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 3.12,
+        "line": 1
+      },
+      {
+        "t": 6.05,
+        "line": 2
+      },
+      {
+        "t": 8.8,
         "line": 3
       },
       {
-        "t": 11.42,
+        "t": 11.1,
         "line": 4
       },
       {
-        "t": 14.76,
+        "t": 14.03,
         "line": 5
       },
       {
-        "t": 17.48,
+        "t": 17.31,
         "line": 6
       },
       {
-        "t": 20.24,
+        "t": 20.2,
         "line": 7
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -27131,7 +27155,7 @@
     "songId": "nishina-weekly",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -27173,7 +27197,7 @@
     "songId": "nishina-weekly",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 28
       },
       {
@@ -27211,7 +27235,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -27249,7 +27273,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -27291,7 +27315,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -27329,7 +27353,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 37
       },
       {
@@ -27349,7 +27373,7 @@
         "line": 41
       },
       {
-        "t": 19.0,
+        "t": 19,
         "line": 42
       },
       {
@@ -27361,7 +27385,7 @@
         "line": 44
       },
       {
-        "t": 26.0,
+        "t": 26,
         "line": 45
       },
       {
@@ -27379,7 +27403,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -27413,7 +27437,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -27435,7 +27459,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -27477,7 +27501,7 @@
     "songId": "nishina-in-your-eyes",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 54
       },
       {
@@ -27507,7 +27531,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -27541,7 +27565,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -27549,7 +27573,7 @@
         "line": 23
       },
       {
-        "t": 4.0,
+        "t": 4,
         "line": 24
       },
       {
@@ -27603,7 +27627,7 @@
         "line": 26
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -27613,7 +27637,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 48
       },
       {
@@ -27639,7 +27663,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 34
       },
       {
@@ -27661,7 +27685,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -27691,7 +27715,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -27741,7 +27765,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -27775,7 +27799,7 @@
     "songId": "nishina-oto-ni-natteiku-yo",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 40
       },
       {
@@ -27809,7 +27833,7 @@
         "line": 1
       },
       {
-        "t": 10.0,
+        "t": 10,
         "line": 2
       }
     ],
@@ -27823,7 +27847,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 10
       },
       {
@@ -27849,11 +27873,11 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
-        "t": 6.0,
+        "t": 6,
         "line": 14
       },
       {
@@ -27875,7 +27899,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -27901,7 +27925,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -27927,7 +27951,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 36
       },
       {
@@ -27959,7 +27983,7 @@
         "line": 43
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -27973,7 +27997,11 @@
         "line": 16
       },
       {
-        "t": 3.08,
+        "t": 3.04,
+        "line": 17
+      },
+      {
+        "t": 5.75,
         "line": 18
       },
       {
@@ -27997,8 +28025,8 @@
         "line": 23
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -28007,7 +28035,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 47
       },
       {
@@ -28023,8 +28051,8 @@
         "line": 50
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -28033,7 +28061,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -28071,7 +28099,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -28093,7 +28121,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -28127,7 +28155,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 34
       },
       {
@@ -28153,7 +28181,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 35
       },
       {
@@ -28175,7 +28203,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 29
       },
       {
@@ -28219,7 +28247,7 @@
         "line": 39
       },
       {
-        "t": 33.0,
+        "t": 33,
         "line": 40
       }
     ],
@@ -28233,7 +28261,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 35
       },
       {
@@ -28267,7 +28295,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -28289,7 +28317,7 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 40
       },
       {
@@ -28323,7 +28351,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -28383,7 +28411,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -28409,7 +28437,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -28431,7 +28459,7 @@
     "songId": "nishina-toumei-na-kuro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -28501,7 +28529,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -28565,7 +28593,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -28581,7 +28609,7 @@
         "line": 35
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -28591,7 +28619,7 @@
     "songId": "nishina-toumei-na-kuro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -28599,7 +28627,7 @@
         "line": 26
       },
       {
-        "t": 11.0,
+        "t": 14.51,
         "line": 27
       },
       {
@@ -28611,7 +28639,7 @@
         "line": 29
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -28621,7 +28649,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -28663,7 +28691,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -28717,7 +28745,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 50
       },
       {
@@ -28751,7 +28779,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 34
       },
       {
@@ -28767,7 +28795,7 @@
         "line": 37
       },
       {
-        "t": 30.0,
+        "t": 30,
         "line": 38
       }
     ],
@@ -28781,7 +28809,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -28807,7 +28835,7 @@
     "songId": "nishina-one-room",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -28829,7 +28857,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -28947,7 +28975,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -28969,7 +28997,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 39
       },
       {
@@ -28995,7 +29023,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -29025,7 +29053,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 4
       },
       {
@@ -29043,7 +29071,7 @@
     "songId": "nishina-weekly",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 46
       },
       {
@@ -29081,7 +29109,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -29115,7 +29143,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -29135,7 +29163,7 @@
         "line": 22
       },
       {
-        "t": 18.0,
+        "t": 18,
         "line": 23
       }
     ],
@@ -29179,7 +29207,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -29199,7 +29227,7 @@
         "line": 31
       },
       {
-        "t": 21.0,
+        "t": 21,
         "line": 32
       }
     ],
@@ -29213,7 +29241,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -29239,7 +29267,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -29265,7 +29293,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -29299,7 +29327,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -29321,7 +29349,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 35
       },
       {
@@ -29355,7 +29383,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -29385,7 +29413,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -29463,7 +29491,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -29489,7 +29517,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -29551,7 +29579,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -29559,7 +29587,7 @@
         "line": 24
       },
       {
-        "t": 8.0,
+        "t": 8,
         "line": 25
       },
       {
@@ -29581,7 +29609,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 43
       },
       {
@@ -29615,7 +29643,7 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 53
       },
       {
@@ -29665,7 +29693,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -29691,7 +29719,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 56
       },
       {
@@ -29733,7 +29761,7 @@
     "songId": "nishina-panda-girl",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -29805,7 +29833,7 @@
     "songId": "nishina-ainikoi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -29851,7 +29879,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -29881,7 +29909,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 5
       },
       {
@@ -29915,7 +29943,19 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 3.47,
+        "line": 1
+      },
+      {
+        "t": 6.34,
+        "line": 2
+      },
+      {
+        "t": 9.75,
         "line": 3
       },
       {
@@ -29935,7 +29975,7 @@
         "line": 7
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -29945,7 +29985,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 36
       },
       {
@@ -29967,7 +30007,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -29993,7 +30033,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 20
       },
       {
@@ -30019,7 +30059,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -30053,7 +30093,7 @@
     "songId": "nishina-ainikoi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 11
       },
       {
@@ -30103,7 +30143,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -30129,7 +30169,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -30151,7 +30191,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -30167,8 +30207,8 @@
         "line": 27
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -30177,7 +30217,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 10
       },
       {
@@ -30223,7 +30263,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 29
       },
       {
@@ -30231,11 +30271,11 @@
         "line": 30
       },
       {
-        "t": 18.0,
+        "t": 18,
         "line": 31
       },
       {
-        "t": 19.0,
+        "t": 19,
         "line": 32
       },
       {
@@ -30261,20 +30301,28 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 6.66,
+        "line": 9
+      },
+      {
+        "t": 11.37,
         "line": 10
       },
       {
-        "t": 13.48,
+        "t": 14.02,
         "line": 11
       },
       {
-        "t": 16.9,
+        "t": 17.2,
         "line": 12
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -30283,7 +30331,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 42
       },
       {
@@ -30309,7 +30357,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -30335,7 +30383,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 40
       },
       {
@@ -30389,7 +30437,7 @@
         "line": 17
       },
       {
-        "t": 16.0,
+        "t": 16,
         "line": 18
       }
     ],
@@ -30403,7 +30451,19 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
+        "line": 0
+      },
+      {
+        "t": 3.06,
+        "line": 1
+      },
+      {
+        "t": 5.86,
+        "line": 2
+      },
+      {
+        "t": 8.86,
         "line": 3
       },
       {
@@ -30423,8 +30483,8 @@
         "line": 7
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -30433,7 +30493,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -30461,7 +30521,7 @@
         "line": 28
       },
       {
-        "t": 20.0,
+        "t": 20,
         "line": 29
       },
       {
@@ -30499,7 +30559,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -30529,7 +30589,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -30559,7 +30619,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -30593,7 +30653,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 38
       },
       {
@@ -30623,7 +30683,7 @@
     "songId": "nishina-ainikoi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -30631,7 +30691,7 @@
         "line": 14
       },
       {
-        "t": 3.0,
+        "t": 3,
         "line": 15
       },
       {
@@ -30653,7 +30713,7 @@
     "songId": "nishina-toumei-na-kuro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -30711,7 +30771,7 @@
         "line": 41
       },
       {
-        "t": 17.0,
+        "t": 17,
         "line": 42
       },
       {
@@ -30719,7 +30779,7 @@
         "line": 43
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -30729,7 +30789,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 47
       },
       {
@@ -30755,7 +30815,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -30779,7 +30839,7 @@
         "line": 23
       },
       {
-        "t": 13.0,
+        "t": 13,
         "line": 24
       }
     ],
@@ -30793,7 +30853,7 @@
     "songId": "nishina-tokyo-marble",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -30855,7 +30915,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -30885,7 +30945,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 43
       },
       {
@@ -30933,7 +30993,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -30941,7 +31001,7 @@
         "line": 25
       },
       {
-        "t": 4.0,
+        "t": 4,
         "line": 26
       },
       {
@@ -30967,7 +31027,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -31001,7 +31061,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -31035,7 +31095,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -31053,7 +31113,7 @@
     "songId": "nishina-twinkle-little-star",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -31095,7 +31155,7 @@
     "songId": "nishina-toumei-na-kuro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -31113,7 +31173,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -31193,7 +31253,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 44
       },
       {
@@ -31223,7 +31283,7 @@
     "songId": "nishina-seiran-yuuei",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -31249,7 +31309,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -31279,7 +31339,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -31301,7 +31361,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -31357,7 +31417,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -31383,7 +31443,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -31447,7 +31507,7 @@
     "songId": "nishina-adaada",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 52
       },
       {
@@ -31473,7 +31533,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -31499,7 +31559,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 49
       },
       {
@@ -31529,7 +31589,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 28
       },
       {
@@ -31571,7 +31631,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -31579,7 +31639,7 @@
         "line": 7
       },
       {
-        "t": 9.0,
+        "t": 9,
         "line": 8
       },
       {
@@ -31617,7 +31677,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -31643,7 +31703,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -31677,7 +31737,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -31703,7 +31763,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -31725,7 +31785,7 @@
     "songId": "nishina-ainikoi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -31755,7 +31815,7 @@
     "songId": "nishina-toumei-na-kuro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -31849,7 +31909,7 @@
     "songId": "nishina-plum",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 17
       },
       {
@@ -31879,7 +31939,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
@@ -31909,7 +31969,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 47
       },
       {
@@ -31947,7 +32007,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -32003,7 +32063,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -32053,7 +32113,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 35
       },
       {
@@ -32079,7 +32139,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -32113,7 +32173,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -32181,7 +32241,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -32193,7 +32253,7 @@
         "line": 17
       },
       {
-        "t": 18.0,
+        "t": 18,
         "line": 18
       }
     ],
@@ -32207,7 +32267,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -32237,7 +32297,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -32263,7 +32323,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -32293,7 +32353,7 @@
     "songId": "nishina-ainikoi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 13
       },
       {
@@ -32323,7 +32383,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -32365,7 +32425,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 35
       },
       {
@@ -32399,7 +32459,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 4
       },
       {
@@ -32407,7 +32467,7 @@
         "line": 5
       },
       {
-        "t": 8.0,
+        "t": 8,
         "line": 6
       },
       {
@@ -32425,7 +32485,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 40
       },
       {
@@ -32451,11 +32511,11 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
-        "t": 2.0,
+        "t": 2,
         "line": 19
       },
       {
@@ -32485,7 +32545,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 43
       },
       {
@@ -32515,7 +32575,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -32549,7 +32609,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -32601,7 +32661,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -32619,7 +32679,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -32637,7 +32697,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 35
       },
       {
@@ -32671,7 +32731,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 38
       },
       {
@@ -32701,7 +32761,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -32723,7 +32783,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -32749,7 +32809,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
@@ -32775,7 +32835,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 40
       },
       {
@@ -32805,7 +32865,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -32827,7 +32887,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -32857,7 +32917,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 11
       },
       {
@@ -32891,7 +32951,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 35
       },
       {
@@ -32925,7 +32985,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -32955,7 +33015,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -32987,7 +33047,7 @@
         "line": 32
       },
       {
-        "t": 39.0,
+        "t": 39,
         "line": 33
       }
     ],
@@ -33001,7 +33061,7 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 10
       },
       {
@@ -33025,11 +33085,11 @@
         "line": 15
       },
       {
-        "t": 21.0,
+        "t": 21,
         "line": 16
       },
       {
-        "t": 25.0,
+        "t": 25,
         "line": 17
       },
       {
@@ -33047,7 +33107,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -33069,7 +33129,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -33103,7 +33163,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -33153,7 +33213,7 @@
         "line": 20
       },
       {
-        "t": 14.0,
+        "t": 14,
         "line": 21
       },
       {
@@ -33195,7 +33255,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 35
       },
       {
@@ -33237,7 +33297,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 49
       },
       {
@@ -33267,7 +33327,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -33297,7 +33357,7 @@
     "songId": "nishina-twinkle-little-star",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -33369,7 +33429,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -33391,7 +33451,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 34
       },
       {
@@ -33417,7 +33477,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -33525,11 +33585,11 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
-        "t": 6.0,
+        "t": 6,
         "line": 25
       },
       {
@@ -33547,7 +33607,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 43
       },
       {
@@ -33581,7 +33641,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -33589,7 +33649,7 @@
         "line": 4
       },
       {
-        "t": 10.0,
+        "t": 10,
         "line": 5
       }
     ],
@@ -33603,7 +33663,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -33637,7 +33697,7 @@
     "songId": "nishina-seiran-yuuei",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -33667,7 +33727,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 37
       },
       {
@@ -33701,7 +33761,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 16
       },
       {
@@ -33717,7 +33777,7 @@
         "line": 19
       },
       {
-        "t": 36.0,
+        "t": 36,
         "line": 20
       },
       {
@@ -33735,7 +33795,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -33757,7 +33817,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 33
       },
       {
@@ -33807,7 +33867,7 @@
         "line": 15
       },
       {
-        "t": 7.0,
+        "t": 7,
         "line": 16
       }
     ],
@@ -33821,7 +33881,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 4
       },
       {
@@ -33839,7 +33899,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -33869,7 +33929,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -33923,7 +33983,7 @@
         "line": 41
       },
       {
-        "t": 17.0,
+        "t": 17,
         "line": 42
       },
       {
@@ -33941,7 +34001,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -33953,7 +34013,7 @@
         "line": 10
       },
       {
-        "t": 14.0,
+        "t": 14,
         "line": 11
       },
       {
@@ -33971,31 +34031,31 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
-        "t": 4.22,
+        "t": 4.17,
         "line": 1
       },
       {
-        "t": 9.78,
+        "t": 11.51,
         "line": 2
       },
       {
-        "t": 12.78,
+        "t": 16.3,
         "line": 3
       },
       {
-        "t": 19.92,
+        "t": 20.28,
         "line": 4
       },
       {
-        "t": 26.18,
+        "t": 27.35,
         "line": 5
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -34005,7 +34065,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 1
       },
       {
@@ -34043,7 +34103,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -34093,7 +34153,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -34127,7 +34187,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -34191,7 +34251,7 @@
     "songId": "nishina-ainikoi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -34217,7 +34277,7 @@
     "songId": "nishina-toumei-na-kuro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -34251,7 +34311,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -34305,7 +34365,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 34
       },
       {
@@ -34331,7 +34391,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -34353,7 +34413,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 43
       },
       {
@@ -34375,7 +34435,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -34413,7 +34473,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -34451,7 +34511,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -34473,7 +34533,7 @@
     "songId": "nishina-one-room",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 17
       },
       {
@@ -34507,7 +34567,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -34533,7 +34593,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -34567,7 +34627,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -34597,7 +34657,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -34619,7 +34679,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 29
       },
       {
@@ -34645,7 +34705,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -34701,7 +34761,7 @@
     "songId": "nishina-ainikoi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -34727,7 +34787,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -34753,7 +34813,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -34791,7 +34851,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -34803,8 +34863,8 @@
         "line": 28
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -34813,7 +34873,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -34825,8 +34885,8 @@
         "line": 28
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -34887,7 +34947,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -34895,7 +34955,7 @@
         "line": 4
       },
       {
-        "t": 10.0,
+        "t": 10,
         "line": 5
       }
     ],
@@ -34909,7 +34969,7 @@
     "songId": "nishina-nekoze",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 35
       },
       {
@@ -34947,7 +35007,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -34993,7 +35053,7 @@
         "line": 5
       },
       {
-        "t": 29.0,
+        "t": 29,
         "line": 6
       },
       {
@@ -35015,7 +35075,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 36
       },
       {
@@ -35037,7 +35097,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 7
       },
       {
@@ -35063,7 +35123,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 21
       },
       {
@@ -35083,8 +35143,8 @@
         "line": 25
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -35093,7 +35153,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -35111,7 +35171,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -35127,8 +35187,8 @@
         "line": 11
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -35137,7 +35197,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 20
       },
       {
@@ -35163,7 +35223,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -35175,7 +35235,7 @@
         "line": 24
       },
       {
-        "t": 14.0,
+        "t": 14,
         "line": 25
       }
     ],
@@ -35189,7 +35249,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -35207,7 +35267,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 1
       },
       {
@@ -35253,7 +35313,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 1
       },
       {
@@ -35291,7 +35351,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -35329,7 +35389,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -35363,7 +35423,7 @@
     "songId": "nishina-yoru-ni-natte",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -35385,7 +35445,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -35423,7 +35483,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -35445,7 +35505,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -35457,8 +35517,8 @@
         "line": 28
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -35467,7 +35527,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 21
       },
       {
@@ -35487,8 +35547,8 @@
         "line": 25
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -35497,7 +35557,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -35527,7 +35587,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 28
       },
       {
@@ -35539,7 +35599,7 @@
         "line": 30
       },
       {
-        "t": 30.0,
+        "t": 30,
         "line": 31
       }
     ],
@@ -35553,7 +35613,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 47
       },
       {
@@ -35579,7 +35639,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -35609,7 +35669,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 43
       },
       {
@@ -35643,7 +35703,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -35665,7 +35725,7 @@
     "songId": "nishina-kedamono-no-friends",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 34
       },
       {
@@ -35707,7 +35767,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 39
       },
       {
@@ -35737,7 +35797,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 32
       },
       {
@@ -35755,7 +35815,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -35797,7 +35857,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -35805,7 +35865,7 @@
         "line": 23
       },
       {
-        "t": 12.0,
+        "t": 12,
         "line": 24
       },
       {
@@ -35823,7 +35883,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -35845,7 +35905,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -35867,7 +35927,7 @@
     "songId": "nishina-centi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -35893,7 +35953,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -35917,8 +35977,8 @@
         "line": 5
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -35927,7 +35987,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -36017,7 +36077,7 @@
     "songId": "nishina-toumei-na-kuro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 21
       },
       {
@@ -36029,7 +36089,7 @@
         "line": 23
       },
       {
-        "t": 10.0,
+        "t": 10,
         "line": 24
       },
       {
@@ -36051,7 +36111,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -36099,7 +36159,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 47
       },
       {
@@ -36125,7 +36185,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 47
       },
       {
@@ -36193,7 +36253,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -36235,7 +36295,7 @@
     "songId": "nishina-1999",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 15
       },
       {
@@ -36285,7 +36345,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -36319,7 +36379,7 @@
     "songId": "nishina-momo",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 19
       },
       {
@@ -36341,7 +36401,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -36359,7 +36419,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -36385,7 +36445,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 12
       },
       {
@@ -36395,14 +36455,10 @@
       {
         "t": 8.74,
         "line": 14
-      },
-      {
-        "t": 14.06,
-        "line": 15
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -36411,7 +36467,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -36433,7 +36489,7 @@
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 31
       },
       {
@@ -36467,7 +36523,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 34
       },
       {
@@ -36501,7 +36557,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -36531,7 +36587,7 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 9
       },
       {
@@ -36557,7 +36613,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 47
       },
       {
@@ -36583,7 +36639,7 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -36607,7 +36663,7 @@
         "line": 28
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -36617,7 +36673,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -36659,7 +36715,7 @@
     "songId": "nishina-weekly",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -36689,7 +36745,7 @@
     "songId": "nishina-weekly",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 3
       },
       {
@@ -36715,7 +36771,7 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 25
       },
       {
@@ -36723,7 +36779,7 @@
         "line": 26
       },
       {
-        "t": 33.0,
+        "t": 33,
         "line": 27
       },
       {
@@ -36735,7 +36791,7 @@
         "line": 29
       },
       {
-        "t": 40.0,
+        "t": 40,
         "line": 30
       },
       {
@@ -37023,7 +37079,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 30
       },
       {
@@ -37073,7 +37129,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 24
       },
       {
@@ -37093,7 +37149,7 @@
         "line": 28
       },
       {
-        "t": 17.0,
+        "t": 17,
         "line": 29
       }
     ],
@@ -37107,7 +37163,7 @@
     "songId": "nishina-kyou-mo-kyou-tote-remix",
     "anchors": [
       {
-        "t": 3.0,
+        "t": 3,
         "line": 0
       },
       {
