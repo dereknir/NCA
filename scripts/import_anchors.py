@@ -75,11 +75,13 @@ def main():
     by_song = defaultdict(list)          # real songs only
     by_extra = defaultdict(list)         # non-song categories (__ad/__promo/__mc/__cover/__tv)
     by_tour = defaultdict(list)          # __tour_recap grouped by tourName (or "" for unspecified)
-    skipped = {"pending": 0, "skip": 0, "no_song": 0, "no_anchors": 0, "others_bucket": 0}
+    skipped = {"pending": 0, "auto": 0, "skip": 0, "no_song": 0, "no_anchors": 0, "others_bucket": 0}
 
     for video_id, ann in anchors.items():
         if ann.get("status") != "done":
-            skipped["pending" if ann.get("status") == "pending" else "skip"] += 1
+            # auto = 機器標注待人工審核 (scripts/auto_annotate.py), 審核過按 Enter 才會變 done 上線
+            st = ann.get("status")
+            skipped[st if st in ("pending", "auto") else "skip"] += 1
             continue
         sid = ann.get("songId")
         if not sid:

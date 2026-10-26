@@ -40,6 +40,17 @@
   .badge{font-size:10px;padding:1.5px 6px;border-radius:99px;flex-shrink:0}
   .badge.done{background:rgba(57,192,127,.15);color:var(--ok)}
   .badge.skip{background:rgba(226,176,58,.15);color:var(--warn)}
+  .badge.auto{background:rgba(61,99,255,.18);color:#9fb6ff}
+  #reviewBtn.on{background:rgba(61,99,255,.25);color:#fff;border-color:var(--accent)}
+  #autoPanel{display:none;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.6}
+  #autoPanel.on{display:block}
+  #autoPanel .ah{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--dim);margin-bottom:6px}
+  #autoPanel .grade{font-weight:700;padding:1px 8px;border-radius:99px;background:rgba(61,99,255,.18);color:#9fb6ff}
+  #autoPanel .grade.C{background:rgba(226,176,58,.18);color:var(--warn)}
+  #autoPanel .cand{cursor:pointer;color:var(--accent);text-decoration:underline dotted}
+  #autoPanel .seg{display:flex;gap:8px;padding:2px 0;border-top:1px dashed var(--line)}
+  #autoPanel .seg .st{color:var(--accent);font-variant-numeric:tabular-nums;cursor:pointer;flex-shrink:0;width:48px}
+  #autoPanel .abtn{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
 
   /* ── 播放器欄 ── */
   #playerPanel{border-right:1px solid var(--line);display:flex;flex-direction:column;padding:14px;gap:10px;overflow-y:auto}
@@ -123,6 +134,7 @@
   <h1>にしな Shorts 歌詞標注</h1>
   <span class="stats" id="progress">—</span>
   <span class="stats sync" id="syncStatus" data-state="idle">—</span>
+  <button class="ghost" id="reviewBtn" title="只顯示機器標好、等你審核的 shorts">🤖 待審 <span id="reviewCount">0</span></button>
   <span class="spacer"></span>
   <button class="ghost" id="settingsBtn" title="設定 GitHub token">⚙</button>
   <button class="ghost" id="importBtn">匯入</button>
@@ -159,6 +171,7 @@
     </div>
     <div style="font-size:12px;color:var(--dim)">點右側歌詞任一句 = 在目前時間打一個 anchor</div>
     <div id="anchorList"></div>
+    <div id="autoPanel"></div>
     <div class="done-row">
       <button class="primary" id="doneBtn" style="flex:1">完成,下一支 <kbd>enter</kbd></button>
       <button id="skipBtn">略過</button>
@@ -192,6 +205,8 @@ const S = {                       // 全域狀態
   pendingLoad: null,              // 若 player 尚未 ready,先暫存 videoId
   // 每個 group 的收合狀態; 只記使用者「主動點過」的, 其餘用預設 (歌 group 展開 / __unmatched 收合)
   groupCollapsed: {},
+  auto: {},                       // auto_anchors.json items (機器建議: 候選歌 / 逐字稿 / 信心)
+  reviewOnly: false,              // 🤖 待審 篩選
 };
 const UNMATCHED_KEY = '__unmatched';
 const OTHERS_KEY = '__others';   // 使用者主動標記「之後再處理」的桶
@@ -483,6 +498,7 @@ function renderQueue(){
   for(const items of Object.values(S.queue)){
     for(const it of items){
       const a = S.ann[it.videoId];
+      if(S.reviewOnly && a?.status !== 'auto') continue;   // 🤖 待審模式只看機器標好的
       const pipelineSid = TRUSTED_METHODS.has(it.matchMethod) ? it.songId : null;
       const sid = a?.songId || pipelineSid || UNMATCHED_KEY;
       if(!dynGroups[sid]) dynGroups[sid] = [];
@@ -515,7 +531,7 @@ function renderQueue(){
     // 保留使用者手動切換過的收合狀態; 沒切過就用預設
     // (歌 group 展開, 非歌 group + __unmatched + __others 都預設收合)
     const userToggled = S.groupCollapsed[sid];
-    const collapsed = userToggled !== undefined ? userToggled : (isUnmatched || isOthers || isNonSong);
+    const collapsed = userToggled !== undefined ? userToggled : (!S.reviewOnly && (isUnmatched || isOthers || isNonSong));
     const g = document.createElement('div');
     g.className = 'song-group'
       + (isUnmatched ? ' unmatched' : '')
@@ -548,7 +564,8 @@ function renderQueue(){
           </div>
         </div>
         ${a?.status==='done' ? '<span class="badge done">完成</span>' :
-          a?.status==='skip' ? '<span class="badge skip">略過</span>' : ''}`;
+          a?.status==='skip' ? '<span class="badge skip">略過</span>' :
+          a?.status==='auto' ? `<span class="badge auto" title="機器標注, 待審核">🤖 ${a.autoGrade||''}</span>` : ''}`;
       row.onclick = ()=> loadShort(it);
       g.appendChild(row);
     }
@@ -559,7 +576,9 @@ function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;',
 function updateProgress(){
   const all = Object.values(S.queue).flat();
   const done = all.filter(x=>S.ann[x.videoId]?.status==='done').length;
-  document.getElementById('progress').textContent = `${done} / ${all.length} 已標注`;
+  const auto = all.filter(x=>S.ann[x.videoId]?.status==='auto').length;
+  document.getElementById('progress').textContent = `${done} / ${all.length} 已標注` + (auto ? ` · 🤖 ${auto} 待審` : '');
+  const rc = document.getElementById('reviewCount'); if(rc) rc.textContent = auto;
 }
 
 /* ---------- 載入一支 short ---------- */
@@ -577,7 +596,7 @@ function loadShort(item){
     S.pendingLoad = item.videoId;
   }
   document.getElementById('nowTitle').textContent = item.title;
-  renderQueue(); renderVersionPicker(); renderLyrics(); renderAnchors(); startPoll();
+  renderQueue(); renderVersionPicker(); renderLyrics(); renderAnchors(); startPoll(); renderAutoPanel();
 }
 
 /* ---------- 版本類型 chips + 純演奏 toggle ---------- */
@@ -830,6 +849,65 @@ function findNextUnmatched(){
   return remaining[(idx + 1) % remaining.length] || remaining[0];
 }
 
+/* ---------- 🤖 機器建議面板 (auto_anchors.json, 由 scripts/auto_annotate.py 產生) ---------- */
+function renderAutoPanel(){
+  const el = document.getElementById('autoPanel'); if(!el) return;
+  const r = S.cur && S.auto[S.cur.videoId];
+  if(!r || r.error){ el.className=''; el.innerHTML=''; return; }
+  const ann = S.ann[S.cur.videoId] || {};
+  const cands = (r.songCandidates||[]).map(c =>
+    `<span class="cand" data-sid="${c.songId}">${escapeHtml(S.songs[c.songId]?.title||c.songId)} ${c.score}</span>`).join(' · ');
+  const segs = (r.transcript||[]).slice(0, 60).map(s =>
+    `<div class="seg"><span class="st" data-t="${s.t}">${Number(s.t).toFixed(1)}s</span><span>${escapeHtml(s.text)}</span></div>`).join('');
+  const hasSug = (r.anchors||[]).length > 0 && r.songId;
+  el.className = 'on';
+  el.innerHTML = `
+    <div class="ah"><b>🤖 機器建議</b>
+      <span class="grade ${r.grade||''}">${r.grade||'-'}</span>
+      <span>對齊信心 ${r.confidence ?? '-'}</span>
+      ${ann.status==='auto' ? '<span style="color:#9fb6ff">anchors 已套用 — 聽一遍沒問題就按 Enter</span>' : ''}
+      ${(r.needsReview||[]).length ? `<span style="color:var(--warn)">${r.needsReview.join(', ')}</span>` : ''}
+    </div>
+    <div style="color:var(--dim)">候選歌: ${cands || '(聽不出歌詞)'}</div>
+    <div class="abtn">
+      ${hasSug && ann.status!=='auto' ? `<button id="autoApply">套用建議 anchors (${r.anchors.length})</button>` : ''}
+      <button id="autoToggleTx">逐字稿 ${r.transcript?.length||0} 段</button>
+    </div>
+    <div id="autoTx" hidden>${segs}</div>`;
+  el.querySelectorAll('.cand').forEach(c => c.onclick = () => {
+    const sel = document.getElementById('songSelect'); if(!sel) return;
+    sel.value = c.dataset.sid; sel.dispatchEvent(new Event('change'));
+  });
+  el.querySelectorAll('.seg .st').forEach(x => x.onclick = () => { if(S.ready) S.player.seekTo(Number(x.dataset.t), true); });
+  el.querySelector('#autoToggleTx').onclick = () => { const x = el.querySelector('#autoTx'); x.hidden = !x.hidden; };
+  const ab = el.querySelector('#autoApply');
+  if(ab) ab.onclick = () => {
+    const a = S.ann[S.cur.videoId];
+    if(a.anchors.length && !confirm('會覆蓋目前的 anchors,確定?')) return;
+    a.songId = r.songId;
+    a.anchors = r.anchors.map(x => ({ t: x.t, line: x.line }));
+    a.instrumental = false;
+    if(!a.versionType && r.versionType) a.versionType = r.versionType;
+    if(a.status === 'pending') a.status = 'auto';
+    a.source = 'auto'; a.autoGrade = r.grade;
+    persist(); renderLyrics(); renderAnchors(); renderVersionPicker(); renderQueue(); updateProgress(); renderAutoPanel();
+  };
+}
+document.getElementById('reviewBtn').onclick = () => {
+  S.reviewOnly = !S.reviewOnly;
+  document.getElementById('reviewBtn').classList.toggle('on', S.reviewOnly);
+  renderQueue();
+  if(S.reviewOnly){
+    const first = Object.values(S.queue||{}).flat().find(x => S.ann[x.videoId]?.status==='auto');
+    if(first && (!S.cur || S.ann[S.cur.videoId]?.status!=='auto')) loadShort(first);
+  }
+};
+// 機器建議檔 (沒有也沒關係, 面板就不顯示)
+fetch('auto_anchors.json', { cache:'no-store' }).then(r => r.ok ? r.json() : null).then(j => {
+  S.auto = (j && j.items) || {};
+  if(S.cur) renderAutoPanel();
+}).catch(() => {});
+
 /* ---------- anchors ---------- */
 function addAnchor(lineIdx){
   if(!S.ready || !S.cur) return;
@@ -883,7 +961,10 @@ function finishCurrent(status){
   S.ann[S.cur.videoId].status = status;
   persist(); updateProgress();
   const all = Object.values(S.queue).flat();
-  const next = all.find(x => !S.ann[x.videoId] || S.ann[x.videoId].status==='pending');
+  const st = x => S.ann[x.videoId]?.status;
+  const next = S.reviewOnly
+    ? all.find(x => st(x)==='auto')
+    : all.find(x => !S.ann[x.videoId] || st(x)==='pending' || st(x)==='auto');
   if(next) loadShort(next); else { renderQueue(); alert('佇列全部處理完了 🎉'); }
 }
 document.getElementById('doneBtn').onclick = ()=> finishCurrent('done');
