@@ -2,7 +2,7 @@
 """
 embed_star_map.py — にしな歌詞星圖 管線
 lyrics.json → 句子向量 → UMAP 2D → KMeans 星座 → c-TF-IDF 星座命名
-           → star_map.json(+ vectors_q8.json 供未來語意搜尋)→ 注入 star-map.html
+           → src/data/star_map.json(+ data/vectors_q8.json 供未來語意搜尋)→ 注入 star-map.html
 
 Encoder 可插拔(--encoder):
   e5     正式版:intfloat/multilingual-e5-small(384 維,多語)。
@@ -25,7 +25,7 @@ ROOT = Path(__file__).parent.parent
 LYRICS_PATH = ROOT / 'data' / 'lyrics.json'
 TEMPLATE_PATH = ROOT / 'scripts' / 'star-map.template.html'
 OUT_JSON = ROOT / 'src' / 'data' / 'star_map.json'
-OUT_VEC = ROOT / 'src' / 'data' / 'vectors_q8.json'
+OUT_VEC = ROOT / 'data' / 'vectors_q8.json'      # 只供離線腳本 (validate_star_map.py) 用, 沒有頁面 import → 放 data/ 不放 src/
 OUT_HTML = ROOT / 'public' / 'star-map' / 'index.html'
 
 # 同 analyze_lyrics.py / build_kwic.py: 排除 yoasobi 等外部客串

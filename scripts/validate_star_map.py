@@ -2,12 +2,17 @@
 """
 validate_star_map.py — Derek 本機跑完 e5 後的驗收腳本
 檢查 schema/座標/星座分布,並抽 5 句列出語意最近鄰供目檢。
-用法: python validate_star_map.py
+用法 (任何 cwd): python scripts/validate_star_map.py
 """
 import json, sys
+from pathlib import Path
 import numpy as np
 
-sm = json.load(open('star_map.json', encoding='utf-8'))
+ROOT = Path(__file__).resolve().parent.parent
+STAR_MAP = ROOT / 'src' / 'data' / 'star_map.json'      # embed_star_map.py 的 OUT_JSON
+VECTORS = ROOT / 'data' / 'vectors_q8.json'              # embed_star_map.py --emit-vectors 的 OUT_VEC
+
+sm = json.load(open(STAR_MAP, encoding='utf-8'))
 pts = sm['points']
 assert all(k in pts[0] for k in ('ja','zh','x','y','c','n','song')), 'schema 缺欄位'
 xs = [p['x'] for p in pts]; ys = [p['y'] for p in pts]
@@ -19,7 +24,7 @@ if sm['meta']['encoder'] != 'e5':
     print("⚠ 目前是佔位編碼器的輸出,勿上線")
 
 try:
-    vq = json.load(open('vectors_q8.json', encoding='utf-8'))
+    vq = json.load(open(VECTORS, encoding='utf-8'))
     V = np.asarray(vq['vectors'], dtype=np.float32) / vq['scale']
     V /= (np.linalg.norm(V, axis=1, keepdims=True) + 1e-9)
     rng = np.random.default_rng(20260721)
@@ -31,4 +36,4 @@ try:
             print(f"{mark} {pts[j]['ja']}  [{pts[j]['title']}]")
         print()
 except FileNotFoundError:
-    print("\n(無 vectors_q8.json,跳過鄰居目檢;e5 執行時會自動輸出)")
+    print(f"\n(無 {VECTORS.relative_to(ROOT)},跳過鄰居目檢;e5 執行時加 --emit-vectors 會輸出)")
