@@ -76,15 +76,14 @@ def download(vid: str, audio_dir: Path) -> Path:
     return hits[0]
 
 # ---------- ASR ----------
-_model = None
+_models = {}
 def get_model(name: str):
-    global _model
-    if _model is None:
+    if name not in _models:
         from faster_whisper import WhisperModel
         t0 = time.time()
-        _model = WhisperModel(name, device='cpu', compute_type='int8')
+        _models[name] = WhisperModel(name, device='cpu', compute_type='int8')
         print(f'[auto] model {name} loaded in {time.time()-t0:.0f}s', flush=True)
-    return _model
+    return _models[name]
 
 def transcribe(path: Path, model_name: str, prompt=None):
     segs, info = get_model(model_name).transcribe(
@@ -102,7 +101,7 @@ def transcribe(path: Path, model_name: str, prompt=None):
 def lyric_prompt(song, line_hint):
     lines = song['lines']
     k = line_hint if isinstance(line_hint, int) and 0 <= line_hint < len(lines) else 0
-    return ' '.join(ja for _, ja, _ in lines[max(0, k - 2): k + 6])[:150]
+    return ' '.join(ja for _, ja, _ in lines[max(0, k - 1): k + 7])[:150]
 
 # ---------- 歌曲辨識 ----------
 def identify(tr_hira: str, songs):
@@ -112,59 +111,70 @@ def identify(tr_hira: str, songs):
     return scored[:3]
 
 # ---------- 對齊: 歌詞句 → 轉寫文字子串 → 時間 ----------
+def _chain_from(lines, hira, j0):
+    """從第 j0 句開始貪婪往下對, 回傳 (total, chain[(idx, pos, score)]); 含補漏/前導/結尾估計句"""
+    n = len(lines)
+    pos, chain, misses, total = 0, [], 0, 0.0
+    pending_miss = None
+    for j in range(j0, n):
+        if len(hira) - pos < 3:
+            break
+        idx, _ja, lh = lines[j]
+        if len(lh) < MIN_LINE:
+            continue
+        al = fuzz.partial_ratio_alignment(lh, hira[pos:], score_cutoff=LINE_CUTOFF)
+        if al is None:
+            misses += 1
+            if misses >= 2:
+                break
+            pending_miss = (idx, pos)
+            continue
+        misses = 0
+        start = pos + al.dest_start
+        if pending_miss and start - pending_miss[1] >= 3:      # 中間被 ASR 吃掉的一句: 用兩句之間的文字起點估時間
+            chain.append((pending_miss[0], pending_miss[1], EST_SCORE))
+        pending_miss = None
+        chain.append((idx, start, al.score))
+        total += al.score
+        pos = max(pos + al.dest_end, start + 1)
+    if not chain:
+        return None
+    first_idx, first_start, _ = chain[0]
+    if first_start >= 6 and first_idx > 0:                     # 前導半句: 影片一開始唱的是前一句
+        chain.insert(0, (first_idx - 1, 0, EST_SCORE))
+    last_idx = chain[-1][0]
+    if len(hira) - pos >= 6 and last_idx + 1 < n and not any(c[0] == last_idx + 1 for c in chain):
+        chain.append((last_idx + 1, pos, EST_SCORE))            # 結尾半句: 下一句已經開唱
+    return total, chain
+
 def align(song, tr):
     hira, ct = tr['hira'], tr['char_time']
     lines = song['lines']
-    n = len(lines)
-    best, second = None, 0.0
-    for j0 in range(n):
-        pos, chain, misses, total = 0, [], 0, 0.0
-        pending_miss = None                      # (line idx, transcript pos) 上一句沒對到, 等下一句對到再回填
-        for j in range(j0, n):
-            if len(hira) - pos < 3:
-                break
-            idx, _ja, lh = lines[j]
-            if len(lh) < MIN_LINE:
-                continue
-            al = fuzz.partial_ratio_alignment(lh, hira[pos:], score_cutoff=LINE_CUTOFF)
-            if al is None:
-                misses += 1
-                if misses >= 2:
-                    break
-                pending_miss = (idx, pos)
-                continue
-            misses = 0
-            start = pos + al.dest_start
-            if pending_miss and start - pending_miss[1] >= 3:   # 中間有被 ASR 吃掉的一句: 用兩句之間的文字起點估時間
-                chain.append((pending_miss[0], pending_miss[1], EST_SCORE))
-            pending_miss = None
-            chain.append((idx, start, al.score))
-            total += al.score
-            pos = max(pos + al.dest_end, start + 1)
-        if not chain:
+    # 每個起始句一條鏈; 以「真正對到的句子集合」去重 (起點提早一句會得到完全相同的鏈)
+    by_key = {}
+    for j0 in range(len(lines)):
+        r = _chain_from(lines, hira, j0)
+        if not r:
             continue
-        # 前導半句: 第一句對到的位置前面還有 ≥6 個假名 → 影片一開始唱的是前一句
-        first_idx, first_start, _ = chain[0]
-        if first_start >= 6 and first_idx > 0:
-            chain.insert(0, (first_idx - 1, 0, EST_SCORE))
-        # 結尾半句: 最後一句之後還剩 ≥6 個假名 → 下一句已經開唱
-        last_idx = chain[-1][0]
-        if len(hira) - pos >= 6 and last_idx + 1 < n and not any(c[0] == last_idx + 1 for c in chain):
-            chain.append((last_idx + 1, pos, EST_SCORE))
-        if best is None or total > best[0]:
-            second = best[0] if best else 0.0
-            best = (total, chain)
-        elif total > second:
-            second = total
-    if not best:
+        key = frozenset(c[0] for c in r[1] if c[2] != EST_SCORE)
+        if key and (key not in by_key or r[0] > by_key[key][0]):
+            by_key[key] = r
+    if not by_key:
         return [], False
-    ambiguous = second > 0 and second >= best[0] * 0.97 and len(best[1]) >= 2
+    ranked = sorted(by_key.values(), key=lambda r: -r[0])
+    best = ranked[0]
+    # 副歌重複: 不同句集合但總分幾乎相同 → 有歧義; 若 queue 給了標題句 (lineHint) 就用它挑
+    rivals = [r for r in ranked[1:] if r[0] >= best[0] * 0.97]
+    ambiguous = bool(rivals)
+    if rivals:
+        # 副歌重複: 驗證集裡人工 4/4 都選「後面那次」(shorts 多剪自最後一段副歌) → 取句號最大的鏈
+        best = max([best] + rivals, key=lambda r: max(c[0] for c in r[1]))
     anchors = []
     for idx, start, score in best[1]:
         t = ct[min(start, len(ct) - 1)] if ct else 0.0
         a = {'t': round(float(t), 2), 'line': idx, 'score': round(float(score), 1)}
         if score == EST_SCORE:
-            a['est'] = True                      # 估計的 (沒直接對到字), 審核時多留意
+            a['est'] = True                                     # 估計的 (沒直接對到字), 審核時多留意
         anchors.append(a)
     anchors.sort(key=lambda a: (a['t'], a['line']))
     return anchors, ambiguous
@@ -184,7 +194,7 @@ def guess_version(title: str):
 # ---------- 單支處理 ----------
 def process(vid, item, songs, model_name, audio_dir, two_pass=True, force_song=None):
     rec = {'videoId': vid, 'title': item.get('title'), 'queueSongId': item.get('songId'),
-           'matchMethod': item.get('matchMethod')}
+           'matchMethod': item.get('matchMethod'), 'model': model_name}
     try:
         path = download(vid, audio_dir)
     except Exception as e:
@@ -192,7 +202,7 @@ def process(vid, item, songs, model_name, audio_dir, two_pass=True, force_song=N
         return rec
     guess = item.get('songId') if item.get('songId') in songs else None
     try:
-        tr = transcribe(path, model_name, lyric_prompt(songs[guess], item.get('lineHint')) if guess else None)
+        tr = transcribe(path, model_name, None)          # 第一遍不給 prompt: 段落猜錯的 prompt 會把 ASR 帶歪
     except Exception as e:
         rec['error'] = f'asr: {type(e).__name__}: {str(e)[:120]}'
         return rec
@@ -206,28 +216,37 @@ def process(vid, item, songs, model_name, audio_dir, two_pass=True, force_song=N
         sid = force_song
     elif guess and (not top or top[0][1] == guess or score_of.get(guess, 0) >= s1 - 12 or s1 < 68):
         sid = guess                                  # queue 猜測成立 (ASR 同意或無強烈反對)
-    elif top and s1 >= 58 and s1 - s2 >= 4:
+    elif top and ((s1 >= 50 and s1 - s2 >= 4) or s1 - s2 >= 8):   # 第二名是雜訊底 (~30), 看差距比看絕對分可靠
         sid, conflict = top[0][1], bool(guess)       # ASR 自己認出來
-    if two_pass and sid and sid != guess:
-        try:
-            tr = transcribe(path, model_name, lyric_prompt(songs[sid], None))   # 用認出的歌重轉, 品質更好
-        except Exception:
-            pass
     rec.update(songId=sid, duration=round(float(tr['duration']), 1), transcript=tr['segments'],
                versionType=guess_version(item.get('title')), conflict=conflict)
     if not sid:
         rec.update(anchors=[], confidence=0, needsReview=['no_song'], grade='C')
         return rec
     anchors, ambiguous = align(songs[sid], tr)
+    if two_pass:
+        # 第二遍: 用第一遍對到的段落 (或 lineHint / 開頭) 的歌詞當 prompt 重轉, 兩次對齊取總分高的
+        real1 = [a for a in anchors if not a.get('est')]
+        hint = min(a['line'] for a in real1) if real1 else item.get('lineHint')
+        try:
+            tr2 = transcribe(path, model_name, lyric_prompt(songs[sid], hint if isinstance(hint, int) else 0))
+            anchors2, ambiguous2 = align(songs[sid], tr2)
+            score = lambda arr: sum(a['score'] for a in arr if not a.get('est'))
+            if score(anchors2) > score(anchors):
+                anchors, ambiguous, tr = anchors2, ambiguous2, tr2
+                rec['transcript'] = tr2['segments']
+        except Exception:
+            pass
     real = [a for a in anchors if not a.get('est')]
     mean = sum(a['score'] for a in real) / len(real) if real else 0
     reasons = []
     if len(real) < 2: reasons.append('anchors<2')
     if mean < 65: reasons.append('low_align')
-    if s1 < 60: reasons.append('low_song_score')
+    if s1 < 50 and len(real) < 3: reasons.append('low_song_score')
     if conflict: reasons.append('song_conflict')
     if ambiguous: reasons.append('ambiguous_start')
-    grade = 'A' if not reasons else ('B' if len(reasons) == 1 and reasons[0] in ('ambiguous_start', 'low_song_score') else 'C')
+    grade = ('A' if not reasons else
+             'C' if ('anchors<2' in reasons or 'low_align' in reasons or len(reasons) >= 3) else 'B')
     rec.update(anchors=anchors, confidence=round(mean, 1), needsReview=reasons, grade=grade)
     return rec
 
@@ -303,6 +322,7 @@ def main():
     ap.add_argument('--limit', type=int, default=0); ap.add_argument('--model', default='small')
     ap.add_argument('--audio-dir', default=str(DEFAULT_AUDIO)); ap.add_argument('--out', default=str(OUT_F))
     ap.add_argument('--no-two-pass', action='store_true')
+    ap.add_argument('--retry-model', default='medium', help='C 級再用這個模型重跑一次 (空字串=不重跑)')
     args = ap.parse_args()
     out_path, audio_dir = Path(args.out), Path(args.audio_dir)
     if args.merge:
@@ -335,8 +355,16 @@ def main():
                 except Exception as e:
                     out['items'][v] = {'videoId': v, 'error': f'download: {type(e).__name__}: {str(e)[:120]}'}
                 else:
-                    out['items'][v] = process(v, items.get(v, {'videoId': v}), songs, args.model, audio_dir,
-                                              two_pass=not args.no_two_pass)
+                    rec = process(v, items.get(v, {'videoId': v}), songs, args.model, audio_dir,
+                                  two_pass=not args.no_two_pass)
+                    if args.retry_model and rec.get('grade') == 'C' and not rec.get('error'):
+                        # C 級 (聽不清/對不上) 用較大的模型再試一次, 取較好的
+                        rec2 = process(v, items.get(v, {'videoId': v}), songs, args.retry_model, audio_dir,
+                                       two_pass=not args.no_two_pass)
+                        sc = lambda r: (bool(r.get('songId')), sum(a['score'] for a in (r.get('anchors') or []) if not a.get('est')))
+                        if not rec2.get('error') and sc(rec2) > sc(rec):
+                            rec = rec2
+                    out['items'][v] = rec
                 r = out['items'][v]
                 print(f"[{i}/{len(ids)}] {v} {r.get('grade','-')} song={r.get('songId')} anchors={len(r.get('anchors') or [])} "
                       f"conf={r.get('confidence')} {r.get('error','')} ({(time.time()-t0)/i:.1f}s/支)", flush=True)
