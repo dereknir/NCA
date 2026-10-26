@@ -40,12 +40,8 @@ jobs:
       - name: Classify (hashtag + fuzzy)
         run: python scripts/classify_shorts.py
 
-      - name: Copy raw jsonl into annotation/ (build_annotation_queue.py 讀那裡)
-        run: cp data/nishina_shorts_raw.jsonl annotation/nishina_shorts_raw.jsonl
-
-      - name: Build annotation queue
-        working-directory: annotation
-        run: python build_annotation_queue.py
+      - name: Build annotation queue (data/nishina_shorts.json + data/lyrics.json)
+        run: python annotation/build_annotation_queue.py
 
       - name: Sync queue → /annotate/ public path
         run: cp annotation/annotation_queue.json public/annotate/annotation_queue.json

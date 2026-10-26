@@ -3,19 +3,26 @@
 build_annotation_queue.py
 把 yt-dlp 抓的 shorts 原始資料配對到歌曲,產出標注工具的待辦佇列。
 
-輸入:
-  nishina_shorts_raw.jsonl  (yt-dlp --flat-playlist --dump-json 輸出)
-  lyrics.json               (網站歌詞庫, meta.schema 有完整欄位說明)
+輸入 (路徑以 repo root 為準, 從任何 cwd 執行都一樣):
+  data/nishina_shorts.json      (clean_shorts.py 從 yt-dlp raw 精簡出來的, 有 commit)
+  data/lyrics.json              (網站歌詞庫, export_lyrics_json.py 從 md 生成; meta.schema 有欄位說明)
 輸出:
-  annotation_queue.json     (標注工具讀這個)
-  review_queue.json         (配不到 / 低信心的,人工看)
+  annotation/annotation_queue.json   (標注工具讀這個; workflow 會同步到 public/annotate/)
+  annotation/review_queue.json       (配不到 / 低信心的,人工看)
 
-用法: python build_annotation_queue.py [--top-n 3]
+用法: python annotation/build_annotation_queue.py [--top-n 3]
 """
 
 import json, re, sys, unicodedata
 from collections import defaultdict
+from pathlib import Path
 from rapidfuzz import fuzz
+
+ROOT = Path(__file__).resolve().parent.parent
+LYRICS_FILE = ROOT / 'data' / 'lyrics.json'
+SHORTS_FILE = ROOT / 'data' / 'nishina_shorts.json'
+OUT_QUEUE = ROOT / 'annotation' / 'annotation_queue.json'
+OUT_REVIEW = ROOT / 'annotation' / 'review_queue.json'
 
 TOP_N = 0  # 每首歌保留觀看數最高的前 N 支;0 = 全留(預設,以確保 1283 都能標到)
 if '--top-n' in sys.argv:
@@ -113,8 +120,8 @@ def best_line_global(lyric_text, lines):
 
 
 def main():
-    songs, alias, lines = load_songs('lyrics.json')
-    recs = [json.loads(l) for l in open('nishina_shorts_raw.jsonl', encoding='utf-8')]
+    songs, alias, lines = load_songs(LYRICS_FILE)
+    recs = json.load(open(SHORTS_FILE, encoding='utf-8'))['shorts']
 
     by_song = defaultdict(list)
     unmatched = []                 # review + out_of_catalog + non_song 全部歸這
@@ -162,13 +169,14 @@ def main():
                   'songCount': len(queue) - 1,  # 扣掉 __unmatched
                   'unmatchedCount': len(unmatched)},
          'queue': queue},
-        open('annotation_queue.json', 'w', encoding='utf-8'),
+        open(OUT_QUEUE, 'w', encoding='utf-8'),
         ensure_ascii=False, indent=2)
     # review_queue 保留給 QA 參考,不再是主要輸入
     json.dump({'review': review, 'outOfCatalog': out_cat, 'nonSong': non_song},
-              open('review_queue.json', 'w', encoding='utf-8'),
+              open(OUT_REVIEW, 'w', encoding='utf-8'),
               ensure_ascii=False, indent=2)
 
+    print(f'歌詞庫: {len(songs)} 首 ({LYRICS_FILE.relative_to(ROOT)}) / shorts: {len(recs)} 支')
     print('分類統計:', dict(stats))
     print(f'標注佇列: {len(queue)-1} 首歌 / {total_q} 支 shorts (top {TOP_N or "全部"})')
     print(f'  其中 __unmatched: {len(unmatched)} 支 (review={len(review)}, 庫外={len(out_cat)}, 非歌曲={len(non_song)})')

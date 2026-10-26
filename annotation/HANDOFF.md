@@ -12,9 +12,9 @@ Derek 經營一個 にしな(nishina)歌詞翻譯網站(Next.js/Astro 類前端,
 
 | 檔案 | 角色 | 狀態 |
 |---|---|---|
-| `nishina_shorts_raw.jsonl` | yt-dlp 抓的官方頻道全部 1282 支 shorts metadata | ✅ 資料已抓 |
-| `lyrics.json` | 43 首歌的歌詞庫,`meta.schema` 內有完整欄位文件 | ✅ 從網站 md 生成 |
-| `build_annotation_queue.py` | 配對腳本:hashtag + 歌詞句模糊比對(rapidfuzz) | ✅ 已跑通,可重跑 |
+| `../data/nishina_shorts.json` | yt-dlp 抓的官方頻道全部 shorts metadata(`scripts/clean_shorts.py` 精簡版, 每日 workflow 更新) | ✅ 資料已抓 |
+| `../data/lyrics.json` | 全部歌曲的歌詞庫,`meta.schema` 內有完整欄位文件(本資料夾不再放副本, 直接讀 `data/`) | ✅ 從網站 md 生成 |
+| `build_annotation_queue.py` | 配對腳本:hashtag + 歌詞句模糊比對(rapidfuzz);路徑以 repo root 為準, 任何 cwd 都能跑 | ✅ 已跑通,可重跑 |
 | `annotation_queue.json` | **標注佇列**:36 首歌/100 支(每首取觀看數 top 3) | ✅ 已生成 |
 | `review_queue.json` | 配不到或低信心的(cover、庫外新歌、非歌曲) | ✅ 已生成 |
 | `annotator.html` | **標注工具本體**,單檔,無 build step | ⚠️ 核心完成,未經真機測試 |
@@ -44,7 +44,7 @@ python -m http.server 8000
   }
 }
 ```
-`line` 對應 `lyrics.json` 的 `lyric_lines[].index`。
+`line` 對應 `data/lyrics.json` 的 `lyric_lines[].index`。
 
 ## 待辦(請 Claude Code 接手)
 
@@ -56,7 +56,7 @@ python -m http.server 8000
 ## 設計約定(不要改的東西)
 
 - anchor 是**句級**,不做逐字。schema 預留擴充:未來要逐字時在 anchor 加可選 `char` 欄位,向後相容。
-- `lyrics.json` 由網站的 `src/content/translations/*.md` 生成,是下游產物——歌詞內容有錯要改上游 md,不要直接改這個 JSON。
+- `data/lyrics.json` 由網站的 `src/content/translations/*.md` 生成,是下游產物——歌詞內容有錯要改上游 md,不要直接改這個 JSON。
 - 嵌入一律走 YouTube 官方 IFrame(videoId),不下載、不轉載影片內容,版權乾淨。
 - 標注工具是內部工具,不部署到 production;將來若放進 repo,置於 dev-only 路由或獨立資料夾。
 
