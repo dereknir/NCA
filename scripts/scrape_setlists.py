@@ -12,9 +12,9 @@ scrape_setlists.py — 抓 にしな 巡演 setlist 資料
 不需要 Spotify API auth ; embed 頁公開存取。
 出處全指回官方 Linkfire hub, setlist 為事實資料。
 """
-import shutil
 import json
 import re
+import shutil
 import sys
 import time
 import urllib.request

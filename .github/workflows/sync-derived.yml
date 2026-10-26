@@ -40,7 +40,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install deps
-        run: pip install rapidfuzz
+        run: pip install -r requirements.txt
 
       - name: Rebuild shorts_by_song.json + shorts_extras.json from anchors
         run: python scripts/import_anchors.py

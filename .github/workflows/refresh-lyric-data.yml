@@ -37,8 +37,8 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install deps (fugashi + unidic-lite for 日文斷詞; fonttools 供字型子集)
-        run: pip install fugashi unidic-lite rapidfuzz fonttools brotli
+      - name: Install deps (requirements.txt: fugashi + unidic-lite 日文斷詞, fonttools/brotli 字型子集 …)
+        run: pip install -r requirements.txt
 
       # 字型源檔快取 (fusion-pixel 12/10/8px + jf 粉圓, 冷抓 ~130MB; key pin 版本與尺寸, 改 SIZES 要換 key)
       - name: Cache font sources

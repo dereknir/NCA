@@ -1,0 +1,19 @@
+# NCA 資料管線 — 日常 / GitHub Actions 會跑到的 Python 依賴
+#   pip install -r requirements.txt
+# 星圖 embedding 與本地 ASR 自動標註另見 requirements-ml.txt (模型很重, 不在 CI 跑)
+#
+# 誰用到:
+#   rapidfuzz     annotation/build_annotation_queue.py, scripts/scrape_setlists.py, scripts/auto_annotate.py
+#   fugashi       scripts/analyze_lyrics.py, scripts/build_kwic.py, scripts/embed_star_map.py (日文斷詞)
+#   unidic-lite   fugashi 的字典
+#   fonttools     scripts/build_pixel_fonts.py (pyftsubset)
+#   brotli        fonttools 輸出 woff2 需要
+#   yt-dlp        scrape-shorts.yml 的 shorts 抓取 (python -m yt_dlp), scripts/auto_annotate.py
+#   numpy         scripts/validate_star_map.py, scripts/embed_star_map.py
+rapidfuzz
+fugashi
+unidic-lite
+fonttools
+brotli
+yt-dlp
+numpy

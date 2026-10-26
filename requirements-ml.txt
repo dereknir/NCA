@@ -1,0 +1,11 @@
+# NCA — 本機才跑的重型管線 (模型下載數 GB, 不進 CI)
+#   pip install -r requirements-ml.txt
+#
+#   scripts/embed_star_map.py --encoder e5   歌詞星圖: multilingual-e5-large 句向量 → UMAP → KMeans
+#   scripts/auto_annotate.py                 shorts 自動標註: faster-whisper ASR + 歌詞假名對齊
+-r requirements.txt
+sentence-transformers
+umap-learn
+scikit-learn
+faster-whisper
+pykakasi
