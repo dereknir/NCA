@@ -37,6 +37,7 @@ MIN_LINE = 4          # 假名長度不足的歌詞句不參與對齊 (太短會
 LINE_CUTOFF = 55      # 單句對齊最低分
 EST_SCORE = 50        # 回填/前導/結尾估計句的名目分數
 DL_SLEEP = 1.2        # 下載間隔 (秒) — 對 YouTube 禮貌
+CPU_THREADS = 4       # 單支解碼是序列的, 多核要靠多個 shard 行程平行 (見 --shard)
 
 # ---------- 文字正規化: 全部轉假名, 去標點空白 ----------
 _kks = pykakasi.kakasi()
@@ -81,7 +82,7 @@ def get_model(name: str):
     if name not in _models:
         from faster_whisper import WhisperModel
         t0 = time.time()
-        _models[name] = WhisperModel(name, device='cpu', compute_type='int8')
+        _models[name] = WhisperModel(name, device='cpu', compute_type='int8', cpu_threads=CPU_THREADS)
         print(f'[auto] model {name} loaded in {time.time()-t0:.0f}s', flush=True)
     return _models[name]
 
@@ -217,16 +218,18 @@ def process(vid, item, songs, model_name, audio_dir, two_pass=True, force_song=N
     elif guess and (not top or top[0][1] == guess or score_of.get(guess, 0) >= s1 - 12 or s1 < 68):
         sid = guess                                  # queue 猜測成立 (ASR 同意或無強烈反對)
     elif top and ((s1 >= 50 and s1 - s2 >= 4) or s1 - s2 >= 8):   # 第二名是雜訊底 (~30), 看差距比看絕對分可靠
-        sid, conflict = top[0][1], bool(guess)       # ASR 自己認出來
+        sid, conflict = top[0][1], bool(guess) and item.get('matchMethod') in TRUSTED_METHODS   # ASR 自己認出來; 只有推翻高信心上游才算 conflict
     rec.update(songId=sid, duration=round(float(tr['duration']), 1), transcript=tr['segments'],
                versionType=guess_version(item.get('title')), conflict=conflict)
     if not sid:
         rec.update(anchors=[], confidence=0, needsReview=['no_song'], grade='C')
         return rec
     anchors, ambiguous = align(songs[sid], tr)
-    if two_pass:
-        # 第二遍: 用第一遍對到的段落 (或 lineHint / 開頭) 的歌詞當 prompt 重轉, 兩次對齊取總分高的
-        real1 = [a for a in anchors if not a.get('est')]
+    real1 = [a for a in anchors if not a.get('est')]
+    mean1 = sum(a['score'] for a in real1) / len(real1) if real1 else 0
+    clean = len(real1) >= 3 and mean1 >= 72 and not ambiguous and not conflict
+    if two_pass and not clean:
+        # 第二遍 (第一遍已經很乾淨就省下來): 用第一遍對到的段落 (或 lineHint / 開頭) 的歌詞當 prompt 重轉, 兩次對齊取總分高的
         hint = min(a['line'] for a in real1) if real1 else item.get('lineHint')
         try:
             tr2 = transcribe(path, model_name, lyric_prompt(songs[sid], hint if isinstance(hint, int) else 0))
@@ -323,8 +326,23 @@ def main():
     ap.add_argument('--audio-dir', default=str(DEFAULT_AUDIO)); ap.add_argument('--out', default=str(OUT_F))
     ap.add_argument('--no-two-pass', action='store_true')
     ap.add_argument('--retry-model', default='medium', help='C 級再用這個模型重跑一次 (空字串=不重跑)')
+    ap.add_argument('--threads', type=int, default=4, help='每個模型的 CPU 執行緒數')
+    ap.add_argument('--shard', default='', help='i/n: 只跑第 i 份 (0-based), 搭配多個行程平行; 各自用不同 --out')
+    ap.add_argument('--exclude-from', default='', help='已處理過的 auto_anchors.json, 其中的 videoId 跳過')
+    ap.add_argument('--combine', nargs='*', help='把多個 shard 的 out 檔合併進 --out 後結束')
     args = ap.parse_args()
+    global CPU_THREADS
+    CPU_THREADS = max(1, args.threads)
     out_path, audio_dir = Path(args.out), Path(args.audio_dir)
+    if args.combine:
+        base = json.loads(out_path.read_text(encoding='utf-8')) if out_path.exists() else {'meta': {}, 'items': {}}
+        for p in args.combine:
+            part = json.loads(Path(p).read_text(encoding='utf-8'))
+            base['items'].update(part.get('items', {}))
+        base['meta'] = {'model': 'small+medium', 'updated': time.strftime('%Y-%m-%d %H:%M'), 'count': len(base['items'])}
+        out_path.write_text(json.dumps(base, ensure_ascii=False, indent=1), encoding='utf-8')
+        print(f'[combine] 合併 {len(args.combine)} 份 → {out_path.name} 共 {len(base["items"])} 支')
+        return
     if args.merge:
         return merge(out_path)
     songs = load_songs()
@@ -337,8 +355,12 @@ def main():
     if args.ids:
         ids = list(args.ids)
     else:
-        ids = [v for v in items if anchors_h.get(v, {}).get('status') not in ('done', 'skip') and v not in out['items']]
+        excl = set(json.loads(Path(args.exclude_from).read_text(encoding='utf-8'))['items']) if args.exclude_from else set()
+        ids = [v for v in items if anchors_h.get(v, {}).get('status') not in ('done', 'skip') and v not in out['items'] and v not in excl]
         ids.sort(key=lambda v: (items[v]['group'] == '__unmatched', -(items[v].get('viewCount') or 0)))
+        if args.shard:
+            i, n = map(int, args.shard.split('/'))
+            ids = ids[i::n]
     if args.limit:
         ids = ids[:args.limit]
     print(f'[auto] 待處理 {len(ids)} 支 · model={args.model} · 音訊快取 {audio_dir}', flush=True)
