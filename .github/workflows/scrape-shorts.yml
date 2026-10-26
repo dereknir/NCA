@@ -49,14 +49,8 @@ jobs:
       - name: Build annotation queue (data/nishina_shorts.json + data/lyrics.json)
         run: python annotation/build_annotation_queue.py
 
-      - name: Sync queue → /annotate/ public path
-        run: cp annotation/annotation_queue.json public/annotate/annotation_queue.json
-
-      - name: Export lyrics.json (md → data/lyrics.json)
+      - name: Export lyrics.json (md → data/lyrics.json, 並鏡像到 public/annotate/)
         run: python scripts/export_lyrics_json.py
-
-      - name: Sync lyrics.json → /annotate/ (so 新歌自動出現在下拉)
-        run: cp data/lyrics.json public/annotate/lyrics.json
 
       - name: Diff report → recent_new_shorts.json
         run: python scripts/build_recent_new.py
@@ -67,13 +61,9 @@ jobs:
       - name: Rebuild shorts_by_song.json + shorts_extras.json from anchors
         run: python scripts/import_anchors.py
 
-      - name: Refresh setlists from Linkfire hub (each Spotify playlist)
+      - name: Refresh setlists from Linkfire hub (each Spotify playlist; 並鏡像到 public/annotate/)
         run: python scripts/scrape_setlists.py
         continue-on-error: true    # Spotify embed 若暫時掛掉不阻塞其他步驟
-
-      - name: Sync setlists.json → /annotate/ (讓 annotator 巡演 dropdown 跟上新場)
-        run: cp src/data/setlists.json public/annotate/setlists.json
-        continue-on-error: true    # 上一步 continue-on-error 若沒生檔, 這步跳過
 
       # ---- 哨兵 (每日 1 GET each; 失敗不阻塞其他, 結果進日報) ----
       - name: Sentinel — eplus 現售場次 (JSON-LD)

@@ -12,6 +12,7 @@ scrape_setlists.py — 抓 にしな 巡演 setlist 資料
 不需要 Spotify API auth ; embed 頁公開存取。
 出處全指回官方 Linkfire hub, setlist 為事實資料。
 """
+import shutil
 import json
 import re
 import sys
@@ -33,6 +34,7 @@ ROOT = Path(__file__).parent.parent
 # 舊版本曾誤讀 src/data/lyrics.json (那份會 stale, 因為只有 pipeline 寫的路徑會 refresh)
 LYRICS_JSON = ROOT / 'data' / 'lyrics.json'
 OUT_JSON = ROOT / 'src' / 'data' / 'setlists.json'
+PUBLIC_COPY = ROOT / 'public' / 'annotate' / 'setlists.json'   # annotator 讀的鏡像
 COVERS_DIR = ROOT / 'public' / 'setlists' / 'covers'
 HUB_URL = 'https://nishina.lnk.to/live_setlist'
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0'
@@ -234,8 +236,11 @@ def main():
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     with open(OUT_JSON, 'w', encoding='utf-8') as f:
         json.dump({'meta': meta, 'tours': tours}, f, ensure_ascii=False, indent=2)
+    # annotator 巡演 dropdown 讀 public/ 下的鏡像 (scripts/check_sync.py 在 CI 驗證一致)
+    PUBLIC_COPY.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(OUT_JSON, PUBLIC_COPY)
 
-    print(f'\n[setlists] wrote {OUT_JSON}')
+    print(f'\n[setlists] wrote {OUT_JSON} (+ mirrored → {PUBLIC_COPY.relative_to(ROOT)})')
     print(f'  {len(tours)} tours, {meta["total_tracks"]} total track entries')
 
 

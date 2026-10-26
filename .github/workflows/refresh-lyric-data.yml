@@ -47,7 +47,7 @@ jobs:
           path: fonts_src
           key: fonts-src-fusion-2026.07.20-12-10-8px-huninn-2.1
 
-      - name: Export lyrics.json (md → data/lyrics.json)
+      - name: Export lyrics.json (md → data/lyrics.json, 並鏡像到 public/annotate/)
         run: python scripts/export_lyrics_json.py
 
       - name: Analyze → lyric_universe.json + inject into HTML
@@ -55,9 +55,6 @@ jobs:
 
       - name: Build KWIC index → kwic_index.json + inject into HTML
         run: python scripts/build_kwic.py
-
-      - name: Sync lyrics.json → /annotate/ (so 新編輯的 title/album 也同步下拉)
-        run: cp data/lyrics.json public/annotate/lyrics.json
 
       # 新歌名/新內文的字若不在字集裡, 像素標題/粉圓內文會混排 fallback → 一起重生
       - name: Rebuild font subsets (charset 掃全站 → pyftsubset)

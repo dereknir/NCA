@@ -7,13 +7,13 @@ build_annotation_queue.py
   data/nishina_shorts.json      (clean_shorts.py 從 yt-dlp raw 精簡出來的, 有 commit)
   data/lyrics.json              (網站歌詞庫, export_lyrics_json.py 從 md 生成; meta.schema 有欄位說明)
 輸出:
-  annotation/annotation_queue.json   (標注工具讀這個; workflow 會同步到 public/annotate/)
+  annotation/annotation_queue.json   (標注工具讀這個; 同時鏡像到 public/annotate/annotation_queue.json)
   annotation/review_queue.json       (配不到 / 低信心的,人工看)
 
 用法: python annotation/build_annotation_queue.py [--top-n 3]
 """
 
-import json, re, sys, unicodedata
+import json, re, shutil, sys, unicodedata
 from collections import defaultdict
 from pathlib import Path
 from rapidfuzz import fuzz
@@ -23,6 +23,7 @@ LYRICS_FILE = ROOT / 'data' / 'lyrics.json'
 SHORTS_FILE = ROOT / 'data' / 'nishina_shorts.json'
 OUT_QUEUE = ROOT / 'annotation' / 'annotation_queue.json'
 OUT_REVIEW = ROOT / 'annotation' / 'review_queue.json'
+PUBLIC_QUEUE = ROOT / 'public' / 'annotate' / 'annotation_queue.json'   # 站上 /annotate/ 讀的鏡像
 
 TOP_N = 0  # 每首歌保留觀看數最高的前 N 支;0 = 全留(預設,以確保 1283 都能標到)
 if '--top-n' in sys.argv:
@@ -177,6 +178,8 @@ def main():
               ensure_ascii=False, indent=2)
 
     print(f'歌詞庫: {len(songs)} 首 ({LYRICS_FILE.relative_to(ROOT)}) / shorts: {len(recs)} 支')
+    PUBLIC_QUEUE.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(OUT_QUEUE, PUBLIC_QUEUE)
     print('分類統計:', dict(stats))
     print(f'標注佇列: {len(queue)-1} 首歌 / {total_q} 支 shorts (top {TOP_N or "全部"})')
     print(f'  其中 __unmatched: {len(unmatched)} 支 (review={len(review)}, 庫外={len(out_cat)}, 非歌曲={len(non_song)})')

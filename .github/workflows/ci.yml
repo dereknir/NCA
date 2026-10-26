@@ -31,6 +31,9 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Derived-data sync check (public/annotate 鏡像必須與來源一致)
+        run: python3 scripts/check_sync.py
+
       - name: Install (lockfile 必須與 package.json 同步)
         run: npm ci
 

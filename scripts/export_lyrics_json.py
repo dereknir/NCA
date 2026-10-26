@@ -9,12 +9,14 @@ Writes  : data/lyrics.json
 
 import json
 import re
+import shutil
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 SRC_DIR = ROOT / "src" / "content" / "translations"
 OUT_FILE = ROOT / "data" / "lyrics.json"
+PUBLIC_COPY = ROOT / "public" / "annotate" / "lyrics.json"   # annotator 讀的鏡像
 
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
@@ -177,9 +179,14 @@ def main():
     OUT_FILE.parent.mkdir(exist_ok=True)
     with open(OUT_FILE, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
+    # annotator (站上 /annotate/) 讀的是 public/ 下的副本 — 由這裡直接鏡像, 不靠 workflow 手動 cp
+    # (scripts/check_sync.py 在 CI 驗證兩份一致)
+    PUBLIC_COPY.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(OUT_FILE, PUBLIC_COPY)
 
     size_kb = OUT_FILE.stat().st_size / 1024
     print(f"✓ Wrote {OUT_FILE}")
+    print(f"✓ Mirrored → {PUBLIC_COPY.relative_to(ROOT)}")
     print(f"  Songs: {len(songs)}")
     print(f"  Total lyric lines: {output['meta']['total_lyric_lines']}")
     print(f"  Size: {size_kb:.1f} KB")
