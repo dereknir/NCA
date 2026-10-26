@@ -594,6 +594,7 @@ if (!shorts || shorts.length === 0) return null;
     title?: string;
     thumbnail?: string;
     versionType?: 'live' | 'mv' | 'acoustic' | 'tft' | 'other' | null;
+    instrumental?: boolean;
     anchors: Anchor[];
   }
   interface YTPlayerLike {
@@ -642,8 +643,10 @@ if (!shorts || shorts.length === 0) return null;
 
   function initStage() {
   /* ==== 讀取 root & 資料 ==== */
-  const stage = document.getElementById('live-stage');
-  if (!stage) { api = null; return; }
+  const stageEl = document.getElementById('live-stage');
+  if (!stageEl) { api = null; return; }
+  // 下方的 function declaration 會 hoist, TS 無法沿用上面的 null 判斷 → 用已收窄的 const
+  const stage: HTMLElement = stageEl;
   if (stage.dataset.vtInit === 'true') return;
   stage.dataset.vtInit = 'true';
   const shortsAll: Short[] = JSON.parse(stage.dataset.shorts || '[]');

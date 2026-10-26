@@ -18,7 +18,7 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       theme: 'github-dark',
-      langs: ['javascript', 'typescript', 'python', 'bash', 'markdown'],
+      // langs 只收自訂 LanguageRegistration; js/ts/python/bash/markdown 都是 shiki 內建, 不用列
     },
   },
 });

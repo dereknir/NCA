@@ -1,0 +1,41 @@
+name: CI (build + typecheck)
+
+# 四支資料 workflow 都只跑 Python 管線, 之前沒有任何一支驗證網站本身能不能 build。
+# 這支在每次 push / PR 跑 npm ci → astro check → astro build, 當作安全網:
+#   - lockfile 跟 package.json 不同步 (npm ci 會炸) 立刻知道
+#   - .astro / .ts 型別錯誤、content collection schema 不符 立刻知道
+#   - 62 頁靜態輸出能不能生出來 (Vercel 部署前先在這裡失敗)
+# 只讀, 不 commit 任何東西 → 不會跟資料 workflow 互相觸發。
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+  workflow_dispatch: {}
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install (lockfile 必須與 package.json 同步)
+        run: npm ci
+
+      - name: Typecheck (astro check)
+        run: npm run check
+
+      - name: Build (astro build → dist/)
+        run: npm run build
