@@ -40,12 +40,12 @@ jobs:
       - name: Install deps (fugashi + unidic-lite for 日文斷詞; fonttools 供字型子集)
         run: pip install fugashi unidic-lite rapidfuzz fonttools brotli
 
-      # 字型源檔快取 (fusion-pixel 12/10px + jf 粉圓, 冷抓 ~100MB; key pin 版本)
+      # 字型源檔快取 (fusion-pixel 12/10/8px + jf 粉圓, 冷抓 ~130MB; key pin 版本與尺寸, 改 SIZES 要換 key)
       - name: Cache font sources
         uses: actions/cache@v4
         with:
           path: fonts_src
-          key: fonts-src-fusion-2026.07.20-huninn-2.1
+          key: fonts-src-fusion-2026.07.20-12-10-8px-huninn-2.1
 
       - name: Export lyrics.json (md → data/lyrics.json)
         run: python scripts/export_lyrics_json.py

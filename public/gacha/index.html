@@ -556,13 +556,15 @@ $('modalDl').onclick = () => {
 };
 
 /* ---------- 啟動 ---------- */
+// 跟全站共用同一份子集 (scripts/build_pixel_fonts.py 從 data/site_charset.txt 生, 含 gacha 字串),
+// 不再另放一套 1.2MB 的 .sub.ttf 在 gacha/fonts/
 const FONTS = [
-  ['JP12','fonts/fusion-pixel-12px-proportional-ja.sub.ttf'],
-  ['JP10','fonts/fusion-pixel-10px-proportional-ja.sub.ttf'],
-  ['JP8','fonts/fusion-pixel-8px-proportional-ja.sub.ttf'],
-  ['TC12','fonts/fusion-pixel-12px-proportional-zh_hant.sub.ttf'],
-  ['TC10','fonts/fusion-pixel-10px-proportional-zh_hant.sub.ttf'],
-  ['TC8','fonts/fusion-pixel-8px-proportional-zh_hant.sub.ttf'],
+  ['JP12','/fonts/pixel/fp12-site-ja.woff2'],
+  ['JP10','/fonts/pixel/fp10-site-ja.woff2'],
+  ['JP8','/fonts/pixel/fp8-site-ja.woff2'],
+  ['TC12','/fonts/pixel/fp12-site-zh_hant.woff2'],
+  ['TC10','/fonts/pixel/fp10-site-zh_hant.woff2'],
+  ['TC8','/fonts/pixel/fp8-site-zh_hant.woff2'],
 ];
 (async () => {
   renderRail();

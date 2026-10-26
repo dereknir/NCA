@@ -35,8 +35,8 @@ import { createBackpack } from './backpack.js';
 
 /* 字型:demo 放在 gacha/ 同層時載入真字型,失敗則 monospace 降級 */
 try {
-  for (const [n, u] of [['JP8', 'fonts/fusion-pixel-8px-proportional-ja.sub.ttf'],
-                        ['JP12', 'fonts/fusion-pixel-12px-proportional-ja.sub.ttf']]) {
+  for (const [n, u] of [['JP8', '/fonts/pixel/fp8-site-ja.woff2'],
+                        ['JP12', '/fonts/pixel/fp12-site-ja.woff2']]) {
     const f = new FontFace(n, `url(${u})`); await f.load(); document.fonts.add(f);
   }
 } catch (e) { console.warn('字型未載入(不影響 demo)'); }

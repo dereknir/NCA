@@ -3,7 +3,7 @@
 build_pixel_fonts.py — 站台像素字型子集管線
 
 data/site_charset.txt (build_site_charset.py 產出)
-  → public/fonts/pixel/fp12-site-{zh_hant,ja}.woff2
+  → public/fonts/pixel/fp{12,10,8}-site-{zh_hant,ja}.woff2  (+ openhuninn-site.woff2)
 
 來源字型 fusion-pixel 12px proportional (OFL-1.1), 版本 pin 在下方 RELEASE。
 完整 TTF (~7MB×2) 不進 repo — 本腳本第一次跑會下載到 fonts_src/ (gitignored),
@@ -26,8 +26,9 @@ CHARSET = ROOT / "data" / "site_charset.txt"
 
 RELEASE = "2026.07.20"   # pin 版本; 升版時改這裡重跑
 LANGS = ["zh_hant", "ja"]
-# 12px 網格 = UI/標題 (12/24/36); 10px 網格 = 內文 (20px, 全站像素統一 2026-08)
-SIZES = [12, 10]
+# 12px 網格 = UI/標題 (12/24/36); 10px 網格 = 內文 (20px, 全站像素統一 2026-08);
+# 8px 網格 = ガチャ卡面小字 (public/gacha 的 JP8/TC8, 與全站共用同一份子集)
+SIZES = [12, 10, 8]
 
 
 def zip_url(size: int) -> str:

@@ -13,6 +13,7 @@ build_site_charset.py — 掃出「像素字型會渲染到」的全站字集 �
   src/content/translations/*.md     只取 frontmatter title/artist/album
   live/*.template.html              live 三頁的靜態 UI 文字
   public/pixel-lab/index.html       提案頁自身
+  public/gacha/*                    ガチャ卡面 (canvas, fp12/10/8) + UI + pool.json
 外加保險:
   ASCII 可見區 + 全形標點 + 平假名/片假名全表 + 常用 UI 緩衝字
 """
@@ -88,6 +89,19 @@ def main():
     lab = ROOT / "public" / "pixel-lab" / "index.html"
     if lab.exists():
         chars |= set(strip_markup(lab.read_text(encoding="utf-8")))
+
+    # ガチャ (public/gacha): 卡面文字在 canvas 上用 fp12/fp10/fp8 畫, UI 字串藏在 JS 裡;
+    # 卡池 pool.json 的歌詞行來自 md (已收), 但 songTitle/album/註解等欄位也一起掃, 過收無害。
+    gacha = ROOT / "public" / "gacha"
+    for name in ["index.html", "backpack-test.html"]:
+        f = gacha / name
+        if f.exists():
+            chars |= set(strip_markup(f.read_text(encoding="utf-8"), keep_script=True))
+    for f in gacha.glob("*.js"):
+        chars |= set(f.read_text(encoding="utf-8"))
+    pool = gacha / "pool.json"
+    if pool.exists():
+        chars |= set(pool.read_text(encoding="utf-8"))
 
     chars |= set(BUFFER)
     chars |= {chr(c) for c in range(0x20, 0x7F)}          # ASCII 可見
