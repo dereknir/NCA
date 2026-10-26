@@ -30805,7 +30805,7 @@
         "line": 50
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -31174,10 +31174,6 @@
     "anchors": [
       {
         "t": 0,
-        "line": 19
-      },
-      {
-        "t": 1.36,
         "line": 20
       },
       {
@@ -31197,11 +31193,11 @@
         "line": 24
       },
       {
-        "t": 21.16,
+        "t": 19.81,
         "line": 25
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -31243,8 +31239,8 @@
         "line": 43
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -31385,7 +31381,7 @@
         "line": 24
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -31497,7 +31493,7 @@
         "line": 43
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -31560,26 +31556,22 @@
     "anchors": [
       {
         "t": 0,
+        "line": 47
+      },
+      {
+        "t": 3.69,
+        "line": 48
+      },
+      {
+        "t": 6.48,
         "line": 49
       },
       {
-        "t": 10.12,
+        "t": 9.24,
         "line": 50
-      },
-      {
-        "t": 17.26,
-        "line": 51
-      },
-      {
-        "t": 19.96,
-        "line": 52
-      },
-      {
-        "t": 20.1,
-        "line": 53
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -31727,7 +31719,7 @@
         "line": 24
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -31983,22 +31975,10 @@
       {
         "t": 10.08,
         "line": 50
-      },
-      {
-        "t": 13.64,
-        "line": 51
-      },
-      {
-        "t": 17.16,
-        "line": 52
-      },
-      {
-        "t": 17.16,
-        "line": 53
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -32825,7 +32805,7 @@
         "line": 12
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -32849,14 +32829,10 @@
       {
         "t": 8.48,
         "line": 43
-      },
-      {
-        "t": 15.64,
-        "line": 44
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -33201,7 +33177,11 @@
         "line": 16
       },
       {
-        "t": 3.26,
+        "t": 2.87,
+        "line": 17
+      },
+      {
+        "t": 6.2,
         "line": 18
       },
       {
@@ -33245,8 +33225,8 @@
         "line": 28
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -33298,26 +33278,18 @@
     "anchors": [
       {
         "t": 0,
-        "line": 49
+        "line": 44
       },
       {
-        "t": 13.12,
-        "line": 50
+        "t": 10.9,
+        "line": 45
       },
       {
-        "t": 14.16,
-        "line": 51
-      },
-      {
-        "t": 19.42,
-        "line": 52
-      },
-      {
-        "t": 19.42,
-        "line": 53
+        "t": 18.2,
+        "line": 46
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -33328,6 +33300,18 @@
     "anchors": [
       {
         "t": 0,
+        "line": 0
+      },
+      {
+        "t": 3.03,
+        "line": 1
+      },
+      {
+        "t": 5.69,
+        "line": 2
+      },
+      {
+        "t": 8.55,
         "line": 3
       },
       {
@@ -33347,8 +33331,8 @@
         "line": 7
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
