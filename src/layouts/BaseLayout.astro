@@ -39,6 +39,7 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   <meta name="description" content={description}>
   <meta name="author" content={SITE_CONFIG.author}>
   <link rel="canonical" href={canonicalURL}>
+  <link rel="sitemap" href="/sitemap-index.xml">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content={article ? "article" : SITE_CONFIG.seo.ogType}>

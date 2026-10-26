@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,7 +15,25 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [mdx()],
+  integrations: [
+    mdx(),
+    // sitemap-index.xml + sitemap-0.xml; robots.txt 指向它
+    sitemap({
+      // 內部工具不進 sitemap (robots.txt 也 Disallow)
+      filter: (page) => !page.includes('/admin'),
+      // public/ 下不經 Astro 路由的靜態子站, sitemap 掃不到, 手動列 (與 NAVIGATION 對齊)
+      customPages: [
+        'https://derekni.com/lyric-universe/',
+        'https://derekni.com/kwic/',
+        'https://derekni.com/star-map/',
+        'https://derekni.com/live/timeline/',
+        'https://derekni.com/live/concerts/',
+        'https://derekni.com/live/footprint/',
+        'https://derekni.com/gacha/',
+        'https://derekni.com/galaxy/',
+      ],
+    }),
+  ],
   markdown: {
     shikiConfig: {
       theme: 'github-dark',

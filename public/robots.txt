@@ -1,0 +1,8 @@
+# derekni.com — 內部工具不給索引; 其餘全開
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /annotate/
+Disallow: /pixel-lab/
+
+Sitemap: https://derekni.com/sitemap-index.xml
