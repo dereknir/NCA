@@ -2104,7 +2104,7 @@
         "title": "We’re just swimming around as we please",
         "url": "https://www.youtube.com/shorts/CdgtvBdqeB8",
         "thumbnail": "https://i.ytimg.com/vi/CdgtvBdqeB8/hqdefault.jpg",
-        "viewCount": 11000,
+        "viewCount": 12000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -5283,7 +5283,7 @@
         "title": "今日もラブ履き違え",
         "url": "https://www.youtube.com/shorts/nywcYurtoRk",
         "thumbnail": "https://i.ytimg.com/vi/nywcYurtoRk/hqdefault.jpg",
-        "viewCount": 9600,
+        "viewCount": 9700,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -7587,7 +7587,7 @@
         "title": "Answers shift, but it’ll be alright",
         "url": "https://www.youtube.com/shorts/cbHUDkvYT7w",
         "thumbnail": "https://i.ytimg.com/vi/cbHUDkvYT7w/hqdefault.jpg",
-        "viewCount": 8400,
+        "viewCount": 8500,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -8864,7 +8864,7 @@
         "title": "背中合わせで伝わる呼吸",
         "url": "https://www.youtube.com/shorts/hWP91UjFFH0",
         "thumbnail": "https://i.ytimg.com/vi/hWP91UjFFH0/hqdefault.jpg",
-        "viewCount": 8000,
+        "viewCount": 8100,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -9505,7 +9505,7 @@
         "title": "恋を優しく吹き消す夜",
         "url": "https://www.youtube.com/shorts/vhLfBJvDgFc",
         "thumbnail": "https://i.ytimg.com/vi/vhLfBJvDgFc/hqdefault.jpg",
-        "viewCount": 1300,
+        "viewCount": 1600,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -9753,6 +9753,33 @@
         ]
       },
       {
+        "videoId": "8-fZYgEydE4",
+        "title": "答えの無い問いの繰り返し",
+        "url": "https://www.youtube.com/shorts/8-fZYgEydE4",
+        "thumbnail": "https://i.ytimg.com/vi/8-fZYgEydE4/hqdefault.jpg",
+        "viewCount": 11000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 32
+          },
+          {
+            "t": 5.72,
+            "line": 33
+          },
+          {
+            "t": 10.44,
+            "line": 34
+          },
+          {
+            "t": 16.58,
+            "line": 35
+          }
+        ]
+      },
+      {
         "videoId": "GN4b4L_aWRU",
         "title": "この世の全て最悪で手放したい時もある",
         "url": "https://www.youtube.com/shorts/GN4b4L_aWRU",
@@ -9862,33 +9889,6 @@
           {
             "t": 9.26,
             "line": 50
-          }
-        ]
-      },
-      {
-        "videoId": "8-fZYgEydE4",
-        "title": "答えの無い問いの繰り返し",
-        "url": "https://www.youtube.com/shorts/8-fZYgEydE4",
-        "thumbnail": "https://i.ytimg.com/vi/8-fZYgEydE4/hqdefault.jpg",
-        "viewCount": 9700,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 32
-          },
-          {
-            "t": 5.72,
-            "line": 33
-          },
-          {
-            "t": 10.44,
-            "line": 34
-          },
-          {
-            "t": 16.58,
-            "line": 35
           }
         ]
       },
