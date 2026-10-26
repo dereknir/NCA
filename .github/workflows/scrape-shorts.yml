@@ -7,6 +7,12 @@ on:
     - cron: '0 19 * * *'
   workflow_dispatch: {}
 
+# 併發控制: 排程與手動觸發若撞在一起只跑一個, 後來的排隊 (跟其他三支 workflow 一致,
+# 避免兩個 run 同時 push develop 互相 reject)
+concurrency:
+  group: scrape-shorts
+  cancel-in-progress: false
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -91,7 +97,29 @@ jobs:
 
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
+          # 只 stage 本 workflow 各步驟明確會寫的產物 (跟其他三支一致, 不用 git add -A):
+          # 少一個路徑會「安靜地漏 commit」, 所以新增產物步驟時記得同步補這裡。
+          git add data/nishina_shorts.json \
+                  data/nishina_shorts_classified.json \
+                  data/lyrics.json \
+                  annotation/annotation_queue.json \
+                  annotation/review_queue.json \
+                  annotation/recent_new_shorts.json \
+                  annotation/last_seen_shorts.json \
+                  public/annotate/annotation_queue.json \
+                  public/annotate/lyrics.json \
+                  public/annotate/setlists.json \
+                  public/annotate/appearances.json \
+                  public/gacha/live_pool.json \
+                  public/setlists/ \
+                  public/live/ \
+                  src/data/shorts_by_song.json \
+                  src/data/shorts_extras.json \
+                  src/data/shorts_tours.json \
+                  src/data/setlists.json \
+                  live/eplus_state.json \
+                  live/upcoming.json \
+                  live/data/nishina_news_classified.json
           if git diff --staged --quiet; then
             echo "committed=no" >> $GITHUB_OUTPUT
             echo "→ nothing to commit"
