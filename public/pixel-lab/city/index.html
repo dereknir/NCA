@@ -56,6 +56,12 @@
   .pxbtn.go{background:var(--accent);border-color:#2a49c9;color:#fff;margin-top:12px}
   .pxbtn.go:hover{color:var(--gold)}
   #modes{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:10;display:flex;gap:10px}
+  #style{position:fixed;left:28px;bottom:22px;z-index:10;display:flex;gap:8px;align-items:center;font-size:12px;color:var(--dim)}
+  #style .pxbtn{padding:6px 10px}
+  #style #pxLbl{min-width:64px;text-align:center;color:var(--text)}
+  body.hd2d #title .pn,body.hd2d #title .ps,body.hd2d #legend div,body.hd2d #hint,body.hd2d #style>span{color:#4a3c5c}
+  body.hd2d #title h1{color:#fff;text-shadow:0 2px 0 #5a4a6e,0 3px 14px rgba(60,40,80,.5)}
+  body.hd2d #legend div:hover{color:#1e1630}
   #tour{position:fixed;left:50%;bottom:72px;transform:translateX(-50%);z-index:10;display:none;align-items:center;gap:14px;
     background:rgba(20,29,49,.9);border:2px solid var(--gold);padding:10px 18px;font-size:12px}
   #tour.on{display:flex}
@@ -70,7 +76,8 @@
   @media(max-width:760px){
     #panel{top:auto;bottom:0;right:0;left:0;width:auto;max-height:42vh;border-left:none;border-right:none;border-bottom:none;clip-path:none}
     #modes{bottom:auto;top:66px;right:12px;left:auto;transform:none;flex-direction:column}
-    #legend{display:none} #title h1{font-size:24px} #hint{display:none}
+    #style{left:12px;bottom:auto;top:66px} #pxMinus,#pxPlus,#pxLbl{display:none}
+    #title{top:150px} #legend{display:none} #title h1{font-size:24px} #hint{display:none}
     #tour{bottom:44vh}
   }
 </style>
@@ -92,6 +99,7 @@
   <div id="pbody"><div class="meta">讀取 /annotate/lyrics.json…</div></div>
 </div>
 <div id="tour"><button class="pxbtn" id="tourPause">⏸</button><span class="cap" id="tourCap"></span><span class="pg" id="tourPg"></span><button class="pxbtn" id="tourExit">離開</button></div>
+<div id="style"><span>風格</span><button class="pxbtn" id="stDash">A 儀表板</button><button class="pxbtn on" id="stHd">B HD-2D</button><button class="pxbtn" id="pxMinus">−</button><span id="pxLbl">像素 4px</span><button class="pxbtn" id="pxPlus">+</button></div>
 <div id="modes">
   <button class="pxbtn on" id="mOverview">全景</button>
   <button class="pxbtn" id="mTour">時間導覽</button>
@@ -103,107 +111,143 @@
 <script type="module">
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPixelatedPass } from 'three/addons/postprocessing/RenderPixelatedPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 
 /* ---------- 資料 (站內公開 JSON, 即時讀) ---------- */
 const data = await (await fetch('/annotate/lyrics.json')).json();
-const SONGS = data.songs.filter(s => /にしな/.test(s.artist || "")).map(s => ({
-  ...s,
-  album: s.album || '單曲',
+const SONGS = data.songs.filter(s => /にしな/.test(s.artist || '')).map(s => ({
+  ...s, album: s.album || '單曲',
   year: Number(s.album_year) || Number((s.publish_date || '').slice(0, 4)) || 2024,
   track: Number(s.track_number) || 99,
   lines: Array.isArray(s.lyric_lines) ? s.lyric_lines : [],
-  n: Number(s.lyric_line_count) || (Array.isArray(s.lyric_lines) ? s.lyric_lines.length : 0),
+  n: Number(s.lyric_line_count) || 0,
 }));
-
-/* 城區 = 專輯, 依年份排序; 色盤依序指派 (像素調, 全部原創) */
 const byAlbum = {};
 SONGS.forEach(s => (byAlbum[s.album] ||= []).push(s));
 const ORDER_AL = Object.keys(byAlbum).sort((a, b) =>
   Math.min(...byAlbum[a].map(s => s.year)) - Math.min(...byAlbum[b].map(s => s.year)) || byAlbum[b].length - byAlbum[a].length);
-const COLORS = [
-  { base: 0x3aa981, roof: 0x9fe8cf }, { base: 0x3d63ff, roof: 0x9fb6ff }, { base: 0xe8c94a, roof: 0xfff0a8 },
-  { base: 0xe1518e, roof: 0xffb3d1 }, { base: 0x8a63c9, roof: 0xcfb6ff }, { base: 0xe08a3a, roof: 0xffd2a8 },
-  { base: 0x4fb8d6, roof: 0xb6ecf7 }, { base: 0x8b97b8, roof: 0xd0d8ea },
-];
-const PAL = {};
-ORDER_AL.forEach((a, i) => {
-  const ys = byAlbum[a].map(s => s.year), y0 = Math.min(...ys), y1 = Math.max(...ys);
-  PAL[a] = { ...COLORS[i % COLORS.length], name: a, yr: y0 === y1 ? String(y0) : `${y0}–${y1}` };
-});
+const AL_YR = Object.fromEntries(ORDER_AL.map(a => { const ys = byAlbum[a].map(s => s.year), y0 = Math.min(...ys), y1 = Math.max(...ys); return [a, y0 === y1 ? String(y0) : `${y0}–${y1}`]; }));
 
-/* 關聯線 = 歌詞字元 2-gram Jaccard top-3 (prototype; 正式版接歌詞宇宙主題網) */
-const grams = s => {
-  const t = s.lines.map(l => l.ja || '').join('').replace(/[\s、。！？!?「」『』（）()・…\-〜~]/g, '');
-  const g = new Set(); for (let i = 0; i < t.length - 1; i++) g.add(t.slice(i, i + 2)); return g;
-};
+/* 關聯線 = 歌詞 2-gram Jaccard top-3 (prototype; 正式版接歌詞宇宙主題網) */
+const grams = s => { const t = s.lines.map(l => l.ja || '').join('').replace(/[\s、。！？!?「」『』（）()・…\-〜~]/g, ''); const g = new Set(); for (let i = 0; i < t.length - 1; i++) g.add(t.slice(i, i + 2)); return g; };
 const G = SONGS.map(grams);
 const jac = (a, b) => { let n = 0; for (const x of a) if (b.has(x)) n++; return n / (a.size + b.size - n || 1); };
-const REL = SONGS.map((s, i) => SONGS.map((t, j) => [i === j ? -1 : jac(G[i], G[j]), j])
-  .filter(([v]) => v > 0.06).sort((a, b) => b[0] - a[0]).slice(0, 3));
+const REL = SONGS.map((s, i) => SONGS.map((t, j) => [i === j ? -1 : jac(G[i], G[j]), j]).filter(([v]) => v > 0.06).sort((a, b) => b[0] - a[0]).slice(0, 3));
+
+/* ---------- 兩種風格 (同一場景, 只換材質/光/天空/後處理) ---------- */
+const STYLES = {
+  dash: { key: 'dash', post: false, pr: .5, grid: true, toon: false, bg: 0x0a0a15, sky: null, fog: [0x0a0a15, 70, 160],
+    ground: 0x0e1526, pad: 0x141d31, hemi: [0x9fb6ff, 0x1a1030, .9], sun: [0xfff0c8, 1.1, [30, 50, 20]],
+    pal: [[0x3aa981, 0x9fe8cf], [0x3d63ff, 0x9fb6ff], [0xe8c94a, 0xfff0a8], [0xe1518e, 0xffb3d1], [0x8a63c9, 0xcfb6ff], [0xe08a3a, 0xffd2a8], [0x4fb8d6, 0xb6ecf7], [0x8b97b8, 0xd0d8ea]],
+    dim: [0x1f2a44, 0x2a3657], win: 0xfff6d0, gain: 1, tree: [0x2f7a5a, 0x4a3426], lamp: 0xfff0b0, pole: 0x2a3148, line: 0xe8c94a, walker: 0xf5f0e6 },
+  hd2d: { key: 'hd2d', post: true, pr: 1, grid: false, toon: true, bg: null, fog: [0xe9b7a6, 90, 230],
+    sky: [[0, '#5a5ea8'], [.45, '#a98bc2'], [.75, '#f2b59a'], [1, '#f7d2b4']],
+    ground: 0xb9a3c3, pad: 0xdcc9d1, hemi: [0xffd9c0, 0x6a5a8a, 1.25], sun: [0xfff1dd, 1.7, [-25, 45, 30]],
+    pal: [[0x7fd1b3, 0xf6e6d0], [0x8aa2ff, 0xf6e6d0], [0xf2d27a, 0xf6e6d0], [0xf08ca8, 0xf6e6d0], [0xb79ae8, 0xf6e6d0], [0xf4a97a, 0xf6e6d0], [0x8fd3e6, 0xf6e6d0], [0xc3c9de, 0xf6e6d0]],
+    dim: [0x9c93ad, 0xbdb3c4], win: 0xffd27a, gain: 2.2, tree: [0x8fcf9a, 0xa07a5a], lamp: 0xfff0b0, pole: 0x3a3340, line: 0xff8f6b, walker: 0xfff6e8 },
+};
+let STYLE = STYLES.hd2d;
+
+/* 貼圖全部程式生成: 4 階卡通漸層、黃昏天空、地磚 */
+const gradTex = (() => { const t = new THREE.DataTexture(new Uint8Array([70, 130, 200, 255]), 4, 1, THREE.RedFormat); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t; })();
+function skyTex(stops) { const c = document.createElement('canvas'); c.width = 2; c.height = 256; const g = c.getContext('2d'); const gr = g.createLinearGradient(0, 0, 0, 256); stops.forEach(([p, col]) => gr.addColorStop(p, col)); g.fillStyle = gr; g.fillRect(0, 0, 2, 256); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
+function tileTex(a, b) { const c = document.createElement('canvas'); c.width = c.height = 2; const g = c.getContext('2d'); g.fillStyle = a; g.fillRect(0, 0, 2, 2); g.fillStyle = b; g.fillRect(0, 0, 1, 1); g.fillRect(1, 1, 1, 1); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.magFilter = t.minFilter = THREE.NearestFilter; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(90, 90); return t; }
+const SKY = skyTex(STYLES.hd2d.sky), TILE = tileTex('#b9a3c3', '#b096bb');
+const makeMat = (st, color, gain = 0) => gain
+  ? new THREE.MeshBasicMaterial({ color: new THREE.Color(color).multiplyScalar(gain) })
+  : st.toon ? new THREE.MeshToonMaterial({ color, gradientMap: gradTex }) : new THREE.MeshLambertMaterial({ color });
+const shared = {};
+const sharedMat = (st, k, color, gain = 0) => (shared[st.key + '|' + k] ||= makeMat(st, color, gain));
+const DECOR = [];
+function skin(mesh, fn, track = true) { mesh.userData.skin = fn; mesh.material = fn(STYLE); if (track) DECOR.push(mesh); return mesh; }
+const box = (w, h, d, m) => { const x = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m || undefined); x.castShadow = x.receiveShadow = true; return x; };
 
 /* ---------- 場景 ---------- */
 const renderer = new THREE.WebGLRenderer({ antialias: false });
-renderer.setPixelRatio(0.5);                       // 半解析度 + CSS pixelated → 像素感
 renderer.setSize(innerWidth, innerHeight);
-renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.BasicShadowMap;
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 $('stage').appendChild(renderer.domElement);
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0a0a15);
-scene.fog = new THREE.Fog(0x0a0a15, 70, 160);
 const VIEW = 26;
 const camera = new THREE.OrthographicCamera(-VIEW, VIEW, VIEW, -VIEW, 1, 400);
 camera.position.set(60, 60, 60);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true; controls.dampingFactor = .08;
 controls.maxPolarAngle = Math.PI * .45; controls.minPolarAngle = Math.PI * .15;
-controls.minZoom = .6; controls.maxZoom = 3.5; controls.enablePan = true;
-scene.add(new THREE.HemisphereLight(0x9fb6ff, 0x1a1030, .9));
-const sun = new THREE.DirectionalLight(0xfff0c8, 1.1);
-sun.position.set(30, 50, 20); sun.castShadow = true;
-sun.shadow.mapSize.set(1024, 1024);
-Object.assign(sun.shadow.camera, { left: -60, right: 60, top: 60, bottom: -60, far: 200 });
+controls.minZoom = .6; controls.maxZoom = 3.5;
+const hemi = new THREE.HemisphereLight(0xffffff, 0x000000, 1); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffffff, 1); sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0006;
+Object.assign(sun.shadow.camera, { left: -70, right: 70, top: 70, bottom: -70, far: 240 });
 scene.add(sun);
-const ground = new THREE.Mesh(new THREE.PlaneGeometry(240, 240), new THREE.MeshLambertMaterial({ color: 0x0e1526 }));
-ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
-scene.add(new THREE.GridHelper(240, 120, 0x1a2440, 0x141d31));
+const ground = box(124, 2.5, 92); ground.position.y = -1.25; scene.add(ground);   // 有限地台: 天空漸層從邊緣露出 (沙盤感)
+skin(ground, st => st.toon ? (shared.hdground ||= new THREE.MeshToonMaterial({ map: TILE, gradientMap: gradTex })) : sharedMat(st, 'ground', st.ground));
+const grid = new THREE.GridHelper(280, 140, 0x1a2440, 0x141d31); grid.position.y = .02; scene.add(grid);
 
 /* ---------- 城區排版: 專輯依年份排成弧線, 區內方格; 樓高 ∝ 歌詞行數 ---------- */
-const BUILDINGS = []; const CELL = 3.2;
+const BUILDINGS = [], PADS = [], CELL = 3.2;
 ORDER_AL.forEach((al, ai) => {
   const list = byAlbum[al].slice().sort((a, b) => a.track - b.track);
   const cols = Math.ceil(Math.sqrt(list.length)), rows = Math.ceil(list.length / cols);
-  const span = Math.PI * 1.1, ang = -Math.PI * .55 + (ORDER_AL.length > 1 ? ai * span / (ORDER_AL.length - 1) : 0);
+  const ang = -Math.PI * .55 + (ORDER_AL.length > 1 ? ai * Math.PI * 1.1 / (ORDER_AL.length - 1) : 0);
   const R = 24, cx = Math.cos(ang) * R, cz = Math.sin(ang) * R * .7;
-  const pal = PAL[al];
-  // 區塊地基 (微亮一塊)
-  const pad = new THREE.Mesh(new THREE.BoxGeometry(cols * CELL + 1.6, .3, rows * CELL + 1.6),
-    new THREE.MeshLambertMaterial({ color: 0x141d31 }));
-  pad.position.set(cx, .15, cz); pad.receiveShadow = true; scene.add(pad);
+  const pw = cols * CELL + 1.6, pd = rows * CELL + 1.6;
+  const pad = skin(box(pw, .3, pd), st => sharedMat(st, 'pad', st.pad));
+  pad.position.set(cx, .15, cz); scene.add(pad); PADS.push({ cx, cz, pw, pd });
   list.forEach((s, i) => {
     const gx = (i % cols) - (cols - 1) / 2, gz = Math.floor(i / cols) - (rows - 1) / 2;
-    const x = cx + gx * CELL, z = cz + gz * CELL;
-    const h = s.instrumental || !s.n ? 1.2 : Math.max(1.5, s.n / 4.5);
+    const h = !s.n ? 1.2 : Math.max(1.5, s.n / 4.5);
     const g = new THREE.Group();
-    const body = new THREE.Mesh(new THREE.BoxGeometry(2, h, 2), new THREE.MeshLambertMaterial({ color: pal.base }));
-    body.position.y = h / 2 + .3; body.castShadow = true; body.receiveShadow = true; g.add(body);
-    const roof = new THREE.Mesh(new THREE.BoxGeometry(1.4, .5, 1.4), new THREE.MeshLambertMaterial({ color: pal.roof }));
-    roof.position.y = h + .55; g.add(roof);
-    const wm = new THREE.MeshBasicMaterial({ color: 0xfff6d0 });
+    const m = {}; for (const k of ['dash', 'hd2d']) m[k] = { body: makeMat(STYLES[k], STYLES[k].pal[ai % 8][0]), roof: makeMat(STYLES[k], STYLES[k].pal[ai % 8][1]) };
+    const body = box(2, h, 2, m[STYLE.key].body); body.position.y = h / 2 + .3; g.add(body);
+    const roof = box(1.4, .5, 1.4, m[STYLE.key].roof); roof.position.y = h + .55; g.add(roof);
     for (let w = 0; w < Math.min(9, Math.floor(h)); w++) {
       if ((w * 7 + i * 3) % 4 === 0) continue;
-      const win = new THREE.Mesh(new THREE.BoxGeometry(.3, .3, .06), wm);
+      const win = skin(new THREE.Mesh(new THREE.BoxGeometry(.3, .3, .06)), st => sharedMat(st, 'win', st.win, st.gain));
       win.position.set(-.5 + (w % 2), 1.1 + w * .9, 1.03); g.add(win);
+      if ((w + i) % 3) { const w2 = skin(new THREE.Mesh(new THREE.BoxGeometry(.06, .3, .3)), st => sharedMat(st, 'win', st.win, st.gain));
+        w2.position.set(1.03, 1.1 + w * .9, .5 - (w % 2)); g.add(w2); }
     }
-    g.position.set(x, 0, z);
-    g.userData = { song: s, idx: BUILDINGS.length, h, pal, body, roof };
+    g.position.set(cx + gx * CELL, 0, cz + gz * CELL);
+    g.userData = { song: s, idx: BUILDINGS.length, h, ai, m, body, roof };
     scene.add(g); BUILDINGS.push(g);
   });
 });
-$('legend').innerHTML = ORDER_AL.map(a =>
-  `<div data-al="${esc(a)}"><i style="background:#${PAL[a].base.toString(16).padStart(6, '0')}"></i>${esc(a)} (${PAL[a].yr}) · ${byAlbum[a].length} 棟</div>`).join('');
+
+/* ---------- 裝飾: 方塊樹、路燈 (讓城有生命; 兩種風格共用幾何) ---------- */
+function tree(x, z, s = 1) {
+  const g = new THREE.Group();
+  const trunk = skin(box(.3 * s, .7 * s, .3 * s), st => sharedMat(st, 'trunk', st.tree[1])); trunk.position.y = .35 * s; g.add(trunk);
+  const c1 = skin(box(1.1 * s, .8 * s, 1.1 * s), st => sharedMat(st, 'leaf', st.tree[0])); c1.position.y = 1.1 * s; g.add(c1);
+  const c2 = skin(box(.7 * s, .6 * s, .7 * s), st => sharedMat(st, 'leaf', st.tree[0])); c2.position.y = 1.8 * s; g.add(c2);
+  g.position.set(x, 0, z); scene.add(g);
+}
+function lamp(x, z) {
+  const g = new THREE.Group();
+  const pole = skin(box(.12, 1.7, .12), st => sharedMat(st, 'pole', st.pole)); pole.position.y = 1.15; g.add(pole);
+  const head = skin(new THREE.Mesh(new THREE.BoxGeometry(.34, .3, .34)), st => sharedMat(st, 'lamp', st.lamp, st.gain)); head.position.y = 2.4; g.add(head);
+  g.position.set(x, 0, z); scene.add(g);
+}
+PADS.forEach(p => {
+  [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([sx, sz]) => lamp(p.cx + sx * (p.pw / 2 - .4), p.cz + sz * (p.pd / 2 - .4)));
+  for (let k = 0; k < 7; k++) {
+    const side = rnd() < .5 ? -1 : 1, along = rnd() < .5;
+    const x = along ? p.cx + (rnd() - .5) * p.pw : p.cx + side * (p.pw / 2 + 1 + rnd() * 1.5);
+    const z = along ? p.cz + side * (p.pd / 2 + 1 + rnd() * 1.5) : p.cz + (rnd() - .5) * p.pd;
+    tree(x, z, .8 + rnd() * .6);
+  }
+});
+for (let k = 0; k < 30; k++) { const a = rnd() * Math.PI * 2, r = 35 + rnd() * 16; tree(Math.cos(a) * r, Math.sin(a) * r * .75, .9 + rnd() * .8); }
+
+$('legend').innerHTML = ORDER_AL.map((a, i) => `<div data-al="${esc(a)}"><i data-ai="${i}"></i>${esc(a)} (${AL_YR[a]}) · ${byAlbum[a].length} 棟</div>`).join('');
+function legendColors() { $('legend').querySelectorAll('i[data-ai]').forEach(el => el.style.background = '#' + STYLE.pal[+el.dataset.ai % 8][0].toString(16).padStart(6, '0')); }
 $('legend').querySelectorAll('[data-al]').forEach(el => el.onclick = () => {
   const list = byAlbum[el.dataset.al]; const c = new THREE.Vector3();
   BUILDINGS.filter(b => list.includes(b.userData.song)).forEach(b => c.add(b.position));
@@ -215,6 +259,7 @@ const ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
 const hoverEl = $('hover'), pbody = $('pbody');
 let hovered = null, selected = null, camTarget = null;
 const lineGroup = new THREE.Group(); scene.add(lineGroup);
+const walkerGroup = new THREE.Group(); scene.add(walkerGroup); const WALKERS = [];
 const BODIES = BUILDINGS.map(b => b.userData.body);
 function pick(ev) {
   if (ev.target !== renderer.domElement) return null;
@@ -226,8 +271,7 @@ function pick(ev) {
 addEventListener('pointermove', ev => {
   const b = pick(ev);
   if (b !== hovered) { hovered = b; document.body.style.cursor = b ? 'pointer' : 'default'; }
-  if (b) {
-    const s = b.userData.song;
+  if (b) { const s = b.userData.song;
     hoverEl.style.display = 'block'; hoverEl.style.left = ev.clientX + 'px'; hoverEl.style.top = ev.clientY + 'px';
     hoverEl.innerHTML = `<b>${esc(s.title)}</b> · ${s.n} 行`;
   } else hoverEl.style.display = 'none';
@@ -239,53 +283,63 @@ addEventListener('pointerup', ev => {
     const b = pick(ev); if (b) { select(b.userData.idx); flyTo(b.userData.idx); }
   }
 });
+const dimOf = (c, k) => STYLE.toon ? new THREE.Color(c).lerp(new THREE.Color(STYLE.dim[k]), .72) : STYLE.dim[k];
 function paint(idx) {
   BUILDINGS.forEach((b, i) => {
     const on = idx == null || i === idx || REL[idx].some(([, j]) => j === i);
-    b.userData.body.material.color.set(on ? b.userData.pal.base : 0x1f2a44);
-    b.userData.roof.material.color.set(i === idx ? 0xffffff : on ? b.userData.pal.roof : 0x2a3657);
+    const [base, roof] = STYLE.pal[b.userData.ai % 8];
+    b.userData.body.material.color.set(on ? base : dimOf(base, 0));
+    b.userData.roof.material.color.set(i === idx ? 0xffffff : on ? roof : dimOf(roof, 1));
   });
 }
 function flashDistrict(al) {
-  BUILDINGS.forEach(b => { const on = b.userData.song.album === al;
-    b.userData.body.material.color.set(on ? b.userData.pal.base : 0x1f2a44);
-    b.userData.roof.material.color.set(on ? b.userData.pal.roof : 0x2a3657); });
+  BUILDINGS.forEach(b => { const on = b.userData.song.album === al; const [base, roof] = STYLE.pal[b.userData.ai % 8];
+    b.userData.body.material.color.set(on ? base : dimOf(base, 0)); b.userData.roof.material.color.set(on ? roof : dimOf(roof, 1)); });
   setTimeout(() => { if (selected == null) paint(null); }, 1400);
 }
+/* 小人: 沿關聯線在地面往返 (puma 式「協作線上有人」的像素版) */
+function clearWalkers() { walkerGroup.clear(); WALKERS.length = 0; }
+function spawnWalkers(from, to, ai) {
+  const a = from.position.clone().setY(.3), c = to.position.clone().setY(.3);
+  for (let k = 0; k < 2; k++) {
+    const g = new THREE.Group();
+    const bd = skin(box(.5, .72, .4), st => sharedMat(st, 'wb' + ai, st.pal[ai % 8][0]), false); bd.position.y = .36; g.add(bd);
+    const hd = skin(box(.42, .4, .42), st => sharedMat(st, 'wh', st.walker), false); hd.position.y = .95; g.add(hd);
+    walkerGroup.add(g); WALKERS.push({ g, a, c, t: k * .5, dir: 1, speed: .07 + rnd() * .04 });
+  }
+}
 function select(idx) {
-  selected = idx; lineGroup.clear(); paint(idx);
+  selected = idx; lineGroup.clear(); clearWalkers(); paint(idx);
   const from = BUILDINGS[idx], fh = from.userData.h + .3;
-  const mat = new THREE.LineBasicMaterial({ color: 0xe8c94a });
   REL[idx].forEach(([v, j]) => {
     const to = BUILDINGS[j], th = to.userData.h + .3;
     const a = from.position.clone().setY(fh + .6), c = to.position.clone().setY(th + .6);
     const mid = a.clone().add(c).multiplyScalar(.5).setY(Math.max(fh, th) + 4 + v * 24);
     const pts = new THREE.QuadraticBezierCurve3(a, mid, c).getPoints(28);
-    lineGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), mat));
+    lineGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: STYLE.line })));
+    spawnWalkers(from, to, to.userData.ai);
   });
-  const s = from.userData.song, pal = from.userData.pal;
-  const firstLine = s.lines.find(l => l.ja);
+  const s = from.userData.song, firstLine = s.lines.find(l => l.ja);
   pbody.innerHTML = `
     <h2>${esc(s.title)}</h2>
-    <div class="meta">${esc(pal.name)} (${pal.yr})${s.track !== 99 ? ' · Track ' + s.track : ''}<br>
+    <div class="meta">${esc(s.album)} (${AL_YR[s.album]})${s.track !== 99 ? ' · Track ' + s.track : ''}<br>
       ${s.publish_date ? esc(s.publish_date) + ' 發行 · ' : ''}${s.instrumental ? '器樂曲' : s.n + ' 行歌詞'}</div>
     ${s.cover_image ? `<img class="cover" src="${esc(s.cover_image)}" alt="" onerror="this.remove()">` : ''}
     ${firstLine ? `<div class="lyric">${esc(firstLine.ja)}<br><span style="color:#8b97b8">${esc(firstLine.zh || '')}</span></div>` : ''}
     <div class="rel"><div class="lb">歌詞相近的樓</div>
-      ${REL[idx].map(([v, j]) => `<a data-j="${j}">${esc(BUILDINGS[j].userData.song.title)}<small>${Math.round(v * 100)}%</small></a>`).join('')
-        || '<div class="meta">(獨棟, 無近鄰)</div>'}
+      ${REL[idx].map(([v, j]) => `<a data-j="${j}">${esc(BUILDINGS[j].userData.song.title)}<small>${Math.round(v * 100)}%</small></a>`).join('') || '<div class="meta">(獨棟, 無近鄰)</div>'}
     </div>
     <a class="pxbtn go" href="/translations/${esc(s.id)}/">進入這棟 → 翻譯頁</a>`;
   pbody.querySelectorAll('a[data-j]').forEach(a => a.onclick = () => { select(+a.dataset.j); flyTo(+a.dataset.j); });
 }
 function overview() {
-  selected = null; lineGroup.clear(); paint(null);
+  selected = null; lineGroup.clear(); clearWalkers(); paint(null);
   pbody.innerHTML = `
     <h2>城市概況</h2>
     <div class="meta">${BUILDINGS.length} 棟歌 · ${ORDER_AL.length} 個城區 (專輯) · ${REL.reduce((n, r) => n + r.length, 0)} 條關聯線</div>
-    <div class="body">每一棟樓是一首歌,城區是專輯,樓高是歌詞行數。點一棟樓:跟它歌詞相近的樓會亮起並拉線;「時間導覽」沿發行順序飛過全城;點左下城區名可跳到該區。</div>
-    <div class="rel"><div class="lb">依據 (prototype)</div>
-      <div class="meta">樓高 = 歌詞行數 (正式版換 shorts 觀看總數)<br>關聯線 = 歌詞 2-gram 相似度 top-3 (正式版接歌詞宇宙主題網)<br>資料 = /annotate/lyrics.json 即時讀取<br>渲染 = three.js 半解析度 + 方塊陰影 (像素化)</div></div>`;
+    <div class="body">每一棟樓是一首歌,城區是專輯,樓高是歌詞行數。點一棟樓:歌詞相近的樓會亮起、拉線,小人會在兩棟之間走動。左下「風格」可即時切換 A 儀表板 / B HD-2D 比對同一個鏡頭。</div>
+    <div class="rel"><div class="lb">B HD-2D 配方</div>
+      <div class="meta">像素化後處理 + 法線/深度邊線<br>4 階卡通著色 (MeshToon)<br>黃昏漸層天空 + 暖色柔光 + bloom 光暈<br>粉彩色盤、地磚、方塊樹、路燈<br>全部程式生成, 無外部素材</div></div>`;
 }
 function flyTo(idx) { camTarget = BUILDINGS[idx].position.clone(); }
 
@@ -313,22 +367,66 @@ $('mTour').onclick = startTour;
 $('mOverview').onclick = () => { if (tourTimer) stopTour(); else { overview(); camTarget = new THREE.Vector3(0, 0, 0); } };
 function setMode(id) { ['mOverview', 'mTour'].forEach(m => $(m).classList.toggle('on', m === id)); }
 
+/* ---------- 後處理 (HD-2D: 像素化 + 邊線 + 柔光暈) ---------- */
+let composer = null, pixPass = null;
+let PIX = innerWidth < 760 ? 2 : 4;
+try {
+  composer = new EffectComposer(renderer); composer.setPixelRatio(1);
+  pixPass = new RenderPixelatedPass(PIX, scene, camera, { normalEdgeStrength: .3, depthEdgeStrength: .4 });
+  composer.addPass(pixPass);
+  composer.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .5, .55, .9));
+  composer.addPass(new OutputPass());
+} catch (e) { console.warn('post-processing unavailable', e); composer = null; }
+
+function applyStyle(key) {
+  STYLE = STYLES[key]; document.body.classList.toggle('hd2d', key === 'hd2d');
+  scene.background = STYLE.sky ? SKY : new THREE.Color(STYLE.bg);
+  scene.fog = new THREE.Fog(...STYLE.fog);
+  hemi.color.set(STYLE.hemi[0]); hemi.groundColor.set(STYLE.hemi[1]); hemi.intensity = STYLE.hemi[2];
+  sun.color.set(STYLE.sun[0]); sun.intensity = STYLE.sun[1]; sun.position.set(...STYLE.sun[2]);
+  grid.visible = STYLE.grid;
+  DECOR.forEach(m => m.material = m.userData.skin(STYLE));
+  walkerGroup.traverse(m => { if (m.isMesh && m.userData.skin) m.material = m.userData.skin(STYLE); });
+  BUILDINGS.forEach(b => { b.userData.body.material = b.userData.m[key].body; b.userData.roof.material = b.userData.m[key].roof; });
+  lineGroup.children.forEach(l => l.material.color.set(STYLE.line));
+  renderer.setPixelRatio(STYLE.pr); fit(); legendColors(); paint(selected);
+  $('stDash').classList.toggle('on', key === 'dash'); $('stHd').classList.toggle('on', key === 'hd2d');
+  $('pxLbl').textContent = STYLE.post && composer ? `像素 ${PIX}px` : '半解析度';
+}
+$('stDash').onclick = () => applyStyle('dash');
+$('stHd').onclick = () => applyStyle('hd2d');
+const setPix = n => { PIX = Math.min(8, Math.max(1, n)); pixPass && pixPass.setPixelSize(PIX); if (STYLE.post) $('pxLbl').textContent = `像素 ${PIX}px`; };
+$('pxMinus').onclick = () => setPix(PIX - 1);
+$('pxPlus').onclick = () => setPix(PIX + 1);
+
 /* ---------- 迴圈 ---------- */
 function fit() {
   const a = innerWidth / innerHeight;
   camera.left = -VIEW * a; camera.right = VIEW * a; camera.top = VIEW; camera.bottom = -VIEW;
-  camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight);
+  camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); composer && composer.setSize(innerWidth, innerHeight);
 }
-addEventListener('resize', fit); fit();
+addEventListener('resize', fit);
+const clock = new THREE.Clock();
 function frame() {
+  const dt = Math.min(clock.getDelta(), .1);
   if (camTarget) {
     const d = camTarget.clone().sub(controls.target);
     controls.target.add(d.multiplyScalar(.07)); camera.position.add(d);
     if (controls.target.distanceTo(camTarget) < .05) camTarget = null;
   }
-  controls.update(); renderer.render(scene, camera); requestAnimationFrame(frame);
+  for (const w of WALKERS) {
+    w.t += w.dir * w.speed * dt;
+    if (w.t > 1) { w.t = 1; w.dir = -1; } else if (w.t < 0) { w.t = 0; w.dir = 1; }
+    w.g.position.lerpVectors(w.a, w.c, w.t); w.g.position.y = .3 + Math.abs(Math.sin(w.t * 70)) * .06;
+    w.g.rotation.y = Math.atan2((w.c.x - w.a.x) * w.dir, (w.c.z - w.a.z) * w.dir);
+  }
+  controls.update();
+  if (STYLE.post && composer) composer.render(); else renderer.render(scene, camera);
+  requestAnimationFrame(frame);
 }
-overview(); frame();
+const Q = new URLSearchParams(location.search);
+applyStyle(Q.get('style') === 'dash' ? 'dash' : 'hd2d'); overview(); frame();
+if (Q.has('select') && BUILDINGS[+Q.get('select')]) { select(+Q.get('select')); flyTo(+Q.get('select')); }
 $('loading').remove();
 </script>
 </body>
