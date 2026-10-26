@@ -1,10 +1,10 @@
 {
   "meta": {
-    "song_count": 22,
-    "short_count": 283,
+    "song_count": 26,
+    "short_count": 310,
     "skipped": {
       "pending": 152,
-      "auto": 795,
+      "auto": 768,
       "skip": 0,
       "no_song": 0,
       "no_anchors": 1,
@@ -9145,6 +9145,41 @@
         ]
       },
       {
+        "videoId": "MuaYVPznNO8",
+        "title": "どうして隣にいるのに ずっと遠いの",
+        "url": "https://www.youtube.com/shorts/MuaYVPznNO8",
+        "thumbnail": "https://i.ytimg.com/vi/MuaYVPznNO8/hqdefault.jpg",
+        "viewCount": 4200,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 4.17,
+            "line": 1
+          },
+          {
+            "t": 11.51,
+            "line": 2
+          },
+          {
+            "t": 16.3,
+            "line": 3
+          },
+          {
+            "t": 20.28,
+            "line": 4
+          },
+          {
+            "t": 27.35,
+            "line": 5
+          }
+        ]
+      },
+      {
         "videoId": "voLD-6wAZI4",
         "title": "どうして隣にいるのにずっと遠いの",
         "url": "https://www.youtube.com/shorts/voLD-6wAZI4",
@@ -9175,6 +9210,234 @@
           },
           {
             "t": 26.31,
+            "line": 5
+          }
+        ]
+      },
+      {
+        "videoId": "GmwXOz6aHrk",
+        "title": "さよならは私が言ってあげる",
+        "url": "https://www.youtube.com/shorts/GmwXOz6aHrk",
+        "thumbnail": "https://i.ytimg.com/vi/GmwXOz6aHrk/hqdefault.jpg",
+        "viewCount": 3900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 9
+          },
+          {
+            "t": 3.5,
+            "line": 10
+          },
+          {
+            "t": 8.16,
+            "line": 11
+          },
+          {
+            "t": 15.42,
+            "line": 12
+          },
+          {
+            "t": 20.02,
+            "line": 13
+          },
+          {
+            "t": 25.06,
+            "line": 14
+          }
+        ]
+      },
+      {
+        "videoId": "H1zkrQ8c-z4",
+        "title": "恋を優しく吹き消す夜",
+        "url": "https://www.youtube.com/shorts/H1zkrQ8c-z4",
+        "thumbnail": "https://i.ytimg.com/vi/H1zkrQ8c-z4/hqdefault.jpg",
+        "viewCount": 3600,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 26
+          },
+          {
+            "t": 4.3,
+            "line": 27
+          },
+          {
+            "t": 8.78,
+            "line": 28
+          }
+        ]
+      },
+      {
+        "videoId": "7Q7xCxXooMM",
+        "title": "恋を優しく吹き消す夜",
+        "url": "https://www.youtube.com/shorts/7Q7xCxXooMM",
+        "thumbnail": "https://i.ytimg.com/vi/7Q7xCxXooMM/hqdefault.jpg",
+        "viewCount": 3600,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 26
+          },
+          {
+            "t": 3.94,
+            "line": 27
+          },
+          {
+            "t": 8.36,
+            "line": 28
+          }
+        ]
+      },
+      {
+        "videoId": "8Tf88JP9Tk8",
+        "title": "触れたら壊れてしまいそうな夜の隙間",
+        "url": "https://www.youtube.com/shorts/8Tf88JP9Tk8",
+        "thumbnail": "https://i.ytimg.com/vi/8Tf88JP9Tk8/hqdefault.jpg",
+        "viewCount": 3400,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 21
+          },
+          {
+            "t": 8.18,
+            "line": 22
+          },
+          {
+            "t": 16.5,
+            "line": 23
+          },
+          {
+            "t": 20.92,
+            "line": 24
+          },
+          {
+            "t": 25.78,
+            "line": 25
+          }
+        ]
+      },
+      {
+        "videoId": "B_2asYs4DHM",
+        "title": "わかってるのに",
+        "url": "https://www.youtube.com/shorts/B_2asYs4DHM",
+        "thumbnail": "https://i.ytimg.com/vi/B_2asYs4DHM/hqdefault.jpg",
+        "viewCount": 3300,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 2.56,
+            "line": 9
+          },
+          {
+            "t": 5.82,
+            "line": 10
+          },
+          {
+            "t": 11.62,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "bkl-uS2e5sM",
+        "title": "恋を優しく吹き消す夜",
+        "url": "https://www.youtube.com/shorts/bkl-uS2e5sM",
+        "thumbnail": "https://i.ytimg.com/vi/bkl-uS2e5sM/hqdefault.jpg",
+        "viewCount": 3000,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 26
+          },
+          {
+            "t": 3.94,
+            "line": 27
+          },
+          {
+            "t": 8.36,
+            "line": 28
+          }
+        ]
+      },
+      {
+        "videoId": "XFaES5Bwl3c",
+        "title": "触れたら壊れてしまいそうな夜の隙間",
+        "url": "https://www.youtube.com/shorts/XFaES5Bwl3c",
+        "thumbnail": "https://i.ytimg.com/vi/XFaES5Bwl3c/hqdefault.jpg",
+        "viewCount": 3000,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 21
+          },
+          {
+            "t": 8.18,
+            "line": 22
+          },
+          {
+            "t": 16.98,
+            "line": 23
+          },
+          {
+            "t": 20.76,
+            "line": 24
+          },
+          {
+            "t": 24.88,
+            "line": 25
+          }
+        ]
+      },
+      {
+        "videoId": "ds6TmwiwcRs",
+        "title": "どうして隣にいるのにずっと遠いの",
+        "url": "https://www.youtube.com/shorts/ds6TmwiwcRs",
+        "thumbnail": "https://i.ytimg.com/vi/ds6TmwiwcRs/hqdefault.jpg",
+        "viewCount": 2600,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 4.24,
+            "line": 1
+          },
+          {
+            "t": 9.56,
+            "line": 2
+          },
+          {
+            "t": 12.56,
+            "line": 3
+          },
+          {
+            "t": 19.74,
+            "line": 4
+          },
+          {
+            "t": 26.3,
             "line": 5
           }
         ]
@@ -9211,6 +9474,64 @@
           {
             "t": 27.72,
             "line": 5
+          }
+        ]
+      },
+      {
+        "videoId": "AU4SYzRkV3U",
+        "title": "さよならは私が言ってあげる",
+        "url": "https://www.youtube.com/shorts/AU4SYzRkV3U",
+        "thumbnail": "https://i.ytimg.com/vi/AU4SYzRkV3U/hqdefault.jpg",
+        "viewCount": 1800,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 12
+          },
+          {
+            "t": 4.02,
+            "line": 13
+          },
+          {
+            "t": 8.74,
+            "line": 14
+          }
+        ]
+      },
+      {
+        "videoId": "vhLfBJvDgFc",
+        "title": "恋を優しく吹き消す夜",
+        "url": "https://www.youtube.com/shorts/vhLfBJvDgFc",
+        "thumbnail": "https://i.ytimg.com/vi/vhLfBJvDgFc/hqdefault.jpg",
+        "viewCount": 1300,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 23
+          },
+          {
+            "t": 4.88,
+            "line": 24
+          },
+          {
+            "t": 10.2,
+            "line": 25
+          },
+          {
+            "t": 15.52,
+            "line": 26
+          },
+          {
+            "t": 19.92,
+            "line": 27
+          },
+          {
+            "t": 24.06,
+            "line": 28
           }
         ]
       }
@@ -9276,6 +9597,586 @@
           {
             "t": 43.48,
             "line": 12
+          }
+        ]
+      },
+      {
+        "videoId": "gB4XJgjjLQE",
+        "title": "愛、胸に響き続ける",
+        "url": "https://www.youtube.com/shorts/gB4XJgjjLQE",
+        "thumbnail": "https://i.ytimg.com/vi/gB4XJgjjLQE/hqdefault.jpg",
+        "viewCount": 18000,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 47
+          },
+          {
+            "t": 3.6,
+            "line": 48
+          },
+          {
+            "t": 6.24,
+            "line": 49
+          },
+          {
+            "t": 9.16,
+            "line": 50
+          }
+        ]
+      },
+      {
+        "videoId": "oBzHEw-UA84",
+        "title": "本当は多分誰にも分からない",
+        "url": "https://www.youtube.com/shorts/oBzHEw-UA84",
+        "thumbnail": "https://i.ytimg.com/vi/oBzHEw-UA84/hqdefault.jpg",
+        "viewCount": 17000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 3.62,
+            "line": 1
+          },
+          {
+            "t": 6.35,
+            "line": 2
+          },
+          {
+            "t": 9.25,
+            "line": 3
+          },
+          {
+            "t": 11.34,
+            "line": 4
+          },
+          {
+            "t": 14.43,
+            "line": 5
+          },
+          {
+            "t": 17.76,
+            "line": 6
+          },
+          {
+            "t": 20.5,
+            "line": 7
+          }
+        ]
+      },
+      {
+        "videoId": "-ckDWSjNqw8",
+        "title": "この世の全て最悪で手放したい時もある",
+        "url": "https://www.youtube.com/shorts/-ckDWSjNqw8",
+        "thumbnail": "https://i.ytimg.com/vi/-ckDWSjNqw8/hqdefault.jpg",
+        "viewCount": 16000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.3,
+            "line": 36
+          },
+          {
+            "t": 3,
+            "line": 37
+          },
+          {
+            "t": 6,
+            "line": 38
+          },
+          {
+            "t": 8.48,
+            "line": 39
+          },
+          {
+            "t": 11.34,
+            "line": 40
+          },
+          {
+            "t": 13.76,
+            "line": 41
+          },
+          {
+            "t": 16.86,
+            "line": 42
+          }
+        ]
+      },
+      {
+        "videoId": "ijgeC5aSwKM",
+        "title": "あい、五十音はそこから始まって",
+        "url": "https://www.youtube.com/shorts/ijgeC5aSwKM",
+        "thumbnail": "https://i.ytimg.com/vi/ijgeC5aSwKM/hqdefault.jpg",
+        "viewCount": 13000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 3.12,
+            "line": 1
+          },
+          {
+            "t": 6.05,
+            "line": 2
+          },
+          {
+            "t": 8.8,
+            "line": 3
+          },
+          {
+            "t": 11.1,
+            "line": 4
+          },
+          {
+            "t": 14.03,
+            "line": 5
+          },
+          {
+            "t": 17.31,
+            "line": 6
+          },
+          {
+            "t": 20.2,
+            "line": 7
+          }
+        ]
+      },
+      {
+        "videoId": "GN4b4L_aWRU",
+        "title": "この世の全て最悪で手放したい時もある",
+        "url": "https://www.youtube.com/shorts/GN4b4L_aWRU",
+        "thumbnail": "https://i.ytimg.com/vi/GN4b4L_aWRU/hqdefault.jpg",
+        "viewCount": 10000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 36
+          },
+          {
+            "t": 2.66,
+            "line": 37
+          },
+          {
+            "t": 5.48,
+            "line": 38
+          },
+          {
+            "t": 8.32,
+            "line": 39
+          },
+          {
+            "t": 11.22,
+            "line": 40
+          },
+          {
+            "t": 13.36,
+            "line": 41
+          },
+          {
+            "t": 16.56,
+            "line": 42
+          },
+          {
+            "t": 19.2,
+            "line": 43
+          }
+        ]
+      },
+      {
+        "videoId": "RTb_v1E9_hI",
+        "title": "相変わらずの中に見つけたい",
+        "url": "https://www.youtube.com/shorts/RTb_v1E9_hI",
+        "thumbnail": "https://i.ytimg.com/vi/RTb_v1E9_hI/hqdefault.jpg",
+        "viewCount": 10000,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.52,
+            "line": 16
+          },
+          {
+            "t": 3.04,
+            "line": 17
+          },
+          {
+            "t": 5.75,
+            "line": 18
+          },
+          {
+            "t": 8.88,
+            "line": 19
+          },
+          {
+            "t": 10.88,
+            "line": 20
+          },
+          {
+            "t": 13.98,
+            "line": 21
+          },
+          {
+            "t": 17.34,
+            "line": 22
+          },
+          {
+            "t": 20.22,
+            "line": 23
+          }
+        ]
+      },
+      {
+        "videoId": "uP2ew_MK7NM",
+        "title": "愛、やがて和音に繋がって",
+        "url": "https://www.youtube.com/shorts/uP2ew_MK7NM",
+        "thumbnail": "https://i.ytimg.com/vi/uP2ew_MK7NM/hqdefault.jpg",
+        "viewCount": 10000,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 47
+          },
+          {
+            "t": 3.58,
+            "line": 48
+          },
+          {
+            "t": 6.48,
+            "line": 49
+          },
+          {
+            "t": 9.26,
+            "line": 50
+          }
+        ]
+      },
+      {
+        "videoId": "8-fZYgEydE4",
+        "title": "答えの無い問いの繰り返し",
+        "url": "https://www.youtube.com/shorts/8-fZYgEydE4",
+        "thumbnail": "https://i.ytimg.com/vi/8-fZYgEydE4/hqdefault.jpg",
+        "viewCount": 9700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 32
+          },
+          {
+            "t": 5.72,
+            "line": 33
+          },
+          {
+            "t": 10.44,
+            "line": 34
+          },
+          {
+            "t": 16.58,
+            "line": 35
+          }
+        ]
+      },
+      {
+        "videoId": "b9GoHmxPYgc",
+        "title": "あい、五十音はそこから始まって",
+        "url": "https://www.youtube.com/shorts/b9GoHmxPYgc",
+        "thumbnail": "https://i.ytimg.com/vi/b9GoHmxPYgc/hqdefault.jpg",
+        "viewCount": 7700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 3.47,
+            "line": 1
+          },
+          {
+            "t": 6.34,
+            "line": 2
+          },
+          {
+            "t": 9.75,
+            "line": 3
+          },
+          {
+            "t": 11.4,
+            "line": 4
+          },
+          {
+            "t": 14.48,
+            "line": 5
+          },
+          {
+            "t": 17.54,
+            "line": 6
+          },
+          {
+            "t": 20.72,
+            "line": 7
+          }
+        ]
+      },
+      {
+        "videoId": "784GdaN19Ok",
+        "title": "Living feels like it has no reason",
+        "url": "https://www.youtube.com/shorts/784GdaN19Ok",
+        "thumbnail": "https://i.ytimg.com/vi/784GdaN19Ok/hqdefault.jpg",
+        "viewCount": 7300,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 6.66,
+            "line": 9
+          },
+          {
+            "t": 11.37,
+            "line": 10
+          },
+          {
+            "t": 14.02,
+            "line": 11
+          },
+          {
+            "t": 17.2,
+            "line": 12
+          }
+        ]
+      },
+      {
+        "videoId": "lnGlarrf7ms",
+        "title": "i 、自分を含むことも知って",
+        "url": "https://www.youtube.com/shorts/lnGlarrf7ms",
+        "thumbnail": "https://i.ytimg.com/vi/lnGlarrf7ms/hqdefault.jpg",
+        "viewCount": 7100,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 3.06,
+            "line": 1
+          },
+          {
+            "t": 5.86,
+            "line": 2
+          },
+          {
+            "t": 8.86,
+            "line": 3
+          },
+          {
+            "t": 10.86,
+            "line": 4
+          },
+          {
+            "t": 14.26,
+            "line": 5
+          },
+          {
+            "t": 17.54,
+            "line": 6
+          },
+          {
+            "t": 20.34,
+            "line": 7
+          }
+        ]
+      },
+      {
+        "videoId": "WgeaUQs7FRs",
+        "title": "SUMMER SONIC 2026 TOKYO",
+        "url": "https://www.youtube.com/shorts/WgeaUQs7FRs",
+        "thumbnail": "https://i.ytimg.com/vi/WgeaUQs7FRs/hqdefault.jpg",
+        "viewCount": 6900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.42,
+            "line": 36
+          },
+          {
+            "t": 3.18,
+            "line": 37
+          },
+          {
+            "t": 6.12,
+            "line": 38
+          },
+          {
+            "t": 8.66,
+            "line": 39
+          },
+          {
+            "t": 11.48,
+            "line": 40
+          },
+          {
+            "t": 14.1,
+            "line": 41
+          },
+          {
+            "t": 17,
+            "line": 42
+          },
+          {
+            "t": 20.2,
+            "line": 43
+          }
+        ]
+      }
+    ],
+    "nishina-glory": [
+      {
+        "videoId": "oeTX8gltjqc",
+        "title": "Telling you “We love you”",
+        "url": "https://www.youtube.com/shorts/oeTX8gltjqc",
+        "thumbnail": "https://i.ytimg.com/vi/oeTX8gltjqc/hqdefault.jpg",
+        "viewCount": 15000,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 4.28,
+            "line": 9
+          },
+          {
+            "t": 8.24,
+            "line": 10
+          },
+          {
+            "t": 12.22,
+            "line": 11
+          },
+          {
+            "t": 15.12,
+            "line": 12
+          }
+        ]
+      }
+    ],
+    "nishina-1999": [
+      {
+        "videoId": "Nq2YQjY92KI",
+        "title": "The “I love you” we couldn’t say The “Farewell” and “I’m sorry”",
+        "url": "https://www.youtube.com/shorts/Nq2YQjY92KI",
+        "thumbnail": "https://i.ytimg.com/vi/Nq2YQjY92KI/hqdefault.jpg",
+        "viewCount": 11000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.38,
+            "line": 22
+          },
+          {
+            "t": 2.5,
+            "line": 23
+          },
+          {
+            "t": 5.7,
+            "line": 24
+          },
+          {
+            "t": 9.9,
+            "line": 25
+          },
+          {
+            "t": 16.12,
+            "line": 26
+          }
+        ]
+      }
+    ],
+    "nishina-toumei-na-kuro": [
+      {
+        "videoId": "dg1ZJtpBbPQ",
+        "title": "I just want to love you",
+        "url": "https://www.youtube.com/shorts/dg1ZJtpBbPQ",
+        "thumbnail": "https://i.ytimg.com/vi/dg1ZJtpBbPQ/hqdefault.jpg",
+        "viewCount": 9700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 25
+          },
+          {
+            "t": 6.98,
+            "line": 26
+          },
+          {
+            "t": 14.51,
+            "line": 27
+          },
+          {
+            "t": 16.38,
+            "line": 28
+          },
+          {
+            "t": 19.18,
+            "line": 29
+          }
+        ]
+      }
+    ],
+    "nishina-hot-milk": [
+      {
+        "videoId": "zQve_a0BLoI",
+        "title": "The younger I was, the more I dreamt,I loved you",
+        "url": "https://www.youtube.com/shorts/zQve_a0BLoI",
+        "thumbnail": "https://i.ytimg.com/vi/zQve_a0BLoI/hqdefault.jpg",
+        "viewCount": 7400,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 5.76,
+            "line": 25
+          },
+          {
+            "t": 11.74,
+            "line": 26
+          },
+          {
+            "t": 19.8,
+            "line": 27
           }
         ]
       }
