@@ -27283,39 +27283,13 @@
     "songConfirmed": true
   },
   "mDwpnYpYRE0": {
-    "songId": "nishina-twinkle-little-star",
-    "anchors": [
-      {
-        "t": 0,
-        "line": 16
-      },
-      {
-        "t": 10.91,
-        "line": 17
-      },
-      {
-        "t": 21.81,
-        "line": 18
-      },
-      {
-        "t": 32.4,
-        "line": 19
-      },
-      {
-        "t": 35.04,
-        "line": 20
-      },
-      {
-        "t": 43.92,
-        "line": 21
-      }
-    ],
-    "status": "auto",
+    "songId": "__tour_recap",
+    "anchors": [],
+    "status": "done",
     "versionType": "acoustic",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "B",
-    "songConfirmed": true
+    "autoGrade": "B"
   },
   "jC1LKVLw1ac": {
     "songId": "nishina-heavy-smoke",
@@ -27521,8 +27495,8 @@
         "line": 35
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -27922,6 +27896,18 @@
     "anchors": [
       {
         "t": 0,
+        "line": 23
+      },
+      {
+        "t": 2.51,
+        "line": 24
+      },
+      {
+        "t": 5.41,
+        "line": 25
+      },
+      {
+        "t": 9.39,
         "line": 26
       },
       {
@@ -27933,7 +27919,7 @@
         "line": 28
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -28591,19 +28577,31 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.16,
+        "t": 3.73,
+        "line": 47
+      },
+      {
+        "t": 7.38,
+        "line": 48
+      },
+      {
+        "t": 12.59,
+        "line": 49
+      },
+      {
+        "t": 14.78,
         "line": 50
       },
       {
-        "t": 17.68,
+        "t": 16.7,
         "line": 51
       },
       {
-        "t": 24.64,
+        "t": 20.41,
         "line": 52
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -29559,7 +29557,7 @@
         "line": 33
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -29593,11 +29591,27 @@
         "line": 17
       },
       {
-        "t": 28.48,
+        "t": 24.98,
         "line": 18
+      },
+      {
+        "t": 27.96,
+        "line": 19
+      },
+      {
+        "t": 31.58,
+        "line": 20
+      },
+      {
+        "t": 35.42,
+        "line": 21
+      },
+      {
+        "t": 36.47,
+        "line": 22
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -29615,11 +29629,15 @@
         "line": 51
       },
       {
-        "t": 8.08,
+        "t": 6.03,
         "line": 52
       },
       {
-        "t": 15.88,
+        "t": 13.09,
+        "line": 53
+      },
+      {
+        "t": 14.75,
         "line": 54
       },
       {
@@ -29627,7 +29645,7 @@
         "line": 55
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -30357,24 +30375,28 @@
         "line": 53
       },
       {
-        "t": 4.8,
+        "t": 1.85,
         "line": 54
       },
       {
-        "t": 5.84,
+        "t": 5.78,
         "line": 55
       },
       {
-        "t": 11.12,
+        "t": 11.34,
         "line": 56
       },
       {
-        "t": 15.66,
+        "t": 16.05,
         "line": 57
       },
       {
-        "t": 20.3,
+        "t": 18.73,
         "line": 58
+      },
+      {
+        "t": 20.95,
+        "line": 59
       },
       {
         "t": 22.88,
@@ -30389,7 +30411,7 @@
         "line": 62
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -30901,12 +30923,16 @@
         "line": 15
       },
       {
-        "t": 20.78,
+        "t": 22.58,
         "line": 16
+      },
+      {
+        "t": 27.81,
+        "line": 17
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -31001,7 +31027,7 @@
         "line": 0
       },
       {
-        "t": 6.64,
+        "t": 7.74,
         "line": 1
       },
       {
@@ -31013,7 +31039,7 @@
         "line": 3
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -31450,30 +31476,54 @@
     "anchors": [
       {
         "t": 0,
+        "line": 34
+      },
+      {
+        "t": 2.62,
+        "line": 35
+      },
+      {
+        "t": 5.33,
+        "line": 36
+      },
+      {
+        "t": 9.47,
+        "line": 37
+      },
+      {
+        "t": 11.72,
+        "line": 38
+      },
+      {
+        "t": 14.23,
         "line": 39
       },
       {
-        "t": 18.72,
+        "t": 15.75,
         "line": 40
       },
       {
-        "t": 19.92,
+        "t": 18.41,
         "line": 41
       },
       {
-        "t": 21.12,
+        "t": 20.64,
         "line": 42
       },
       {
-        "t": 23.44,
+        "t": 23.3,
         "line": 43
       },
       {
-        "t": 27.76,
+        "t": 27.35,
         "line": 44
+      },
+      {
+        "t": 32.35,
+        "line": 45
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -32153,15 +32203,15 @@
         "line": 29
       },
       {
-        "t": 11.92,
+        "t": 8.06,
         "line": 30
       },
       {
-        "t": 13.64,
+        "t": 11.87,
         "line": 31
       },
       {
-        "t": 14.92,
+        "t": 15.51,
         "line": 32
       },
       {
@@ -32169,7 +32219,7 @@
         "line": 33
       },
       {
-        "t": 20.92,
+        "t": 22.95,
         "line": 34
       },
       {
@@ -32177,7 +32227,7 @@
         "line": 35
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -33365,31 +33415,39 @@
     "songId": "nishina-dress-code",
     "anchors": [
       {
-        "t": 0.4,
+        "t": 0,
+        "line": 10
+      },
+      {
+        "t": 3.77,
         "line": 11
       },
       {
-        "t": 9.04,
+        "t": 7.95,
         "line": 12
       },
       {
-        "t": 12.96,
+        "t": 12.06,
         "line": 13
       },
       {
-        "t": 15.24,
+        "t": 15.55,
         "line": 14
       },
       {
-        "t": 18.24,
+        "t": 19.06,
         "line": 15
       },
       {
-        "t": 21.24,
+        "t": 22.96,
         "line": 16
+      },
+      {
+        "t": 28.56,
+        "line": 17
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -33537,7 +33595,7 @@
         "line": 15
       },
       {
-        "t": 20.66,
+        "t": 22.52,
         "line": 16
       },
       {
@@ -33545,8 +33603,8 @@
         "line": 17
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
