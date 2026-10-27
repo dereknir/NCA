@@ -435,12 +435,15 @@ def merge(out_path):
     auto = json.loads(out_path.read_text(encoding='utf-8'))['items']
     anchors = json.loads(ANCHORS_F.read_text(encoding='utf-8'))
     n = skipped = dropped = 0
+    mismatch = []
     for vid, r in auto.items():
         if r.get('error'):
             continue                                     # 下載 / ASR 失敗: 什麼都不改 (不是「沒把握」)
         cur = anchors.get(vid)
         if cur and cur.get('status') in ('done', 'skip'):
             continue
+        if cur and cur.get('songConfirmed') and r.get('songId') != cur.get('songId'):
+            mismatch.append(vid); continue               # 人工確認的歌名優先; 這份結果是別首歌 → 不套用
         if cur and cur.get('status') == 'pending' and cur.get('anchors'):
             skipped += 1; continue                       # 人工已開始打, 不覆蓋
         if not r.get('songId') or not r.get('anchors') or r.get('grade') == 'C':
@@ -463,6 +466,9 @@ def merge(out_path):
     ANCHORS_F.write_text(json.dumps(anchors, ensure_ascii=False, indent=2), encoding='utf-8')
     shutil.copyfile(out_path, PUB_F)                                  # annotator 的 🤖 面板讀這份 (候選歌/逐字稿)
     print(f'[merge] 寫入 {n} 支 status=auto (跳過 {skipped} 支人工進行中, {dropped} 支舊建議新結果沒把握 → 退回手動) → {ANCHORS_F.name}; 建議檔同步到 {PUB_F.relative_to(ROOT)}')
+    if mismatch:
+        print(f'[merge] ⚠ {len(mismatch)} 支歌名已人工確認, 但機器結果是別首歌 → 沒套用。'
+              f'再跑一次 --redo (同樣的 engine) 會用確認的歌名重標這幾支, 之後再 --merge: {" ".join(mismatch[:8])}{" …" if len(mismatch) > 8 else ""}')
 
 # ---------- CLI ----------
 def main():
@@ -513,9 +519,19 @@ def main():
         excl = set(json.loads(Path(args.exclude_from).read_text(encoding='utf-8'))['items']) if args.exclude_from else set()
         # --redo 可中斷續跑: 已經用「同一個引擎+模型」重標過的跳過 (舊引擎的結果才重跑)
         label = model_label(args.model)
+        def stale(v):
+            r = out['items'].get(v)
+            if r is None:
+                return True
+            if not args.redo:
+                return False
+            if r.get('model') != label:
+                return True
+            # 人工已確認歌名, 但這份結果是別首歌 (重標開始後才確認的) → 用確認的歌再跑一次
+            h = anchors_h.get(v, {})
+            return bool(h.get('songConfirmed') and h.get('songId') != r.get('songId'))
         ids = [v for v in items if anchors_h.get(v, {}).get('status') not in ('done', 'skip')
-               and (v not in out['items'] or (args.redo and out['items'][v].get('model') != label))
-               and v not in excl]
+               and stale(v) and v not in excl]
         ids.sort(key=lambda v: (items[v]['group'] == '__unmatched', -(items[v].get('viewCount') or 0)))
         if args.shard:
             i, n = map(int, args.shard.split('/'))
@@ -542,12 +558,14 @@ def main():
                         continue
                     out['items'][v] = err
                 else:
+                    h = anchors_h.get(v, {})
+                    forced = h.get('songId') if h.get('songConfirmed') and h.get('songId') in songs else None
                     rec = process(v, items.get(v, {'videoId': v}), songs, args.model, audio_dir,
-                                  two_pass=args.prompt_pass)
+                                  two_pass=args.prompt_pass, force_song=forced)
                     if ENGINE == 'whisper' and args.retry_model and rec.get('grade') == 'C' and not rec.get('error'):
                         # C 級 (聽不清/對不上) 用較大的模型再試一次, 取較好的
                         rec2 = process(v, items.get(v, {'videoId': v}), songs, args.retry_model, audio_dir,
-                                       two_pass=args.prompt_pass)
+                                       two_pass=args.prompt_pass, force_song=forced)
                         sc = lambda r: (bool(r.get('songId')), sum(a['score'] for a in (r.get('anchors') or []) if not a.get('est')))
                         if not rec2.get('error') and sc(rec2) > sc(rec):
                             rec = rec2

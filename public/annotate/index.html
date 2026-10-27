@@ -583,7 +583,7 @@ function renderQueue(){
         </div>
         ${a?.status==='done' ? '<span class="badge done">完成</span>' :
           a?.status==='skip' ? '<span class="badge skip">略過</span>' :
-          a?.status==='auto' ? `<span class="badge auto" title="機器標注, 待審核">🤖 ${a.autoGrade||''}</span>` : ''}`;
+          a?.status==='auto' ? `<span class="badge auto" title="機器標注, 待審核${a.songConfirmed?' · 歌名已人工確認':''}">🤖 ${a.autoGrade||''}${a.songConfirmed?' ✓歌名':''}</span>` : ''}`;
       row.onclick = ()=> loadShort(it);
       g.appendChild(row);
     }
@@ -761,6 +761,8 @@ function assignSong(value){
   const wasUnmatched = !TRUSTED.has(S.cur.matchMethod);
   const prevSid = ann.songId;
   ann.songId = value || null;
+  // 手動選了真的歌 = 人工確認歌名 (機器重標時不會再改它); 選類別 / 清空則取消
+  if(value && S.songs[value]) ann.songConfirmed = true; else delete ann.songConfirmed;
   // 非歌曲類別 (__ad/__mc/__cover/__tv…) 沒 anchor 要打 → 直接 status='done'
   // OTHERS (__others) 保持 pending, 因為那是「還想再看」的桶
   if (NON_SONG_KEY_SET.has(value)) {
@@ -806,8 +808,26 @@ function nextInQueue(pred){
   return null;
 }
 function isSongConflict(vid){
+  if(S.ann[vid]?.songConfirmed) return false;          // 人工已確認歌名 → 不再算爭議
   const r = S.auto[vid];
   return !!(r && (r.conflict || (r.needsReview||[]).includes('song_conflict')));
+}
+/* ⚠ 先確認歌 模式的 Enter: 只鎖定歌名, 不動 anchors / 狀態 (仍留在 🤖 待審), 跳下一支有爭議的 */
+function confirmSongAndNext(){
+  if(!S.cur) return;
+  const a = S.ann[S.cur.videoId];
+  if(!a.songId || NON_SONG_KEY_SET.has(a.songId) || a.songId === OTHERS_KEY){ alert('先從下拉選定歌曲 (非歌曲類別直接點快捷鍵即可)'); return; }
+  a.songConfirmed = true;
+  persist(); updateProgress();
+  const next = nextInQueue(x => isReviewItem(x.videoId));
+  if(next) loadShort(next); else { renderQueue(); renderDoneBtn(); renderAutoPanel(); alert('歌名都確認完了 — 切回 🤖 待審 審 anchors'); }
+}
+/* 完成鈕的字跟著模式變: 先確認歌 = 只確認歌名; 其他 = 審核通過 */
+function renderDoneBtn(){
+  const b = document.getElementById('doneBtn'); if(!b) return;
+  b.innerHTML = S.reviewOnly === 'conflict'
+    ? '歌名確認, 下一支 <kbd>enter</kbd>'
+    : '完成,下一支 <kbd>enter</kbd>';
 }
 /* 目前待審篩選下, 這支算不算「待審」 */
 function isReviewItem(vid){
@@ -924,7 +944,9 @@ function renderAutoPanel(){
     <div class="ah"><b>🤖 機器建議</b>
       <span class="grade ${r.grade||''}">${r.grade||'-'}</span>
       <span>對齊信心 ${r.confidence ?? '-'}</span>
-      ${ann.status==='auto' ? '<span style="color:#9fb6ff">anchors 已套用 — 聽一遍沒問題就按 Enter</span>' : ''}
+      ${ann.status==='auto' ? (S.reviewOnly === 'conflict'
+          ? '<span style="color:var(--warn)">先確認歌模式: Enter 只確認歌名, anchors 之後在 🤖 待審 再審</span>'
+          : `<span style="color:#9fb6ff">${ann.songConfirmed ? '歌名已確認 ✓ · ' : ''}anchors 已套用 — 聽一遍沒問題就按 Enter (= 審核通過, 會上線)</span>`) : ''}
       ${(r.needsReview||[]).length ? `<span style="color:var(--warn)">${r.needsReview.join(', ')}</span>` : ''}
     </div>
     <div style="color:var(--dim)">候選歌: ${cands || '(聽不出歌詞)'}</div>
@@ -964,6 +986,7 @@ function setReviewMode(mode){
   S.reviewOnly = (S.reviewOnly === mode) ? false : mode;
   document.getElementById('reviewBtn').classList.toggle('on', S.reviewOnly === 'all');
   document.getElementById('conflictBtn').classList.toggle('on', S.reviewOnly === 'conflict');
+  renderDoneBtn();
   renderQueue();
   if(S.reviewOnly && !(S.cur && isReviewItem(S.cur.videoId))){
     const first = nextInQueue(x => isReviewItem(x.videoId));
@@ -1083,7 +1106,7 @@ function finishCurrent(status){
     : nextInQueue(x => !S.ann[x.videoId] || st(x)==='pending' || st(x)==='auto');
   if(next) loadShort(next); else { renderQueue(); alert('佇列全部處理完了 🎉'); }
 }
-document.getElementById('doneBtn').onclick = ()=> finishCurrent('done');
+document.getElementById('doneBtn').onclick = ()=> S.reviewOnly === 'conflict' ? confirmSongAndNext() : finishCurrent('done');
 document.getElementById('skipBtn').onclick = ()=> finishCurrent('skip');
 
 document.getElementById('exportBtn').onclick = ()=>{
@@ -1125,7 +1148,7 @@ document.addEventListener('keydown', e=>{
   if(e.code==='Space'){ e.preventDefault(); togglePlay(); }
   if(e.code==='ArrowLeft' && S.ready) S.player.seekTo(S.player.getCurrentTime()-2, true);
   if(e.code==='ArrowRight'&& S.ready) S.player.seekTo(S.player.getCurrentTime()+2, true);
-  if(e.code==='Enter' && S.cur) finishCurrent('done');
+  if(e.code==='Enter' && S.cur) (S.reviewOnly === 'conflict' ? confirmSongAndNext() : finishCurrent('done'));
   // 1-5 數字鍵 = 快速選版本(不論 event.code 是 Digit1 還是 Numpad1)
   const idx = { Digit1:0, Digit2:1, Digit3:2, Digit4:3, Digit5:4,
                 Numpad1:0, Numpad2:1, Numpad3:2, Numpad4:3, Numpad5:4 }[e.code];
