@@ -46,6 +46,9 @@ MIN_LINE = 4          # 假名長度不足的歌詞句不參與對齊 (太短會
 LINE_CUTOFF = 55      # 單句對齊最低分
 EST_SCORE = 50        # 回填/前導/結尾估計句的名目分數
 TRAIL_MIN = 40        # 結尾估計句: 剩餘轉寫文字跟下一句的最低相似度 (低於此 = 間奏幻聽, 不補)
+EXT_CUTOFF = 40       # 頭尾延伸: 鏈外的句子用較寬的門檻再對一次 (live 常唱錯字 / ASR 聽錯字, 例: 信じ止まない ↔ 信じてやまない)
+EXT_EST = 1           # 頭尾延伸: 對不到字時, 最多再依「剩餘文字長度」連續估幾句 (0 = 只用文字比對)
+EXT_WIN = 1.6         # 頭尾延伸: 每句只在「句長 × 這個倍數」的相鄰文字窗內找
 DL_SLEEP = 1.2        # 下載間隔 (秒) — 對 YouTube 禮貌
 CPU_THREADS = 4       # 單支解碼是序列的, 多核要靠多個 shard 行程平行 (見 --shard)
 
@@ -53,8 +56,10 @@ CPU_THREADS = 4       # 單支解碼是序列的, 多核要靠多個 shard 行�
 _kks = pykakasi.kakasi()
 _PUNCT = re.compile(r'[\s\u3000、。,.!?！？…・「」『』()（）\-~〜♪"\'“”‘’:;：；/／]')
 
+_RUBY = re.compile(r'[\u4e00-\u9fff々]+[(（]([\u3041-\u3096\u30a1-\u30fcー]+)[)）]')   # 虚像(うそ) → 唱的是括號裡的讀音
+
 def to_hira(s: str) -> str:
-    s = unicodedata.normalize('NFKC', s or '')
+    s = _RUBY.sub(r'\1', unicodedata.normalize('NFKC', s or ''))
     s = ''.join(x['hira'] for x in _kks.convert(s))
     return _PUNCT.sub('', s).lower()
 
@@ -99,7 +104,10 @@ def get_model(name: str):
 VAD = False           # --vad: whisper 先切無聲段。不建議: 實測 (medium, 40 支) 召回 71% → 6%, 有伴奏的歌聲幾乎整段被當成非人聲切掉
 ENGINE = 'whisper'    # --engine qwen: 改用 Qwen3-ASR-1.7B + Qwen3-ForcedAligner (針對有伴奏的歌聲訓練; 需另裝 requirements-qwen.txt)
                       # --engine hybrid: Qwen 決定「哪幾句」, whisper (--model) 給「幾秒」— golden 40 支上最好 (見 HANDOFF)
-HYBRID_WIN = 3.0      # hybrid: whisper 同一句的時間跟 Qwen 差在這個秒數內才採用 (再遠多半是 whisper 對到別處)
+HYBRID_WIN = 3.0      # hybrid (舊做法, HYBRID_RETIME=False): whisper 同一句的時間跟 Qwen 差在這個秒數內才採用
+HYBRID_RETIME = True  # hybrid: whisper 對到的句子一律用 whisper 時間, 其餘依鄰句的 (whisper − Qwen) 位移校正
+                      # golden 233 支實測: 同一句 whisper ≤1s 92% vs Qwen 82%; 兩者差 >3s 時 whisper 對 17/20
+                      # whisper 沒對到的句子留 Qwen 時間 (實測: 用鄰句位移校正 73% → 67% 變差; 在 whisper 轉寫局部再找一次無明顯改善)
 MIN_GAP = 0.6         # 相鄰兩句 anchor 至少間隔這麼多秒
 QWEN_ASR = 'Qwen/Qwen3-ASR-1.7B'
 QWEN_ALIGNER = 'Qwen/Qwen3-ForcedAligner-0.6B'
@@ -229,6 +237,53 @@ def _chain_from(lines, hira, j0):
             chain.append((last_idx + 1, pos, EST_SCORE))
     return total, chain
 
+def _extend_edges(lines, hira, chain):
+    """鏈的頭尾往外延伸: 人工審核補的句子 90% 在片段頭尾 (鏈只在外面各多猜一句, 而且開頭那句的時間固定放在 0 秒)。
+    逐句往外: 先在相鄰文字窗內用 EXT_CUTOFF 對字; 對不到就依剩餘文字長度估 (最多連續 EXT_EST 句); 文字用完就停。
+    延伸出來的句子一律標 est (審核時多留意)。"""
+    real = [c for c in chain if c[2] != EST_SCORE]
+    if not real:
+        return chain
+    order = {idx: k for k, (idx, _ja, _lh) in enumerate(lines)}
+    ends = {idx: pos + len(next(lh for i, _j, lh in lines if i == idx)) for idx, pos, _s in real}
+    first, last = real[0], max(real, key=lambda c: c[1])
+    head, tail = [], []
+    # 往前: 文字位置 P 之前還有字就繼續
+    P, k, guess = first[1], order[first[0]], 0
+    while k > 0 and P >= 3:
+        k -= 1
+        idx, _ja, lh = lines[k]
+        lo = max(0, P - int(len(lh) * EXT_WIN) - 2)
+        al = fuzz.partial_ratio_alignment(lh, hira[lo:P], score_cutoff=EXT_CUTOFF) if len(lh) >= MIN_LINE else None
+        if al:
+            start, guess = lo + al.dest_start, 0
+        elif guess < EXT_EST:
+            start, guess = max(0, P - len(lh)), guess + 1
+        else:
+            break
+        if start >= P:
+            break
+        head.append((idx, start, EST_SCORE))
+        P = start
+    # 往後: 最後一句真對到的字之後還有字就繼續
+    Q, k, guess = ends[last[0]], order[last[0]], 0
+    while k + 1 < len(lines) and len(hira) - Q >= 3:
+        k += 1
+        idx, _ja, lh = lines[k]
+        hi = min(len(hira), Q + int(len(lh) * EXT_WIN) + 2)
+        al = fuzz.partial_ratio_alignment(lh, hira[Q:hi], score_cutoff=EXT_CUTOFF) if len(lh) >= MIN_LINE else None
+        if al:
+            start, end, guess = Q + al.dest_start, Q + al.dest_end, 0
+        elif guess < EXT_EST:
+            start, end, guess = Q, Q + len(lh), guess + 1
+        else:
+            break
+        tail.append((idx, start, EST_SCORE))
+        Q = max(end, start + 1)
+    core = [c for c in chain if order[first[0]] <= order[c[0]] <= order[last[0]]]
+    return head[::-1] + core + tail
+
+
 def align(song, tr):
     hira, ct = tr['hira'], tr['char_time']
     lines = song['lines']
@@ -251,8 +306,9 @@ def align(song, tr):
     if rivals:
         # 副歌重複: 驗證集裡人工 4/4 都選「後面那次」(shorts 多剪自最後一段副歌) → 取句號最大的鏈
         best = max([best] + rivals, key=lambda r: max(c[0] for c in r[1]))
+    chain = _extend_edges(lines, hira, best[1]) if EXT_CUTOFF else best[1]
     anchors = []
-    for idx, start, score in best[1]:
+    for idx, start, score in chain:
         t = ct[min(start, len(ct) - 1)] if ct else 0.0
         a = {'t': float(t), 'line': idx, 'score': round(float(score), 1)}
         if score == EST_SCORE:
@@ -264,7 +320,10 @@ def align(song, tr):
         # hybrid: 句子用這份 (Qwen) 對齊的結果, 時間改用 whisper 對到同一句的 word timestamp (比 ForcedAligner 準)
         aw, _ = align(song, tr['alt'])
         tw = {a['line']: a['t'] for a in aw if not a.get('est')}
-        # 逐句換時間, 但換完必須仍然「時間遞增、相鄰間隔 ≥ MIN_GAP」, 否則保留 Qwen 的時間
+        if HYBRID_RETIME:
+            anchors = _retime(anchors, tw)
+            tw = {}
+        # (舊做法) 逐句換時間, 但換完必須仍然「時間遞增、相鄰間隔 ≥ MIN_GAP」, 否則保留 Qwen 的時間
         # (以前換完再排序, 936 支裡有 22 支句號倒退、93 支兩句擠在 0.6 秒內)
         orig = [a['t'] for a in anchors]
         for k, a in enumerate(anchors):
@@ -279,6 +338,33 @@ def align(song, tr):
     for a in anchors:
         a['t'] = round(a['t'], 2)
     return anchors, ambiguous
+
+
+def _retime(anchors, tw):
+    """hybrid 換時間: whisper 對到同一句 → 用 whisper 的, 沒對到 → 留 Qwen 的。
+    換完若時間倒退 / 擠在 MIN_GAP 內, 非 whisper 的那句讓位 (改成前後兩句之間內插), 都是 whisper 的則後一句讓位。"""
+    n = len(anchors)
+    src = ['w' if a['line'] in tw else 'q' for a in anchors]
+    if 'w' not in src:
+        return anchors                                          # whisper 一句都沒對到同樣的句子: 不換
+    t = [tw.get(a['line'], a['t']) for a in anchors]
+    for k in range(1, n):
+        if t[k] is not None and t[k - 1] is not None and t[k] < t[k - 1] + MIN_GAP:
+            if src[k] == 'w' and src[k - 1] != 'w':
+                t[k - 1] = None
+            else:
+                t[k] = None
+    known = [k for k in range(n) if t[k] is not None]
+    for k in range(n):
+        if t[k] is None:
+            lo = max((j for j in known if j < k), default=None); hi = min((j for j in known if j > k), default=None)
+            if lo is not None and hi is not None:
+                t[k] = t[lo] + (t[hi] - t[lo]) * (k - lo) / (hi - lo)
+            else:
+                t[k] = anchors[k]['t']                        # 頭尾沒有可內插的鄰居: 留 Qwen 原時間, 交給 enforce_gap
+    for a, x in zip(anchors, t):
+        a['t'] = max(0.0, x)
+    return anchors
 
 
 def enforce_gap(anchors, gap=None):
@@ -363,7 +449,7 @@ def decide_song(top, guess, method):
     return None
 
 # ---------- 單支處理 ----------
-ALGO = 2              # 演算法版本; --redo 會補跑舊版本結果裡「歌名會改 / 時間順序有問題 / C 級」的項目
+ALGO = 3              # 演算法版本; --redo 會重跑舊版本的結果 (v3: 頭尾延伸 + whisper 時間優先, 每支 anchors 都可能變)
 
 def model_label(model_name):
     return QWEN_ASR if ENGINE == 'qwen' else f'{QWEN_ASR}+whisper-{model_name}' if ENGINE == 'hybrid' else model_name
@@ -594,16 +680,8 @@ def main():
             h = anchors_h.get(v, {})
             if h.get('songConfirmed') and h.get('songId') != r.get('songId'):
                 return True
-            if r.get('algo', 1) < ALGO and not r.get('error'):
-                # 舊版演算法的結果: 只補跑會變的 (新規則認的歌不同 / 時間順序或間隔有問題), 其餘照用
-                top = [(c['score'], c['songId']) for c in r.get('songCandidates') or []]
-                it = items.get(v, {})
-                guess = it.get('songId') if it.get('songId') in songs else None
-                an = r.get('anchors') or []
-                bad_order = any(b['line'] < a['line'] or b['t'] - a['t'] < MIN_GAP for a, b in zip(an, an[1:]))
-                # C 級也重跑: v2 的 hybrid 在 Qwen 聽不出東西時會改用 whisper 的轉寫補救
-                return decide_song(top, guess, it.get('matchMethod')) != r.get('songId') or bad_order or r.get('grade') == 'C'
-            return False
+            # 舊版演算法的結果一律重跑 (v3 的頭尾延伸 / 換時間會改到幾乎每一支; 逐字時間沒存, 只能重新轉寫)
+            return r.get('algo', 1) < ALGO and not r.get('error')
         ids = [v for v in items if anchors_h.get(v, {}).get('status') not in ('done', 'skip')
                and stale(v) and v not in excl]
         ids.sort(key=lambda v: (items[v]['group'] == '__unmatched', -(items[v].get('viewCount') or 0)))
