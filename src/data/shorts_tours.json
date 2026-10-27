@@ -1,6 +1,6 @@
 {
   "meta": {
-    "total": 46,
+    "total": 47,
     "tour_names": [
       "Feeling",
       "MUSICK",
@@ -9,7 +9,7 @@
       "クランベリージャムをかけて",
       "日々散漫"
     ],
-    "unspecified_count": 3
+    "unspecified_count": 4
   },
   "by_tour": {
     "日々散漫": [
@@ -165,6 +165,17 @@
         "thumbnail": "https://i.ytimg.com/vi/uPITekAHlWM/hqdefault.jpg",
         "viewCount": 13000,
         "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": null
+      },
+      {
+        "videoId": "mDwpnYpYRE0",
+        "title": "誰の為でもなくていいんだよ",
+        "url": "https://www.youtube.com/shorts/mDwpnYpYRE0",
+        "thumbnail": "https://i.ytimg.com/vi/mDwpnYpYRE0/hqdefault.jpg",
+        "viewCount": 8300,
+        "versionType": "acoustic",
         "instrumental": false,
         "anchors": [],
         "tourName": null
