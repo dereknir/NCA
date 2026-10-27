@@ -317,10 +317,12 @@ def guess_version(title: str):
     return None
 
 # ---------- 單支處理 ----------
+def model_label(model_name):
+    return QWEN_ASR if ENGINE == 'qwen' else f'{QWEN_ASR}+whisper-{model_name}' if ENGINE == 'hybrid' else model_name
+
 def process(vid, item, songs, model_name, audio_dir, two_pass=False, force_song=None):
     rec = {'videoId': vid, 'title': item.get('title'), 'queueSongId': item.get('songId'),
-           'matchMethod': item.get('matchMethod'),
-           'model': QWEN_ASR if ENGINE == 'qwen' else f'{QWEN_ASR}+whisper-{model_name}' if ENGINE == 'hybrid' else model_name}
+           'matchMethod': item.get('matchMethod'), 'model': model_label(model_name)}
     try:
         path = download(vid, audio_dir)
     except Exception as e:
@@ -465,7 +467,7 @@ def main():
     ap.add_argument('--audio-dir', default=str(DEFAULT_AUDIO)); ap.add_argument('--out', default=str(OUT_F))
     ap.add_argument('--prompt-pass', action='store_true', help='實驗: 對不乾淨的結果再用歌詞當 prompt 轉一遍 (有被 prompt 帶偏的風險)')
     ap.add_argument('--vad', action='store_true', help='實驗: whisper 先做 VAD 切無聲段')
-    ap.add_argument('--redo', action='store_true', help='全量重標: 忽略 out 檔既有結果, 所有非 done/skip 的都重跑')
+    ap.add_argument('--redo', action='store_true', help='全量重標: 所有非 done/skip 且不是用目前引擎+模型跑出來的都重跑 (中斷後同一行指令可續跑)')
     ap.add_argument('--retry-model', default='medium', help='C 級再用這個模型重跑一次 (空字串=不重跑; --engine qwen 時不適用)')
     ap.add_argument('--engine', choices=['whisper', 'qwen', 'hybrid'], default='whisper',
                     help='qwen = Qwen3-ASR + ForcedAligner; hybrid = Qwen 定句子 + whisper 定時間 (建議)。'
@@ -502,8 +504,11 @@ def main():
         ids = list(args.ids)
     else:
         excl = set(json.loads(Path(args.exclude_from).read_text(encoding='utf-8'))['items']) if args.exclude_from else set()
+        # --redo 可中斷續跑: 已經用「同一個引擎+模型」重標過的跳過 (舊引擎的結果才重跑)
+        label = model_label(args.model)
         ids = [v for v in items if anchors_h.get(v, {}).get('status') not in ('done', 'skip')
-               and (args.redo or v not in out['items']) and v not in excl]
+               and (v not in out['items'] or (args.redo and out['items'][v].get('model') != label))
+               and v not in excl]
         ids.sort(key=lambda v: (items[v]['group'] == '__unmatched', -(items[v].get('viewCount') or 0)))
         if args.shard:
             i, n = map(int, args.shard.split('/'))
