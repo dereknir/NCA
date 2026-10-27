@@ -57,7 +57,8 @@
   #player{width:100%;aspect-ratio:9/16;max-height:56vh;background:#000;border-radius:12px}
   #nowTitle{font-size:12.5px;color:var(--dim);line-height:1.5}
   #playerError{font-size:12px;color:var(--danger);min-height:14px;line-height:1.5}
-  #songPicker{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--panel);border:1px solid var(--line);border-radius:8px;margin-bottom:8px}
+  /* sticky: 歌詞欄會自動捲到標題句, 下拉若跟著捲走就「不見了」— 釘在最上面, 任何時候都能改歌/改類別 */
+  #songPicker{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--panel);border:1px solid var(--line);border-radius:8px;margin-bottom:8px;box-shadow:0 6px 14px rgba(0,0,0,.35)}
   #songPicker label{font-size:12px;color:var(--dim);flex-shrink:0}
   #songSelect{flex:1;background:var(--panel-2);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:5px 8px;font-family:inherit;font-size:13px}
   #songSelect:focus{outline:1px solid var(--accent);border-color:var(--accent)}
@@ -76,6 +77,13 @@
   #versionPicker{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px 0}
   #versionPicker .label{font-size:12px;color:var(--dim);margin-right:4px}
   .v-chip{background:var(--panel);border:1px solid var(--line);color:var(--dim);border-radius:99px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:inherit}
+  /* 非歌曲類別快捷列 (跟歌曲下拉同一件事, 放在播放器下方不用捲) */
+  #catQuick{display:flex;flex-wrap:wrap;gap:5px;align-items:center;padding:0 0 4px}
+  #catQuick .label{font-size:12px;color:var(--dim);margin-right:4px}
+  #catQuick .c-chip{background:var(--panel);border:1px solid var(--line);color:var(--dim);border-radius:99px;padding:3px 9px;font-size:11px;cursor:pointer;font-family:inherit}
+  #catQuick .c-chip.active{background:rgba(57,192,127,.18);color:var(--ok);border-color:var(--ok)}
+  #conflictBtn.on{background:rgba(226,176,58,.22);color:#fff;border-color:var(--warn)}
+  .anchor-row .est{color:var(--warn);font-size:11px;margin-left:4px;cursor:help}
   .v-chip:hover{border-color:var(--accent)}
   .v-chip.active{background:var(--accent-soft);border-color:var(--accent);color:var(--text)}
   .v-chip-inst.active{background:rgba(138,92,246,.22);border-color:var(--hint);color:var(--text)}
@@ -135,6 +143,7 @@
   <span class="stats" id="progress">—</span>
   <span class="stats sync" id="syncStatus" data-state="idle">—</span>
   <button class="ghost" id="reviewBtn" title="只顯示機器標好、等你審核的 shorts">🤖 待審 <span id="reviewCount">0</span></button>
+  <button class="ghost" id="conflictBtn" title="機器認出的歌跟佇列的 hashtag/歌詞配對不同 — 先確認歌對不對">⚠ 先確認歌 <span id="conflictCount">0</span></button>
   <span class="spacer"></span>
   <button class="ghost" id="settingsBtn" title="設定 GitHub token">⚙</button>
   <button class="ghost" id="importBtn">匯入</button>
@@ -161,6 +170,7 @@
     <div id="nowTitle">尚未選擇 short</div>
     <div id="playerError"></div>
     <div id="versionPicker"></div>
+    <div id="catQuick"></div>
     <div id="timeRow"><span id="curTime">0.00</span><span style="color:var(--dim)">s</span></div>
     <div class="controls">
       <button data-seek="-2">−2s</button>
@@ -206,7 +216,7 @@ const S = {                       // 全域狀態
   // 每個 group 的收合狀態; 只記使用者「主動點過」的, 其餘用預設 (歌 group 展開 / __unmatched 收合)
   groupCollapsed: {},
   auto: {},                       // auto_anchors.json items (機器建議: 候選歌 / 逐字稿 / 信心)
-  reviewOnly: false,              // 🤖 待審 篩選
+  reviewOnly: false,              // 🤖 待審 篩選: false | 'all' (所有 auto) | 'conflict' (只看歌有爭議的 auto)
 };
 const UNMATCHED_KEY = '__unmatched';
 const OTHERS_KEY = '__others';   // 使用者主動標記「之後再處理」的桶
@@ -499,6 +509,7 @@ function renderQueue(){
     for(const it of items){
       const a = S.ann[it.videoId];
       if(S.reviewOnly && a?.status !== 'auto') continue;   // 🤖 待審模式只看機器標好的
+      if(S.reviewOnly === 'conflict' && !isSongConflict(it.videoId)) continue;   // ⚠ 先確認歌: 只看 ASR 與佇列認歌不一致的
       const pipelineSid = TRUSTED_METHODS.has(it.matchMethod) ? it.songId : null;
       const sid = a?.songId || pipelineSid || UNMATCHED_KEY;
       if(!dynGroups[sid]) dynGroups[sid] = [];
@@ -579,6 +590,8 @@ function updateProgress(){
   const auto = all.filter(x=>S.ann[x.videoId]?.status==='auto').length;
   document.getElementById('progress').textContent = `${done} / ${all.length} 已標注` + (auto ? ` · 🤖 ${auto} 待審` : '');
   const rc = document.getElementById('reviewCount'); if(rc) rc.textContent = auto;
+  const cc = document.getElementById('conflictCount');
+  if(cc) cc.textContent = all.filter(x => S.ann[x.videoId]?.status==='auto' && isSongConflict(x.videoId)).length;
 }
 
 /* ---------- 載入一支 short ---------- */
@@ -596,7 +609,7 @@ function loadShort(item){
     S.pendingLoad = item.videoId;
   }
   document.getElementById('nowTitle').textContent = item.title;
-  renderQueue(); renderVersionPicker(); renderLyrics(); renderAnchors(); startPoll(); renderAutoPanel();
+  renderQueue(); renderVersionPicker(); renderCatQuick(); renderLyrics(); renderAnchors(); startPoll(); renderAutoPanel();
 }
 
 /* ---------- 版本類型 chips + 純演奏 toggle ---------- */
@@ -724,37 +737,75 @@ function bindSongSelect(){
   const sel = document.getElementById('songSelect');
   if(!sel) return;
   sel.onchange = ()=>{
-    // 更換歌曲會清掉已打的 anchors(因為 line 對應到不同歌就失效了)
-    if(S.ann[S.cur.videoId].anchors.length > 0){
-      if(!confirm('切換歌曲會清掉目前已打的 anchors,確定?')) {
-        sel.value = S.ann[S.cur.videoId].songId || '';
-        return;
-      }
-      S.ann[S.cur.videoId].anchors = [];
-    }
-    // 記住當前是不是「未匹配的 phase 1 item」, 用來決定要不要 auto-advance
-    const TRUSTED = new Set(['hashtag', 'lyric_match']);
-    const wasUnmatched = !TRUSTED.has(S.cur.matchMethod);
-    const prevSid = S.ann[S.cur.videoId].songId;
-    S.ann[S.cur.videoId].songId = sel.value || null;
-    // 非歌曲類別 (__ad/__mc/__cover/__tv) 沒 anchor 要打 → 直接 status='done'
-    // OTHERS (__others) 保持 pending, 因為那是「還想再看」的桶
-    if (NON_SONG_KEY_SET.has(sel.value)) {
-      S.ann[S.cur.videoId].status = 'done';
-    } else if (NON_SONG_KEY_SET.has(prevSid)) {
-      // 從非歌類別切換回真歌 (或 OTHERS/清空) → status 退回 pending,
-      // 因為真歌需要 anchor 才算完成
-      S.ann[S.cur.videoId].status = 'pending';
-    }
-    persist();
-    // Phase 1 加速: 如果剛才是在未匹配 item 上、且選了一首歌 (非清空)
-    // → 自動跳到下一個未匹配, 免得手動捲回 __unmatched 找
-    if(wasUnmatched && sel.value){
-      const next = findNextUnmatched();
-      if(next){ loadShort(next); return; }
-    }
-    renderLyrics(); renderAnchors(); renderQueue();
+    if(!assignSong(sel.value)) sel.value = S.ann[S.cur.videoId].songId || '';
   };
+}
+/* 指定歌曲 / 非歌曲類別 (下拉與快捷列共用)。回傳 false = 使用者取消 */
+function assignSong(value){
+  if(!S.cur) return false;
+  const ann = S.ann[S.cur.videoId];
+  // 更換歌曲會清掉已打的 anchors(因為 line 對應到不同歌就失效了)
+  if(ann.anchors.length > 0 && value !== ann.songId){
+    if(!confirm('切換歌曲會清掉目前已打的 anchors,確定?')) return false;
+    ann.anchors = [];
+  }
+  // 記住當前是不是「未匹配的 phase 1 item」, 用來決定要不要 auto-advance
+  const TRUSTED = new Set(['hashtag', 'lyric_match']);
+  const wasUnmatched = !TRUSTED.has(S.cur.matchMethod);
+  const prevSid = ann.songId;
+  ann.songId = value || null;
+  // 非歌曲類別 (__ad/__mc/__cover/__tv…) 沒 anchor 要打 → 直接 status='done'
+  // OTHERS (__others) 保持 pending, 因為那是「還想再看」的桶
+  if (NON_SONG_KEY_SET.has(value)) {
+    ann.status = 'done';
+  } else if (NON_SONG_KEY_SET.has(prevSid) || ann.status === 'auto') {
+    // 從非歌類別切回真歌 (或 OTHERS/清空) → 退回 pending, 真歌需要 anchor 才算完成;
+    // 機器標的 (auto) 被改歌 = 建議作廢, 一樣退回 pending 等人工打
+    ann.status = 'pending';
+  }
+  persist(); updateProgress();
+  // 🤖 待審模式: 分完類直接跳下一支待審, 不要跳去未匹配桶
+  if(S.reviewOnly && NON_SONG_KEY_SET.has(value)){
+    const next = nextInQueue(x => isReviewItem(x.videoId));
+    if(next){ loadShort(next); return true; }
+  }
+  // Phase 1 加速: 如果剛才是在未匹配 item 上、且選了一首歌 (非清空)
+  // → 自動跳到下一個未匹配, 免得手動捲回 __unmatched 找
+  if(!S.reviewOnly && wasUnmatched && value){
+    const next = findNextUnmatched();
+    if(next){ loadShort(next); return true; }
+  }
+  renderLyrics(); renderAnchors(); renderQueue(); renderCatQuick(); renderVersionPicker(); renderAutoPanel();
+  return true;
+}
+/* 非歌曲類別快捷列 (播放器下方; 跟下拉同一個 assignSong) */
+function renderCatQuick(){
+  const el = document.getElementById('catQuick'); if(!el) return;
+  if(!S.cur){ el.innerHTML = ''; return; }
+  const cur = S.ann[S.cur.videoId]?.songId;
+  el.innerHTML = `<span class="label">非歌曲</span>` + NON_SONG_CATEGORIES.map(c =>
+    `<button class="c-chip${cur===c.key?' active':''}" data-cat="${c.key}" title="${c.label}">${c.label}</button>`).join('');
+  el.querySelectorAll('.c-chip').forEach(b => b.onclick = () => assignSong(b.dataset.cat));
+}
+/* 從目前這支往後找第一個符合條件的 (繞回開頭); 沒有 current 就從頭 */
+function nextInQueue(pred){
+  const all = Object.values(S.queue).flat();
+  if(!all.length) return null;
+  const start = S.cur ? all.findIndex(x => x.videoId === S.cur.videoId) : -1;
+  for(let k = 1; k <= all.length; k++){
+    const it = all[(start + k) % all.length];
+    if(it.videoId !== S.cur?.videoId && pred(it)) return it;
+  }
+  return null;
+}
+function isSongConflict(vid){
+  const r = S.auto[vid];
+  return !!(r && (r.conflict || (r.needsReview||[]).includes('song_conflict')));
+}
+/* 目前待審篩選下, 這支算不算「待審」 */
+function isReviewItem(vid){
+  if(S.ann[vid]?.status !== 'auto') return false;
+  return S.reviewOnly === 'conflict' ? isSongConflict(vid) : true;
 }
 
 /* ---------- 巡演花絮 (__tour_recap) 專屬: 巡演 dropdown ---------- */
@@ -860,6 +911,7 @@ function renderAutoPanel(){
   const segs = (r.transcript||[]).slice(0, 60).map(s =>
     `<div class="seg"><span class="st" data-t="${s.t}">${Number(s.t).toFixed(1)}s</span><span>${escapeHtml(s.text)}</span></div>`).join('');
   const hasSug = (r.anchors||[]).length > 0 && r.songId;
+  const conflict = isSongConflict(S.cur.videoId);
   el.className = 'on';
   el.innerHTML = `
     <div class="ah"><b>🤖 機器建議</b>
@@ -869,8 +921,10 @@ function renderAutoPanel(){
       ${(r.needsReview||[]).length ? `<span style="color:var(--warn)">${r.needsReview.join(', ')}</span>` : ''}
     </div>
     <div style="color:var(--dim)">候選歌: ${cands || '(聽不出歌詞)'}</div>
+    ${conflict ? `<div style="color:var(--warn)">⚠ 佇列 (${escapeHtml(METHOD_LABEL[r.matchMethod]||r.matchMethod||'')}) 說是「${escapeHtml(S.songs[r.queueSongId]?.title||r.queueSongId||'?')}」, ASR 聽起來是「${escapeHtml(S.songs[r.songId]?.title||r.songId||'?')}」— 先確認歌再審 anchors</div>` : ''}
     <div class="abtn">
       ${hasSug && ann.status!=='auto' ? `<button id="autoApply">套用建議 anchors (${r.anchors.length})</button>` : ''}
+      ${ann.status==='auto' ? `<button id="autoReject" title="清掉機器 anchors, 退回手動標注 (歌名保留)">建議不對, 退回手動</button>` : ''}
       <button id="autoToggleTx">逐字稿 ${r.transcript?.length||0} 段</button>
     </div>
     <div id="autoTx" hidden>${segs}</div>`;
@@ -880,6 +934,12 @@ function renderAutoPanel(){
   });
   el.querySelectorAll('.seg .st').forEach(x => x.onclick = () => { if(S.ready) S.player.seekTo(Number(x.dataset.t), true); });
   el.querySelector('#autoToggleTx').onclick = () => { const x = el.querySelector('#autoTx'); x.hidden = !x.hidden; };
+  const rj = el.querySelector('#autoReject');
+  if(rj) rj.onclick = () => {
+    const a = S.ann[S.cur.videoId];
+    a.anchors = []; a.status = 'pending'; a.source = 'manual';
+    persist(); renderLyrics(); renderAnchors(); renderQueue(); updateProgress(); renderAutoPanel();
+  };
   const ab = el.querySelector('#autoApply');
   if(ab) ab.onclick = () => {
     const a = S.ann[S.cur.videoId];
@@ -890,18 +950,21 @@ function renderAutoPanel(){
     if(!a.versionType && r.versionType) a.versionType = r.versionType;
     if(a.status === 'pending') a.status = 'auto';
     a.source = 'auto'; a.autoGrade = r.grade;
-    persist(); renderLyrics(); renderAnchors(); renderVersionPicker(); renderQueue(); updateProgress(); renderAutoPanel();
+    persist(); renderLyrics(); renderAnchors(); renderVersionPicker(); renderCatQuick(); renderQueue(); updateProgress(); renderAutoPanel();
   };
 }
-document.getElementById('reviewBtn').onclick = () => {
-  S.reviewOnly = !S.reviewOnly;
-  document.getElementById('reviewBtn').classList.toggle('on', S.reviewOnly);
+function setReviewMode(mode){
+  S.reviewOnly = (S.reviewOnly === mode) ? false : mode;
+  document.getElementById('reviewBtn').classList.toggle('on', S.reviewOnly === 'all');
+  document.getElementById('conflictBtn').classList.toggle('on', S.reviewOnly === 'conflict');
   renderQueue();
-  if(S.reviewOnly){
-    const first = Object.values(S.queue||{}).flat().find(x => S.ann[x.videoId]?.status==='auto');
-    if(first && (!S.cur || S.ann[S.cur.videoId]?.status!=='auto')) loadShort(first);
+  if(S.reviewOnly && !(S.cur && isReviewItem(S.cur.videoId))){
+    const first = nextInQueue(x => isReviewItem(x.videoId));
+    if(first) loadShort(first);
   }
-};
+}
+document.getElementById('reviewBtn').onclick = () => setReviewMode('all');
+document.getElementById('conflictBtn').onclick = () => setReviewMode('conflict');
 // 機器建議檔 (沒有也沒關係, 面板就不顯示)
 fetch('auto_anchors.json', { cache:'no-store' }).then(r => r.ok ? r.json() : null).then(j => {
   S.auto = (j && j.items) || {};
@@ -929,7 +992,8 @@ function renderAnchors(){
   for(const [i,a] of S.ann[S.cur.videoId].anchors.entries()){
     const ja = song.lyric_lines.find(l=>l.index===a.line)?.ja || `line ${a.line}`;
     const row = document.createElement('div'); row.className='anchor-row';
-    row.innerHTML = `<span class="at">${a.t.toFixed(2)}s</span><span class="al">${ja}</span><button class="del">×</button>`;
+    const est = (S.auto[S.cur.videoId]?.anchors || []).some(x => x.est && x.line === a.line && Math.abs(x.t - a.t) < 0.01);
+    row.innerHTML = `<span class="at">${a.t.toFixed(2)}s</span><span class="al">${ja}${est ? '<span class="est" title="機器估計的句子 (沒直接對到字), 請確認">≈估</span>' : ''}</span><button class="del">×</button>`;
     row.querySelector('.at').onclick = ()=> S.player.seekTo(a.t, true);
     row.querySelector('.del').onclick = ()=>{
       S.ann[S.cur.videoId].anchors.splice(i,1);
@@ -945,6 +1009,7 @@ function startPoll(){
   S.timer = setInterval(()=>{
     if(!S.ready || !S.cur) return;
     const t = S.player.getCurrentTime();
+    if(typeof t !== 'number') return;            // 換片瞬間 player 還沒給時間
     document.getElementById('curTime').textContent = t.toFixed(2);
     const arr = S.ann[S.cur.videoId].anchors;
     let active = null;
@@ -960,11 +1025,11 @@ function finishCurrent(status){
   if(!S.cur) return;
   S.ann[S.cur.videoId].status = status;
   persist(); updateProgress();
-  const all = Object.values(S.queue).flat();
+  // 從目前這支往後找 (以前是從佇列第一支找, 審到一半會跳回前面)
   const st = x => S.ann[x.videoId]?.status;
   const next = S.reviewOnly
-    ? all.find(x => st(x)==='auto')
-    : all.find(x => !S.ann[x.videoId] || st(x)==='pending' || st(x)==='auto');
+    ? nextInQueue(x => isReviewItem(x.videoId))
+    : nextInQueue(x => !S.ann[x.videoId] || st(x)==='pending' || st(x)==='auto');
   if(next) loadShort(next); else { renderQueue(); alert('佇列全部處理完了 🎉'); }
 }
 document.getElementById('doneBtn').onclick = ()=> finishCurrent('done');
