@@ -1,11 +1,11 @@
 {
   "meta": {
-    "total": 83,
+    "total": 84,
     "by_category": {
       "daily": 4,
       "cover": 5,
       "promo": 27,
-      "live_song": 27,
+      "live_song": 28,
       "mc": 7,
       "yearly": 6,
       "ad": 2,
@@ -398,7 +398,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 27,
+      "count": 28,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -722,6 +722,19 @@
           "instrumental": false,
           "anchors": [],
           "appearanceName": "MERRY ROCK PARADE 2024",
+          "songId": "nishina-wawon",
+          "songTitle": "わをん"
+        },
+        {
+          "videoId": "w-2Ge0PZfbs",
+          "title": "TOKYO ISLAND 2026🌳ありがとうございました🌞",
+          "url": "https://www.youtube.com/shorts/w-2Ge0PZfbs",
+          "thumbnail": "https://i.ytimg.com/vi/w-2Ge0PZfbs/hqdefault.jpg",
+          "viewCount": 3600,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "TOKYO ISLAND 2026",
           "songId": "nishina-wawon",
           "songTitle": "わをん"
         },
