@@ -275,9 +275,27 @@ def align(song, tr):
             hi = orig[k + 1] - MIN_GAP if k + 1 < len(anchors) else float('inf')
             if lo <= t <= hi:
                 a['t'] = t
+    anchors = enforce_gap(anchors)
     for a in anchors:
         a['t'] = round(a['t'], 2)
     return anchors, ambiguous
+
+
+def enforce_gap(anchors, gap=None):
+    """相鄰兩句間隔 < MIN_GAP 時只留一句: 有估計句就丟估計句, 都是實對到的就留分數高的。
+    人工標註的相鄰間隔 <0.6s 只有 0.1% (2/1433), 機器結果卻有 2.7% → 擠在一起的幾乎一定有一句錯。"""
+    gap = MIN_GAP if gap is None else gap
+    out = []
+    for a in anchors:
+        if out and a['t'] - out[-1]['t'] < gap:
+            p = out[-1]
+            if a.get('est') and not p.get('est'):
+                continue
+            if (p.get('est') and not a.get('est')) or a.get('score', 0) > p.get('score', 0):
+                out[-1] = a
+            continue
+        out.append(a)
+    return out
 
 
 END_GUARD = 0.75      # 影片最後這幾秒才「開始」的句子不可信 (whisper 常把幻聽的尾句標在結尾)
@@ -498,7 +516,7 @@ def merge(out_path):
                 cur.pop('autoGrade', None)
                 dropped += 1
             continue
-        new = {'songId': r['songId'], 'anchors': [{'t': a['t'], 'line': a['line']} for a in r['anchors']],
+        new = {'songId': r['songId'], 'anchors': [{'t': a['t'], 'line': a['line']} for a in enforce_gap(r['anchors'])],
                'status': 'auto', 'versionType': r.get('versionType'), 'instrumental': False,
                'source': 'auto', 'autoGrade': r['grade']}
         if cur:
