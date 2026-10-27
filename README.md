@@ -81,7 +81,7 @@ yt-dlp (@nishina__official/shorts) → data/nishina_shorts_raw.jsonl (gitignored
        ├─ scripts/classify_shorts.py             → data/nishina_shorts_classified.json (花絮分類)
        ├─ annotation/build_annotation_queue.py   → annotation/annotation_queue.json (+ 鏡像 public/annotate/)
        └─ scripts/build_recent_new.py            → annotation/recent_new_shorts.json (日報用)
-annotator (/annotate/) 人工或 scripts/auto_annotate.py (ASR) 標時間點
+annotator (/annotate/) 人工或 scripts/auto_annotate.py (ASR, 本機跑; scripts/eval_align.py 離線評估對齊) 標時間點
   └─ annotation/shorts_anchors.json  (source of truth, annotator 直接 push 到 GitHub)
        ├─ scripts/import_anchors.py        → src/data/shorts_by_song.json / shorts_extras.json / shorts_tours.json
        └─ scripts/build_gacha_live_pool.py → public/gacha/live_pool.json

@@ -56,6 +56,30 @@ npm run dev
 3. **review_queue 的處理介面**(可選):389 支 review 目前只能改 JSON,可在 annotator 加一個「人工指定歌曲」下拉。
 4. **增量更新**:にしな發新 shorts 後重跑 yt-dlp + `build_annotation_queue.py`,以 videoId diff 出新增項。可做成 script,不急。
 
+## 🤖 機器自動標註與審核(scripts/auto_annotate.py)
+
+本機 ASR(faster-whisper)幫未標的 shorts 先打一版 anchors,人工在 annotator 的「🤖 待審」模式審核。
+流程與指令(都在 repo root 跑,音訊快取在 `%LOCALAPPDATA%/nca-audio-cache`,重跑不用重新下載):
+
+```bash
+python scripts/auto_annotate.py --validate --limit 40       # 用已人工標好的當 golden set,比 ASR 結果 (不寫檔)
+python scripts/auto_annotate.py [--limit N]                 # 跑還沒跑過、且非 done/skip 的; 可中斷續跑
+python scripts/auto_annotate.py --redo --model medium       # 全量重標: 所有非 done/skip 的重跑,舊建議作廢
+python scripts/auto_annotate.py --merge                     # 寫進 shorts_anchors.json (status=auto)
+python scripts/eval_align.py -v                             # 不跑 ASR: 用既有逐字稿離線評估「標了哪幾句」
+```
+
+- `--merge` 永遠不碰 `done` / `skip`,也不碰人工已開始打 anchor 的 `pending`;覆蓋既有 auto 時保留人工填過的版本 / 巡演 / 場次欄位。
+- 預設只轉寫一遍、不給 whisper 歌詞 prompt。`--prompt-pass` 會用歌詞當 prompt 再轉一遍,但 whisper 會把 prompt 原句抄進輸出,對齊分數變高、句子卻是錯的(驗證集裡的「多標前一句」就是這樣來的),所以只當實驗選項。佇列的標題句(lineHint)不再影響結果。
+- `--vad` 讓 whisper 先切無聲段,是給「開頭幾句沒聽到」這類問題的實驗選項,先用 `--validate` 比較再決定。
+- 已知弱點:開頭幾秒 a cappella / 念白(わをん 0–2 句)小模型常整段沒聽到,這是 ASR 沒輸出,對齊救不回來;medium 模型與 `--vad` 是目前的候選解。
+
+### annotator 的審核模式
+- `🤖 待審 N`:只列 status=auto 的;`⚠ 先確認歌 M`:只列 ASR 認的歌跟佇列 hashtag / 歌詞配對不一致的,面板會寫出兩邊各認為是哪首。
+- 歌曲 / 類別下拉釘在歌詞欄最上方(以前會跟著歌詞捲走,看起來像消失);播放器下方另有一排「非歌曲」快捷鍵,點了直接完成並跳下一支待審。
+- Enter = 審核通過(done)並跳「目前這支之後」的下一支;「建議不對,退回手動」會清掉機器 anchors、退回 pending,歌名保留。
+- anchor 清單裡標 `≈估` 的是機器估計的句子(ASR 沒直接聽到那句),審核時多留意。
+
 ## 設計約定(不要改的東西)
 
 - anchor 是**句級**,不做逐字。schema 預留擴充:未來要逐字時在 anchor 加可選 `char` 欄位,向後相容。
