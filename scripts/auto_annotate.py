@@ -436,6 +436,8 @@ def merge(out_path):
     anchors = json.loads(ANCHORS_F.read_text(encoding='utf-8'))
     n = skipped = dropped = 0
     for vid, r in auto.items():
+        if r.get('error'):
+            continue                                     # 下載 / ASR 失敗: 什麼都不改 (不是「沒把握」)
         cur = anchors.get(vid)
         if cur and cur.get('status') in ('done', 'skip'):
             continue
@@ -520,7 +522,7 @@ def main():
             ids = ids[i::n]
     if args.limit:
         ids = ids[:args.limit]
-    print(f'[auto] 待處理 {len(ids)} 支 · model={args.model} · 音訊快取 {audio_dir}', flush=True)
+    print(f'[auto] 待處理 {len(ids)} 支 · engine={ENGINE} · model={model_label(args.model)} · 音訊快取 {audio_dir}', flush=True)
     def save():
         out['meta'] = {'model': args.model, 'updated': time.strftime('%Y-%m-%d %H:%M'), 'count': len(out['items'])}
         write_out(out_path, out)
@@ -532,7 +534,13 @@ def main():
                 try:
                     futs[v].result()
                 except Exception as e:
-                    out['items'][v] = {'videoId': v, 'error': f'download: {type(e).__name__}: {str(e)[:120]}'}
+                    err = {'videoId': v, 'error': f'download: {type(e).__name__}: {str(e)[:120]}'}
+                    prev = out['items'].get(v)
+                    if prev and not prev.get('error'):
+                        # 下載失敗不覆蓋既有的好結果 (舊引擎的也好過沒有); 沒有新 model 標記 → 下次 --redo 會再試
+                        print(f"[{i}/{len(ids)}] {v} 保留舊結果 — {err['error']}", flush=True)
+                        continue
+                    out['items'][v] = err
                 else:
                     rec = process(v, items.get(v, {'videoId': v}), songs, args.model, audio_dir,
                                   two_pass=args.prompt_pass)
@@ -543,10 +551,18 @@ def main():
                         sc = lambda r: (bool(r.get('songId')), sum(a['score'] for a in (r.get('anchors') or []) if not a.get('est')))
                         if not rec2.get('error') and sc(rec2) > sc(rec):
                             rec = rec2
+                    prev = out['items'].get(v)
+                    if rec.get('error') and prev and not prev.get('error'):
+                        print(f"[{i}/{len(ids)}] {v} 保留舊結果 — {rec['error']}", flush=True)
+                        continue
                     out['items'][v] = rec
                 r = out['items'][v]
                 print(f"[{i}/{len(ids)}] {v} {r.get('grade','-')} song={r.get('songId')} anchors={len(r.get('anchors') or [])} "
                       f"conf={r.get('confidence')} {r.get('error','')} ({(time.time()-t0)/i:.1f}s/支)", flush=True)
+                if i == 10 and all(out['items'].get(x, {}).get('error') for x in ids[:10]) \
+                        and len({str(out['items'].get(x, {}).get('error'))[:40] for x in ids[:10]}) == 1:
+                    print(f"[auto] 前 10 支全部同一個錯誤, 停止 (多半是環境問題): {out['items'][ids[0]].get('error')}", flush=True)
+                    break
                 if i % 5 == 0:
                     save()
         finally:

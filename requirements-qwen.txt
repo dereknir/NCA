@@ -5,5 +5,6 @@ qwen-asr
 nagisa                # Qwen3-ForcedAligner 的日文斷詞
 pykakasi
 rapidfuzz
+yt-dlp                # 下載 shorts 音訊 (快取裡沒有的才會用到)
 faster-whisper        # --engine hybrid 的 whisper 那半
 av<17                 # 同 requirements-ml.txt: PyAV 17+ 與 faster-whisper 1.2.x 不相容
