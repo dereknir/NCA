@@ -8,8 +8,10 @@
  * 關鍵行為:
  * - `#live={videoId}` 深連結 (分享 / F5 保持)
  * - popstate (瀏覽器返回) 關閉 Stage
- * - 250ms poll 找 active line + 跟隨捲動
- * - 使用者手動捲歌詞 → 暫停跟隨, 浮出「回到目前句」
+ * - 250ms poll 找 active line + 跟隨捲動 (目前句永遠置中)
+ * - 開片 / 換片 → 立刻捲到片段第一句 (不用等播放), 片段外的句子淡化
+ * - 只有使用者手勢 (滾輪 / 觸控 / 拖捲軸 / 鍵盤) 才暫停跟隨, 浮出「回到目前句」;
+ *   程式自己捲的不算. 使用者自己捲回目前句附近 → 自動恢復跟隨
  * - 點歌詞行 → seekTo 對應 anchor
  * - onError 禁止嵌入 → fallback UI
  * - 用共享 __escStack / __scrollLockCount (見 TocDrawer)
@@ -82,7 +84,7 @@ if (!shorts || shorts.length === 0) return null;
       <div class="stage-lyrics-wrap">
         <div class="stage-lyrics" id="stage-lyrics"></div>
         <button type="button" class="stage-followback" hidden>
-          <span class="stage-followback-arrow">↑</span>
+          <span class="stage-followback-arrow" aria-hidden="true">↓</span>
           回到目前句
         </button>
         <button type="button" class="stage-romaji-toggle" aria-pressed="false" title="顯示 / 隱藏羅馬拼音">
@@ -390,8 +392,8 @@ if (!shorts || shorts.length === 0) return null;
   .stage-lyrics {
     flex: 1;
     overflow-y: auto;
-    padding: 20vh 1rem;
-    scroll-behavior: smooth;
+    /* 上下留白 = 半個容器高 (JS 以 ResizeObserver 設定), 第一句 / 最後一句也能捲到正中央 */
+    padding: var(--stage-lyrics-pad, 20vh) 1rem;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
   }
@@ -418,10 +420,9 @@ if (!shorts || shorts.length === 0) return null;
     background: rgba(255, 255, 255, 0.06);
     transform: scale(1.02);
   }
-  .stage-lyrics .lyrics-line.no-anchor {
-    cursor: default;
-    opacity: 0.35;
-  }
+  /* 這支 short 沒唱到的句子 (片段範圍外) 再淡一點 */
+  .stage-lyrics .lyrics-line.stage-out-clip { opacity: 0.2; }
+  .stage-lyrics .lyrics-line.stage-out-clip:hover { opacity: 0.5; }
   .stage-lyrics .lyrics-line .romaji {
     font-size: 0.72rem;
     color: rgba(255, 255, 255, 0.55);
@@ -451,7 +452,6 @@ if (!shorts || shorts.length === 0) return null;
 
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
-    .stage-lyrics { scroll-behavior: auto; }
     .stage-lyrics .lyrics-line { transition: none; }
     .stage-lyrics .lyrics-line.stage-active { transform: none; }
   }
@@ -558,27 +558,21 @@ if (!shorts || shorts.length === 0) return null;
   }
   .stage-error-link:hover { background: rgb(239 68 68); }
 
-  /* ── 手機堆疊 ── */
+  /* ── 手機堆疊: 影片 + 縮圖固定在上, 只有歌詞欄自己捲 (跟隨置中 = 歌詞可見區的中央) ── */
   @media (max-width: 1023px) {
-    .stage-frame { padding: 0.5rem 0.75rem 0.75rem; }
+    .stage-frame { padding: 0.5rem 0.75rem 0.75rem; height: 100dvh; }
     .stage-body {
       flex-direction: column;
       gap: 0.5rem;
-      overflow-y: auto;
     }
     .stage-video-col {
-      position: sticky;
-      top: 0;
-      background: rgba(10, 10, 16, 0.7);
-      backdrop-filter: blur(8px);
-      z-index: 2;
       padding: 0.25rem 0;
     }
     .stage-video-shell {
       height: 38vh;
     }
-    .stage-lyrics-wrap { max-width: none; }
-    .stage-lyrics { padding: 3vh 0.5rem 30vh; }
+    .stage-lyrics-wrap { max-width: none; flex: 1 1 auto; min-height: 0; }
+    .stage-lyrics { padding-inline: 0.5rem; }
     .stage-lyrics .lyrics-line .ja { font-size: 1.25rem; }
     .stage-lyrics .lyrics-line .zh { font-size: 0.85rem; }
     .stage-title { font-size: 1.1rem; }
@@ -684,8 +678,7 @@ if (!shorts || shorts.length === 0) return null;
     player: null as YTPlayerLike | null,
     pendingLoad: null as string | null,
     pollTimer: 0 as number,
-    autoScrolling: false,
-    autoScrollTimer: 0 as number,
+    scrollEndTimer: 0 as number,
     lyricLineEls: [] as HTMLElement[],
     lastFocused: null as HTMLElement | null,
   };
@@ -700,6 +693,7 @@ if (!shorts || shorts.length === 0) return null;
   const playerEl = stage.querySelector<HTMLElement>('#stage-player')!;
   const lyricsEl = stage.querySelector<HTMLElement>('#stage-lyrics')!;
   const followBackBtn = stage.querySelector<HTMLButtonElement>('.stage-followback')!;
+  const followBackArrow = followBackBtn.querySelector<HTMLElement>('.stage-followback-arrow')!;
   const romajiToggle = stage.querySelector<HTMLButtonElement>('.stage-romaji-toggle')!;
   const instPill = stage.querySelector<HTMLElement>('.stage-inst-pill')!;
   const errorPanel = stage.querySelector<HTMLElement>('.stage-error')!;
@@ -844,8 +838,6 @@ if (!shorts || shorts.length === 0) return null;
       el.dataset.lineIndex = String(idx);
       el.addEventListener('click', () => seekToLine(idx));
     });
-    // 監聽使用者手動捲動 → 暫停 follow
-    lyricsEl.addEventListener('scroll', onLyricsScroll, { passive: true });
   }
 
   /* ==== 同步邏輯 ==== */
@@ -867,24 +859,91 @@ if (!shorts || shorts.length === 0) return null;
       el.classList.toggle('stage-active', i === idx);
     });
     if (state.follow && idx >= 0) {
-      scrollActiveIntoView();
+      centerLine(idx, true);
     }
   }
 
-  function scrollActiveIntoView() {
-    const el = state.lyricLineEls[state.activeLine];
+  /* ==== 捲動: 跟隨模式 / 自由模式 ====
+   * 跟隨: 每換一句就把它捲到正中央. 自由: 完全不自動捲.
+   * 進自由模式只看使用者手勢 (不看 scroll 事件), 所以程式自己的平滑捲動不會被誤判. */
+  /** 目前「該在中間」的句子: 播到的那句; 還沒唱到第一句前 = 片段第一句 */
+  function focusLine(): number {
+    if (state.activeLine >= 0) return state.activeLine;
+    const anchors = state.activeShort?.anchors || [];
+    return anchors.length ? anchors[0].line : -1;
+  }
+
+  /** 把第 idx 句捲到歌詞欄正中央 (只捲歌詞欄本身, 不動外層) */
+  function centerLine(idx: number, smooth: boolean) {
+    const el = state.lyricLineEls[idx];
     if (!el) return;
-    state.autoScrolling = true;
-    // 用 element 的 scrollIntoView 到中間
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    el.scrollIntoView({
-      behavior: prefersReduced ? 'auto' : 'smooth',
-      block: 'center',
+    syncLyricsPad();
+    const box = lyricsEl.getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+    const top = lyricsEl.scrollTop + (r.top - box.top) - (lyricsEl.clientHeight - r.height) / 2;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    lyricsEl.scrollTo({ top, behavior: smooth && !reduced ? 'smooth' : 'instant' });
+  }
+
+  /** 目前句相對歌詞欄中央的位移 (px, 正 = 在下方); 沒有目前句回傳 null */
+  function focusOffset(): number | null {
+    const el = state.lyricLineEls[focusLine()];
+    if (!el) return null;
+    const box = lyricsEl.getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+    return (r.top + r.height / 2) - (box.top + box.height / 2);
+  }
+
+  function setFollow(on: boolean) {
+    state.follow = on;
+    followBackBtn.hidden = on;
+    if (!on) updateFollowBackArrow();
+  }
+
+  function updateFollowBackArrow() {
+    const off = focusOffset();
+    followBackArrow.textContent = off !== null && off < 0 ? '↑' : '↓';
+  }
+
+  function onUserScrollGesture() {
+    if (state.follow && focusLine() >= 0) setFollow(false);
+  }
+
+  function onLyricsScroll() {
+    if (state.follow) return;
+    updateFollowBackArrow();
+    // 捲動停下來時, 目前句若回到中央附近 → 視為使用者捲回來了, 自動恢復跟隨
+    clearTimeout(state.scrollEndTimer);
+    state.scrollEndTimer = window.setTimeout(() => {
+      const off = focusOffset();
+      if (!state.follow && off !== null && Math.abs(off) < lyricsEl.clientHeight * 0.15) setFollow(true);
+    }, 180);
+  }
+
+  lyricsEl.addEventListener('wheel', onUserScrollGesture, { passive: true });
+  lyricsEl.addEventListener('touchmove', onUserScrollGesture, { passive: true });
+  lyricsEl.addEventListener('pointerdown', (e: PointerEvent) => {
+    // 只有按在捲軸上 (超出內容寬度的區域) 才算
+    if (e.target === lyricsEl && e.offsetX > lyricsEl.clientWidth) onUserScrollGesture();
+  });
+  lyricsEl.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(e.key)) onUserScrollGesture();
+  });
+  lyricsEl.addEventListener('scroll', onLyricsScroll, { passive: true });
+  // 上下留白 = 半個歌詞欄高, 讓每一句都能置中 (開片當下 ResizeObserver 可能還沒跑, centerLine 前也同步一次)
+  function syncLyricsPad() {
+    const pad = `${Math.round(lyricsEl.clientHeight / 2)}px`;
+    if (lyricsEl.style.getPropertyValue('--stage-lyrics-pad') !== pad) lyricsEl.style.setProperty('--stage-lyrics-pad', pad);
+  }
+  new ResizeObserver(syncLyricsPad).observe(lyricsEl);
+
+  /** 片段範圍 (第一句 ~ 最後一句) 以外的句子淡化 */
+  function markClipRange(anchors: Anchor[]) {
+    const lines = anchors.map(a => a.line);
+    const lo = Math.min(...lines), hi = Math.max(...lines);
+    state.lyricLineEls.forEach((el, i) => {
+      el.classList.toggle('stage-out-clip', lines.length > 0 && (i < lo || i > hi));
     });
-    clearTimeout(state.autoScrollTimer);
-    state.autoScrollTimer = window.setTimeout(() => {
-      state.autoScrolling = false;
-    }, 700);
   }
 
   function startPoll() {
@@ -900,19 +959,9 @@ if (!shorts || shorts.length === 0) return null;
     if (state.pollTimer) { clearInterval(state.pollTimer); state.pollTimer = 0; }
   }
 
-  function onLyricsScroll() {
-    // 忽略 auto scroll 觸發的
-    if (state.autoScrolling) return;
-    if (state.follow) {
-      state.follow = false;
-      followBackBtn.hidden = false;
-    }
-  }
-
   followBackBtn.addEventListener('click', () => {
-    state.follow = true;
-    followBackBtn.hidden = true;
-    if (state.activeLine >= 0) scrollActiveIntoView();
+    setFollow(true);
+    centerLine(focusLine(), true);
   });
 
   /* ==== 點歌詞行 seekTo ==== */
@@ -929,10 +978,8 @@ if (!shorts || shorts.length === 0) return null;
     state.player.seekTo(target.t, true);
     state.player.playVideo();
     // seek 過去後打回跟隨模式
-    if (!state.follow) {
-      state.follow = true;
-      followBackBtn.hidden = true;
-    }
+    setFollow(true);
+    centerLine(target.line, true);
   }
 
   /* ==== 載入某支 short ==== */
@@ -941,15 +988,14 @@ if (!shorts || shorts.length === 0) return null;
     if (!short) return;
     state.activeShort = short;
     state.activeLine = -1;
-    state.follow = true;
-    followBackBtn.hidden = true;
+    setFollow(true);
     errorPanel.hidden = true;
-    // 純演奏 short: 顯示 🎵 pill, 清掉歌詞 highlight
+    // 純演奏 short: 顯示 🎵 pill
     instPill.hidden = !short.instrumental;
-    if (short.instrumental) {
-      // 清掉任何先前的 highlight
-      state.lyricLineEls.forEach(el => el.classList.remove('stage-active'));
-    }
+    // 清掉前一支的 highlight; 標出這支的片段範圍, 並立刻捲到片段第一句 (不等播放)
+    state.lyricLineEls.forEach(el => el.classList.remove('stage-active'));
+    markClipRange(short.anchors);
+    requestAnimationFrame(() => centerLine(focusLine(), false));
     updateStripActive();
     // 若當前的 activeVersion 不含這支, 切到它的 version (未知類型正規化成 other)
     const vt = byVersion[short.versionType || 'other'] ? (short.versionType || 'other') : 'other';
@@ -1051,7 +1097,7 @@ if (!shorts || shorts.length === 0) return null;
     if (state.lastFocused && document.body.contains(state.lastFocused)) {
       state.lastFocused.focus();
     }
-    followBackBtn.hidden = true;
+    setFollow(true);
   }
 
   closeBtn.addEventListener('click', () => closeStage());

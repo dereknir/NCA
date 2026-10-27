@@ -124,6 +124,7 @@
 
   /* ── 歌詞欄 ── */
   #lyricsPanel{overflow-y:auto;padding:14px 18px}
+  #lyricsPanel::after{content:'';display:block;height:40vh}  /* 底部留白: 最後幾句也能捲到中央 */
   #lyricsPanel .song-head{font-size:14px;font-weight:600;margin-bottom:10px;color:var(--dim)}
   .lyr{padding:9px 12px;border-radius:10px;cursor:pointer;border:1px solid transparent;position:relative;margin-bottom:2px}
   .lyr:hover{background:var(--panel);border-color:var(--line)}
@@ -224,6 +225,9 @@ const S = {                       // 全域狀態
   groupCollapsed: {},
   auto: {},                       // auto_anchors.json items (機器建議: 候選歌 / 逐字稿 / 信心)
   reviewOnly: false,              // 🤖 待審 篩選: false | 'all' (所有 auto) | 'conflict' (只看歌有爭議的 auto)
+  lyrHover: false,                // 滑鼠在歌詞欄上 → 播放時不自動捲 (避免跟打點搶畫面)
+  lyrUserScrollAt: 0,             // 使用者最後一次手動捲歌詞欄的時間 (ms)
+  playingLine: null,              // 播放同步目前亮的那句
 };
 const UNMATCHED_KEY = '__unmatched';
 const OTHERS_KEY = '__others';   // 使用者主動標記「之後再處理」的桶
@@ -655,10 +659,22 @@ function toggleInstrumental(){
 }
 
 /* ---------- 歌詞欄(含人工歌曲下拉) ---------- */
+/* 把歌詞欄內的某句捲到歌詞欄正中央 (只捲歌詞欄, 不動外層頁面) */
+function centerLyr(el, smooth){
+  const panel = document.getElementById('lyricsPanel');
+  if(!el || !panel) return;
+  const top = panel.scrollTop + (el.getBoundingClientRect().top - panel.getBoundingClientRect().top)
+    - (panel.clientHeight - el.offsetHeight) / 2;
+  panel.scrollTo({ top, behavior: smooth ? 'smooth' : 'instant' });
+}
 function renderLyrics(){
   const panel = document.getElementById('lyricsPanel');
   const ann = S.ann[S.cur.videoId];
   const effectiveSid = ann.songId; // 以 ann 為準(允許使用者覆蓋)
+  // 同一支、同一首歌重畫 (打點 / 刪點…) → 保留捲動位置; 換片或換歌 → 重新定位
+  const viewKey = S.cur.videoId + '|' + effectiveSid;
+  const keepTop = panel.dataset.viewKey === viewKey ? panel.scrollTop : null;
+  panel.dataset.viewKey = viewKey;
   const song = effectiveSid ? S.songs[effectiveSid] : null;
 
   // 一律先畫「歌曲下拉」——已 match 也能改,未 match 必選
@@ -736,9 +752,10 @@ function renderLyrics(){
     panel.appendChild(d);
   }
   bindSongSelect();
-  // 自動捲到 lineHint(標題那句)附近
-  const hintEl = panel.querySelector('.lyr.hint');
-  if(hintEl) hintEl.scrollIntoView({ block:'center' });
+  S.playingLine = null;   // DOM 重建了, 讓播放同步重新套 .playing
+  if(keepTop !== null){ panel.scrollTop = keepTop; return; }
+  // 換片 / 換歌: 捲到已標的第一句置中; 還沒標才退回標題那句 (lineHint)
+  centerLyr(panel.querySelector('.lyr.anchored') || panel.querySelector('.lyr.hint'), false);
 }
 function bindSongSelect(){
   const sel = document.getElementById('songSelect');
@@ -1039,8 +1056,7 @@ function shiftAnchors(d){
   const ann = S.ann[S.cur.videoId];
   ann.anchors.forEach(a => { a.line += d; });
   persist(); renderLyrics(); renderAnchors();
-  const first = document.querySelector('#lyricsPanel .lyr.anchored');
-  if(first) first.scrollIntoView({ block:'center' });
+  centerLyr(document.querySelector('#lyricsPanel .lyr.anchored'), true);
 }
 function cycleRepeat(){
   const occ = repeatOccurrences(); if(!occ.length) return;
@@ -1088,11 +1104,34 @@ function startPoll(){
     const arr = S.ann[S.cur.videoId].anchors;
     let active = null;
     for(const a of arr){ if(t >= a.t) active = a.line; else break; }
+    if(active === S.playingLine) return;
+    S.playingLine = active;
+    let playingEl = null;
     document.querySelectorAll('.lyr').forEach(el=>{
-      el.classList.toggle('playing', Number(el.dataset.line)===active);
+      const on = Number(el.dataset.line)===active;
+      el.classList.toggle('playing', on);
+      if(on) playingEl = el;
     });
+    followPlaying(playingEl);
   }, 250);
 }
+/* 輕量跟隨: 只有正在播的那句快跑出歌詞欄時才捲回中央;
+   滑鼠停在歌詞欄上 (可能正要點句子打點) 或剛手動捲過 (3 秒內) 都不捲 */
+function followPlaying(el){
+  if(!el || S.lyrHover || Date.now() - S.lyrUserScrollAt < 3000) return;
+  const panel = document.getElementById('lyricsPanel');
+  const p = panel.getBoundingClientRect(), r = el.getBoundingClientRect();
+  const margin = p.height * 0.12;
+  if(r.top < p.top + margin || r.bottom > p.bottom - margin) centerLyr(el, true);
+}
+(()=>{
+  const panel = document.getElementById('lyricsPanel');
+  panel.addEventListener('mouseenter', ()=>{ S.lyrHover = true; });
+  panel.addEventListener('mouseleave', ()=>{ S.lyrHover = false; });
+  const userScroll = ()=>{ S.lyrUserScrollAt = Date.now(); };
+  panel.addEventListener('wheel', userScroll, { passive:true });
+  panel.addEventListener('touchmove', userScroll, { passive:true });
+})();
 
 /* ---------- 完成/略過/匯出/匯入 ---------- */
 function finishCurrent(status){
