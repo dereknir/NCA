@@ -4,10 +4,14 @@ auto_annotate.py — 本地 ASR (faster-whisper, CPU) 幫 shorts 自動打「歌
 
 每支 short:
   1. yt-dlp 下載音訊 (bestaudio m4a; 快取在 --audio-dir, 預設 %LOCALAPPDATA%/nca-audio-cache; 下載間隔 1.2s)
-  2. faster-whisper 轉寫 (ja, word timestamps); queue 已猜到歌時, 用該歌歌詞片段當 initial_prompt 偏置詞彙
+  2. faster-whisper 轉寫 (ja, word timestamps)。預設只轉一遍、不給 initial_prompt:
+     用歌詞當 prompt 的第二遍 (--prompt-pass) 會讓 whisper 把 prompt 原句「抄」進輸出,
+     對齊分數反而變高但句子是錯的 (驗證集裡就有被帶偏的例子), 所以只在你想實驗時才開
   3. 歌曲辨識: 轉寫文字(假名化) 對每首歌全文(假名化) 做 partial_ratio, 看最高分與第二名差距
   4. 對齊: 歌詞句逐句在轉寫文字上找最佳子串 (rapidfuzz partial_ratio_alignment), 單調遞增鏈,
-     每個起始句各試一條鏈, 取總分最高; anchor 時間 = 子串第一個假名所屬 word 的 start
+     每個起始句各試一條鏈, 取總分最高; anchor 時間 = 子串第一個假名所屬 word 的 start。
+     ASR 吃掉的句子 / 太短不參與比對的句子 → 夾在兩個對到的句子之間時補「估計句」(est=True),
+     時間在相鄰 anchor 之間平均分; 同一時間點擠在一起的 anchor 展開, 擠在影片結尾的視為幻聽丟掉
   5. 版本類型: 標題關鍵字 (THE FIRST TAKE→tft, 弾き語り→acoustic, MV→mv, live/ライブ/ツアー→live)
 輸出 annotation/auto_anchors.json (含逐字稿、候選歌、信心、評級 A/B/C — annotator 審核面板讀這個)。
 --merge 把 A/B 級結果以 status='auto' 寫進 shorts_anchors.json; 人工在 annotator 按 Enter 才變 done,
@@ -15,9 +19,11 @@ auto_annotate.py — 本地 ASR (faster-whisper, CPU) 幫 shorts 自動打「歌
 
 用法:
   python scripts/auto_annotate.py --validate --limit 40   # 拿已人工標好的 shorts 驗證準確率 (不寫檔)
-  python scripts/auto_annotate.py --todo [--limit N]     # 跑所有未完成的; 可中斷, 重跑會續接
+  python scripts/auto_annotate.py [--limit N]            # 跑所有未完成且還沒跑過的; 可中斷, 重跑會續接
+  python scripts/auto_annotate.py --redo --model medium  # 全量重標: 所有非 done/skip 的都重跑 (舊結果作廢)
   python scripts/auto_annotate.py --ids VID1 VID2        # 指定幾支 (強制重跑)
-  python scripts/auto_annotate.py --merge                # 寫入 shorts_anchors.json (status=auto)
+  python scripts/auto_annotate.py --merge                # 寫入 shorts_anchors.json (status=auto; done/skip/人工進行中不動)
+  python scripts/eval_align.py                           # 不跑 ASR, 用既有逐字稿離線評估對齊 (改演算法用)
 """
 import argparse, json, os, random, re, shutil, sys, time, unicodedata
 from concurrent.futures import ThreadPoolExecutor
@@ -37,6 +43,7 @@ TRUSTED_METHODS = {'hashtag', 'lyric_match'}
 MIN_LINE = 4          # 假名長度不足的歌詞句不參與對齊 (太短會亂配)
 LINE_CUTOFF = 55      # 單句對齊最低分
 EST_SCORE = 50        # 回填/前導/結尾估計句的名目分數
+TRAIL_MIN = 40        # 結尾估計句: 剩餘轉寫文字跟下一句的最低相似度 (低於此 = 間奏幻聽, 不補)
 DL_SLEEP = 1.2        # 下載間隔 (秒) — 對 YouTube 禮貌
 CPU_THREADS = 4       # 單支解碼是序列的, 多核要靠多個 shard 行程平行 (見 --shard)
 
@@ -87,10 +94,12 @@ def get_model(name: str):
         print(f'[auto] model {name} loaded in {time.time()-t0:.0f}s', flush=True)
     return _models[name]
 
+VAD = False           # --vad: 讓 whisper 先切掉無聲段 (實驗用; 可能改善開頭幾秒被吞掉的問題, 用 --validate 比較)
+
 def transcribe(path: Path, model_name: str, prompt=None):
     segs, info = get_model(model_name).transcribe(
         str(path), language='ja', word_timestamps=True, beam_size=5,
-        condition_on_previous_text=False, initial_prompt=prompt, vad_filter=False)
+        condition_on_previous_text=False, initial_prompt=prompt, vad_filter=VAD)
     segments, hira, char_time = [], [], []
     for s in segs:
         segments.append({'t': round(s.start, 2), 'text': s.text.strip()})
@@ -103,7 +112,7 @@ def transcribe(path: Path, model_name: str, prompt=None):
 def lyric_prompt(song, line_hint):
     lines = song['lines']
     k = line_hint if isinstance(line_hint, int) and 0 <= line_hint < len(lines) else 0
-    return ' '.join(ja for _, ja, _ in lines[max(0, k - 1): k + 7])[:150]
+    return ' '.join(ja for _, ja, _ in lines[max(0, k - 3): k + 7])[:150]
 
 # ---------- 歌曲辨識 ----------
 def identify(tr_hira: str, songs):
@@ -117,25 +126,30 @@ def _chain_from(lines, hira, j0):
     """從第 j0 句開始貪婪往下對, 回傳 (total, chain[(idx, pos, score)]); 含補漏/前導/結尾估計句"""
     n = len(lines)
     pos, chain, misses, total = 0, [], 0, 0.0
-    pending_miss = None
+    pending = []          # 還沒對到的句 (太短 / ASR 吃掉): [(idx, pos)], 等下一個對到的句子決定要不要補成估計句
     for j in range(j0, n):
         if len(hira) - pos < 3:
             break
         idx, _ja, lh = lines[j]
         if len(lh) < MIN_LINE:
+            if chain:
+                pending.append((idx, pos))          # 短句夾在對到的句子之間 → 補估計句 (之前是直接跳過, 永遠不會被標)
             continue
         al = fuzz.partial_ratio_alignment(lh, hira[pos:], score_cutoff=LINE_CUTOFF)
         if al is None:
             misses += 1
             if misses >= 2:
                 break
-            pending_miss = (idx, pos)
+            pending.append((idx, pos))
             continue
         misses = 0
         start = pos + al.dest_start
-        if pending_miss and start - pending_miss[1] >= 3:      # 中間被 ASR 吃掉的一句: 用兩句之間的文字起點估時間
-            chain.append((pending_miss[0], pending_miss[1], EST_SCORE))
-        pending_miss = None
+        for p_idx, p_pos in pending:
+            # 鏈開始之前的漏句只在文字有空隙時補 (否則是起點選太早); 鏈內的漏句一律補,
+            # 文字沒空隙 (ASR 整句吃掉) 的時間先跟下一句同點, align() 再平均展開
+            if chain or start - p_pos >= 3:
+                chain.append((p_idx, p_pos, EST_SCORE))
+        pending = []
         chain.append((idx, start, al.score))
         total += al.score
         pos = max(pos + al.dest_end, start + 1)
@@ -146,7 +160,10 @@ def _chain_from(lines, hira, j0):
         chain.insert(0, (first_idx - 1, 0, EST_SCORE))
     last_idx = chain[-1][0]
     if len(hira) - pos >= 6 and last_idx + 1 < n and not any(c[0] == last_idx + 1 for c in chain):
-        chain.append((last_idx + 1, pos, EST_SCORE))            # 結尾半句: 下一句已經開唱
+        # 結尾半句: 下一句已經開唱 — 但剩餘文字得跟下一句至少「有點像」(間奏的幻聽字串不算)
+        nxt = next((lh for idx, _ja, lh in lines if idx == last_idx + 1), '')
+        if nxt and fuzz.partial_ratio(nxt, hira[pos:]) >= TRAIL_MIN:
+            chain.append((last_idx + 1, pos, EST_SCORE))
     return total, chain
 
 def align(song, tr):
@@ -174,12 +191,48 @@ def align(song, tr):
     anchors = []
     for idx, start, score in best[1]:
         t = ct[min(start, len(ct) - 1)] if ct else 0.0
-        a = {'t': round(float(t), 2), 'line': idx, 'score': round(float(score), 1)}
+        a = {'t': float(t), 'line': idx, 'score': round(float(score), 1)}
         if score == EST_SCORE:
             a['est'] = True                                     # 估計的 (沒直接對到字), 審核時多留意
         anchors.append(a)
     anchors.sort(key=lambda a: (a['t'], a['line']))
+    anchors = _fix_times(anchors, float(tr.get('duration') or 0))
+    for a in anchors:
+        a['t'] = round(a['t'], 2)
     return anchors, ambiguous
+
+
+END_GUARD = 0.75      # 影片最後這幾秒才「開始」的句子不可信 (whisper 常把幻聽的尾句標在結尾)
+
+def _fix_times(anchors, duration):
+    """同一時間點擠在一起的 anchor (漏句補的估計句 / ASR 把兩句字的時間都標在同一處):
+    中間的 → 在這個時間點與下一個不同時間點之間平均展開; 擠在影片結尾的 → 幻聽, 只留第一句。
+    另外丟掉在結尾 END_GUARD 秒內才開始的句子。"""
+    if not anchors:
+        return anchors
+    out = []
+    i = 0
+    while i < len(anchors):
+        j = i
+        while j + 1 < len(anchors) and abs(anchors[j + 1]['t'] - anchors[i]['t']) < 0.05:
+            j += 1
+        group = anchors[i:j + 1]
+        if len(group) > 1:
+            t0 = group[0]['t']
+            t1 = anchors[j + 1]['t'] if j + 1 < len(anchors) else duration
+            if t1 - t0 >= 1.0 * len(group):
+                step = (t1 - t0) / len(group)
+                for k, a in enumerate(group):
+                    a['t'] = t0 + k * step
+                    if k:
+                        a['est'] = True
+            else:
+                group = group[:1]                               # 擠在結尾 / 沒空間展開: 只信第一句
+        out.extend(group)
+        i = j + 1
+    if duration:
+        out = [a for a in out if a['t'] < duration - END_GUARD or a is out[0]]
+    return out
 
 def guess_version(title: str):
     t = (title or '').lower()
@@ -194,7 +247,7 @@ def guess_version(title: str):
     return None
 
 # ---------- 單支處理 ----------
-def process(vid, item, songs, model_name, audio_dir, two_pass=True, force_song=None):
+def process(vid, item, songs, model_name, audio_dir, two_pass=False, force_song=None):
     rec = {'videoId': vid, 'title': item.get('title'), 'queueSongId': item.get('songId'),
            'matchMethod': item.get('matchMethod'), 'model': model_name}
     try:
@@ -230,10 +283,11 @@ def process(vid, item, songs, model_name, audio_dir, two_pass=True, force_song=N
     mean1 = sum(a['score'] for a in real1) / len(real1) if real1 else 0
     clean = len(real1) >= 3 and mean1 >= 72 and not ambiguous and not conflict
     if two_pass and not clean:
-        # 第二遍 (第一遍已經很乾淨就省下來): 用第一遍對到的段落 (或 lineHint / 開頭) 的歌詞當 prompt 重轉, 兩次對齊取總分高的
-        hint = min(a['line'] for a in real1) if real1 else item.get('lineHint')
+        # (--prompt-pass 實驗用) 第二遍: 用第一遍對到的段落的歌詞當 prompt 重轉, 兩次對齊取總分高的。
+        # 風險: whisper 會把 prompt 原句抄進輸出 → 分數變高但句子是錯的; 不用佇列的標題句 (lineHint) 當提示
+        hint = min(a['line'] for a in real1) if real1 else 0
         try:
-            tr2 = transcribe(path, model_name, lyric_prompt(songs[sid], hint if isinstance(hint, int) else 0))
+            tr2 = transcribe(path, model_name, lyric_prompt(songs[sid], hint))
             anchors2, ambiguous2 = align(songs[sid], tr2)
             score = lambda arr: sum(a['score'] for a in arr if not a.get('est'))
             if score(anchors2) > score(anchors):
@@ -265,7 +319,7 @@ def validate(args, songs, items, anchors_h, audio_dir):
         it = dict(items.get(vid) or {'videoId': vid, 'title': ''})
         if it.get('matchMethod') not in TRUSTED_METHODS:
             it['songId'] = None                        # 模擬 unmatched: 不給 ASR 提示
-        r = process(vid, it, songs, args.model, audio_dir, two_pass=True)
+        r = process(vid, it, songs, args.model, audio_dir, two_pass=args.prompt_pass)
         if r.get('error'):
             print(f'  {vid} ERROR {r["error"]}', flush=True); continue
         agg['n'] += 1
@@ -273,7 +327,7 @@ def validate(args, songs, items, anchors_h, audio_dir):
         agg['song_top1'] += top1 == h['songId']
         agg['song_decided'] += r.get('songId') == h['songId']
         if r.get('songId') != h['songId']:             # 對齊品質用人工歌 id 重算, 與辨識錯誤隔離
-            r2 = process(vid, it, songs, args.model, audio_dir, two_pass=True, force_song=h['songId'])
+            r2 = process(vid, it, songs, args.model, audio_dir, two_pass=args.prompt_pass, force_song=h['songId'])
             auto = r2.get('anchors', [])
         else:
             auto = r.get('anchors', [])
@@ -316,9 +370,15 @@ def merge(out_path):
             skipped += 1; continue                       # 人工已開始打, 不覆蓋
         if not r.get('songId') or not r.get('anchors') or r.get('grade') == 'C':
             continue
-        anchors[vid] = {'songId': r['songId'], 'anchors': [{'t': a['t'], 'line': a['line']} for a in r['anchors']],
-                        'status': 'auto', 'versionType': r.get('versionType'), 'instrumental': False,
-                        'source': 'auto', 'autoGrade': r['grade']}
+        new = {'songId': r['songId'], 'anchors': [{'t': a['t'], 'line': a['line']} for a in r['anchors']],
+               'status': 'auto', 'versionType': r.get('versionType'), 'instrumental': False,
+               'source': 'auto', 'autoGrade': r['grade']}
+        if cur:
+            # 人工填過的欄位 (版本 / 巡演 / 場次…) 不要被機器的空值洗掉 (之前整筆覆蓋, 洗掉過 5 支的 mv/acoustic)
+            for k, val in cur.items():
+                if k not in ('anchors', 'status', 'source', 'autoGrade') and val not in (None, '', False) and new.get(k) in (None, '', False):
+                    new[k] = val
+        anchors[vid] = new
         n += 1
     ANCHORS_F.write_text(json.dumps(anchors, ensure_ascii=False, indent=2), encoding='utf-8')
     shutil.copyfile(out_path, PUB_F)                                  # annotator 的 🤖 面板讀這份 (候選歌/逐字稿)
@@ -332,15 +392,18 @@ def main():
     ap.add_argument('--validate', action='store_true'); ap.add_argument('--merge', action='store_true')
     ap.add_argument('--limit', type=int, default=0); ap.add_argument('--model', default='small')
     ap.add_argument('--audio-dir', default=str(DEFAULT_AUDIO)); ap.add_argument('--out', default=str(OUT_F))
-    ap.add_argument('--no-two-pass', action='store_true')
+    ap.add_argument('--prompt-pass', action='store_true', help='實驗: 對不乾淨的結果再用歌詞當 prompt 轉一遍 (有被 prompt 帶偏的風險)')
+    ap.add_argument('--vad', action='store_true', help='實驗: whisper 先做 VAD 切無聲段')
+    ap.add_argument('--redo', action='store_true', help='全量重標: 忽略 out 檔既有結果, 所有非 done/skip 的都重跑')
     ap.add_argument('--retry-model', default='medium', help='C 級再用這個模型重跑一次 (空字串=不重跑)')
     ap.add_argument('--threads', type=int, default=4, help='每個模型的 CPU 執行緒數')
     ap.add_argument('--shard', default='', help='i/n: 只跑第 i 份 (0-based), 搭配多個行程平行; 各自用不同 --out')
     ap.add_argument('--exclude-from', default='', help='已處理過的 auto_anchors.json, 其中的 videoId 跳過')
     ap.add_argument('--combine', nargs='*', help='把多個 shard 的 out 檔合併進 --out 後結束')
     args = ap.parse_args()
-    global CPU_THREADS
+    global CPU_THREADS, VAD
     CPU_THREADS = max(1, args.threads)
+    VAD = args.vad
     out_path, audio_dir = Path(args.out), Path(args.audio_dir)
     if args.combine:
         base = json.loads(out_path.read_text(encoding='utf-8')) if out_path.exists() else {'meta': {}, 'items': {}}
@@ -364,7 +427,8 @@ def main():
         ids = list(args.ids)
     else:
         excl = set(json.loads(Path(args.exclude_from).read_text(encoding='utf-8'))['items']) if args.exclude_from else set()
-        ids = [v for v in items if anchors_h.get(v, {}).get('status') not in ('done', 'skip') and v not in out['items'] and v not in excl]
+        ids = [v for v in items if anchors_h.get(v, {}).get('status') not in ('done', 'skip')
+               and (args.redo or v not in out['items']) and v not in excl]
         ids.sort(key=lambda v: (items[v]['group'] == '__unmatched', -(items[v].get('viewCount') or 0)))
         if args.shard:
             i, n = map(int, args.shard.split('/'))
@@ -386,11 +450,11 @@ def main():
                     out['items'][v] = {'videoId': v, 'error': f'download: {type(e).__name__}: {str(e)[:120]}'}
                 else:
                     rec = process(v, items.get(v, {'videoId': v}), songs, args.model, audio_dir,
-                                  two_pass=not args.no_two_pass)
+                                  two_pass=args.prompt_pass)
                     if args.retry_model and rec.get('grade') == 'C' and not rec.get('error'):
                         # C 級 (聽不清/對不上) 用較大的模型再試一次, 取較好的
                         rec2 = process(v, items.get(v, {'videoId': v}), songs, args.retry_model, audio_dir,
-                                       two_pass=not args.no_two_pass)
+                                       two_pass=args.prompt_pass)
                         sc = lambda r: (bool(r.get('songId')), sum(a['score'] for a in (r.get('anchors') or []) if not a.get('est')))
                         if not rec2.get('error') and sc(rec2) > sc(rec):
                             rec = rec2
