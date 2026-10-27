@@ -100,6 +100,7 @@ VAD = False           # --vad: whisper 先切無聲段。不建議: 實測 (medi
 ENGINE = 'whisper'    # --engine qwen: 改用 Qwen3-ASR-1.7B + Qwen3-ForcedAligner (針對有伴奏的歌聲訓練; 需另裝 requirements-qwen.txt)
                       # --engine hybrid: Qwen 決定「哪幾句」, whisper (--model) 給「幾秒」— golden 40 支上最好 (見 HANDOFF)
 HYBRID_WIN = 3.0      # hybrid: whisper 同一句的時間跟 Qwen 差在這個秒數內才採用 (再遠多半是 whisper 對到別處)
+MIN_GAP = 0.6         # 相鄰兩句 anchor 至少間隔這麼多秒
 QWEN_ASR = 'Qwen/Qwen3-ASR-1.7B'
 QWEN_ALIGNER = 'Qwen/Qwen3-ForcedAligner-0.6B'
 
@@ -263,10 +264,17 @@ def align(song, tr):
         # hybrid: 句子用這份 (Qwen) 對齊的結果, 時間改用 whisper 對到同一句的 word timestamp (比 ForcedAligner 準)
         aw, _ = align(song, tr['alt'])
         tw = {a['line']: a['t'] for a in aw if not a.get('est')}
-        for a in anchors:
-            if a['line'] in tw and abs(tw[a['line']] - a['t']) <= HYBRID_WIN:
-                a['t'] = tw[a['line']]
-        anchors.sort(key=lambda a: (a['t'], a['line']))
+        # 逐句換時間, 但換完必須仍然「時間遞增、相鄰間隔 ≥ MIN_GAP」, 否則保留 Qwen 的時間
+        # (以前換完再排序, 936 支裡有 22 支句號倒退、93 支兩句擠在 0.6 秒內)
+        orig = [a['t'] for a in anchors]
+        for k, a in enumerate(anchors):
+            t = tw.get(a['line'])
+            if t is None or abs(t - a['t']) > HYBRID_WIN:
+                continue
+            lo = anchors[k - 1]['t'] + MIN_GAP if k else float('-inf')
+            hi = orig[k + 1] - MIN_GAP if k + 1 < len(anchors) else float('inf')
+            if lo <= t <= hi:
+                a['t'] = t
     for a in anchors:
         a['t'] = round(a['t'], 2)
     return anchors, ambiguous
@@ -316,36 +324,73 @@ def guess_version(title: str):
         return 'live'
     return None
 
+# ---------- 認歌: 相信模型, 模型沒把握才參考佇列的高信心配對 ----------
+SONG_CLEAR = (45, 10)   # 模型第一名 ≥45 分且領先第二名 ≥10 分 = 清楚認出 (第二名多是 ~30 分的雜訊底)
+
+def decide_song(top, guess, method):
+    """top = identify() 的 [(score, songId)…]。舊規則「第一名 <68 分就沿用佇列」是照 whisper 的分數訂的,
+    Qwen 認對時常在 55–70 分 → 936 支裡有 140 支被佇列帶偏 (含 37 支人工確認過的歌)。
+    新規則在人工確認的 159 支上 157 對 (舊 122), golden 40 支 39 對 (舊 37), 且不推翻任何 hashtag。"""
+    g = guess if method in TRUSTED_METHODS else None   # 低信心的 review 配對不當提示
+    if not top:
+        return g
+    s1, t1 = top[0]
+    s2 = top[1][0] if len(top) > 1 else 0
+    if s1 >= SONG_CLEAR[0] and s1 - s2 >= SONG_CLEAR[1]:
+        return t1
+    if g:
+        return g
+    if (s1 >= 50 and s1 - s2 >= 4) or s1 - s2 >= 8:
+        return t1
+    return None
+
 # ---------- 單支處理 ----------
+ALGO = 2              # 演算法版本; --redo 會補跑舊版本結果裡「歌名會改 / 時間順序有問題 / C 級」的項目
+
 def model_label(model_name):
     return QWEN_ASR if ENGINE == 'qwen' else f'{QWEN_ASR}+whisper-{model_name}' if ENGINE == 'hybrid' else model_name
 
 def process(vid, item, songs, model_name, audio_dir, two_pass=False, force_song=None):
     rec = {'videoId': vid, 'title': item.get('title'), 'queueSongId': item.get('songId'),
-           'matchMethod': item.get('matchMethod'), 'model': model_label(model_name)}
+           'matchMethod': item.get('matchMethod'), 'model': model_label(model_name), 'algo': ALGO}
     try:
         path = download(vid, audio_dir)
     except Exception as e:
         rec['error'] = f'download: {type(e).__name__}: {str(e)[:120]}'
         return rec
-    guess = item.get('songId') if item.get('songId') in songs else None
     try:
         tr = transcribe(path, model_name, None)          # 第一遍不給 prompt: 段落猜錯的 prompt 會把 ASR 帶歪
     except Exception as e:
         rec['error'] = f'asr: {type(e).__name__}: {str(e)[:120]}'
         return rec
+    out = analyze(dict(rec), tr, item, songs, model_name, path, two_pass, force_song)
+    if tr.get('alt') and out.get('grade') == 'C':
+        # hybrid: Qwen 這支聽不出東西 (C) → 用同時跑好的 whisper 轉寫自己再認歌、對齊一次, 取較好的
+        # (936 支裡有 66 支歌名一樣卻從 A/B 掉到 C, 例如 Qwen 只轉出 4 個字、whisper 有 57 個字)
+        alt = analyze(dict(rec), tr['alt'], item, songs, model_name, path, False, force_song)
+        if _rank(alt) > _rank(out):
+            out = alt
+            out['fallback'] = 'whisper'
+    return out
+
+
+def _rank(r):
+    real = [a for a in r.get('anchors') or [] if not a.get('est')]
+    return (r.get('grade') != 'C', bool(r.get('songId')), sum(a['score'] for a in real))
+
+
+def analyze(rec, tr, item, songs, model_name, path, two_pass=False, force_song=None):
+    """一份轉寫 → 認歌 → 對齊 → 評級, 結果寫進 rec"""
+    guess = item.get('songId') if item.get('songId') in songs else None
     top = identify(tr['hira'], songs)
     rec['songCandidates'] = [{'songId': s, 'score': round(float(sc), 1)} for sc, s in top]
-    score_of = {s: sc for sc, s in top}
     s1 = top[0][0] if top else 0
-    s2 = top[1][0] if len(top) > 1 else 0
     sid, conflict = None, False
     if force_song:
         sid = force_song
-    elif guess and (not top or top[0][1] == guess or score_of.get(guess, 0) >= s1 - 12 or s1 < 68):
-        sid = guess                                  # queue 猜測成立 (ASR 同意或無強烈反對)
-    elif top and ((s1 >= 50 and s1 - s2 >= 4) or s1 - s2 >= 8):   # 第二名是雜訊底 (~30), 看差距比看絕對分可靠
-        sid, conflict = top[0][1], bool(guess) and item.get('matchMethod') in TRUSTED_METHODS   # ASR 自己認出來; 只有推翻高信心上游才算 conflict
+    else:
+        sid = decide_song(top, guess, item.get('matchMethod'))
+        conflict = bool(sid and guess and sid != guess and item.get('matchMethod') in TRUSTED_METHODS)
     rec.update(songId=sid, duration=round(float(tr['duration']), 1), transcript=tr['segments'],
                versionType=guess_version(item.get('title')), conflict=conflict)
     if not sid:
@@ -529,7 +574,18 @@ def main():
                 return True
             # 人工已確認歌名, 但這份結果是別首歌 (重標開始後才確認的) → 用確認的歌再跑一次
             h = anchors_h.get(v, {})
-            return bool(h.get('songConfirmed') and h.get('songId') != r.get('songId'))
+            if h.get('songConfirmed') and h.get('songId') != r.get('songId'):
+                return True
+            if r.get('algo', 1) < ALGO and not r.get('error'):
+                # 舊版演算法的結果: 只補跑會變的 (新規則認的歌不同 / 時間順序或間隔有問題), 其餘照用
+                top = [(c['score'], c['songId']) for c in r.get('songCandidates') or []]
+                it = items.get(v, {})
+                guess = it.get('songId') if it.get('songId') in songs else None
+                an = r.get('anchors') or []
+                bad_order = any(b['line'] < a['line'] or b['t'] - a['t'] < MIN_GAP for a, b in zip(an, an[1:]))
+                # C 級也重跑: v2 的 hybrid 在 Qwen 聽不出東西時會改用 whisper 的轉寫補救
+                return decide_song(top, guess, it.get('matchMethod')) != r.get('songId') or bad_order or r.get('grade') == 'C'
+            return False
         ids = [v for v in items if anchors_h.get(v, {}).get('status') not in ('done', 'skip')
                and stale(v) and v not in excl]
         ids.sort(key=lambda v: (items[v]['group'] == '__unmatched', -(items[v].get('viewCount') or 0)))

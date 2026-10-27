@@ -91,6 +91,9 @@ python scripts/eval_align.py -v                                                 
 
 - `--merge` 永遠不碰 `done` / `skip`,也不碰人工已開始打 anchor 的 `pending`;覆蓋既有 auto 時保留人工填過的版本 / 巡演 / 場次欄位。
 - whisper 引擎預設只轉寫一遍、不給歌詞 prompt;`--prompt-pass` 會用歌詞當 prompt 再轉一遍,但 whisper 會把 prompt 原句抄進輸出,只當實驗選項。佇列的標題句(lineHint)不影響結果。
+- 認歌規則(v2,`decide_song`):模型清楚認出(第一名 ≥45 分且領先第二名 ≥10 分)就相信模型;模型沒把握才參考佇列的 hashtag / 歌詞比對配對,低信心的 review 配對一律不當提示。舊規則「第一名 <68 分就沿用佇列」是照 whisper 分數訂的,全量重標時讓 140 支被佇列帶偏;新規則在人工確認歌名的 159 支上 157 對(舊 122)、golden 40 支 39 對(舊 37),且不推翻任何 hashtag。
+- hybrid 借 whisper 時間時必須維持句子順序與 ≥0.6 秒間隔,否則保留 Qwen 的時間;Qwen 評為 C 級時改用同時跑好的 whisper 轉寫再分析一次,取較好的(`fallback: whisper`)。
+- 結果帶 `algo` 版本號;`--redo` 只補跑舊版本結果裡會變的(認的歌不同 / 時間順序有問題 / C 級)。
 - 已知弱點:歌詞完全相同的重複段(副歌)聽不出是第幾次。人工標註裡第一次 / 最後一次各占一半,用頭尾殘句比對前後文也只能分出 3/19 支,這類交給人工耳朵判斷 — annotator 會自動顯示「⚠ 重複段 第 1 次 / 第 2 次…」,點一下(或按 `r`)整組 anchors 平移到那一段,時間不動。
 
 ### annotator 的審核模式
