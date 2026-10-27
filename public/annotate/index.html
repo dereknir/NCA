@@ -110,6 +110,12 @@
   .controls{display:flex;gap:8px;flex-wrap:wrap}
   .controls button{padding:6px 10px;font-size:12px}
   #anchorList{display:flex;flex-direction:column;gap:5px}
+  /* 重複段切換: 歌詞完全相同的段落出現好幾次時, 一鍵把整組 anchors 平移到第 N 次 (時間不動) */
+  #repeatBar{display:none;flex-wrap:wrap;gap:6px;align-items:center;background:rgba(226,176,58,.08);border:1px solid rgba(226,176,58,.35);border-radius:8px;padding:7px 10px;font-size:12px}
+  #repeatBar.on{display:flex}
+  #repeatBar .label{color:var(--warn)}
+  #repeatBar .r-chip{background:var(--panel);border:1px solid var(--line);color:var(--dim);border-radius:99px;padding:3px 10px;font-size:12px;cursor:pointer;font-family:inherit}
+  #repeatBar .r-chip.active{background:rgba(226,176,58,.22);color:#fff;border-color:var(--warn)}
   .anchor-row{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12px}
   .anchor-row .at{font-family:var(--mono);color:var(--accent);cursor:pointer;min-width:52px}
   .anchor-row .al{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -180,6 +186,7 @@
       <button data-seek="2">+2s</button>
     </div>
     <div style="font-size:12px;color:var(--dim)">點右側歌詞任一句 = 在目前時間打一個 anchor</div>
+    <div id="repeatBar"></div>
     <div id="anchorList"></div>
     <div id="autoPanel"></div>
     <div class="done-row">
@@ -191,7 +198,7 @@
   <section id="lyricsPanel"><div class="song-head">從左側選一支 short 開始</div></section>
 </main>
 
-<footer>快捷鍵: <kbd>space</kbd> 播放/暫停 · <kbd>←</kbd><kbd>→</kbd> ±2 秒 · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd> 選版本 · <kbd>i</kbd> 純演奏 · <kbd>enter</kbd> 完成並跳下一支</footer>
+<footer>快捷鍵: <kbd>space</kbd> 播放/暫停 · <kbd>←</kbd><kbd>→</kbd> ±2 秒 · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd> 選版本 · <kbd>i</kbd> 純演奏 · <kbd>r</kbd> 重複段換下一次 · <kbd>enter</kbd> 完成並跳下一支</footer>
 
 <div id="dropzone">
   <p><b>載入資料</b><br>把 <code>annotation_queue.json</code> 和 <code>lyrics.json</code> 一起拖進來,<br>或用 <code>python -m http.server</code> 啟動後放同目錄自動載入。</p>
@@ -984,7 +991,51 @@ function addAnchor(lineIdx){
   arr.sort((a,b)=>a.t-b.t);
   persist(); renderAnchors(); renderLyrics();
 }
+/* ---------- 重複段: 目前 anchors 標的那幾句, 在歌裡還有哪些「文字完全相同」的位置 ---------- */
+function normLyric(t){ return String(t||'').normalize('NFKC').replace(/[\s\u3000、。,.!?！？…・「」『』()（）\-~〜♪]/g,'').toLowerCase(); }
+/* 回傳 [{offset, start}] (含 offset 0 = 目前位置), 依在歌裡的先後排序; 沒有重複就回傳 [] */
+function repeatOccurrences(){
+  if(!S.cur) return [];
+  const ann = S.ann[S.cur.videoId];
+  const song = S.songs[ann?.songId];
+  if(!song || !ann.anchors.length) return [];
+  const byIdx = new Map(song.lyric_lines.map(l => [l.index, normLyric(l.ja)]));
+  const lines = [...new Set(ann.anchors.map(a => a.line))].sort((a,b) => a-b);
+  if(lines.some(l => !byIdx.get(l))) return [];
+  const lo = lines[0], hi = lines[lines.length-1];
+  const idxs = [...byIdx.keys()].sort((a,b) => a-b);
+  const minI = idxs[0], maxI = idxs[idxs.length-1];
+  const occ = [];
+  for(let d = minI - lo; d <= maxI - hi; d++){
+    if(lines.every(l => byIdx.has(l+d) && byIdx.get(l+d) === byIdx.get(l))) occ.push({ offset:d, start: lo+d });
+  }
+  return occ.length > 1 ? occ : [];
+}
+function shiftAnchors(d){
+  if(!S.cur || !d) return;
+  const ann = S.ann[S.cur.videoId];
+  ann.anchors.forEach(a => { a.line += d; });
+  persist(); renderLyrics(); renderAnchors();
+  const first = document.querySelector('#lyricsPanel .lyr.anchored');
+  if(first) first.scrollIntoView({ block:'center' });
+}
+function cycleRepeat(){
+  const occ = repeatOccurrences(); if(!occ.length) return;
+  const k = occ.findIndex(o => o.offset === 0);
+  shiftAnchors(occ[(k + 1) % occ.length].offset);
+}
+function renderRepeatBar(){
+  const el = document.getElementById('repeatBar'); if(!el) return;
+  const occ = repeatOccurrences();
+  if(!occ.length){ el.className=''; el.innerHTML=''; return; }
+  el.className = 'on';
+  el.innerHTML = `<span class="label" title="這幾句歌詞在歌裡一模一樣地出現好幾次, 機器分不出是哪一次 — 用耳朵判斷後點選 (只改句號, 時間不動)">⚠ 重複段</span>` +
+    occ.map((o, k) => `<button class="r-chip${o.offset===0?' active':''}" data-d="${o.offset}">第 ${k+1} 次 <span style="opacity:.6">(第 ${o.start} 句起)</span></button>`).join('');
+  el.querySelectorAll('.r-chip').forEach(b => b.onclick = () => shiftAnchors(Number(b.dataset.d)));
+}
+
 function renderAnchors(){
+  renderRepeatBar();
   const el = document.getElementById('anchorList'); el.innerHTML='';
   if(!S.cur) return;
   const effectiveSid = S.ann[S.cur.videoId]?.songId;
@@ -1085,6 +1136,8 @@ document.addEventListener('keydown', e=>{
   }
   // I 鍵 = toggle 純演奏
   if(e.code === 'KeyI' && S.cur) toggleInstrumental();
+  // R 鍵 = 重複段換到下一次出現的位置
+  if(e.code === 'KeyR' && S.cur) cycleRepeat();
 });
 
 /* ---------- Settings 面板 + GitHub 存檔按鈕 ---------- */
