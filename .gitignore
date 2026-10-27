@@ -40,3 +40,5 @@ __pycache__/
 *.pyc
 fonts_src/
 live/live-pages.zip
+# Python venvs (.venv = requirements-ml.txt, .venv-qwen = requirements-qwen.txt)
+.venv*/

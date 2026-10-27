@@ -58,21 +58,40 @@ npm run dev
 
 ## 🤖 機器自動標註與審核(scripts/auto_annotate.py)
 
-本機 ASR(faster-whisper)幫未標的 shorts 先打一版 anchors,人工在 annotator 的「🤖 待審」模式審核。
-流程與指令(都在 repo root 跑,音訊快取在 `%LOCALAPPDATA%/nca-audio-cache`,重跑不用重新下載):
+本機 ASR 幫未標的 shorts 先打一版 anchors,人工在 annotator 的「🤖 待審」模式審核。
+音訊快取在 `~/nca-audio-cache`(Windows 為 `%LOCALAPPDATA%/nca-audio-cache`),重跑不用重新下載。
 
+**建議用 `--engine hybrid`**:Qwen3-ASR 決定「哪幾句」,whisper 給「幾秒」。golden set 40 支(人工 done,`--validate` 同一批)的比較:
+
+| 引擎 | anchors 召回 | 精確 | 時間誤差 ≤1s | A/B/C 級 |
+|---|---|---|---|---|
+| whisper small | 70% | 91% | 87% | 24/7/9 |
+| whisper medium | 71% | 89% | 91% | 28/5/7 |
+| whisper large-v3-turbo | 70% | 89% | 89% | 28/5/7 |
+| whisper medium + `--vad` | 6% | — | — | 不能用 |
+| Qwen3-ASR(`--engine qwen`) | 79% | 95% | 83% | 29/5/6 |
+| **hybrid(`--engine hybrid`)** | **79%** | **95%** | **89%** | 29/5/6 |
+
+- whisper 換大模型沒有幫助(small / medium / turbo 只是在不同影片上各自翻車)。
+- `--vad` 會把有伴奏的歌聲當成非人聲切掉,不要用。
+- Qwen 的句子判斷明顯較準(認歌信心分數常在 80–95,whisper 多在 50 上下),但它的時間點(ForcedAligner)在歌聲上比 whisper 的 word timestamp 粗;拿正確歌詞原文強制對齊也沒有更好,所以 hybrid 只借 whisper 的時間。
+
+環境(獨立 venv,Apple Silicon 走 MPS、NVIDIA 走 CUDA,需要系統 ffmpeg):
 ```bash
-python scripts/auto_annotate.py --validate --limit 40       # 用已人工標好的當 golden set,比 ASR 結果 (不寫檔)
-python scripts/auto_annotate.py [--limit N]                 # 跑還沒跑過、且非 done/skip 的; 可中斷續跑
-python scripts/auto_annotate.py --redo --model medium       # 全量重標: 所有非 done/skip 的重跑,舊建議作廢
-python scripts/auto_annotate.py --merge                     # 寫進 shorts_anchors.json (status=auto)
-python scripts/eval_align.py -v                             # 不跑 ASR: 用既有逐字稿離線評估「標了哪幾句」
+python3.12 -m venv .venv-qwen && .venv-qwen/bin/pip install -r requirements-qwen.txt
+```
+
+流程(都在 repo root):
+```bash
+.venv-qwen/bin/python scripts/auto_annotate.py --validate --limit 40 --engine hybrid   # golden set 驗證 (不寫檔)
+.venv-qwen/bin/python scripts/auto_annotate.py --redo --engine hybrid                  # 全量重標: 所有非 done/skip 重跑
+.venv-qwen/bin/python scripts/auto_annotate.py --merge                                 # 寫進 shorts_anchors.json (status=auto)
+python scripts/eval_align.py -v                                                        # 不跑 ASR: 用既有逐字稿離線評估「標了哪幾句」
 ```
 
 - `--merge` 永遠不碰 `done` / `skip`,也不碰人工已開始打 anchor 的 `pending`;覆蓋既有 auto 時保留人工填過的版本 / 巡演 / 場次欄位。
-- 預設只轉寫一遍、不給 whisper 歌詞 prompt。`--prompt-pass` 會用歌詞當 prompt 再轉一遍,但 whisper 會把 prompt 原句抄進輸出,對齊分數變高、句子卻是錯的(驗證集裡的「多標前一句」就是這樣來的),所以只當實驗選項。佇列的標題句(lineHint)不再影響結果。
-- `--vad` 讓 whisper 先切無聲段,是給「開頭幾句沒聽到」這類問題的實驗選項,先用 `--validate` 比較再決定。
-- 已知弱點:開頭幾秒 a cappella / 念白(わをん 0–2 句)小模型常整段沒聽到,這是 ASR 沒輸出,對齊救不回來;medium 模型與 `--vad` 是目前的候選解。
+- whisper 引擎預設只轉寫一遍、不給歌詞 prompt;`--prompt-pass` 會用歌詞當 prompt 再轉一遍,但 whisper 會把 prompt 原句抄進輸出,只當實驗選項。佇列的標題句(lineHint)不影響結果。
+- 已知弱點:歌詞完全相同的重複段(副歌)聽不出是第幾次。人工標註裡第一次 / 最後一次各占一半,用頭尾殘句比對前後文也只能分出 3/19 支,這類需要人工耳朵判斷。
 
 ### annotator 的審核模式
 - `🤖 待審 N`:只列 status=auto 的;`⚠ 先確認歌 M`:只列 ASR 認的歌跟佇列 hashtag / 歌詞配對不一致的,面板會寫出兩邊各認為是哪首。
