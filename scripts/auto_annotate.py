@@ -434,7 +434,7 @@ def write_out(out_path, data, indent=1):
 def merge(out_path):
     auto = json.loads(out_path.read_text(encoding='utf-8'))['items']
     anchors = json.loads(ANCHORS_F.read_text(encoding='utf-8'))
-    n = skipped = 0
+    n = skipped = dropped = 0
     for vid, r in auto.items():
         cur = anchors.get(vid)
         if cur and cur.get('status') in ('done', 'skip'):
@@ -442,6 +442,11 @@ def merge(out_path):
         if cur and cur.get('status') == 'pending' and cur.get('anchors'):
             skipped += 1; continue                       # 人工已開始打, 不覆蓋
         if not r.get('songId') or not r.get('anchors') or r.get('grade') == 'C':
+            if cur and cur.get('status') == 'auto':
+                # 舊引擎的建議, 新結果卻沒把握 (C / 認不出歌) → 退回手動, 不讓過時的 anchors 留在待審清單
+                cur.update(anchors=[], status='pending', source='manual')
+                cur.pop('autoGrade', None)
+                dropped += 1
             continue
         new = {'songId': r['songId'], 'anchors': [{'t': a['t'], 'line': a['line']} for a in r['anchors']],
                'status': 'auto', 'versionType': r.get('versionType'), 'instrumental': False,
@@ -455,7 +460,7 @@ def merge(out_path):
         n += 1
     ANCHORS_F.write_text(json.dumps(anchors, ensure_ascii=False, indent=2), encoding='utf-8')
     shutil.copyfile(out_path, PUB_F)                                  # annotator 的 🤖 面板讀這份 (候選歌/逐字稿)
-    print(f'[merge] 寫入 {n} 支 status=auto (跳過 {skipped} 支人工進行中) → {ANCHORS_F.name}; 建議檔同步到 {PUB_F.relative_to(ROOT)}')
+    print(f'[merge] 寫入 {n} 支 status=auto (跳過 {skipped} 支人工進行中, {dropped} 支舊建議新結果沒把握 → 退回手動) → {ANCHORS_F.name}; 建議檔同步到 {PUB_F.relative_to(ROOT)}')
 
 # ---------- CLI ----------
 def main():
