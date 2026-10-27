@@ -1,0 +1,9 @@
+# NCA — Qwen3-ASR 引擎 (scripts/auto_annotate.py --engine qwen), 建議獨立 venv:
+#   python3.12 -m venv .venv-qwen && .venv-qwen/bin/pip install -r requirements-qwen.txt
+# 另需系統 ffmpeg (解 m4a; macOS: brew install ffmpeg)。Apple Silicon 自動走 MPS, 有 NVIDIA 走 CUDA。
+qwen-asr
+nagisa                # Qwen3-ForcedAligner 的日文斷詞
+pykakasi
+rapidfuzz
+faster-whisper        # --engine hybrid 的 whisper 那半
+av<17                 # 同 requirements-ml.txt: PyAV 17+ 與 faster-whisper 1.2.x 不相容

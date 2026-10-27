@@ -8,4 +8,5 @@ sentence-transformers
 umap-learn
 scikit-learn
 faster-whisper
+av<17                 # PyAV 17+ 移除了 faster-whisper 1.2.x 仍在用的 av.open(metadata_errors=...) → 每支 ASR 都會 TypeError
 pykakasi

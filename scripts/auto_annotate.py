@@ -17,6 +17,8 @@ auto_annotate.py — 本地 ASR (faster-whisper, CPU) 幫 shorts 自動打「歌
 --merge 把 A/B 級結果以 status='auto' 寫進 shorts_anchors.json; 人工在 annotator 按 Enter 才變 done,
 網站 import_anchors.py 只吃 done, 所以未審核的不會上線。
 
+建議用 --engine hybrid (Qwen3-ASR 定句子 + whisper 定時間; 環境見 requirements-qwen.txt, 比較數字見 annotation/HANDOFF.md)
+
 用法:
   python scripts/auto_annotate.py --validate --limit 40   # 拿已人工標好的 shorts 驗證準確率 (不寫檔)
   python scripts/auto_annotate.py [--limit N]            # 跑所有未完成且還沒跑過的; 可中斷, 重跑會續接
@@ -94,9 +96,69 @@ def get_model(name: str):
         print(f'[auto] model {name} loaded in {time.time()-t0:.0f}s', flush=True)
     return _models[name]
 
-VAD = False           # --vad: 讓 whisper 先切掉無聲段 (實驗用; 可能改善開頭幾秒被吞掉的問題, 用 --validate 比較)
+VAD = False           # --vad: whisper 先切無聲段。不建議: 實測 (medium, 40 支) 召回 71% → 6%, 有伴奏的歌聲幾乎整段被當成非人聲切掉
+ENGINE = 'whisper'    # --engine qwen: 改用 Qwen3-ASR-1.7B + Qwen3-ForcedAligner (針對有伴奏的歌聲訓練; 需另裝 requirements-qwen.txt)
+                      # --engine hybrid: Qwen 決定「哪幾句」, whisper (--model) 給「幾秒」— golden 40 支上最好 (見 HANDOFF)
+HYBRID_WIN = 3.0      # hybrid: whisper 同一句的時間跟 Qwen 差在這個秒數內才採用 (再遠多半是 whisper 對到別處)
+QWEN_ASR = 'Qwen/Qwen3-ASR-1.7B'
+QWEN_ALIGNER = 'Qwen/Qwen3-ForcedAligner-0.6B'
+
+_qwen = None
+def get_qwen():
+    global _qwen
+    if _qwen is None:
+        import torch
+        from qwen_asr import Qwen3ASRModel
+        dev = 'mps' if torch.backends.mps.is_available() else ('cuda:0' if torch.cuda.is_available() else 'cpu')
+        dt = torch.float32 if dev == 'cpu' else torch.float16
+        t0 = time.time()
+        _qwen = Qwen3ASRModel.from_pretrained(QWEN_ASR, dtype=dt, device_map=dev, max_inference_batch_size=1,
+                                              max_new_tokens=256, forced_aligner=QWEN_ALIGNER,
+                                              forced_aligner_kwargs=dict(dtype=dt, device_map=dev))
+        print(f'[auto] qwen loaded on {dev} in {time.time()-t0:.0f}s', flush=True)
+    return _qwen
+
+def load_16k(path: Path):
+    """任何格式 (m4a/webm…) → 16kHz mono float32; qwen-asr 自己的讀檔器 (soundfile) 吃不了 m4a"""
+    import subprocess
+    import numpy as np
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(path), '-ac', '1', '-ar', '16000', '-f', 'f32le', '-'],
+                         check=True, capture_output=True).stdout
+    return np.frombuffer(raw, dtype=np.float32).copy(), 16000
+
+def transcribe_qwen(path: Path):
+    audio = load_16k(path)
+    r = get_qwen().transcribe(audio=audio, language='Japanese', return_time_stamps=True)[0]
+    items = list(r.time_stamps or [])
+    hira, char_time, segments = [], [], []
+    cur = None
+    for it in items:
+        h = to_hira(it.text)
+        hira.append(h)
+        char_time.extend([float(it.start_time)] * len(h))
+        # 逐字稿分段 (給 annotator 面板看): 停頓 > 0.8s 就斷一段
+        if cur is None or float(it.start_time) - cur['end'] > 0.8:
+            cur = {'t': round(float(it.start_time), 2), 'text': '', 'end': float(it.end_time)}
+            segments.append(cur)
+        cur['text'] += it.text; cur['end'] = float(it.end_time)
+    for sgm in segments:
+        sgm.pop('end')
+    return dict(duration=len(audio[0]) / audio[1], segments=segments, hira=''.join(hira), char_time=char_time)
 
 def transcribe(path: Path, model_name: str, prompt=None):
+    if ENGINE == 'qwen':
+        return transcribe_qwen(path)                    # prompt 不適用 (Qwen 不吃 initial_prompt)
+    if ENGINE == 'hybrid':
+        # Qwen 走 GPU、whisper 走 CPU, 同時跑; align() 看到 tr['alt'] 會用 whisper 的時間重定 anchors
+        from concurrent.futures import ThreadPoolExecutor as _TPE
+        with _TPE(1) as ex:
+            fw = ex.submit(_transcribe_whisper, path, model_name, None)
+            tr = transcribe_qwen(path)
+            tr['alt'] = fw.result()
+        return tr
+    return _transcribe_whisper(path, model_name, prompt)
+
+def _transcribe_whisper(path: Path, model_name: str, prompt=None):
     segs, info = get_model(model_name).transcribe(
         str(path), language='ja', word_timestamps=True, beam_size=5,
         condition_on_previous_text=False, initial_prompt=prompt, vad_filter=VAD)
@@ -197,6 +259,14 @@ def align(song, tr):
         anchors.append(a)
     anchors.sort(key=lambda a: (a['t'], a['line']))
     anchors = _fix_times(anchors, float(tr.get('duration') or 0))
+    if tr.get('alt'):
+        # hybrid: 句子用這份 (Qwen) 對齊的結果, 時間改用 whisper 對到同一句的 word timestamp (比 ForcedAligner 準)
+        aw, _ = align(song, tr['alt'])
+        tw = {a['line']: a['t'] for a in aw if not a.get('est')}
+        for a in anchors:
+            if a['line'] in tw and abs(tw[a['line']] - a['t']) <= HYBRID_WIN:
+                a['t'] = tw[a['line']]
+        anchors.sort(key=lambda a: (a['t'], a['line']))
     for a in anchors:
         a['t'] = round(a['t'], 2)
     return anchors, ambiguous
@@ -249,7 +319,8 @@ def guess_version(title: str):
 # ---------- 單支處理 ----------
 def process(vid, item, songs, model_name, audio_dir, two_pass=False, force_song=None):
     rec = {'videoId': vid, 'title': item.get('title'), 'queueSongId': item.get('songId'),
-           'matchMethod': item.get('matchMethod'), 'model': model_name}
+           'matchMethod': item.get('matchMethod'),
+           'model': QWEN_ASR if ENGINE == 'qwen' else f'{QWEN_ASR}+whisper-{model_name}' if ENGINE == 'hybrid' else model_name}
     try:
         path = download(vid, audio_dir)
     except Exception as e:
@@ -343,7 +414,7 @@ def validate(args, songs, items, anchors_h, audio_dir):
               f"hit={len(hit)} medΔt={med} grade={r.get('grade')} {','.join(r.get('needsReview') or [])}", flush=True)
     n = max(agg['n'], 1)
     dts = sorted(agg['dts'])
-    print('\n[validate] 樣本', agg['n'], '| model', args.model)
+    print('\n[validate] 樣本', agg['n'], '| engine', ENGINE, '| model', QWEN_ASR if ENGINE == 'qwen' else args.model)
     print(f"  歌曲辨識 ASR top1 正確: {agg['song_top1']}/{n} ({agg['song_top1']/n:.0%})   最終判定正確: {agg['song_decided']}/{n}")
     print(f"  anchors 召回: {agg['hit']}/{agg['hum']} ({agg['hit']/max(agg['hum'],1):.0%})   精確: {agg['hit']}/{agg['auto']} ({agg['hit']/max(agg['auto'],1):.0%})")
     if dts:
@@ -395,13 +466,17 @@ def main():
     ap.add_argument('--prompt-pass', action='store_true', help='實驗: 對不乾淨的結果再用歌詞當 prompt 轉一遍 (有被 prompt 帶偏的風險)')
     ap.add_argument('--vad', action='store_true', help='實驗: whisper 先做 VAD 切無聲段')
     ap.add_argument('--redo', action='store_true', help='全量重標: 忽略 out 檔既有結果, 所有非 done/skip 的都重跑')
-    ap.add_argument('--retry-model', default='medium', help='C 級再用這個模型重跑一次 (空字串=不重跑)')
+    ap.add_argument('--retry-model', default='medium', help='C 級再用這個模型重跑一次 (空字串=不重跑; --engine qwen 時不適用)')
+    ap.add_argument('--engine', choices=['whisper', 'qwen', 'hybrid'], default='whisper',
+                    help='qwen = Qwen3-ASR + ForcedAligner; hybrid = Qwen 定句子 + whisper 定時間 (建議)。'
+                         '兩者都需 pip install -r requirements-qwen.txt 與 ffmpeg')
     ap.add_argument('--threads', type=int, default=4, help='每個模型的 CPU 執行緒數')
     ap.add_argument('--shard', default='', help='i/n: 只跑第 i 份 (0-based), 搭配多個行程平行; 各自用不同 --out')
     ap.add_argument('--exclude-from', default='', help='已處理過的 auto_anchors.json, 其中的 videoId 跳過')
     ap.add_argument('--combine', nargs='*', help='把多個 shard 的 out 檔合併進 --out 後結束')
     args = ap.parse_args()
-    global CPU_THREADS, VAD
+    global CPU_THREADS, VAD, ENGINE
+    ENGINE = args.engine
     CPU_THREADS = max(1, args.threads)
     VAD = args.vad
     out_path, audio_dir = Path(args.out), Path(args.audio_dir)
@@ -451,7 +526,7 @@ def main():
                 else:
                     rec = process(v, items.get(v, {'videoId': v}), songs, args.model, audio_dir,
                                   two_pass=args.prompt_pass)
-                    if args.retry_model and rec.get('grade') == 'C' and not rec.get('error'):
+                    if ENGINE == 'whisper' and args.retry_model and rec.get('grade') == 'C' and not rec.get('error'):
                         # C 級 (聽不清/對不上) 用較大的模型再試一次, 取較好的
                         rec2 = process(v, items.get(v, {'videoId': v}), songs, args.retry_model, audio_dir,
                                        two_pass=args.prompt_pass)
