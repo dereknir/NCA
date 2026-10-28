@@ -28796,14 +28796,10 @@
       {
         "t": 6.24,
         "line": 10
-      },
-      {
-        "t": 8.72,
-        "line": 11
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -29296,8 +29292,8 @@
         "line": 10
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "acoustic",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -34592,11 +34588,11 @@
         "line": 37
       },
       {
-        "t": 18.26,
+        "t": 19.94,
         "line": 38
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -35420,8 +35416,8 @@
         "line": 32
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -36586,7 +36582,7 @@
         "line": 30
       },
       {
-        "t": 2.57,
+        "t": 1.73,
         "line": 31
       },
       {
@@ -36594,8 +36590,8 @@
         "line": 32
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -36620,8 +36616,8 @@
         "line": 32
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -36996,8 +36992,8 @@
         "line": 39
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -37757,7 +37753,7 @@
         "line": 30
       },
       {
-        "t": 2.57,
+        "t": 1.67,
         "line": 31
       },
       {
@@ -37765,8 +37761,8 @@
         "line": 32
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
