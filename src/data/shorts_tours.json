@@ -1,6 +1,6 @@
 {
   "meta": {
-    "total": 47,
+    "total": 50,
     "tour_names": [
       "Feeling",
       "MUSICK",
@@ -9,7 +9,7 @@
       "クランベリージャムをかけて",
       "日々散漫"
     ],
-    "unspecified_count": 4
+    "unspecified_count": 7
   },
   "by_tour": {
     "日々散漫": [
@@ -192,11 +192,44 @@
         "tourName": null
       },
       {
+        "videoId": "gCc02p8BveU",
+        "title": "It’s a piece of cake",
+        "url": "https://www.youtube.com/shorts/gCc02p8BveU",
+        "thumbnail": "https://i.ytimg.com/vi/gCc02p8BveU/hqdefault.jpg",
+        "viewCount": 2800,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": null
+      },
+      {
         "videoId": "WZ02xijoSPY",
         "title": "nishina Tour 「SUPER COMPLEX」",
         "url": "https://www.youtube.com/shorts/WZ02xijoSPY",
         "thumbnail": "https://i.ytimg.com/vi/WZ02xijoSPY/hqdefault.jpg",
         "viewCount": 2700,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": null
+      },
+      {
+        "videoId": "reL64pblkLw",
+        "title": "tour SUPER COMPLEX from Sapporo",
+        "url": "https://www.youtube.com/shorts/reL64pblkLw",
+        "thumbnail": "https://i.ytimg.com/vi/reL64pblkLw/hqdefault.jpg",
+        "viewCount": 2200,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [],
+        "tourName": null
+      },
+      {
+        "videoId": "Q496RmOuKq4",
+        "title": "Don’t be afraid The seasons are gonna change anyway",
+        "url": "https://www.youtube.com/shorts/Q496RmOuKq4",
+        "thumbnail": "https://i.ytimg.com/vi/Q496RmOuKq4/hqdefault.jpg",
+        "viewCount": 2200,
         "versionType": null,
         "instrumental": false,
         "anchors": [],

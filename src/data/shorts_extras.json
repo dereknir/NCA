@@ -1,16 +1,16 @@
 {
   "meta": {
-    "total": 84,
+    "total": 93,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 27,
-      "live_song": 28,
+      "promo": 30,
+      "live_song": 32,
       "mc": 7,
       "yearly": 6,
       "ad": 2,
       "tv": 3,
-      "travel": 2
+      "travel": 4
     }
   },
   "categories": {
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 27,
+      "count": 30,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -344,12 +344,32 @@
           "anchors": []
         },
         {
+          "videoId": "kChBdgAjKkw",
+          "title": "私の海馬に焼き付いてる",
+          "url": "https://www.youtube.com/shorts/kChBdgAjKkw",
+          "thumbnail": "https://i.ytimg.com/vi/kChBdgAjKkw/hqdefault.jpg",
+          "viewCount": 2600,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "SdW7Z2GaJUg",
           "title": "2月５日リリース にしな「つくし」",
           "url": "https://www.youtube.com/shorts/SdW7Z2GaJUg",
           "thumbnail": "https://i.ytimg.com/vi/SdW7Z2GaJUg/hqdefault.jpg",
           "viewCount": 2200,
           "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "lcEslF5yCpw",
+          "title": "🇰🇷WONDERLIVET 2026(Korea)",
+          "url": "https://www.youtube.com/shorts/lcEslF5yCpw",
+          "thumbnail": "https://i.ytimg.com/vi/lcEslF5yCpw/hqdefault.jpg",
+          "viewCount": 2200,
+          "versionType": "live",
           "instrumental": false,
           "anchors": []
         },
@@ -369,6 +389,16 @@
           "url": "https://www.youtube.com/shorts/Hq29mBuaqAg",
           "thumbnail": "https://i.ytimg.com/vi/Hq29mBuaqAg/hqdefault.jpg",
           "viewCount": 2000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "Fq-XuyVqHfo",
+          "title": "何度でも巡り会える",
+          "url": "https://www.youtube.com/shorts/Fq-XuyVqHfo",
+          "thumbnail": "https://i.ytimg.com/vi/Fq-XuyVqHfo/hqdefault.jpg",
+          "viewCount": 1800,
           "versionType": null,
           "instrumental": false,
           "anchors": []
@@ -398,7 +428,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 28,
+      "count": 32,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -557,6 +587,19 @@
           "songTitle": "ケダモノのフレンズ"
         },
         {
+          "videoId": "DYVhgfmA6x8",
+          "title": "🐾RUSH BALL 2026 from MJ's view",
+          "url": "https://www.youtube.com/shorts/DYVhgfmA6x8",
+          "thumbnail": "https://i.ytimg.com/vi/DYVhgfmA6x8/hqdefault.jpg",
+          "viewCount": 6500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "RUSH BALL 2026",
+          "songId": "nishina-kedamono-no-friends",
+          "songTitle": "ケダモノのフレンズ"
+        },
+        {
           "videoId": "k4a2zg4nvzM",
           "title": "a great view of MJ🎹 at NHK Hall",
           "url": "https://www.youtube.com/shorts/k4a2zg4nvzM",
@@ -620,6 +663,19 @@
           "appearanceName": "TOMAKOMAI MIRAI FEST 2024（トマコマイ ミライ フェスト 2024）",
           "songId": null,
           "songTitle": null
+        },
+        {
+          "videoId": "v2kNdSlgU78",
+          "title": "WILD BUNCH FEST. 2026🐳ありがとうございました🌞",
+          "url": "https://www.youtube.com/shorts/v2kNdSlgU78",
+          "thumbnail": "https://i.ytimg.com/vi/v2kNdSlgU78/hqdefault.jpg",
+          "viewCount": 5000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "WILD BUNCH FEST.2026",
+          "songId": "nishina-cranberry-jam",
+          "songTitle": "クランベリージャムをかけて"
         },
         {
           "videoId": "CKnnZeApBD4",
@@ -700,6 +756,19 @@
           "songTitle": "クランベリージャムをかけて"
         },
         {
+          "videoId": "fCAlagSgsXE",
+          "title": "RISING SUN ROCK FESTIVAL 2026 in EZO🌞ありがとうございました！",
+          "url": "https://www.youtube.com/shorts/fCAlagSgsXE",
+          "thumbnail": "https://i.ytimg.com/vi/fCAlagSgsXE/hqdefault.jpg",
+          "viewCount": 3800,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "RISING SUN ROCK FESTIVAL 2026 in EZO",
+          "songId": "nishina-heavy-smoke",
+          "songTitle": "ヘビースモーク"
+        },
+        {
           "videoId": "qeYX2uo4kbU",
           "title": "Surprise Live for gradutaion",
           "url": "https://www.youtube.com/shorts/qeYX2uo4kbU",
@@ -750,6 +819,19 @@
           "appearanceName": "LIVE at 川崎学園祭",
           "songId": "nishina-friday-kids-china-town",
           "songTitle": "FRIDAY KIDS CHINA TOWN"
+        },
+        {
+          "videoId": "BRPBTmYE4Hg",
+          "title": "🌳TOKYO ISLAND2026☀️",
+          "url": "https://www.youtube.com/shorts/BRPBTmYE4Hg",
+          "thumbnail": "https://i.ytimg.com/vi/BRPBTmYE4Hg/hqdefault.jpg",
+          "viewCount": 3100,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "TOKYO ISLAND 2026",
+          "songId": null,
+          "songTitle": null
         },
         {
           "videoId": "P7LCfZSIsY8",
@@ -977,7 +1059,7 @@
     "travel": {
       "displayName": "旅行",
       "emoji": "✈️",
-      "count": 2,
+      "count": 4,
       "shorts": [
         {
           "videoId": "JI86pWwhdf4",
@@ -995,6 +1077,26 @@
           "url": "https://www.youtube.com/shorts/Fl4jfue9iIc",
           "thumbnail": "https://i.ytimg.com/vi/Fl4jfue9iIc/hqdefault.jpg",
           "viewCount": 4500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "OXmCO-RRoJ0",
+          "title": "生きることなどno reason",
+          "url": "https://www.youtube.com/shorts/OXmCO-RRoJ0",
+          "thumbnail": "https://i.ytimg.com/vi/OXmCO-RRoJ0/hqdefault.jpg",
+          "viewCount": 4300,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "jiJ3xE7M6vM",
+          "title": "誤魔化し笑う私は24/7",
+          "url": "https://www.youtube.com/shorts/jiJ3xE7M6vM",
+          "thumbnail": "https://i.ytimg.com/vi/jiJ3xE7M6vM/hqdefault.jpg",
+          "viewCount": 4300,
           "versionType": null,
           "instrumental": false,
           "anchors": []
