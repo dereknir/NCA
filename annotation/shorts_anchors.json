@@ -29314,7 +29314,7 @@
         "line": 16
       },
       {
-        "t": 13.44,
+        "t": 11.52,
         "line": 17
       },
       {
@@ -29326,15 +29326,15 @@
         "line": 19
       },
       {
-        "t": 24.56,
+        "t": 23.46,
         "line": 20
       },
       {
-        "t": 25.44,
+        "t": 27.36,
         "line": 21
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -30522,39 +30522,43 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 2.64,
-        "line": 38
+        "t": 0,
+        "line": 10
       },
       {
-        "t": 4.32,
-        "line": 39
+        "t": 4.19,
+        "line": 11
       },
       {
-        "t": 9,
-        "line": 40
+        "t": 9.29,
+        "line": 12
       },
       {
-        "t": 12.8,
-        "line": 41
+        "t": 13.1,
+        "line": 13
       },
       {
-        "t": 15.28,
-        "line": 42
+        "t": 17.02,
+        "line": 14
       },
       {
-        "t": 18.61,
-        "line": 43
+        "t": 19.75,
+        "line": 15
       },
       {
-        "t": 21.94,
-        "line": 44
+        "t": 22.69,
+        "line": 16
       },
       {
-        "t": 28.64,
-        "line": 45
+        "t": 27.22,
+        "line": 17
+      },
+      {
+        "t": 30.26,
+        "line": 18
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -30588,8 +30592,8 @@
         "line": 5
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -31012,23 +31016,47 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 2.72,
+        "t": 0,
+        "line": 25
+      },
+      {
+        "t": 1.32,
+        "line": 26
+      },
+      {
+        "t": 2.52,
+        "line": 27
+      },
+      {
+        "t": 4.75,
+        "line": 28
+      },
+      {
+        "t": 7,
         "line": 29
       },
       {
-        "t": 9.44,
+        "t": 9.52,
+        "line": 30
+      },
+      {
+        "t": 10.78,
         "line": 31
       },
       {
-        "t": 11.66,
+        "t": 11.89,
         "line": 32
       },
       {
         "t": 14,
         "line": 33
+      },
+      {
+        "t": 16.63,
+        "line": 34
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -32002,8 +32030,8 @@
         "line": 10
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -32122,19 +32150,19 @@
         "line": 26
       },
       {
-        "t": 6,
+        "t": 6.51,
         "line": 27
       },
       {
-        "t": 10.38,
+        "t": 11.18,
         "line": 28
       },
       {
-        "t": 15.36,
+        "t": 16.85,
         "line": 29
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -32594,15 +32622,15 @@
         "line": 27
       },
       {
-        "t": 7.94,
+        "t": 9.05,
         "line": 28
       },
       {
-        "t": 17.44,
+        "t": 14.79,
         "line": 29
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -33024,6 +33052,10 @@
         "line": 26
       },
       {
+        "t": 6.44,
+        "line": 27
+      },
+      {
         "t": 11.04,
         "line": 28
       },
@@ -33032,7 +33064,7 @@
         "line": 29
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -33066,8 +33098,8 @@
         "line": 29
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -33682,8 +33714,8 @@
         "line": 13
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -34445,6 +34477,10 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
+        "t": 0,
+        "line": 18
+      },
+      {
         "t": 2,
         "line": 19
       },
@@ -34465,7 +34501,7 @@
         "line": 23
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -34651,8 +34687,8 @@
         "line": 40
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -34829,15 +34865,15 @@
         "line": 27
       },
       {
-        "t": 11.52,
+        "t": 9.28,
         "line": 28
       },
       {
-        "t": 15.52,
+        "t": 15.2,
         "line": 29
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -34886,30 +34922,9 @@
     "autoGrade": "A"
   },
   "GoqYfj0scfI": {
-    "songId": "nishina-glory",
-    "anchors": [
-      {
-        "t": 0,
-        "line": 35
-      },
-      {
-        "t": 3.98,
-        "line": 36
-      },
-      {
-        "t": 8.12,
-        "line": 37
-      },
-      {
-        "t": 10.2,
-        "line": 38
-      },
-      {
-        "t": 12.16,
-        "line": 39
-      }
-    ],
-    "status": "auto",
+    "songId": "__tour_recap",
+    "anchors": [],
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
@@ -35083,7 +35098,7 @@
         "line": 18
       },
       {
-        "t": 1.44,
+        "t": 3.09,
         "line": 19
       },
       {
@@ -35103,8 +35118,8 @@
         "line": 23
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -35202,30 +35217,9 @@
     "autoGrade": "A"
   },
   "2F1ABV7aXmw": {
-    "songId": "nishina-glory",
-    "anchors": [
-      {
-        "t": 0,
-        "line": 35
-      },
-      {
-        "t": 3.38,
-        "line": 36
-      },
-      {
-        "t": 7.18,
-        "line": 37
-      },
-      {
-        "t": 9.74,
-        "line": 38
-      },
-      {
-        "t": 11.66,
-        "line": 39
-      }
-    ],
-    "status": "auto",
+    "songId": "__tour_recap",
+    "anchors": [],
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
@@ -35604,8 +35598,8 @@
         "line": 29
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -35770,8 +35764,8 @@
         "line": 34
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -35979,50 +35973,9 @@
     "autoGrade": "A"
   },
   "Hqzgou1T_O0": {
-    "songId": "nishina-glory",
-    "anchors": [
-      {
-        "t": 0,
-        "line": 30
-      },
-      {
-        "t": 3.42,
-        "line": 31
-      },
-      {
-        "t": 7.42,
-        "line": 32
-      },
-      {
-        "t": 9.9,
-        "line": 33
-      },
-      {
-        "t": 12.66,
-        "line": 34
-      },
-      {
-        "t": 17.36,
-        "line": 35
-      },
-      {
-        "t": 19.56,
-        "line": 36
-      },
-      {
-        "t": 23.9,
-        "line": 37
-      },
-      {
-        "t": 25.74,
-        "line": 38
-      },
-      {
-        "t": 28.48,
-        "line": 39
-      }
-    ],
-    "status": "auto",
+    "songId": "__promo",
+    "anchors": [],
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
@@ -36056,8 +36009,8 @@
         "line": 29
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -36467,7 +36420,7 @@
         "line": 22
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -37301,8 +37254,8 @@
         "line": 29
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -38136,8 +38089,8 @@
         "line": 29
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -38636,42 +38589,9 @@
     "autoGrade": "A"
   },
   "97w-vXiJacM": {
-    "songId": "nishina-cranberry-jam",
-    "anchors": [
-      {
-        "t": 0,
-        "line": 25
-      },
-      {
-        "t": 4.88,
-        "line": 26
-      },
-      {
-        "t": 5.84,
-        "line": 28
-      },
-      {
-        "t": 9.52,
-        "line": 29
-      },
-      {
-        "t": 11.46,
-        "line": 30
-      },
-      {
-        "t": 13.14,
-        "line": 31
-      },
-      {
-        "t": 14.06,
-        "line": 32
-      },
-      {
-        "t": 16.12,
-        "line": 33
-      }
-    ],
-    "status": "auto",
+    "songId": "__live_song",
+    "anchors": [],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
