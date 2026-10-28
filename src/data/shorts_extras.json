@@ -1,11 +1,11 @@
 {
   "meta": {
-    "total": 96,
+    "total": 98,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 30,
-      "live_song": 35,
+      "promo": 31,
+      "live_song": 36,
       "mc": 7,
       "yearly": 6,
       "ad": 2,
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 30,
+      "count": 31,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -304,6 +304,16 @@
           "anchors": []
         },
         {
+          "videoId": "Hqzgou1T_O0",
+          "title": "らららラブソングを",
+          "url": "https://www.youtube.com/shorts/Hqzgou1T_O0",
+          "thumbnail": "https://i.ytimg.com/vi/Hqzgou1T_O0/hqdefault.jpg",
+          "viewCount": 4100,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "iLoKBVKZYgM",
           "title": "bugs - 1.31 release",
           "url": "https://www.youtube.com/shorts/iLoKBVKZYgM",
@@ -428,7 +438,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 35,
+      "count": 36,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -670,6 +680,19 @@
           "url": "https://www.youtube.com/shorts/BiUnkR7oHKw",
           "thumbnail": "https://i.ytimg.com/vi/BiUnkR7oHKw/hqdefault.jpg",
           "viewCount": 5500,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": null,
+          "songId": null,
+          "songTitle": null
+        },
+        {
+          "videoId": "97w-vXiJacM",
+          "title": "🌞RISING SUN ROCK FESTIVAL 2026 in EZO",
+          "url": "https://www.youtube.com/shorts/97w-vXiJacM",
+          "thumbnail": "https://i.ytimg.com/vi/97w-vXiJacM/hqdefault.jpg",
+          "viewCount": 5300,
           "versionType": "live",
           "instrumental": false,
           "anchors": [],

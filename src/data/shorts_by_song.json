@@ -1,10 +1,10 @@
 {
   "meta": {
-    "song_count": 35,
-    "short_count": 454,
+    "song_count": 36,
+    "short_count": 474,
     "skipped": {
       "pending": 84,
-      "auto": 693,
+      "auto": 669,
       "skip": 0,
       "no_song": 0,
       "no_anchors": 1,
@@ -256,6 +256,41 @@
           {
             "t": 32.7,
             "line": 28
+          }
+        ]
+      },
+      {
+        "videoId": "GML4RJodk2s",
+        "title": "そんな自分が怖かった",
+        "url": "https://www.youtube.com/shorts/GML4RJodk2s",
+        "thumbnail": "https://i.ytimg.com/vi/GML4RJodk2s/hqdefault.jpg",
+        "viewCount": 3800,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.08,
+            "line": 17
+          },
+          {
+            "t": 3.72,
+            "line": 18
+          },
+          {
+            "t": 7.68,
+            "line": 19
+          },
+          {
+            "t": 13.94,
+            "line": 20
+          },
+          {
+            "t": 17.98,
+            "line": 21
+          },
+          {
+            "t": 21.58,
+            "line": 22
           }
         ]
       },
@@ -5321,6 +5356,49 @@
     ],
     "nishina-nekoze": [
       {
+        "videoId": "h2o3NzmaIHw",
+        "title": "猫背でゴーイングマイウェイ！",
+        "url": "https://www.youtube.com/shorts/h2o3NzmaIHw",
+        "thumbnail": "https://i.ytimg.com/vi/h2o3NzmaIHw/hqdefault.jpg",
+        "viewCount": 14000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 14
+          },
+          {
+            "t": 4.12,
+            "line": 15
+          },
+          {
+            "t": 7.98,
+            "line": 16
+          },
+          {
+            "t": 11.52,
+            "line": 17
+          },
+          {
+            "t": 15.66,
+            "line": 18
+          },
+          {
+            "t": 19.04,
+            "line": 19
+          },
+          {
+            "t": 23.46,
+            "line": 20
+          },
+          {
+            "t": 27.36,
+            "line": 21
+          }
+        ]
+      },
+      {
         "videoId": "8vsxwE3YvlQ",
         "title": "同志よ 我らが世界を回すのだ",
         "url": "https://www.youtube.com/shorts/8vsxwE3YvlQ",
@@ -6290,6 +6368,53 @@
           {
             "t": 23.19,
             "line": 24
+          }
+        ]
+      },
+      {
+        "videoId": "W_UDbng2XQI",
+        "title": "どーせみんなエゴイストだもん",
+        "url": "https://www.youtube.com/shorts/W_UDbng2XQI",
+        "thumbnail": "https://i.ytimg.com/vi/W_UDbng2XQI/hqdefault.jpg",
+        "viewCount": 10000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 10
+          },
+          {
+            "t": 4.19,
+            "line": 11
+          },
+          {
+            "t": 9.29,
+            "line": 12
+          },
+          {
+            "t": 13.1,
+            "line": 13
+          },
+          {
+            "t": 17.02,
+            "line": 14
+          },
+          {
+            "t": 19.75,
+            "line": 15
+          },
+          {
+            "t": 22.69,
+            "line": 16
+          },
+          {
+            "t": 27.22,
+            "line": 17
+          },
+          {
+            "t": 30.26,
+            "line": 18
           }
         ]
       },
@@ -12337,6 +12462,469 @@
             "line": 23
           }
         ]
+      },
+      {
+        "videoId": "-kl845XcVB4",
+        "title": "貴方以外にこの身を捧げる",
+        "url": "https://www.youtube.com/shorts/-kl845XcVB4",
+        "thumbnail": "https://i.ytimg.com/vi/-kl845XcVB4/hqdefault.jpg",
+        "viewCount": 7800,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 5
+          },
+          {
+            "t": 8.72,
+            "line": 6
+          },
+          {
+            "t": 14.16,
+            "line": 7
+          },
+          {
+            "t": 17.92,
+            "line": 8
+          },
+          {
+            "t": 20.62,
+            "line": 9
+          },
+          {
+            "t": 22.04,
+            "line": 10
+          }
+        ]
+      },
+      {
+        "videoId": "Qpke2JSeLLA",
+        "title": "正しさを無くした夜に花を",
+        "url": "https://www.youtube.com/shorts/Qpke2JSeLLA",
+        "thumbnail": "https://i.ytimg.com/vi/Qpke2JSeLLA/hqdefault.jpg",
+        "viewCount": 7600,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 2.56,
+            "line": 25
+          },
+          {
+            "t": 4.52,
+            "line": 26
+          },
+          {
+            "t": 6.51,
+            "line": 27
+          },
+          {
+            "t": 11.18,
+            "line": 28
+          },
+          {
+            "t": 16.85,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "MC-i-0dB8VY",
+        "title": "I'm singing love for you",
+        "url": "https://www.youtube.com/shorts/MC-i-0dB8VY",
+        "thumbnail": "https://i.ytimg.com/vi/MC-i-0dB8VY/hqdefault.jpg",
+        "viewCount": 7100,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 1.12,
+            "line": 25
+          },
+          {
+            "t": 2.5,
+            "line": 26
+          },
+          {
+            "t": 4.98,
+            "line": 27
+          },
+          {
+            "t": 9.05,
+            "line": 28
+          },
+          {
+            "t": 14.79,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "du9REYo47Dw",
+        "title": "I’m singing love for you",
+        "url": "https://www.youtube.com/shorts/du9REYo47Dw",
+        "thumbnail": "https://i.ytimg.com/vi/du9REYo47Dw/hqdefault.jpg",
+        "viewCount": 6700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 3.36,
+            "line": 25
+          },
+          {
+            "t": 4.56,
+            "line": 26
+          },
+          {
+            "t": 6.44,
+            "line": 27
+          },
+          {
+            "t": 11.04,
+            "line": 28
+          },
+          {
+            "t": 16.32,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "Hp_nkq1Sh9Y",
+        "title": "もうどうせ壊れちゃうから",
+        "url": "https://www.youtube.com/shorts/Hp_nkq1Sh9Y",
+        "thumbnail": "https://i.ytimg.com/vi/Hp_nkq1Sh9Y/hqdefault.jpg",
+        "viewCount": 6700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 5.14,
+            "line": 25
+          },
+          {
+            "t": 6.14,
+            "line": 26
+          },
+          {
+            "t": 7.62,
+            "line": 27
+          },
+          {
+            "t": 13.32,
+            "line": 28
+          },
+          {
+            "t": 18.64,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "385RxA0Oo7g",
+        "title": "我愛你",
+        "url": "https://www.youtube.com/shorts/385RxA0Oo7g",
+        "thumbnail": "https://i.ytimg.com/vi/385RxA0Oo7g/hqdefault.jpg",
+        "viewCount": 5900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 6
+          },
+          {
+            "t": 4.92,
+            "line": 7
+          },
+          {
+            "t": 9,
+            "line": 8
+          },
+          {
+            "t": 11.56,
+            "line": 9
+          },
+          {
+            "t": 13.06,
+            "line": 10
+          },
+          {
+            "t": 15.56,
+            "line": 11
+          },
+          {
+            "t": 19.6,
+            "line": 12
+          },
+          {
+            "t": 25.7,
+            "line": 13
+          }
+        ]
+      },
+      {
+        "videoId": "IeGrfZZDuKo",
+        "title": "愛をくれた貴方が全部いけない",
+        "url": "https://www.youtube.com/shorts/IeGrfZZDuKo",
+        "thumbnail": "https://i.ytimg.com/vi/IeGrfZZDuKo/hqdefault.jpg",
+        "viewCount": 5400,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 18
+          },
+          {
+            "t": 2,
+            "line": 19
+          },
+          {
+            "t": 3.94,
+            "line": 20
+          },
+          {
+            "t": 5.56,
+            "line": 21
+          },
+          {
+            "t": 10.9,
+            "line": 22
+          },
+          {
+            "t": 15.9,
+            "line": 23
+          }
+        ]
+      },
+      {
+        "videoId": "Q8Tsinu-MY8",
+        "title": "I'm singing love for you",
+        "url": "https://www.youtube.com/shorts/Q8Tsinu-MY8",
+        "thumbnail": "https://i.ytimg.com/vi/Q8Tsinu-MY8/hqdefault.jpg",
+        "viewCount": 5100,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.08,
+            "line": 24
+          },
+          {
+            "t": 1.24,
+            "line": 25
+          },
+          {
+            "t": 2.4,
+            "line": 26
+          },
+          {
+            "t": 6.96,
+            "line": 27
+          },
+          {
+            "t": 9.28,
+            "line": 28
+          },
+          {
+            "t": 15.2,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "LEoS6cX0R6A",
+        "title": "我愛你",
+        "url": "https://www.youtube.com/shorts/LEoS6cX0R6A",
+        "thumbnail": "https://i.ytimg.com/vi/LEoS6cX0R6A/hqdefault.jpg",
+        "viewCount": 4900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 18
+          },
+          {
+            "t": 3.09,
+            "line": 19
+          },
+          {
+            "t": 4.12,
+            "line": 20
+          },
+          {
+            "t": 5.86,
+            "line": 21
+          },
+          {
+            "t": 10.88,
+            "line": 22
+          },
+          {
+            "t": 16.64,
+            "line": 23
+          }
+        ]
+      },
+      {
+        "videoId": "2mtHicCk6tE",
+        "title": "I'm singing love for you",
+        "url": "https://www.youtube.com/shorts/2mtHicCk6tE",
+        "thumbnail": "https://i.ytimg.com/vi/2mtHicCk6tE/hqdefault.jpg",
+        "viewCount": 4500,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 3.36,
+            "line": 25
+          },
+          {
+            "t": 4.24,
+            "line": 26
+          },
+          {
+            "t": 6.04,
+            "line": 27
+          },
+          {
+            "t": 11.44,
+            "line": 28
+          },
+          {
+            "t": 17.02,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "2KQ40aa08z0",
+        "title": "愛し合えば誰しもがスローモーション",
+        "url": "https://www.youtube.com/shorts/2KQ40aa08z0",
+        "thumbnail": "https://i.ytimg.com/vi/2KQ40aa08z0/hqdefault.jpg",
+        "viewCount": 4100,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 1.72,
+            "line": 25
+          },
+          {
+            "t": 3.22,
+            "line": 26
+          },
+          {
+            "t": 5.04,
+            "line": 27
+          },
+          {
+            "t": 10.62,
+            "line": 28
+          },
+          {
+            "t": 15.96,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "66FLI5CGNGA",
+        "title": "我愛你",
+        "url": "https://www.youtube.com/shorts/66FLI5CGNGA",
+        "thumbnail": "https://i.ytimg.com/vi/66FLI5CGNGA/hqdefault.jpg",
+        "viewCount": 3200,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 1.72,
+            "line": 25
+          },
+          {
+            "t": 3.22,
+            "line": 26
+          },
+          {
+            "t": 5.04,
+            "line": 27
+          },
+          {
+            "t": 10.62,
+            "line": 28
+          },
+          {
+            "t": 15.96,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "5xejdE3iXDA",
+        "title": "I’m singing love for you",
+        "url": "https://www.youtube.com/shorts/5xejdE3iXDA",
+        "thumbnail": "https://i.ytimg.com/vi/5xejdE3iXDA/hqdefault.jpg",
+        "viewCount": 2200,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 4.24,
+            "line": 25
+          },
+          {
+            "t": 5.88,
+            "line": 26
+          },
+          {
+            "t": 7.14,
+            "line": 27
+          },
+          {
+            "t": 12.5,
+            "line": 28
+          },
+          {
+            "t": 18.22,
+            "line": 29
+          }
+        ]
       }
     ],
     "nishina-u-plus": [
@@ -14381,6 +14969,72 @@
             "line": 7
           }
         ]
+      },
+      {
+        "videoId": "W0IQQ_EpM3k",
+        "title": "らららラブソングを",
+        "url": "https://www.youtube.com/shorts/W0IQQ_EpM3k",
+        "thumbnail": "https://i.ytimg.com/vi/W0IQQ_EpM3k/hqdefault.jpg",
+        "viewCount": 5200,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 35
+          },
+          {
+            "t": 3.68,
+            "line": 36
+          },
+          {
+            "t": 7.42,
+            "line": 37
+          },
+          {
+            "t": 9.9,
+            "line": 38
+          },
+          {
+            "t": 11.92,
+            "line": 39
+          },
+          {
+            "t": 16.16,
+            "line": 40
+          }
+        ]
+      },
+      {
+        "videoId": "QX8YRAw7Zqs",
+        "title": "ただ鼓動を鳴らすように",
+        "url": "https://www.youtube.com/shorts/QX8YRAw7Zqs",
+        "thumbnail": "https://i.ytimg.com/vi/QX8YRAw7Zqs/hqdefault.jpg",
+        "viewCount": 4400,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 30
+          },
+          {
+            "t": 4.16,
+            "line": 31
+          },
+          {
+            "t": 8.32,
+            "line": 32
+          },
+          {
+            "t": 9.96,
+            "line": 33
+          },
+          {
+            "t": 11.84,
+            "line": 34
+          }
+        ]
       }
     ],
     "nishina-sugar-spot": [
@@ -14838,6 +15492,94 @@
           {
             "t": 15.6,
             "line": 25
+          }
+        ]
+      }
+    ],
+    "nishina-cranberry-jam": [
+      {
+        "videoId": "yFYulF6a-U4",
+        "title": "ときめきがひしめくこの世はJAM",
+        "url": "https://www.youtube.com/shorts/yFYulF6a-U4",
+        "thumbnail": "https://i.ytimg.com/vi/yFYulF6a-U4/hqdefault.jpg",
+        "viewCount": 10000,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 2.1,
+            "line": 1
+          },
+          {
+            "t": 4.74,
+            "line": 2
+          },
+          {
+            "t": 9.06,
+            "line": 3
+          },
+          {
+            "t": 11.44,
+            "line": 4
+          },
+          {
+            "t": 13.46,
+            "line": 5
+          }
+        ]
+      },
+      {
+        "videoId": "fErwsGkLAno",
+        "title": "誰か永遠の愛を教えておくれよ",
+        "url": "https://www.youtube.com/shorts/fErwsGkLAno",
+        "thumbnail": "https://i.ytimg.com/vi/fErwsGkLAno/hqdefault.jpg",
+        "viewCount": 9300,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 25
+          },
+          {
+            "t": 1.32,
+            "line": 26
+          },
+          {
+            "t": 2.52,
+            "line": 27
+          },
+          {
+            "t": 4.75,
+            "line": 28
+          },
+          {
+            "t": 7,
+            "line": 29
+          },
+          {
+            "t": 9.52,
+            "line": 30
+          },
+          {
+            "t": 10.78,
+            "line": 31
+          },
+          {
+            "t": 11.89,
+            "line": 32
+          },
+          {
+            "t": 14,
+            "line": 33
+          },
+          {
+            "t": 16.63,
+            "line": 34
           }
         ]
       }

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "total": 50,
+    "total": 52,
     "tour_names": [
       "Feeling",
       "MUSICK",
@@ -9,7 +9,7 @@
       "クランベリージャムをかけて",
       "日々散漫"
     ],
-    "unspecified_count": 7
+    "unspecified_count": 9
   },
   "by_tour": {
     "日々散漫": [
@@ -176,6 +176,28 @@
         "thumbnail": "https://i.ytimg.com/vi/mDwpnYpYRE0/hqdefault.jpg",
         "viewCount": 8300,
         "versionType": "acoustic",
+        "instrumental": false,
+        "anchors": [],
+        "tourName": null
+      },
+      {
+        "videoId": "GoqYfj0scfI",
+        "title": "nishina - glory",
+        "url": "https://www.youtube.com/shorts/GoqYfj0scfI",
+        "thumbnail": "https://i.ytimg.com/vi/GoqYfj0scfI/hqdefault.jpg",
+        "viewCount": 5000,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": null
+      },
+      {
+        "videoId": "2F1ABV7aXmw",
+        "title": "ただこんな日が続くように",
+        "url": "https://www.youtube.com/shorts/2F1ABV7aXmw",
+        "thumbnail": "https://i.ytimg.com/vi/2F1ABV7aXmw/hqdefault.jpg",
+        "viewCount": 4800,
+        "versionType": null,
         "instrumental": false,
         "anchors": [],
         "tourName": null
