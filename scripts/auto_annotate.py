@@ -638,6 +638,8 @@ def main():
     ap.add_argument('--shard', default='', help='i/n: 只跑第 i 份 (0-based), 搭配多個行程平行; 各自用不同 --out')
     ap.add_argument('--exclude-from', default='', help='已處理過的 auto_anchors.json, 其中的 videoId 跳過')
     ap.add_argument('--combine', nargs='*', help='把多個 shard 的 out 檔合併進 --out 後結束')
+    ap.add_argument('--peer', action='store_true', help='只重算「同錄音照抄」(scripts/peer_anchors.py), 不跑 ASR; 審了一批之後重跑會更準')
+    ap.add_argument('--no-peer', action='store_true', help='ASR 跑完後不做同錄音照抄')
     args = ap.parse_args()
     global CPU_THREADS, VAD, ENGINE
     ENGINE = args.engine
@@ -655,6 +657,9 @@ def main():
         return
     if args.merge:
         return merge(out_path)
+    if args.peer:
+        import peer_anchors
+        return peer_anchors.apply(out_path)
     songs = load_songs()
     queue = json.loads(QUEUE_F.read_text(encoding='utf-8'))['queue']
     items = {it['videoId']: dict(it, group=k) for k, g in queue.items() for it in g}
@@ -738,6 +743,10 @@ def main():
         finally:
             save()
     print(f'[auto] 完成 {len(ids)} 支, 共 {(time.time()-t0)/60:.1f} 分鐘')
+    if ids and not args.no_peer and not args.shard and out_path.resolve() == OUT_F.resolve():
+        # 同一段錄音的已審 shorts → 重疊部分照抄人工 anchors (比 ASR 準很多; 新跑的這批也要套)
+        import peer_anchors
+        peer_anchors.apply(out_path)
 
 if __name__ == '__main__':
     main()

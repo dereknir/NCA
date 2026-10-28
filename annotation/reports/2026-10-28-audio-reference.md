@@ -79,3 +79,21 @@ cd ~/NCA
 .venv-qwen/bin/python scripts/experiments/audio_ref/peer_unlabeled.py     # 未審片段能比對到多少
 ```
 參考音訊與字幕在 `~/nca-audio-cache/ref/`(字幕用 `yt-dlp --write-subs --sub-langs "zh-Hans,zh-Hant,en"` 下載),chroma 特徵快取在 `~/nca-audio-cache/feat/`。
+
+## 7. 後續:同錄音照抄已接進正式流程(`scripts/peer_anchors.py`)
+
+決定先只上「shorts 互相參考」:原曲時間表只在沒有夥伴的片段上有用,而那些片段上它比 v3 差。
+
+- `auto_annotate.py` 跑完 ASR 自動接著做;`--peer` 只重算這一步(~1.5 分鐘)。
+- 夥伴對重複段選了不同次(例如混成 20 → 57 → 22 → 59)時,在同歌詞的句號之間重選,讓句號嚴格遞增、改動最少,而且跳句數要跟時間相符(`fix_order`)。
+- golden 354 支(留一法):
+
+| | ASR (v3) | + 同錄音照抄 |
+|---|---|---|
+| 完全不用改 | 38% | **56%** |
+| 有夥伴的 211 支 | 35% | **66%** |
+| 時間 ≤1 秒 | 85% | **93%** |
+| 大錯 >3 秒 | 63 句 | **30 句** |
+| 沒夥伴的 143 支 | 42% | 42%(不變) |
+
+- 套用到目前未審的:167 支找到同錄音的已審 shorts(3 支歌名以已審的為準,包括兩支被 ASR 認成「今日も今日とて remix」的),16 支原本 C 級升成 A / B。merge 後待審 777 支(A 596 / B 181),done / skip / 人工進行中都沒動。

@@ -84,6 +84,7 @@
   #catQuick .c-chip.active{background:rgba(57,192,127,.18);color:var(--ok);border-color:var(--ok)}
   #conflictBtn.on{background:rgba(226,176,58,.22);color:#fff;border-color:var(--warn)}
   .anchor-row .est{color:var(--warn);font-size:11px;margin-left:4px;cursor:help}
+  .anchor-row .peer{color:#7fd1a8;font-size:11px;margin-left:4px;cursor:help}
   .v-chip:hover{border-color:var(--accent)}
   .v-chip.active{background:var(--accent-soft);border-color:var(--accent);color:var(--text)}
   .v-chip-inst.active{background:rgba(138,92,246,.22);border-color:var(--hint);color:var(--text)}
@@ -967,6 +968,7 @@ function renderAutoPanel(){
       ${(r.needsReview||[]).length ? `<span style="color:var(--warn)">${r.needsReview.join(', ')}</span>` : ''}
     </div>
     <div style="color:var(--dim)">候選歌: ${cands || '(聽不出歌詞)'}</div>
+    ${r.peer ? `<div style="color:#7fd1a8">🎧 跟已審的 ${r.peer.from.map(p => `<a href="https://youtube.com/shorts/${p.videoId}" target="_blank" rel="noopener" style="color:inherit">${p.videoId}</a>`).join('、')} 是同一段錄音 (涵蓋片段 ${Math.round(r.peer.coverage * 100)}%), 標「🎧抄」的句子照抄人工答案${r.peer.songChanged ? ' · 歌名也以已審的為準' : ''}</div>` : ''}
     ${conflict ? `<div style="color:var(--warn)">⚠ 佇列 (${escapeHtml(METHOD_LABEL[r.matchMethod]||r.matchMethod||'')}) 說是「${escapeHtml(S.songs[r.queueSongId]?.title||r.queueSongId||'?')}」, ASR 聽起來是「${escapeHtml(S.songs[r.songId]?.title||r.songId||'?')}」— 先確認歌再審 anchors</div>` : ''}
     <div class="abtn">
       ${hasSug && ann.status!=='auto' ? `<button id="autoApply">套用建議 anchors (${r.anchors.length})</button>` : ''}
@@ -1082,8 +1084,10 @@ function renderAnchors(){
   for(const [i,a] of S.ann[S.cur.videoId].anchors.entries()){
     const ja = song.lyric_lines.find(l=>l.index===a.line)?.ja || `line ${a.line}`;
     const row = document.createElement('div'); row.className='anchor-row';
-    const est = (S.auto[S.cur.videoId]?.anchors || []).some(x => x.est && x.line === a.line && Math.abs(x.t - a.t) < 0.01);
-    row.innerHTML = `<span class="at">${a.t.toFixed(2)}s</span><span class="al">${ja}${est ? '<span class="est" title="機器估計的句子 (沒直接對到字), 請確認">≈估</span>' : ''}</span><button class="del">×</button>`;
+    const sug = (S.auto[S.cur.videoId]?.anchors || []).find(x => x.line === a.line && Math.abs(x.t - a.t) < 0.01);
+    const tag = sug?.peer ? '<span class="peer" title="跟已審的 shorts 是同一段錄音, 照抄人工答案">🎧抄</span>'
+      : sug?.est ? '<span class="est" title="機器估計的句子 (沒直接對到字), 請確認">≈估</span>' : '';
+    row.innerHTML = `<span class="at">${a.t.toFixed(2)}s</span><span class="al">${ja}${tag}</span><button class="del">×</button>`;
     row.querySelector('.at').onclick = ()=> S.player.seekTo(a.t, true);
     row.querySelector('.del').onclick = ()=>{
       S.ann[S.cur.videoId].anchors.splice(i,1);
