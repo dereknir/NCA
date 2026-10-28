@@ -184,11 +184,14 @@ def apply(out_path=aa.OUT_F, ids=None):
     todo = [v for v, r in items.items() if not r.get('error') and H.get(v, {}).get('status') not in ('done', 'skip')
             and (ids is None or v in ids)]
     t0 = time.time()
+    print(f'[peer] 未審 {len(todo)} 支 × 已審 {len(done)} 支: 找同一段錄音 (只做音訊比對, 不重跑 ASR; 約 1–2 分鐘)', flush=True)
     songs = aa.load_songs()
     F, mean = load_feats(done + todo)
     done = [u for u in done if u in F]
     n_peer = n_song = 0
-    for v in todo:
+    for k, v in enumerate(todo, 1):
+        if k % 100 == 0:
+            print(f'[peer] {k}/{len(todo)} · 目前 {n_peer} 支找到同錄音 · {time.time() - t0:.0f}s', flush=True)
         r = items[v]
         if 'asr' not in r:
             r['asr'] = {k: r.get(k) for k in KEEP}           # ASR 原本的結果; 之後重算都從這份出發
