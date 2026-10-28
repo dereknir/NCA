@@ -1,11 +1,11 @@
 {
   "meta": {
-    "total": 93,
+    "total": 96,
     "by_category": {
       "daily": 4,
       "cover": 5,
       "promo": 30,
-      "live_song": 32,
+      "live_song": 35,
       "mc": 7,
       "yearly": 6,
       "ad": 2,
@@ -428,7 +428,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 32,
+      "count": 35,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -548,6 +548,19 @@
           "songTitle": null
         },
         {
+          "videoId": "rmqEo5KzpqM",
+          "title": "🌞2026フェス納め、RUSH BALL 2026🎤",
+          "url": "https://www.youtube.com/shorts/rmqEo5KzpqM",
+          "thumbnail": "https://i.ytimg.com/vi/rmqEo5KzpqM/hqdefault.jpg",
+          "viewCount": 7400,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": null,
+          "songId": null,
+          "songTitle": null
+        },
+        {
           "videoId": "mEkPr3A8U8g",
           "title": "WurtS LIVEHOUSE TOUR IVat Zepp Nagoya",
           "url": "https://www.youtube.com/shorts/mEkPr3A8U8g",
@@ -559,6 +572,19 @@
           "appearanceName": "WurtS LIVEHOUSE TOUR Ⅳ",
           "songId": "nishina-santa-girl",
           "songTitle": "サンタガール"
+        },
+        {
+          "videoId": "nOd0Dk2dTOY",
+          "title": "RUSH BALL 2026、ありがとうございました🌞",
+          "url": "https://www.youtube.com/shorts/nOd0Dk2dTOY",
+          "thumbnail": "https://i.ytimg.com/vi/nOd0Dk2dTOY/hqdefault.jpg",
+          "viewCount": 7100,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": null,
+          "songId": null,
+          "songTitle": null
         },
         {
           "videoId": "43GGFCnMi24",
@@ -637,6 +663,19 @@
           "appearanceName": "WILD BUNCH FEST.2023",
           "songId": "nishina-tokyo-marble",
           "songTitle": "東京マーブル"
+        },
+        {
+          "videoId": "BiUnkR7oHKw",
+          "title": "🎤RUSH BALL 2026",
+          "url": "https://www.youtube.com/shorts/BiUnkR7oHKw",
+          "thumbnail": "https://i.ytimg.com/vi/BiUnkR7oHKw/hqdefault.jpg",
+          "viewCount": 5500,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": null,
+          "songId": null,
+          "songTitle": null
         },
         {
           "videoId": "NINFJtKKqAQ",
