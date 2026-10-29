@@ -3109,7 +3109,7 @@
         "line": 5
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -3411,8 +3411,8 @@
         "line": 24
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -3757,7 +3757,7 @@
         "line": 5
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -3834,7 +3834,7 @@
         "line": 26
       },
       {
-        "t": 3.58,
+        "t": 3.04,
         "line": 27
       },
       {
@@ -3862,7 +3862,7 @@
         "line": 33
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -4734,8 +4734,8 @@
         "line": 63
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -31554,11 +31554,11 @@
         "line": 11
       },
       {
-        "t": 19.86,
+        "t": 19.22,
         "line": 12
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -35624,7 +35624,7 @@
         "line": 19
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -36460,7 +36460,7 @@
         "line": 24
       },
       {
-        "t": 5.98,
+        "t": 7.15,
         "line": 25
       },
       {
@@ -36472,12 +36472,16 @@
         "line": 27
       },
       {
+        "t": 24.38,
+        "line": 28
+      },
+      {
         "t": 31.04,
         "line": 29
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -36632,7 +36636,7 @@
         "line": 26
       },
       {
-        "t": 7.8,
+        "t": 6.91,
         "line": 27
       },
       {
@@ -36644,7 +36648,7 @@
         "line": 29
       },
       {
-        "t": 25,
+        "t": 24.28,
         "line": 30
       },
       {
@@ -36656,8 +36660,8 @@
         "line": 32
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -36847,7 +36851,7 @@
         "line": 26
       },
       {
-        "t": 7.8,
+        "t": 6.88,
         "line": 27
       },
       {
@@ -36871,8 +36875,8 @@
         "line": 32
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -38111,7 +38115,7 @@
         "line": 21
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -38885,8 +38889,8 @@
         "line": 50
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A",
@@ -38912,7 +38916,7 @@
         "line": 50
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -39222,7 +39226,7 @@
         "line": 50
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -39249,7 +39253,7 @@
         "line": 50
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
