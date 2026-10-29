@@ -160,6 +160,10 @@
   .lyr:hover{background:var(--panel);border-color:var(--line)}
   .lyr .ja{font-size:15px;line-height:1.55}
   .lyr .zh{font-size:12px;color:var(--dim);margin-top:2px}
+  .lyr .rm{font-size:12px;color:#9fb6ff;opacity:.8;margin-top:2px;letter-spacing:.02em;line-height:1.45}
+  #lyricsPanel.no-romaji .lyr .rm{display:none}
+  #romajiBtn{flex-shrink:0;padding:4px 10px;font-size:12px;color:var(--dim)}
+  #romajiBtn.on{color:#9fb6ff;border-color:var(--accent)}
   .lyr .idx{position:absolute;right:10px;top:9px;font-family:var(--mono);font-size:10px;color:var(--dim);opacity:.6}
   .lyr.hint{border-color:var(--hint)}
   .lyr.hint::before{content:"標題句?";position:absolute;right:8px;bottom:7px;font-size:10px;color:var(--hint)}
@@ -735,6 +739,7 @@ function renderLyrics(){
     <div id="songPicker">
       <label>歌曲</label>
       <select id="songSelect">${options}</select>
+      <button id="romajiBtn" class="ghost${S.romaji ? ' on' : ''}" title="歌詞下面顯示 / 隱藏羅馬拼音">Aa 拼音</button>
     </div>`;
 
   if(effectiveSid === OTHERS_KEY){
@@ -786,7 +791,7 @@ function renderLyrics(){
       + (ln.index===S.cur.lineHint && effectiveSid===S.cur.songId ? ' hint':'')  // 只有原始 match 時才顯示 hint
       + (anchoredLines.has(ln.index) ? ' anchored':'');
     d.dataset.line = ln.index;
-    d.innerHTML = `<div class="ja">${escapeHtml(ln.ja)}</div><div class="zh">${escapeHtml(ln.zh||'')}</div><span class="idx">${ln.index}</span>`;
+    d.innerHTML = `<div class="ja">${escapeHtml(ln.ja)}</div>${ln.romaji ? `<div class="rm">${escapeHtml(ln.romaji)}</div>` : ''}<div class="zh">${escapeHtml(ln.zh||'')}</div><span class="idx">${ln.index}</span>`;
     d.onclick = ()=> addAnchor(ln.index);
     panel.appendChild(d);
   }
@@ -797,6 +802,8 @@ function renderLyrics(){
   centerLyr(panel.querySelector('.lyr.anchored') || panel.querySelector('.lyr.hint'), false);
 }
 function bindSongSelect(){
+  const rb = document.getElementById('romajiBtn');
+  if(rb) rb.onclick = ()=> setRomaji(!S.romaji);
   const sel = document.getElementById('songSelect');
   if(!sel) return;
   sel.onchange = ()=>{
@@ -1184,6 +1191,16 @@ function followPlaying(el){
   panel.addEventListener('wheel', userScroll, { passive:true });
   panel.addEventListener('touchmove', userScroll, { passive:true });
 })();
+
+/* ---------- 歌詞下面的羅馬拼音 (對發音比看漢字快; 開關記在這台瀏覽器) ---------- */
+const ROMAJI_KEY = 'nishina-annotator-romaji';
+function setRomaji(on){
+  S.romaji = on;
+  document.getElementById('lyricsPanel').classList.toggle('no-romaji', !on);
+  document.getElementById('romajiBtn')?.classList.toggle('on', on);
+  try{ localStorage.setItem(ROMAJI_KEY, on ? '1' : '0'); }catch(_){}
+}
+setRomaji((()=>{ try{ return localStorage.getItem(ROMAJI_KEY) !== '0'; }catch(_){ return true; } })());
 
 /* ---------- 遮罩 + 歌詞欄進度條 (上班時不露出影片畫面也能調時間) ---------- */
 const COVER_KEY = 'nishina-annotator-cover';
