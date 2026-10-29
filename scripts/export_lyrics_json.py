@@ -63,6 +63,8 @@ LYRICS_H2_RE = re.compile(r"##\s*歌詞[^\n]*\n(.*?)(?=\n---|\n##|\Z)", re.DOTAL
 # Sub-div (romaji / ja / zh) — HTML in these files is on its own line, so a single-line
 # non-greedy match to the very next </div> is safe.
 SUB_DIV_RE = re.compile(r'<div class="(romaji|ja|zh)">([^<]*)</div>')
+# 每句的外框; 英文句等沒有 romaji 的句子, 只靠「欄位重複」切會把下一句的 romaji 黏到這句
+LINE_DIV_RE = re.compile(r'<div class="lyrics-line">|<div class="(romaji|ja|zh)">([^<]*)</div>')
 
 
 # Legacy YOASOBI-style format: <div class="lyrics-container"> with <div class="lyrics-ja">…<br/>…</div>
@@ -77,16 +79,22 @@ def _split_br(text: str) -> list[str]:
 
 
 def parse_lyric_lines(body: str) -> list[dict]:
-    """Walk sub-divs in document order. Start a new lyric line whenever we
-    encounter a field that's already filled in the current in-progress line
-    (e.g. seeing a 2nd 'ja' means the previous line is complete)."""
+    """Walk sub-divs in document order. Start a new lyric line at each
+    <div class="lyrics-line"> box, or whenever we encounter a field that's
+    already filled in the current in-progress line (files without boxes)."""
     m = LYRICS_H2_RE.search(body)
     scope = m.group(1) if m else body
 
     lines: list[dict] = []
     current: dict = {}
-    for match in SUB_DIV_RE.finditer(scope):
-        key, value = match.group(1), match.group(2).strip()
+    for match in LINE_DIV_RE.finditer(scope):
+        key = match.group(1)
+        if key is None:                     # 新的一句的外框
+            if current:
+                lines.append(current)
+                current = {}
+            continue
+        value = match.group(2).strip()
         if key in current:
             lines.append(current)
             current = {}
