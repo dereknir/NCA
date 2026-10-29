@@ -179,7 +179,7 @@ coverImage: "/covers/nishina/hibi-sanman.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">riyuu wa naku yake ni tada kokochi yoi</div>
+<div class="romaji">wake wa naku yake ni tada kokochi ii</div>
 <div class="ja">理由はなくやけにただ心地良い</div>
 <div class="zh">毫無理由 卻覺得莫名地舒適</div>
 </div>
@@ -257,7 +257,7 @@ coverImage: "/covers/nishina/hibi-sanman.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">itazura gi ni odoru hari</div>
+<div class="romaji">itazurage ni odoru hari</div>
 <div class="ja">いたずら気に踊る針</div>
 <div class="zh">像是惡作劇般跳動的時鐘指針</div>
 </div>

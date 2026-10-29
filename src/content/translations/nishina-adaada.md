@@ -260,7 +260,7 @@ coverImage: "/covers/nishina/hibi-sanman.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">yugami ga geijutsu ni naru</div>
+<div class="romaji">yugami ga aato ni naru</div>
 <div class="ja">歪みが芸術になる</div>
 <div class="zh">扭曲也成了一種藝術</div>
 </div>

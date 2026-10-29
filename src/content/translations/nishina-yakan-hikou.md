@@ -83,7 +83,7 @@ coverImage: "/covers/nishina/yakan-hikou.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">osanai furi shite eien wo negaou</div>
+<div class="romaji">osanai furi shite towa wo negaou</div>
 <div class="ja">幼いフリして 永遠を願おう</div>
 <div class="zh">假裝稚嫩 祈禱著永遠吧</div>
 </div>
@@ -171,7 +171,7 @@ coverImage: "/covers/nishina/yakan-hikou.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">osanai furi shite eien wo negaou</div>
+<div class="romaji">osanai furi shite towa wo negaou</div>
 <div class="ja">幼いフリして 永遠を願おう</div>
 <div class="zh">假裝稚嫩 祈禱著永遠吧</div>
 </div>

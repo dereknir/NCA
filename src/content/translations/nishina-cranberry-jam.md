@@ -243,7 +243,7 @@ coverImage: "/covers/nishina/cranberry-jam.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">dareka eien no ai wo oshiete okure yo</div>
+<div class="romaji">dareka towa no ai wo oshiete okure yo</div>
 <div class="ja">誰か永遠の愛を教えておくれよ</div>
 <div class="zh">誰來教教我何謂永遠的愛吧</div>
 </div>

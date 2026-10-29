@@ -83,7 +83,7 @@ coverImage: "/covers/nishina/rendezvous.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">futari dake no eisei wo tsukurou</div>
+<div class="romaji">futari dake no hoshi wo tsukurou</div>
 <div class="ja">二人だけの衛星を作ろう</div>
 <div class="zh">讓我們創造只屬於兩人的衛星吧</div>
 </div>
@@ -226,7 +226,7 @@ coverImage: "/covers/nishina/rendezvous.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">futari dake no eisei wo tsukurou</div>
+<div class="romaji">futari dake no hoshi wo tsukurou</div>
 <div class="ja">二人だけの衛星を作ろう</div>
 <div class="zh">讓我們創造只屬於兩人的衛星吧</div>
 </div>
@@ -251,7 +251,7 @@ coverImage: "/covers/nishina/rendezvous.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">tanin wa mou dou demo ii</div>
+<div class="romaji">ato wa mou dou demo ii</div>
 <div class="ja">他人はもうどうでもいい</div>
 <div class="zh">旁人如何都已經無所謂了</div>
 </div>

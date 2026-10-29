@@ -102,7 +102,7 @@ coverImage: "/covers/nishina/panda-girl.jpg"
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="romaji">migi mo hidari mo joge mo gyaku ni egaite</div>
+<div class="romaji">migi mo hidari mo jouge mo gyaku ni egaite</div>
 <div class="ja">右も左も上下も逆に描いて</div>
 <div class="zh">把左右上下都畫反</div>
 </div>
@@ -284,7 +284,7 @@ coverImage: "/covers/nishina/panda-girl.jpg"
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="romaji">migi mo hidari mo joge mo gyaku ni egaite</div>
+<div class="romaji">migi mo hidari mo jouge mo gyaku ni egaite</div>
 <div class="ja">右も左も上下も逆に描いて</div>
 <div class="zh">把左右上下都畫反</div>
 </div>

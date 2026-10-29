@@ -154,7 +154,7 @@ coverImage: "/covers/nishina/odds-and-ends.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">biniiru kasa no hantoumei ni</div>
+<div class="romaji">biniiru gasa no hantoumei ni</div>
 <div class="ja">ビニール傘の半透明に</div>
 <div class="zh">在半透明的塑膠傘上</div>
 </div>

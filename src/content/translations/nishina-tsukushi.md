@@ -28,7 +28,7 @@ coverImage: "/covers/nishina/tsukushi.jpg"
 <div class="lyrics-section">
 
 <div class="lyrics-line">
-<div class="romaji">yagate kareru hitoshi unmei</div>
+<div class="romaji">yagate kareru hitoshi sadame</div>
 <div class="ja">やがて枯れる等し運命</div>
 <div class="zh">終將枯萎的平等命運</div>
 </div>

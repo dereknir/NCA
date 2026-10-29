@@ -290,7 +290,7 @@ coverImage: "/covers/nishina/hibi-sanman.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">shinu made rikai shinain da</div>
+<div class="romaji">shinu made wakarya shinain da</div>
 <div class="ja">死ぬまで理解しないんだ</div>
 <div class="zh">直到死前都不會完全理解吧</div>
 </div>

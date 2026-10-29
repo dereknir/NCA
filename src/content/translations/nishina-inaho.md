@@ -184,7 +184,7 @@ excludeFromLyricAnalysis: true   # 主藝人 唾奇 (Camellia Track 12),にし�
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">I don't know why ima wo ippitsugaki</div>
+<div class="romaji">I don't know why ima wo hitofudegaki</div>
 <div class="ja">I don't know why 今を一筆書き</div>
 <div class="zh">I don't know why 將當下畫成一筆畫</div>
 </div>
@@ -370,7 +370,7 @@ excludeFromLyricAnalysis: true   # 主藝人 唾奇 (Camellia Track 12),にし�
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">I don't know why ima wo ippitsugaki</div>
+<div class="romaji">I don't know why ima wo hitofudegaki</div>
 <div class="ja">I don't know why 今を一筆書き</div>
 <div class="zh">I don't know why 將當下畫成一筆畫</div>
 </div>

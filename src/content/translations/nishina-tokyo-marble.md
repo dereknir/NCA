@@ -27,7 +27,7 @@ coverImage: "/covers/nishina/tokyo-marble.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">hikaru neon sain tokyo maaburu</div>
+<div class="romaji">hikaru neon sain toukyou maaburu</div>
 <div class="ja">光るネオンサイン 東京マーブル</div>
 <div class="zh">閃爍的霓虹招牌 Tokyo Marble（東京大理石色）</div>
 </div>

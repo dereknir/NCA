@@ -73,7 +73,7 @@ coverImage: "/covers/nishina/yoru-ni-natte.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">koyoi wa engetsu kasanari-atta hitotoki no nozomi</div>
+<div class="romaji">koyoi wa engetsu kasanari-atta hitotoki no bou</div>
 <div class="ja">今宵は偃月重なり合ったひとときの望</div>
 <div class="zh">今宵是弦月 是相互重疊的那片刻的期盼</div>
 </div>
@@ -143,7 +143,7 @@ coverImage: "/covers/nishina/yoru-ni-natte.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">futari wa tenshi dare ni mo togamerarenai</div>
+<div class="romaji">futari wa enjeru dare ni mo togamerarenai</div>
 <div class="ja">二人は天使 誰にも咎められない</div>
 <div class="zh">我們是兩個天使 誰也無法責備我們</div>
 </div>
@@ -169,7 +169,7 @@ coverImage: "/covers/nishina/yoru-ni-natte.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">afureru no wa umi-otosareta ai de</div>
+<div class="romaji">koboreru no wa umi-otosareta ai de</div>
 <div class="ja">溢れるのは産み落とされた愛で</div>
 <div class="zh">滿溢而出的 卻是與生俱來的愛</div>
 </div>
@@ -195,7 +195,7 @@ coverImage: "/covers/nishina/yoru-ni-natte.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">futari wa tenshi dare ni mo togamerarenai</div>
+<div class="romaji">futari wa enjeru dare ni mo togamerarenai</div>
 <div class="ja">二人は天使 誰にも咎められない</div>
 <div class="zh">我們是兩個天使 誰也無法責備我們</div>
 </div>

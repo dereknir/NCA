@@ -3,7 +3,7 @@
     "topN": 0,
     "totalInQueue": 1391,
     "songCount": 42,
-    "unmatchedCount": 835
+    "unmatchedCount": 828
   },
   "queue": {
     "nishina-heavy-smoke": [
@@ -1263,7 +1263,7 @@
         "viewCount": 47000,
         "thumbnail": "https://i.ytimg.com/vi/gAubdTIBSkE/hqdefault.jpg",
         "songId": "nishina-u-plus",
-        "lineHint": 33,
+        "lineHint": 36,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
       },
@@ -1274,7 +1274,7 @@
         "thumbnail": "https://i.ytimg.com/vi/Hl9dyNDL1TQ/hqdefault.jpg",
         "songId": "nishina-u-plus",
         "lineHint": 11,
-        "matchScore": 63.1578947368421,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -1284,7 +1284,7 @@
         "thumbnail": "https://i.ytimg.com/vi/glcIiRfn-eI/hqdefault.jpg",
         "songId": "nishina-u-plus",
         "lineHint": 5,
-        "matchScore": 57.14285714285714,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -1294,8 +1294,38 @@
         "thumbnail": "https://i.ytimg.com/vi/Q8C_OuV2Onk/hqdefault.jpg",
         "songId": "nishina-u-plus",
         "lineHint": 11,
-        "matchScore": 63.1578947368421,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "vwzwsZqouu0",
+        "title": "誰もが幻を信じてやまない",
+        "viewCount": 18000,
+        "thumbnail": "https://i.ytimg.com/vi/vwzwsZqouu0/hqdefault.jpg",
+        "songId": "nishina-u-plus",
+        "lineHint": 11,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "0QqeBqjKH9g",
+        "title": "気まぐれな旋律を #にしな #nishina #ライブ #shorts",
+        "viewCount": 15000,
+        "thumbnail": "https://i.ytimg.com/vi/0QqeBqjKH9g/hqdefault.jpg",
+        "songId": "nishina-u-plus",
+        "lineHint": 29,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "ayMOZg9izb0",
+        "title": "無自覚の中で傷つけあったエイリアンズ #にしな #nishina #ライブ #👽 #shorts",
+        "viewCount": 12000,
+        "thumbnail": "https://i.ytimg.com/vi/ayMOZg9izb0/hqdefault.jpg",
+        "songId": "nishina-u-plus",
+        "lineHint": 16,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
       },
       {
         "videoId": "zUnegWtSQkI",
@@ -1313,7 +1343,7 @@
         "viewCount": 10000,
         "thumbnail": "https://i.ytimg.com/vi/rp0lhqCDNXc/hqdefault.jpg",
         "songId": "nishina-u-plus",
-        "lineHint": 33,
+        "lineHint": 36,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
       },
@@ -1324,7 +1354,7 @@
         "thumbnail": "https://i.ytimg.com/vi/ETyT6ROuvNk/hqdefault.jpg",
         "songId": "nishina-u-plus",
         "lineHint": 2,
-        "matchScore": 96.0,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -1334,7 +1364,7 @@
         "thumbnail": "https://i.ytimg.com/vi/bD9LjxCv4SY/hqdefault.jpg",
         "songId": "nishina-u-plus",
         "lineHint": 11,
-        "matchScore": 63.1578947368421,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -1343,8 +1373,8 @@
         "viewCount": 7100,
         "thumbnail": "https://i.ytimg.com/vi/TZUTdkBupZM/hqdefault.jpg",
         "songId": "nishina-u-plus",
-        "lineHint": 5,
-        "matchScore": 40.0,
+        "lineHint": 19,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -1354,7 +1384,7 @@
         "thumbnail": "https://i.ytimg.com/vi/T8Oq8RInoV4/hqdefault.jpg",
         "songId": "nishina-u-plus",
         "lineHint": 11,
-        "matchScore": 63.1578947368421,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -1364,8 +1394,18 @@
         "thumbnail": "https://i.ytimg.com/vi/B1Do7lgri3Y/hqdefault.jpg",
         "songId": "nishina-u-plus",
         "lineHint": 11,
-        "matchScore": 63.1578947368421,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "7Ibg4oXp7fc",
+        "title": "もうきっと大丈夫 #にしな #nishina #ライブ #shorts",
+        "viewCount": 6500,
+        "thumbnail": "https://i.ytimg.com/vi/7Ibg4oXp7fc/hqdefault.jpg",
+        "songId": "nishina-u-plus",
+        "lineHint": 10,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
       },
       {
         "videoId": "MvhIttp8-aQ",
@@ -1373,7 +1413,27 @@
         "viewCount": 5700,
         "thumbnail": "https://i.ytimg.com/vi/MvhIttp8-aQ/hqdefault.jpg",
         "songId": "nishina-u-plus",
-        "lineHint": 17,
+        "lineHint": 16,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "FKyHmi2wKNA",
+        "title": "空回り絡まる思考回路 #にしな #shorts",
+        "viewCount": 5300,
+        "thumbnail": "https://i.ytimg.com/vi/FKyHmi2wKNA/hqdefault.jpg",
+        "songId": "nishina-u-plus",
+        "lineHint": 3,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "wLWMBDKJ4Qk",
+        "title": "誰もが幻を信じてやまない #にしな #nishina #ライブ #shorts",
+        "viewCount": 5100,
+        "thumbnail": "https://i.ytimg.com/vi/wLWMBDKJ4Qk/hqdefault.jpg",
+        "songId": "nishina-u-plus",
+        "lineHint": 11,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
       },
@@ -1383,7 +1443,17 @@
         "viewCount": 4900,
         "thumbnail": "https://i.ytimg.com/vi/qnVwFLQmilc/hqdefault.jpg",
         "songId": "nishina-u-plus",
-        "lineHint": 33,
+        "lineHint": 36,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
+      },
+      {
+        "videoId": "rRQjzaLpB50",
+        "title": "もうきっと大丈夫 #にしな #shorts",
+        "viewCount": 2900,
+        "thumbnail": "https://i.ytimg.com/vi/rRQjzaLpB50/hqdefault.jpg",
+        "songId": "nishina-u-plus",
+        "lineHint": 10,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
       },
@@ -1393,7 +1463,7 @@
         "viewCount": 2800,
         "thumbnail": "https://i.ytimg.com/vi/LOxW6sFd_u0/hqdefault.jpg",
         "songId": "nishina-u-plus",
-        "lineHint": 33,
+        "lineHint": 36,
         "matchScore": 100.0,
         "matchMethod": "lyric_match"
       }
@@ -5962,16 +6032,6 @@
         "matchMethod": "out_of_catalog"
       },
       {
-        "videoId": "vwzwsZqouu0",
-        "title": "誰もが幻を信じてやまない",
-        "viewCount": 18000,
-        "thumbnail": "https://i.ytimg.com/vi/vwzwsZqouu0/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 63.1578947368421,
-        "matchMethod": "out_of_catalog"
-      },
-      {
         "videoId": "NZ85OFF1huQ",
         "title": "Bye-bye, sweet innocence #nishina #live #shorts",
         "viewCount": 17000,
@@ -6070,16 +6130,6 @@
         "lineHint": null,
         "matchScore": 50.0,
         "matchMethod": "out_of_catalog"
-      },
-      {
-        "videoId": "0QqeBqjKH9g",
-        "title": "気まぐれな旋律を #にしな #nishina #ライブ #shorts",
-        "viewCount": 15000,
-        "thumbnail": "https://i.ytimg.com/vi/0QqeBqjKH9g/hqdefault.jpg",
-        "songId": "nishina-u-plus",
-        "lineHint": 26,
-        "matchScore": 76.92307692307692,
-        "matchMethod": "review"
       },
       {
         "videoId": "rEHLaC_QCf8",
@@ -6448,16 +6498,6 @@
         "thumbnail": "https://i.ytimg.com/vi/cwQTqCCo4pw/hqdefault.jpg",
         "songId": "nishina-wawon",
         "lineHint": 53,
-        "matchScore": 66.66666666666667,
-        "matchMethod": "review"
-      },
-      {
-        "videoId": "ayMOZg9izb0",
-        "title": "無自覚の中で傷つけあったエイリアンズ #にしな #nishina #ライブ #👽 #shorts",
-        "viewCount": 12000,
-        "thumbnail": "https://i.ytimg.com/vi/ayMOZg9izb0/hqdefault.jpg",
-        "songId": "nishina-u-plus",
-        "lineHint": 16,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
       },
@@ -8692,16 +8732,6 @@
         "matchMethod": "out_of_catalog"
       },
       {
-        "videoId": "7Ibg4oXp7fc",
-        "title": "もうきっと大丈夫 #にしな #nishina #ライブ #shorts",
-        "viewCount": 6500,
-        "thumbnail": "https://i.ytimg.com/vi/7Ibg4oXp7fc/hqdefault.jpg",
-        "songId": "nishina-eden",
-        "lineHint": 4,
-        "matchScore": 72.72727272727273,
-        "matchMethod": "review"
-      },
-      {
         "videoId": "OrAWBxAhpbo",
         "title": "This whole place is the floating world #にしな #nishina #newmusic #shorts",
         "viewCount": 6500,
@@ -9156,10 +9186,10 @@
         "title": "Creating all of the world’s borderlines #nishina #live #shorts",
         "viewCount": 6000,
         "thumbnail": "https://i.ytimg.com/vi/b3Fxtm51Hos/hqdefault.jpg",
-        "songId": "nishina-u-plus",
-        "lineHint": 1,
-        "matchScore": 66.66666666666667,
-        "matchMethod": "review"
+        "songId": null,
+        "lineHint": null,
+        "matchScore": 60.86956521739131,
+        "matchMethod": "out_of_catalog"
       },
       {
         "videoId": "bHFqRI47cUc",
@@ -9762,16 +9792,6 @@
         "matchMethod": "review"
       },
       {
-        "videoId": "FKyHmi2wKNA",
-        "title": "空回り絡まる思考回路 #にしな #shorts",
-        "viewCount": 5300,
-        "thumbnail": "https://i.ytimg.com/vi/FKyHmi2wKNA/hqdefault.jpg",
-        "songId": "nishina-u-plus",
-        "lineHint": 3,
-        "matchScore": 83.33333333333334,
-        "matchMethod": "review"
-      },
-      {
         "videoId": "pQ1tQK79ILc",
         "title": "Not for anyone else,I’ll move on just for me #nishina #newmusic #shorts",
         "viewCount": 5200,
@@ -9892,16 +9912,6 @@
         "matchMethod": "out_of_catalog"
       },
       {
-        "videoId": "wLWMBDKJ4Qk",
-        "title": "誰もが幻を信じてやまない #にしな #nishina #ライブ #shorts",
-        "viewCount": 5100,
-        "thumbnail": "https://i.ytimg.com/vi/wLWMBDKJ4Qk/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 63.1578947368421,
-        "matchMethod": "out_of_catalog"
-      },
-      {
         "videoId": "EJibzSdUITY",
         "title": "It’s sweetest right before it spoils #nishina #jpop #shorts",
         "viewCount": 5100,
@@ -10017,7 +10027,7 @@
         "viewCount": 5000,
         "thumbnail": "https://i.ytimg.com/vi/Ss4sdve5Kxs/hqdefault.jpg",
         "songId": "nishina-u-plus",
-        "lineHint": 33,
+        "lineHint": 36,
         "matchScore": 68.75,
         "matchMethod": "review"
       },
@@ -10027,7 +10037,7 @@
         "viewCount": 5000,
         "thumbnail": "https://i.ytimg.com/vi/UT7afY1F0_4/hqdefault.jpg",
         "songId": "nishina-u-plus",
-        "lineHint": 33,
+        "lineHint": 36,
         "matchScore": 68.75,
         "matchMethod": "review"
       },
@@ -10377,7 +10387,7 @@
         "viewCount": 4700,
         "thumbnail": "https://i.ytimg.com/vi/Nm6gEcKL__I/hqdefault.jpg",
         "songId": "nishina-u-plus",
-        "lineHint": 33,
+        "lineHint": 36,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
       },
@@ -10547,7 +10557,7 @@
         "viewCount": 4600,
         "thumbnail": "https://i.ytimg.com/vi/gOVp7ZwYxRY/hqdefault.jpg",
         "songId": "nishina-u-plus",
-        "lineHint": 33,
+        "lineHint": 36,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
       },
@@ -12197,7 +12207,7 @@
         "viewCount": 3300,
         "thumbnail": "https://i.ytimg.com/vi/6U5XnRYunbc/hqdefault.jpg",
         "songId": "nishina-u-plus",
-        "lineHint": 33,
+        "lineHint": 36,
         "matchScore": 68.75,
         "matchMethod": "review"
       },
@@ -12672,16 +12682,6 @@
         "matchMethod": "out_of_catalog"
       },
       {
-        "videoId": "rRQjzaLpB50",
-        "title": "もうきっと大丈夫 #にしな #shorts",
-        "viewCount": 2900,
-        "thumbnail": "https://i.ytimg.com/vi/rRQjzaLpB50/hqdefault.jpg",
-        "songId": "nishina-eden",
-        "lineHint": 4,
-        "matchScore": 72.72727272727273,
-        "matchMethod": "review"
-      },
-      {
         "videoId": "KAqlP5DPClw",
         "title": "Thank you for 2024!🎸 #nishina #live #shorts",
         "viewCount": 2800,
@@ -12818,7 +12818,7 @@
         "thumbnail": "https://i.ytimg.com/vi/RLDY4ngOZZs/hqdefault.jpg",
         "songId": null,
         "lineHint": null,
-        "matchScore": 53.84615384615385,
+        "matchScore": 50.0,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -13477,7 +13477,7 @@
         "viewCount": 2200,
         "thumbnail": "https://i.ytimg.com/vi/HFsCS5oxhVk/hqdefault.jpg",
         "songId": "nishina-u-plus",
-        "lineHint": 33,
+        "lineHint": 36,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
       },
@@ -13697,7 +13697,7 @@
         "viewCount": 2000,
         "thumbnail": "https://i.ytimg.com/vi/L1exzksknc4/hqdefault.jpg",
         "songId": "nishina-u-plus",
-        "lineHint": 33,
+        "lineHint": 36,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
       },

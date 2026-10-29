@@ -265,7 +265,7 @@ coverImage: "/covers/nishina/hibi-sanman.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">umarekawattemo mata unmei</div>
+<div class="romaji">umarekawattemo mata desutinii</div>
 <div class="ja">生まれ変わってもまた運命</div>
 <div class="zh">就算轉世重生也依舊是命運</div>
 </div>

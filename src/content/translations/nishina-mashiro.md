@@ -43,7 +43,7 @@ coverImage: "/covers/nishina/mashiro.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">tou no mukashi ni sutete kita yume to</div>
+<div class="romaji">too no mukashi ni sutete kita yume to</div>
 <div class="ja">遠の昔に捨ててきた夢と</div>
 <div class="zh">與很久以前就拋棄的夢想</div>
 </div>
@@ -89,7 +89,7 @@ coverImage: "/covers/nishina/mashiro.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kappo hippatte yasashiku hodoita ribon</div>
+<div class="romaji">katappo hippatte yasashiku hodoita ribon</div>
 <div class="ja">片っぽ引っ張って優しく解いたリボン</div>
 <div class="zh">拉著單邊 溫柔地解開的緞帶</div>
 </div>
@@ -218,7 +218,7 @@ coverImage: "/covers/nishina/mashiro.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kappo hippatte yasashiku hodoita ribon</div>
+<div class="romaji">katappo hippatte yasashiku hodoita ribon</div>
 <div class="ja">片っぽ引っ張って優しく解いたリボン</div>
 <div class="zh">拉著單邊 溫柔地解開的緞帶</div>
 </div>

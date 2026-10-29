@@ -213,7 +213,7 @@ excludeFromLyricAnalysis: true   # 主藝人 唾奇,にしな 掛名共同作詞
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">surechigau fusoroi no paatsu de</div>
+<div class="romaji">surechigau fuzoroi no paatsu de</div>
 <div class="ja">すれ違う不揃いのパーツで</div>
 <div class="zh">用錯過擦肩、參差不齊的碎片</div>
 </div>

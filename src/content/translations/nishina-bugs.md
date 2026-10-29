@@ -28,7 +28,7 @@ coverImage: "/covers/nishina/bugs.jpg"
 <div class="lyrics-section">
 
 <div class="lyrics-line">
-<div class="romaji">gozen san-ji natsuyo no hoozuri</div>
+<div class="romaji">gozen san-ji natsuyoru no hoozuri</div>
 <div class="ja">午前3時夏夜の頬擦り</div>
 <div class="zh">凌晨 3 點夏夜的臉頰輕蹭</div>
 </div>
@@ -78,7 +78,7 @@ coverImage: "/covers/nishina/bugs.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">habikoru gizen ni daibu shite</div>
+<div class="romaji">habikoru sukima ni daibu shite</div>
 <div class="ja">蔓延る偽善にダイブして</div>
 <div class="zh">躍入蔓延的偽善之中吧</div>
 </div>
