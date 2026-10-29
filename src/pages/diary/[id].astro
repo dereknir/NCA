@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -23,20 +24,16 @@ const description = `${new Date(date).toLocaleDateString('zh-TW')} 的日記${mo
   description={description}
   article={true}
   publishDate={new Date(date)}
+  width="read"
 >
-  <article class="max-w-3xl mx-auto">
-    <header class="mb-8">
-      <div class="flex items-center gap-4 mb-4">
-        {mood && <span class="text-4xl">{mood}</span>}
-        {weather && <span class="text-gray-600 dark:text-gray-400">{weather}</span>}
-      </div>
-      <h1 class="text-3xl font-bold mb-2">{title}</h1>
-      <time class="text-gray-500">
-        {new Date(date).toLocaleDateString('zh-TW', {
-          year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
-        })}
-      </time>
-    </header>
+  <PageHero slot="hero" planet="moon" width="read" title={title} cmd="cat entry.md"
+    path={`~/moon/diary/${entry.id}`}
+    chips={[
+      [new Date(date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })],
+      ...(mood || weather ? [[[mood, weather].filter(Boolean).join(' ')] as [string]] : []),
+    ]}
+    actions={[{ label: '‹ 日記', href: '/diary' }]} />
+  <article>
 
     <div class="prose max-w-none">
       <Content />

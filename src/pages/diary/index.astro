@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
 const allDiary = (await getCollection('diary'))
@@ -7,10 +8,10 @@ const allDiary = (await getCollection('diary'))
   .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
 ---
 
-<BaseLayout title="日記" description="生活記錄與心情日記">
-  <div class="max-w-3xl mx-auto">
-    <h1 class="px text-4xl font-bold mb-4">日記</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-8">生活的點點滴滴</p>
+<BaseLayout title="日記" description="生活記錄與心情日記" width="read">
+  <PageHero slot="hero" planet="moon" width="read" title="日記" cmd="ls -t"
+    desc="生活的點點滴滴。" chips={[[String(allDiary.length), '篇']]} />
+  <div>
 
     {allDiary.length === 0 && (
       <p class="text-gray-500 text-center py-12">還沒有日記，敬請期待！</p>

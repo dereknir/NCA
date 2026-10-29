@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
-import { SITE_CONFIG, NAVIGATION } from '../config';
+import { SITE_CONFIG, NAVIGATION, NAV_GROUPS, PLANETS } from '../config';
 
 interface Props {
   title: string;
@@ -13,6 +13,9 @@ interface Props {
    *  目前只在 translations 列表/內頁圈內開 — 兩頁都開才有效果;
    *  開了的頁面所有 client script 都要能在 astro:page-load 重跑, 別亂加頁。 */
   viewTransitions?: boolean;
+  /** 內容寬度: wide (列表/工具 1024) / read (閱讀 896) / legacy (舊 container, 還沒改版的頁)。
+   *  跟 PageHero 的 width 一致, hero 左緣才會對齊內文。 */
+  width?: 'wide' | 'read' | 'legacy';
 }
 
 const {
@@ -21,8 +24,19 @@ const {
   image = SITE_CONFIG.defaultOGImage,
   article = false,
   publishDate,
-  viewTransitions = false
+  viewTransitions = false,
+  width = 'legacy'
 } = Astro.props;
+
+// 目前頁面屬於哪個選單項 (路徑前綴最長者); site-shell.js 對靜態頁用同一套規則
+const norm = (p: string) => p.replace(/\/+$/, '') || '/';
+const here = norm(Astro.url.pathname);
+const navItems = NAV_GROUPS.flatMap(g => g.items.map(it => ({ ...it, group: g.name })));
+const current = navItems
+  .filter(it => here === norm(it.href) || here.startsWith(norm(it.href) + '/'))
+  .sort((a, b) => b.href.length - a.href.length)[0];
+const mainClass = width === 'legacy' ? 'container mx-auto px-4 py-8 fade-in'
+  : `sh-wrap${width === 'read' ? ' sh-wrap--read' : ''} sh-main fade-in`;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFIG.title}`;
@@ -70,6 +84,9 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp10-site-zh_hant.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp10-site-ja.woff2">
 
+  <link rel="stylesheet" href="/css/site-shell.css">
+  <script is:inline src="/js/site-shell.js" defer></script>
+
   {viewTransitions && <ClientRouter />}
 
   <!-- 字體預連接與預載入（性能優化） -->
@@ -94,49 +111,36 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
 </head>
 
 <body class="min-h-screen bg-[#0a0a15] text-gray-100 font-sans">
-  <!-- Header -->
-  <header class="sticky top-0 z-50 bg-[#0a0a15]/75 backdrop-blur-md border-b border-white/5">
-    <nav class="container mx-auto px-4 py-4">
-      <div class="flex justify-between items-center">
-        <a href="/" class="px-font text-2xl text-white hover:text-blue-400 transition-colors">
-          {SITE_CONFIG.title}
-        </a>
-
-        <!-- Mobile menu button -->
-        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-white/5">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-
-        <!-- Desktop nav -->
-        <div class="hidden md:flex items-center gap-6">
-          {NAVIGATION.map(item => (
-            <a href={item.href} class="px-font text-[12px] hover:text-blue-400 transition-colors">
-              {item.name}
-            </a>
-          ))}
-        </div>
-      </div>
-
-      <!-- Mobile nav -->
-      <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-white/10 pt-4">
-        <div class="flex flex-col gap-3">
-          {NAVIGATION.map(item => (
-            <a href={item.href} class="px-font text-[12px] hover:text-blue-400 transition-colors">
-              {item.name}
-            </a>
-          ))}
-        </div>
-      </div>
-    </nav>
+  <!-- 頁首: 4 組下拉 + 單鍵 [X]; 捲動後標題縮進 .sh-dock (樣式/行為在 site-shell) -->
+  <header class="sh-hd">
+    <div class="sh-wrap">
+      <a class="sh-logo" href="/">{SITE_CONFIG.title}</a>
+      <span class="sh-dock"></span>
+      <button class="sh-burger" type="button" aria-expanded="false">選單</button>
+      <nav class="sh-nav">
+        {NAV_GROUPS.map(g => (
+          <div class={`sh-grp${current?.group === g.name ? ' on' : ''}`}>
+            <button type="button" aria-haspopup="true">{g.name}</button>
+            <div class="sh-menu">
+              {g.items.map(it => (
+                <a href={it.href} class={current?.href === it.href ? 'cur' : undefined}
+                   aria-current={current?.href === it.href ? 'page' : undefined}>
+                  <kbd>[{it.key}]</kbd>{it.name}<span>{PLANETS[it.planet]?.ja}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </nav>
+    </div>
+    <div class="sh-prog"></div>
   </header>
 
   <!-- Optional 100vw hero (bleeds out of container) -->
   <slot name="hero" />
 
   <!-- Main Content -->
-  <main class="container mx-auto px-4 py-8 fade-in">
+  <main class={mainClass}>
     <slot />
   </main>
 
@@ -221,10 +225,5 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
     }
   </style>
 
-  <script is:inline>
-    document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
-      document.getElementById('mobile-menu')?.classList.toggle('hidden');
-    });
-  </script>
 </body>
 </html>

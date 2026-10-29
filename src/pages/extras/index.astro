@@ -8,6 +8,7 @@
  * OTHERS (__others) 桶不上網站 — 那是 annotator 內部「還沒分好」的暫存區。
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
 import extras from '../../data/shorts_extras.json';
 
 interface Short {
@@ -47,13 +48,11 @@ function formatViews(n: number): string {
 }
 ---
 
-<BaseLayout title="花絮" description="にしな 音樂之外的 shorts 內容分類展示">
-  <div class="max-w-6xl mx-auto">
-    <h1 class="px text-4xl font-bold mb-2">花絮</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-2">
-      除了歌曲翻譯之外,にしな 的 YouTube shorts 還包含出演現場的演唱片段、演唱會 MC、
-      廣告代言、電視節目片段和翻唱 —— 這裡是這些「正式作品以外」的各種片段。
-    </p>
+<BaseLayout title="花絮" description="にしな 音樂之外的 shorts 內容分類展示" width="wide">
+  <PageHero slot="hero" planet="phobos" title="花絮" cmd="ls shorts/"
+    desc="にしな 的 YouTube shorts 裡，歌曲以外的現場片段、MC、廣告、節目和翻唱。"
+    chips={[[String(meta.total), '支'], [String(orderedCategories.length), '類']]} />
+  <div>
     <p class="text-xs text-gray-500 dark:text-gray-500 mb-8">
       共 {meta.total} 支 · 分為 {orderedCategories.length} 類 · 資料來源:手動分類 annotator + YouTube shorts
     </p>

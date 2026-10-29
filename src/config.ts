@@ -1,3 +1,5 @@
+import siteNav from './data/site-nav.json';
+
 /**
  * 網站配置檔案 - 集中管理所有配置
  */
@@ -53,22 +55,18 @@ export const SITE_CONFIG = {
 } as const;
 
 /**
- * 導航選單配置
+ * 導航選單配置 — 來源是 src/data/site-nav.json (靜態頁的頁首也讀同一份, 經 /site-index.json)
  */
-export const NAVIGATION = [
-  { name: "日文歌翻譯", href: "/translations" },
-  { name: "歌詞宇宙", href: "/lyric-universe/" },
-  { name: "歌詞索引", href: "/kwic/" },
-  { name: "歌詞星圖", href: "/star-map/" },
-  { name: "巡演 Setlist", href: "/setlists/" },
-  { name: "Live 演出", href: "/live/" },
-  { name: "花絮", href: "/extras/" },
-  { name: "歌詞卡ガチャ", href: "/gacha/" },
-  { name: "にしなの宇宙", href: "/galaxy/" },
-  { name: "日記", href: "/diary" },
-  { name: "作品集", href: "/projects" },
-  { name: "關於我", href: "/about" },
-] as const;
+export const NAV_GROUPS = siteNav.groups;
+export const PLANETS = siteNav.planets as Record<string, Planet>;
+export const NAVIGATION = NAV_GROUPS.flatMap(g => g.items.map(({ name, href }) => ({ name, href })));
+
+export interface Planet {
+  ja: string;
+  en: string;
+  kind: string;
+  palette: number[][];
+}
 
 /**
  * 內容集合路徑配置

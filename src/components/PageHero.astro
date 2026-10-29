@@ -1,0 +1,71 @@
+---
+/**
+ * PageHero — 全站統一的頁頂 (樣式 /css/site-shell.css, 星空 / 行星由 /js/site-shell.js 畫)
+ *
+ * 骨架固定: shell 提示 (路徑) / 標題 / 一句說明 / 數字 chip / 動作 / 右側像素行星。
+ * 用法: <PageHero slot="hero" planet="earth" title="日文歌翻譯" desc="…" chips={[['51/51', '已翻譯']]} />
+ * variant: page (預設) / tool (收成一條, 工具頁) / song (封面 + 資訊, 背景是封面馬賽克)
+ * width 要跟 BaseLayout 的 width 一樣, 左緣才會對齊內文。
+ */
+import { PLANETS, NAV_GROUPS } from '../config';
+
+interface Props {
+  planet: keyof typeof PLANETS | string;
+  title: string;
+  titleLang?: string;
+  desc?: string;
+  path?: string;                       // shell 提示裡的路徑, 預設取選單設定
+  cmd?: string;
+  chips?: Array<[string, string?, string?]>;     // [數字, 說明, 連結]
+  actions?: Array<{ label: string; href: string; primary?: boolean; external?: boolean }>;
+  variant?: 'page' | 'tool' | 'song';
+  width?: 'wide' | 'read';
+  cover?: string;
+  coverAlt?: string;
+  coverTransition?: string;            // 跟列表頁縮圖同名, 換頁時封面接續
+}
+
+const {
+  planet, title, titleLang, desc, cmd = 'cat README', chips = [], actions = [],
+  variant = 'page', width = 'wide', cover, coverAlt = '', coverTransition,
+} = Astro.props;
+const p = PLANETS[planet];
+const navPath = NAV_GROUPS.flatMap(g => g.items).find(it => it.planet === planet)?.path;
+const path = Astro.props.path ?? navPath ?? '~';
+const isSong = variant === 'song';
+---
+
+<section
+  class={`sh-hero sh-hero--${variant}`}
+  data-sh-hero
+  data-planet={planet}
+  data-kind={p?.kind}
+  data-palette={p ? JSON.stringify(p.palette) : undefined}
+  data-cover={isSong ? cover : undefined}
+  style={p ? `--sh-accent:${p.palette[0].join(' ')}` : undefined}
+>
+  <div class="sh-hero-bg" aria-hidden="true"></div>
+  <div class={`sh-wrap sh-hero-inner${width === 'read' ? ' sh-wrap--read' : ''}`}>
+    {isSong && cover && (
+      <img class="sh-cover" src={cover} alt={coverAlt} width="224" height="224" loading="eager"
+           style={coverTransition ? `view-transition-name:${coverTransition}` : undefined} />
+    )}
+    <div class="sh-hero-text">
+      <div class="sh-prompt"><span class="u">derek@nishina</span>:<span class="pa">{path}</span> $ <span class="cmd">{cmd}</span></div>
+      <h1 class="sh-title" lang={titleLang} id={isSong ? 'songTitle' : undefined}>{title}</h1>
+      {desc && <p class="sh-desc">{desc}</p>}
+      <slot />
+      {(chips.length > 0 || actions.length > 0) && (
+        <div class="sh-row">
+          {chips.map(([num, label, href]) => href
+            ? <a class="sh-chip" href={href}><b>{num}</b>{label}</a>
+            : <span class="sh-chip">{label ? <><b>{num}</b>{label}</> : num}</span>)}
+          {actions.map(a => (
+            <a class={`sh-btn${a.primary ? ' sh-btn--pri' : ''}`} href={a.href}
+               {...(a.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{a.label}</a>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</section>

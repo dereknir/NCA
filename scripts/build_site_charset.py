@@ -14,6 +14,7 @@ build_site_charset.py — 掃出「像素字型會渲染到」的全站字集 �
   live/*.template.html              live 三頁的靜態 UI 文字
   public/pixel-lab/index.html       提案頁自身
   public/gacha/*                    ガチャ卡面 (canvas, fp12/10/8) + UI + pool.json
+  public/js/site-shell.js 等         全站外殼 (頁首選單 / 指令列 / 靜態頁 hero)
 外加保險:
   ASCII 可見區 + 全形標點 + 平假名/片假名全表 + 常用 UI 緩衝字
 """
@@ -102,6 +103,13 @@ def main():
     pool = gacha / "pool.json"
     if pool.exists():
         chars |= set(pool.read_text(encoding="utf-8"))
+
+    # 全站外殼: 頁首選單 / 指令列的字串在 JS 跟 site-nav.json 裡; 歌詞宇宙、索引、星圖的 hero 寫在靜態 HTML
+    for rel in ["public/js/site-shell.js", "src/data/site-nav.json",
+                "public/kwic/index.html", "public/lyric-universe/index.html", "public/star-map/index.html"]:
+        f = ROOT / rel
+        if f.exists():
+            chars |= set(strip_markup(f.read_text(encoding="utf-8"), keep_script=True))
 
     chars |= set(BUFFER)
     chars |= {chr(c) for c in range(0x20, 0x7F)}          # ASCII 可見

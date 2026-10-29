@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PlanetHeroBanner from '../../components/PlanetHeroBanner.astro';
+import PageHero from '../../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
 const allTranslations = await getCollection('translations');
@@ -13,175 +13,93 @@ const isDone = (entry: Translation) =>
   entry.data.instrumental === true ||
   (!!entry.body && !entry.body.includes('翻譯準備中'));
 
-const isInstrumental = (entry: Translation) => entry.data.instrumental === true;
+// 分頁 = 專輯; にしな 以外的歌手併成一頁用歌手名
+const MAIN_ARTIST = 'にしな';
+const tabOf = (t: Translation) =>
+  t.data.artist === MAIN_ARTIST ? (t.data.album ?? '單曲') : t.data.artist;
 
-interface AlbumGroup {
-  albumYear?: number;
-  songs: Translation[];
-  translatedCount: number;
-  totalCount: number;
-}
-interface ArtistGroup {
-  albums: Record<string, AlbumGroup>;
-  translatedCount: number;
-  totalCount: number;
-}
-
-// Group first, then sort songs within each album by trackNumber.
-// Grouping-then-sorting avoids the transitivity issues of a mixed comparator
-// (same-album → track order, different-album → publishDate) which can scramble
-// same-album songs when publishDates match.
-const byArtistAlbum = allTranslations.reduce((acc, t) => {
-  const artist = t.data.artist;
-  const album = t.data.album ?? '單曲 / 其他';
-  const done = isDone(t);
-
-  if (!acc[artist]) acc[artist] = { albums: {}, translatedCount: 0, totalCount: 0 };
-  if (!acc[artist].albums[album]) {
-    acc[artist].albums[album] = { albumYear: t.data.albumYear, songs: [], translatedCount: 0, totalCount: 0 };
-  }
-  acc[artist].albums[album].songs.push(t);
-  acc[artist].albums[album].totalCount += 1;
-  acc[artist].totalCount += 1;
-  if (done) {
-    acc[artist].albums[album].translatedCount += 1;
-    acc[artist].translatedCount += 1;
-  }
+interface Tab { name: string; year: number; songs: Translation[] }
+const tabs = Object.values(allTranslations.reduce((acc, t) => {
+  const name = tabOf(t);
+  acc[name] ??= { name, year: 0, songs: [] };
+  acc[name].songs.push(t);
+  // feat. / 單曲沒有專輯年份, 排在三張專輯後面
+  if (t.data.albumYear && t.data.album !== 'feat.' && t.data.artist === MAIN_ARTIST) acc[name].year = t.data.albumYear;
   return acc;
-}, {} as Record<string, ArtistGroup>);
+}, {} as Record<string, Tab>)).sort((a, b) => b.year - a.year || b.songs.length - a.songs.length);
 
-// Sort songs inside every album by trackNumber ascending
-Object.values(byArtistAlbum).forEach(artist => {
-  Object.values(artist.albums).forEach(album => {
-    album.songs.sort((a, b) => (a.data.trackNumber ?? 99) - (b.data.trackNumber ?? 99));
-  });
-});
+for (const tab of tabs) {
+  tab.songs.sort((a, b) =>
+    (a.data.trackNumber ?? 99) - (b.data.trackNumber ?? 99) ||
+    new Date(a.data.publishDate).valueOf() - new Date(b.data.publishDate).valueOf());
+}
+const rows = tabs.flatMap(tab => tab.songs.map(t => ({ t, tab: tab.name })));
 
 const totalTranslated = allTranslations.filter(t => isDone(t)).length;
 const totalSongs = allTranslations.length;
-const overallProgress = totalSongs > 0 ? Math.round((totalTranslated / totalSongs) * 100) : 0;
+const albumCount = tabs.filter(t => t.year > 0).length;
 ---
 
-<BaseLayout title="日文歌翻譯" description="日文歌曲中文翻譯收藏" viewTransitions={true}>
-  <PlanetHeroBanner slot="hero" nameJa="地球" title="日文歌翻譯" sub="LYRICS TRANSLATION ARCHIVE"
-    glType="wet" seed={5.4} palette={[[92,168,255],[26,84,160],[70,190,110],[26,120,72],[170,190,220],[245,248,255]]} />
-  <div class="max-w-4xl mx-auto">
-    <h1 class="px text-4xl font-bold mb-2">日文歌翻譯</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-6">收錄我喜愛的日文歌曲翻譯，包含原文與中文對照</p>
+<BaseLayout title="日文歌翻譯" description="日文歌曲中文翻譯收藏" viewTransitions={true} width="wide">
+  <PageHero slot="hero" planet="earth" title="日文歌翻譯" cmd="ls -l"
+    desc="收錄我喜愛的日文歌曲翻譯，包含原文與中文對照。"
+    chips={[[`${totalTranslated}/${totalSongs}`, '已翻譯'], [String(albumCount), '張專輯']]}
+    actions={[{ label: '隨機一首', href: '#random', primary: true }, { label: '歌詞索引', href: '/kwic/' }]} />
 
-    {totalSongs > 0 && (
-      <div class="mb-10 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-lg border border-blue-100 dark:border-blue-800/50">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">翻譯進度</span>
-          <span class="text-sm text-gray-600 dark:text-gray-400 font-mono">
-            {totalTranslated} / {totalSongs}（{overallProgress}%）
-          </span>
-        </div>
-        <div class="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-          <div
-            class="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-500"
-            style={`width: ${overallProgress}%`}
-          />
-        </div>
-      </div>
-    )}
+  {allTranslations.length === 0 && (
+    <p class="text-gray-500 text-center py-12">還沒有翻譯文章，敬請期待！</p>
+  )}
 
-    {allTranslations.length === 0 && (
-      <p class="text-gray-500 text-center py-12">還沒有翻譯文章，敬請期待！</p>
-    )}
-
-    {Object.entries(byArtistAlbum).map(([artist, { albums, translatedCount, totalCount }]) => (
-      <section class="mb-16">
-        <div class="flex items-baseline justify-between mb-6 border-b-2 border-blue-600 dark:border-blue-400 pb-2">
-          <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400">
-            {artist}
-          </h2>
-          <span class="text-sm text-gray-500 dark:text-gray-400 font-mono">
-            {translatedCount} / {totalCount} 首
-          </span>
-        </div>
-
-        {Object.entries(albums)
-          .sort(([, a], [, b]) => (b.albumYear ?? 0) - (a.albumYear ?? 0))
-          .map(([albumName, { albumYear, songs, translatedCount: albumDone, totalCount: albumTotal }]) => {
-            const progress = albumTotal > 0 ? Math.round((albumDone / albumTotal) * 100) : 0;
-            return (
-            <div class="mb-8 ml-4">
-              <div class="mb-3">
-                <h3 class="text-lg font-semibold flex items-center gap-2">
-                  <span class="text-gray-400">💿</span>
-                  <span>{albumName}</span>
-                  {albumYear && (
-                    <span class="text-sm font-normal text-gray-500">({albumYear})</span>
-                  )}
-                  <span class="ml-auto text-xs text-gray-500 dark:text-gray-400 font-mono">
-                    {albumDone}/{albumTotal}
-                  </span>
-                </h3>
-                <div class="h-1 mt-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                  <div
-                    class="h-full bg-blue-500 transition-all duration-500"
-                    style={`width: ${progress}%`}
-                  />
-                </div>
-              </div>
-
-              <div class="space-y-2 ml-6">
-                {songs.map(t => {
-                  const done = isDone(t);
-                  const instrumental = isInstrumental(t);
-                  return (
-                  <a href={`/translations/${t.id}`}
-                     class={`block p-3 rounded-lg shadow-sm hover:shadow-md transition ${
-                       done
-                         ? 'bg-white dark:bg-gray-800'
-                         : 'bg-gray-50 dark:bg-gray-800/50 opacity-75 hover:opacity-100'
-                     }`}>
-                    <div class="flex justify-between items-center gap-3">
-                      <div class="flex items-center gap-3 min-w-0">
-                        {t.data.trackNumber && (
-                          <span class="text-sm text-gray-400 font-mono w-6 text-right shrink-0">
-                            {t.data.trackNumber}.
-                          </span>
-                        )}
-                        {t.data.coverImage && (
-                          <img
-                            src={t.data.coverImage}
-                            alt=""
-                            width="40"
-                            height="40"
-                            loading="lazy"
-                            decoding="async"
-                            class="w-10 h-10 rounded object-cover shrink-0"
-                            transition:name={`cover-${t.id}`}
-                          />
-                        )}
-                        <div class="min-w-0">
-                          <h4 class="text-base font-medium truncate">{t.data.title}</h4>
-                        </div>
-                      </div>
-                      <div class="flex items-center gap-2 shrink-0">
-                        {instrumental ? (
-                          <span class="text-xs px-2 py-0.5 bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-200 rounded-full">
-                            🎧 Instrumental
-                          </span>
-                        ) : done ? (
-                          <span class="text-xs px-2 py-0.5 bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-200 rounded-full">
-                            已翻譯
-                          </span>
-                        ) : (
-                          <span class="text-xs px-2 py-0.5 bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 rounded-full">
-                            翻譯中
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </a>
-                );})}
-              </div>
-            </div>
-          );})}
-      </section>
+  <div class="sh-tabs" role="tablist" data-song-tabs>
+    <button type="button" role="tab" aria-selected="true" data-tab="">ALL<small>{totalSongs}</small></button>
+    {tabs.map(tab => (
+      <button type="button" role="tab" aria-selected="false" data-tab={tab.name}>
+        {tab.name.toUpperCase()}{tab.year > 0 && <small>{tab.year}</small>}
+      </button>
     ))}
   </div>
+
+  <div class="sh-tbl" data-song-rows>
+    {rows.map(({ t, tab }) => {
+      const done = isDone(t);
+      const status = t.data.instrumental ? 'inst.' : done ? '已翻譯' : '翻譯中';
+      return (
+        <a href={`/translations/${t.id}`} data-tab={tab}>
+          <span class="c-n">{t.data.trackNumber ? String(t.data.trackNumber).padStart(2, '0') : '--'}</span>
+          {t.data.coverImage
+            ? <img src={t.data.coverImage} alt="" width="40" height="40" loading="lazy" decoding="async"
+                   style={`view-transition-name:cover-${t.id}`} />
+            : <span></span>}
+          <span class="c-t" lang="ja">{t.data.title}</span>
+          <span class="c-a">{t.data.artist === MAIN_ARTIST ? (t.data.album ?? '單曲') : `${t.data.artist} · ${t.data.album ?? ''}`}</span>
+          <span class={`c-s${done ? '' : ' wip'}`}>{status}</span>
+        </a>
+      );
+    })}
+  </div>
+
+  <script is:inline>
+    /* 專輯分頁 + 隨機一首。翻譯頁圈內有 ClientRouter, 換頁回來要重綁 → astro:page-load (首載也會觸發) */
+    (function () {
+      function bind() {
+        const bar = document.querySelector('[data-song-tabs]');
+        if (!bar || bar.dataset.bound) return;
+        bar.dataset.bound = '1';
+        const rows = document.querySelectorAll('[data-song-rows] a');
+        bar.addEventListener('click', e => {
+          const b = e.target.closest('button');
+          if (!b) return;
+          bar.querySelectorAll('button').forEach(x => x.setAttribute('aria-selected', x === b ? 'true' : 'false'));
+          rows.forEach(r => { r.hidden = !!b.dataset.tab && r.dataset.tab !== b.dataset.tab; });
+        });
+        document.querySelector('a[href="#random"]')?.addEventListener('click', e => {
+          e.preventDefault();
+          const pick = rows[Math.random() * rows.length | 0];
+          if (pick) pick.click();
+        });
+      }
+      bind();
+      document.addEventListener('astro:page-load', bind);
+    })();
+  </script>
 </BaseLayout>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
 import ShortsShelf from '../../components/ShortsShelf.astro';
 import TocDrawer from '../../components/TocDrawer.astro';
 import LiveStage from '../../components/LiveStage.astro';
@@ -59,7 +60,23 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
   article={true}
   publishDate={new Date(publishDate)}
   viewTransitions={true}
+  width="read"
 >
+  <PageHero slot="hero" variant="song" width="read" planet="earth" title={title} titleLang="ja"
+    path={`~/earth/translations/${translation.id.replace(/^nishina-/, '')}`} cmd="cat lyrics.txt"
+    cover={coverImage} coverAlt={`${title} 封面`} coverTransition={`cover-${translation.id}`}
+    chips={[
+      ...(album ? [[album, albumYear ? ` ${albumYear}${trackNumber ? ` · Track ${trackNumber}` : ''}` : (trackNumber ? ` · Track ${trackNumber}` : '')] as [string, string]] : []),
+      ...tags.map(tag => [tag] as [string]),
+      ...(instrumental ? [['Instrumental'] as [string]] : []),
+      ...(!isTranslated ? [['翻譯中'] as [string]] : []),
+    ]}
+    actions={[{ label: '‹ 列表', href: '/translations' }]}>
+    <dl class="sh-meta">
+      {credits.map(c => (<><dt>{c.label}</dt><dd>{c.value}</dd></>))}
+      <dt>發行</dt><dd>{new Date(publishDate).toLocaleDateString('zh-TW')}</dd>
+    </dl>
+  </PageHero>
   {isTranslated && <TocDrawer />}
   {songShorts.length > 0 && (
     <LiveStage
@@ -69,68 +86,7 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
     />
   )}
 
-  <article class="max-w-4xl mx-auto">
-    {/* Spotify 式頂部返回鍵 — VT 圈內點了封面會反向 morph 飛回列表 */}
-    <a href="/translations" aria-label="返回翻譯列表"
-       class="px-font inline-flex items-center justify-center w-9 h-9 mb-5 text-[16px]
-              bg-[#1a2440] text-gray-200 border-2 border-[#243154]
-              shadow-[3px_3px_0_rgba(0,0,0,.5)] hover:text-[#e8c94a] hover:border-[#e8c94a]
-              active:translate-x-[3px] active:translate-y-[3px] active:shadow-none
-              transition-none select-none">‹</a>
-    <header class="mb-8 flex flex-col sm:flex-row gap-6 items-start">
-      {coverImage && (
-        <div class="w-full sm:w-56 flex-shrink-0">
-          <img
-            src={coverImage}
-            alt={`${title} 封面`}
-            width="224"
-            height="224"
-            loading="eager"
-            class="w-full aspect-square object-cover rounded-lg shadow-md"
-            transition:name={`cover-${translation.id}`}
-          />
-        </div>
-      )}
-      <div class="flex-1 min-w-0">
-        <!-- C 級像素簽名: 歌名像素字 + 打字機入場; 內文閱讀區完全不動 -->
-        <h1 id="songTitle" class="px-ja text-4xl mb-3" style="font-size:36px;letter-spacing:.04em">{title}</h1>
-        {album && (
-          <p class="text-sm text-gray-500 dark:text-gray-500 mb-5">
-            💿 {album}{albumYear && ` (${albumYear})`}{trackNumber && ` · Track ${trackNumber}`}
-          </p>
-        )}
-        {credits.length > 0 && (
-          <dl class="text-sm text-gray-600 dark:text-gray-400 space-y-1 mb-4">
-            {credits.map(c => (
-              <div class="flex gap-3">
-                <dt class="w-10 text-gray-500 dark:text-gray-500 shrink-0">{c.label}</dt>
-                <dd>{c.value}</dd>
-              </div>
-            ))}
-          </dl>
-        )}
-        <time class="block text-gray-500 text-sm mb-4">
-          {new Date(publishDate).toLocaleDateString('zh-TW')} 發行
-        </time>
-        <div class="flex gap-2 flex-wrap">
-          {tags.map(tag => (
-            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
-              {tag}
-            </span>
-          ))}
-          {instrumental && (
-            <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm">
-              🎧 Instrumental
-            </span>
-          )}
-          {!isTranslated && (
-            <span class="px-3 py-1 bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 rounded-full text-sm">
-              翻譯中
-            </span>
-          )}
-        </div>
-      </div>
-    </header>
+  <article>
 
     {youtubeId && (
       <div class="aspect-video mb-8">

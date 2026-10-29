@@ -1,15 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
 const allProjects = (await getCollection('projects'))
   .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf());
 ---
 
-<BaseLayout title="作品集" description="程式作品與專案展示">
-  <div class="max-w-5xl mx-auto">
-    <h1 class="px text-4xl font-bold mb-4">作品集</h1>
-    <p class="text-gray-600 dark:text-gray-400 mb-8">我的程式專案與作品展示</p>
+<BaseLayout title="作品集" description="程式作品與專案展示" width="wide">
+  <PageHero slot="hero" planet="belt" title="作品集" cmd="ls"
+    desc="我的程式專案與作品展示。" chips={[[String(allProjects.length), '個作品']]} />
+  <div>
 
     {allProjects.length === 0 && (
       <p class="text-gray-500 text-center py-12">還沒有作品，敬請期待！</p>

@@ -15,7 +15,7 @@
   .site-topbar-inner{max-width:1200px;margin:0 auto;padding:14px 24px}
   .site-topbar a{color:var(--text);font-size:20px;font-weight:700;text-decoration:none;transition:color .15s}
   .site-topbar a:hover{color:var(--accent)}
-  main{max-width:980px;margin:0 auto;padding:48px 24px 120px}
+  main{max-width:1072px;margin:0 auto;padding:8px 24px 120px}
   h1{font-size:30px;letter-spacing:.05em}
   .sub{color:var(--dim);font-size:13.5px;margin-top:6px}
   .bar{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap;align-items:center}
@@ -45,16 +45,22 @@
   .empty{margin-top:40px;color:var(--dim);text-align:center}
   footer{margin-top:80px;color:var(--dim);font-size:12px;text-align:center}
 </style>
+<link rel="stylesheet" href="/css/site-shell.css">
+<script src="/js/site-shell.js" defer></script>
 </head>
 <body>
-<header class="site-topbar">
-  <div class="site-topbar-inner">
-    <a href="/">Derek's Site</a>
+<div class="sh-hd" data-sh-header></div>
+<div class="sh-hero sh-hero--tool" data-sh-hero data-planet="orbit">
+  <div class="sh-hero-bg" aria-hidden="true"></div>
+  <div class="sh-wrap sh-hero-inner">
+    <div class="sh-hero-text">
+      <div class="sh-prompt"><span class="u">derek@nishina</span>:<span class="pa">~/earth/orbit/kwic</span> $ <span class="cmd">grep -w</span></div>
+      <h1 class="sh-title">歌詞索引</h1>
+      <p class="sh-desc">Key Word In Context — 以原形檢索，活用形一網打盡。點曲名到歌曲頁。</p>
+    </div>
   </div>
-</header>
+</div>
 <main>
-  <h1>にしな KWIC 歌詞索引</h1>
-  <p class="sub">Key Word In Context — 以原形(lemma)檢索,活用形一網打盡。點曲名到歌曲頁。</p>
 
   <div class="bar">
     <input type="search" id="q" list="sugg" placeholder="輸入詞的原形,例:溶ける、夜、愛しい" autocomplete="off">

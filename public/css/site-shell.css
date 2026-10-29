@@ -1,0 +1,231 @@
+/* site-shell.css — 全站外殼: 頁首 / hero / 指令列 / 表格清單
+   Astro 頁 (BaseLayout) 跟 public/ 底下的靜態頁共用這一份, 所以放 public/ 不走 Tailwind。
+   規則跟 global.css 一致: 像素字只用 12 / 24 / 36px, 內文 PX10 20px。
+   每頁的行星主色由 hero 上的 --sh-accent 帶進來 (JS 依 data-planet 設定)。 */
+
+@font-face { font-family: 'PX-ZH'; src: url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'PX-JA'; src: url('/fonts/pixel/fp12-site-ja.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'PX10-ZH'; src: url('/fonts/pixel/fp10-site-zh_hant.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'PX10-JA'; src: url('/fonts/pixel/fp10-site-ja.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'openhuninn'; src: url('/fonts/openhuninn-site.woff2') format('woff2'); font-display: swap; }
+
+:root {
+  --sh-bg: #0a0a15; --sh-bg2: #0f0f1d; --sh-card: #131a2e; --sh-line: #243154;
+  --sh-ink: #e8ecf6; --sh-ink2: #b6c2e0; --sh-ink3: #7d89a8;
+  --sh-gold: #e8c94a;
+  --sh-accent: 92 168 255;
+  --sh-px: 'PX-ZH', 'PX-JA', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
+  --sh-pxja: 'PX-JA', 'PX-ZH', 'Noto Sans JP', sans-serif;
+  --sh-px10: 'PX10-ZH', 'PX10-JA', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
+  --sh-read: 'openhuninn', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
+  --sh-w: 1024px;
+}
+
+/* 內容寬度只有兩種: 列表/工具 1024, 閱讀 896。hero 跟內文用同一個 wrap, 左緣永遠對齊 */
+.sh-wrap { box-sizing: border-box; width: 100%; max-width: calc(var(--sh-w) + 48px); margin: 0 auto; padding: 0 24px; }
+.sh-wrap--read { --sh-w: 896px; }
+@media (max-width: 640px) { .sh-wrap { padding: 0 16px; } }
+
+/* ---------- 頁首 ---------- */
+.sh-hd { position: sticky; top: 0; z-index: 50; height: 56px; box-sizing: border-box;
+  background: rgb(10 10 21 / .8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgb(255 255 255 / .06); view-transition-name: sh-header;
+  font-family: var(--sh-px); color: var(--sh-ink); }
+.sh-hd .sh-wrap { --sh-w: 1024px; display: flex; align-items: center; height: 100%; gap: 14px; }
+.sh-hd a { color: inherit; text-decoration: none; }
+.sh-logo { font-size: 24px; white-space: nowrap; }
+.sh-logo:hover { color: var(--sh-gold); }
+.sh-dock { font-size: 12px; letter-spacing: .08em; color: var(--sh-ink2); white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; opacity: 0; min-width: 0; }
+.sh-dock b { font-weight: 400; color: rgb(var(--sh-accent)); }
+.sh-nav { margin-left: auto; display: flex; gap: 2px; }
+.sh-grp { position: relative; }
+.sh-grp > button { font: 12px var(--sh-px); letter-spacing: .08em; color: var(--sh-ink); background: none; border: 0;
+  padding: 10px 12px; cursor: pointer; position: relative; }
+.sh-grp > button::after { content: ' ▾'; color: var(--sh-ink3); }
+.sh-grp.on > button { color: rgb(var(--sh-accent)); }
+.sh-grp.on > button::before { content: ''; position: absolute; left: 12px; right: 12px; bottom: 3px; height: 2px;
+  background: rgb(var(--sh-accent)); }
+.sh-menu { position: absolute; right: 0; top: 100%; min-width: 230px; padding: 8px; display: none;
+  background: var(--sh-bg2); border: 2px solid var(--sh-line); filter: drop-shadow(5px 5px 0 rgb(0 0 0 / .45)); }
+.sh-grp:hover .sh-menu, .sh-grp:focus-within .sh-menu, .sh-grp.open .sh-menu { display: block; }
+.sh-menu a { display: flex; align-items: baseline; gap: 8px; padding: 9px 10px; font-size: 12px; letter-spacing: .06em; }
+.sh-menu kbd { font: inherit; color: var(--sh-ink3); letter-spacing: 0; }
+.sh-menu a span { margin-left: auto; color: var(--sh-ink3); }
+.sh-menu a:hover, .sh-menu a.cur { background: rgb(var(--sh-accent) / .14); color: #fff; }
+.sh-menu a:hover kbd, .sh-menu a.cur kbd { color: rgb(var(--sh-accent)); }
+.sh-burger { display: none; margin-left: auto; background: none; border: 2px solid var(--sh-line); color: var(--sh-ink);
+  font: 12px var(--sh-px); padding: 6px 10px; cursor: pointer; }
+.sh-prog { position: absolute; left: 0; bottom: -1px; width: 100%; height: 2px; background: rgb(var(--sh-accent));
+  transform-origin: 0 50%; transform: scaleX(0); }
+@media (max-width: 860px) {
+  .sh-nav { display: none; }
+  .sh-burger { display: block; }
+  .sh-dock { display: none; }
+  .sh-nav.open { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px; position: absolute; top: 56px; left: 0; right: 0;
+    padding: 14px 16px 22px; background: var(--sh-bg2); border-bottom: 2px solid var(--sh-line); max-height: calc(100vh - 56px); overflow: auto; }
+  .sh-nav.open .sh-menu { display: block; position: static; border: 0; filter: none; padding: 0; background: none; min-width: 0; }
+  .sh-nav.open .sh-grp > button { padding: 4px 10px; color: var(--sh-ink3); cursor: default; }
+  .sh-nav.open .sh-grp > button::after, .sh-nav.open .sh-grp > button::before { display: none; }
+  .sh-nav.open .sh-menu kbd { display: none; }
+}
+
+/* ---------- hero ----------
+   骨架固定: shell 提示 (路徑) / 標題 / 一句說明 / 數字 chip / 動作。右邊一顆像素行星 */
+.sh-hero { position: relative; overflow: hidden; isolation: isolate; color: var(--sh-ink);
+  height: clamp(260px, 38vh, 360px);
+  background: radial-gradient(110% 90% at 85% 40%, rgb(var(--sh-accent) / .16), transparent 62%); }
+.sh-hero--tool { height: 220px; }
+.sh-hero-bg { position: absolute; inset: 0; z-index: -1; view-transition-name: sh-hero-bg; }
+.sh-hero-bg canvas { width: 100%; height: 100%; image-rendering: pixelated; display: block; }
+.sh-hero-inner { position: relative; height: 100%; display: flex; flex-direction: column; justify-content: flex-end;
+  padding-bottom: 32px; }
+.sh-hero-text { max-width: calc(100% - 220px); }
+.sh-prompt { font: 12px var(--sh-px); letter-spacing: .04em; color: var(--sh-ink2); white-space: pre-wrap; word-break: break-all; }
+.sh-prompt .u { color: rgb(var(--sh-accent)); }
+.sh-prompt .pa { color: var(--sh-gold); }
+.sh-prompt .cmd::after { content: ''; display: inline-block; width: .6em; height: 1em; margin-left: 4px; vertical-align: -2px;
+  background: var(--sh-ink); animation: sh-blink 1.1s steps(2) infinite; }
+@keyframes sh-blink { 50% { opacity: 0; } }
+.sh-title { font: 400 36px/1.25 var(--sh-px); letter-spacing: .1em; margin: 12px 0 8px; color: #fff;
+  text-shadow: 0 2px 0 rgb(0 0 0 / .55); view-transition-name: sh-title; text-wrap: balance; }
+.sh-title:lang(ja) { font-family: var(--sh-pxja); letter-spacing: .04em; }
+.sh-desc { font: 20px/1.7 var(--sh-read); color: var(--sh-ink2); max-width: 34em; margin: 0; }
+.sh-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; align-items: center; }
+.sh-chip { font: 12px var(--sh-px); letter-spacing: .06em; padding: 7px 10px; color: var(--sh-ink);
+  background: rgb(10 10 21 / .55); border: 2px solid rgb(255 255 255 / .12); text-decoration: none; }
+.sh-chip b { font-weight: 400; color: rgb(var(--sh-accent)); margin-right: 4px; }
+a.sh-chip:hover { border-color: var(--sh-gold); }
+.sh-btn { font: 12px var(--sh-px); letter-spacing: .06em; padding: 9px 14px; color: var(--sh-ink); text-decoration: none;
+  border: 2px solid var(--sh-line); background: rgb(10 10 21 / .6); filter: drop-shadow(3px 3px 0 rgb(0 0 0 / .5)); cursor: pointer;
+  clip-path: polygon(0 4px,4px 4px,4px 0,calc(100% - 4px) 0,calc(100% - 4px) 4px,100% 4px,100% calc(100% - 4px),calc(100% - 4px) calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,4px calc(100% - 4px),0 calc(100% - 4px)); }
+.sh-btn--pri { background: rgb(var(--sh-accent)); border-color: rgb(var(--sh-accent)); color: #0a0a15; }
+.sh-btn:hover { border-color: var(--sh-gold); }
+.sh-btn:active { transform: translate(3px, 3px); filter: none; }
+.sh-orb { position: absolute; right: max(24px, calc((100vw - 1072px) / 2 + 24px)); top: 50%; translate: 0 -50%;
+  width: 192px; height: 192px; image-rendering: pixelated; filter: drop-shadow(0 0 40px rgb(var(--sh-accent) / .35));
+  view-transition-name: sh-orb; pointer-events: none; }
+.sh-hero--tool .sh-orb { width: 120px; height: 120px; }
+@media (max-width: 760px) {
+  .sh-hero { height: auto; min-height: 240px; }
+  .sh-hero-inner { padding-top: 72px; }
+  .sh-hero-text { max-width: none; }
+  .sh-orb { width: 72px; height: 72px; top: 20px; translate: 0 0; right: 16px; }
+  .sh-hero--tool .sh-orb { width: 64px; height: 64px; }
+  .sh-title { font-size: 24px; }
+  .sh-desc { font-size: 16px; }
+}
+
+/* 歌曲內頁: 封面 + 資訊, 背景是封面縮成 24×24 的馬賽克 */
+.sh-hero--song { height: auto; min-height: 300px; }
+.sh-hero--song .sh-hero-bg canvas { opacity: .55; }
+.sh-hero--song .sh-hero-bg::after { content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, var(--sh-bg) 0%, rgb(10 10 21 / .75) 45%, rgb(10 10 21 / .35)),
+              linear-gradient(180deg, transparent 50%, var(--sh-bg)); }
+.sh-hero--song .sh-hero-inner { flex-direction: row; align-items: flex-end; justify-content: flex-start; gap: 28px; padding-top: 40px; }
+.sh-hero--song .sh-hero-text { max-width: none; flex: 1; min-width: 0; }
+.sh-cover { width: 224px; aspect-ratio: 1; flex: none; object-fit: cover; border: 2px solid rgb(255 255 255 / .15);
+  filter: drop-shadow(6px 6px 0 rgb(0 0 0 / .5)); }
+.sh-meta { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 12px 0 0; font: 12px var(--sh-px); color: var(--sh-ink2); }
+.sh-meta dt { color: var(--sh-ink3); }
+.sh-meta dd { margin: 0; }
+@media (max-width: 640px) {
+  .sh-hero--song .sh-hero-inner { flex-direction: column; align-items: flex-start; padding-top: 72px; }   /* 讓開左上角的目錄鈕 */
+  .sh-cover { width: 140px; }
+}
+
+/* 底線分頁 (> ALL  1999  …) + 對齊表格清單 */
+.sh-tabs { display: flex; flex-wrap: wrap; gap: 4px 22px; padding: 14px 0; margin: 0 0 8px;
+  border-top: 1px solid rgb(255 255 255 / .08); border-bottom: 1px solid rgb(255 255 255 / .08); }
+.sh-tabs button { font: 12px var(--sh-px); letter-spacing: .12em; color: var(--sh-ink3); background: none; border: 0;
+  padding: 4px 0; cursor: pointer; }
+.sh-tabs button:hover, .sh-tabs button[aria-selected="true"] { color: var(--sh-ink); }
+.sh-tabs button[aria-selected="true"]::before { content: '> '; color: rgb(var(--sh-accent)); }
+.sh-tabs small { font-size: 12px; color: var(--sh-ink3); margin-left: 6px; letter-spacing: 0; }
+.sh-tbl a { display: grid; grid-template-columns: 48px 40px 1fr 170px 96px; gap: 16px; align-items: center;
+  padding: 8px 4px; color: inherit; text-decoration: none; border-bottom: 1px solid rgb(255 255 255 / .04); }
+.sh-tbl a:hover { background: rgb(var(--sh-accent) / .08); }
+.sh-tbl a:hover .c-t::before { content: '> '; color: rgb(var(--sh-accent)); }
+.sh-tbl img { width: 40px; height: 40px; object-fit: cover; display: block; }
+.sh-tbl .c-n, .sh-tbl .c-a, .sh-tbl .c-s { font: 12px var(--sh-px); color: var(--sh-ink3); letter-spacing: .06em; }
+.sh-tbl .c-t { font: 20px var(--sh-px10); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sh-tbl .c-t:lang(ja) { font-family: 'PX10-JA', var(--sh-px10); }
+.sh-tbl .c-s { text-align: right; }
+.sh-tbl .c-s.wip { color: var(--sh-gold); }
+@media (max-width: 640px) {
+  .sh-tbl a { grid-template-columns: 28px 40px 1fr 56px; gap: 10px; }
+  .sh-tbl .c-a { display: none; }
+  .sh-tbl .c-t { font-size: 16px; }
+}
+
+/* ---------- 指令列 ----------
+   平常縮成左下角一顆提示, 按 / 或點它展開成整條; 打歌名 / 頁名 / 指令 */
+.sh-cli { position: fixed; left: 16px; bottom: 16px; z-index: 60; font-family: var(--sh-px); color: var(--sh-ink); }
+.sh-cli-pill { display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; cursor: text;
+  font: 12px var(--sh-px); color: var(--sh-ink2); background: rgb(10 10 21 / .88); border: 2px solid var(--sh-line);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); filter: drop-shadow(3px 3px 0 rgb(0 0 0 / .5)); }
+.sh-cli-pill:hover { border-color: rgb(var(--sh-accent)); }
+.sh-cli-pill .gt { color: var(--sh-ink3); }
+.sh-cli-pill .hint { color: var(--sh-ink3); }
+.sh-cli-panel { display: none; }
+.sh-cli.open { left: 0; right: 0; bottom: 0; }
+.sh-cli.open .sh-cli-pill { display: none; }
+.sh-cli.open .sh-cli-panel { display: block; background: rgb(10 10 21 / .95); border-top: 1px solid rgb(255 255 255 / .12);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.sh-cli-out { max-height: min(50vh, 420px); overflow: auto; padding: 8px 0; }
+.sh-cli-out:empty { display: none; }
+.sh-cli-out a, .sh-cli-out .row { display: flex; justify-content: space-between; gap: 16px; padding: 6px 8px;
+  font: 20px var(--sh-px10); color: var(--sh-ink); text-decoration: none; }
+.sh-cli-out a span + span, .sh-cli-out .row span + span { font: 12px var(--sh-px); color: var(--sh-ink3); white-space: nowrap; }
+.sh-cli-out a.sel { background: rgb(var(--sh-accent) / .16); }
+.sh-cli-out a.sel span:first-child::before { content: '> '; color: rgb(var(--sh-accent)); }
+.sh-cli-out .none { font: 12px var(--sh-px); color: var(--sh-ink3); padding: 6px 8px; }
+.sh-cli-line { display: flex; align-items: center; gap: 8px; height: 52px; font-size: 12px; white-space: nowrap;
+  border-top: 1px dashed rgb(255 255 255 / .1); }
+.sh-cli-line .u { color: var(--sh-ink2); }
+.sh-cli-line .gt { color: var(--sh-ink3); }
+.sh-cli-line input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: var(--sh-ink);
+  font: 20px var(--sh-px10); caret-color: var(--sh-gold); }
+.sh-cli-line .esc { font-size: 12px; color: var(--sh-ink3); background: none; border: 0; cursor: pointer; }
+@media (max-width: 640px) { .sh-cli { left: 12px; bottom: 12px; } .sh-cli-pill .hint { display: none; } }
+@media print { .sh-cli, .sh-hd { display: none; } }
+
+/* ---------- 滾動驅動 (純 CSS; 不支援的瀏覽器就是靜態, 不會壞) ---------- */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sh-hero-inner > * { animation: sh-lift linear both; animation-timeline: scroll(root); animation-range: 0 260px; }
+    .sh-orb { animation: sh-orb-out linear both; animation-timeline: scroll(root); animation-range: 0 300px; }
+    .sh-dock { animation: sh-dock-in linear both; animation-timeline: scroll(root); animation-range: 180px 280px; }
+    .sh-prog { animation: sh-grow linear both; animation-timeline: scroll(root); }
+  }
+}
+@keyframes sh-lift { to { opacity: 0; transform: translateY(-28px); } }
+@keyframes sh-orb-out { to { transform: translateY(60px) scale(.7); opacity: .2; } }
+@keyframes sh-dock-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes sh-grow { to { transform: scaleX(1); } }
+@supports not (animation-timeline: scroll()) { .sh-dock { opacity: 1; } .sh-dock:empty { display: none; } }
+
+/* ---------- 跨頁轉場: 瀏覽器原生 (MPA), 靜態頁也吃得到 ---------- */
+@view-transition { navigation: auto; }
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-group(sh-title), ::view-transition-group(sh-orb) {
+    animation-duration: 420ms; animation-timing-function: cubic-bezier(.2, .8, .2, 1); }
+}
+@media (prefers-reduced-motion: reduce) { .sh-prompt .cmd::after { animation: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) { animation: sh-vt-out 160ms steps(4) both; }
+  ::view-transition-new(root) { animation: sh-vt-in 160ms steps(4) both; }
+}
+@keyframes sh-vt-out { to { opacity: 0; } }
+@keyframes sh-vt-in { from { opacity: 0; } }
+.sh-main { padding-top: 32px; padding-bottom: 32px; }
+.sh-tbl a[hidden] { display: none; }
+/* 靜態頁: body 可能是置中的 flex 欄 (ガチャ) 或滿版工具 (星圖) */
+.sh-hd, .sh-hero { flex-shrink: 0; align-self: stretch; }
+.sh-hero--slim { height: 150px; }
+.sh-hero--slim .sh-hero-inner { padding-bottom: 18px; }
+.sh-hero--slim .sh-title { font-size: 24px; margin: 8px 0 0; }
+.sh-hero--slim .sh-orb { width: 96px; height: 96px; }
+.sh-wrap--full { max-width: none; }
+/* 滿版工具頁 (星圖) 左下角有圖例: 提示鈕收起來, 按 / 一樣叫得出指令列 */
+[data-sh-pill="off"] .sh-cli:not(.open) { display: none; }
