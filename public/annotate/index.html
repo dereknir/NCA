@@ -973,8 +973,9 @@ function renderAutoPanel(){
       ${ann.status==='auto' ? (S.reviewOnly === 'conflict'
           ? '<span style="color:var(--warn)">先確認歌模式: Enter 只確認歌名, anchors 之後在 🤖 待審 再審</span>'
           : `<span style="color:#9fb6ff">${ann.songConfirmed ? '歌名已確認 ✓ · ' : ''}anchors 已套用 — 聽一遍沒問題就按 Enter (= 審核通過, 會上線)</span>`) : ''}
-      ${(r.needsReview||[]).length ? `<span style="color:var(--warn)">${r.needsReview.join(', ')}</span>` : ''}
+      ${(r.needsReview||[]).filter(x => x !== 'event_title').length ? `<span style="color:var(--warn)">${r.needsReview.filter(x => x !== 'event_title').join(', ')}</span>` : ''}
     </div>
+    ${(r.needsReview||[]).includes('event_title') ? `<div style="color:var(--warn)">⚠ 標題像音樂祭 / 巡演回顧 — 先確認是不是單曲表演 (已審的這類片段多半標成 __live_song / __tour_recap / __promo)</div>` : ''}
     <div style="color:var(--dim)">候選歌: ${cands || '(聽不出歌詞)'}</div>
     ${r.peer ? `<div style="color:#7fd1a8">🎧 跟已審的 ${r.peer.from.map(p => `<a href="https://youtube.com/shorts/${p.videoId}" target="_blank" rel="noopener" style="color:inherit">${p.videoId}</a>`).join('、')} 是同一段錄音 (涵蓋片段 ${Math.round(r.peer.coverage * 100)}%), 標「🎧抄」的句子照抄人工答案${r.peer.songChanged ? ' · 歌名也以已審的為準' : ''}</div>` : ''}
     ${conflict ? `<div style="color:var(--warn)">⚠ 佇列 (${escapeHtml(METHOD_LABEL[r.matchMethod]||r.matchMethod||'')}) 說是「${escapeHtml(S.songs[r.queueSongId]?.title||r.queueSongId||'?')}」, ASR 聽起來是「${escapeHtml(S.songs[r.songId]?.title||r.songId||'?')}」— 先確認歌再審 anchors</div>` : ''}

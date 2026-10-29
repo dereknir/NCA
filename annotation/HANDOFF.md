@@ -91,6 +91,7 @@ python scripts/eval_align.py -v                                                 
 .venv-qwen/bin/python scripts/eval_golden.py [--split dev|test|all] [-v]               # 改演算法後用全部 done 評估 (幾秒)
 .venv-qwen/bin/python scripts/auto_annotate.py --peer && .venv-qwen/bin/python scripts/auto_annotate.py --merge   # 審了一批之後: 只重算同錄音照抄 (~1.5 分) 再寫回
 .venv-qwen/bin/python scripts/peer_anchors.py --eval                                    # 同錄音照抄 vs ASR (golden 留一法)
+.venv-qwen/bin/python scripts/rhythm.py --eval                                          # 節奏模板重排估計句 vs 原本 (golden 留一法)
 ```
 
 - `--merge` 永遠不碰 `done` / `skip`,也不碰人工已開始打 anchor 的 `pending`;覆蓋既有 auto 時保留人工填過的版本 / 巡演 / 場次欄位。
@@ -98,6 +99,7 @@ python scripts/eval_align.py -v                                                 
 - 認歌規則(v2,`decide_song`):模型清楚認出(第一名 ≥45 分且領先第二名 ≥10 分)就相信模型;模型沒把握才參考佇列的 hashtag / 歌詞比對配對,低信心的 review 配對一律不當提示。舊規則「第一名 <68 分就沿用佇列」是照 whisper 分數訂的,全量重標時讓 140 支被佇列帶偏;新規則在人工確認歌名的 159 支上 157 對(舊 122)、golden 40 支 39 對(舊 37),且不推翻任何 hashtag。
 - **v3(`ALGO = 3`)**:鏈的頭尾往外延伸(人工補的句子九成在片段頭尾);hybrid 換時間改成「whisper 有對到同一句就用 whisper 的」(不再限 3 秒內);歌詞的括號讀音「虚像(うそ)」改用讀音比對。實驗過程與數字見 `annotation/reports/2026-10-27-align-v3.md`。
 - **同錄音照抄(`scripts/peer_anchors.py`,正式流程)**:官方常把同一段演出剪成好幾支 shorts。ASR 跑完後,每支未審片段用 chroma 互相關在所有已審 shorts 裡找同一段錄音(相似度 ≥0.95、重疊 ≥4 秒;同錄音 ≥0.98、不同演出 ≤0.94,分得很開),重疊部分照抄人工 anchors(換算時間位移),涵蓋不到的部分保留 ASR。golden 354 支(留一法)完全不用改 38% → 56%,有夥伴的那 2/3 從 35% → 66%。ASR 原結果存在每筆的 `asr` 欄位,重算一律從它出發;夥伴對重複段選了不同次時,在同歌詞的句號之間重選讓句號遞增(`fix_order`)。annotator 上照抄的句子標「🎧抄」,🤖 面板列出來源影片。**你審得越多夥伴越多,隔一陣子跑 `--peer` + `--merge` 就會變準。**
+- **節奏模板(`scripts/rhythm.py`,正式流程,跟 `--peer` 一起跑)**:2026-10-29 審的 108 支裡,估計句(≈估)要改的比例是實際對到的句子的 3 倍(29% vs 8%),結尾估計句常是人工不標的多餘句。改用人工 done 算每首歌「這句 → 下一句」的間隔中位數:中間的估計句按模板比例分配、結尾的估計句 = 最後對到的句子 + 模板間隔(超過片段結尾前 1.5 秒就不標)、模板說下一句在結尾前開唱就補一句。golden 457 支留一法(排除同錄音)完全不用改 40% → 44%、結尾漏句 44 → 25 支、大錯(>3s) 76 → 70 句;有估計句的那 280 支 26% → 33%。另外標題是音樂祭 / 巡演回顧(RUSH BALL、TOKYO ISLAND、ツアー…)的片段加 `event_title` 警告 — 已審 210 支裡標出 9 支、9 支都是非單曲表演(那批 108 支裡非歌曲佔 16 支,是最大的單一錯誤來源)。
 - **原曲參考(實驗中,`scripts/experiments/audio_ref/`)**:43 首官方 MV / 音源的整首時間表;全自動版本還不夠準(Qwen 對整首長音訊會退化),沒接進正式流程。見 `annotation/reports/2026-10-28-audio-reference.md`。
 - hybrid 借 whisper 時間時必須維持句子順序與 ≥0.6 秒間隔,否則該句改成前後兩句之間內插;Qwen 評為 C 級時改用同時跑好的 whisper 轉寫再分析一次,取較好的(`fallback: whisper`)。
 - 結果帶 `algo` 版本號;`--redo` 會重跑舊版本的結果(結果檔沒存逐字時間,所以要重新轉寫)。

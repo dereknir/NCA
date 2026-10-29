@@ -21,6 +21,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import auto_annotate as aa   # noqa: E402
+import rhythm                # noqa: E402
 
 SR, HOP = 16000, 512
 FPS = SR / HOP                 # chroma 每秒 31.25 格
@@ -188,7 +189,8 @@ def apply(out_path=aa.OUT_F, ids=None):
     songs = aa.load_songs()
     F, mean = load_feats(done + todo)
     done = [u for u in done if u in F]
-    n_peer = n_song = 0
+    gaps = rhythm.samples(H, songs)
+    n_peer = n_song = n_event = 0
     for k, v in enumerate(todo, 1):
         if k % 100 == 0:
             print(f'[peer] {k}/{len(todo)} · 目前 {n_peer} 支找到同錄音 · {time.time() - t0:.0f}s', flush=True)
@@ -199,6 +201,13 @@ def apply(out_path=aa.OUT_F, ids=None):
         for k in KEEP:
             r[k] = base[k]
         r.pop('peer', None)
+        if base['songId'] in songs and base['anchors']:
+            # 估計句照節奏模板重排 (審得越多模板越準, 所以每次都從 ASR 原本的結果重算)
+            r['anchors'] = rhythm.retime(base['anchors'], rhythm.Template(songs[base['songId']], gaps[base['songId']]),
+                                         float(r.get('duration') or 0))
+        if rhythm.event_title(r.get('title')):
+            r['needsReview'] = list(r.get('needsReview') or []) + ['event_title']
+            n_event += 1
         if v not in F:
             continue
         partners = find_partners(v, F, done, mean)
@@ -207,22 +216,35 @@ def apply(out_path=aa.OUT_F, ids=None):
         peer, spans, sid = transfer(v, partners, F, H)
         if not peer:
             continue
-        asr = (base['anchors'] or []) if base['songId'] == sid else []   # 夥伴是別首歌 → ASR 的 anchors 不能用
+        asr = (r['anchors'] or []) if base['songId'] == sid else []      # 夥伴是別首歌 → ASR 的 anchors 不能用
         cov = coverage(spans, F[v].shape[1] / FPS)
         r['anchors'] = combine(peer, spans, asr, songs.get(sid))
         r['songId'] = sid
         r['peer'] = {'from': [{'videoId': u, 'offset': round(o, 2), 'sim': round(s, 3)} for u, o, s in partners if H[u]['songId'] == sid],
                      'coverage': round(cov, 2), 'songChanged': base['songId'] != sid}
         if cov >= 0.9:
-            r['grade'], r['needsReview'] = 'A', []
+            r['grade'], r['needsReview'] = 'A', [x for x in r['needsReview'] if x == 'event_title']
         elif r['grade'] == 'C':
             r['grade'] = 'B'
         n_peer += 1; n_song += base['songId'] != sid
     data['meta']['peer'] = {'updated': time.strftime('%Y-%m-%d %H:%M'), 'count': n_peer, 'done_refs': len(done)}
     aa.write_out(out_path, data)
     print(f'[peer] 未審 {len(todo)} 支, {n_peer} 支找到同錄音的已審 shorts (其中 {n_song} 支歌名跟 ASR 不同, 以已審的為準) · '
-          f'參考 {len(done)} 支已審 · {time.time() - t0:.0f}s')
+          f'參考 {len(done)} 支已審 · 估計句照節奏模板重排 · 標題像音樂祭/巡演回顧 {n_event} 支 · {time.time() - t0:.0f}s')
     return n_peer
+
+
+def canon(songs, sid, anchors):
+    """評估用: 副歌一字不差的重複段標第幾次是隨意的 → 視為同一句; 同一片段裡第二次出現仍算不同句"""
+    ja = {i: j.strip() for i, j, _l in songs[sid]['lines']}
+    first = {}
+    for i, j in ja.items():
+        first.setdefault(j, i)
+    seen, out = Counter(), []
+    for a in sorted(anchors, key=lambda a: a['t']):
+        c = first[ja[a['line']]]
+        out.append(dict(a, line=c + 1000 * seen[c])); seen[c] += 1
+    return out
 
 
 def evaluate():
@@ -234,19 +256,6 @@ def evaluate():
     done = [v for v, a in H.items() if a.get('status') == 'done' and a.get('songId') in songs and a.get('anchors')]
     F, mean = load_feats(done)
     done = [u for u in done if u in F]
-    ja = {sid: {i: j.strip() for i, j, _l in s['lines']} for sid, s in songs.items()}
-
-    def canon(sid, anchors):
-        # 副歌一字不差的重複段標第幾次是隨意的 → 視為同一句; 同一片段裡第二次出現仍算不同句
-        first = {}
-        for i, j in ja[sid].items():
-            first.setdefault(j, i)
-        seen, out = Counter(), []
-        for a in sorted(anchors, key=lambda a: a['t']):
-            c = first[ja[sid][a['line']]]
-            out.append(dict(a, line=c + 1000 * seen[c])); seen[c] += 1
-        return out
-
     rows = defaultdict(list)
     for v, h in gold.items():
         c = cache.get(v)
@@ -261,8 +270,8 @@ def evaluate():
             if peer and psid == sid:
                 final = combine(peer, spans, asr, songs[sid])
         for k in ('全部', '有夥伴' if partners else '沒夥伴'):
-            rows[k + '|照抄'].append(eg.score_clip(canon(sid, final), canon(sid, h['anchors'])))
-            rows[k + '|ASR'].append(eg.score_clip(canon(sid, asr), canon(sid, h['anchors'])))
+            rows[k + '|照抄'].append(eg.score_clip(canon(songs, sid, final), canon(songs, sid, h['anchors'])))
+            rows[k + '|ASR'].append(eg.score_clip(canon(songs, sid, asr), canon(songs, sid, h['anchors'])))
     for k in ('全部', '有夥伴', '沒夥伴'):
         print(f'{k:<4} 照抄 ', eg.summarize(rows[k + '|照抄']))
         print(f'{"":<4} ASR  ', eg.summarize(rows[k + '|ASR']))
