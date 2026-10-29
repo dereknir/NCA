@@ -1,6 +1,6 @@
 {
   "meta": {
-    "total": 98,
+    "total": 99,
     "by_category": {
       "daily": 4,
       "cover": 5,
@@ -10,7 +10,7 @@
       "yearly": 6,
       "ad": 2,
       "tv": 3,
-      "travel": 4
+      "travel": 5
     }
   },
   "categories": {
@@ -1121,7 +1121,7 @@
     "travel": {
       "displayName": "旅行",
       "emoji": "✈️",
-      "count": 4,
+      "count": 5,
       "shorts": [
         {
           "videoId": "JI86pWwhdf4",
@@ -1160,6 +1160,16 @@
           "thumbnail": "https://i.ytimg.com/vi/jiJ3xE7M6vM/hqdefault.jpg",
           "viewCount": 4300,
           "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "kyR5zgN_JYE",
+          "title": "our lives go on",
+          "url": "https://www.youtube.com/shorts/kyR5zgN_JYE",
+          "thumbnail": "https://i.ytimg.com/vi/kyR5zgN_JYE/hqdefault.jpg",
+          "viewCount": 1900,
+          "versionType": "live",
           "instrumental": false,
           "anchors": []
         }
