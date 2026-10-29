@@ -51,10 +51,12 @@ const albumCount = tabs.filter(t => t.year > 0).length;
   )}
 
   <div class="sh-tabs" role="tablist" data-song-tabs>
-    <button type="button" role="tab" aria-selected="true" data-tab="">ALL<small>{totalSongs}</small></button>
+    <button type="button" role="tab" aria-selected="true" data-tab="">
+      <span class="t">ALL</span><small>{totalSongs} 首</small>
+    </button>
     {tabs.map(tab => (
       <button type="button" role="tab" aria-selected="false" data-tab={tab.name}>
-        {tab.name.toUpperCase()}{tab.year > 0 && <small>{tab.year}</small>}
+        <span class="t">{tab.name}</span><small>{tab.year > 0 ? `${tab.year} · ` : ''}{tab.songs.length} 首</small>
       </button>
     ))}
   </div>

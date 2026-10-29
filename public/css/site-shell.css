@@ -135,13 +135,19 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
 }
 
 /* 底線分頁 (> ALL  1999  …) + 對齊表格清單 */
-.sh-tabs { display: flex; flex-wrap: wrap; gap: 4px 22px; padding: 14px 0; margin: 0 0 8px;
+/* 分頁兩行: 上面專輯名, 下面年份 · 首數 (專輯「1999」後面直接接年份會認不出來) */
+.sh-tabs { display: flex; flex-wrap: wrap; gap: 6px 28px; padding: 12px 0; margin: 0 0 8px;
   border-top: 1px solid rgb(255 255 255 / .08); border-bottom: 1px solid rgb(255 255 255 / .08); }
-.sh-tabs button { font: 12px var(--sh-px); letter-spacing: .12em; color: var(--sh-ink3); background: none; border: 0;
-  padding: 4px 0; cursor: pointer; }
-.sh-tabs button:hover, .sh-tabs button[aria-selected="true"] { color: var(--sh-ink); }
-.sh-tabs button[aria-selected="true"]::before { content: '> '; color: rgb(var(--sh-accent)); }
-.sh-tabs small { font-size: 12px; color: var(--sh-ink3); margin-left: 6px; letter-spacing: 0; }
+.sh-tabs button { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left;
+  font: 12px var(--sh-px); background: none; border: 0; padding: 4px 0 4px 14px; cursor: pointer; position: relative; }
+.sh-tabs .t { display: block; font: 24px/32px var(--sh-pxja); letter-spacing: .04em; color: var(--sh-ink3); }
+.sh-tabs small { font-size: 12px; letter-spacing: .06em; color: rgb(125 137 168 / .7); }
+.sh-tabs button:hover .t { color: var(--sh-ink); }
+.sh-tabs button[aria-selected="true"] .t { color: #fff; }
+.sh-tabs button[aria-selected="true"] small { color: rgb(var(--sh-accent)); }
+.sh-tabs button[aria-selected="true"]::before { content: '>'; position: absolute; left: 0; top: 14px;
+  font: 12px var(--sh-px); color: rgb(var(--sh-accent)); }
+@media (max-width: 640px) { .sh-tabs { gap: 4px 20px; } .sh-tabs .t { font-size: 12px; line-height: 20px; } .sh-tabs button[aria-selected="true"]::before { top: 8px; } }
 .sh-tbl a { display: grid; grid-template-columns: 48px 40px 1fr 170px 96px; gap: 16px; align-items: center;
   padding: 8px 4px; color: inherit; text-decoration: none; border-bottom: 1px solid rgb(255 255 255 / .04); }
 .sh-tbl a:hover { background: rgb(var(--sh-accent) / .08); }
