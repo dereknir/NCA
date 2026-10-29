@@ -1,10 +1,10 @@
 {
   "meta": {
-    "total": 99,
+    "total": 100,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 31,
+      "promo": 32,
       "live_song": 36,
       "mc": 7,
       "yearly": 6,
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 31,
+      "count": 32,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -178,6 +178,16 @@
           "title": "NEW ALBUM on March 18th in 2026!!",
           "url": "https://www.youtube.com/shorts/CICk-ZwFl64",
           "thumbnail": "https://i.ytimg.com/vi/CICk-ZwFl64/hqdefault.jpg",
+          "viewCount": 9900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "1nBPDVncspo",
+          "title": "nishina - new goods 2026 in summer",
+          "url": "https://www.youtube.com/shorts/1nBPDVncspo",
+          "thumbnail": "https://i.ytimg.com/vi/1nBPDVncspo/hqdefault.jpg",
           "viewCount": 9900,
           "versionType": null,
           "instrumental": false,
