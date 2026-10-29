@@ -4,8 +4,7 @@ peer_anchors.py — 同一段錄音的 shorts 互相參考
 
 官方常把同一段演出剪成好幾支 shorts。未審的片段只要跟某支已審 (done) 的片段是同一段錄音 (部分重疊也算),
 重疊部分直接照抄人工 anchors (換算時間位移), 沒涵蓋到的部分保留 ASR (auto_annotate) 的結果。
-同錄音的不同片段, 人工 anchors 彼此差 ≤0.3 秒; golden 354 支 (留一法) 完全不用改 38% → 55%, 見
-annotation/reports/2026-10-28-audio-reference.md。
+同錄音的不同片段, 人工 anchors 彼此差 ≤0.3 秒; golden 457 支 (留一法) 完全不用改 40% → 55% (`--eval` 重跑)。
 
 判斷同一段錄音: chroma (12 個音高的能量) 互相關。同錄音 ≥0.98, 不同演出 ≤0.94 (5192 對裡中間只有 1 對)。
 
