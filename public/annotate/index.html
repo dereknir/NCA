@@ -1202,7 +1202,7 @@ setCover(S.covered);
 document.getElementById('coverBtn').onclick = ()=> setCover(!S.covered);
 document.addEventListener('keyup', e=>{ if(e.code==='KeyB' && S.covered) document.getElementById('cover').classList.remove('off'); });   // 放開 B 遮回去
 document.addEventListener('keydown', e=>{
-  if(e.key !== '`' || e.target.tagName==='INPUT') return;
+  if(e.code !== 'Backquote' || e.target.tagName==='INPUT') return;   // 認實體按鍵 (esc 下面那顆), 開注音也有效
   e.preventDefault();
   S.boss = !S.boss;
   const el = document.getElementById('boss');
