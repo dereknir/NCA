@@ -1,10 +1,10 @@
 {
   "meta": {
     "song_count": 36,
-    "short_count": 531,
+    "short_count": 549,
     "skipped": {
       "pending": 84,
-      "auto": 610,
+      "auto": 589,
       "skip": 0,
       "no_song": 0,
       "no_anchors": 1,
@@ -950,6 +950,37 @@
         ]
       },
       {
+        "videoId": "HHFfJ_vOVis",
+        "title": "Your rhythmical bites, juice flows from your mouth",
+        "url": "https://www.youtube.com/shorts/HHFfJ_vOVis",
+        "thumbnail": "https://i.ytimg.com/vi/HHFfJ_vOVis/hqdefault.jpg",
+        "viewCount": 1800,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 32
+          },
+          {
+            "t": 4.05,
+            "line": 33
+          },
+          {
+            "t": 7.23,
+            "line": 34
+          },
+          {
+            "t": 10.02,
+            "line": 35
+          },
+          {
+            "t": 15.01,
+            "line": 36
+          }
+        ]
+      },
+      {
         "videoId": "c5RW3DypHCw",
         "title": "plum",
         "url": "https://www.youtube.com/shorts/c5RW3DypHCw",
@@ -1658,6 +1689,41 @@
         ]
       },
       {
+        "videoId": "rCU7ZBbwk4M",
+        "title": "It could have been anyone",
+        "url": "https://www.youtube.com/shorts/rCU7ZBbwk4M",
+        "thumbnail": "https://i.ytimg.com/vi/rCU7ZBbwk4M/hqdefault.jpg",
+        "viewCount": 7300,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 13
+          },
+          {
+            "t": 2.86,
+            "line": 14
+          },
+          {
+            "t": 5.19,
+            "line": 15
+          },
+          {
+            "t": 10.25,
+            "line": 16
+          },
+          {
+            "t": 12.97,
+            "line": 17
+          },
+          {
+            "t": 14.97,
+            "line": 18
+          }
+        ]
+      },
+      {
         "videoId": "5bZ37BN_7Ek",
         "title": "いけない忘れたい溶けない夜と",
         "url": "https://www.youtube.com/shorts/5bZ37BN_7Ek",
@@ -1704,6 +1770,41 @@
           {
             "t": 18.57,
             "line": 12
+          }
+        ]
+      },
+      {
+        "videoId": "Q-xPTkxHgn8",
+        "title": "Why do I miss you?",
+        "url": "https://www.youtube.com/shorts/Q-xPTkxHgn8",
+        "thumbnail": "https://i.ytimg.com/vi/Q-xPTkxHgn8/hqdefault.jpg",
+        "viewCount": 6700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 2.48,
+            "line": 1
+          },
+          {
+            "t": 5.04,
+            "line": 2
+          },
+          {
+            "t": 9.95,
+            "line": 3
+          },
+          {
+            "t": 12.44,
+            "line": 4
+          },
+          {
+            "t": 14.9,
+            "line": 5
           }
         ]
       },
@@ -3975,6 +4076,49 @@
           },
           {
             "t": 16.94,
+            "line": 63
+          }
+        ]
+      },
+      {
+        "videoId": "OrAWBxAhpbo",
+        "title": "This whole place is the floating world",
+        "url": "https://www.youtube.com/shorts/OrAWBxAhpbo",
+        "thumbnail": "https://i.ytimg.com/vi/OrAWBxAhpbo/hqdefault.jpg",
+        "viewCount": 6500,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 56
+          },
+          {
+            "t": 1.47,
+            "line": 57
+          },
+          {
+            "t": 4.34,
+            "line": 58
+          },
+          {
+            "t": 6.81,
+            "line": 59
+          },
+          {
+            "t": 9.56,
+            "line": 60
+          },
+          {
+            "t": 11.79,
+            "line": 61
+          },
+          {
+            "t": 14.27,
+            "line": 62
+          },
+          {
+            "t": 16.58,
             "line": 63
           }
         ]
@@ -7385,6 +7529,77 @@
         ]
       },
       {
+        "videoId": "ghRIb7UAlKU",
+        "title": "Because everyone believes in illusions",
+        "url": "https://www.youtube.com/shorts/ghRIb7UAlKU",
+        "thumbnail": "https://i.ytimg.com/vi/ghRIb7UAlKU/hqdefault.jpg",
+        "viewCount": 6700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 22
+          },
+          {
+            "t": 2.58,
+            "line": 23
+          },
+          {
+            "t": 4.22,
+            "line": 24
+          },
+          {
+            "t": 6.96,
+            "line": 25
+          },
+          {
+            "t": 9.22,
+            "line": 26
+          },
+          {
+            "t": 12.07,
+            "line": 27
+          },
+          {
+            "t": 14.35,
+            "line": 28
+          },
+          {
+            "t": 18.96,
+            "line": 29
+          },
+          {
+            "t": 21.32,
+            "line": 30
+          },
+          {
+            "t": 23.76,
+            "line": 31
+          },
+          {
+            "t": 26.06,
+            "line": 32
+          },
+          {
+            "t": 28.5,
+            "line": 33
+          },
+          {
+            "t": 30.92,
+            "line": 34
+          },
+          {
+            "t": 33.32,
+            "line": 35
+          },
+          {
+            "t": 38.26,
+            "line": 36
+          }
+        ]
+      },
+      {
         "videoId": "B1Do7lgri3Y",
         "title": "誰もが幻を信じてやまない",
         "url": "https://www.youtube.com/shorts/B1Do7lgri3Y",
@@ -7420,6 +7635,41 @@
           {
             "t": 14.27,
             "line": 35
+          }
+        ]
+      },
+      {
+        "videoId": "MpyR2sGJeCU",
+        "title": "The hidden truth and the name of God",
+        "url": "https://www.youtube.com/shorts/MpyR2sGJeCU",
+        "thumbnail": "https://i.ytimg.com/vi/MpyR2sGJeCU/hqdefault.jpg",
+        "viewCount": 6600,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 6
+          },
+          {
+            "t": 2.03,
+            "line": 7
+          },
+          {
+            "t": 5.35,
+            "line": 8
+          },
+          {
+            "t": 9.45,
+            "line": 9
+          },
+          {
+            "t": 11.94,
+            "line": 10
+          },
+          {
+            "t": 14.3,
+            "line": 11
           }
         ]
       },
@@ -7561,6 +7811,642 @@
           {
             "t": 39,
             "line": 36
+          }
+        ]
+      }
+    ],
+    "nishina-slow-motion": [
+      {
+        "videoId": "med_tOBKnyM",
+        "title": "I’m singing love for you",
+        "url": "https://www.youtube.com/shorts/med_tOBKnyM",
+        "thumbnail": "https://i.ytimg.com/vi/med_tOBKnyM/hqdefault.jpg",
+        "viewCount": 158000,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.76,
+            "line": 22
+          },
+          {
+            "t": 5.86,
+            "line": 23
+          }
+        ]
+      },
+      {
+        "videoId": "gaA1kAoc5WI",
+        "title": "だって愛して欲しいんだもん",
+        "url": "https://www.youtube.com/shorts/gaA1kAoc5WI",
+        "thumbnail": "https://i.ytimg.com/vi/gaA1kAoc5WI/hqdefault.jpg",
+        "viewCount": 26000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 16
+          },
+          {
+            "t": 5.36,
+            "line": 17
+          },
+          {
+            "t": 9.28,
+            "line": 18
+          },
+          {
+            "t": 11.92,
+            "line": 19
+          },
+          {
+            "t": 13.12,
+            "line": 20
+          },
+          {
+            "t": 14.88,
+            "line": 21
+          },
+          {
+            "t": 20.34,
+            "line": 22
+          },
+          {
+            "t": 26.54,
+            "line": 23
+          }
+        ]
+      },
+      {
+        "videoId": "71kgPNtZusU",
+        "title": "正しさを無くした夜に花を",
+        "url": "https://www.youtube.com/shorts/71kgPNtZusU",
+        "thumbnail": "https://i.ytimg.com/vi/71kgPNtZusU/hqdefault.jpg",
+        "viewCount": 12000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 3.78,
+            "line": 25
+          },
+          {
+            "t": 4.88,
+            "line": 26
+          },
+          {
+            "t": 7.03,
+            "line": 27
+          },
+          {
+            "t": 11.1,
+            "line": 28
+          },
+          {
+            "t": 17.37,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "_jlCxcrjXc4",
+        "title": "愛をくれた貴方が全部いけない",
+        "url": "https://www.youtube.com/shorts/_jlCxcrjXc4",
+        "thumbnail": "https://i.ytimg.com/vi/_jlCxcrjXc4/hqdefault.jpg",
+        "viewCount": 11000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 18
+          },
+          {
+            "t": 2.96,
+            "line": 19
+          },
+          {
+            "t": 4.64,
+            "line": 20
+          },
+          {
+            "t": 7.08,
+            "line": 21
+          },
+          {
+            "t": 11.04,
+            "line": 22
+          },
+          {
+            "t": 18.04,
+            "line": 23
+          }
+        ]
+      },
+      {
+        "videoId": "-kl845XcVB4",
+        "title": "貴方以外にこの身を捧げる",
+        "url": "https://www.youtube.com/shorts/-kl845XcVB4",
+        "thumbnail": "https://i.ytimg.com/vi/-kl845XcVB4/hqdefault.jpg",
+        "viewCount": 7800,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 5
+          },
+          {
+            "t": 8.72,
+            "line": 6
+          },
+          {
+            "t": 14.16,
+            "line": 7
+          },
+          {
+            "t": 17.92,
+            "line": 8
+          },
+          {
+            "t": 20.62,
+            "line": 9
+          },
+          {
+            "t": 22.04,
+            "line": 10
+          }
+        ]
+      },
+      {
+        "videoId": "Qpke2JSeLLA",
+        "title": "正しさを無くした夜に花を",
+        "url": "https://www.youtube.com/shorts/Qpke2JSeLLA",
+        "thumbnail": "https://i.ytimg.com/vi/Qpke2JSeLLA/hqdefault.jpg",
+        "viewCount": 7600,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 2.56,
+            "line": 25
+          },
+          {
+            "t": 4.52,
+            "line": 26
+          },
+          {
+            "t": 6.51,
+            "line": 27
+          },
+          {
+            "t": 11.18,
+            "line": 28
+          },
+          {
+            "t": 16.85,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "MC-i-0dB8VY",
+        "title": "I'm singing love for you",
+        "url": "https://www.youtube.com/shorts/MC-i-0dB8VY",
+        "thumbnail": "https://i.ytimg.com/vi/MC-i-0dB8VY/hqdefault.jpg",
+        "viewCount": 7100,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 1.12,
+            "line": 25
+          },
+          {
+            "t": 2.5,
+            "line": 26
+          },
+          {
+            "t": 4.98,
+            "line": 27
+          },
+          {
+            "t": 9.05,
+            "line": 28
+          },
+          {
+            "t": 14.79,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "p7cDyo70Zv0",
+        "title": "Kiss me",
+        "url": "https://www.youtube.com/shorts/p7cDyo70Zv0",
+        "thumbnail": "https://i.ytimg.com/vi/p7cDyo70Zv0/hqdefault.jpg",
+        "viewCount": 6900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.14,
+            "line": 7
+          },
+          {
+            "t": 3.9,
+            "line": 8
+          },
+          {
+            "t": 6.6,
+            "line": 9
+          },
+          {
+            "t": 8.02,
+            "line": 10
+          },
+          {
+            "t": 10.2,
+            "line": 11
+          },
+          {
+            "t": 14.4,
+            "line": 12
+          },
+          {
+            "t": 20.88,
+            "line": 13
+          }
+        ]
+      },
+      {
+        "videoId": "du9REYo47Dw",
+        "title": "I’m singing love for you",
+        "url": "https://www.youtube.com/shorts/du9REYo47Dw",
+        "thumbnail": "https://i.ytimg.com/vi/du9REYo47Dw/hqdefault.jpg",
+        "viewCount": 6700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 3.36,
+            "line": 25
+          },
+          {
+            "t": 4.56,
+            "line": 26
+          },
+          {
+            "t": 6.44,
+            "line": 27
+          },
+          {
+            "t": 11.04,
+            "line": 28
+          },
+          {
+            "t": 16.32,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "Hp_nkq1Sh9Y",
+        "title": "もうどうせ壊れちゃうから",
+        "url": "https://www.youtube.com/shorts/Hp_nkq1Sh9Y",
+        "thumbnail": "https://i.ytimg.com/vi/Hp_nkq1Sh9Y/hqdefault.jpg",
+        "viewCount": 6700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 5.14,
+            "line": 25
+          },
+          {
+            "t": 6.14,
+            "line": 26
+          },
+          {
+            "t": 7.62,
+            "line": 27
+          },
+          {
+            "t": 13.32,
+            "line": 28
+          },
+          {
+            "t": 18.64,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "385RxA0Oo7g",
+        "title": "我愛你",
+        "url": "https://www.youtube.com/shorts/385RxA0Oo7g",
+        "thumbnail": "https://i.ytimg.com/vi/385RxA0Oo7g/hqdefault.jpg",
+        "viewCount": 5900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 6
+          },
+          {
+            "t": 4.92,
+            "line": 7
+          },
+          {
+            "t": 9,
+            "line": 8
+          },
+          {
+            "t": 11.56,
+            "line": 9
+          },
+          {
+            "t": 13.06,
+            "line": 10
+          },
+          {
+            "t": 15.56,
+            "line": 11
+          },
+          {
+            "t": 19.6,
+            "line": 12
+          },
+          {
+            "t": 25.7,
+            "line": 13
+          }
+        ]
+      },
+      {
+        "videoId": "IeGrfZZDuKo",
+        "title": "愛をくれた貴方が全部いけない",
+        "url": "https://www.youtube.com/shorts/IeGrfZZDuKo",
+        "thumbnail": "https://i.ytimg.com/vi/IeGrfZZDuKo/hqdefault.jpg",
+        "viewCount": 5400,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 18
+          },
+          {
+            "t": 2,
+            "line": 19
+          },
+          {
+            "t": 3.94,
+            "line": 20
+          },
+          {
+            "t": 5.56,
+            "line": 21
+          },
+          {
+            "t": 10.9,
+            "line": 22
+          },
+          {
+            "t": 15.9,
+            "line": 23
+          }
+        ]
+      },
+      {
+        "videoId": "Q8Tsinu-MY8",
+        "title": "I'm singing love for you",
+        "url": "https://www.youtube.com/shorts/Q8Tsinu-MY8",
+        "thumbnail": "https://i.ytimg.com/vi/Q8Tsinu-MY8/hqdefault.jpg",
+        "viewCount": 5100,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.08,
+            "line": 24
+          },
+          {
+            "t": 1.24,
+            "line": 25
+          },
+          {
+            "t": 2.4,
+            "line": 26
+          },
+          {
+            "t": 6.96,
+            "line": 27
+          },
+          {
+            "t": 9.28,
+            "line": 28
+          },
+          {
+            "t": 15.2,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "LEoS6cX0R6A",
+        "title": "我愛你",
+        "url": "https://www.youtube.com/shorts/LEoS6cX0R6A",
+        "thumbnail": "https://i.ytimg.com/vi/LEoS6cX0R6A/hqdefault.jpg",
+        "viewCount": 4900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 18
+          },
+          {
+            "t": 3.09,
+            "line": 19
+          },
+          {
+            "t": 4.12,
+            "line": 20
+          },
+          {
+            "t": 5.86,
+            "line": 21
+          },
+          {
+            "t": 10.88,
+            "line": 22
+          },
+          {
+            "t": 16.64,
+            "line": 23
+          }
+        ]
+      },
+      {
+        "videoId": "2mtHicCk6tE",
+        "title": "I'm singing love for you",
+        "url": "https://www.youtube.com/shorts/2mtHicCk6tE",
+        "thumbnail": "https://i.ytimg.com/vi/2mtHicCk6tE/hqdefault.jpg",
+        "viewCount": 4500,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 3.36,
+            "line": 25
+          },
+          {
+            "t": 4.24,
+            "line": 26
+          },
+          {
+            "t": 6.04,
+            "line": 27
+          },
+          {
+            "t": 11.44,
+            "line": 28
+          },
+          {
+            "t": 17.02,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "2KQ40aa08z0",
+        "title": "愛し合えば誰しもがスローモーション",
+        "url": "https://www.youtube.com/shorts/2KQ40aa08z0",
+        "thumbnail": "https://i.ytimg.com/vi/2KQ40aa08z0/hqdefault.jpg",
+        "viewCount": 4100,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 1.72,
+            "line": 25
+          },
+          {
+            "t": 3.22,
+            "line": 26
+          },
+          {
+            "t": 5.04,
+            "line": 27
+          },
+          {
+            "t": 10.62,
+            "line": 28
+          },
+          {
+            "t": 15.96,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "66FLI5CGNGA",
+        "title": "我愛你",
+        "url": "https://www.youtube.com/shorts/66FLI5CGNGA",
+        "thumbnail": "https://i.ytimg.com/vi/66FLI5CGNGA/hqdefault.jpg",
+        "viewCount": 3200,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 1.72,
+            "line": 25
+          },
+          {
+            "t": 3.22,
+            "line": 26
+          },
+          {
+            "t": 5.04,
+            "line": 27
+          },
+          {
+            "t": 10.62,
+            "line": 28
+          },
+          {
+            "t": 15.96,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "5xejdE3iXDA",
+        "title": "I’m singing love for you",
+        "url": "https://www.youtube.com/shorts/5xejdE3iXDA",
+        "thumbnail": "https://i.ytimg.com/vi/5xejdE3iXDA/hqdefault.jpg",
+        "viewCount": 2200,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 4.24,
+            "line": 25
+          },
+          {
+            "t": 5.88,
+            "line": 26
+          },
+          {
+            "t": 7.14,
+            "line": 27
+          },
+          {
+            "t": 12.5,
+            "line": 28
+          },
+          {
+            "t": 18.22,
+            "line": 29
           }
         ]
       }
@@ -7899,6 +8785,115 @@
           {
             "t": 8.86,
             "line": 28
+          }
+        ]
+      },
+      {
+        "videoId": "fN8PwwuTN7o",
+        "title": "The night softly puts out the flames of love",
+        "url": "https://www.youtube.com/shorts/fN8PwwuTN7o",
+        "thumbnail": "https://i.ytimg.com/vi/fN8PwwuTN7o/hqdefault.jpg",
+        "viewCount": 7000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 23
+          },
+          {
+            "t": 4.69,
+            "line": 24
+          },
+          {
+            "t": 10.01,
+            "line": 25
+          },
+          {
+            "t": 15.33,
+            "line": 26
+          },
+          {
+            "t": 19.73,
+            "line": 27
+          },
+          {
+            "t": 24.53,
+            "line": 28
+          }
+        ]
+      },
+      {
+        "videoId": "erhPLM2Kfk4",
+        "title": "We were happy, that’s true",
+        "url": "https://www.youtube.com/shorts/erhPLM2Kfk4",
+        "thumbnail": "https://i.ytimg.com/vi/erhPLM2Kfk4/hqdefault.jpg",
+        "viewCount": 6800,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.15,
+            "line": 21
+          },
+          {
+            "t": 7.82,
+            "line": 22
+          },
+          {
+            "t": 16.73,
+            "line": 23
+          },
+          {
+            "t": 20.9,
+            "line": 24
+          },
+          {
+            "t": 25.26,
+            "line": 25
+          },
+          {
+            "t": 32.82,
+            "line": 26
+          },
+          {
+            "t": 36.91,
+            "line": 27
+          },
+          {
+            "t": 41.17,
+            "line": 28
+          }
+        ]
+      },
+      {
+        "videoId": "1peeN6xMKB8",
+        "title": "Dreaming with a foolish innocence",
+        "url": "https://www.youtube.com/shorts/1peeN6xMKB8",
+        "thumbnail": "https://i.ytimg.com/vi/1peeN6xMKB8/hqdefault.jpg",
+        "viewCount": 6700,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 21
+          },
+          {
+            "t": 8.6,
+            "line": 22
+          },
+          {
+            "t": 17.16,
+            "line": 23
+          },
+          {
+            "t": 21.26,
+            "line": 24
+          },
+          {
+            "t": 25.75,
+            "line": 25
           }
         ]
       },
@@ -9423,6 +10418,73 @@
           {
             "t": 20.51,
             "line": 12
+          }
+        ]
+      },
+      {
+        "videoId": "X4guu-Llz2Y",
+        "title": "I’ve made it someone else’s business",
+        "url": "https://www.youtube.com/shorts/X4guu-Llz2Y",
+        "thumbnail": "https://i.ytimg.com/vi/X4guu-Llz2Y/hqdefault.jpg",
+        "viewCount": 6900,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 1.39,
+            "line": 28
+          },
+          {
+            "t": 6.15,
+            "line": 29
+          },
+          {
+            "t": 9.98,
+            "line": 30
+          },
+          {
+            "t": 14.08,
+            "line": 31
+          },
+          {
+            "t": 15.68,
+            "line": 32
+          },
+          {
+            "t": 18.78,
+            "line": 33
+          },
+          {
+            "t": 23.74,
+            "line": 34
+          },
+          {
+            "t": 27.13,
+            "line": 35
+          },
+          {
+            "t": 33.5,
+            "line": 36
+          },
+          {
+            "t": 39.3,
+            "line": 37
+          },
+          {
+            "t": 44.46,
+            "line": 38
+          },
+          {
+            "t": 46.81,
+            "line": 39
+          },
+          {
+            "t": 51.86,
+            "line": 40
+          },
+          {
+            "t": 55.36,
+            "line": 41
           }
         ]
       },
@@ -11000,6 +12062,64 @@
           {
             "t": 5.28,
             "line": 38
+          }
+        ]
+      },
+      {
+        "videoId": "aObvFxsTuvw",
+        "title": "Like how the smoke disappears",
+        "url": "https://www.youtube.com/shorts/aObvFxsTuvw",
+        "thumbnail": "https://i.ytimg.com/vi/aObvFxsTuvw/hqdefault.jpg",
+        "viewCount": 6700,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 6.56,
+            "line": 25
+          },
+          {
+            "t": 14.06,
+            "line": 26
+          }
+        ]
+      },
+      {
+        "videoId": "fyEPxgfjS30",
+        "title": "Become the color of you",
+        "url": "https://www.youtube.com/shorts/fyEPxgfjS30",
+        "thumbnail": "https://i.ytimg.com/vi/fyEPxgfjS30/hqdefault.jpg",
+        "viewCount": 6600,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 2.34,
+            "line": 27
+          },
+          {
+            "t": 4.07,
+            "line": 28
+          },
+          {
+            "t": 9.18,
+            "line": 29
+          },
+          {
+            "t": 16.14,
+            "line": 30
+          },
+          {
+            "t": 17.8,
+            "line": 31
+          },
+          {
+            "t": 21.99,
+            "line": 32
           }
         ]
       },
@@ -13276,6 +14396,65 @@
         ]
       },
       {
+        "videoId": "XyS0i5N0ZM4",
+        "title": "When the world feels unbearable,I want to let it all slip away",
+        "url": "https://www.youtube.com/shorts/XyS0i5N0ZM4",
+        "thumbnail": "https://i.ytimg.com/vi/XyS0i5N0ZM4/hqdefault.jpg",
+        "viewCount": 7200,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 32
+          },
+          {
+            "t": 5.81,
+            "line": 33
+          },
+          {
+            "t": 9.57,
+            "line": 34
+          },
+          {
+            "t": 17,
+            "line": 35
+          },
+          {
+            "t": 23.22,
+            "line": 36
+          },
+          {
+            "t": 25.8,
+            "line": 37
+          },
+          {
+            "t": 28.62,
+            "line": 38
+          },
+          {
+            "t": 31.46,
+            "line": 39
+          },
+          {
+            "t": 34.36,
+            "line": 40
+          },
+          {
+            "t": 36.5,
+            "line": 41
+          },
+          {
+            "t": 39.7,
+            "line": 42
+          },
+          {
+            "t": 42.34,
+            "line": 43
+          }
+        ]
+      },
+      {
         "videoId": "lnGlarrf7ms",
         "title": "i 、自分を含むことも知って",
         "url": "https://www.youtube.com/shorts/lnGlarrf7ms",
@@ -13315,6 +14494,49 @@
           {
             "t": 20.34,
             "line": 7
+          }
+        ]
+      },
+      {
+        "videoId": "i2sESz_j4gY",
+        "title": "When the world feels unbearable I want to let it all slip away",
+        "url": "https://www.youtube.com/shorts/i2sESz_j4gY",
+        "thumbnail": "https://i.ytimg.com/vi/i2sESz_j4gY/hqdefault.jpg",
+        "viewCount": 6900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.31,
+            "line": 36
+          },
+          {
+            "t": 3.07,
+            "line": 37
+          },
+          {
+            "t": 6.05,
+            "line": 38
+          },
+          {
+            "t": 8.61,
+            "line": 39
+          },
+          {
+            "t": 11.41,
+            "line": 40
+          },
+          {
+            "t": 13.73,
+            "line": 41
+          },
+          {
+            "t": 16.85,
+            "line": 42
+          },
+          {
+            "t": 19.71,
+            "line": 43
           }
         ]
       },
@@ -13385,6 +14607,49 @@
           {
             "t": 10.16,
             "line": 50
+          }
+        ]
+      },
+      {
+        "videoId": "Om3i5l7acH0",
+        "title": "No one truly gets it",
+        "url": "https://www.youtube.com/shorts/Om3i5l7acH0",
+        "thumbnail": "https://i.ytimg.com/vi/Om3i5l7acH0/hqdefault.jpg",
+        "viewCount": 6700,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 3.33,
+            "line": 1
+          },
+          {
+            "t": 6.45,
+            "line": 2
+          },
+          {
+            "t": 9.44,
+            "line": 3
+          },
+          {
+            "t": 11.77,
+            "line": 4
+          },
+          {
+            "t": 14.86,
+            "line": 5
+          },
+          {
+            "t": 18.46,
+            "line": 6
+          },
+          {
+            "t": 21.43,
+            "line": 7
           }
         ]
       },
@@ -15041,6 +16306,41 @@
         ]
       },
       {
+        "videoId": "htd1E8gi_GA",
+        "title": "nishina - MUSICK2 in Sapporo",
+        "url": "https://www.youtube.com/shorts/htd1E8gi_GA",
+        "thumbnail": "https://i.ytimg.com/vi/htd1E8gi_GA/hqdefault.jpg",
+        "viewCount": 7200,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 32
+          },
+          {
+            "t": 6.46,
+            "line": 33
+          },
+          {
+            "t": 12.55,
+            "line": 34
+          },
+          {
+            "t": 18.42,
+            "line": 35
+          },
+          {
+            "t": 21,
+            "line": 36
+          },
+          {
+            "t": 24.49,
+            "line": 37
+          }
+        ]
+      },
+      {
         "videoId": "3WsQcLmrhP0",
         "title": "いのちはただ美し",
         "url": "https://www.youtube.com/shorts/3WsQcLmrhP0",
@@ -16214,6 +17514,49 @@
         ]
       },
       {
+        "videoId": "-lkgQJEW3ZQ",
+        "title": "にしな - ドレスコード/ 2026.1.21 release",
+        "url": "https://www.youtube.com/shorts/-lkgQJEW3ZQ",
+        "thumbnail": "https://i.ytimg.com/vi/-lkgQJEW3ZQ/hqdefault.jpg",
+        "viewCount": 6900,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 10
+          },
+          {
+            "t": 3.65,
+            "line": 11
+          },
+          {
+            "t": 7.6,
+            "line": 12
+          },
+          {
+            "t": 11.62,
+            "line": 13
+          },
+          {
+            "t": 14.88,
+            "line": 14
+          },
+          {
+            "t": 18.69,
+            "line": 15
+          },
+          {
+            "t": 22.79,
+            "line": 16
+          },
+          {
+            "t": 27.98,
+            "line": 17
+          }
+        ]
+      },
+      {
         "videoId": "dFQyp-rBjHc",
         "title": "最後まで、わがままで ごめんねダーリン",
         "url": "https://www.youtube.com/shorts/dFQyp-rBjHc",
@@ -16853,603 +18196,6 @@
           {
             "t": 42.8,
             "line": 21
-          }
-        ]
-      }
-    ],
-    "nishina-slow-motion": [
-      {
-        "videoId": "med_tOBKnyM",
-        "title": "I’m singing love for you",
-        "url": "https://www.youtube.com/shorts/med_tOBKnyM",
-        "thumbnail": "https://i.ytimg.com/vi/med_tOBKnyM/hqdefault.jpg",
-        "viewCount": 158000,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.76,
-            "line": 22
-          },
-          {
-            "t": 5.86,
-            "line": 23
-          }
-        ]
-      },
-      {
-        "videoId": "gaA1kAoc5WI",
-        "title": "だって愛して欲しいんだもん",
-        "url": "https://www.youtube.com/shorts/gaA1kAoc5WI",
-        "thumbnail": "https://i.ytimg.com/vi/gaA1kAoc5WI/hqdefault.jpg",
-        "viewCount": 26000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 16
-          },
-          {
-            "t": 5.36,
-            "line": 17
-          },
-          {
-            "t": 9.28,
-            "line": 18
-          },
-          {
-            "t": 11.92,
-            "line": 19
-          },
-          {
-            "t": 13.12,
-            "line": 20
-          },
-          {
-            "t": 14.88,
-            "line": 21
-          },
-          {
-            "t": 20.34,
-            "line": 22
-          },
-          {
-            "t": 26.54,
-            "line": 23
-          }
-        ]
-      },
-      {
-        "videoId": "71kgPNtZusU",
-        "title": "正しさを無くした夜に花を",
-        "url": "https://www.youtube.com/shorts/71kgPNtZusU",
-        "thumbnail": "https://i.ytimg.com/vi/71kgPNtZusU/hqdefault.jpg",
-        "viewCount": 12000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 24
-          },
-          {
-            "t": 3.78,
-            "line": 25
-          },
-          {
-            "t": 4.88,
-            "line": 26
-          },
-          {
-            "t": 7.03,
-            "line": 27
-          },
-          {
-            "t": 11.1,
-            "line": 28
-          },
-          {
-            "t": 17.37,
-            "line": 29
-          }
-        ]
-      },
-      {
-        "videoId": "_jlCxcrjXc4",
-        "title": "愛をくれた貴方が全部いけない",
-        "url": "https://www.youtube.com/shorts/_jlCxcrjXc4",
-        "thumbnail": "https://i.ytimg.com/vi/_jlCxcrjXc4/hqdefault.jpg",
-        "viewCount": 11000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 18
-          },
-          {
-            "t": 2.96,
-            "line": 19
-          },
-          {
-            "t": 4.64,
-            "line": 20
-          },
-          {
-            "t": 7.08,
-            "line": 21
-          },
-          {
-            "t": 11.04,
-            "line": 22
-          },
-          {
-            "t": 18.04,
-            "line": 23
-          }
-        ]
-      },
-      {
-        "videoId": "-kl845XcVB4",
-        "title": "貴方以外にこの身を捧げる",
-        "url": "https://www.youtube.com/shorts/-kl845XcVB4",
-        "thumbnail": "https://i.ytimg.com/vi/-kl845XcVB4/hqdefault.jpg",
-        "viewCount": 7800,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 5
-          },
-          {
-            "t": 8.72,
-            "line": 6
-          },
-          {
-            "t": 14.16,
-            "line": 7
-          },
-          {
-            "t": 17.92,
-            "line": 8
-          },
-          {
-            "t": 20.62,
-            "line": 9
-          },
-          {
-            "t": 22.04,
-            "line": 10
-          }
-        ]
-      },
-      {
-        "videoId": "Qpke2JSeLLA",
-        "title": "正しさを無くした夜に花を",
-        "url": "https://www.youtube.com/shorts/Qpke2JSeLLA",
-        "thumbnail": "https://i.ytimg.com/vi/Qpke2JSeLLA/hqdefault.jpg",
-        "viewCount": 7600,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 24
-          },
-          {
-            "t": 2.56,
-            "line": 25
-          },
-          {
-            "t": 4.52,
-            "line": 26
-          },
-          {
-            "t": 6.51,
-            "line": 27
-          },
-          {
-            "t": 11.18,
-            "line": 28
-          },
-          {
-            "t": 16.85,
-            "line": 29
-          }
-        ]
-      },
-      {
-        "videoId": "MC-i-0dB8VY",
-        "title": "I'm singing love for you",
-        "url": "https://www.youtube.com/shorts/MC-i-0dB8VY",
-        "thumbnail": "https://i.ytimg.com/vi/MC-i-0dB8VY/hqdefault.jpg",
-        "viewCount": 7100,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 24
-          },
-          {
-            "t": 1.12,
-            "line": 25
-          },
-          {
-            "t": 2.5,
-            "line": 26
-          },
-          {
-            "t": 4.98,
-            "line": 27
-          },
-          {
-            "t": 9.05,
-            "line": 28
-          },
-          {
-            "t": 14.79,
-            "line": 29
-          }
-        ]
-      },
-      {
-        "videoId": "du9REYo47Dw",
-        "title": "I’m singing love for you",
-        "url": "https://www.youtube.com/shorts/du9REYo47Dw",
-        "thumbnail": "https://i.ytimg.com/vi/du9REYo47Dw/hqdefault.jpg",
-        "viewCount": 6700,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 24
-          },
-          {
-            "t": 3.36,
-            "line": 25
-          },
-          {
-            "t": 4.56,
-            "line": 26
-          },
-          {
-            "t": 6.44,
-            "line": 27
-          },
-          {
-            "t": 11.04,
-            "line": 28
-          },
-          {
-            "t": 16.32,
-            "line": 29
-          }
-        ]
-      },
-      {
-        "videoId": "Hp_nkq1Sh9Y",
-        "title": "もうどうせ壊れちゃうから",
-        "url": "https://www.youtube.com/shorts/Hp_nkq1Sh9Y",
-        "thumbnail": "https://i.ytimg.com/vi/Hp_nkq1Sh9Y/hqdefault.jpg",
-        "viewCount": 6700,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 24
-          },
-          {
-            "t": 5.14,
-            "line": 25
-          },
-          {
-            "t": 6.14,
-            "line": 26
-          },
-          {
-            "t": 7.62,
-            "line": 27
-          },
-          {
-            "t": 13.32,
-            "line": 28
-          },
-          {
-            "t": 18.64,
-            "line": 29
-          }
-        ]
-      },
-      {
-        "videoId": "385RxA0Oo7g",
-        "title": "我愛你",
-        "url": "https://www.youtube.com/shorts/385RxA0Oo7g",
-        "thumbnail": "https://i.ytimg.com/vi/385RxA0Oo7g/hqdefault.jpg",
-        "viewCount": 5900,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 6
-          },
-          {
-            "t": 4.92,
-            "line": 7
-          },
-          {
-            "t": 9,
-            "line": 8
-          },
-          {
-            "t": 11.56,
-            "line": 9
-          },
-          {
-            "t": 13.06,
-            "line": 10
-          },
-          {
-            "t": 15.56,
-            "line": 11
-          },
-          {
-            "t": 19.6,
-            "line": 12
-          },
-          {
-            "t": 25.7,
-            "line": 13
-          }
-        ]
-      },
-      {
-        "videoId": "IeGrfZZDuKo",
-        "title": "愛をくれた貴方が全部いけない",
-        "url": "https://www.youtube.com/shorts/IeGrfZZDuKo",
-        "thumbnail": "https://i.ytimg.com/vi/IeGrfZZDuKo/hqdefault.jpg",
-        "viewCount": 5400,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 18
-          },
-          {
-            "t": 2,
-            "line": 19
-          },
-          {
-            "t": 3.94,
-            "line": 20
-          },
-          {
-            "t": 5.56,
-            "line": 21
-          },
-          {
-            "t": 10.9,
-            "line": 22
-          },
-          {
-            "t": 15.9,
-            "line": 23
-          }
-        ]
-      },
-      {
-        "videoId": "Q8Tsinu-MY8",
-        "title": "I'm singing love for you",
-        "url": "https://www.youtube.com/shorts/Q8Tsinu-MY8",
-        "thumbnail": "https://i.ytimg.com/vi/Q8Tsinu-MY8/hqdefault.jpg",
-        "viewCount": 5100,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.08,
-            "line": 24
-          },
-          {
-            "t": 1.24,
-            "line": 25
-          },
-          {
-            "t": 2.4,
-            "line": 26
-          },
-          {
-            "t": 6.96,
-            "line": 27
-          },
-          {
-            "t": 9.28,
-            "line": 28
-          },
-          {
-            "t": 15.2,
-            "line": 29
-          }
-        ]
-      },
-      {
-        "videoId": "LEoS6cX0R6A",
-        "title": "我愛你",
-        "url": "https://www.youtube.com/shorts/LEoS6cX0R6A",
-        "thumbnail": "https://i.ytimg.com/vi/LEoS6cX0R6A/hqdefault.jpg",
-        "viewCount": 4900,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 18
-          },
-          {
-            "t": 3.09,
-            "line": 19
-          },
-          {
-            "t": 4.12,
-            "line": 20
-          },
-          {
-            "t": 5.86,
-            "line": 21
-          },
-          {
-            "t": 10.88,
-            "line": 22
-          },
-          {
-            "t": 16.64,
-            "line": 23
-          }
-        ]
-      },
-      {
-        "videoId": "2mtHicCk6tE",
-        "title": "I'm singing love for you",
-        "url": "https://www.youtube.com/shorts/2mtHicCk6tE",
-        "thumbnail": "https://i.ytimg.com/vi/2mtHicCk6tE/hqdefault.jpg",
-        "viewCount": 4500,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 24
-          },
-          {
-            "t": 3.36,
-            "line": 25
-          },
-          {
-            "t": 4.24,
-            "line": 26
-          },
-          {
-            "t": 6.04,
-            "line": 27
-          },
-          {
-            "t": 11.44,
-            "line": 28
-          },
-          {
-            "t": 17.02,
-            "line": 29
-          }
-        ]
-      },
-      {
-        "videoId": "2KQ40aa08z0",
-        "title": "愛し合えば誰しもがスローモーション",
-        "url": "https://www.youtube.com/shorts/2KQ40aa08z0",
-        "thumbnail": "https://i.ytimg.com/vi/2KQ40aa08z0/hqdefault.jpg",
-        "viewCount": 4100,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 24
-          },
-          {
-            "t": 1.72,
-            "line": 25
-          },
-          {
-            "t": 3.22,
-            "line": 26
-          },
-          {
-            "t": 5.04,
-            "line": 27
-          },
-          {
-            "t": 10.62,
-            "line": 28
-          },
-          {
-            "t": 15.96,
-            "line": 29
-          }
-        ]
-      },
-      {
-        "videoId": "66FLI5CGNGA",
-        "title": "我愛你",
-        "url": "https://www.youtube.com/shorts/66FLI5CGNGA",
-        "thumbnail": "https://i.ytimg.com/vi/66FLI5CGNGA/hqdefault.jpg",
-        "viewCount": 3200,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 24
-          },
-          {
-            "t": 1.72,
-            "line": 25
-          },
-          {
-            "t": 3.22,
-            "line": 26
-          },
-          {
-            "t": 5.04,
-            "line": 27
-          },
-          {
-            "t": 10.62,
-            "line": 28
-          },
-          {
-            "t": 15.96,
-            "line": 29
-          }
-        ]
-      },
-      {
-        "videoId": "5xejdE3iXDA",
-        "title": "I’m singing love for you",
-        "url": "https://www.youtube.com/shorts/5xejdE3iXDA",
-        "thumbnail": "https://i.ytimg.com/vi/5xejdE3iXDA/hqdefault.jpg",
-        "viewCount": 2200,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 24
-          },
-          {
-            "t": 4.24,
-            "line": 25
-          },
-          {
-            "t": 5.88,
-            "line": 26
-          },
-          {
-            "t": 7.14,
-            "line": 27
-          },
-          {
-            "t": 12.5,
-            "line": 28
-          },
-          {
-            "t": 18.22,
-            "line": 29
           }
         ]
       }

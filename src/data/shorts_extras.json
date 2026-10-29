@@ -1,16 +1,16 @@
 {
   "meta": {
-    "total": 100,
+    "total": 103,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 32,
-      "live_song": 36,
+      "promo": 33,
+      "live_song": 37,
       "mc": 7,
+      "travel": 6,
       "yearly": 6,
       "ad": 2,
-      "tv": 3,
-      "travel": 5
+      "tv": 3
     }
   },
   "categories": {
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 32,
+      "count": 33,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -208,6 +208,16 @@
           "title": "nishina 「MUSICK」 new GOODS",
           "url": "https://www.youtube.com/shorts/Txtzlstoo38",
           "thumbnail": "https://i.ytimg.com/vi/Txtzlstoo38/hqdefault.jpg",
+          "viewCount": 7700,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "A0nDnSw6-xk",
+          "title": "Your lucky nishina track next week!?",
+          "url": "https://www.youtube.com/shorts/A0nDnSw6-xk",
+          "thumbnail": "https://i.ytimg.com/vi/A0nDnSw6-xk/hqdefault.jpg",
           "viewCount": 7700,
           "versionType": null,
           "instrumental": false,
@@ -448,7 +458,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 36,
+      "count": 37,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -566,6 +576,19 @@
           "appearanceName": "VIVA LA ROCK 2025",
           "songId": null,
           "songTitle": null
+        },
+        {
+          "videoId": "YGKCAmL42io",
+          "title": "WILD BUNCH FEST. 2026🐳",
+          "url": "https://www.youtube.com/shorts/YGKCAmL42io",
+          "thumbnail": "https://i.ytimg.com/vi/YGKCAmL42io/hqdefault.jpg",
+          "viewCount": 7500,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "WILD BUNCH FEST.2026",
+          "songId": "nishina-u-plus",
+          "songTitle": "U+"
         },
         {
           "videoId": "rmqEo5KzpqM",
@@ -997,6 +1020,73 @@
         }
       ]
     },
+    "travel": {
+      "displayName": "旅行",
+      "emoji": "✈️",
+      "count": 6,
+      "shorts": [
+        {
+          "videoId": "JI86pWwhdf4",
+          "title": "あい、五十音はそこから始まって",
+          "url": "https://www.youtube.com/shorts/JI86pWwhdf4",
+          "thumbnail": "https://i.ytimg.com/vi/JI86pWwhdf4/hqdefault.jpg",
+          "viewCount": 24000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "tH2DcH4BOg4",
+          "title": "It’s okay, there’s nothing wrong with that",
+          "url": "https://www.youtube.com/shorts/tH2DcH4BOg4",
+          "thumbnail": "https://i.ytimg.com/vi/tH2DcH4BOg4/hqdefault.jpg",
+          "viewCount": 7200,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "Fl4jfue9iIc",
+          "title": "我愛你",
+          "url": "https://www.youtube.com/shorts/Fl4jfue9iIc",
+          "thumbnail": "https://i.ytimg.com/vi/Fl4jfue9iIc/hqdefault.jpg",
+          "viewCount": 4500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "OXmCO-RRoJ0",
+          "title": "生きることなどno reason",
+          "url": "https://www.youtube.com/shorts/OXmCO-RRoJ0",
+          "thumbnail": "https://i.ytimg.com/vi/OXmCO-RRoJ0/hqdefault.jpg",
+          "viewCount": 4300,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "jiJ3xE7M6vM",
+          "title": "誤魔化し笑う私は24/7",
+          "url": "https://www.youtube.com/shorts/jiJ3xE7M6vM",
+          "thumbnail": "https://i.ytimg.com/vi/jiJ3xE7M6vM/hqdefault.jpg",
+          "viewCount": 4300,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "kyR5zgN_JYE",
+          "title": "our lives go on",
+          "url": "https://www.youtube.com/shorts/kyR5zgN_JYE",
+          "thumbnail": "https://i.ytimg.com/vi/kyR5zgN_JYE/hqdefault.jpg",
+          "viewCount": 1900,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": []
+        }
+      ]
+    },
     "yearly": {
       "displayName": "年度回顧",
       "emoji": "🎉",
@@ -1123,63 +1213,6 @@
           "thumbnail": "https://i.ytimg.com/vi/I70ZrtBQ4iE/hqdefault.jpg",
           "viewCount": 2500,
           "versionType": null,
-          "instrumental": false,
-          "anchors": []
-        }
-      ]
-    },
-    "travel": {
-      "displayName": "旅行",
-      "emoji": "✈️",
-      "count": 5,
-      "shorts": [
-        {
-          "videoId": "JI86pWwhdf4",
-          "title": "あい、五十音はそこから始まって",
-          "url": "https://www.youtube.com/shorts/JI86pWwhdf4",
-          "thumbnail": "https://i.ytimg.com/vi/JI86pWwhdf4/hqdefault.jpg",
-          "viewCount": 24000,
-          "versionType": null,
-          "instrumental": false,
-          "anchors": []
-        },
-        {
-          "videoId": "Fl4jfue9iIc",
-          "title": "我愛你",
-          "url": "https://www.youtube.com/shorts/Fl4jfue9iIc",
-          "thumbnail": "https://i.ytimg.com/vi/Fl4jfue9iIc/hqdefault.jpg",
-          "viewCount": 4500,
-          "versionType": null,
-          "instrumental": false,
-          "anchors": []
-        },
-        {
-          "videoId": "OXmCO-RRoJ0",
-          "title": "生きることなどno reason",
-          "url": "https://www.youtube.com/shorts/OXmCO-RRoJ0",
-          "thumbnail": "https://i.ytimg.com/vi/OXmCO-RRoJ0/hqdefault.jpg",
-          "viewCount": 4300,
-          "versionType": null,
-          "instrumental": false,
-          "anchors": []
-        },
-        {
-          "videoId": "jiJ3xE7M6vM",
-          "title": "誤魔化し笑う私は24/7",
-          "url": "https://www.youtube.com/shorts/jiJ3xE7M6vM",
-          "thumbnail": "https://i.ytimg.com/vi/jiJ3xE7M6vM/hqdefault.jpg",
-          "viewCount": 4300,
-          "versionType": null,
-          "instrumental": false,
-          "anchors": []
-        },
-        {
-          "videoId": "kyR5zgN_JYE",
-          "title": "our lives go on",
-          "url": "https://www.youtube.com/shorts/kyR5zgN_JYE",
-          "thumbnail": "https://i.ytimg.com/vi/kyR5zgN_JYE/hqdefault.jpg",
-          "viewCount": 1900,
-          "versionType": "live",
           "instrumental": false,
           "anchors": []
         }
