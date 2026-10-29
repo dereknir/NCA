@@ -87,6 +87,17 @@ def find_partners(v, F, done, mean):
     return out
 
 
+def pair_info(v, u, off, sim, F):
+    """annotator 帶入用 (審完 u 的當下把答案換算到 v, 邏輯同 transfer): 時間差 (不四捨五入, 才會跟這裡算的一樣)、
+    重疊區間、v 的格數、可照抄的格子區段 (局部相似度 ≥ LOCAL_MIN)"""
+    good = np.flatnonzero(local_sim(F[v], F[u], off) >= LOCAL_MIN)
+    runs = np.split(good, np.flatnonzero(np.diff(good) > 1) + 1) if len(good) else []
+    n = F[v].shape[1]
+    return {'v': u, 'off': float(off), 'sim': round(sim, 3), 'n': n,
+            'lo': max(0.0, -off), 'hi': min(n / FPS, F[u].shape[1] / FPS - off),
+            'ok': [[int(x[0]), int(x[-1])] for x in runs]}
+
+
 def transfer(v, partners, F, H):
     """夥伴的人工 anchors → v 的時間。回傳 (anchors, 涵蓋區間, 夥伴的歌)"""
     dur = F[v].shape[1] / FPS
@@ -185,12 +196,13 @@ def apply(out_path=aa.OUT_F, ids=None):
     todo = [v for v, r in items.items() if not r.get('error') and H.get(v, {}).get('status') not in ('done', 'skip')
             and (ids is None or v in ids)]
     t0 = time.time()
-    print(f'[peer] 未審 {len(todo)} 支 × 已審 {len(done)} 支: 找同一段錄音 (只做音訊比對, 不重跑 ASR; 約 1–2 分鐘)', flush=True)
+    print(f'[peer] 未審 {len(todo)} 支 × 已審 {len(done)} 支: 找同一段錄音 (只做音訊比對, 不重跑 ASR; 約 4 分鐘)', flush=True)
     songs = aa.load_songs()
     F, mean = load_feats(done + todo)
     done = [u for u in done if u in F]
+    todo_f = [u for u in todo if u in F]
     gaps = rhythm.samples(H, songs)
-    n_peer = n_song = n_event = 0
+    n_peer = n_song = n_event = n_pair = 0
     for k, v in enumerate(todo, 1):
         if k % 100 == 0:
             print(f'[peer] {k}/{len(todo)} · 目前 {n_peer} 支找到同錄音 · {time.time() - t0:.0f}s', flush=True)
@@ -208,9 +220,15 @@ def apply(out_path=aa.OUT_F, ids=None):
         if rhythm.event_title(r.get('title')):
             r['needsReview'] = list(r.get('needsReview') or []) + ['event_title']
             n_event += 1
+        r['base'] = r['anchors']                                 # 照抄前的結果 (annotator 帶入時跟它合併)
+        r.pop('pairs', None)
         if v not in F:
             continue
         partners = find_partners(v, F, done, mean)
+        others = find_partners(v, F, todo_f, mean)               # 還沒審的同錄音: 你審完其中一支, annotator 當下帶入其他支
+        if partners or others:
+            r['pairs'] = [pair_info(v, u, o, s, F) for u, o, s in partners + others]
+            n_pair += 1
         if not partners:
             continue
         peer, spans, sid = transfer(v, partners, F, H)
@@ -230,7 +248,8 @@ def apply(out_path=aa.OUT_F, ids=None):
     data['meta']['peer'] = {'updated': time.strftime('%Y-%m-%d %H:%M'), 'count': n_peer, 'done_refs': len(done)}
     aa.write_out(out_path, data)
     print(f'[peer] 未審 {len(todo)} 支, {n_peer} 支找到同錄音的已審 shorts (其中 {n_song} 支歌名跟 ASR 不同, 以已審的為準) · '
-          f'參考 {len(done)} 支已審 · 估計句照節奏模板重排 · 標題像音樂祭/巡演回顧 {n_event} 支 · {time.time() - t0:.0f}s')
+          f'參考 {len(done)} 支已審 · {n_pair} 支有同錄音配對 (審完一支, annotator 當下帶入其他支) · '
+          f'估計句照節奏模板重排 · 標題像音樂祭/巡演回顧 {n_event} 支 · {time.time() - t0:.0f}s')
     return n_peer
 
 

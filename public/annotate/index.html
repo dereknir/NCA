@@ -137,6 +137,8 @@
   /* 老闆鍵 ` : 整頁換成白底純文字, 影片暫停 */
   #boss{position:fixed;inset:0;z-index:200;background:#fff;color:#444;font:13px/1.6 var(--mono);padding:28px 40px;white-space:pre;display:none}
   #boss.on{display:block}
+  #toast{position:fixed;left:50%;bottom:44px;transform:translateX(-50%);background:#123a2a;color:#7fd1a8;border:1px solid #2c6b4f;border-radius:8px;padding:8px 14px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:150}
+  #toast.on{opacity:1}
 
   /* ── 歌詞欄 ── */
   #lyricsCol{display:flex;flex-direction:column;min-height:0;min-width:0}
@@ -1084,6 +1086,7 @@ document.getElementById('conflictBtn').onclick = () => setReviewMode('conflict')
 // 機器建議檔 (沒有也沒關係, 面板就不顯示)
 fetch('auto_anchors.json', { cache:'no-store' }).then(r => r.ok ? r.json() : null).then(j => {
   S.auto = (j && j.items) || {};
+  applyPeerLive();
   if(S.cur) renderAutoPanel();
 }).catch(() => {});
 
@@ -1269,6 +1272,148 @@ function nextReview(){
   return best;
 }
 
+/* ---------- 同錄音一次審完: 你按完成時, 把答案帶進同一段錄音的待審片段 ----------
+   只改「建議」(anchors / 🎧抄), 狀態仍是待審, 你還是要聽過按 Enter; 你動過的片段不覆蓋。
+   邏輯照搬 scripts/peer_anchors.py 的 transfer / combine / fix_order / enforce_gap (配對表由 --peer 算好, 在 auto_anchors.json 的 pairs)。
+   帶入的建議另外存在這台瀏覽器 (auto_anchors.json 不會被 annotator 存回去), 載入時疊回 S.auto。 */
+const PEER = { FPS: 31.25, TAIL: 1.0, LEAD: 1.0, MIN_GAP: 0.6 };
+const PEER_LS_KEY = 'nishina-annotator-peer-live';
+const medianOf = xs => { const s = [...xs].sort((a, b) => a - b), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m-1] + s[m]) / 2; };
+const round2 = x => Number(x.toFixed(2));
+function peerOk(p, t){ const f = Math.min(Math.trunc(t * PEER.FPS), p.n - 1); return p.ok.some(([i0, i1]) => i0 <= f && f <= i1); }
+/* 已審夥伴的人工 anchors → vid 的時間 (同 transfer) */
+function peerTransfer(vid){
+  const r = S.auto[vid];
+  const ps = (r?.pairs || []).filter(p => S.ann[p.v]?.status === 'done' && S.songs[S.ann[p.v].songId] && S.ann[p.v].anchors.length);
+  if(!ps.length) return null;
+  const cnt = new Map();
+  for(const p of ps){ const s = S.ann[p.v].songId; cnt.set(s, (cnt.get(s) || 0) + 1); }
+  let sid = null, best = 0;
+  for(const [s, c] of cnt) if(c > best){ sid = s; best = c; }
+  const dur = ps[0].n / PEER.FPS, got = new Map(), spans = [], used = [];
+  let lead = null;
+  for(const p of ps){
+    const A = S.ann[p.v]; if(A.songId !== sid) continue;
+    used.push(p); spans.push([p.lo, p.hi]);
+    for(const a of A.anchors){
+      let t = a.t - p.off;
+      if(a.t < 0.3){ if(Math.abs(p.off) > 0.5) continue; t = 0; }
+      if(!(p.lo <= t && t <= p.hi - 0.5) || t > dur - PEER.TAIL || !peerOk(p, t)) continue;
+      if(!got.has(a.line)) got.set(a.line, []);
+      got.get(a.line).push(t);
+    }
+    const before = A.anchors.filter(a => a.t - p.off < 0);
+    if(p.off > 0.3 && before.length && lead === null) lead = before.reduce((m, a) => a.t > m.t ? a : m).line;
+  }
+  const out = [...got].map(([line, ts]) => ({ t: round2(medianOf(ts)), line, peer: true }));
+  if(lead !== null && !out.some(a => a.t < PEER.LEAD)) out.push({ t: 0, line: lead, peer: true });
+  out.sort((a, b) => a.t - b.t);
+  return { anchors: out, spans, sid, dur, used };
+}
+function peerCoverage(spans, dur){
+  let tot = 0, end = 0;
+  for(const [lo0, hi] of [...spans].sort((a, b) => a[0] - b[0] || a[1] - b[1])){
+    const lo = Math.max(lo0, end);
+    if(hi > lo){ tot += hi - lo; end = hi; }
+  }
+  return dur ? round2(Math.min(1, tot / dur)) : 0;
+}
+/* 句號要隨時間嚴格遞增; 一字不差的重複段在同歌詞的句號之間重選 (同 fix_order) */
+function peerFixOrder(anchors, song){
+  if(!song) return anchors;
+  const ja = new Map(song.lyric_lines.map(l => [l.index, (l.ja ?? '').trim()]));
+  const alts = anchors.map(a => [a.line].concat([...ja].filter(([i, j]) => j === ja.get(a.line) && i !== a.line).map(([i]) => i).sort((x, y) => x - y)));
+  let states = new Map([[-1, [0, [], null]]]);
+  anchors.forEach((a, k) => {
+    const nxt = new Map(), [drop, change] = a.peer ? [5, 1.5] : [2, 1];
+    for(const [last, [cost, path, lt]] of states){
+      alts[k].forEach((line, c) => {
+        if(line <= last) return;
+        const jump = lt === null ? 0 : Math.max(0, (line - last - 1) - (a.t - lt) / 2.5 - 1);
+        const v = [cost + change * (c > 0) + 0.3 * jump, path.concat([line]), a.t];
+        if(!nxt.has(line) || v[0] < nxt.get(line)[0]) nxt.set(line, v);
+      });
+      const v = [cost + drop, path.concat([null]), lt];
+      if(!nxt.has(last) || v[0] < nxt.get(last)[0]) nxt.set(last, v);
+    }
+    states = nxt;
+  });
+  let bestS = null;
+  for(const v of states.values()) if(!bestS || v[0] < bestS[0]) bestS = v;
+  return anchors.map((a, k) => ({ ...a, line: bestS[1][k] })).filter(a => a.line !== null);
+}
+function peerEnforceGap(anchors){
+  const out = [];
+  for(const a of anchors){
+    const p = out[out.length - 1];
+    if(p && a.t - p.t < PEER.MIN_GAP){
+      if(a.est && !p.est) continue;
+      if((p.est && !a.est) || (a.score || 0) > (p.score || 0)) out[out.length - 1] = a;
+      continue;
+    }
+    out.push(a);
+  }
+  return out;
+}
+function peerCombine(peer, spans, base, song){
+  const covered = t => spans.some(([lo, hi]) => lo <= t && t <= hi);
+  const seen = new Set(), out = [];
+  for(const a of peer.concat(base.filter(a => !covered(a.t))).sort((x, y) => x.t - y.t))
+    if(!seen.has(a.line)){ seen.add(a.line); out.push(a); }
+  return peerEnforceGap(peerFixOrder(out, song));
+}
+/* vid 照抄後的完整建議 (同 peer_anchors.apply 裡的那段); 沒有可照抄的已審夥伴 → null */
+function peerSuggest(vid){
+  const r = S.auto[vid], res = peerTransfer(vid);
+  if(!r || !r.base || !res || !res.anchors.length) return null;
+  const base = r.asr?.songId === res.sid ? r.base : [];
+  const cov = peerCoverage(res.spans, res.dur);
+  const asr = r.asr || {};
+  let grade = asr.grade ?? r.grade, needs = asr.needsReview || [];
+  if((r.needsReview || []).includes('event_title') && !needs.includes('event_title')) needs = needs.concat(['event_title']);
+  if(cov >= 0.9){ grade = 'A'; needs = needs.filter(x => x === 'event_title'); } else if(grade === 'C') grade = 'B';
+  return { songId: res.sid, grade, needsReview: needs, anchors: peerCombine(res.anchors, res.spans, base, S.songs[res.sid]),
+           peer: { from: res.used.map(p => ({ videoId: p.v, offset: round2(p.off), sim: p.sim })), coverage: cov,
+                   songChanged: asr.songId !== res.sid, live: true } };
+}
+const sameAnchors = (x, y) => x.length === y.length && x.every((a, k) => a.line === y[k].line && Math.abs(a.t - y[k].t) < 0.005);
+function propagatePeers(srcVid){
+  const src = S.ann[srcVid];
+  if(src?.status !== 'done' || !S.songs[src.songId] || !src.anchors.length) return [];
+  const changed = [], live = loadPeerLive();
+  for(const [vid, r] of Object.entries(S.auto)){
+    const ann = S.ann[vid];
+    if(ann?.status !== 'auto' || !(r.pairs || []).some(p => p.v === srcVid)) continue;
+    if(!sameAnchors(ann.anchors, [...r.anchors].sort((a, b) => a.t - b.t))) continue;   // 你動過 (或還沒 --merge) 的不覆蓋
+    const sug = peerSuggest(vid);
+    if(!sug || (ann.songConfirmed && ann.songId !== sug.songId)) continue;
+    Object.assign(r, sug);
+    live[vid] = sug;
+    ann.anchors = sug.anchors.map(a => ({ t: a.t, line: a.line }));
+    ann.songId = sug.songId; ann.autoGrade = sug.grade;
+    changed.push(vid);
+  }
+  if(changed.length){ savePeerLive(live); persist(changed); }
+  return changed;
+}
+function loadPeerLive(){ try{ return JSON.parse(localStorage.getItem(PEER_LS_KEY) || '{}'); }catch(_){ return {}; } }
+function savePeerLive(x){ try{ localStorage.setItem(PEER_LS_KEY, JSON.stringify(x)); }catch(_){} }
+/* 載入 auto_anchors.json 後: 這台瀏覽器帶入過、而且還在待審的, 疊回去 (重新整理後 🎧抄 標記不會不見) */
+function applyPeerLive(){
+  const live = loadPeerLive(), keep = {};
+  for(const [vid, sug] of Object.entries(live)){
+    if(S.ann[vid]?.status !== 'auto' || !S.auto[vid]) continue;
+    Object.assign(S.auto[vid], sug); keep[vid] = sug;
+  }
+  savePeerLive(keep);
+}
+function toast(msg){
+  let el = document.getElementById('toast');
+  if(!el){ el = document.createElement('div'); el.id = 'toast'; document.body.appendChild(el); }
+  el.textContent = msg; el.classList.add('on');
+  clearTimeout(S.toastTimer); S.toastTimer = setTimeout(() => el.classList.remove('on'), 3500);
+}
+
 /* ---------- 歌詞下面的羅馬拼音 (對發音比看漢字快; 開關記在這台瀏覽器) ---------- */
 const ROMAJI_KEY = 'nishina-annotator-romaji';
 function setRomaji(on){
@@ -1407,6 +1552,8 @@ function finishCurrent(status){
   if(!S.cur) return;
   S.ann[S.cur.videoId].status = status;
   persist(); updateProgress();
+  const pushed = status === 'done' ? propagatePeers(S.cur.videoId) : [];
+  if(pushed.length) toast(`🎧 已把答案帶進 ${pushed.length} 支同錄音的待審片段 (仍需你聽過確認)`);
   // 從目前這支往後找 (以前是從佇列第一支找, 審到一半會跳回前面)
   const st = x => S.ann[x.videoId]?.status;
   const next = S.reviewOnly
