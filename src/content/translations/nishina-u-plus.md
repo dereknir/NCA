@@ -21,111 +21,109 @@ coverImage: "/covers/nishina/u-plus.jpg"
 <div class="lyrics-section">
 
 <div class="lyrics-line">
-<div class="romaji">kamisama ka hotokesama ka soretomo jibun ka</div>
-<div class="ja">神様か仏様かそれとも自分か</div>
+<div class="romaji">kami ka hotoke ka soretomo onore ka</div>
+<div class="ja">神か仏かそれとも己か</div>
 <div class="zh">是神、是佛，抑或是自己？</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">sekai ni hiita ikusen no Borderline</div>
-<div class="ja">世界に引いた幾千のBorderline</div>
-<div class="zh">在這個世上劃下的 幾千條 Borderline（界線）</div>
+<div class="romaji">kono yo ni hiita kazu aru boodaarain</div>
+<div class="ja">この世に引いた数あるボーダーライン</div>
+<div class="zh">在這世上劃下的 無數條 Borderline（界線）</div>
 </div>
 
 <div class="lyrics-line">
 <div class="romaji">koerarenai no wa hontou ni sen ka</div>
-<div class="ja">越えられないのは本当に線か</div>
-<div class="zh">阻擋著無法跨越的 真的只是一條線嗎？</div>
-</div>
-
-<div class="lyrics-break"></div>
-
-<div class="lyrics-line">
-<div class="romaji">karamawaru shikou kairo</div>
-<div class="ja">空回る思考回路</div>
-<div class="zh">空轉打結的思考迴路</div>
+<div class="ja">超えられないのは本当に線か</div>
+<div class="zh">跨越不了的 真的只是一條線嗎？</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">migi mimi kara sennou zumi no eirianzu</div>
-<div class="ja">右耳から洗脳済みのエイリアンズ</div>
+<div class="romaji">karamawari karamaru shikou kairo</div>
+<div class="ja">空回り絡まる思考回路</div>
+<div class="zh">空轉又糾纏成一團的思考迴路</div>
+</div>
+
+<div class="lyrics-line">
+<div class="romaji">migi no mimi kara sennou zumi no eirianzu</div>
+<div class="ja">右の耳から洗脳済みのエイリアンズ</div>
 <div class="zh">從右耳開始 早已被洗腦完畢的 Aliens（異類們）</div>
 </div>
 
 <div class="lyrics-line">
 <div class="romaji">urusai na</div>
-<div class="ja">うるさいな</div>
+<div class="ja">五月蝿いな</div>
 <div class="zh">真是吵死了啊</div>
 </div>
 
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="romaji">kakusareta shinjitsu</div>
-<div class="ja">隠された真実</div>
-<div class="zh">被隱藏的真相</div>
+<div class="romaji">himerareta shinjitsu wo</div>
+<div class="ja">秘められた真実を</div>
+<div class="zh">那被藏起來的真相</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kamisama no namae</div>
-<div class="ja">神様の名前</div>
-<div class="zh">神明的名字</div>
+<div class="romaji">kamisama no namae wo</div>
+<div class="ja">神様の名前を</div>
+<div class="zh">神的名字</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">chikyuu no inbou kono jidai de abakitai</div>
-<div class="ja">地球の陰謀 この時代で暴きたい</div>
-<div class="zh">地球的陰謀 我想在這個時代將其揭穿</div>
+<div class="romaji">chikyuu no inbou wo kono jidai ni abakitai</div>
+<div class="ja">地球の陰謀をこの時代に暴きたい</div>
+<div class="zh">地球的陰謀 我都想在這個時代揭穿</div>
 </div>
 
 <div class="lyrics-line">
 <div class="romaji">nanimono ni narezu tomo</div>
 <div class="ja">何者になれずとも</div>
-<div class="zh">即便最終沒能成為什麼大人物</div>
+<div class="zh">就算成不了什麼了不起的人</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kitto mou ii yo</div>
-<div class="ja">きっともういいよ</div>
-<div class="zh">也一定沒關係了</div>
+<div class="romaji">mou kitto daijoubu</div>
+<div class="ja">もうきっと大丈夫</div>
+<div class="zh">也一定已經沒關係了</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">douse dare mo ga uso wo shinji yamanai</div>
-<div class="ja">どうせ誰もが虚像(うそ)を信じ止まない</div>
-<div class="zh">反正任誰都深信著虛幻（謊言） 不曾停歇</div>
+<div class="romaji">dare mo ga maboroshi wo shinjite yamanai</div>
+<div class="ja">誰もが幻を信じてやまない</div>
+<div class="zh">每個人都對幻象深信不疑</div>
 </div>
 
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="romaji">chikyuugi no mannaka maruku kirinuite yajirushi taseba</div>
-<div class="ja">地球儀の真ん中丸く切り抜いて矢印足せば</div>
-<div class="zh">將地球儀的中心 圓圓地挖空 加上箭頭的話</div>
+<div class="romaji">chikyuugi no naka wo maruku kurinuite</div>
+<div class="ja">地球儀の中を丸くくり抜いて</div>
+<div class="zh">把地球儀的中間挖出一個圓</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">hitotsu no boodaa rain</div>
-<div class="ja">ひとつのボーダーライン</div>
-<div class="zh">就成了一條 Borderline（界線）</div>
+<div class="romaji">yajirushi tashitara hitotsu no boodaarain</div>
+<div class="ja">矢印足したら一つのボーダーライン</div>
+<div class="zh">再加上箭頭 就成了一條 Borderline</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kigouka sareta IdentitTT</div>
-<div class="ja">記号化された愛thenTT</div>
+<div class="romaji">kigouka sareru IdentitTT</div>
+<div class="ja">記号化される愛thenTT</div>
 <div class="zh">被符號化的 愛thenTT（Identity）</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">otoko toka onna toka sore igai toka</div>
-<div class="ja">男とか女とかそれ以外とか</div>
+<div class="romaji">otoko mo onna mo sono ta no tagui mo</div>
+<div class="ja">男も女もその他の類も</div>
 <div class="zh">男人也好 女人也好 其他的類別也好</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">mujikaku ni kizutsukeau eirianzu</div>
-<div class="ja">無自覚に傷つけ合うエイリアンズ</div>
-<div class="zh">在無自覺中 互相傷害的 Aliens（異類們）</div>
+<div class="romaji">mujikaku no naka de kizutsuke atta eirianzu</div>
+<div class="ja">無自覚の中で傷つけあったエイリアンズ</div>
+<div class="zh">在不自覺之中 互相傷害的 Aliens（異類們）</div>
 </div>
 
 <div class="lyrics-line">
@@ -137,97 +135,115 @@ coverImage: "/covers/nishina/u-plus.jpg"
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="romaji">kakusareta shinjitsu</div>
-<div class="ja">隠された真実</div>
-<div class="zh">被隱藏的真相</div>
+<div class="romaji">sawayaka na kaze fuku manimani</div>
+<div class="ja">爽やかな風吹く間に間に</div>
+<div class="zh">任憑清爽的風隨意吹拂</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kamisama no itazura</div>
-<div class="ja">神様の悪戯</div>
-<div class="zh">神明的惡作劇</div>
+<div class="romaji">jibun rashisa nado tada kudaranai</div>
+<div class="ja">自分らしさなどただ下らない</div>
+<div class="zh">所謂的「做自己」 不過是無聊的東西</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">konseiki saiaku no uso</div>
-<div class="ja">今世紀最悪の嘘</div>
+<div class="romaji">midareta kokyuu no sumi</div>
+<div class="ja">乱れた呼吸の隅</div>
+<div class="zh">在紊亂的呼吸之間</div>
+</div>
+
+<div class="lyrics-line">
+<div class="romaji">inochi wo kanjite iru</div>
+<div class="ja">命を感じている</div>
+<div class="zh">我感受到了生命</div>
+</div>
+
+<div class="lyrics-break"></div>
+
+<div class="lyrics-line">
+<div class="romaji">himerareta shinjitsu wo</div>
+<div class="ja">秘められた真実を</div>
+<div class="zh">那被藏起來的真相</div>
+</div>
+
+<div class="lyrics-line">
+<div class="romaji">kamisama no itazura wo</div>
+<div class="ja">神様の悪戯を</div>
+<div class="zh">神的惡作劇</div>
+</div>
+
+<div class="lyrics-line">
+<div class="romaji">konseiki saiaku na uso wo</div>
+<div class="ja">今世紀最悪な嘘を</div>
 <div class="zh">本世紀最惡劣的謊言</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kono jidai de abakitai</div>
-<div class="ja">この時代で暴きたい</div>
-<div class="zh">我想在這個時代將其揭穿</div>
+<div class="romaji">kono jidai ni abakitai</div>
+<div class="ja">この時代に暴きたい</div>
+<div class="zh">我都想在這個時代揭穿</div>
 </div>
 
 <div class="lyrics-line">
 <div class="romaji">nanimono ni narezu tomo</div>
 <div class="ja">何者になれずとも</div>
-<div class="zh">即便最終沒能成為什麼大人物</div>
+<div class="zh">就算成不了什麼了不起的人</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kitto mou ii yo</div>
-<div class="ja">きっともういいよ</div>
-<div class="zh">也一定沒關係了</div>
+<div class="romaji">mou kitto daijoubu</div>
+<div class="ja">もうきっと大丈夫</div>
+<div class="zh">也一定已經沒關係了</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">douse dare mo ga uso wo shinji yamanai</div>
-<div class="ja">どうせ誰もが虚像(うそ)を信じ止まない</div>
-<div class="zh">反正任誰都深信著虛幻（謊言） 不曾停歇</div>
-</div>
-
-<div class="lyrics-break"></div>
-
-<div class="lyrics-line">
-<div class="romaji">sawayaka na kaze ga fuku suki ni</div>
-<div class="ja">爽やかな風が吹く隙に</div>
-<div class="zh">趁著清爽微風吹拂的間隙</div>
+<div class="romaji">dare mo ga maboroshi wo shinjite yamanai</div>
+<div class="ja">誰もが幻を信じてやまない</div>
+<div class="zh">每個人都對幻象深信不疑</div>
 </div>
 
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="romaji">kimagure na merodii</div>
-<div class="ja">気まぐれなメロディ</div>
-<div class="zh">反覆無常的旋律</div>
+<div class="romaji">kimagure na senritsu wo</div>
+<div class="ja">気まぐれな旋律を</div>
+<div class="zh">隨性的旋律</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kamisama no namae</div>
-<div class="ja">神様の名前</div>
-<div class="zh">神明的名字</div>
+<div class="romaji">kamisama no namae wo</div>
+<div class="ja">神様の名前を</div>
+<div class="zh">神的名字</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">chikyuu no inbou</div>
-<div class="ja">地球の陰謀</div>
+<div class="romaji">chikyuu no inbou wo</div>
+<div class="ja">地球の陰謀を</div>
 <div class="zh">地球的陰謀</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kono jidai de abakitai</div>
-<div class="ja">この時代で暴きたい</div>
-<div class="zh">我想在這個時代將其揭穿</div>
+<div class="romaji">kono jidai ni abakitai</div>
+<div class="ja">この時代に暴きたい</div>
+<div class="zh">我都想在這個時代揭穿</div>
 </div>
 
 <div class="lyrics-line">
 <div class="romaji">nanimono ni narezu tomo</div>
 <div class="ja">何者になれずとも</div>
-<div class="zh">即便最終沒能成為什麼大人物</div>
+<div class="zh">就算成不了什麼了不起的人</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kitto mou ii yo</div>
-<div class="ja">きっともういいよ</div>
-<div class="zh">也一定沒關係了</div>
+<div class="romaji">mou kitto daijoubu</div>
+<div class="ja">もうきっと大丈夫</div>
+<div class="zh">也一定已經沒關係了</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">douse dare mo ga uso wo shinji yamanai</div>
-<div class="ja">どうせ誰もが虚像(うそ)を信じ止まない</div>
-<div class="zh">反正任誰都深信著虛幻（謊言） 不曾停歇</div>
+<div class="romaji">dare mo ga maboroshi wo shinjite yamanai</div>
+<div class="ja">誰もが幻を信じてやまない</div>
+<div class="zh">每個人都對幻象深信不疑</div>
 </div>
 
 <div class="lyrics-break"></div>
@@ -261,7 +277,7 @@ coverImage: "/covers/nishina/u-plus.jpg"
 
 ### 2. 「愛thenTT」——寫成漢字＋英文＋顏文字的 Identity
 
-副歌那個怪字 **「記号化された愛thenTT」**——這是にしな 這首歌最經典的文字遊戲。
+第二段主歌那個怪字 **「記号化される愛thenTT」**——這是にしな 這首歌最經典的文字遊戲。
 
 拆解讀音：**愛（アイ）+ then（テン）+ TT（ティティ）= アイテンティティ = Identity**（自我認同）
 
@@ -272,19 +288,19 @@ coverImage: "/covers/nishina/u-plus.jpg"
 
 **這是一個標題本身就在演戲的字**——**尋找自我認同的過程「有愛、然後流淚」**。字形與字音兩層意義完美重疊，是にしな 招牌雙軌敘事的最高範例。
 
-### 3. 「地球儀の真ん中丸く切り抜いて矢印足せば」——性別符號的解構
+### 3. 「地球儀の中を丸くくり抜いて」——性別符號的解構
 
 第二段主歌那句超具象的畫面：
 
-> **地球儀の真ん中丸く切り抜いて矢印足せば / ひとつのボーダーライン**
-> （將地球儀的中心圓圓地挖空 加上箭頭的話 / 就成了一條 Borderline）
+> **地球儀の中を丸くくり抜いて / 矢印足したら一つのボーダーライン**
+> （把地球儀的中間挖出一個圓 / 再加上箭頭 就成了一條 Borderline）
 
 **圓圈 + 箭頭 = ♂**（男性符號）
 **圓圈 + 十字（也可以理解為箭頭往下）= ♀**（女性符號）
 
 **にしな 在諷刺**：**我們用如此簡單的幾何線條（一個圓、一支箭頭）就把人類劃分了性別**——**這種粗暴的分類，值得嗎**？
 
-配上下一句「男とか女とかそれ以外とか / 無自覚に傷つけ合うエイリアンズ」——**在這些簡單線條劃出的邊界裡，我們互相傷害卻不自覺**。
+配上後面的「男も女もその他の類も / 無自覚の中で傷つけあったエイリアンズ」——**在這些簡單線條劃出的邊界裡，我們互相傷害卻不自覺**。
 
 ### 4. 「エイリアンズ」——我們都是異類
 
@@ -297,31 +313,26 @@ coverImage: "/covers/nishina/u-plus.jpg"
 
 **「洗脳済みのエイリアンズ」**（早已被洗腦的異類們）—— 我們都是異類，因為我們**每個人都不完全符合社會的模型**。
 
-但**「無自覚に傷つけ合うエイリアンズ / 愛おしいんだ」**（無自覺互相傷害的異類們 / 但其實都令人憐愛啊）——**這是にしな 對人類最深的溫柔**：我們笨拙、我們互相傷害，但也正因如此，我們可愛。
+但**「無自覚の中で傷つけあったエイリアンズ / 愛おしいんだ」**（無自覺互相傷害的異類們 / 但其實都令人憐愛啊）——**這是にしな 對人類最深的溫柔**：我們笨拙、我們互相傷害，但也正因如此，我們可愛。
 
-### 5. 「否定の否定」——雙重否定＝肯定
+### 5. 「何者になれずとも もうきっと大丈夫」——不用成為「某個符號」
 
-Bridge 那段：
+三段副歌都收在這兩句：
 
-> **自虐的なグローリーは / 否定の否定を無意識に求めてる**
+> **何者になれずとも / もうきっと大丈夫**
+> （就算成不了什麼了不起的人 / 也一定已經沒關係了）
 
-**「否定の否定」= 雙重否定 = 肯定**（邏輯學術語）。
+**「何者」**在日文裡常用來指「被社會認可的某種身分」——有頭銜、有定位、說得出自己是誰的人。
 
-**自虐的主角無法直接肯定自己**（「我很棒」→ 說不出口）——**只能透過否定自己的否定來迂迴地肯定自我**（「我沒有那麼糟」→ 勉強可以說）。
+放在一首講「編碼」與「界線」的歌裡，這句的意思就很清楚了：**成不了任何一個被定義好的「U+ 某某」，也沒關係**。不被歸類，不是失敗。
 
-**這是所有低自尊者的心理路徑**——不敢正面接受自己，只能繞遠路。にしな 用一個邏輯學名詞，精準命中了這種**「不能直接愛自己」**的痛。
+### 6. 「誰もが幻を信じてやまない」——想揭穿，卻人人都信
 
-### 6. 「涙よせめて泉になれ」——既然無法阻止悲傷
+副歌前半一直在說「想揭穿」：被藏起來的真相、神的名字、地球的陰謀、本世紀最惡劣的謊言——**この時代に暴きたい**（我想在這個時代揭穿）。
 
-Bridge 那句 **「涙よせめて泉になれ」**：
+但副歌最後一句又把話拉回來：**誰もが幻を信じてやまない**（每個人都對幻象深信不疑）。
 
-- **涙よ**：眼淚啊（呼喊）
-- **せめて**：至少、起碼
-- **泉になれ**：化作泉水吧
-
-**「既然我無法阻止你流下，那你至少變成泉水吧」**——**如果眼淚必須流，那讓它滋養些什麼**。
-
-**這不是勵志的「哭完就好」**——這是**接受悲傷不可避免，只求它有意義**。
+**「〜てやまない」**是「無法停止〜」的意思——不是「選擇相信」，而是**停不下來地相信**。想揭穿的人和深信幻象的人，其實都在同一個時代裡。
 
 ### 7. 「The era will be over.」——時代終將結束
 
@@ -335,16 +346,16 @@ Bridge 那句 **「涙よせめて泉になれ」**：
 ### 8. 幾個特別的翻譯選擇
 
 - **記号化（きごうか）**：**符號化** —— 呼應歌名 U+ 的編碼概念
-- **虚像（うそ）**：字面「虛像」，但歌詞用括號註明讀作「うそ（謊言）」——**視覺是虛像，聽覺是謊言**
-- **天邪鬼（あまのじゃく）**：**「愛唱反調的人」**（にしな 招牌自我形容，也出現在《グローリー》《ドレスコード》）
-- **プラスチックノスタルジック**：Plastic + Nostalgic —— **塑膠感的懷舊**，諷刺現代人虛假的感傷
+- **五月蝿い（うるさい）**：「うるさい（吵死了）」的借字寫法，字面是「五月的蒼蠅」——**連「吵」都寫得很吵**
+- **類（たぐい）**：「同一類的東西」，比「種類」更書面一點，放在「男も女も」後面，有種把人當成分類項目的冷淡感
+- **間に間に（まにまに）**：「任憑、隨著〜」，D 旋律的「風吹く間に間に」就是任風吹拂
 - **暴きたい（あばきたい）**：**「想揭穿、想曝光」** —— 比「明かす」更有攻擊性
 
 ---
 
 **《U+》是にしな 給所有「被社會編碼」的人的一首戰歌——**
 
-**你不需要成為什麼大人物（何者になれずとも きっともういいよ）。**
+**你不需要成為什麼大人物（何者になれずとも もうきっと大丈夫）。**
 **你只需要知道**——**你不只是 U+ 某個代碼。你是一個會愛、會哭、會反抗的人**。
 
 **這個把人變成符號的時代，會過去的。**
