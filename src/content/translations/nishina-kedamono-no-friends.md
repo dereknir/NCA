@@ -131,7 +131,7 @@ coverImage: "/covers/nishina/kedamono-no-friends.jpg"
 
 <div class="lyrics-line">
 <div class="romaji">tooku de hitotsu hoshi ga kowareta yo</div>
-<div class="ja">遠くで一つ星が壊れたよ</div>
+<div class="ja">遠くで1つ星が壊れたよ</div>
 <div class="zh">遠處有一顆星星碎裂了喔</div>
 </div>
 

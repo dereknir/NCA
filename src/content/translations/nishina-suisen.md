@@ -369,15 +369,15 @@ excludeFromLyricAnalysis: true   # 主藝人 唾奇,にしな 掛名共同作詞
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">ainiku my love</div>
-<div class="ja">生憎 my love</div>
-<div class="zh">很不巧 my love</div>
+<div class="romaji">ai ni ai ni iku</div>
+<div class="ja">あいに会いに行く</div>
+<div class="zh">踏上旅程,去見「愛/相遇/哀」</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">I missing tired</div>
-<div class="ja">I missing tired</div>
-<div class="zh">我因思念而疲憊不堪</div>
+<div class="romaji">ai ni ai ni iku</div>
+<div class="ja">あいに会いに行く</div>
+<div class="zh">踏上旅程,去見「愛/相遇/哀」</div>
 </div>
 
 <div class="lyrics-line">
@@ -395,24 +395,6 @@ excludeFromLyricAnalysis: true   # 主藝人 唾奇,にしな 掛名共同作詞
 <div class="lyrics-break"></div>
 
 <div class="lyrics-singer">【Outro · にしな】</div>
-
-<div class="lyrics-line">
-<div class="romaji">ai ni ai ni iku</div>
-<div class="ja">あいに会いに行く</div>
-<div class="zh">踏上旅程,去見「愛/相遇/哀」</div>
-</div>
-
-<div class="lyrics-line">
-<div class="romaji">ai ni ai ni iku</div>
-<div class="ja">あいに会いに行く</div>
-<div class="zh">踏上旅程,去見「愛/相遇/哀」</div>
-</div>
-
-<div class="lyrics-line">
-<div class="romaji">ai ni ai ni iku</div>
-<div class="ja">あいに会いに行く</div>
-<div class="zh">踏上旅程,去見「愛/相遇/哀」</div>
-</div>
 
 </div>
 

@@ -118,7 +118,7 @@ coverImage: "/covers/nishina/haru-ichiban.jpg"
 
 <div class="lyrics-line">
 <div class="romaji">kimi ga kuchi zusandeta bando</div>
-<div class="ja">君が口づさんでたバンド</div>
+<div class="ja">君が口ずさんでたバンド</div>
 <div class="zh">那是你曾經哼唱過的樂團</div>
 </div>
 

@@ -3,7 +3,7 @@
     "topN": 0,
     "totalInQueue": 1391,
     "songCount": 42,
-    "unmatchedCount": 836
+    "unmatchedCount": 835
   },
   "queue": {
     "nishina-heavy-smoke": [
@@ -1184,6 +1184,16 @@
         "lineHint": 48,
         "matchScore": 100.0,
         "matchMethod": "hashtag"
+      },
+      {
+        "videoId": "kyR5zgN_JYE",
+        "title": "our lives go on #nishina #newmusic #shorts",
+        "viewCount": 1900,
+        "thumbnail": "https://i.ytimg.com/vi/kyR5zgN_JYE/hqdefault.jpg",
+        "songId": "nishina-wawon",
+        "lineHint": 53,
+        "matchScore": 100.0,
+        "matchMethod": "lyric_match"
       },
       {
         "videoId": "RCKqDe1oV_U",
@@ -3192,7 +3202,7 @@
         "thumbnail": "https://i.ytimg.com/vi/QGbNZYOFwCg/hqdefault.jpg",
         "songId": "nishina-one-room",
         "lineHint": 27,
-        "matchScore": 85.71428571428572,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -3222,7 +3232,7 @@
         "thumbnail": "https://i.ytimg.com/vi/n0t2Fusv5ps/hqdefault.jpg",
         "songId": "nishina-one-room",
         "lineHint": 27,
-        "matchScore": 85.71428571428572,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -3242,7 +3252,7 @@
         "thumbnail": "https://i.ytimg.com/vi/-ySrumQg_CI/hqdefault.jpg",
         "songId": "nishina-one-room",
         "lineHint": 28,
-        "matchScore": 92.85714285714286,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -3272,7 +3282,7 @@
         "thumbnail": "https://i.ytimg.com/vi/9JQ5S5tyJ54/hqdefault.jpg",
         "songId": "nishina-one-room",
         "lineHint": 27,
-        "matchScore": 85.71428571428572,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -3302,7 +3312,7 @@
         "thumbnail": "https://i.ytimg.com/vi/QgHoBbWSMzs/hqdefault.jpg",
         "songId": "nishina-one-room",
         "lineHint": 14,
-        "matchScore": 88.88888888888889,
+        "matchScore": 100.0,
         "matchMethod": "lyric_match"
       }
     ],
@@ -4196,7 +4206,7 @@
         "thumbnail": "https://i.ytimg.com/vi/zZqNfb10fEI/hqdefault.jpg",
         "songId": "nishina-friday-kids-china-town",
         "lineHint": 23,
-        "matchScore": 91.89189189189189,
+        "matchScore": 100.0,
         "matchMethod": "lyric_match"
       },
       {
@@ -4216,7 +4226,7 @@
         "thumbnail": "https://i.ytimg.com/vi/jkaNvHg0CXI/hqdefault.jpg",
         "songId": "nishina-friday-kids-china-town",
         "lineHint": 23,
-        "matchScore": 85.71428571428572,
+        "matchScore": 100.0,
         "matchMethod": "lyric_match"
       },
       {
@@ -4246,7 +4256,7 @@
         "thumbnail": "https://i.ytimg.com/vi/ph5wzsWKwnQ/hqdefault.jpg",
         "songId": "nishina-friday-kids-china-town",
         "lineHint": 23,
-        "matchScore": 91.89189189189189,
+        "matchScore": 100.0,
         "matchMethod": "lyric_match"
       },
       {
@@ -4306,7 +4316,7 @@
         "thumbnail": "https://i.ytimg.com/vi/08I420Y3xnE/hqdefault.jpg",
         "songId": "nishina-friday-kids-china-town",
         "lineHint": 16,
-        "matchScore": 83.33333333333334,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -4500,7 +4510,7 @@
         "thumbnail": "https://i.ytimg.com/vi/LPG1-shRqvA/hqdefault.jpg",
         "songId": "nishina-haru-ichiban",
         "lineHint": 14,
-        "matchScore": 90.9090909090909,
+        "matchScore": 100.0,
         "matchMethod": "hashtag"
       },
       {
@@ -5798,7 +5808,7 @@
         "thumbnail": "https://i.ytimg.com/vi/qgLYVa7SnYI/hqdefault.jpg",
         "songId": null,
         "lineHint": null,
-        "matchScore": 56.00000000000001,
+        "matchScore": 58.33333333333333,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -6436,10 +6446,10 @@
         "title": "plum live #nishina #live #shorts",
         "viewCount": 13000,
         "thumbnail": "https://i.ytimg.com/vi/cwQTqCCo4pw/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 61.53846153846154,
-        "matchMethod": "out_of_catalog"
+        "songId": "nishina-wawon",
+        "lineHint": 53,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
       },
       {
         "videoId": "ayMOZg9izb0",
@@ -6728,7 +6738,7 @@
         "thumbnail": "https://i.ytimg.com/vi/jMGSVQOOitk/hqdefault.jpg",
         "songId": null,
         "lineHint": null,
-        "matchScore": 50.0,
+        "matchScore": 52.63157894736843,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -7806,10 +7816,10 @@
         "title": "egoists  #にしな #newmusic #shorts",
         "viewCount": 7800,
         "thumbnail": "https://i.ytimg.com/vi/wr9U6UT2RkY/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 60.0,
-        "matchMethod": "out_of_catalog"
+        "songId": "nishina-inaho",
+        "lineHint": 45,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
       },
       {
         "videoId": "dcwCe1OI-1g",
@@ -7858,7 +7868,7 @@
         "thumbnail": "https://i.ytimg.com/vi/Txtzlstoo38/hqdefault.jpg",
         "songId": null,
         "lineHint": null,
-        "matchScore": 53.333333333333336,
+        "matchScore": 52.63157894736843,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -8337,7 +8347,7 @@
         "viewCount": 6900,
         "thumbnail": "https://i.ytimg.com/vi/p7cDyo70Zv0/hqdefault.jpg",
         "songId": "nishina-eden",
-        "lineHint": 42,
+        "lineHint": 43,
         "matchScore": 66.66666666666667,
         "matchMethod": "review"
       },
@@ -8358,7 +8368,7 @@
         "thumbnail": "https://i.ytimg.com/vi/5-ct3TmcyBA/hqdefault.jpg",
         "songId": null,
         "lineHint": null,
-        "matchScore": 54.54545454545454,
+        "matchScore": 55.55555555555556,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -9138,7 +9148,7 @@
         "thumbnail": "https://i.ytimg.com/vi/keQuvB8ekpQ/hqdefault.jpg",
         "songId": null,
         "lineHint": null,
-        "matchScore": 55.55555555555556,
+        "matchScore": 58.33333333333333,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -9176,10 +9186,10 @@
         "title": "I’ll be with you soon #nishina #music #shorts",
         "viewCount": 6000,
         "thumbnail": "https://i.ytimg.com/vi/_C-ge_crXEE/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 58.33333333333333,
-        "matchMethod": "out_of_catalog"
+        "songId": "nishina-wawon",
+        "lineHint": 53,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
       },
       {
         "videoId": "2tLv8eTQ75U",
@@ -10868,7 +10878,7 @@
         "thumbnail": "https://i.ytimg.com/vi/8aArcyYUvTI/hqdefault.jpg",
         "songId": null,
         "lineHint": null,
-        "matchScore": 56.00000000000001,
+        "matchScore": 58.33333333333333,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -10906,10 +10916,10 @@
         "title": "I'll be with you soon #nishina #shorts",
         "viewCount": 4400,
         "thumbnail": "https://i.ytimg.com/vi/RQNx2-giFVk/hqdefault.jpg",
-        "songId": null,
-        "lineHint": null,
-        "matchScore": 60.60606060606061,
-        "matchMethod": "out_of_catalog"
+        "songId": "nishina-wawon",
+        "lineHint": 53,
+        "matchScore": 66.66666666666667,
+        "matchMethod": "review"
       },
       {
         "videoId": "A9XM9R43HX0",
@@ -11588,7 +11598,7 @@
         "thumbnail": "https://i.ytimg.com/vi/Ppglrb5z_Qs/hqdefault.jpg",
         "songId": null,
         "lineHint": null,
-        "matchScore": 50.0,
+        "matchScore": 52.17391304347826,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -12878,7 +12888,7 @@
         "thumbnail": "https://i.ytimg.com/vi/PzUlboyvKTA/hqdefault.jpg",
         "songId": null,
         "lineHint": null,
-        "matchScore": 56.00000000000001,
+        "matchScore": 58.33333333333333,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -13148,7 +13158,7 @@
         "thumbnail": "https://i.ytimg.com/vi/Pz0z2nLDdxc/hqdefault.jpg",
         "songId": null,
         "lineHint": null,
-        "matchScore": 50.0,
+        "matchScore": 52.63157894736843,
         "matchMethod": "out_of_catalog"
       },
       {
@@ -13709,16 +13719,6 @@
         "songId": "nishina-hot-milk",
         "lineHint": 33,
         "matchScore": 66.66666666666667,
-        "matchMethod": "review"
-      },
-      {
-        "videoId": "kyR5zgN_JYE",
-        "title": "our lives go on #nishina #newmusic #shorts",
-        "viewCount": 1900,
-        "thumbnail": "https://i.ytimg.com/vi/kyR5zgN_JYE/hqdefault.jpg",
-        "songId": "nishina-wawon",
-        "lineHint": 15,
-        "matchScore": 76.19047619047619,
         "matchMethod": "review"
       },
       {

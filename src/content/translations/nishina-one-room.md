@@ -46,7 +46,7 @@ coverImage: "/covers/nishina/1999.jpg"
 
 <div class="lyrics-line">
 <div class="romaji">nee mada neteru no mou ohiru da yo</div>
-<div class="ja">ねえまだ寝てるのもうお昼だよ</div>
+<div class="ja">ねぇまだ寝てるのもうお昼だよ</div>
 <div class="zh">欸 你還在睡啊 都已經中午了喔</div>
 </div>
 
@@ -84,13 +84,13 @@ coverImage: "/covers/nishina/1999.jpg"
 
 <div class="lyrics-line">
 <div class="romaji">futari de kurashi hajimeta noni</div>
-<div class="ja">2人で暮らし始めたのに</div>
+<div class="ja">二人で暮らし始めたのに</div>
 <div class="zh">才開始了兩人的同居生活</div>
 </div>
 
 <div class="lyrics-line">
 <div class="romaji">sukoshi zutsu zurete yuku</div>
-<div class="ja">少しずつずれてゆく</div>
+<div class="ja">少しづつずれてゆく</div>
 <div class="zh">卻一點一滴地產生了錯位</div>
 </div>
 
@@ -104,7 +104,7 @@ coverImage: "/covers/nishina/1999.jpg"
 
 <div class="lyrics-line">
 <div class="romaji">nee shitteta? usagi tte hontou wa sabishikute mo shinanain datte</div>
-<div class="ja">ねえ知ってた？うさぎって本当は寂しくても死なないんだって</div>
+<div class="ja">ねぇ知ってた？うさぎって本当は寂しくても死なないんだって</div>
 <div class="zh">欸你知道嗎？聽說兔子其實就算寂寞也不會死掉喔</div>
 </div>
 
@@ -117,8 +117,8 @@ coverImage: "/covers/nishina/1999.jpg"
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="romaji">roku-jou hitoma wanruumu yume bakkari mite iru konna baka na ore dakara sa</div>
-<div class="ja">6畳一間ワンルーム夢ばっかり見ている こんなバカな俺だからさ</div>
+<div class="romaji">roku-jou hitoma wanruumu yume bakari mite iru konna baka na ore dakara sa</div>
+<div class="ja">六畳一間ワンルーム夢ばかり見ている こんなバカな俺だからさ</div>
 <div class="zh">在只有六個榻榻米大的單人套房裡 淨做著夢的 像我這樣的笨蛋啊</div>
 </div>
 
@@ -130,7 +130,7 @@ coverImage: "/covers/nishina/1999.jpg"
 
 <div class="lyrics-line">
 <div class="romaji">tsunagi-tomerarenai yo na</div>
-<div class="ja">つなぎ止められないよな</div>
+<div class="ja">繋ぎ止められないよな</div>
 <div class="zh">一定無法將你挽留吧</div>
 </div>
 
@@ -138,7 +138,7 @@ coverImage: "/covers/nishina/1999.jpg"
 
 <div class="lyrics-line">
 <div class="romaji">futa wo nakushita koka koora</div>
-<div class="ja">蓋をなくしたコカコーラ</div>
+<div class="ja">蓋を失くしたコカコーラ</div>
 <div class="zh">弄丟了瓶蓋的可口可樂</div>
 </div>
 
@@ -188,7 +188,7 @@ coverImage: "/covers/nishina/1999.jpg"
 
 <div class="lyrics-line">
 <div class="romaji">sou ieba ichido datte kimi wa kiitari shite konakatta na</div>
-<div class="ja">そういえば1度だって君は聞いたりしてこなかったな</div>
+<div class="ja">そういえば一度だって君は聞いたりしてこなかったな</div>
 <div class="zh">說起來 你一次也沒有這樣問過我呢</div>
 </div>
 
@@ -196,27 +196,27 @@ coverImage: "/covers/nishina/1999.jpg"
 
 <div class="lyrics-line">
 <div class="romaji">roku-jou hitoma wanruumu ore to gitaa to kimi to ja konna heya wa sema-sugiru yo na</div>
-<div class="ja">6畳一間ワンルーム俺とギターときみとじゃ こんな部屋は狭すぎるよな</div>
+<div class="ja">六畳一間ワンルーム俺とギターと君とじゃ こんな部屋は狭すぎるよな</div>
 <div class="zh">六榻榻米大的單人套房裡 只有我、吉他和你 這樣的房間實在太狹窄了啊</div>
 </div>
 
 <div class="lyrics-line">
 <div class="romaji">kanashii keredo futari wa kore ijou umaku wa ikanai</div>
-<div class="ja">悲しいけれどふたりは これ以上上手くはいかない</div>
+<div class="ja">悲しいけれど二人は これ以上上手くはいかない</div>
 <div class="zh">雖然很悲傷 但我們倆 已經無法再繼續走下去了</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kimi mo zutto kizuite ita darou</div>
-<div class="ja">君もずっと気づいていただろう</div>
+<div class="romaji">kimi mo zutto kizuite itan darou</div>
+<div class="ja">君もずっと気づいていたんだろう</div>
 <div class="zh">你其實也一直都有察覺到吧</div>
 </div>
 
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="romaji">roku-jou hitoma wanruumu yume bakkari mite iru konna baka na ore dakedo sa</div>
-<div class="ja">6畳一間ワンルーム夢ばっかり見ている こんなバカな俺だけどさ</div>
+<div class="romaji">roku-jou hitoma wanruumu yume bakari mite iru konna baka na ore dakedo sa</div>
+<div class="ja">六畳一間ワンルーム夢ばかり見ている こんなバカな俺だけどさ</div>
 <div class="zh">在只有六個榻榻米大的單人套房裡 淨做著夢的 雖然我是個這樣的笨蛋</div>
 </div>
 

@@ -298,8 +298,8 @@ coverImage: "/covers/nishina/hibi-sanman.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">inoru you</div>
-<div class="ja">祈るよう</div>
+<div class="romaji">inoru you ni</div>
+<div class="ja">祈るように</div>
 <div class="zh">如此祈禱著</div>
 </div>
 

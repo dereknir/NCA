@@ -61,8 +61,8 @@ coverImage: "/covers/nishina/rendezvous.jpg"
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="ja">Run run rendezvous</div>
-<div class="zh">Run run rendezvous（奔跑吧 秘密約會）</div>
+<div class="ja">run run rendezvoused</div>
+<div class="zh">run run rendezvoused（奔跑吧 秘密約會）</div>
 </div>
 
 <div class="lyrics-line">
@@ -123,13 +123,13 @@ coverImage: "/covers/nishina/rendezvous.jpg"
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="ja">Run run rendezvous</div>
-<div class="zh">Run run rendezvous（奔跑吧 秘密約會）</div>
+<div class="ja">run run rendezvoused</div>
+<div class="zh">run run rendezvoused（奔跑吧 秘密約會）</div>
 </div>
 
 <div class="lyrics-line">
 <div class="romaji">soutai sokudo wa zero ni natte</div>
-<div class="ja">相對速度は0になって</div>
+<div class="ja">相対速度は0になって</div>
 <div class="zh">相對速度歸零</div>
 </div>
 
@@ -192,8 +192,8 @@ coverImage: "/covers/nishina/rendezvous.jpg"
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="ja">Run run rendezvous</div>
-<div class="zh">Run run rendezvous（奔跑吧 秘密約會）</div>
+<div class="ja">run run rendezvoused</div>
+<div class="zh">run run rendezvoused（奔跑吧 秘密約會）</div>
 </div>
 
 <div class="lyrics-line">
@@ -204,8 +204,8 @@ coverImage: "/covers/nishina/rendezvous.jpg"
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="ja">Run run rendezvous</div>
-<div class="zh">Run run rendezvous（奔跑吧 秘密約會）</div>
+<div class="ja">run run rendezvoused</div>
+<div class="zh">run run rendezvoused（奔跑吧 秘密約會）</div>
 </div>
 
 <div class="lyrics-line">
@@ -234,8 +234,8 @@ coverImage: "/covers/nishina/rendezvous.jpg"
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="ja">Run run rendezvous</div>
-<div class="zh">Run run rendezvous（奔跑吧 秘密約會）</div>
+<div class="ja">run run rendezvoused</div>
+<div class="zh">run run rendezvoused（奔跑吧 秘密約會）</div>
 </div>
 
 <div class="lyrics-line">

@@ -73,9 +73,9 @@ excludeFromLyricAnalysis: true   # 主藝人 GeG,詞 唾奇/SNEEEZE,にしな fe
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">futari nara aishou good</div>
-<div class="ja">二人なら相性 good</div>
-<div class="zh">我們兩個,相性 good</div>
+<div class="romaji">futari nara sa aishou Good good</div>
+<div class="ja">二人ならさ相性 Good good</div>
+<div class="zh">我們兩個啊,相性 Good good</div>
 </div>
 
 <div class="lyrics-break"></div>
@@ -157,6 +157,12 @@ excludeFromLyricAnalysis: true   # 主藝人 GeG,詞 唾奇/SNEEEZE,にしな fe
 </div>
 
 <div class="lyrics-line">
+<div class="romaji">aisowarai to wa I don't wanna talk</div>
+<div class="ja">愛想笑いとは I don't wanna talk</div>
+<div class="zh">跟那種皮笑肉不笑的東西 I don't wanna talk</div>
+</div>
+
+<div class="lyrics-line">
 <div class="romaji">iro mo motenai hodo no kurayami wo saki</div>
 <div class="ja">色も持てない程の暗闇を裂き</div>
 <div class="zh">撕開連顏色都拿不住的黑暗</div>
@@ -191,8 +197,8 @@ excludeFromLyricAnalysis: true   # 主藝人 GeG,詞 唾奇/SNEEEZE,にしな fe
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kimi to hitogomi nuke</div>
-<div class="ja">君と人混み抜け</div>
+<div class="romaji">kimi to hitogomi wo nuke</div>
+<div class="ja">君と人混みを抜け</div>
 <div class="zh">和你穿越人潮</div>
 </div>
 
@@ -233,14 +239,14 @@ excludeFromLyricAnalysis: true   # 主藝人 GeG,詞 唾奇/SNEEEZE,にしな fe
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kimi to yumemigokochi you na kibun</div>
-<div class="ja">君と夢見心地ような気分</div>
+<div class="romaji">kimi to yumemigokochi no you na kibun</div>
+<div class="ja">君と夢見心地のような気分</div>
 <div class="zh">和你一起如同作夢般的心情</div>
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">futari awaseru yoru no machi rizumu</div>
-<div class="ja">二人合わせる夜の街リズム</div>
+<div class="romaji">futari awaseru yoru no machi no rizumu</div>
+<div class="ja">二人合わせる夜の街のリズム</div>
 <div class="zh">兩人合上這夜晚街頭的節奏</div>
 </div>
 
@@ -409,6 +415,12 @@ excludeFromLyricAnalysis: true   # 主藝人 GeG,詞 唾奇/SNEEEZE,にしな fe
 </div>
 
 <div class="lyrics-line">
+<div class="romaji">aisowarai to wa I don't wanna talk</div>
+<div class="ja">愛想笑いとは I don't wanna talk</div>
+<div class="zh">跟那種皮笑肉不笑的東西 I don't wanna talk</div>
+</div>
+
+<div class="lyrics-line">
 <div class="romaji">iro mo motenai hodo no kurayami wo saki</div>
 <div class="ja">色も持てない程の暗闇を裂き</div>
 <div class="zh">撕開連顏色都拿不住的黑暗</div>
@@ -427,8 +439,8 @@ excludeFromLyricAnalysis: true   # 主藝人 GeG,詞 唾奇/SNEEEZE,にしな fe
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">anata wa mijikai yoru you desu</div>
-<div class="ja">貴方は短い夜様です</div>
+<div class="romaji">anata wa mijikai yoru no you desu</div>
+<div class="ja">貴方は短い夜の様です</div>
 <div class="zh">你就像這短暫的夜晚</div>
 </div>
 
@@ -479,9 +491,9 @@ excludeFromLyricAnalysis: true   # 主藝人 GeG,詞 唾奇/SNEEEZE,にしな fe
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">futari nara aishou good</div>
-<div class="ja">二人なら相性 good</div>
-<div class="zh">我們兩個,相性 good</div>
+<div class="romaji">futari nara sa aishou Good good</div>
+<div class="ja">二人ならさ相性 Good good</div>
+<div class="zh">我們兩個啊,相性 Good good</div>
 </div>
 
 </div>

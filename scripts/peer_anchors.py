@@ -12,7 +12,7 @@ annotation/reports/2026-10-28-audio-reference.md。
   .venv-qwen/bin/python scripts/peer_anchors.py          # 套用到 auto_anchors.json (auto_annotate 跑完會自動做)
   .venv-qwen/bin/python scripts/peer_anchors.py --eval   # golden 留一法: 照抄 vs ASR
 
-ASR 原本的結果存在每筆的 `asr` 欄位; 重算一律從它出發 (你審得越多, 夥伴越多, 隔一陣子重跑就會更準)。
+ASR 原本的結果存在每筆的 `asr` 欄位; 重算一律從它出發 (我審得越多, 夥伴越多, 隔一陣子重跑就會更準)。
 """
 import argparse, json, statistics, sys, time
 from collections import Counter, defaultdict
@@ -225,7 +225,7 @@ def apply(out_path=aa.OUT_F, ids=None):
         if v not in F:
             continue
         partners = find_partners(v, F, done, mean)
-        others = find_partners(v, F, todo_f, mean)               # 還沒審的同錄音: 你審完其中一支, annotator 當下帶入其他支
+        others = find_partners(v, F, todo_f, mean)               # 還沒審的同錄音: 我審完其中一支, annotator 當下帶入其他支
         if partners or others:
             r['pairs'] = [pair_info(v, u, o, s, F) for u, o, s in partners + others]
             n_pair += 1

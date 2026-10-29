@@ -65,7 +65,7 @@ coverImage: "/covers/nishina/bugs.jpg"
 
 <div class="lyrics-line">
 <div class="romaji">Twenty four yatteran nai</div>
-<div class="ja">Twenty four やってらんない</div>
+<div class="ja">24 やってらんない</div>
 <div class="zh">24 小時緊繃著 根本撐不下去</div>
 </div>
 

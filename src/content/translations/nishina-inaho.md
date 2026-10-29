@@ -37,7 +37,7 @@ excludeFromLyricAnalysis: true   # 主藝人 唾奇 (Camellia Track 12),にし�
 
 <div class="lyrics-line">
 <div class="romaji">tsune ni joucho wa fuantei nan da</div>
-<div class="ja">常に情緒は不安定んだ</div>
+<div class="ja">常に情緒は不安定なんだ</div>
 <div class="zh">情緒總是處於不穩定的狀態啊</div>
 </div>
 
@@ -154,8 +154,8 @@ excludeFromLyricAnalysis: true   # 主藝人 唾奇 (Camellia Track 12),にし�
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kangaete mita kedo all day and night</div>
-<div class="ja">考えてみたけど all day and night</div>
+<div class="romaji">kangaete mita kedo All day n' night</div>
+<div class="ja">考えてみたけど All day n' night</div>
 <div class="zh">雖然試著思考過了 all day and night(日日夜夜)</div>
 </div>
 
@@ -200,9 +200,9 @@ excludeFromLyricAnalysis: true   # 主藝人 唾奇 (Camellia Track 12),にし�
 <div class="lyrics-singer">【Post-Chorus · にしな】</div>
 
 <div class="lyrics-line">
-<div class="romaji">tasogare inaho wa tada tayutau hmm-hmm</div>
-<div class="ja">黄昏 稲穂はただたゆたふ hmm-hmm</div>
-<div class="zh">黃昏時刻,稻穗只是隨風搖曳著 hmm-hmm</div>
+<div class="romaji">tasogare inaho wa tada tayutau uhh uhh</div>
+<div class="ja">黄昏、稲穂はただたゆたふ uhh uhh</div>
+<div class="zh">黃昏時刻,稻穗只是隨風搖曳著 uhh uhh</div>
 </div>
 
 <div class="lyrics-line">
@@ -212,9 +212,9 @@ excludeFromLyricAnalysis: true   # 主藝人 唾奇 (Camellia Track 12),にし�
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">anata wo omoi yurare tayutau hmm-hmm</div>
-<div class="ja">貴方を思い揺られたゆたふ hmm-hmm</div>
-<div class="zh">思念著你,隨風輕晃搖曳著 hmm-hmm</div>
+<div class="romaji">anata wo omoi yurare tayutau uhh uhh</div>
+<div class="ja">貴方を思い揺られたゆたふ uhh uhh</div>
+<div class="zh">思念著你,隨風輕晃搖曳著 uhh uhh</div>
 </div>
 
 <div class="lyrics-line">
@@ -318,8 +318,8 @@ excludeFromLyricAnalysis: true   # 主藝人 唾奇 (Camellia Track 12),にし�
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">unmei wa eraberu ka? alchemist</div>
-<div class="ja">運命は選べるか? alchmist</div>
+<div class="romaji">unmei wa eraberu ka? ALCHEMIST</div>
+<div class="ja">運命は選べるか? ALCHEMIST</div>
 <div class="zh">命運是可以選擇的嗎? 煉金術師(alchemist)</div>
 </div>
 
@@ -340,8 +340,8 @@ excludeFromLyricAnalysis: true   # 主藝人 唾奇 (Camellia Track 12),にし�
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">kangaete mita kedo all day and night</div>
-<div class="ja">考えてみたけど all day and night</div>
+<div class="romaji">kangaete mita kedo All day n' night</div>
+<div class="ja">考えてみたけど All day n' night</div>
 <div class="zh">雖然試著思考過了 all day and night</div>
 </div>
 
@@ -392,8 +392,8 @@ excludeFromLyricAnalysis: true   # 主藝人 唾奇 (Camellia Track 12),にし�
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">terasanai hada iro</div>
-<div class="ja">照らさない肌色</div>
+<div class="romaji">terasu hada iro</div>
+<div class="ja">照らす肌色</div>
 <div class="zh">映照著肌膚的顏色</div>
 </div>
 

@@ -79,7 +79,7 @@ coverImage: "/covers/nishina/hibi-sanman.jpg"
 
 <div class="lyrics-line">
 <div class="romaji">nante ima ga ichiban wakai noni ne</div>
-<div class="ja">なんて今が一番若いのにね</div>
+<div class="ja">なんて今が1番若いのにね</div>
 <div class="zh">明明現在才是最年輕的時刻啊</div>
 </div>
 

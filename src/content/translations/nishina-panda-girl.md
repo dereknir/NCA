@@ -343,6 +343,30 @@ coverImage: "/covers/nishina/panda-girl.jpg"
 <div class="zh">把鞋子踢飛到月亮上去吧</div>
 </div>
 
+<div class="lyrics-line">
+<div class="romaji">mutsukashii otoshigoro</div>
+<div class="ja">ムツカシイお年頃</div>
+<div class="zh">正值彆扭困難的年紀</div>
+</div>
+
+<div class="lyrics-line">
+<div class="romaji">gomen ne wa tsugi no supesharu ruuju</div>
+<div class="ja">ごめんねは次のスペシャルルージュ</div>
+<div class="zh">「對不起」是下一支特製唇膏</div>
+</div>
+
+<div class="lyrics-line">
+<div class="romaji">sakaagari de</div>
+<div class="ja">逆上がりで</div>
+<div class="zh">翻個單槓</div>
+</div>
+
+<div class="lyrics-line">
+<div class="romaji">tsuki made kutsu wo tobasou</div>
+<div class="ja">月まで靴を飛ばそう</div>
+<div class="zh">把鞋子踢飛到月亮上去吧</div>
+</div>
+
 </div>
 
 ---

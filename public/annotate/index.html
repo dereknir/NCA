@@ -1170,7 +1170,7 @@ function renderAnchors(){
   }
 }
 
-/* ---------- 播放同步預覽(和你網站正式功能同一套邏輯) ---------- */
+/* ---------- 播放同步預覽(和網站正式功能同一套邏輯) ---------- */
 function startPoll(){
   clearInterval(S.timer);
   S.timer = setInterval(()=>{
@@ -1272,8 +1272,8 @@ function nextReview(){
   return best;
 }
 
-/* ---------- 同錄音一次審完: 你按完成時, 把答案帶進同一段錄音的待審片段 ----------
-   只改「建議」(anchors / 🎧抄), 狀態仍是待審, 你還是要聽過按 Enter; 你動過的片段不覆蓋。
+/* ---------- 同錄音一次審完: 按完成時, 把答案帶進同一段錄音的待審片段 ----------
+   只改「建議」(anchors / 🎧抄), 狀態仍是待審, 還是要我聽過按 Enter; 我動過的片段不覆蓋。
    邏輯照搬 scripts/peer_anchors.py 的 transfer / combine / fix_order / enforce_gap (配對表由 --peer 算好, 在 auto_anchors.json 的 pairs)。
    帶入的建議另外存在這台瀏覽器 (auto_anchors.json 不會被 annotator 存回去), 載入時疊回 S.auto。 */
 const PEER = { FPS: 31.25, TAIL: 1.0, LEAD: 1.0, MIN_GAP: 0.6 };
@@ -1384,7 +1384,7 @@ function propagatePeers(srcVid){
   for(const [vid, r] of Object.entries(S.auto)){
     const ann = S.ann[vid];
     if(ann?.status !== 'auto' || !(r.pairs || []).some(p => p.v === srcVid)) continue;
-    if(!sameAnchors(ann.anchors, [...r.anchors].sort((a, b) => a.t - b.t))) continue;   // 你動過 (或還沒 --merge) 的不覆蓋
+    if(!sameAnchors(ann.anchors, [...r.anchors].sort((a, b) => a.t - b.t))) continue;   // 我動過 (或還沒 --merge) 的不覆蓋
     const sug = peerSuggest(vid);
     if(!sug || (ann.songConfirmed && ann.songId !== sug.songId)) continue;
     Object.assign(r, sug);

@@ -158,8 +158,8 @@ coverImage: "/covers/nishina/wawon.jpg"
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="romaji">ataeraretatte kizuitatte</div>
-<div class="ja">与えられたって気づいたって</div>
+<div class="romaji">ataerareteta tte kizuita tte</div>
+<div class="ja">与えられてたって気づいたって</div>
 <div class="zh">即便意識自己受惠於人</div>
 </div>
 
@@ -367,7 +367,7 @@ coverImage: "/covers/nishina/wawon.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="ja">our life goes on</div>
+<div class="ja">our lives go on</div>
 <div class="zh">我們的人生仍在路上</div>
 </div>
 

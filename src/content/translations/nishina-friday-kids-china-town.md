@@ -37,7 +37,7 @@ coverImage: "/covers/nishina/friday-kids-china-town.jpg"
 
 <div class="lyrics-line">
 <div class="romaji">tsurenai onna ga hei no ue de cat eye</div>
-<div class="ja">釣れない女が塀の上でcat eye</div>
+<div class="ja">釣れない女が塀の上で猫目(cat eye)</div>
 <div class="zh">高冷的女人在牆上露出了貓眼</div>
 </div>
 
@@ -60,8 +60,8 @@ coverImage: "/covers/nishina/friday-kids-china-town.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">koyoi maku ga agareba koukai majiri no showtime</div>
-<div class="ja">今宵幕が上がれば後悔混じりのshowtime</div>
+<div class="romaji">koyoi maku ga agareba koukai majiri no show time</div>
+<div class="ja">今宵幕が上がれば後悔混じりの開演(show time)</div>
 <div class="zh">今晚帷幕一升起 就是夾雜著後悔的 showtime</div>
 </div>
 
@@ -110,7 +110,7 @@ coverImage: "/covers/nishina/friday-kids-china-town.jpg"
 <div class="lyrics-break"></div>
 
 <div class="lyrics-line">
-<div class="ja">Fried crispy chicken boy</div>
+<div class="ja">揚鶏臆病少年(FRIED CRISPY CHICKEN BOY)</div>
 <div class="zh">Fried crispy chicken boy</div>
 </div>
 
@@ -121,9 +121,9 @@ coverImage: "/covers/nishina/friday-kids-china-town.jpg"
 </div>
 
 <div class="lyrics-line">
-<div class="romaji">mi no ke mo yodatsu shuuchakushin to hametsu e good dive and good night</div>
-<div class="ja">身の毛もよだつ執着心と破滅へgood dive and good night</div>
-<div class="zh">帶著令人毛骨悚然的執著心走向破滅 good dive and good night</div>
+<div class="romaji">mi no ke mo yodatsu shuuchakushin to hametsu e good dive & good night</div>
+<div class="ja">身の毛もよだつ執着心と破滅へgood dive & good night</div>
+<div class="zh">帶著令人毛骨悚然的執著心走向破滅 good dive & good night</div>
 </div>
 
 <div class="lyrics-line">
@@ -165,7 +165,7 @@ coverImage: "/covers/nishina/friday-kids-china-town.jpg"
 
 <div class="lyrics-line">
 <div class="romaji">mittsume no kozou plus boku de five eyes, oh, oh, oh</div>
-<div class="ja">三つ目の小僧＋僕でfive eyes, oh, oh, oh</div>
+<div class="ja">三つ目の小僧＋僕で五眼球(five eyes), oh, oh, oh</div>
 <div class="zh">三眼小僧＋我 總共 five eyes, oh, oh, oh</div>
 </div>
 

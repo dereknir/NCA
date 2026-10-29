@@ -29,9 +29,9 @@ coverImage: "/covers/nishina/1999.jpg"
 <div class="lyrics-section">
 
 <div class="lyrics-line">
-<div class="romaji">keiro no burondo botan no hitomi</div>
-<div class="ja">毛色のブロンド ボタンの瞳</div>
-<div class="zh">金黃色的毛髮 鈕扣做成的眼睛</div>
+<div class="romaji">keito no burondo botan no hitomi</div>
+<div class="ja">毛糸のブロンド ボタンの瞳</div>
+<div class="zh">毛線做的金色頭髮 鈕扣做成的眼睛</div>
 </div>
 
 <div class="lyrics-line">
