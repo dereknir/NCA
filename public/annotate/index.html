@@ -58,7 +58,7 @@
   #nowTitle{font-size:12.5px;color:var(--dim);line-height:1.5}
   #playerError{font-size:12px;color:var(--danger);min-height:14px;line-height:1.5}
   /* sticky: 歌詞欄會自動捲到標題句, 下拉若跟著捲走就「不見了」— 釘在最上面, 任何時候都能改歌/改類別 */
-  #songPicker{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--panel);border:1px solid var(--line);border-radius:8px;margin-bottom:8px;box-shadow:0 6px 14px rgba(0,0,0,.35)}
+  #songPicker{position:sticky;top:-14px;z-index:3;display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--panel);border:1px solid var(--line);border-radius:8px;margin-bottom:8px;box-shadow:0 6px 14px rgba(0,0,0,.35)}
   #songPicker label{font-size:12px;color:var(--dim);flex-shrink:0}
   #songSelect{flex:1;background:var(--panel-2);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:5px 8px;font-family:inherit;font-size:13px}
   #songSelect:focus{outline:1px solid var(--accent);border-color:var(--accent)}
@@ -123,8 +123,37 @@
   .anchor-row .del{color:var(--danger);cursor:pointer;background:none;border:none;font-size:14px;padding:0 4px}
   .done-row{display:flex;gap:8px;margin-top:4px}
 
+  /* ── 遮罩 (上班時不露出影片畫面): 預設遮住, V 切換 / 按住 B 偷看 ── */
+  #playerBox{position:relative}
+  #playerBox iframe{display:block}
+  #cover{position:absolute;inset:0;border-radius:12px;background:var(--panel);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:18px;text-align:center;transition:opacity .12s}
+  #cover.off{opacity:0;pointer-events:none}
+  #cover .ct{font-family:var(--mono);font-size:38px;font-variant-numeric:tabular-nums}
+  #cover .cl{font-size:15px;line-height:1.5;min-height:3em}
+  #cover .cb{width:70%;height:5px;background:var(--panel-2);border-radius:3px;overflow:hidden}
+  #cover .cb i{display:block;height:100%;width:0;background:var(--accent)}
+  #coverBtn.on{border-color:var(--accent)}
+  /* 老闆鍵 ` : 整頁換成白底純文字, 影片暫停 */
+  #boss{position:fixed;inset:0;z-index:200;background:#fff;color:#444;font:13px/1.6 var(--mono);padding:28px 40px;white-space:pre;display:none}
+  #boss.on{display:block}
+
   /* ── 歌詞欄 ── */
-  #lyricsPanel{overflow-y:auto;padding:14px 18px}
+  #lyricsCol{display:flex;flex-direction:column;min-height:0;min-width:0}
+  /* 歌詞欄頂端進度條: 不用碰影片就能拖播放位置; 刻度 = 已標的句子, 拖刻度改時間、右鍵刪掉 */
+  #scrub{flex-shrink:0;display:flex;align-items:center;gap:10px;padding:8px 18px 6px;border-bottom:1px solid var(--line)}
+  #scrubTime{font-family:var(--mono);font-size:12px;color:var(--dim);flex-shrink:0;width:104px}
+  #bar{position:relative;flex:1;height:36px;cursor:pointer;touch-action:none;user-select:none}
+  #bar .trk{position:absolute;left:0;right:0;top:22px;height:6px;background:var(--panel-2);border-radius:3px}
+  #bar .fill{position:absolute;left:0;top:0;bottom:0;background:var(--accent-soft);border-radius:3px}
+  #bar .head{position:absolute;top:16px;width:2px;height:18px;margin-left:-1px;background:#fff;pointer-events:none}
+  #bar .tk{position:absolute;top:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;cursor:ew-resize;z-index:2}
+  #bar .tk span{font-family:var(--mono);font-size:10px;line-height:14px;padding:0 4px;border-radius:3px;background:var(--accent);color:#fff;font-weight:600}
+  #bar .tk::after{content:'';width:2px;height:22px;background:var(--accent)}
+  #bar .tk.est span{background:var(--warn);color:#2a1d00} #bar .tk.est::after{background:var(--warn)}
+  #bar .tk.peer span{background:#7fd1a8;color:#06210f} #bar .tk.peer::after{background:#7fd1a8}
+  #bar .tk.drag{z-index:3} #bar .tk.drag span{background:#fff;color:#000}
+  #bar .tip{position:absolute;top:-20px;transform:translateX(-50%);font-family:var(--mono);font-size:11px;background:#000;color:#fff;padding:0 6px;border-radius:4px;pointer-events:none;white-space:nowrap;display:none;z-index:4}
+  #lyricsPanel{overflow-y:auto;padding:14px 18px;flex:1;min-height:0}
   #lyricsPanel::after{content:'';display:block;height:40vh}  /* 底部留白: 最後幾句也能捲到中央 */
   #lyricsPanel .song-head{font-size:14px;font-weight:600;margin-bottom:10px;color:var(--dim)}
   .lyr{padding:9px 12px;border-radius:10px;cursor:pointer;border:1px solid transparent;position:relative;margin-bottom:2px}
@@ -174,7 +203,10 @@
   <nav id="queuePanel"></nav>
 
   <section id="playerPanel">
-    <div id="player"></div>
+    <div id="playerBox">
+      <div id="player"></div>
+      <div id="cover"><div class="ct" id="coverTime">0.00</div><div class="cl" id="coverLine"></div><div class="cb"><i id="coverBar"></i></div></div>
+    </div>
     <div id="nowTitle">尚未選擇 short</div>
     <div id="playerError"></div>
     <div id="versionPicker"></div>
@@ -186,6 +218,7 @@
       <button id="playBtn">播放/暫停 <kbd>space</kbd></button>
       <button data-seek="0.5">+0.5s</button>
       <button data-seek="2">+2s</button>
+      <button id="coverBtn" title="遮住 / 顯示影片畫面 (按住 B 偷看)">👁 顯示畫面 <kbd>v</kbd></button>
     </div>
     <div style="font-size:12px;color:var(--dim)">點右側歌詞任一句 = 在目前時間打一個 anchor</div>
     <div id="repeatBar"></div>
@@ -197,10 +230,14 @@
     </div>
   </section>
 
-  <section id="lyricsPanel"><div class="song-head">從左側選一支 short 開始</div></section>
+  <section id="lyricsCol">
+    <div id="scrub"><span id="scrubTime">0.0 / 0.0</span><div id="bar"><div class="trk"><div class="fill"></div></div><div class="head"></div><div class="tip"></div></div></div>
+    <section id="lyricsPanel"><div class="song-head">從左側選一支 short 開始</div></section>
+  </section>
 </main>
 
-<footer>快捷鍵: <kbd>space</kbd> 播放/暫停 · <kbd>←</kbd><kbd>→</kbd> ±2 秒 · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd> 選版本 · <kbd>i</kbd> 純演奏 · <kbd>r</kbd> 重複段換下一次 · <kbd>enter</kbd> 完成並跳下一支</footer>
+<div id="boss"></div>
+<footer>快捷鍵: <kbd>space</kbd> 播放/暫停 · <kbd>←</kbd><kbd>→</kbd> ±2 秒 (加 <kbd>shift</kbd> ±0.5) · <kbd>v</kbd> 遮罩 · 按住 <kbd>b</kbd> 偷看 · <kbd>`</kbd> 老闆鍵 · <kbd>⌘z</kbd> 復原 anchor · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd> 選版本 · <kbd>i</kbd> 純演奏 · <kbd>r</kbd> 重複段換下一次 · <kbd>enter</kbd> 完成並跳下一支</footer>
 
 <div id="dropzone">
   <p><b>載入資料</b><br>把 <code>annotation_queue.json</code> 和 <code>lyrics.json</code> 一起拖進來,<br>或用 <code>python -m http.server</code> 啟動後放同目錄自動載入。</p>
@@ -1036,6 +1073,7 @@ function addAnchor(lineIdx){
   if(ann.instrumental){ alert('這支已標為純演奏,無需 anchor。要恢復請點右上「🎵 純演奏」關掉。'); return; }
   if(!ann.songId){ alert('請先在上方選擇歌曲'); return; }
   const t = Math.round(S.player.getCurrentTime()*100)/100;
+  snapAnchors();
   const arr = ann.anchors;
   const dup = arr.find(a=>a.line===lineIdx);
   if(dup) dup.t = t; else arr.push({ t, line:lineIdx });
@@ -1085,7 +1123,7 @@ function renderRepeatBar(){
 }
 
 function renderAnchors(){
-  renderRepeatBar();
+  renderRepeatBar(); renderTicks();
   const el = document.getElementById('anchorList'); el.innerHTML='';
   if(!S.cur) return;
   const effectiveSid = S.ann[S.cur.videoId]?.songId;
@@ -1099,6 +1137,7 @@ function renderAnchors(){
     row.innerHTML = `<span class="at">${a.t.toFixed(2)}s</span><span class="al">${ja}${tag}</span><button class="del">×</button>`;
     row.querySelector('.at').onclick = ()=> S.player.seekTo(a.t, true);
     row.querySelector('.del').onclick = ()=>{
+      snapAnchors();
       S.ann[S.cur.videoId].anchors.splice(i,1);
       persist(); renderAnchors(); renderLyrics();
     };
@@ -1145,6 +1184,127 @@ function followPlaying(el){
   panel.addEventListener('wheel', userScroll, { passive:true });
   panel.addEventListener('touchmove', userScroll, { passive:true });
 })();
+
+/* ---------- 遮罩 + 歌詞欄進度條 (上班時不露出影片畫面也能調時間) ---------- */
+const COVER_KEY = 'nishina-annotator-cover';
+S.covered = (()=>{ try{ return localStorage.getItem(COVER_KEY) !== '0'; }catch(_){ return true; } })();
+S.undo = {};          // videoId → anchors 快照堆疊 (⌘Z)
+S.drag = null;
+function setCover(on){
+  S.covered = on;
+  document.getElementById('cover').classList.toggle('off', !on);
+  const b = document.getElementById('coverBtn');
+  b.classList.toggle('on', !on);
+  b.innerHTML = (on ? '👁 顯示畫面' : '🙈 遮住畫面') + ' <kbd>v</kbd>';
+  try{ localStorage.setItem(COVER_KEY, on ? '1' : '0'); }catch(_){}
+}
+setCover(S.covered);
+document.getElementById('coverBtn').onclick = ()=> setCover(!S.covered);
+document.addEventListener('keyup', e=>{ if(e.code==='KeyB' && S.covered) document.getElementById('cover').classList.remove('off'); });   // 放開 B 遮回去
+document.addEventListener('keydown', e=>{
+  if(e.key !== '`' || e.target.tagName==='INPUT') return;
+  e.preventDefault();
+  S.boss = !S.boss;
+  const el = document.getElementById('boss');
+  if(S.boss && !el.textContent) el.textContent = Array.from({length:48}, (_, i) =>
+    `${String(i+1).padStart(3)}  ${['SELECT','FROM','WHERE','GROUP BY','ORDER BY','LIMIT'][i%6].padEnd(9)} ${['account_id, SUM(amount)','ledger_entries le','le.status = \'posted\'','account_id, period','period DESC','500'][i%6]}`).join('\n');
+  el.classList.toggle('on', S.boss);
+  if(S.boss && S.ready) S.player.pauseVideo();
+});
+
+function snapAnchors(){
+  if(!S.cur) return;
+  const st = S.undo[S.cur.videoId] = S.undo[S.cur.videoId] || [];
+  st.push(S.ann[S.cur.videoId].anchors.map(a => ({...a})));
+  if(st.length > 50) st.shift();
+}
+function undoAnchors(){
+  const st = S.cur && S.undo[S.cur.videoId];
+  if(!st || !st.length) return;
+  S.ann[S.cur.videoId].anchors = st.pop();
+  persist(); renderAnchors(); renderLyrics();
+}
+
+const bar = document.getElementById('bar');
+const MIN_GAP_UI = 0.3;   // 拖刻度時跟前後句至少隔這麼多秒
+const barDur = ()=> (S.ready && S.player.getDuration && S.player.getDuration()) || S.auto[S.cur?.videoId]?.duration || 60;
+const barPct = t => (100 * t / barDur()) + '%';
+const barT = x => { const r = bar.getBoundingClientRect(); return Math.min(Math.max(0, (x - r.left) / r.width), 1) * barDur(); };
+const fmtT = t => (t || 0).toFixed(1);
+function lineAtTime(t){
+  let l = null;
+  for(const a of S.ann[S.cur?.videoId]?.anchors || []){ if(t >= a.t - 0.01) l = a.line; else break; }
+  return l;
+}
+function renderTicks(){
+  bar.querySelectorAll('.tk').forEach(e => e.remove());
+  if(!S.cur) return;
+  const sugs = S.auto[S.cur.videoId]?.anchors || [];
+  for(const a of S.ann[S.cur.videoId].anchors){
+    const sug = sugs.find(x => x.line === a.line && Math.abs(x.t - a.t) < 0.01);
+    const d = document.createElement('div');
+    d.className = 'tk' + (sug?.peer ? ' peer' : sug?.est ? ' est' : '');
+    d.style.left = barPct(a.t);
+    d.innerHTML = `<span>${a.line}</span>`;
+    d.title = `第 ${a.line} 句 ${a.t.toFixed(2)}s · 拖 = 改時間 · 右鍵 = 刪掉`;
+    d.onpointerdown = e => { e.stopPropagation(); if(e.button !== 0) return; snapAnchors(); barStart(e, { a, el:d }); };
+    d.oncontextmenu = e => {
+      e.preventDefault(); e.stopPropagation(); snapAnchors();
+      const arr = S.ann[S.cur.videoId].anchors; arr.splice(arr.indexOf(a), 1);
+      persist(); renderAnchors(); renderLyrics();
+    };
+    bar.appendChild(d);
+  }
+}
+function barStart(e, tick){
+  if(!S.cur) return;
+  S.drag = tick || { seek:true };
+  bar.setPointerCapture(e.pointerId);
+  if(tick) tick.el.classList.add('drag');
+  barMove(e);
+}
+function barMove(e){
+  if(!S.cur) return;
+  const t = barT(e.clientX), tip = bar.querySelector('.tip');
+  tip.style.display = 'block'; tip.style.left = barPct(t);
+  if(!S.drag){ const l = lineAtTime(t); tip.textContent = fmtT(t) + 's' + (l != null ? ` · 第 ${l} 句` : ''); return; }
+  if(S.drag.seek){ tip.textContent = fmtT(t) + 's'; if(S.ready) S.player.seekTo(t, false); barPaint(t); return; }
+  // 拖刻度: 不越過前後兩句 (保持遞增), 播放頭跟過去方便馬上聽
+  const arr = S.ann[S.cur.videoId].anchors, k = arr.indexOf(S.drag.a);
+  const lo = k > 0 ? arr[k-1].t + MIN_GAP_UI : 0, hi = k + 1 < arr.length ? arr[k+1].t - MIN_GAP_UI : barDur();
+  S.drag.a.t = Math.round(Math.min(Math.max(t, lo), hi) * 100) / 100;
+  S.drag.el.style.left = barPct(S.drag.a.t);
+  tip.textContent = `第 ${S.drag.a.line} 句 → ${S.drag.a.t.toFixed(2)}s`;
+  if(S.ready) S.player.seekTo(S.drag.a.t, false);
+  barPaint(S.drag.a.t);
+}
+bar.onpointerdown = e => { if(e.button === 0) barStart(e); };
+bar.onpointermove = barMove;
+bar.onpointerleave = ()=>{ if(!S.drag) bar.querySelector('.tip').style.display = 'none'; };
+bar.onpointerup = e => {
+  const d = S.drag; if(!d) return;
+  S.drag = null; bar.querySelector('.tip').style.display = 'none';
+  if(d.seek){ if(S.ready) S.player.seekTo(barT(e.clientX), true); return; }
+  if(S.ready) S.player.seekTo(d.a.t, true);
+  persist(); renderAnchors(); renderLyrics();
+};
+function barPaint(t){
+  const d = barDur();
+  bar.querySelector('.fill').style.width = barPct(t);
+  bar.querySelector('.head').style.left = barPct(t);
+  document.getElementById('scrubTime').textContent = `${fmtT(t)} / ${fmtT(d)}`;
+  document.getElementById('coverTime').textContent = t.toFixed(2);
+  document.getElementById('coverBar').style.width = barPct(t);
+  const l = lineAtTime(t), song = S.songs[S.ann[S.cur.videoId]?.songId];
+  document.getElementById('coverLine').textContent = (l != null && song?.lyric_lines.find(x => x.index === l)?.ja) || '';
+}
+setInterval(()=>{
+  if(!S.ready || !S.cur || S.drag) return;
+  const t = S.player.getCurrentTime();
+  if(typeof t === 'number') barPaint(t);
+}, 100);
+let tickDur = 0;          // 影片長度拿到後 (換片後幾百 ms) 刻度位置要重算
+setInterval(()=>{ const d = barDur(); if(S.cur && d !== tickDur){ tickDur = d; renderTicks(); } }, 500);
 
 /* ---------- 完成/略過/匯出/匯入 ---------- */
 function finishCurrent(status){
@@ -1197,9 +1357,13 @@ function togglePlay(){
 }
 document.addEventListener('keydown', e=>{
   if(e.target.tagName==='INPUT' || e.target.tagName==='SELECT') return;
+  if(S.boss) return;
   if(e.code==='Space'){ e.preventDefault(); togglePlay(); }
-  if(e.code==='ArrowLeft' && S.ready) S.player.seekTo(S.player.getCurrentTime()-2, true);
-  if(e.code==='ArrowRight'&& S.ready) S.player.seekTo(S.player.getCurrentTime()+2, true);
+  if(e.code==='ArrowLeft' && S.ready) S.player.seekTo(S.player.getCurrentTime()-(e.shiftKey ? 0.5 : 2), true);
+  if(e.code==='ArrowRight'&& S.ready) S.player.seekTo(S.player.getCurrentTime()+(e.shiftKey ? 0.5 : 2), true);
+  if(e.code==='KeyV' && !e.metaKey && !e.ctrlKey) setCover(!S.covered);
+  if(e.code==='KeyB' && !e.repeat && S.covered) document.getElementById('cover').classList.add('off');
+  if((e.metaKey || e.ctrlKey) && e.code==='KeyZ'){ e.preventDefault(); undoAnchors(); }
   if(e.code==='Enter' && S.cur) (S.reviewOnly === 'conflict' ? confirmSongAndNext() : finishCurrent('done'));
   // 1-5 數字鍵 = 快速選版本(不論 event.code 是 Digit1 還是 Numpad1)
   const idx = { Digit1:0, Digit2:1, Digit3:2, Digit4:3, Digit5:4,
