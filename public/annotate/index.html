@@ -722,6 +722,7 @@ function renderLyrics(){
       `<div class="song-head" style="color:var(--ok)">${cat.label} — 已分類完成 ✓</div>` +
       `<div style="color:var(--dim);font-size:12px;line-height:1.6;padding:8px 2px">
         這支已標為「${cat.short}」,無需 anchor · 狀態自動設為完成。<br>
+        ${extra ? '<span style="color:#9fb6ff">在下方選好細節 (可略), 按 Enter 下一支。</span><br>' : ''}
         <span style="color:#5a6784">
           若分錯類,從上方下拉改選其他類別/歌曲即可 (會清掉 done 狀態)。
         </span>
@@ -790,15 +791,19 @@ function assignSong(value){
     // 機器標的 (auto) 被改歌 = 建議作廢, 一樣退回 pending 等人工打
     ann.status = 'pending';
   }
+  // 機器聽到的歌多半就是出演現場唱的那首 → 先帶入, 錯了再改
+  if(value === '__live_song' && !ann.liveSongId && S.songs[prevSid]) ann.liveSongId = prevSid;
   persist(); updateProgress();
+  // 巡演花絮 / 出演演唱還要挑巡演、場次 + 歌 → 留在這支, 選完按 Enter 才下一支
+  const needsDetail = value === '__tour_recap' || value === '__live_song';
   // 🤖 待審模式: 分完類直接跳下一支待審, 不要跳去未匹配桶
-  if(S.reviewOnly && NON_SONG_KEY_SET.has(value)){
+  if(S.reviewOnly && NON_SONG_KEY_SET.has(value) && !needsDetail){
     const next = nextInQueue(x => isReviewItem(x.videoId));
     if(next){ loadShort(next); return true; }
   }
   // Phase 1 加速: 如果剛才是在未匹配 item 上、且選了一首歌 (非清空)
   // → 自動跳到下一個未匹配, 免得手動捲回 __unmatched 找
-  if(!S.reviewOnly && wasUnmatched && value){
+  if(!S.reviewOnly && wasUnmatched && value && !needsDetail){
     const next = findNextUnmatched();
     if(next){ loadShort(next); return true; }
   }
@@ -879,6 +884,7 @@ function bindTourPicker(){
     const v = sel.value || null;
     S.ann[S.cur.videoId].tourName = v;
     persist(); renderQueue();
+    sel.blur();   // 讓 Enter 直接「完成, 下一支」
   };
 }
 
@@ -917,11 +923,13 @@ function bindLiveSongPicker(){
     if(!S.cur) return;
     S.ann[S.cur.videoId].appearanceName = appSel.value || null;
     persist(); renderQueue();
+    appSel.blur();
   };
   if(songSel) songSel.onchange = () => {
     if(!S.cur) return;
     S.ann[S.cur.videoId].liveSongId = songSel.value || null;
     persist(); renderQueue();
+    songSel.blur();
   };
 }
 
