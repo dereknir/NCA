@@ -1,10 +1,10 @@
 {
   "meta": {
     "song_count": 36,
-    "short_count": 474,
+    "short_count": 489,
     "skipped": {
       "pending": 84,
-      "auto": 669,
+      "auto": 654,
       "skip": 0,
       "no_song": 0,
       "no_anchors": 1,
@@ -627,6 +627,29 @@
             "line": 7
           }
         ]
+      },
+      {
+        "videoId": "GvoMJZs9n00",
+        "title": "good night",
+        "url": "https://www.youtube.com/shorts/GvoMJZs9n00",
+        "thumbnail": "https://i.ytimg.com/vi/GvoMJZs9n00/hqdefault.jpg",
+        "viewCount": 1900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.02,
+            "line": 19
+          },
+          {
+            "t": 3.38,
+            "line": 20
+          },
+          {
+            "t": 12.99,
+            "line": 21
+          }
+        ]
       }
     ],
     "nishina-plum": [
@@ -978,6 +1001,41 @@
         ]
       },
       {
+        "videoId": "DNAHt3esfhU",
+        "title": "Bye-bye, sweet innocence",
+        "url": "https://www.youtube.com/shorts/DNAHt3esfhU",
+        "thumbnail": "https://i.ytimg.com/vi/DNAHt3esfhU/hqdefault.jpg",
+        "viewCount": 21000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 2.41,
+            "line": 1
+          },
+          {
+            "t": 4.82,
+            "line": 2
+          },
+          {
+            "t": 9.39,
+            "line": 3
+          },
+          {
+            "t": 12.2,
+            "line": 4
+          },
+          {
+            "t": 14.6,
+            "line": 5
+          }
+        ]
+      },
+      {
         "videoId": "t9PlQT5hJ24",
         "title": "バイバイ朝が連れ去った",
         "url": "https://www.youtube.com/shorts/t9PlQT5hJ24",
@@ -1044,6 +1102,41 @@
           {
             "t": 14.81,
             "line": 18
+          }
+        ]
+      },
+      {
+        "videoId": "rfDpFtLCv44",
+        "title": "Don’t let me off so nice",
+        "url": "https://www.youtube.com/shorts/rfDpFtLCv44",
+        "thumbnail": "https://i.ytimg.com/vi/rfDpFtLCv44/hqdefault.jpg",
+        "viewCount": 17000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 2.34,
+            "line": 1
+          },
+          {
+            "t": 4.75,
+            "line": 2
+          },
+          {
+            "t": 9.32,
+            "line": 3
+          },
+          {
+            "t": 12.13,
+            "line": 4
+          },
+          {
+            "t": 14.53,
+            "line": 5
           }
         ]
       },
@@ -3027,6 +3120,33 @@
         ]
       },
       {
+        "videoId": "wF9Ahg1rwO0",
+        "title": "振り向けばまだそこに笑い声",
+        "url": "https://www.youtube.com/shorts/wF9Ahg1rwO0",
+        "thumbnail": "https://i.ytimg.com/vi/wF9Ahg1rwO0/hqdefault.jpg",
+        "viewCount": 4500,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 16
+          },
+          {
+            "t": 7.15,
+            "line": 17
+          },
+          {
+            "t": 14,
+            "line": 18
+          },
+          {
+            "t": 19.73,
+            "line": 19
+          }
+        ]
+      },
+      {
         "videoId": "6Z37MZ-7_6o",
         "title": "Farewell, my friend, forget it all happened",
         "url": "https://www.youtube.com/shorts/6Z37MZ-7_6o",
@@ -3430,6 +3550,49 @@
       }
     ],
     "nishina-adaada": [
+      {
+        "videoId": "oMMs52fiPWI",
+        "title": "We'll meet in Kabukicho",
+        "url": "https://www.youtube.com/shorts/oMMs52fiPWI",
+        "thumbnail": "https://i.ytimg.com/vi/oMMs52fiPWI/hqdefault.jpg",
+        "viewCount": 15000,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 56
+          },
+          {
+            "t": 1.5,
+            "line": 57
+          },
+          {
+            "t": 4.37,
+            "line": 58
+          },
+          {
+            "t": 6.84,
+            "line": 59
+          },
+          {
+            "t": 9.59,
+            "line": 60
+          },
+          {
+            "t": 11.82,
+            "line": 61
+          },
+          {
+            "t": 14.3,
+            "line": 62
+          },
+          {
+            "t": 16.61,
+            "line": 63
+          }
+        ]
+      },
       {
         "videoId": "W67a8W6trt8",
         "title": "身を焦がすほどの恋がまたしたい",
@@ -6234,6 +6397,593 @@
           {
             "t": 17.21,
             "line": 40
+          }
+        ]
+      }
+    ],
+    "nishina-u-plus": [
+      {
+        "videoId": "0oWYtFMdnbQ",
+        "title": "何者になれずとももうきっと大丈夫",
+        "url": "https://www.youtube.com/shorts/0oWYtFMdnbQ",
+        "thumbnail": "https://i.ytimg.com/vi/0oWYtFMdnbQ/hqdefault.jpg",
+        "viewCount": 65000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.26,
+            "line": 5
+          },
+          {
+            "t": 4.64,
+            "line": 6
+          },
+          {
+            "t": 6.7,
+            "line": 7
+          },
+          {
+            "t": 9.36,
+            "line": 8
+          },
+          {
+            "t": 13.76,
+            "line": 9
+          },
+          {
+            "t": 15.92,
+            "line": 10
+          },
+          {
+            "t": 18.92,
+            "line": 11
+          }
+        ]
+      },
+      {
+        "videoId": "gAubdTIBSkE",
+        "title": "The era will be over.",
+        "url": "https://www.youtube.com/shorts/gAubdTIBSkE",
+        "thumbnail": "https://i.ytimg.com/vi/gAubdTIBSkE/hqdefault.jpg",
+        "viewCount": 47000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 26
+          },
+          {
+            "t": 2.44,
+            "line": 27
+          },
+          {
+            "t": 4.64,
+            "line": 28
+          },
+          {
+            "t": 7.12,
+            "line": 29
+          },
+          {
+            "t": 9.44,
+            "line": 30
+          },
+          {
+            "t": 12.22,
+            "line": 31
+          },
+          {
+            "t": 14.56,
+            "line": 32
+          },
+          {
+            "t": 19.56,
+            "line": 33
+          }
+        ]
+      },
+      {
+        "videoId": "Hl9dyNDL1TQ",
+        "title": "誰もが幻を信じてやまない",
+        "url": "https://www.youtube.com/shorts/Hl9dyNDL1TQ",
+        "thumbnail": "https://i.ytimg.com/vi/Hl9dyNDL1TQ/hqdefault.jpg",
+        "viewCount": 45000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.16,
+            "line": 28
+          },
+          {
+            "t": 2.27,
+            "line": 29
+          },
+          {
+            "t": 4.8,
+            "line": 30
+          },
+          {
+            "t": 7.44,
+            "line": 31
+          },
+          {
+            "t": 9.6,
+            "line": 32
+          },
+          {
+            "t": 14.6,
+            "line": 33
+          }
+        ]
+      },
+      {
+        "videoId": "glcIiRfn-eI",
+        "title": "五月蝿いな",
+        "url": "https://www.youtube.com/shorts/glcIiRfn-eI",
+        "thumbnail": "https://i.ytimg.com/vi/glcIiRfn-eI/hqdefault.jpg",
+        "viewCount": 43000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 5
+          },
+          {
+            "t": 4.56,
+            "line": 6
+          },
+          {
+            "t": 6.64,
+            "line": 7
+          },
+          {
+            "t": 9.96,
+            "line": 8
+          }
+        ]
+      },
+      {
+        "videoId": "Q8C_OuV2Onk",
+        "title": "誰もが幻を信じてやまない",
+        "url": "https://www.youtube.com/shorts/Q8C_OuV2Onk",
+        "thumbnail": "https://i.ytimg.com/vi/Q8C_OuV2Onk/hqdefault.jpg",
+        "viewCount": 23000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.48,
+            "line": 18
+          },
+          {
+            "t": 2.52,
+            "line": 19
+          },
+          {
+            "t": 4.56,
+            "line": 20
+          },
+          {
+            "t": 7.36,
+            "line": 21
+          },
+          {
+            "t": 9.66,
+            "line": 22
+          },
+          {
+            "t": 11.36,
+            "line": 23
+          },
+          {
+            "t": 13.26,
+            "line": 24
+          }
+        ]
+      },
+      {
+        "videoId": "vwzwsZqouu0",
+        "title": "誰もが幻を信じてやまない",
+        "url": "https://www.youtube.com/shorts/vwzwsZqouu0",
+        "thumbnail": "https://i.ytimg.com/vi/vwzwsZqouu0/hqdefault.jpg",
+        "viewCount": 18000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 18
+          },
+          {
+            "t": 2.76,
+            "line": 19
+          },
+          {
+            "t": 4.4,
+            "line": 20
+          },
+          {
+            "t": 7.14,
+            "line": 21
+          },
+          {
+            "t": 9.4,
+            "line": 22
+          },
+          {
+            "t": 12.25,
+            "line": 23
+          },
+          {
+            "t": 14.53,
+            "line": 24
+          }
+        ]
+      },
+      {
+        "videoId": "XLbZ4y-ULyw",
+        "title": "It will all be fine in the end",
+        "url": "https://www.youtube.com/shorts/XLbZ4y-ULyw",
+        "thumbnail": "https://i.ytimg.com/vi/XLbZ4y-ULyw/hqdefault.jpg",
+        "viewCount": 17000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 26
+          },
+          {
+            "t": 3.04,
+            "line": 27
+          },
+          {
+            "t": 5.23,
+            "line": 28
+          },
+          {
+            "t": 7.34,
+            "line": 29
+          },
+          {
+            "t": 9.18,
+            "line": 30
+          },
+          {
+            "t": 12.25,
+            "line": 31
+          },
+          {
+            "t": 14.67,
+            "line": 32
+          },
+          {
+            "t": 19.67,
+            "line": 33
+          }
+        ]
+      },
+      {
+        "videoId": "zUnegWtSQkI",
+        "title": "何者になれずとも もうきっと大丈夫",
+        "url": "https://www.youtube.com/shorts/zUnegWtSQkI",
+        "thumbnail": "https://i.ytimg.com/vi/zUnegWtSQkI/hqdefault.jpg",
+        "viewCount": 12000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 26
+          },
+          {
+            "t": 1.76,
+            "line": 27
+          },
+          {
+            "t": 4.8,
+            "line": 28
+          },
+          {
+            "t": 6.88,
+            "line": 29
+          },
+          {
+            "t": 9.44,
+            "line": 30
+          },
+          {
+            "t": 11.83,
+            "line": 31
+          },
+          {
+            "t": 14.23,
+            "line": 32
+          }
+        ]
+      },
+      {
+        "videoId": "rp0lhqCDNXc",
+        "title": "The era will be over.",
+        "url": "https://www.youtube.com/shorts/rp0lhqCDNXc",
+        "thumbnail": "https://i.ytimg.com/vi/rp0lhqCDNXc/hqdefault.jpg",
+        "viewCount": 10000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 26
+          },
+          {
+            "t": 3.68,
+            "line": 27
+          },
+          {
+            "t": 5.33,
+            "line": 28
+          },
+          {
+            "t": 7.44,
+            "line": 29
+          },
+          {
+            "t": 9.28,
+            "line": 30
+          },
+          {
+            "t": 12.35,
+            "line": 31
+          },
+          {
+            "t": 14.77,
+            "line": 32
+          },
+          {
+            "t": 19.77,
+            "line": 33
+          }
+        ]
+      },
+      {
+        "videoId": "ETyT6ROuvNk",
+        "title": "超えられないのは本当に線か",
+        "url": "https://www.youtube.com/shorts/ETyT6ROuvNk",
+        "thumbnail": "https://i.ytimg.com/vi/ETyT6ROuvNk/hqdefault.jpg",
+        "viewCount": 10000,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 2.64,
+            "line": 1
+          },
+          {
+            "t": 7.04,
+            "line": 2
+          }
+        ]
+      },
+      {
+        "videoId": "bD9LjxCv4SY",
+        "title": "誰もが幻を信じてやまない",
+        "url": "https://www.youtube.com/shorts/bD9LjxCv4SY",
+        "thumbnail": "https://i.ytimg.com/vi/bD9LjxCv4SY/hqdefault.jpg",
+        "viewCount": 7800,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.16,
+            "line": 22
+          },
+          {
+            "t": 2.59,
+            "line": 23
+          },
+          {
+            "t": 4.48,
+            "line": 24
+          },
+          {
+            "t": 9.67,
+            "line": 26
+          },
+          {
+            "t": 12.03,
+            "line": 27
+          }
+        ]
+      },
+      {
+        "videoId": "T8Oq8RInoV4",
+        "title": "誰もが幻を信じてやまない",
+        "url": "https://www.youtube.com/shorts/T8Oq8RInoV4",
+        "thumbnail": "https://i.ytimg.com/vi/T8Oq8RInoV4/hqdefault.jpg",
+        "viewCount": 6900,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.32,
+            "line": 18
+          },
+          {
+            "t": 2.72,
+            "line": 19
+          },
+          {
+            "t": 4.86,
+            "line": 20
+          },
+          {
+            "t": 7.12,
+            "line": 21
+          },
+          {
+            "t": 9.52,
+            "line": 22
+          },
+          {
+            "t": 12.64,
+            "line": 23
+          },
+          {
+            "t": 14.56,
+            "line": 24
+          }
+        ]
+      },
+      {
+        "videoId": "B1Do7lgri3Y",
+        "title": "誰もが幻を信じてやまない",
+        "url": "https://www.youtube.com/shorts/B1Do7lgri3Y",
+        "thumbnail": "https://i.ytimg.com/vi/B1Do7lgri3Y/hqdefault.jpg",
+        "viewCount": 6700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 26
+          },
+          {
+            "t": 2.53,
+            "line": 27
+          },
+          {
+            "t": 5.03,
+            "line": 28
+          },
+          {
+            "t": 7.09,
+            "line": 29
+          },
+          {
+            "t": 9.64,
+            "line": 30
+          },
+          {
+            "t": 11.97,
+            "line": 31
+          },
+          {
+            "t": 14.27,
+            "line": 32
+          }
+        ]
+      },
+      {
+        "videoId": "MvhIttp8-aQ",
+        "title": "無自覚の中で傷つけあったエイリアンズ 愛おしいんだ",
+        "url": "https://www.youtube.com/shorts/MvhIttp8-aQ",
+        "thumbnail": "https://i.ytimg.com/vi/MvhIttp8-aQ/hqdefault.jpg",
+        "viewCount": 5700,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 12
+          },
+          {
+            "t": 4.59,
+            "line": 13
+          },
+          {
+            "t": 7.61,
+            "line": 14
+          },
+          {
+            "t": 10.41,
+            "line": 15
+          },
+          {
+            "t": 13.44,
+            "line": 16
+          },
+          {
+            "t": 17.44,
+            "line": 17
+          }
+        ]
+      },
+      {
+        "videoId": "qnVwFLQmilc",
+        "title": "The era will be over.",
+        "url": "https://www.youtube.com/shorts/qnVwFLQmilc",
+        "thumbnail": "https://i.ytimg.com/vi/qnVwFLQmilc/hqdefault.jpg",
+        "viewCount": 4900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.24,
+            "line": 18
+          },
+          {
+            "t": 3.3,
+            "line": 19
+          },
+          {
+            "t": 4.94,
+            "line": 20
+          },
+          {
+            "t": 7.68,
+            "line": 21
+          },
+          {
+            "t": 9.94,
+            "line": 22
+          },
+          {
+            "t": 12.79,
+            "line": 23
+          },
+          {
+            "t": 15.07,
+            "line": 24
+          },
+          {
+            "t": 19.7,
+            "line": 26
+          },
+          {
+            "t": 22.06,
+            "line": 27
+          },
+          {
+            "t": 24.5,
+            "line": 28
+          },
+          {
+            "t": 26.8,
+            "line": 29
+          },
+          {
+            "t": 29.24,
+            "line": 30
+          },
+          {
+            "t": 31.66,
+            "line": 31
+          },
+          {
+            "t": 34.06,
+            "line": 32
+          },
+          {
+            "t": 39,
+            "line": 33
           }
         ]
       }
@@ -10755,6 +11505,60 @@
         ]
       },
       {
+        "videoId": "9LekE4TEph4",
+        "title": "ai,—soon becomes a harmony",
+        "url": "https://www.youtube.com/shorts/9LekE4TEph4",
+        "thumbnail": "https://i.ytimg.com/vi/9LekE4TEph4/hqdefault.jpg",
+        "viewCount": 6400,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 47
+          },
+          {
+            "t": 3.5,
+            "line": 48
+          },
+          {
+            "t": 6.29,
+            "line": 49
+          },
+          {
+            "t": 9.05,
+            "line": 50
+          }
+        ]
+      },
+      {
+        "videoId": "uISv5za3XVE",
+        "title": "ai,—soon becomes a harmony",
+        "url": "https://www.youtube.com/shorts/uISv5za3XVE",
+        "thumbnail": "https://i.ytimg.com/vi/uISv5za3XVE/hqdefault.jpg",
+        "viewCount": 6300,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 47
+          },
+          {
+            "t": 3.31,
+            "line": 48
+          },
+          {
+            "t": 6.1,
+            "line": 49
+          },
+          {
+            "t": 8.86,
+            "line": 50
+          }
+        ]
+      },
+      {
         "videoId": "Yz_Z2hBNY7Y",
         "title": "この世の全て最悪で手放したい時もある",
         "url": "https://www.youtube.com/shorts/Yz_Z2hBNY7Y",
@@ -10852,6 +11656,33 @@
         ]
       },
       {
+        "videoId": "8_mX10NzV5U",
+        "title": "ai,—soon becomes a harmony",
+        "url": "https://www.youtube.com/shorts/8_mX10NzV5U",
+        "thumbnail": "https://i.ytimg.com/vi/8_mX10NzV5U/hqdefault.jpg",
+        "viewCount": 5300,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.49,
+            "line": 47
+          },
+          {
+            "t": 3.16,
+            "line": 48
+          },
+          {
+            "t": 6.53,
+            "line": 49
+          },
+          {
+            "t": 9.16,
+            "line": 50
+          }
+        ]
+      },
+      {
         "videoId": "2257QnSv5nQ",
         "title": "この世の全て最悪で手放したい時もある",
         "url": "https://www.youtube.com/shorts/2257QnSv5nQ",
@@ -10875,6 +11706,33 @@
           {
             "t": 8.48,
             "line": 43
+          }
+        ]
+      },
+      {
+        "videoId": "uWfPFM12L1o",
+        "title": "ai,—soon becomes a harmony",
+        "url": "https://www.youtube.com/shorts/uWfPFM12L1o",
+        "thumbnail": "https://i.ytimg.com/vi/uWfPFM12L1o/hqdefault.jpg",
+        "viewCount": 4900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 47
+          },
+          {
+            "t": 3.76,
+            "line": 48
+          },
+          {
+            "t": 6.6,
+            "line": 49
+          },
+          {
+            "t": 10.16,
+            "line": 50
           }
         ]
       },
@@ -12923,511 +13781,6 @@
           {
             "t": 18.22,
             "line": 29
-          }
-        ]
-      }
-    ],
-    "nishina-u-plus": [
-      {
-        "videoId": "0oWYtFMdnbQ",
-        "title": "何者になれずとももうきっと大丈夫",
-        "url": "https://www.youtube.com/shorts/0oWYtFMdnbQ",
-        "thumbnail": "https://i.ytimg.com/vi/0oWYtFMdnbQ/hqdefault.jpg",
-        "viewCount": 65000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.26,
-            "line": 5
-          },
-          {
-            "t": 4.64,
-            "line": 6
-          },
-          {
-            "t": 6.7,
-            "line": 7
-          },
-          {
-            "t": 9.36,
-            "line": 8
-          },
-          {
-            "t": 13.76,
-            "line": 9
-          },
-          {
-            "t": 15.92,
-            "line": 10
-          },
-          {
-            "t": 18.92,
-            "line": 11
-          }
-        ]
-      },
-      {
-        "videoId": "gAubdTIBSkE",
-        "title": "The era will be over.",
-        "url": "https://www.youtube.com/shorts/gAubdTIBSkE",
-        "thumbnail": "https://i.ytimg.com/vi/gAubdTIBSkE/hqdefault.jpg",
-        "viewCount": 47000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 26
-          },
-          {
-            "t": 2.44,
-            "line": 27
-          },
-          {
-            "t": 4.64,
-            "line": 28
-          },
-          {
-            "t": 7.12,
-            "line": 29
-          },
-          {
-            "t": 9.44,
-            "line": 30
-          },
-          {
-            "t": 12.22,
-            "line": 31
-          },
-          {
-            "t": 14.56,
-            "line": 32
-          },
-          {
-            "t": 19.56,
-            "line": 33
-          }
-        ]
-      },
-      {
-        "videoId": "Hl9dyNDL1TQ",
-        "title": "誰もが幻を信じてやまない",
-        "url": "https://www.youtube.com/shorts/Hl9dyNDL1TQ",
-        "thumbnail": "https://i.ytimg.com/vi/Hl9dyNDL1TQ/hqdefault.jpg",
-        "viewCount": 45000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.16,
-            "line": 28
-          },
-          {
-            "t": 2.27,
-            "line": 29
-          },
-          {
-            "t": 4.8,
-            "line": 30
-          },
-          {
-            "t": 7.44,
-            "line": 31
-          },
-          {
-            "t": 9.6,
-            "line": 32
-          },
-          {
-            "t": 14.6,
-            "line": 33
-          }
-        ]
-      },
-      {
-        "videoId": "glcIiRfn-eI",
-        "title": "五月蝿いな",
-        "url": "https://www.youtube.com/shorts/glcIiRfn-eI",
-        "thumbnail": "https://i.ytimg.com/vi/glcIiRfn-eI/hqdefault.jpg",
-        "viewCount": 43000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 5
-          },
-          {
-            "t": 4.56,
-            "line": 6
-          },
-          {
-            "t": 6.64,
-            "line": 7
-          },
-          {
-            "t": 9.96,
-            "line": 8
-          }
-        ]
-      },
-      {
-        "videoId": "Q8C_OuV2Onk",
-        "title": "誰もが幻を信じてやまない",
-        "url": "https://www.youtube.com/shorts/Q8C_OuV2Onk",
-        "thumbnail": "https://i.ytimg.com/vi/Q8C_OuV2Onk/hqdefault.jpg",
-        "viewCount": 23000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.48,
-            "line": 18
-          },
-          {
-            "t": 2.52,
-            "line": 19
-          },
-          {
-            "t": 4.56,
-            "line": 20
-          },
-          {
-            "t": 7.36,
-            "line": 21
-          },
-          {
-            "t": 9.66,
-            "line": 22
-          },
-          {
-            "t": 11.36,
-            "line": 23
-          },
-          {
-            "t": 13.26,
-            "line": 24
-          }
-        ]
-      },
-      {
-        "videoId": "zUnegWtSQkI",
-        "title": "何者になれずとも もうきっと大丈夫",
-        "url": "https://www.youtube.com/shorts/zUnegWtSQkI",
-        "thumbnail": "https://i.ytimg.com/vi/zUnegWtSQkI/hqdefault.jpg",
-        "viewCount": 12000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 26
-          },
-          {
-            "t": 1.76,
-            "line": 27
-          },
-          {
-            "t": 4.8,
-            "line": 28
-          },
-          {
-            "t": 6.88,
-            "line": 29
-          },
-          {
-            "t": 9.44,
-            "line": 30
-          },
-          {
-            "t": 11.83,
-            "line": 31
-          },
-          {
-            "t": 14.23,
-            "line": 32
-          }
-        ]
-      },
-      {
-        "videoId": "rp0lhqCDNXc",
-        "title": "The era will be over.",
-        "url": "https://www.youtube.com/shorts/rp0lhqCDNXc",
-        "thumbnail": "https://i.ytimg.com/vi/rp0lhqCDNXc/hqdefault.jpg",
-        "viewCount": 10000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 26
-          },
-          {
-            "t": 3.68,
-            "line": 27
-          },
-          {
-            "t": 5.33,
-            "line": 28
-          },
-          {
-            "t": 7.44,
-            "line": 29
-          },
-          {
-            "t": 9.28,
-            "line": 30
-          },
-          {
-            "t": 12.35,
-            "line": 31
-          },
-          {
-            "t": 14.77,
-            "line": 32
-          },
-          {
-            "t": 19.77,
-            "line": 33
-          }
-        ]
-      },
-      {
-        "videoId": "ETyT6ROuvNk",
-        "title": "超えられないのは本当に線か",
-        "url": "https://www.youtube.com/shorts/ETyT6ROuvNk",
-        "thumbnail": "https://i.ytimg.com/vi/ETyT6ROuvNk/hqdefault.jpg",
-        "viewCount": 10000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 0
-          },
-          {
-            "t": 2.64,
-            "line": 1
-          },
-          {
-            "t": 7.04,
-            "line": 2
-          }
-        ]
-      },
-      {
-        "videoId": "bD9LjxCv4SY",
-        "title": "誰もが幻を信じてやまない",
-        "url": "https://www.youtube.com/shorts/bD9LjxCv4SY",
-        "thumbnail": "https://i.ytimg.com/vi/bD9LjxCv4SY/hqdefault.jpg",
-        "viewCount": 7800,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.16,
-            "line": 22
-          },
-          {
-            "t": 2.59,
-            "line": 23
-          },
-          {
-            "t": 4.48,
-            "line": 24
-          },
-          {
-            "t": 9.67,
-            "line": 26
-          },
-          {
-            "t": 12.03,
-            "line": 27
-          }
-        ]
-      },
-      {
-        "videoId": "T8Oq8RInoV4",
-        "title": "誰もが幻を信じてやまない",
-        "url": "https://www.youtube.com/shorts/T8Oq8RInoV4",
-        "thumbnail": "https://i.ytimg.com/vi/T8Oq8RInoV4/hqdefault.jpg",
-        "viewCount": 6900,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.32,
-            "line": 18
-          },
-          {
-            "t": 2.72,
-            "line": 19
-          },
-          {
-            "t": 4.86,
-            "line": 20
-          },
-          {
-            "t": 7.12,
-            "line": 21
-          },
-          {
-            "t": 9.52,
-            "line": 22
-          },
-          {
-            "t": 12.64,
-            "line": 23
-          },
-          {
-            "t": 14.56,
-            "line": 24
-          }
-        ]
-      },
-      {
-        "videoId": "B1Do7lgri3Y",
-        "title": "誰もが幻を信じてやまない",
-        "url": "https://www.youtube.com/shorts/B1Do7lgri3Y",
-        "thumbnail": "https://i.ytimg.com/vi/B1Do7lgri3Y/hqdefault.jpg",
-        "viewCount": 6700,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 26
-          },
-          {
-            "t": 2.53,
-            "line": 27
-          },
-          {
-            "t": 5.03,
-            "line": 28
-          },
-          {
-            "t": 7.09,
-            "line": 29
-          },
-          {
-            "t": 9.64,
-            "line": 30
-          },
-          {
-            "t": 11.97,
-            "line": 31
-          },
-          {
-            "t": 14.27,
-            "line": 32
-          }
-        ]
-      },
-      {
-        "videoId": "MvhIttp8-aQ",
-        "title": "無自覚の中で傷つけあったエイリアンズ 愛おしいんだ",
-        "url": "https://www.youtube.com/shorts/MvhIttp8-aQ",
-        "thumbnail": "https://i.ytimg.com/vi/MvhIttp8-aQ/hqdefault.jpg",
-        "viewCount": 5700,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 12
-          },
-          {
-            "t": 4.59,
-            "line": 13
-          },
-          {
-            "t": 7.61,
-            "line": 14
-          },
-          {
-            "t": 10.41,
-            "line": 15
-          },
-          {
-            "t": 13.44,
-            "line": 16
-          },
-          {
-            "t": 17.44,
-            "line": 17
-          }
-        ]
-      },
-      {
-        "videoId": "qnVwFLQmilc",
-        "title": "The era will be over.",
-        "url": "https://www.youtube.com/shorts/qnVwFLQmilc",
-        "thumbnail": "https://i.ytimg.com/vi/qnVwFLQmilc/hqdefault.jpg",
-        "viewCount": 4900,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.24,
-            "line": 18
-          },
-          {
-            "t": 3.3,
-            "line": 19
-          },
-          {
-            "t": 4.94,
-            "line": 20
-          },
-          {
-            "t": 7.68,
-            "line": 21
-          },
-          {
-            "t": 9.94,
-            "line": 22
-          },
-          {
-            "t": 12.79,
-            "line": 23
-          },
-          {
-            "t": 15.07,
-            "line": 24
-          },
-          {
-            "t": 19.7,
-            "line": 26
-          },
-          {
-            "t": 22.06,
-            "line": 27
-          },
-          {
-            "t": 24.5,
-            "line": 28
-          },
-          {
-            "t": 26.8,
-            "line": 29
-          },
-          {
-            "t": 29.24,
-            "line": 30
-          },
-          {
-            "t": 31.66,
-            "line": 31
-          },
-          {
-            "t": 34.06,
-            "line": 32
-          },
-          {
-            "t": 39,
-            "line": 33
           }
         ]
       }
@@ -15905,36 +16258,34 @@
         ]
       }
     ],
-    "nishina-hot-milk": [
+    "nishina-haru-ichiban": [
       {
-        "videoId": "zQve_a0BLoI",
-        "title": "The younger I was, the more I dreamt,I loved you",
-        "url": "https://www.youtube.com/shorts/zQve_a0BLoI",
-        "thumbnail": "https://i.ytimg.com/vi/zQve_a0BLoI/hqdefault.jpg",
-        "viewCount": 7400,
-        "versionType": "mv",
+        "videoId": "X_jxaIa35C4",
+        "title": "好きだった こっそり溶かして飲み干した",
+        "url": "https://www.youtube.com/shorts/X_jxaIa35C4",
+        "thumbnail": "https://i.ytimg.com/vi/X_jxaIa35C4/hqdefault.jpg",
+        "viewCount": 8200,
+        "versionType": "live",
         "instrumental": false,
         "anchors": [
           {
             "t": 0,
-            "line": 24
+            "line": 9
           },
           {
-            "t": 5.76,
-            "line": 25
+            "t": 6.06,
+            "line": 10
           },
           {
-            "t": 11.74,
-            "line": 26
+            "t": 13.12,
+            "line": 11
           },
           {
-            "t": 19.8,
-            "line": 27
+            "t": 19.22,
+            "line": 12
           }
         ]
-      }
-    ],
-    "nishina-haru-ichiban": [
+      },
       {
         "videoId": "ZUVknBY-5Bg",
         "title": "I loved you",
@@ -16009,6 +16360,148 @@
           {
             "t": 19.28,
             "line": 25
+          }
+        ]
+      }
+    ],
+    "nishina-hot-milk": [
+      {
+        "videoId": "zQve_a0BLoI",
+        "title": "The younger I was, the more I dreamt,I loved you",
+        "url": "https://www.youtube.com/shorts/zQve_a0BLoI",
+        "thumbnail": "https://i.ytimg.com/vi/zQve_a0BLoI/hqdefault.jpg",
+        "viewCount": 7400,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 5.76,
+            "line": 25
+          },
+          {
+            "t": 11.74,
+            "line": 26
+          },
+          {
+            "t": 19.8,
+            "line": 27
+          }
+        ]
+      },
+      {
+        "videoId": "1B0isQ8eq20",
+        "title": "上手に眠れない夜の隅",
+        "url": "https://www.youtube.com/shorts/1B0isQ8eq20",
+        "thumbnail": "https://i.ytimg.com/vi/1B0isQ8eq20/hqdefault.jpg",
+        "viewCount": 3800,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 24
+          },
+          {
+            "t": 7.15,
+            "line": 25
+          },
+          {
+            "t": 11.96,
+            "line": 26
+          },
+          {
+            "t": 20.02,
+            "line": 27
+          },
+          {
+            "t": 24.38,
+            "line": 28
+          },
+          {
+            "t": 31.04,
+            "line": 29
+          }
+        ]
+      },
+      {
+        "videoId": "sgfLbwbCU8Q",
+        "title": "もう1人でも平気よ",
+        "url": "https://www.youtube.com/shorts/sgfLbwbCU8Q",
+        "thumbnail": "https://i.ytimg.com/vi/sgfLbwbCU8Q/hqdefault.jpg",
+        "viewCount": 3700,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 26
+          },
+          {
+            "t": 6.91,
+            "line": 27
+          },
+          {
+            "t": 11.68,
+            "line": 28
+          },
+          {
+            "t": 18.8,
+            "line": 29
+          },
+          {
+            "t": 24.28,
+            "line": 30
+          },
+          {
+            "t": 31.18,
+            "line": 31
+          },
+          {
+            "t": 35.72,
+            "line": 32
+          }
+        ]
+      },
+      {
+        "videoId": "Huqc3PZFIsg",
+        "title": "もう1人でも平気よ",
+        "url": "https://www.youtube.com/shorts/Huqc3PZFIsg",
+        "thumbnail": "https://i.ytimg.com/vi/Huqc3PZFIsg/hqdefault.jpg",
+        "viewCount": 3600,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 26
+          },
+          {
+            "t": 6.88,
+            "line": 27
+          },
+          {
+            "t": 11.72,
+            "line": 28
+          },
+          {
+            "t": 18.78,
+            "line": 29
+          },
+          {
+            "t": 24.48,
+            "line": 30
+          },
+          {
+            "t": 31.06,
+            "line": 31
+          },
+          {
+            "t": 35.78,
+            "line": 32
           }
         ]
       }
