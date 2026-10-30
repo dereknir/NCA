@@ -1,0 +1,233 @@
+---
+/**
+ * LiveRadar — Live 頁 hero 右側的像素雷達 (取代行星)
+ *
+ * 中心 = 今天; 離中心越遠 = 離今天越久 (對數刻度, 圈線是 7 天 / 1 個月 / 1 年);
+ * 方位 = 場地所在縣從岐阜 (日本的正中間) 看過去的方向, 北在上。
+ * 過去的場次是暗紅點, 掃描線掃過時亮一下再慢慢暗掉; 還沒到的場次是亮點, 一直在閃。
+ * 點過去的場次 → 年表搜尋那一場; 點未來的場次 → e+ 售票頁。
+ *
+ * 資料: tour_stops (巡演各站, 有縣名) + nishina_live_events.appearance (出演, 縣名用 footprint 的 GEO 規則推)
+ *       + live/upcoming.json (e+ 每日抓的未來場次)。日期換算在瀏覽器做, 所以「今天」永遠是真的今天。
+ */
+import { readFileSync } from 'node:fs';
+import events from '../../live/data/nishina_live_events.json';
+import tours from '../../live/data/tour_stops.json';
+import japan from '../../live/data/japan_paths.json';
+import upcoming from '../../live/upcoming.json';
+import { PLANETS } from '../config';
+
+// 縣名推論規則直接取自 footprint 模板, 口徑跟出演足跡一致
+const tpl = readFileSync('live/footprint.template.html', 'utf-8');
+const GEO = [...tpl.match(/const GEO = \[([\s\S]*?)\];/)![1].matchAll(/\['([^']+)','([^']+)'\]/g)].map(m => [m[1], m[2]]);
+
+const prefs = japan.prefs as Record<string, { cx: number; cy: number; inset?: boolean }>;
+const CENTER = prefs['岐阜'];
+// 沖縄在地圖上是左上角的插圖, 座標不能直接用; 實際在西南方很遠
+const OKINAWA = { cx: CENTER.cx - 260, cy: CENTER.cy + 190 };
+const bearing = (pref: string) => {
+  const p = prefs[pref]?.inset ? OKINAWA : prefs[pref];
+  if (!p) return null;
+  return Math.round(Math.atan2(p.cy - CENTER.cy, p.cx - CENTER.cx) * 180 / Math.PI);   // 0 = 東, 90 = 南 (畫面座標)
+};
+
+type Blip = { d: string; n: string; v: string; p: string; a: number; u?: string; f?: 1 };
+const blips: Blip[] = [];
+for (const t of tours.tours) for (const s of t.stops) {
+  const a = bearing(s.pref);
+  if (a !== null) blips.push({ d: s.date, n: t.name, v: s.venue, p: s.pref, a });
+}
+for (const ev of events.appearance as Array<{ name: string; event_date?: string | null; venue?: string | null }>) {
+  if (!ev.event_date) continue;
+  const pref = GEO.find(([k]) => (ev.name + ' ' + (ev.venue || '')).includes(k))?.[1];
+  const a = pref ? bearing(pref) : null;
+  if (a !== null && pref) blips.push({ d: ev.event_date, n: ev.name, v: ev.venue || '', p: pref, a });
+}
+for (const ev of upcoming.events) {
+  const a = bearing(ev.pref);
+  if (a !== null) blips.push({ d: ev.date, n: ev.name, v: ev.venue, p: ev.pref, a, u: ev.url, f: 1 });
+}
+blips.sort((x, y) => x.d.localeCompare(y.d));
+
+const palette = PLANETS.mars.palette;
+---
+
+<figure class="lr" data-radar>
+  <div class="lr-box">
+    <canvas width="120" height="120" role="img"
+      aria-label={`演出雷達: ${blips.length} 個場次, 中心是今天, 越外圈越久以前, 方位是場地從岐阜看過去的方向`}></canvas>
+    <div class="lr-tip" hidden></div>
+  </div>
+  <figcaption>中心＝今天・圈＝7天／1個月／1年<br>方位＝從岐阜看過去・北在上</figcaption>
+  <script type="application/json" data-radar-data set:html={JSON.stringify({ blips, palette })} />
+</figure>
+
+<style>
+  .lr { position: absolute; right: max(24px, calc((100vw - 1072px) / 2 + 24px)); top: 50%; translate: 0 -50%;
+    margin: 0; width: 240px; z-index: 1; }
+  .lr-box { position: relative; width: 240px; height: 240px; }
+  .lr canvas { width: 100%; height: 100%; image-rendering: pixelated; display: block; cursor: crosshair;
+    filter: drop-shadow(0 0 32px rgb(var(--sh-accent) / .25)); }
+  .lr figcaption { font: 12px/18px var(--sh-px); color: var(--sh-ink3); text-align: center; margin-top: 6px; letter-spacing: .04em; }
+  .lr-tip { position: absolute; z-index: 2; width: max-content; max-width: 220px; pointer-events: none;
+    font: 12px/18px var(--sh-px); color: var(--sh-ink); background: rgb(10 10 21 / .92);
+    border: 2px solid rgb(var(--sh-accent)); padding: 6px 8px; translate: -50% calc(-100% - 10px); }
+  /* tooltip 內容是 JS 塞的, 沒有 scoped 屬性, 要用 :global */
+  .lr-tip :global(b) { display: block; font-weight: 400; color: rgb(var(--sh-accent)); }
+  .lr-tip :global(i) { font-style: normal; color: var(--sh-ink3); }
+  /* 雷達比行星寬, hero 文字讓出位置; 雷達 + 說明約 290px 高 */
+  :global(.sh-hero:has(.lr)) { min-height: 330px; }
+  :global(.sh-hero:has(.lr) .sh-hero-text) { max-width: calc(100% - 290px); }
+  @media (max-width: 760px) {
+    :global(.sh-hero:has(.lr) .sh-hero-text) { max-width: none; }
+    .lr { position: relative; right: auto; top: auto; translate: none; margin: 0 auto 28px; }
+  }
+</style>
+
+<script>
+  type Blip = { d: string; n: string; v: string; p: string; a: number; u?: string; f?: 1 };
+  const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+  const N = 120, C = 60, R = 56, SWEEP_MS = 4800, TRAIL = Math.PI * .45;
+  const DAY = 864e5;
+  const RINGS = [7, 30, 365];
+
+  function mount(fig: HTMLElement) {
+    if (fig.dataset.on) return;
+    fig.dataset.on = '1';
+    const { blips, palette: pal } = JSON.parse(fig.querySelector('[data-radar-data]')!.textContent!) as { blips: Blip[]; palette: number[][] };
+    const cv = fig.querySelector('canvas')!, g = cv.getContext('2d')!, tip = fig.querySelector<HTMLElement>('.lr-tip')!;
+    const img = g.createImageData(N, N);
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 今天 (日本時間) 起算的天數; 負 = 過去
+    const jst = new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10);
+    const today = Date.parse(jst);
+    const pts = blips.map(b => {
+      const days = Math.round((Date.parse(b.d) - today) / DAY);
+      return { ...b, days, future: days >= 0, ang: b.a * Math.PI / 180, x: 0, y: 0, hit: -1e9 };
+    });
+    const maxDays = Math.max(...pts.map(p => Math.abs(p.days)), 400);
+    const rOf = (days: number) => R * Math.log1p(Math.abs(days)) / Math.log1p(maxDays);
+    // 同縣同期的場次會疊在一起: 依序號錯開幾度
+    const seen = new Map<string, number>();
+    for (const p of pts) {
+      const k = `${p.p}:${Math.round(rOf(p.days) / 3)}`, i = seen.get(k) ?? 0;
+      seen.set(k, i + 1);
+      const ang = p.ang + (i % 2 ? 1 : -1) * Math.ceil(i / 2) * .12;
+      const r = Math.max(rOf(p.days), 2.5);
+      p.x = Math.round(C + Math.cos(ang) * r); p.y = Math.round(C + Math.sin(ang) * r);
+      p.ang = ang;
+    }
+
+    // 每個像素的極座標先算好, 掃描線每格只查表
+    const polar = Array.from({ length: N * N }, (_, i) => {
+      const x = i % N - C + .5, y = (i / N | 0) - C + .5;
+      return { r: Math.hypot(x, y), a: Math.atan2(y, x) };
+    });
+    const ringR = RINGS.map(rOf);
+    const put = (x: number, y: number, c: number[]) => {
+      if (x < 0 || y < 0 || x >= N || y >= N) return;
+      const i = (y * N + x) * 4; img.data[i] = c[0]; img.data[i + 1] = c[1]; img.data[i + 2] = c[2]; img.data[i + 3] = 255;
+    };
+    const BG = [22, 12, 16];
+
+    function frame(t: number) {
+      img.data.fill(0);
+      const sweep = still ? -Math.PI / 2 : ((t % SWEEP_MS) / SWEEP_MS) * Math.PI * 2 - Math.PI;
+      for (let i = 0; i < N * N; i++) {
+        const { r, a } = polar[i];
+        if (r > R + .5) continue;
+        const x = i % N, y = i / N | 0, b = BAYER[(y % 4) * 4 + x % 4];
+        let c = BG;
+        if (r > R - .8) c = pal[2];                                                   // 外框
+        else if (ringR.some(rr => Math.abs(r - rr) < .5) && (x + y) % 2 === 0) c = pal[3];   // 時間圈 (虛線)
+        else if ((Math.abs(x - C + .5) < .6 || Math.abs(y - C + .5) < .6) && (x + y) % 3 === 0) c = pal[4];  // 十字
+        if (!still) {
+          const behind = ((sweep - a) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+          if (behind < .05) c = pal[1];
+          else if (behind < TRAIL && (1 - behind / TRAIL) * 16 > b + 4) c = c === BG ? pal[4] : c;
+        }
+        put(x, y, c);
+      }
+      for (const p of pts) {
+        if (p.future) continue;
+        const behind = ((sweep - p.ang) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+        if (behind < .06) p.hit = t;
+        const glow = still ? .5 : Math.exp(-(t - p.hit) / 2200);
+        const base = -p.days < 365 ? 3 : 4;
+        const lvl = glow > .55 ? 0 : glow > .3 ? 1 : glow > .12 ? 2 : base;
+        if (lvl === 4 && (p.x + p.y) % 2) continue;    // 一年以前又沒被掃到: 只留半數像素, 很淡
+        put(p.x, p.y, pal[lvl]);
+      }
+      const blink = still || Math.floor(t / 450) % 2 === 0;
+      for (const p of pts) {
+        if (!p.future) continue;
+        const c = blink ? pal[0] : [232, 201, 74];
+        put(p.x, p.y, c); put(p.x + 1, p.y, c); put(p.x, p.y + 1, c); put(p.x + 1, p.y + 1, c);
+        if (!still) {   // 外擴的脈衝圈
+          const pr = 2 + ((t / 1600) % 1) * 7;
+          for (let k = 0; k < 24; k += 2) put(Math.round(p.x + .5 + Math.cos(k / 24 * 6.283) * pr), Math.round(p.y + .5 + Math.sin(k / 24 * 6.283) * pr), pal[2]);
+        }
+      }
+      put(C, C, [232, 201, 74]); put(C - 1, C, pal[1]); put(C + 1, C, pal[1]); put(C, C - 1, pal[1]); put(C, C + 1, pal[1]);
+      g.putImageData(img, 0, 0);
+    }
+
+    let raf = 0, vis = true;
+    const loop = (t: number) => {
+      if (!fig.isConnected) return;
+      frame(t);
+      raf = vis && !still ? requestAnimationFrame(loop) : 0;
+    };
+    new IntersectionObserver(([e]) => {
+      vis = e.isIntersecting;
+      if (vis && !raf) raf = requestAnimationFrame(loop);
+    }).observe(cv);
+    requestAnimationFrame(loop);
+
+    // 滑過 / 點: 找最近的點
+    let cur: (typeof pts)[number] | null = null;
+    const fmt = (p: (typeof pts)[number]) => p.future ? `${p.days === 0 ? '今天' : p.days + ' 天後'}` : `${-p.days} 天前`;
+    const esc = (s: string) => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
+    const pick = (e: PointerEvent) => {
+      const rc = cv.getBoundingClientRect(), mx = (e.clientX - rc.left) * N / rc.width, my = (e.clientY - rc.top) * N / rc.height;
+      let best = null, bd = 25;
+      for (const p of pts) {   // 未來場次點比較大, 判定範圍放寬一點
+        const d = ((p.x + .5 - mx) ** 2 + (p.y + .5 - my) ** 2) / (p.future ? 1.6 : 1);
+        if (d < bd) { bd = d; best = p; }
+      }
+      return best;
+    };
+    const show = (p: (typeof pts)[number] | null) => {
+      cur = p;
+      if (!p) { tip.hidden = true; return; }
+      tip.innerHTML = `<b>${p.d.replaceAll('-', '.')}・${fmt(p)}</b>${esc(p.n)}<br><i>${esc(p.v ? p.v + '・' : '')}${esc(p.p)}</i>`;
+      tip.style.left = (p.x + .5) / N * 100 + '%';
+      tip.style.top = p.y / N * 100 + '%';
+      tip.hidden = false;
+    };
+    cv.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') show(pick(e)); });
+    cv.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') show(null); });
+    cv.addEventListener('click', e => {
+      const p = pick(e as PointerEvent);
+      if (!p) { show(null); return; }
+      // 觸控: 第一下只顯示資訊, 同一點再點一次才前往
+      if ((e as PointerEvent).pointerType !== 'mouse' && cur !== p) { show(p); return; }
+      if (p.u) window.open(p.u, '_blank', 'noopener');
+      else location.href = '/live/timeline/?q=' + encodeURIComponent(p.n);
+    });
+  }
+
+  // hero 裡「下一場」的倒數 (Live 頁標 data-next-date), 一樣用瀏覽器的今天算
+  function nextLabel() {
+    for (const a of document.querySelectorAll<HTMLElement>('[data-next-date]')) {
+      const jst = new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10);
+      const days = Math.round((Date.parse(a.dataset.nextDate!) - Date.parse(jst)) / 864e5);
+      if (days < 0) { a.remove(); continue; }
+      a.querySelector('[data-days]')!.textContent = days === 0 ? '今天' : `${days} 天後`;
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-radar]').forEach(mount);
+  nextLabel();
+</script>

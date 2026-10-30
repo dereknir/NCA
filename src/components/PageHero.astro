@@ -6,6 +6,7 @@
  * 用法: <PageHero slot="hero" planet="earth" title="日文歌翻譯" desc="…" chips={[['51/51', '已翻譯']]} />
  * variant: page (預設) / tool (收成一條, 工具頁) / song (封面 + 資訊, 背景是封面馬賽克)
  * width 要跟 BaseLayout 的 width 一樣, 左緣才會對齊內文。
+ * orb={false} 不畫行星, 改用 slot="aside" 放自己的東西 (Live 頁的雷達)。
  */
 import { PLANETS, NAV_GROUPS } from '../config';
 import { coverAt } from '../lib/covers';
@@ -24,11 +25,12 @@ interface Props {
   cover?: string;
   coverAlt?: string;
   coverTransition?: string;            // 跟列表頁縮圖同名, 換頁時封面接續
+  orb?: boolean;
 }
 
 const {
   planet, title, titleLang, desc, cmd = 'cat README', chips = [], actions = [],
-  variant = 'page', width = 'wide', cover, coverAlt = '', coverTransition,
+  variant = 'page', width = 'wide', cover, coverAlt = '', coverTransition, orb = true,
 } = Astro.props;
 const p = PLANETS[planet];
 const navPath = NAV_GROUPS.flatMap(g => g.items).find(it => it.planet === planet)?.path;
@@ -43,6 +45,7 @@ const isSong = variant === 'song';
   data-kind={p?.kind}
   data-palette={p ? JSON.stringify(p.palette) : undefined}
   data-cover={isSong ? coverAt(cover, 80) : undefined}
+  data-orb={orb ? undefined : 'off'}
   style={p ? `--sh-accent:${p.palette[0].join(' ')}` : undefined}
 >
   <div class="sh-hero-bg" aria-hidden="true"></div>
@@ -69,4 +72,5 @@ const isSong = variant === 'song';
       )}
     </div>
   </div>
+  <slot name="aside" />
 </section>

@@ -11,20 +11,32 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
+import LiveRadar from '../../components/LiveRadar.astro';
 import events from '../../../live/data/nishina_live_events.json';
 import news from '../../../live/data/nishina_news_classified.json';
 import tours from '../../../live/data/tour_stops.json';
+import upcoming from '../../../live/upcoming.json';
 
 const oneman = events.oneman.length;
 const app = events.appearance.length;
 const total = news.length;
 const stops = tours.meta.total_stops;
+const next = upcoming.events[0];
 ---
 
 <BaseLayout title="にしな 演出資料" description="にしな 公演史・出演足跡・年表" width="wide">
-  <PageHero slot="hero" planet="mars" title="Live 演出" cmd="ls"
+  <PageHero slot="hero" planet="mars" title="Live 演出" cmd="ls" orb={false}
     desc="にしな 的公演史、出演足跡與年表。"
-    chips={[[String(total), '條 news', '/live/timeline/'], [String(oneman), '場個人公演', '/live/concerts/'], [String(app), '場音樂祭出演', '/live/footprint/']]} />
+    chips={[[String(total), '條 news', '/live/timeline/'], [String(oneman), '場個人公演', '/live/concerts/'], [String(app), '場音樂祭出演', '/live/footprint/']]}>
+    {next && (
+      <div class="sh-row">
+        <a class="sh-chip" href={next.url} target="_blank" rel="noopener noreferrer" data-next-date={next.date}>
+          <b>▶ 下一場 <span data-days>{next.date.slice(5).replace('-', '/')}</span></b>{next.name}・{next.venue}
+        </a>
+      </div>
+    )}
+    <LiveRadar slot="aside" />
+  </PageHero>
   <div>
 
     <div class="grid gap-5 md:grid-cols-3">

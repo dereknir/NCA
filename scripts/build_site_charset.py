@@ -86,6 +86,17 @@ def main():
     if tours.exists():
         for t in _json.loads(tours.read_text(encoding="utf-8"))["tours"]:
             chars |= set(t["name"])
+            for st in t["stops"]:
+                chars |= set(st["venue"] + st["pref"])
+    # Live 頁雷達的 tooltip: 出演名稱 / 場地, 加上 e+ 抓到的未來場次
+    events = ROOT / "live" / "data" / "nishina_live_events.json"
+    if events.exists():
+        for a in _json.loads(events.read_text(encoding="utf-8"))["appearance"]:
+            chars |= set(a["name"] + (a.get("venue") or ""))
+    upcoming = ROOT / "live" / "upcoming.json"
+    if upcoming.exists():
+        for e in _json.loads(upcoming.read_text(encoding="utf-8"))["events"]:
+            chars |= set(e["name"] + (e.get("venue") or "") + (e.get("pref") or ""))
 
     lab = ROOT / "public" / "pixel-lab" / "index.html"
     if lab.exists():
