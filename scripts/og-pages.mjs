@@ -49,7 +49,6 @@ async function song(id) {
   // 文字底下的星星清掉, 不然貼在字旁邊像多出來的標點
   rect(x0 - 2, 10, tw + 4, 66, P.bg);
   rect(12, 84, 216, 32, P.bg);
-  const site = 'derekni.com', siteW = await measure(site, 12);
   // 歌名: 24px 放得下就用 24px, 否則 12px 依空白斷成最多兩行
   let titleTexts;
   if (await measure(title, 24) <= tw) titleTexts = [t(title, x0, 28, 24, 'JP12', P.gold)];
@@ -62,8 +61,7 @@ async function song(id) {
       t(await fit(r, 12, 'JP12', tw), x0, rows.length > 1 ? 28 + i * 14 : 34, 12, 'JP12', P.gold)));
   }
   const texts = [
-    t(await fit(artist, 12, 'JP12', tw - siteW - 8), x0, 12, 12, 'JP12', P.dim),
-    t(site, 226 - siteW, 12, 12, 'JP12', P.dim),
+    t(await fit(artist, 12, 'JP12', tw), x0, 12, 12, 'JP12', P.dim),
     ...titleTexts,
     t(await fit([album, year].filter(Boolean).join(' · '), 12, 'JP12', tw), x0, 60, 12, 'JP12', P.light),
   ];
@@ -93,7 +91,7 @@ async function page(name) {
     t('にしな', 14, 12, 12, 'JP12', P.dim),
     t(cfg.title, 14, 30, 24, 'JP12', P.gold),
     ...cfg.lines.map(([s, fam], i) => t(s, 14, 62 + i * 16, 12, fam, i ? P.dim : P.text)),
-    t(cfg.tag + ' — derekni.com', 14, 102, 12, 'JP12', P.light),
+    t(cfg.tag, 14, 102, 12, 'JP12', P.light),
   ]));
 }
 

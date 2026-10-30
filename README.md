@@ -1,6 +1,6 @@
 # NCA — にしな 歌詞翻譯與資料站
 
-Derek 的個人網站(https://derekni.com),主體是日本歌手 **にしな (nishina)** 的粉絲資料站:
+Derek 的個人網站,主體是日本歌手 **にしな (nishina)** 的粉絲資料站:
 日文歌詞的繁中翻譯、歌詞分析視覺化、巡演 setlist、公演史與出演足跡、YouTube shorts 花絮、
 歌詞卡扭蛋……外加日記與作品集。純靜態 Astro 站, 部署在 Vercel; 資料由 Python 管線與
 GitHub Actions 定期更新。
@@ -9,7 +9,7 @@ GitHub Actions 定期更新。
 
 | 路徑 | 內容 | 來源 |
 |---|---|---|
-| `/translations/` | 51 首歌的日/羅馬拼音/繁中對照翻譯, 歌詞頁內嵌 Live Stage (shorts 影片 + 歌詞逐句同步) | `src/content/translations/*.md` + `src/data/shorts_by_song.json` |
+| `/translations/` | 50 首歌的日/羅馬拼音/繁中對照翻譯, 歌詞頁內嵌 Live Stage (shorts 影片 + 歌詞逐句同步) | `src/content/translations/*.md` + `src/data/shorts_by_song.json` |
 | `/lyric-universe/` | 歌詞宇宙: 意象 / 色彩 / 詞彙統計 | `scripts/analyze_lyrics.py` |
 | `/kwic/` | 歌詞索引 (KWIC, 依 lemma 倒排) | `scripts/build_kwic.py` |
 | `/star-map/` | 歌詞星圖: 句向量 → UMAP 2D → 星座分群 | `scripts/embed_star_map.py` (本機跑) |

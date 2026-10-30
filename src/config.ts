@@ -9,7 +9,6 @@ export const SITE_CONFIG = {
   title: "Derek's Site",
   description: "Derek 的個人網站 - 日文歌翻譯、日記、程式作品",
   author: "Derek Ni",
-  url: "https://derekni.com",
 
   // 語言設定
   lang: "zh-TW",

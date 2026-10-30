@@ -39,7 +39,6 @@ const out = await compose(buf, [
     t('にしな', 14, 30, 24, 'JP12', P.gold),
     t('歌詞翻譯・歌詞宇宙・Live 記錄', 14, 62, 12, 'TC12', P.text),
     t('LYRICS・SETLISTS・SHORTS・GACHA', 14, 80, 12, 'JP12', P.light),
-    t('derekni.com', 14, 102, 12, 'JP12', P.dim),
   ]);
 const outDir = path.join(ROOT, 'public/og');
 mkdirSync(outDir, { recursive: true });

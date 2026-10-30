@@ -38,7 +38,9 @@ const current = navItems
 const mainClass = width === 'legacy' ? 'container mx-auto px-4 py-8 fade-in'
   : `sh-wrap${width === 'read' ? ' sh-wrap--read' : ''} sh-main fade-in`;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// 網域還沒定 (astro.config.mjs 的 SITE 留空) 時不輸出 canonical / og:url, og:image 用站內路徑
+const canonicalURL = Astro.site && new URL(Astro.url.pathname, Astro.site);
+const imageURL = Astro.site ? new URL(image, Astro.site) : image;
 const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFIG.title}`;
 ---
 
@@ -52,15 +54,15 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   <title>{fullTitle}</title>
   <meta name="description" content={description}>
   <meta name="author" content={SITE_CONFIG.author}>
-  <link rel="canonical" href={canonicalURL}>
-  <link rel="sitemap" href="/sitemap-index.xml">
+  {canonicalURL && <link rel="canonical" href={canonicalURL}>}
+  {Astro.site && <link rel="sitemap" href="/sitemap-index.xml">}
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content={article ? "article" : SITE_CONFIG.seo.ogType}>
-  <meta property="og:url" content={canonicalURL}>
+  {canonicalURL && <meta property="og:url" content={canonicalURL}>}
   <meta property="og:title" content={fullTitle}>
   <meta property="og:description" content={description}>
-  <meta property="og:image" content={new URL(image, Astro.site)}>
+  <meta property="og:image" content={imageURL}>
   <meta property="og:site_name" content={SITE_CONFIG.title}>
   <meta property="og:locale" content={SITE_CONFIG.locale}>
   {article && publishDate && (
@@ -69,10 +71,10 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content={SITE_CONFIG.seo.twitterCard}>
-  <meta name="twitter:url" content={canonicalURL}>
+  {canonicalURL && <meta name="twitter:url" content={canonicalURL}>}
   <meta name="twitter:title" content={fullTitle}>
   <meta name="twitter:description" content={description}>
-  <meta name="twitter:image" content={new URL(image, Astro.site)}>
+  <meta name="twitter:image" content={imageURL}>
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
