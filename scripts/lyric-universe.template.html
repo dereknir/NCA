@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>にしな歌詞宇宙</title>
+<meta name="description" content="用資料回答：にしな的歌詞世界是由什麼構成的。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://derekni.com/lyric-universe/">
+<meta property="og:title" content="にしな 歌詞宇宙">
+<meta property="og:description" content="用資料回答：にしな的歌詞世界是由什麼構成的。">
+<meta property="og:image" content="https://derekni.com/og/lyric-universe.png">
+<meta property="og:site_name" content="Derek's Site">
+<meta name="twitter:card" content="summary_large_image">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
   /* 對齊主站深空調色: body #0a0a15 / gray-800 卡 / gray-100 字 / blue-400 hover */
@@ -16,13 +24,13 @@
   .site-topbar-inner{max-width:1200px;margin:0 auto;padding:14px 24px}
   .site-topbar a{color:var(--text);font-size:20px;font-weight:700;text-decoration:none;transition:color .15s}
   .site-topbar a:hover{color:var(--accent)}
-  main{max-width:880px;margin:0 auto;padding:0 24px 120px}
+  main{max-width:944px;margin:0 auto;padding:0 24px 120px}
   section{margin-top:110px;opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
   section.vis{opacity:1;transform:none}
   h1{font-size:44px;letter-spacing:.06em;margin-top:96px}
   h2{font-size:26px;margin-bottom:6px}
   .sub{color:var(--dim);font-size:14px;margin-bottom:26px}
-  .hero-nums{display:flex;gap:44px;margin-top:34px;flex-wrap:wrap}
+  .hero-nums{display:flex;gap:44px;margin-top:8px;flex-wrap:wrap}
   .hero-nums b{font-size:40px;display:block}
   .hero-nums span{color:var(--dim);font-size:13px}
   .note{border-left:3px solid var(--accent);background:var(--panel);padding:14px 18px;
@@ -85,16 +93,22 @@
   .bonds .stat{color:var(--dim);font-size:11.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
   footer{color:var(--dim);font-size:12px;margin-top:90px;text-align:center}
 </style>
+<link rel="stylesheet" href="/css/site-shell.css">
+<script src="/js/site-shell.js" defer></script>
 </head>
 <body>
-<header class="site-topbar">
-  <div class="site-topbar-inner">
-    <a href="/">Derek's Site</a>
+<div class="sh-hd" data-sh-header></div>
+<div class="sh-hero sh-hero--page" data-sh-hero data-planet="venus">
+  <div class="sh-hero-bg" aria-hidden="true"></div>
+  <div class="sh-wrap sh-hero-inner sh-wrap--read">
+    <div class="sh-hero-text">
+      <div class="sh-prompt"><span class="u">derek@nishina</span>:<span class="pa">~/venus/lyric-universe</span> $ <span class="cmd">du -sh lyrics/</span></div>
+      <h1 class="sh-title">歌詞宇宙</h1>
+      <p class="sh-desc">用資料回答：她的歌詞世界是由什麼構成的。</p>
+    </div>
   </div>
-</header>
+</div>
 <main>
-  <h1>にしな歌詞宇宙</h1>
-  <p class="sub" style="margin-top:10px">用資料回答:她的歌詞世界是由什麼構成的</p>
   <div class="hero-nums" id="hero"></div>
 
   <section id="s-imagery">

@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>にしな歌詞星圖</title>
+<meta name="description" content="每一句歌詞都是一顆星，意思相近的句子聚在一起。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://derekni.com/star-map/">
+<meta property="og:title" content="にしな 歌詞星圖">
+<meta property="og:description" content="每一句歌詞都是一顆星，意思相近的句子聚在一起。">
+<meta property="og:image" content="https://derekni.com/og/star-map.png">
+<meta property="og:site_name" content="Derek's Site">
+<meta name="twitter:card" content="summary_large_image">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <style>
   /* 對齊主站深空調色 */
@@ -17,7 +25,7 @@
   .site-topbar-inner{max-width:1400px;margin:0 auto;padding:14px 24px}
   .site-topbar a{color:var(--text);font-size:20px;font-weight:700;text-decoration:none;transition:color .15s}
   .site-topbar a:hover{color:var(--accent)}
-  header{display:flex;align-items:center;gap:14px;padding:14px 20px;flex-wrap:wrap}
+  header{display:flex;align-items:center;gap:14px;padding:10px 24px;flex-wrap:wrap}
   h1{font-size:20px;letter-spacing:.08em}
   .meta{color:var(--dim);font-size:12px}
   .spacer{flex:1}
@@ -52,16 +60,23 @@
   #tip .zh{color:var(--dim);font-size:11.5px;margin-top:3px}
   #tip .t{color:var(--dim);font-size:11px;margin-top:5px}
   @media(max-width:820px){#stage{grid-template-columns:1fr}aside{display:none}}
+
 </style>
+<link rel="stylesheet" href="/css/site-shell.css">
+<script src="/js/site-shell.js" defer></script>
 </head>
-<body>
-<div class="site-topbar">
-  <div class="site-topbar-inner">
-    <a href="/">Derek's Site</a>
+<body data-sh-pill="off">
+<div class="sh-hd" data-sh-header></div>
+<div class="sh-hero sh-hero--slim" data-sh-hero data-planet="uranus">
+  <div class="sh-hero-bg" aria-hidden="true"></div>
+  <div class="sh-wrap sh-hero-inner sh-wrap--full">
+    <div class="sh-hero-text">
+      <div class="sh-prompt"><span class="u">derek@nishina</span>:<span class="pa">~/uranus/star-map</span> $ <span class="cmd">plot --umap</span></div>
+      <h1 class="sh-title">歌詞星圖</h1>
+    </div>
   </div>
 </div>
 <header>
-  <h1>にしな歌詞星圖</h1>
   <span class="meta" id="meta"></span>
   <span class="spacer"></span>
   <input type="search" id="filter" placeholder="輸入文字點亮相符的星(日/中)">
