@@ -607,7 +607,8 @@ function renderQueue(){
       + (isOthers ? ' others' : '')
       + (isNonSong ? ' nonsong' : '')
       + (collapsed ? ' collapsed' : '');
-    g.innerHTML = `<div class="song-title">${label}</div>`;
+    const flpIn = !isNonSong && !isOthers && items.some(it => flpHint(it.videoId, S.ann[it.videoId]?.songId || it.songId));
+    g.innerHTML = `<div class="song-title">${label}${flpIn ? ' <span title="有 shorts 能幫這首的完整 Live">🧩</span>' : ''}</div>`;
     g.querySelector('.song-title').onclick = ()=>{
       g.classList.toggle('collapsed');
       S.groupCollapsed[sid] = g.classList.contains('collapsed');
@@ -629,6 +630,7 @@ function renderQueue(){
           <div class="vc">${(it.viewCount||0).toLocaleString()} views
             ${vtLabel ? `<span class="vt">${vtLabel}</span>` : ''}
             ${instMark}
+            ${(h => h ? `<span class="vt flp" title="完整 Live: 拍到 ${escapeHtml(h.title)} 第 ${lineRange(h.hit)} 句">${FLP_BADGE[h.kind]}</span>` : '')(flpHint(it.videoId, effectiveSid))}
             ${isUnmatched ? `<span class="method ${method}">${METHOD_LABEL[method]||method}</span>` : ''}
           </div>
         </div>
@@ -1036,6 +1038,10 @@ function renderAutoPanel(){
       ${(r.needsReview||[]).filter(x => x !== 'event_title').length ? `<span style="color:var(--warn)">${r.needsReview.filter(x => x !== 'event_title').join(', ')}</span>` : ''}
     </div>
     ${(r.needsReview||[]).includes('event_title') ? `<div style="color:var(--warn)">⚠ 標題像音樂祭 / 巡演回顧 — 先確認是不是單曲表演 (已審的這類片段多半標成 __live_song / __tour_recap / __promo)</div>` : ''}
+    ${(h => !h ? '' : `<div style="color:#ffb08a">🧩 完整 Live: 這支拍到 ${escapeHtml(h.title)} 第 ${lineRange(h.hit)} 句，${
+        h.kind === 'complete' ? '剛好是這首還缺的部分，確認是現場版審完，這首就能從頭聽到尾'
+        : h.kind === 'swap' ? '這幾句現在是用 MV 補的，確認是現場版就能換成現場'
+        : `能補上還缺的 ${h.fillsMissing.length} 句 (確認是現場版)`}</div>`)(flpHint(S.cur.videoId, S.cur.songId))}
     <div style="color:var(--dim)">候選歌: ${cands || '(聽不出歌詞)'}</div>
     ${r.peer ? `<div style="color:#7fd1a8">🎧 跟已審的 ${r.peer.from.map(p => `<a href="https://youtube.com/shorts/${p.videoId}" target="_blank" rel="noopener" style="color:inherit">${p.videoId}</a>`).join('、')} 是同一段錄音 (涵蓋片段 ${Math.round(r.peer.coverage * 100)}%), 標「🎧抄」的句子照抄人工答案${r.peer.songChanged ? ' · 歌名也以已審的為準' : ''}</div>` : ''}
     ${conflict ? `<div style="color:var(--warn)">⚠ 佇列 (${escapeHtml(METHOD_LABEL[r.matchMethod]||r.matchMethod||'')}) 說是「${escapeHtml(S.songs[r.queueSongId]?.title||r.queueSongId||'?')}」, ASR 聽起來是「${escapeHtml(S.songs[r.songId]?.title||r.songId||'?')}」— 先確認歌再審 anchors</div>` : ''}
@@ -1088,7 +1094,39 @@ fetch('auto_anchors.json', { cache:'no-store' }).then(r => r.ok ? r.json() : nul
   S.auto = (j && j.items) || {};
   applyPeerLive();
   if(S.cur) renderAutoPanel();
+  renderQueue();
 }).catch(() => {});
+// 完整 Live 進度 (網站 build 時產生): 哪些歌還缺哪幾句 / 哪幾句暫時用 MV 補
+fetch('full_live_progress.json', { cache:'no-store' }).then(r => r.ok ? r.json() : null).then(j => {
+  S.flp = (j && j.songs) || {};
+  renderQueue();
+  if(S.cur) renderAutoPanel();
+}).catch(() => {});
+
+/* 這支 short (人工或機器的 anchors) 能不能幫某首歌的完整 Live → 審它優先
+   只提示真的有用的三種: 補齊整首 / 已能播的歌把 MV 段換成現場 / 快完成 (缺 ≤ 8 句) 的歌補上幾句;
+   離完整還很遠的歌不提示, 不然佇列裡到處都是 🧩 */
+function flpHint(vid, queueSid){
+  if(!S.flp) return null;
+  const a = S.ann[vid], r = S.auto && S.auto[vid];
+  if(a?.status === 'done' || a?.status === 'skip') return null;
+  const sid = a?.songId || r?.songId || queueSid;
+  const info = sid && S.flp[sid];
+  if(!info) return null;
+  const want = new Set([...info.missing, ...info.mv]);
+  if(!want.size) return null;
+  const lines = ((a?.anchors?.length ? a.anchors : r?.anchors) || []).map(x => x.line);
+  const hit = [...new Set(lines.filter(l => want.has(l)))].sort((x, y) => x - y);
+  if(!hit.length) return null;
+  const fillsMissing = hit.filter(l => info.missing.includes(l));
+  const kind = info.missing.length && fillsMissing.length === info.missing.length ? 'complete'
+    : info.complete && hit.some(l => info.mv.includes(l)) ? 'swap'
+    : info.missing.length <= 8 && fillsMissing.length ? 'near' : null;
+  return kind && { kind, title: info.title, hit, fillsMissing };
+}
+const FLP_BADGE = { complete: '🧩補齊', swap: '🧩換現場', near: '🧩' };
+const lineRange = ls => { const out = []; for(const l of ls){ const last = out[out.length - 1]; if(last && l === last[1] + 1) last[1] = l; else out.push([l, l]); }
+  return out.map(([a, b]) => a === b ? `${a + 1}` : `${a + 1}–${b + 1}`).join('、'); };
 
 /* ---------- anchors ---------- */
 function addAnchor(lineIdx){
