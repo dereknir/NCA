@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import { getCollection } from 'astro:content';
+import { coverAt } from '../../lib/covers';
 
 const allTranslations = await getCollection('translations');
 
@@ -69,7 +70,7 @@ const albumCount = tabs.filter(t => t.year > 0).length;
         <a href={`/translations/${t.id}`} data-tab={tab}>
           <span class="c-n">{t.data.trackNumber ? String(t.data.trackNumber).padStart(2, '0') : '--'}</span>
           {t.data.coverImage
-            ? <img src={t.data.coverImage} alt="" width="40" height="40" loading="lazy" decoding="async"
+            ? <img src={coverAt(t.data.coverImage, 80)} alt="" width="40" height="40" loading="lazy" decoding="async"
                    style={`view-transition-name:cover-${t.id}`} />
             : <span></span>}
           <span class="c-t" lang="ja">{t.data.title}</span>

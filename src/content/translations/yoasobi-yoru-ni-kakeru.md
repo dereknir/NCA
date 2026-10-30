@@ -6,7 +6,6 @@ albumYear: 2021
 youtubeId: "x8VYWazR5mE"
 publishDate: 2026-03-23
 tags: ["YOASOBI", "流行", "動畫"]
-coverImage: "/images/yoasobi-cover.jpg"
 ---
 
 ## 歌曲介紹

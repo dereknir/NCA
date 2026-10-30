@@ -8,6 +8,7 @@
  * width 要跟 BaseLayout 的 width 一樣, 左緣才會對齊內文。
  */
 import { PLANETS, NAV_GROUPS } from '../config';
+import { coverAt } from '../lib/covers';
 
 interface Props {
   planet: keyof typeof PLANETS | string;
@@ -41,13 +42,13 @@ const isSong = variant === 'song';
   data-planet={planet}
   data-kind={p?.kind}
   data-palette={p ? JSON.stringify(p.palette) : undefined}
-  data-cover={isSong ? cover : undefined}
+  data-cover={isSong ? coverAt(cover, 80) : undefined}
   style={p ? `--sh-accent:${p.palette[0].join(' ')}` : undefined}
 >
   <div class="sh-hero-bg" aria-hidden="true"></div>
   <div class={`sh-wrap sh-hero-inner${width === 'read' ? ' sh-wrap--read' : ''}`}>
     {isSong && cover && (
-      <img class="sh-cover" src={cover} alt={coverAlt} width="224" height="224" loading="eager"
+      <img class="sh-cover" src={coverAt(cover, 448)} alt={coverAlt} width="224" height="224" loading="eager"
            style={coverTransition ? `view-transition-name:${coverTransition}` : undefined} />
     )}
     <div class="sh-hero-text">
