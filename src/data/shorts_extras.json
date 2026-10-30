@@ -1,13 +1,13 @@
 {
   "meta": {
-    "total": 103,
+    "total": 105,
     "by_category": {
       "daily": 4,
       "cover": 5,
       "promo": 33,
-      "live_song": 37,
+      "live_song": 38,
       "mc": 7,
-      "travel": 6,
+      "travel": 7,
       "yearly": 6,
       "ad": 2,
       "tv": 3
@@ -458,7 +458,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 37,
+      "count": 38,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -693,6 +693,19 @@
           "appearanceName": "WurtS LIVEHOUSE TOUR Ⅳ",
           "songId": "nishina-kedamono-no-friends",
           "songTitle": "ケダモノのフレンズ"
+        },
+        {
+          "videoId": "Hp4CJ5e4Few",
+          "title": "🐳WILD BUNCH FEST. 2026",
+          "url": "https://www.youtube.com/shorts/Hp4CJ5e4Few",
+          "thumbnail": "https://i.ytimg.com/vi/Hp4CJ5e4Few/hqdefault.jpg",
+          "viewCount": 5700,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "WILD BUNCH FEST.2026",
+          "songId": "nishina-mashiro",
+          "songTitle": "真白"
         },
         {
           "videoId": "8zamy2YvBZA",
@@ -1023,7 +1036,7 @@
     "travel": {
       "displayName": "旅行",
       "emoji": "✈️",
-      "count": 6,
+      "count": 7,
       "shorts": [
         {
           "videoId": "JI86pWwhdf4",
@@ -1041,6 +1054,16 @@
           "url": "https://www.youtube.com/shorts/tH2DcH4BOg4",
           "thumbnail": "https://i.ytimg.com/vi/tH2DcH4BOg4/hqdefault.jpg",
           "viewCount": 7200,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "7DUGYcUOPBs",
+          "title": "Endlessly pouring love songs",
+          "url": "https://www.youtube.com/shorts/7DUGYcUOPBs",
+          "thumbnail": "https://i.ytimg.com/vi/7DUGYcUOPBs/hqdefault.jpg",
+          "viewCount": 6300,
           "versionType": null,
           "instrumental": false,
           "anchors": []
