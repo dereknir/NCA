@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixel Phone — 手機介面提案</title>
+<link rel="stylesheet" href="/css/scrollbar.css">
+<style>
+/* 像素手機的兩個方向先並排比較:
+   A = 2005 年的日本ガラケー (折疊機, i-mode 選單, 數字鍵直接跳), B = 遊戲裡隨叫隨出的智慧型手機 (GTA 那種, 按 ↑ 滑出來)。
+   還在討論階段, 內容是假資料 + 連到網站現有頁面。 */
+@font-face { font-family: PXZ; src: url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2'); }
+@font-face { font-family: PXJ; src: url('/fonts/pixel/fp12-site-ja.woff2') format('woff2'); }
+:root { --bg: #0a0a15; --ink: #e8ecf6; --ink2: #b6c2e0; --ink3: #6f7a99; --line: #243154; --gold: #e8c94a; --acc: #ff8c69;
+  --px: PXZ, PXJ, sans-serif; --pxj: PXJ, PXZ, sans-serif; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font: 12px/1.6 var(--px); }
+body { min-height: 100vh; background: radial-gradient(70% 50% at 30% 0%, #1a1530, transparent 70%), var(--bg); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px; }
+h1 { font: 36px/1.2 var(--px); margin: 0 0 6px; }
+.sub { color: var(--ink2); margin: 0 0 32px; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.col h2 { font: 24px var(--px); margin: 0 0 4px; }
+.col h2 b { color: var(--acc); font-weight: 400; }
+.col p { color: var(--ink3); margin: 0 0 20px; }
+.pill { display: inline-block; padding: 2px 8px; border: 2px solid var(--line); margin: 0 4px 4px 0; color: var(--ink2); }
+
+/* ---------- A: ガラケー ---------- */
+.kei { --body: #c9c3e6; --body2: #9d95c9; --dark: #3b335f; width: 260px; margin: 0 auto; image-rendering: pixelated; }
+.kei-top, .kei-bot { background: var(--body); border: 4px solid var(--dark);
+  box-shadow: inset 4px 4px 0 #ece8ff, inset -4px -4px 0 var(--body2); }
+.kei-top { border-radius: 28px 28px 8px 8px; padding: 18px 18px 14px; position: relative; }
+.kei-top::before { content: ''; position: absolute; left: 50%; top: 7px; width: 36px; height: 4px; margin-left: -18px; background: var(--dark); }  /* 聽筒 */
+.lcd { background: #0b1022; border: 4px solid var(--dark); height: 300px; position: relative; overflow: hidden; }
+.lcd::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgb(0 0 0 / .25) 0 1px, transparent 1px 3px); }
+.bar { display: flex; justify-content: space-between; padding: 4px 6px; font: 12px var(--px); color: #9fe3ff; background: #142047; }
+.bar .ant { letter-spacing: -2px; color: #9fe3ff; }
+.screen { padding: 8px 8px 0; }
+.wall { height: 92px; position: relative; margin-bottom: 6px; background: #0b1022; }
+.wall canvas { width: 100%; height: 100%; image-rendering: pixelated; }
+.wall .clock { position: absolute; right: 8px; bottom: 6px; font: 24px var(--px); color: #fff; text-shadow: 2px 2px 0 #142047; }
+.wall .next { position: absolute; left: 8px; top: 6px; color: var(--gold); text-shadow: 1px 1px 0 #000; }
+.menu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.menu a { display: grid; justify-items: center; gap: 2px; padding: 4px 0; color: #cfe8ff; text-decoration: none; border: 2px solid transparent; font: 12px var(--px); }
+.menu a canvas { width: 24px; height: 24px; image-rendering: pixelated; }
+.menu a .n { position: absolute; }
+.menu a.sel { border-color: var(--gold); background: #1c2a5c; color: #fff; }
+.soft { display: flex; justify-content: space-between; padding: 4px 8px; color: #9fe3ff; background: #142047; position: absolute; left: 0; right: 0; bottom: 0; }
+.hinge { height: 18px; margin: 0 22px; background: var(--body2); border: 4px solid var(--dark); border-top: 0; border-bottom: 0;
+  box-shadow: inset 0 4px 0 var(--dark), inset 0 -4px 0 var(--dark); }
+.kei-bot { border-radius: 8px 8px 30px 30px; padding: 14px 18px 22px; }
+.dpad { display: grid; grid-template-columns: 1fr 64px 1fr; align-items: center; gap: 8px; margin-bottom: 12px; }
+.dpad .soft-k { height: 20px; background: var(--body2); border: 3px solid var(--dark); }
+.dpad .ring { width: 64px; height: 64px; border: 4px solid var(--dark); background: var(--body2); display: grid; place-items: center; border-radius: 50%;
+  box-shadow: inset 4px 4px 0 #ece8ff; }
+.dpad .ring i { width: 22px; height: 22px; background: var(--acc); border: 3px solid var(--dark); border-radius: 50%; }
+.keys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.keys button { font: 12px var(--px); color: var(--dark); background: #ece8ff; border: 3px solid var(--dark); padding: 6px 0; cursor: pointer;
+  box-shadow: inset -3px -3px 0 var(--body2); }
+.keys button small { display: block; font-size: 12px; color: #6c63a0; line-height: 1; }
+.keys button:active, .keys button.hit { box-shadow: inset 3px 3px 0 var(--body2); background: var(--gold); }
+
+/* ---------- B: 遊戲內手機 ---------- */
+.game { position: relative; height: 640px; border: 2px solid var(--line); overflow: hidden;
+  background: linear-gradient(#0d1430, #0a0a15 60%), #0a0a15; }
+.game .fake { padding: 20px; color: var(--ink3); }
+.game .fake b { display: block; font: 24px var(--px); color: var(--ink2); margin-bottom: 6px; }
+.game .key { position: absolute; left: 20px; bottom: 16px; color: var(--ink3); }
+.game .key kbd { font: 12px var(--px); color: var(--gold); border: 2px solid var(--line); padding: 0 6px; }
+.phone { position: absolute; right: 28px; bottom: -560px; width: 250px; height: 520px; transition: bottom .35s steps(6);
+  background: #12121e; border: 4px solid #05050b; border-radius: 26px; padding: 12px; box-shadow: 0 0 0 4px #2b2b40, 0 20px 60px rgb(0 0 0 / .6); }
+.game.up .phone { bottom: 28px; }
+.ph-screen { height: 100%; border-radius: 16px; overflow: hidden; position: relative; background: #1b1440; display: flex; flex-direction: column; }
+.ph-bar { display: flex; justify-content: space-between; padding: 6px 12px; font: 12px var(--px); color: #fff; }
+.ph-notes { padding: 4px 8px; display: grid; gap: 6px; }
+.note { background: rgb(255 255 255 / .1); border: 2px solid rgb(255 255 255 / .12); padding: 6px 8px; color: #fff; }
+.note b { display: block; font-weight: 400; color: var(--acc); }
+.note i { font-style: normal; color: var(--ink3); }
+.apps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px 4px; padding: 12px 10px; margin-top: auto; }
+.apps a { display: grid; justify-items: center; gap: 4px; color: #fff; text-decoration: none; font: 12px var(--px); }
+.apps a span { width: 44px; height: 44px; display: grid; place-items: center; border: 3px solid #05050b; border-radius: 10px;
+  box-shadow: inset 3px 3px 0 rgb(255 255 255 / .35), inset -3px -3px 0 rgb(0 0 0 / .3); }
+.apps a canvas { width: 24px; height: 24px; image-rendering: pixelated; }
+.dock { display: flex; justify-content: center; padding: 6px 0 10px; }
+.dock i { width: 60px; height: 4px; background: rgb(255 255 255 / .6); }
+
+.notes { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; color: var(--ink2); }
+.notes h3 { font: 12px var(--px); color: var(--gold); margin: 0 0 6px; letter-spacing: .1em; }
+.notes ul { margin: 0; padding-left: 18px; line-height: 1.9; }
+@media (max-width: 860px) { .cols, .notes { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>像素手機 — 兩個方向</h1>
+  <p class="sub">先比方向，不比細節。內容都是假的，點下去會連到網站現有的頁面。</p>
+
+  <div class="cols">
+    <section class="col">
+      <h2><b>A</b> 2005 ガラケー</h2>
+      <p>にしな是日本歌手，用日本當年的折疊機最對味：i-mode 九宮格選單、數字鍵 1–9 直接跳、待受畫面放下一場 Live。</p>
+      <div class="kei">
+        <div class="kei-top">
+          <div class="lcd">
+            <div class="bar"><span class="ant">▂▄▆█</span><span>docomo</span><span>▮▮▮</span></div>
+            <div class="screen">
+              <div class="wall"><canvas id="wall" width="96" height="48"></canvas>
+                <div class="next">▶ 下一場 12 天</div><div class="clock" id="clock">17:45</div></div>
+              <div class="menu" id="menu"></div>
+            </div>
+            <div class="soft"><span>メール</span><span>MENU</span><span>iモード</span></div>
+          </div>
+        </div>
+        <div class="hinge"></div>
+        <div class="kei-bot">
+          <div class="dpad"><span class="soft-k"></span><span class="ring"><i></i></span><span class="soft-k"></span></div>
+          <div class="keys" id="keys"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="col">
+      <h2><b>B</b> 遊戲裡的手機</h2>
+      <p>像 GTA：在網站任何一頁按 <kbd>↑</kbd> 手機就從右下滑出來，有通知、訊息、App。手機本身是像素風，但版面是現代智慧型手機。</p>
+      <div class="game" id="game">
+        <div class="fake"><b>（這裡是網站任何一頁）</b>例如正在看歌詞翻譯，手機疊在畫面上，不用離開這頁。</div>
+        <div class="phone">
+          <div class="ph-screen">
+            <div class="ph-bar"><span id="clock2">17:45</span><span>▂▄▆ ▮▮▮</span></div>
+            <div class="ph-notes">
+              <div class="note"><b>にしな official・現在</b>11/11 GLICO LIVE 心斎橋BIGCAT，還有 12 天</div>
+              <div class="note"><b>完整 Live・1 小時前</b>新增 1 首可以從頭聽到尾：ダーリン<i>（假資料）</i></div>
+              <div class="note"><b>ガチャ・昨天</b>今天的免費扭蛋還沒抽</div>
+            </div>
+            <div class="apps" id="apps"></div>
+            <div class="dock"><i></i></div>
+          </div>
+        </div>
+        <div class="key">按 <kbd>↑</kbd> 拿出手機 / 收起來（這塊區域裡也可以點）</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="notes">
+    <div>
+      <h3>A 的好處 / 要想的</h3>
+      <ul>
+        <li>辨識度高，網路上幾乎沒人做ガラケー像素 UI</li>
+        <li>數字鍵跳頁跟網站現在的單鍵導航是同一個精神</li>
+        <li>可以延伸：着うた（完整 Live）、デコメ（日記）、待受（每日一句歌詞）</li>
+        <li>要想：放在哪？獨立一頁，還是取代首頁？</li>
+      </ul>
+    </div>
+    <div>
+      <h3>B 的好處 / 要想的</h3>
+      <ul>
+        <li>每一頁都能叫出來，像遊戲 HUD，跟指令列是同一層</li>
+        <li>通知很適合放即時的東西：下一場倒數、新審完的 shorts、新翻譯</li>
+        <li>可以混搭：B 的「隨叫隨出」+ A 的ガラケー外型</li>
+        <li>要想：手機上（真的手機）要怎麼叫出來</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+// 8×8 像素圖示: 字串一行一列, 不是空白的格子就上色
+const ICONS = {
+  note:  ['...##...', '...###..', '...#.##.', '...#..#.', '...#....', '.###....', '####....', '.##.....'],
+  live:  ['..####..', '.#....#.', '#..##..#', '#.####.#', '#.####.#', '#..##..#', '.#....#.', '..####..'],
+  mail:  ['........', '########', '##....##', '#.#..#.#', '#..##..#', '#......#', '########', '........'],
+  cam:   ['........', '..##....', '########', '#..##..#', '#.#..#.#', '#..##..#', '########', '........'],
+  map:   ['..###...', '.#####..', '.##.##..', '.#####..', '..###...', '...#....', '...#....', '........'],
+  gacha: ['..####..', '.#....#.', '#.#..#.#', '#......#', '########', '#.####.#', '#......#', '.######.'],
+  cal:   ['.#....#.', '########', '#......#', '#.#.#.##', '#......#', '#.#.##.#', '#......#', '########'],
+  star:  ['...#....', '...#....', '..###...', '#######.', '.#####..', '.##.##..', '.#...#..', '........'],
+  me:    ['..###...', '.#####..', '.#####..', '..###...', '........', '.#####..', '#######.', '#######.'],
+};
+function icon(name, color) {
+  const c = document.createElement('canvas'); c.width = c.height = 8;
+  const g = c.getContext('2d'); g.fillStyle = color;
+  ICONS[name].forEach((row, y) => [...row].forEach((ch, x) => { if (ch !== '.') g.fillRect(x, y, 1, 1); }));
+  return c;
+}
+const APPS = [
+  ['note', '着うた', '/translations', '#ff8c69'], ['live', '完整Live', '/live/full/', '#e8c94a'], ['mail', 'メール', '/diary', '#5ca8ff'],
+  ['cam', 'カメラ', '/extras/', '#46be6e'], ['map', '地図', '/live/footprint/', '#ff8c69'], ['gacha', 'ガチャ', '/gacha/', '#e8c94a'],
+  ['cal', '予定', '/live/', '#c86ef0'], ['star', '星図', '/star-map/', '#60e0d2'], ['me', 'プロフ', '/about', '#b6c2e0'],
+];
+
+// A: 九宮格選單 + 數字鍵
+const menu = document.getElementById('menu'), keys = document.getElementById('keys');
+let sel = 0;
+APPS.forEach(([ic, label, href, col], i) => {
+  const a = document.createElement('a'); a.href = href;
+  a.append(icon(ic, col)); a.insertAdjacentHTML('beforeend', `<span>${i + 1} ${label}</span>`);
+  a.onmouseenter = () => pick(i); menu.append(a);
+});
+const pick = i => { sel = i; [...menu.children].forEach((a, j) => a.classList.toggle('sel', j === i)); };
+pick(0);
+const KANA = ['', 'あ', 'か', 'さ', 'た', 'な', 'は', 'ま', 'や', 'ら'];
+[1, 2, 3, 4, 5, 6, 7, 8, 9, '*', 0, '#'].forEach(k => {
+  const b = document.createElement('button'); b.type = 'button';
+  b.innerHTML = `${k}<small>${KANA[k] || (k === 0 ? 'わ' : '')}</small>`;
+  b.onclick = () => { if (k >= 1 && k <= 9) { pick(k - 1); } };
+  keys.append(b);
+});
+// 實體鍵盤也能按: 1-9 選, Enter 開
+addEventListener('keydown', e => {
+  if (/^[1-9]$/.test(e.key)) { pick(+e.key - 1); const b = keys.children[+e.key - 1]; b.classList.add('hit'); setTimeout(() => b.classList.remove('hit'), 120); }
+  else if (e.key === 'Enter' && document.activeElement === document.body) location.href = APPS[sel][2];
+  else if (e.key === 'ArrowUp') { e.preventDefault(); game.classList.toggle('up'); }
+});
+
+// 待受畫面: 小星空 + 一顆行星
+const wall = document.getElementById('wall').getContext('2d');
+let s = 7; const rnd = () => (s = s * 16807 % 2147483647) / 2147483647;
+const stars = Array.from({ length: 40 }, () => [rnd() * 96 | 0, rnd() * 48 | 0, rnd()]);
+(function draw(t) {
+  wall.fillStyle = '#0b1022'; wall.fillRect(0, 0, 96, 48);
+  for (const [x, y, p] of stars) { wall.fillStyle = Math.sin(t / 500 + p * 9) > .3 ? '#9fe3ff' : '#2a3a70'; wall.fillRect(x, y, 1, 1); }
+  for (let y = -10; y <= 10; y++) for (let x = -10; x <= 10; x++) if (x * x + y * y <= 100) {
+    wall.fillStyle = (x + y) < -4 ? '#ffb08a' : (x + y) < 6 ? '#e6604a' : '#7a2a2a'; wall.fillRect(70 + x, 22 + y, 1, 1);
+  }
+  requestAnimationFrame(draw);
+})(0);
+
+// B: App 格 + ↑ 叫出手機
+const game = document.getElementById('game'), apps = document.getElementById('apps');
+APPS.slice(0, 8).forEach(([ic, label, href, col]) => {
+  const a = document.createElement('a'); a.href = href;
+  const box = document.createElement('span'); box.style.background = col + '33'; box.append(icon(ic, col));
+  a.append(box); a.insertAdjacentHTML('beforeend', label); apps.append(a);
+});
+game.addEventListener('click', e => { if (!e.target.closest('a')) game.classList.toggle('up'); });
+setTimeout(() => game.classList.add('up'), 600);
+
+const tick = () => { const d = new Date(), t = `${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')}`;
+  document.getElementById('clock').textContent = t; document.getElementById('clock2').textContent = t; };
+tick(); setInterval(tick, 10000);
+</script>
+</body>
+</html>
