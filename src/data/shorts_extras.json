@@ -1,13 +1,13 @@
 {
   "meta": {
-    "total": 108,
+    "total": 109,
     "by_category": {
       "daily": 4,
       "cover": 5,
       "promo": 34,
       "live_song": 40,
       "mc": 7,
-      "travel": 7,
+      "travel": 8,
       "yearly": 6,
       "ad": 2,
       "tv": 3
@@ -1072,7 +1072,7 @@
     "travel": {
       "displayName": "旅行",
       "emoji": "✈️",
-      "count": 7,
+      "count": 8,
       "shorts": [
         {
           "videoId": "JI86pWwhdf4",
@@ -1130,6 +1130,16 @@
           "url": "https://www.youtube.com/shorts/jiJ3xE7M6vM",
           "thumbnail": "https://i.ytimg.com/vi/jiJ3xE7M6vM/hqdefault.jpg",
           "viewCount": 4300,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "zZzca5oxx2g",
+          "title": "Maybe joy and sorrow will make it even",
+          "url": "https://www.youtube.com/shorts/zZzca5oxx2g",
+          "thumbnail": "https://i.ytimg.com/vi/zZzca5oxx2g/hqdefault.jpg",
+          "viewCount": 3400,
           "versionType": null,
           "instrumental": false,
           "anchors": []
