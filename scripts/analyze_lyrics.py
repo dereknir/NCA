@@ -18,7 +18,7 @@ TEMPLATE_PATH = ROOT / 'scripts' / 'lyric-universe.template.html'
 OUT_JSON = ROOT / 'src' / 'data' / 'lyric_universe.json'
 OUT_HTML = ROOT / 'public' / 'lyric-universe' / 'index.html'
 
-# 只分析にしな 本人的歌 (YOASOBI 客串 / 未來若有其他外部合作皆自動排除)
+# 只分析にしな 本人的歌 (其他歌手的歌 / 未來若有外部合作皆自動排除)
 ARTIST_ALLOWLIST = {'にしな'}
 
 tagger = fugashi.Tagger()

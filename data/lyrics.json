@@ -1,11 +1,11 @@
 {
   "meta": {
     "source": "src/content/translations/*.md",
-    "song_count": 51,
-    "total_lyric_lines": 1997,
+    "song_count": 50,
+    "total_lyric_lines": 1993,
     "schema": {
       "song": {
-        "id": "kebab-case filename stem (nishina-plum, yoasobi-yoru-ni-kakeru)",
+        "id": "kebab-case filename stem (nishina-plum, nishina-1999)",
         "title": "canonical Japanese title",
         "album": "album name",
         "album_year": "int",
@@ -13425,54 +13425,6 @@
         }
       ],
       "lyric_line_count": 29
-    },
-    {
-      "id": "yoasobi-yoru-ni-kakeru",
-      "title": "夜に駆ける",
-      "artist": "YOASOBI",
-      "album": "THE BOOK",
-      "album_year": "2021",
-      "track_number": null,
-      "publish_date": "2026-03-23",
-      "lyricist": null,
-      "composer": null,
-      "arranger": null,
-      "tags": [
-        "YOASOBI",
-        "流行",
-        "動畫"
-      ],
-      "instrumental": false,
-      "exclude_from_lyric_analysis": false,
-      "cover_image": "/images/yoasobi-cover.jpg",
-      "detail_url": "/translations/yoasobi-yoru-ni-kakeru/",
-      "lyric_lines": [
-        {
-          "index": 0,
-          "romaji": null,
-          "ja": "沈むように溶けてゆくように",
-          "zh": null
-        },
-        {
-          "index": 1,
-          "romaji": null,
-          "ja": "二人だけの空が広がる夜に",
-          "zh": null
-        },
-        {
-          "index": 2,
-          "romaji": null,
-          "ja": "「さよなら」だけだった",
-          "zh": null
-        },
-        {
-          "index": 3,
-          "romaji": null,
-          "ja": "その一言で全てが分かった",
-          "zh": null
-        }
-      ],
-      "lyric_line_count": 4
     }
   ]
 }

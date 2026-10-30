@@ -22,7 +22,7 @@ TEMPLATE_PATH = ROOT / 'scripts' / 'kwic.template.html'
 OUT_JSON = ROOT / 'src' / 'data' / 'kwic_index.json'
 OUT_HTML = ROOT / 'public' / 'kwic' / 'index.html'
 
-# 同 analyze_lyrics.py: 只索引にしな 本人的歌 (YOASOBI 客串等自動排除)
+# 同 analyze_lyrics.py: 只索引にしな 本人的歌 (其他歌手的歌自動排除)
 ARTIST_ALLOWLIST = {'にしな'}
 
 INDEX_POS = {'名詞', '動詞', '形容詞', '副詞', '代名詞'}

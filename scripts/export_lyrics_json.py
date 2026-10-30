@@ -67,15 +67,6 @@ SUB_DIV_RE = re.compile(r'<div class="(romaji|ja|zh)">([^<]*)</div>')
 LINE_DIV_RE = re.compile(r'<div class="lyrics-line">|<div class="(romaji|ja|zh)">([^<]*)</div>')
 
 
-# Legacy YOASOBI-style format: <div class="lyrics-container"> with <div class="lyrics-ja">…<br/>…</div>
-LEGACY_CONTAINER_RE = re.compile(r'<div class="lyrics-container">(.*?)</div>\s*</div>', re.DOTALL)
-LEGACY_JA_RE = re.compile(r'<div class="lyrics-ja">(.*?)</div>', re.DOTALL)
-LEGACY_ZH_RE = re.compile(r'<div class="lyrics-zh">(.*?)</div>', re.DOTALL)
-
-
-def _split_br(text: str) -> list[str]:
-    parts = re.split(r"<br\s*/?>", text)
-    return [p.strip() for p in parts if p.strip()]
 
 
 def parse_lyric_lines(body: str) -> list[dict]:
@@ -101,20 +92,6 @@ def parse_lyric_lines(body: str) -> list[dict]:
         current[key] = value
     if current:
         lines.append(current)
-
-    # Fallback: legacy lyrics-container format (e.g. yoasobi-yoru-ni-kakeru)
-    if not lines:
-        for cmatch in LEGACY_CONTAINER_RE.finditer(scope):
-            block = cmatch.group(1)
-            ja_match = LEGACY_JA_RE.search(block)
-            zh_match = LEGACY_ZH_RE.search(block)
-            ja_lines = _split_br(ja_match.group(1)) if ja_match else []
-            zh_lines = _split_br(zh_match.group(1)) if zh_match else []
-            for i in range(max(len(ja_lines), len(zh_lines))):
-                lines.append({
-                    "ja": ja_lines[i] if i < len(ja_lines) else None,
-                    "zh": zh_lines[i] if i < len(zh_lines) else None,
-                })
 
     return [
         {"index": i, "romaji": ln.get("romaji"), "ja": ln.get("ja"), "zh": ln.get("zh")}
@@ -164,7 +141,7 @@ def main():
             "total_lyric_lines": sum(s["lyric_line_count"] for s in songs),
             "schema": {
                 "song": {
-                    "id": "kebab-case filename stem (nishina-plum, yoasobi-yoru-ni-kakeru)",
+                    "id": "kebab-case filename stem (nishina-plum, nishina-1999)",
                     "title": "canonical Japanese title",
                     "album": "album name",
                     "album_year": "int",

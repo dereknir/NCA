@@ -28,7 +28,7 @@ OUT_JSON = ROOT / 'src' / 'data' / 'star_map.json'
 OUT_VEC = ROOT / 'data' / 'vectors_q8.json'      # 只供離線腳本 (validate_star_map.py) 用, 沒有頁面 import → 放 data/ 不放 src/
 OUT_HTML = ROOT / 'public' / 'star-map' / 'index.html'
 
-# 同 analyze_lyrics.py / build_kwic.py: 排除 yoasobi 等外部客串
+# 同 analyze_lyrics.py / build_kwic.py: 排除其他歌手的歌
 ARTIST_ALLOWLIST = {'にしな'}
 
 # E5 家族最大版 (Derek 指定「最厲害的」);跨語言 retrieval 表現最好

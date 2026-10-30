@@ -57,7 +57,6 @@ SONGS = [
     ("weekly",                      ["weekly", "WEEKLY"]),
     ("夜間飛行",                     ["夜間飛行", "yakanhikou", "yakanhiko"]),
     ("夜になって",                    ["夜になって", "yoruninatte"]),
-    ("夜に駆ける",                    ["夜に駆ける", "yorunikakeru", "yoasobi"]),
     # ---- 日々散漫 (2025-2026) new songs from interviews/tour ----
     ("婀娜婀娜",                     ["婀娜婀娜", "adaada"]),
     ("in your eyes",                ["in your eyes", "inyoureyes"]),
