@@ -1,10 +1,10 @@
 {
   "meta": {
-    "total": 112,
+    "total": 113,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 35,
+      "promo": 36,
       "live_song": 41,
       "mc": 7,
       "travel": 9,
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 35,
+      "count": 36,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -389,6 +389,16 @@
           "url": "https://www.youtube.com/shorts/kChBdgAjKkw",
           "thumbnail": "https://i.ytimg.com/vi/kChBdgAjKkw/hqdefault.jpg",
           "viewCount": 2600,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "ZoP8h5hdGP4",
+          "title": "We'll meet again,don't need to promise",
+          "url": "https://www.youtube.com/shorts/ZoP8h5hdGP4",
+          "thumbnail": "https://i.ytimg.com/vi/ZoP8h5hdGP4/hqdefault.jpg",
+          "viewCount": 2300,
           "versionType": null,
           "instrumental": false,
           "anchors": []
