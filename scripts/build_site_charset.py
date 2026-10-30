@@ -9,7 +9,7 @@ build_site_charset.py — 掃出「像素字型會渲染到」的全站字集 �
 掃描來源:
   src/config.ts                     導航/站名/文案
   src/pages/**/*.astro              頁面 UI 文字 (粗剝 tag/code, 過收無害)
-  src/layouts/*.astro, src/components/**/*.astro
+  src/layouts/*.astro, src/components/**/*.astro (元件連 client script 一起掃), src/lib/*.ts
   src/content/translations/*.md     只取 frontmatter title/artist/album
   live/*.template.html              live 三頁的靜態 UI 文字
   public/pixel-lab/index.html       提案頁自身
@@ -58,9 +58,14 @@ def frontmatter_fields(md: str) -> str:
 def main():
     chars: set[str] = set()
 
-    for pattern in ["src/pages/**/*.astro", "src/layouts/*.astro", "src/components/**/*.astro"]:
+    for pattern in ["src/pages/**/*.astro", "src/layouts/*.astro"]:
         for p in ROOT.glob(pattern):
             chars |= set(strip_markup(p.read_text(encoding="utf-8")))
+    # 元件的 UI 字串常寫在 client script 裡 (完整 Live 播放器的段落標籤等) → 連 script 一起收
+    for p in ROOT.glob("src/components/**/*.astro"):
+        chars |= set(strip_markup(p.read_text(encoding="utf-8"), keep_script=True))
+    for p in ROOT.glob("src/lib/*.ts"):
+        chars |= set(p.read_text(encoding="utf-8"))
     chars |= set((ROOT / "src" / "config.ts").read_text(encoding="utf-8"))
 
     # 全站像素統一 (2026-08): 內文也走像素字 → 內容全文都要進字集

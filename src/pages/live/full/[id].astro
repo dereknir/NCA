@@ -1,0 +1,27 @@
+---
+/**
+ * /live/full/<歌曲 id>/ — 完整 Live 播放頁 (只有每句都有人唱到、非 live 不超過 30% 的歌才會產生)
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import FullLivePlayer from '../../../components/FullLivePlayer.astro';
+import data from '../../../data/full_live.json';
+import { summary, type FLSong } from '../../../lib/fullLive';
+
+export function getStaticPaths() {
+  return (data.songs as FLSong[]).filter(s => summary(s).complete).map(song => ({ params: { id: song.id }, props: { song } }));
+}
+
+const { song } = Astro.props as { song: FLSong };
+const sum = summary(song);
+const desc = `帶你聽完一整首 Live：從 ${sum.liveShorts} 支演唱會 shorts 挑出 ${sum.segs} 段，一句接一句唱到最後。`;
+const len = `${Math.floor(sum.duration / 60)}:${String(Math.floor(sum.duration % 60)).padStart(2, '0')}`;
+---
+
+<BaseLayout title={`${song.title} 完整 Live`} description={desc} image={`/og/song/${song.id}.png`} width="stage">
+  <PageHero slot="hero" planet="deimos" width="stage" title={song.title} titleLang="ja"
+    cmd={`./play --full "${song.title}"`} desc={desc}
+    chips={[[String(sum.segs), '段'], [len, '長'], ...(sum.nonLive ? [[String(sum.nonLiveLines), '句用 MV 補'] as [string, string]] : [])]}
+    actions={[{ label: '‹ 完整 Live', href: '/live/full/' }, { label: '歌詞翻譯', href: `/translations/${song.id}/` }]} />
+  <FullLivePlayer song={song} />
+</BaseLayout>

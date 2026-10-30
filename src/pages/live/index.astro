@@ -16,12 +16,15 @@ import events from '../../../live/data/nishina_live_events.json';
 import news from '../../../live/data/nishina_news_classified.json';
 import tours from '../../../live/data/tour_stops.json';
 import upcoming from '../../../live/upcoming.json';
+import fullLive from '../../data/full_live.json';
+import { summary, type FLSong } from '../../lib/fullLive';
 
 const oneman = events.oneman.length;
 const app = events.appearance.length;
 const total = news.length;
 const stops = tours.meta.total_stops;
 const next = upcoming.events[0];
+const fullSongs = (fullLive.songs as FLSong[]).filter(s => summary(s).complete);
 ---
 
 <BaseLayout title="にしな 演出資料" description="にしな 公演史・出演足跡・年表" width="wide">
@@ -60,6 +63,17 @@ const next = upcoming.events[0];
       </a>
     </div>
 
+    {fullSongs.length > 0 && (
+      <a href="/live/full/" class="hub-card full-card">
+        <div>
+          <h2>完整 Live</h2>
+          <p class="hub-sub">把不同場次的演唱會 shorts 照歌詞一句一句接起來，從第一句聽到最後一句</p>
+          <div class="full-songs">{fullSongs.map(s => <span lang="ja">{s.title}</span>)}</div>
+        </div>
+        <div class="hub-num">{fullSongs.length} 首</div>
+      </a>
+    )}
+
     <p class="text-xs text-gray-500 mt-10">
       資料源:nishina247.jp/news(2021.04 開站起)・僅日期/標題/連結,內文請至官方
     </p>
@@ -81,6 +95,12 @@ const next = upcoming.events[0];
       transform: translateY(-2px);
       border-color: #3d63ff;
     }
+    /* 完整 Live: 橫跨整排, 右邊放首數 */
+    .full-card { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-top: 20px; }
+    .full-card .hub-sub { min-height: 0; }
+    .full-songs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .full-songs span { font: 12px var(--sh-pxja); padding: 4px 8px; border: 1px solid #243154; color: #e8ecf6; }
+    .full-card .hub-num { position: static; white-space: nowrap; }
     .hub-emoji { font-size: 36px; margin-bottom: 8px; }
     .hub-card h2 {
       font-size: 20px;

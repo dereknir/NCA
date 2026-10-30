@@ -15,7 +15,7 @@ interface Props {
   viewTransitions?: boolean;
   /** 內容寬度: wide (列表/工具 1024) / read (閱讀 896) / legacy (舊 container, 還沒改版的頁)。
    *  跟 PageHero 的 width 一致, hero 左緣才會對齊內文。 */
-  width?: 'wide' | 'read' | 'legacy';
+  width?: 'wide' | 'read' | 'stage' | 'legacy';
 }
 
 const {
@@ -36,7 +36,7 @@ const current = navItems
   .filter(it => here === norm(it.href) || here.startsWith(norm(it.href) + '/'))
   .sort((a, b) => b.href.length - a.href.length)[0];
 const mainClass = width === 'legacy' ? 'container mx-auto px-4 py-8 fade-in'
-  : `sh-wrap${width === 'read' ? ' sh-wrap--read' : ''} sh-main fade-in`;
+  : `sh-wrap${width === 'read' ? ' sh-wrap--read' : width === 'stage' ? ' sh-wrap--stage' : ''} sh-main fade-in`;
 
 // 網域還沒定 (astro.config.mjs 的 SITE 留空) 時不輸出 canonical / og:url, og:image 用站內路徑
 const canonicalURL = Astro.site && new URL(Astro.url.pathname, Astro.site);

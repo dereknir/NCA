@@ -21,9 +21,10 @@
   --sh-w: 1024px;
 }
 
-/* 內容寬度只有兩種: 列表/工具 1024, 閱讀 896。hero 跟內文用同一個 wrap, 左緣永遠對齊 */
+/* 內容寬度: 列表/工具 1024, 閱讀 896, 播放器 1280 (只有完整 Live)。hero 跟內文用同一個 wrap, 左緣永遠對齊 */
 .sh-wrap { box-sizing: border-box; width: 100%; max-width: calc(var(--sh-w) + 48px); margin: 0 auto; padding: 0 24px; }
 .sh-wrap--read { --sh-w: 896px; }
+.sh-wrap--stage { --sh-w: 1280px; }   /* 播放器頁 (完整 Live): 舞台 + 歌詞 + 片段三欄 */
 @media (max-width: 640px) { .sh-wrap { padding: 0 16px; } }
 
 /* ---------- 頁首 ---------- */
@@ -90,7 +91,7 @@
 .sh-title { font: 400 36px/1.25 var(--sh-px); letter-spacing: .1em; margin: 12px 0 8px; color: #fff;
   text-shadow: 0 2px 0 rgb(0 0 0 / .55); view-transition-name: sh-title; text-wrap: balance; }
 .sh-title:lang(ja) { font-family: var(--sh-pxja); letter-spacing: .04em; }
-.sh-desc { font: 20px/1.7 var(--sh-read); color: var(--sh-ink2); max-width: 34em; margin: 0; }
+.sh-desc { font: 20px/1.7 var(--sh-read); color: var(--sh-ink2); max-width: 34em; margin: 0; text-wrap: pretty; }
 .sh-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; align-items: center; }
 .sh-chip { font: 12px var(--sh-px); letter-spacing: .06em; padding: 7px 10px; color: var(--sh-ink);
   background: rgb(10 10 21 / .55); border: 2px solid rgb(255 255 255 / .12); text-decoration: none; }
@@ -111,6 +112,7 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
   .sh-hero-inner { padding-top: 72px; }
   .sh-hero-text { max-width: none; }
   .sh-orb { width: 72px; height: 72px; top: 20px; translate: 0 0; right: 16px; }
+  .sh-prompt { padding-right: 84px; }   /* 右上角的小行星: 路徑長的時候先換行, 不要壓到 */
   .sh-hero--tool .sh-orb { width: 64px; height: 64px; }
   .sh-title { font-size: 24px; }
   .sh-desc { font-size: 16px; }

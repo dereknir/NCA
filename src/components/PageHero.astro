@@ -21,7 +21,7 @@ interface Props {
   chips?: Array<[string, string?, string?]>;     // [數字, 說明, 連結]
   actions?: Array<{ label: string; href: string; primary?: boolean; external?: boolean }>;
   variant?: 'page' | 'tool' | 'song';
-  width?: 'wide' | 'read';
+  width?: 'wide' | 'read' | 'stage';
   cover?: string;
   coverAlt?: string;
   coverTransition?: string;            // 跟列表頁縮圖同名, 換頁時封面接續
@@ -49,7 +49,7 @@ const isSong = variant === 'song';
   style={p ? `--sh-accent:${p.palette[0].join(' ')}` : undefined}
 >
   <div class="sh-hero-bg" aria-hidden="true"></div>
-  <div class={`sh-wrap sh-hero-inner${width === 'read' ? ' sh-wrap--read' : ''}`}>
+  <div class={`sh-wrap sh-hero-inner${width === 'read' ? ' sh-wrap--read' : width === 'stage' ? ' sh-wrap--stage' : ''}`}>
     {isSong && cover && (
       <img class="sh-cover" src={coverAt(cover, 448)} alt={coverAlt} width="224" height="224" loading="eager"
            style={coverTransition ? `view-transition-name:${coverTransition}` : undefined} />

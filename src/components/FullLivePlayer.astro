@@ -1,0 +1,399 @@
+---
+/**
+ * FullLivePlayer — 完整 Live 播放器: 直式舞台 / 逐句歌詞 / 片段清單 + 底部時間軸
+ *
+ * 兩個 YouTube 播放器輪流用: 下一段提早在背景靜音開播, 時間到換過去 (中間蓋一層雜訊轉場)。
+ * 排段規則在 src/lib/fullLive.ts; 某支播不了就從當下那句重排, 不整段跳過。
+ * ?mock=1 換成假播放器 (自動測試用, &speed=N 快轉, &fail=<videoId> 模擬播不了)。
+ */
+import type { FLSong } from '../lib/fullLive';
+
+interface Props { song: FLSong }
+const { song } = Astro.props;
+---
+
+<div class="flp" data-flp data-song={JSON.stringify(song)}>
+  <div class="flp-main">
+    <div>
+      <div class="flp-stage" data-stage>
+        <div class="flp-pl" data-pl="0"><div></div></div>
+        <div class="flp-pl" data-pl="1"><div></div></div>
+        <div class="flp-nosig" data-nosig><div><b>NO SIGNAL</b>這句還沒有人拍到<br><span data-nosig-t></span></div></div>
+        <div class="flp-crt"></div>
+        <canvas class="flp-noise" data-noise width="90" height="160"></canvas>
+        <div class="flp-osd"><span class="rec" data-osd-l>LIVE</span><span data-osd-r>— / —</span></div>
+        <div class="flp-osd-big" data-osd-big></div>
+        <div class="flp-cap" data-cap></div>
+        <button class="flp-start" data-start type="button"><div><span>▶ 播放</span>從第一句聽到最後一句</div></button>
+      </div>
+      <div class="flp-ctl">
+        <button data-prev type="button">‹ 上一段</button>
+        <button data-play type="button">⏸ 暫停</button>
+        <button data-next type="button">下一段 ›</button>
+      </div>
+    </div>
+    <div class="flp-lyr" data-lyr><div class="flp-lyr-in" data-lyr-in></div></div>
+    <div class="flp-list" data-list></div>
+  </div>
+  <div class="flp-track-h"><span>每一格是一支 short，標 MV 的是官方 MV</span><span><b data-now>0:00</b> / <span data-all>0:00</span></span></div>
+  <div class="flp-track" data-track></div>
+  <p class="flp-legend">點格子、片段或歌詞都可以直接跳過去</p>
+</div>
+
+<style is:global>
+  /* 舞台高度跟著視窗: 筆電上底下的按鈕也要看得到; 寬度照 9:16 */
+  .flp { --flp-h: clamp(480px, calc(100svh - 220px), 640px); --flp-stage: calc(var(--flp-h) * 9 / 16); --glow: 255 140 105; margin-top: 8px; }
+  .flp-main { display: grid; grid-template-columns: var(--flp-stage) minmax(0, 1fr) 280px; gap: 40px; align-items: start; }
+
+  .flp-stage { position: relative; width: var(--flp-stage); height: var(--flp-h); background: #000; border: 2px solid var(--sh-line);
+    box-shadow: 0 0 0 6px #0b0b16, 0 0 80px rgb(var(--glow) / .35); transition: box-shadow .4s; overflow: hidden; }
+  .flp-stage.alt { box-shadow: 0 0 0 6px #0b0b16, 0 0 80px rgb(182 194 224 / .25); }
+  .flp-pl { position: absolute; inset: 0; opacity: 0; transition: opacity .12s; }
+  .flp-pl.on { opacity: 1; }
+  .flp-pl iframe, .flp-pl > div { width: 100%; height: 100%; border: 0; pointer-events: none; }
+  .flp-crt { position: absolute; inset: 0; pointer-events: none; z-index: 3;
+    background: repeating-linear-gradient(0deg, rgb(0 0 0 / .22) 0 1px, transparent 1px 3px),
+                radial-gradient(120% 90% at 50% 50%, transparent 60%, rgb(0 0 0 / .55)); mix-blend-mode: multiply; }
+  .flp-noise { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 4; image-rendering: pixelated; opacity: 0; pointer-events: none; }
+  .flp-noise.on { opacity: 1; }
+  .flp-osd { position: absolute; z-index: 5; left: 14px; top: 12px; right: 14px; display: flex; justify-content: space-between;
+    font: 12px var(--sh-px); color: var(--sh-ink); text-shadow: 0 0 6px rgb(0 0 0 / .9), 1px 1px 0 #000; pointer-events: none; }
+  .flp-osd .rec::before { content: '●'; color: #ff4d4d; margin-right: 4px; animation: sh-blink 1s steps(2) infinite; }
+  .flp-stage.alt .flp-osd span:first-child { background: var(--sh-ink2); color: #0a0a15; padding: 0 6px; text-shadow: none; }
+  .flp-osd-big { position: absolute; z-index: 5; inset: 0; display: grid; place-items: center; pointer-events: none;
+    font: 36px var(--sh-px); color: #fff; text-shadow: 3px 3px 0 #000, 0 0 18px rgb(var(--glow) / .9); opacity: 0; }
+  .flp-osd-big.on { opacity: 1; }
+  .flp-cap { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; padding: 32px 14px 12px; color: var(--sh-ink);
+    background: linear-gradient(transparent, rgb(0 0 0 / .85)); font: 12px/1.6 var(--sh-pxja); pointer-events: none; }
+  .flp-cap .v { color: var(--sh-ink3); font-family: var(--sh-px); }
+  .flp-nosig { position: absolute; inset: 0; z-index: 2; display: none; place-items: center; text-align: center;
+    font: 12px/1.6 var(--sh-px); color: var(--sh-ink2); background: #050509; }
+  .flp-nosig.on { display: grid; }
+  .flp-nosig b { display: block; font: 24px var(--sh-px); color: var(--sh-ink); letter-spacing: .1em; margin-bottom: 6px; }
+  .flp-start { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; background: rgb(5 5 10 / .72);
+    cursor: pointer; border: 0; color: var(--sh-ink2); font: 12px/1.6 var(--sh-px); }
+  .flp-start span { display: block; font: 24px var(--sh-px); color: #fff; margin-bottom: 8px; }
+  .flp-start[hidden] { display: none; }
+  .flp-ctl { display: flex; gap: 8px; margin-top: 16px; }
+  .flp-ctl button { flex: 1; font: 12px var(--sh-px); color: var(--sh-ink); background: rgb(10 10 21 / .6); border: 2px solid var(--sh-line);
+    padding: 8px 10px; cursor: pointer; }
+  .flp-ctl button:hover { border-color: var(--sh-gold); }
+
+  .flp-lyr { height: var(--flp-h); overflow: hidden; position: relative; mask-image: linear-gradient(transparent, #000 16%, #000 82%, transparent); }
+  .flp-lyr-in { transition: transform .5s cubic-bezier(.2,.7,.2,1); padding: 300px 0; }
+  .flp-ln { position: relative; padding: 8px 0 8px 22px; color: var(--sh-ink3); transition: color .3s; cursor: pointer; }
+  .flp-ln::before { content: ''; position: absolute; left: 0; top: 10px; bottom: 10px; width: 4px; background: var(--c, var(--sh-line)); opacity: .4; }
+  .flp-ln .ja { font: 24px/1.45 var(--sh-pxja); display: block; }
+  .flp-ln .zh { font: 12px/1.7 var(--sh-px); display: block; opacity: .85; }
+  .flp-ln.past { color: #464f6b; }
+  .flp-ln.cur { color: #fff; }
+  .flp-ln.cur .ja { font-size: 36px; text-shadow: 0 0 22px rgb(var(--glow) / .5); }
+  .flp-ln.cur .zh { color: var(--sh-ink2); }
+  .flp-ln.cur::before { opacity: 1; box-shadow: 0 0 14px var(--c); }
+  .flp-ln.gap .ja::after { content: ' ── 還沒有人拍到'; font: 12px var(--sh-px); color: var(--sh-ink3); }
+  .flp-part { margin: 22px 0 2px 22px; font: 12px var(--sh-px); color: var(--c); letter-spacing: .06em; }
+  .flp-part i { font-style: normal; color: var(--sh-ink3); }
+  .flp-kind { font-style: normal; color: #0a0a15; background: var(--sh-ink2); padding: 0 6px; letter-spacing: .04em; }
+
+  .flp-list { height: var(--flp-h); overflow: auto; display: flex; flex-direction: column; gap: 8px; scrollbar-width: thin; padding-left: 2px; }
+  .flp-list h3 { font: 12px var(--sh-px); color: var(--sh-ink3); margin: 0 0 4px; letter-spacing: .1em; font-weight: 400; }
+  .flp-it { display: grid; grid-template-columns: 54px 1fr; gap: 10px; padding: 8px; border: 2px solid transparent; background: rgb(15 15 29 / .7);
+    cursor: pointer; text-align: left; color: var(--sh-ink2); font: 12px/1.5 var(--sh-px); position: relative; }
+  .flp-it::before { content: ''; position: absolute; left: -2px; top: -2px; bottom: -2px; width: 4px; background: var(--c); }
+  .flp-it img { width: 54px; height: 96px; object-fit: cover; filter: saturate(.8); background: #111; }
+  .flp-it b { display: block; font-weight: 400; color: var(--c); }
+  .flp-it .t { color: var(--sh-ink); font-family: var(--sh-pxja); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .flp-it .m { color: var(--sh-ink3); }
+  .flp-it.cur { border-color: var(--c); background: rgb(25 25 45 / .9); }
+  .flp-it.done { opacity: .5; }
+
+  .flp-track-h { display: flex; justify-content: space-between; margin: 32px 0 8px; font: 12px var(--sh-px); color: var(--sh-ink2); }
+  .flp-track-h b { color: var(--sh-gold); font-weight: 400; }
+  .flp-track { position: relative; display: flex; gap: 3px; height: 48px; }
+  .flp-seg { position: relative; flex: var(--w) 1 0; min-width: 18px; background: #111 center / cover no-repeat; cursor: pointer; overflow: hidden; border: 0; padding: 0; }
+  .flp-seg::after { content: attr(data-n); position: absolute; left: 6px; top: 4px; font: 12px var(--sh-px); color: #fff; text-shadow: 1px 1px 0 #000; }
+  .flp-seg > .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: var(--c); z-index: 1; }
+  .flp-seg.gap { background: repeating-linear-gradient(45deg, #1a1f33 0 4px, #0d1020 4px 8px); }
+  .flp-seg.done { filter: saturate(.4) brightness(.6); }
+  .flp-seg.cur { outline: 2px solid #fff; outline-offset: 2px; z-index: 1; }
+  .flp-seg .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: rgb(255 255 255 / .22); }
+  .flp-head { position: absolute; top: -6px; bottom: -6px; width: 2px; background: #fff; box-shadow: 0 0 8px #fff; left: 0; pointer-events: none; z-index: 2; }
+  .flp-legend { margin: 10px 0 0; font: 12px var(--sh-px); color: var(--sh-ink3); }
+
+  @media (max-width: 1180px) {
+    .flp-main { grid-template-columns: var(--flp-stage) minmax(0, 1fr); }
+    .flp-list { display: none; }
+  }
+  @media (max-width: 760px) {
+    .flp-main { grid-template-columns: 1fr; gap: 20px; }
+    .flp-stage { width: min(360px, 100%); height: auto; aspect-ratio: 9 / 16; margin: 0 auto; }
+    .flp-ctl { max-width: 360px; margin: 16px auto 0; }
+    .flp-lyr { height: 320px; }
+    .flp-lyr-in { padding: 130px 0; }
+    .flp-ln.cur .ja { font-size: 24px; }
+  }
+</style>
+
+<script>
+  import { plan, type FLSong, type FLSeg } from '../lib/fullLive';
+
+  declare const YT: any;
+  type Seg = FLSeg & { color: string };
+  type Player = {
+    loadVideoById(o: { videoId: string; startSeconds: number }): void; playVideo(): void; pauseVideo(): void;
+    seekTo(s: number, a?: boolean): void; getCurrentTime(): number; getPlayerState(): number;
+    mute(): void; unMute(): void; setVolume(v: number): void;
+  };
+
+  const Q = new URLSearchParams(location.search), MOCK = Q.has('mock'), SPEED = MOCK ? +(Q.get('speed') || 1) : 1;
+  const COLORS = ['#ff8c69', '#5ca8ff', '#e8c94a', '#46be6e', '#c86ef0', '#60e0d2', '#f064a0', '#ffb347'];
+  const LEAD = 2.5;       // 下一段提早幾秒在背景靜音開播, 切過去時已經在跑
+  const HOLD = 1.2;       // 時間到了下一段還沒開始播: 目前這段最多再多播幾秒等它
+  const hex2rgb = (h: string) => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)).join(' ');
+  const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+  const views = (n: number) => n >= 10000 ? (n / 10000).toFixed(1).replace(/\.0$/, '') + ' 萬次觀看' : n + ' 次觀看';
+  const esc = (s: string) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
+
+  // 自動測試用的假播放器: 計時器假裝在播, 載入時假裝緩衝 0.4 秒
+  function mockPlayer(el: HTMLElement, onError: (p: Player) => void): Player {
+    let vid = '', t0 = 0, at = 0, playing = false, loadAt = 0;
+    el.style.cssText = 'width:100%;height:100%;background:#111 center/cover';
+    const live = () => playing && performance.now() >= loadAt;
+    const now = () => live() ? at + (performance.now() - Math.max(t0, loadAt)) / 1000 * SPEED : at;
+    const api: Player = {
+      loadVideoById({ videoId, startSeconds }) {
+        vid = videoId; at = startSeconds || 0; t0 = performance.now(); loadAt = t0 + 400 / SPEED; playing = true;
+        el.style.backgroundImage = `url(https://i.ytimg.com/vi/${vid}/hqdefault.jpg)`;
+        if (Q.get('fail') === videoId) setTimeout(() => onError(api), 300 / SPEED);
+      },
+      playVideo() { if (!playing) { t0 = performance.now(); playing = true; } },
+      pauseVideo() { at = now(); playing = false; },
+      seekTo(s) { at = s; t0 = performance.now(); },
+      getCurrentTime: () => now(), getPlayerState: () => live() ? 1 : playing ? 3 : 2,
+      mute() {}, unMute() {}, setVolume() {},
+    };
+    return api;
+  }
+
+  function mount(root: HTMLElement) {
+    const song: FLSong = JSON.parse(root.dataset.song!);
+    const q = <T extends Element = HTMLElement>(sel: string) => root.querySelector<T>(sel)! as unknown as T;
+    const stage = q('[data-stage]'), lyrIn = q('[data-lyr-in]'), lyr = q('[data-lyr]'), list = q('[data-list]'), track = q('[data-track]');
+    const startBtn = q<HTMLButtonElement>('[data-start]'), playBtn = q('[data-play]'), cap = q('[data-cap]');
+    const osdL = q('[data-osd-l]'), osdR = q('[data-osd-r]'), osdBig = q('[data-osd-big]'), nosig = q('[data-nosig]');
+    const plEls = [...root.querySelectorAll<HTMLElement>('[data-pl]')];
+
+    let segs: Seg[] = [], bad = new Set<string>(), k = -1, act = 0, pre: { n: number; p: number; v: string } | null = null;
+    let paused = false, gapT0 = 0, gapAt = 0, durs: number[] = [], holdT = 0, curLine = -2;
+    let players: Player[] = [], ready: Promise<void> = Promise.resolve();
+    const segDur = (s: FLSeg) => s.gap ? s.len : s.end - s.start;
+
+    /* ---------- 播放器 ---------- */
+    function onPlayerError(p: Player) {
+      if (k < 0) return;
+      if (p === players[act] && !segs[k].gap) return recover();
+      // 背景預載的下一段出錯: 現在就換人, 不要等切過去才卡住
+      if (pre && players[pre.p] === p) {
+        bad.add(pre.v); pre = null;
+        build([...segs.slice(0, k + 1), ...plan(song, bad, segs[k].to + 1)]);
+        mark(k);
+      }
+    }
+    if (MOCK) players = plEls.map(el => mockPlayer(el.firstElementChild as HTMLElement, onPlayerError));
+    else ready = new Promise(res => {
+      const make = () => {
+        let n = 0;
+        const opts = { width: '100%', height: '100%',
+          playerVars: { controls: 0, playsinline: 1, rel: 0, modestbranding: 1, iv_load_policy: 3, disablekb: 1, fs: 0 },
+          events: { onReady: () => { if (++n === 2) res(); }, onError: (e: any) => onPlayerError(e.target) } };
+        players = plEls.map(el => new YT.Player(el.firstElementChild, opts));
+      };
+      if ((window as any).YT?.Player) return make();
+      const prev = (window as any).onYouTubeIframeAPIReady;
+      (window as any).onYouTubeIframeAPIReady = () => { prev?.(); make(); };
+      const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; document.head.append(s);
+    });
+
+    /* ---------- 換段雜訊 ---------- */
+    const nz = q<HTMLCanvasElement>('[data-noise]'), ng = nz.getContext('2d')!, nimg = ng.createImageData(90, 160);
+    function glitch(text: string) {
+      const t0 = performance.now();
+      nz.classList.add('on'); osdBig.textContent = text; osdBig.classList.add('on');
+      (function f(t: number) {
+        for (let i = 0; i < nimg.data.length; i += 4) {
+          const v = Math.random() * 255 | 0, band = ((i / 360 | 0) + (t / 16 | 0)) % 23 < 2;
+          nimg.data[i] = band ? 255 : v; nimg.data[i + 1] = band ? 140 : v; nimg.data[i + 2] = band ? 105 : v; nimg.data[i + 3] = 255;
+        }
+        ng.putImageData(nimg, 0, 0);
+        if (t - t0 < 420) requestAnimationFrame(f);
+        else { nz.classList.remove('on'); setTimeout(() => osdBig.classList.remove('on'), 500); }
+      })(t0);
+    }
+
+    /* ---------- 畫面 ---------- */
+    function build(next: FLSeg[]) {
+      segs = next.map((s, n) => ({ ...s, color: COLORS[n % COLORS.length] }));
+      durs = segs.map(segDur);
+      const lineSeg: number[] = [];
+      segs.forEach((s, n) => { for (let l = s.from; l <= s.to; l++) lineSeg[l] = n; });
+      lyrIn.innerHTML = song.lines.map((ln, l) => {
+        const n = lineSeg[l], s = segs[n];
+        const part = s.from === l && !s.gap
+          ? `<div class="flp-part" style="--c:${s.color}">第 ${n + 1} 段・${s.live ? '' : `<em class="flp-kind">${s.kind}</em> `}${esc(s.title)} <i>${views(s.views)}</i></div>` : '';
+        return part + `<div class="flp-ln${s.gap ? ' gap' : ''}" data-l="${l}" data-n="${n}" style="--c:${s.gap ? '#243154' : s.color}">`
+          + `<span class="ja" lang="ja">${esc(ln.ja)}</span><span class="zh">${esc(ln.zh)}</span></div>`;
+      }).join('');
+      list.innerHTML = '<h3>這首歌由這幾段組成</h3>' + segs.map((s, n) => s.gap
+        ? `<button class="flp-it" type="button" data-i="${n}" style="--c:#243154"><img alt=""><div><b>第 ${n + 1} 段</b><div class="t">還沒有人拍到</div><div class="m">第 ${s.from + 1} 句</div></div></button>`
+        : `<button class="flp-it" type="button" data-i="${n}" style="--c:${s.color}"><img src="https://i.ytimg.com/vi/${s.v}/hqdefault.jpg" alt="" loading="lazy">`
+          + `<div><b>第 ${n + 1} 段${s.live ? '' : ` <em class="flp-kind">${s.kind}</em>`}</b><div class="t" lang="ja">${esc(s.title)}</div>`
+          + `<div class="m">第 ${s.from + 1}–${s.to + 1} 句・${views(s.views)}</div></div></button>`).join('');
+      track.innerHTML = segs.map((s, n) => `<button class="flp-seg${s.gap ? ' gap' : ''}" type="button" data-n="${n + 1}${s.gap || s.live ? '' : ' ' + s.kind}" data-i="${n}"`
+        + ` title="${s.gap ? '還沒有人拍到' : esc(s.title)}" style="--w:${durs[n].toFixed(2)};--c:${s.color};${s.gap ? '' : `background-image:url(https://i.ytimg.com/vi/${s.v}/mqdefault.jpg)`}">`
+        + '<span class="fill"></span><span class="bar"></span></button>').join('') + '<div class="flp-head" data-head></div>';
+      q('[data-all]').textContent = fmt(durs.reduce((a, b) => a + b, 0));
+    }
+
+    function mark(n: number) {
+      root.querySelectorAll('.flp-seg').forEach((e, i) => { e.classList.toggle('cur', i === n); e.classList.toggle('done', i < n); });
+      root.querySelectorAll('.flp-it').forEach((e, i) => { e.classList.toggle('cur', i === n); e.classList.toggle('done', i < n); });
+      root.querySelector('.flp-it.cur')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      const l = curLine; curLine = -2; setLine(l);
+    }
+
+    function setLine(l: number) {
+      if (l === curLine) return;
+      curLine = l;
+      const lines = root.querySelectorAll<HTMLElement>('.flp-ln');
+      lines.forEach(e => { const x = +e.dataset.l!; e.classList.toggle('cur', x === l); e.classList.toggle('past', l >= 0 && x < l); });
+      const el = lines[l];
+      requestAnimationFrame(() => {
+        lyrIn.style.transform = el ? `translateY(${-(el.offsetTop - lyr.clientHeight / 2 + el.offsetHeight / 2)}px)` : 'translateY(0)';
+      });
+    }
+
+    /* ---------- 播放流程 ---------- */
+    function stopAll() {
+      players.forEach(p => { try { p.pauseVideo(); } catch (e) {} });
+      pre = null; plEls.forEach(e => e.classList.remove('on')); nosig.classList.remove('on');
+    }
+
+    function go(n: number) {
+      if (n < 0 || n >= segs.length) return finish();
+      const s = segs[n], prevAct = act;
+      k = n; holdT = 0;
+      root.style.setProperty('--glow', hex2rgb(s.gap ? '#6f7a99' : s.color));
+      glitch(s.gap ? 'NO SIGNAL' : s.live ? `CAM ${String(n + 1).padStart(2, '0')}` : s.kind);
+      osdR.textContent = `${n + 1} / ${segs.length}`;
+      osdL.textContent = s.gap ? 'NO SIGNAL' : s.live ? 'LIVE' : s.kind;
+      osdL.classList.toggle('rec', !s.gap && s.live);
+      stage.classList.toggle('alt', !s.gap && !s.live);
+      if (s.gap) {
+        players[prevAct].pauseVideo(); plEls.forEach(e => e.classList.remove('on'));
+        nosig.classList.add('on'); gapT0 = performance.now(); gapAt = 0; cap.innerHTML = '';
+      } else {
+        nosig.classList.remove('on');
+        const usePre = pre && pre.n === n && pre.v === s.v;
+        const nextAct = usePre ? pre!.p : (prevAct + 1) % 2, p = players[nextAct];
+        if (usePre) {
+          const t = p.getCurrentTime();
+          if (t < s.start - .3 || t > s.start + 1) p.seekTo(s.start, true);
+        } else p.loadVideoById({ videoId: s.v, startSeconds: s.start });
+        p.unMute(); p.setVolume(100); p.playVideo();
+        if (nextAct !== prevAct) players[prevAct].pauseVideo();
+        act = nextAct; pre = null;
+        plEls.forEach((e, i) => e.classList.toggle('on', i === act));
+        cap.innerHTML = `<div>${esc(s.title)}</div><div class="v">第 ${n + 1} 段・${s.live ? '' : s.kind + '・這幾句沒人在現場拍到・'}${views(s.views)}・第 ${s.from + 1}–${s.to + 1} 句</div>`;
+      }
+      mark(n);
+    }
+
+    // 正在播的那支播不了: 排除它, 從當下這句重新挑, 不整段跳過
+    function recover() {
+      const s = segs[k];
+      if (s.gap) return;
+      const line = Math.min(s.to, Math.max(s.from, curLine));
+      bad.add(s.v);
+      const head: FLSeg[] = segs.slice(0, k);
+      if (line > s.from) head.push({ ...s, to: line - 1, end: s.cues.find(c => c[0] === line)![1] });
+      build([...head, ...plan(song, bad, line)]);
+      pre = null; go(head.length);
+    }
+
+    function preroll(n: number) {
+      const s = segs[n];
+      if (!s || s.gap || (pre && pre.n === n)) return;
+      const pi = (act + 1) % 2, p = players[pi];
+      p.mute(); p.loadVideoById({ videoId: s.v, startSeconds: Math.max(0, s.start - LEAD) });
+      pre = { n, p: pi, v: s.v };
+    }
+
+    function finish() {
+      stopAll(); k = -1; setLine(-1);
+      osdL.textContent = 'END'; osdL.classList.remove('rec'); osdR.textContent = `${segs.length} / ${segs.length}`;
+      startBtn.hidden = false; startBtn.querySelector('span')!.textContent = '↺ 再聽一次';
+      cap.innerHTML = '';
+      root.dispatchEvent(new CustomEvent('flp:end'));
+    }
+
+    const timer = setInterval(() => {
+      if (!root.isConnected) return clearInterval(timer);
+      if (k < 0 || paused) return;
+      const s = segs[k];
+      let into: number;
+      if (s.gap) {
+        into = gapAt + (performance.now() - gapT0) / 1000 * SPEED;
+        q('[data-nosig-t]').textContent = `${Math.max(0, s.len - into).toFixed(1)}s`;
+        setLine(s.from);
+        if (into >= s.len - LEAD) preroll(k + 1);
+        if (into >= s.len) return go(k + 1);
+      } else {
+        const p = players[act], t = p.getCurrentTime();
+        into = Math.max(0, t - s.start);
+        let l = s.from;
+        for (const [line, ct] of s.cues) if (t >= ct - .1) l = line;
+        setLine(l);
+        root.dispatchEvent(new CustomEvent('flp:line', { detail: l }));
+        if (t >= s.end - LEAD) preroll(k + 1);
+        if (t >= s.end || p.getPlayerState() === 0) {
+          // 下一段還在緩衝: 這段多播一下 (最多 HOLD 秒) 再切, 免得換過去開頭被吃掉
+          const nx = segs[k + 1], np = pre && pre.n === k + 1 ? players[pre.p] : null;
+          if (nx && !nx.gap && np && np.getPlayerState() !== 1 && p.getPlayerState() !== 0 && holdT < HOLD) { holdT += .05 * SPEED; return; }
+          root.dispatchEvent(new CustomEvent('flp:cut', { detail: { seg: k, at: t, end: s.end } }));
+          return go(k + 1);
+        }
+      }
+      q('[data-now]').textContent = fmt(durs.slice(0, k).reduce((a, b) => a + b, 0) + Math.min(into, durs[k]));
+      const seg = root.querySelectorAll<HTMLElement>('.flp-seg')[k];
+      seg.querySelector<HTMLElement>('.fill')!.style.width = Math.min(100, into / durs[k] * 100) + '%';
+      q('[data-head]').style.left = (seg.offsetLeft + seg.offsetWidth * Math.min(1, into / durs[k])) + 'px';
+    }, 50);
+
+    /* ---------- 操作 ---------- */
+    const jump = async (n: number) => {
+      await ready;
+      startBtn.hidden = true; paused = false; playBtn.textContent = '⏸ 暫停'; pre = null;
+      go(n);
+    };
+    startBtn.addEventListener('click', () => jump(0));
+    playBtn.addEventListener('click', () => {
+      if (k < 0) return;
+      paused = !paused;
+      const s = segs[k];
+      if (s.gap) { if (paused) gapAt += (performance.now() - gapT0) / 1000 * SPEED; else gapT0 = performance.now(); }
+      else if (paused) players[act].pauseVideo(); else players[act].playVideo();
+      playBtn.textContent = paused ? '▶ 繼續' : '⏸ 暫停';
+    });
+    q('[data-prev]').addEventListener('click', () => { if (k > 0) jump(k - 1); });
+    q('[data-next]').addEventListener('click', () => { if (k >= 0) jump(k + 1); });
+    track.addEventListener('click', e => { const b = (e.target as Element).closest<HTMLElement>('.flp-seg'); if (b) jump(+b.dataset.i!); });
+    list.addEventListener('click', e => { const b = (e.target as Element).closest<HTMLElement>('.flp-it'); if (b) jump(+b.dataset.i!); });
+    lyrIn.addEventListener('click', e => { const l = (e.target as Element).closest<HTMLElement>('.flp-ln'); if (l) jump(+l.dataset.n!); });
+
+    build(plan(song, bad));
+    osdR.textContent = `— / ${segs.length}`;
+    setLine(-1);
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-flp]').forEach(mount);
+</script>

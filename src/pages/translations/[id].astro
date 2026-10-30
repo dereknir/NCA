@@ -7,6 +7,8 @@ import LiveStage from '../../components/LiveStage.astro';
 import shortsData from '../../data/shorts_by_song.json';
 import { getCollection, render } from 'astro:content';
 import { existsSync } from 'node:fs';
+import fullLive from '../../data/full_live.json';
+import { summary, type FLSong } from '../../lib/fullLive';
 
 export async function getStaticPaths() {
   const translations = await getCollection('translations');
@@ -53,6 +55,10 @@ const ogCard = `/og/song/${translation.id}.png`;
 const image = existsSync(`public${ogCard}`) ? ogCard
   : coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg` : undefined);
 
+// 每句都有人在現場唱到的歌, hero 多一顆「完整 Live」
+const flSong = (fullLive.songs as FLSong[]).find(s => s.id === translation.id);
+const hasFullLive = !!flSong && summary(flSong).complete;
+
 // 抓當前歌曲已標註的 shorts (由 scripts/import_anchors.py 產出)
 const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation.id] ?? [];
 ---
@@ -75,7 +81,7 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
       ...(instrumental ? [['Instrumental'] as [string]] : []),
       ...(!isTranslated ? [['翻譯中'] as [string]] : []),
     ]}
-    actions={[{ label: '‹ 列表', href: '/translations' }]}>
+    actions={[{ label: '‹ 列表', href: '/translations' }, ...(hasFullLive ? [{ label: '▶ 完整 Live', href: `/live/full/${translation.id}/`, primary: true }] : [])]}>
     <dl class="sh-meta">
       {credits.map(c => (<><dt>{c.label}</dt><dd>{c.value}</dd></>))}
       <dt>發行</dt><dd>{new Date(publishDate).toLocaleDateString('zh-TW')}</dd>
