@@ -4132,7 +4132,7 @@
         "line": 29
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -4162,7 +4162,7 @@
         "line": 26
       },
       {
-        "t": 27.6,
+        "t": 28.44,
         "line": 27
       },
       {
@@ -4198,8 +4198,8 @@
         "line": 35
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -4244,8 +4244,8 @@
         "line": 35
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -4309,8 +4309,8 @@
         "line": 40
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -4600,6 +4600,10 @@
   "tvIOrGAQHEI": {
     "songId": "nishina-haru-ichiban",
     "anchors": [
+      {
+        "t": 0.27,
+        "line": 22
+      },
       {
         "t": 6.55,
         "line": 23
@@ -11770,8 +11774,8 @@
         "line": 40
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -12049,7 +12053,7 @@
         "line": 35
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -12155,8 +12159,8 @@
         "line": 29
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A",
@@ -12238,7 +12242,7 @@
         "line": 28
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -12299,8 +12303,8 @@
         "line": 18
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -12600,7 +12604,7 @@
         "line": 14
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -12670,20 +12674,24 @@
         "line": 22
       },
       {
-        "t": 8.26,
+        "t": 7.31,
         "line": 23
+      },
+      {
+        "t": 13.86,
+        "line": 24
       },
       {
         "t": 19.25,
         "line": 25
       },
       {
-        "t": 32.07,
+        "t": 33.27,
         "line": 26
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A",
@@ -12867,12 +12875,16 @@
         "line": 26
       },
       {
-        "t": 10.75,
+        "t": 11.85,
         "line": 27
       },
       {
-        "t": 12.65,
+        "t": 14.07,
         "line": 28
+      },
+      {
+        "t": 18.85,
+        "line": 29
       },
       {
         "t": 21.03,
@@ -12903,7 +12915,7 @@
         "line": 36
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -12953,6 +12965,10 @@
         "line": 22
       },
       {
+        "t": 8.97,
+        "line": 23
+      },
+      {
         "t": 13.03,
         "line": 24
       },
@@ -12973,7 +12989,7 @@
         "line": 28
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -13016,8 +13032,8 @@
         "line": 17
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A",
@@ -13097,8 +13113,8 @@
         "line": 32
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B",
@@ -13159,7 +13175,7 @@
         "line": 15
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -13424,11 +13440,11 @@
         "line": 21
       },
       {
-        "t": 11.38,
+        "t": 12.05,
         "line": 22
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -13571,7 +13587,7 @@
         "line": 43
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -13620,7 +13636,7 @@
         "line": 28
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -13787,8 +13803,8 @@
         "line": 43
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A",
@@ -13871,30 +13887,9 @@
     "instrumental": false
   },
   "7DUGYcUOPBs": {
-    "songId": "nishina-wawon",
-    "anchors": [
-      {
-        "t": 0.16,
-        "line": 8
-      },
-      {
-        "t": 6.88,
-        "line": 9
-      },
-      {
-        "t": 11.59,
-        "line": 10
-      },
-      {
-        "t": 14.24,
-        "line": 11
-      },
-      {
-        "t": 17.42,
-        "line": 12
-      }
-    ],
-    "status": "auto",
+    "songId": "__travel",
+    "anchors": [],
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
@@ -13976,8 +13971,8 @@
         "line": 55
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A",
@@ -14091,11 +14086,11 @@
         "line": 27
       },
       {
-        "t": 23.9,
+        "t": 23.88,
         "line": 28
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -14383,8 +14378,8 @@
         "line": 34
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -14429,7 +14424,7 @@
         "line": 25
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -14635,7 +14630,7 @@
         "line": 10
       },
       {
-        "t": 3.52,
+        "t": 3.51,
         "line": 11
       },
       {
@@ -14655,8 +14650,8 @@
         "line": 15
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -14938,19 +14933,19 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 1.56,
+        "t": 1.58,
         "line": 22
       },
       {
-        "t": 5.94,
+        "t": 6.02,
         "line": 23
       },
       {
-        "t": 9.76,
+        "t": 9.74,
         "line": 24
       },
       {
-        "t": 17.18,
+        "t": 17.2,
         "line": 25
       },
       {
@@ -14958,7 +14953,7 @@
         "line": 26
       },
       {
-        "t": 28.46,
+        "t": 28.5,
         "line": 27
       }
     ],
@@ -15055,7 +15050,7 @@
         "line": 14
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -15110,7 +15105,7 @@
         "line": 38
       },
       {
-        "t": 1.56,
+        "t": 1.55,
         "line": 39
       },
       {
@@ -15130,8 +15125,8 @@
         "line": 43
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -15329,8 +15324,8 @@
         "line": 32
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A",
@@ -15414,11 +15409,15 @@
         "line": 6
       },
       {
+        "t": 9.84,
+        "line": 7
+      },
+      {
         "t": 19.66,
         "line": 8
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -15580,7 +15579,7 @@
         "line": 7
       },
       {
-        "t": 5.45,
+        "t": 4.94,
         "line": 8
       },
       {
@@ -15596,7 +15595,7 @@
         "line": 11
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -15630,7 +15629,7 @@
         "line": 14
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -15648,31 +15647,31 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 1.36,
+        "t": 1.33,
         "line": 22
       },
       {
-        "t": 5.32,
+        "t": 5.77,
         "line": 23
       },
       {
-        "t": 8.12,
+        "t": 9.49,
         "line": 24
       },
       {
-        "t": 16.06,
+        "t": 16.95,
         "line": 25
       },
       {
-        "t": 22.08,
+        "t": 24.45,
         "line": 26
       },
       {
-        "t": 28.24,
+        "t": 28.25,
         "line": 27
       },
       {
-        "t": 30.56,
+        "t": 32.4,
         "line": 28
       },
       {
@@ -16274,7 +16273,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.08,
+        "t": 0.17,
         "line": 36
       },
       {
@@ -16286,7 +16285,7 @@
         "line": 38
       },
       {
-        "t": 8.31,
+        "t": 8.33,
         "line": 39
       },
       {
@@ -16298,11 +16297,11 @@
         "line": 41
       },
       {
-        "t": 16.9,
+        "t": 16.89,
         "line": 42
       },
       {
-        "t": 19.6,
+        "t": 19.59,
         "line": 43
       }
     ],
@@ -16665,7 +16664,7 @@
         "line": 10
       },
       {
-        "t": 3.26,
+        "t": 3.25,
         "line": 11
       },
       {
@@ -16673,7 +16672,7 @@
         "line": 12
       },
       {
-        "t": 11.38,
+        "t": 11.37,
         "line": 13
       },
       {
@@ -16685,11 +16684,11 @@
         "line": 15
       },
       {
-        "t": 22.53,
+        "t": 22.54,
         "line": 16
       },
       {
-        "t": 27.72,
+        "t": 27.73,
         "line": 17
       }
     ],
@@ -16743,11 +16742,11 @@
         "line": 32
       },
       {
-        "t": 6.67,
+        "t": 6.65,
         "line": 33
       },
       {
-        "t": 12.76,
+        "t": 12.74,
         "line": 34
       },
       {
@@ -17307,19 +17306,19 @@
         "line": 19
       },
       {
-        "t": 42.4,
+        "t": 42.6,
         "line": 20
       },
       {
-        "t": 44.88,
+        "t": 46.22,
         "line": 21
       },
       {
-        "t": 48.98,
+        "t": 51.23,
         "line": 22
       },
       {
-        "t": 56.9,
+        "t": 57.33,
         "line": 23
       }
     ],
@@ -17490,11 +17489,11 @@
     "songId": "nishina-darling",
     "anchors": [
       {
-        "t": 0,
+        "t": 0.04,
         "line": 23
       },
       {
-        "t": 4.14,
+        "t": 4.13,
         "line": 24
       },
       {
@@ -17506,11 +17505,11 @@
         "line": 26
       },
       {
-        "t": 19.73,
+        "t": 19.72,
         "line": 27
       },
       {
-        "t": 24.08,
+        "t": 24.07,
         "line": 28
       }
     ],
@@ -17657,19 +17656,31 @@
         "line": 19
       },
       {
-        "t": 15.94,
+        "t": 16.17,
         "line": 20
       },
       {
-        "t": 19.78,
+        "t": 19.79,
         "line": 21
       },
       {
-        "t": 42.86,
+        "t": 24.8,
+        "line": 22
+      },
+      {
+        "t": 30.89,
+        "line": 23
+      },
+      {
+        "t": 37.44,
+        "line": 24
+      },
+      {
+        "t": 42.85,
         "line": 25
       },
       {
-        "t": 55.68,
+        "t": 56.27,
         "line": 26
       }
     ],
@@ -17737,7 +17748,7 @@
     "songId": "nishina-bugs",
     "anchors": [
       {
-        "t": 0.01,
+        "t": 0.02,
         "line": 39
       },
       {
@@ -17745,7 +17756,7 @@
         "line": 40
       },
       {
-        "t": 8.58,
+        "t": 8.57,
         "line": 41
       },
       {
@@ -18786,15 +18797,27 @@
         "line": 19
       },
       {
-        "t": 3.24,
+        "t": 3.5,
         "line": 20
       },
       {
-        "t": 7.1,
+        "t": 7.12,
         "line": 21
       },
       {
-        "t": 30.19,
+        "t": 12.13,
+        "line": 22
+      },
+      {
+        "t": 18.22,
+        "line": 23
+      },
+      {
+        "t": 24.77,
+        "line": 24
+      },
+      {
+        "t": 30.18,
         "line": 25
       }
     ],
@@ -19446,7 +19469,7 @@
         "line": 53
       },
       {
-        "t": 9.82,
+        "t": 9.83,
         "line": 54
       },
       {
@@ -19615,39 +19638,27 @@
     "anchors": [
       {
         "t": 0,
-        "line": 8
+        "line": 27
       },
       {
-        "t": 0.96,
-        "line": 9
+        "t": 1.79,
+        "line": 28
       },
       {
-        "t": 4.54,
-        "line": 10
+        "t": 6.53,
+        "line": 29
       },
       {
-        "t": 13.36,
-        "line": 11
+        "t": 13.37,
+        "line": 30
       },
       {
-        "t": 15.65,
-        "line": 12
+        "t": 15.66,
+        "line": 31
       },
       {
         "t": 19.06,
-        "line": 13
-      },
-      {
-        "t": 40.68,
-        "line": 14
-      },
-      {
-        "t": 48.18,
-        "line": 15
-      },
-      {
-        "t": 54.68,
-        "line": 16
+        "line": 32
       }
     ],
     "status": "auto",
@@ -20048,11 +20059,11 @@
         "line": 40
       },
       {
-        "t": 10.53,
+        "t": 10.54,
         "line": 41
       },
       {
-        "t": 14.89,
+        "t": 14.93,
         "line": 42
       }
     ],
@@ -20822,12 +20833,16 @@
     "songId": "nishina-haru-ichiban",
     "anchors": [
       {
-        "t": 0.48,
+        "t": 0.47,
         "line": 22
       },
       {
-        "t": 7.52,
+        "t": 6.57,
         "line": 23
+      },
+      {
+        "t": 13.12,
+        "line": 24
       },
       {
         "t": 18.51,
@@ -22049,7 +22064,7 @@
         "line": 38
       },
       {
-        "t": 5.56,
+        "t": 5.57,
         "line": 39
       },
       {
@@ -22915,15 +22930,15 @@
         "line": 35
       },
       {
-        "t": 6.36,
+        "t": 6.37,
         "line": 36
       },
       {
-        "t": 12.16,
+        "t": 12.17,
         "line": 37
       },
       {
-        "t": 17.32,
+        "t": 17.33,
         "line": 38
       },
       {
@@ -23493,7 +23508,7 @@
         "line": 19
       },
       {
-        "t": 42.5,
+        "t": 42.66,
         "line": 20
       },
       {
@@ -25009,15 +25024,15 @@
         "line": 22
       },
       {
-        "t": 2.14,
+        "t": 2.13,
         "line": 23
       },
       {
-        "t": 4.18,
+        "t": 4.17,
         "line": 24
       },
       {
-        "t": 6.98,
+        "t": 6.97,
         "line": 25
       },
       {
@@ -25025,39 +25040,43 @@
         "line": 26
       },
       {
-        "t": 10.98,
+        "t": 11.52,
         "line": 27
       },
       {
-        "t": 12.88,
+        "t": 13.59,
         "line": 28
       },
       {
-        "t": 21.22,
+        "t": 19.07,
+        "line": 29
+      },
+      {
+        "t": 21.24,
         "line": 30
       },
       {
-        "t": 23.42,
+        "t": 23.44,
         "line": 31
       },
       {
-        "t": 25.9,
+        "t": 25.92,
         "line": 32
       },
       {
-        "t": 28.22,
+        "t": 28.24,
         "line": 33
       },
       {
-        "t": 31,
+        "t": 31.02,
         "line": 34
       },
       {
-        "t": 33.34,
+        "t": 33.36,
         "line": 35
       },
       {
-        "t": 38.34,
+        "t": 38.36,
         "line": 36
       }
     ],
@@ -25318,7 +25337,7 @@
         "line": 28
       },
       {
-        "t": 6.72,
+        "t": 6.71,
         "line": 29
       },
       {
@@ -25330,7 +25349,7 @@
         "line": 31
       },
       {
-        "t": 19.53,
+        "t": 19.52,
         "line": 32
       },
       {
@@ -25474,7 +25493,7 @@
         "line": 28
       },
       {
-        "t": 6.56,
+        "t": 6.55,
         "line": 29
       },
       {
@@ -26180,11 +26199,11 @@
         "line": 27
       },
       {
-        "t": 17.23,
+        "t": 17.24,
         "line": 28
       },
       {
-        "t": 22.92,
+        "t": 22.94,
         "line": 29
       }
     ],
@@ -38824,38 +38843,15 @@
     "autoGrade": "A"
   },
   "Hp4CJ5e4Few": {
-    "songId": "nishina-mashiro",
-    "anchors": [
-      {
-        "t": 0,
-        "line": 20
-      },
-      {
-        "t": 7.36,
-        "line": 21
-      },
-      {
-        "t": 8.52,
-        "line": 22
-      },
-      {
-        "t": 20.77,
-        "line": 23
-      },
-      {
-        "t": 25.97,
-        "line": 24
-      },
-      {
-        "t": 30.44,
-        "line": 25
-      }
-    ],
-    "status": "auto",
+    "songId": "__live_song",
+    "anchors": [],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "A"
+    "autoGrade": "A",
+    "liveSongId": "nishina-mashiro",
+    "appearanceName": "WILD BUNCH FEST.2026"
   },
   "97w-vXiJacM": {
     "songId": "__live_song",
