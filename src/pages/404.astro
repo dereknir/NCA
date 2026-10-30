@@ -1,0 +1,80 @@
+---
+/**
+ * 404 — Vercel 靜態輸出會拿 dist/404.html 當找不到頁面時的回應。
+ * 依打錯的網址跟站內所有路徑算編輯距離, 列出最像的幾頁 (資料取 /site-index.json, 跟指令列同一份)。
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout title="迷航了" description="找不到這一頁" width="wide">
+  <PageHero slot="hero" planet="mercury" path="~/void" cmd="cd" title="404 迷航了"
+            desc="這個座標沒有星球。可能是網址打錯, 或那一頁已經搬家了。"
+            actions={[{ label: '回首頁', href: '/', primary: true }, { label: '歌曲列表', href: '/translations' }]} />
+  <div class="nf">
+    <p class="nf-err"><span>bash: cd: <b id="nfPath">/</b>: No such file or directory</span></p>
+    <h2 class="nf-h">你要找的可能是</h2>
+    <div class="nf-list" id="nfList"></div>
+    <p class="nf-tip">都不是的話, 按 <kbd>/</kbd> 用指令列搜歌名或頁面。</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .nf { padding: 8px 0 64px; }
+  .nf-err { font: 12px/24px var(--sh-px, monospace); color: rgb(var(--sh-accent)); margin: 0 0 32px; overflow-wrap: anywhere; }
+  .nf-err b { color: var(--sh-ink); font-weight: normal; }
+  .nf-h { font: 24px/36px var(--sh-px, monospace); color: var(--sh-ink); margin: 0 0 12px; }
+  .nf-list { display: grid; gap: 4px; max-width: 640px; }
+  .nf-list :global(a) {
+    display: flex; justify-content: space-between; gap: 16px; padding: 8px 12px;
+    border: 1px solid var(--sh-line); color: var(--sh-ink); text-decoration: none; font: 12px/24px var(--sh-px, monospace);
+  }
+  .nf-list :global(a:hover), .nf-list :global(a:focus-visible) { border-color: rgb(var(--sh-accent)); outline: none; }
+  .nf-list :global(a span:last-child) { color: var(--sh-ink3); white-space: nowrap; }
+  .nf-tip { margin-top: 24px; color: var(--sh-ink3); font: 12px/24px var(--sh-px, monospace); }
+  .nf-tip kbd { color: rgb(var(--sh-accent)); font: inherit; }
+</style>
+
+<script is:inline>
+  (async () => {
+    const raw = decodeURIComponent(location.pathname);
+    const path = raw.replace(/\/+$/, '').toLowerCase() || '/';
+    document.getElementById('nfPath').textContent = raw;
+    const list = document.getElementById('nfList');
+    let idx;
+    try { idx = await (await fetch('/site-index.json')).json(); } catch (e) { return; }
+
+    const cands = [
+      ...idx.groups.flatMap(g => g.items.map(it => ({ href: it.href, k: it.name, t: '頁面' }))),
+      ...idx.songs.map(s => ({ href: '/translations/' + s.id, k: s.title, t: s.album, ja: true })),
+      ...idx.diary.map(d => ({ href: d.href, k: d.title, t: '日記' })),
+      ...idx.projects.map(p => ({ href: p.href, k: p.title, t: '作品' })),
+    ];
+    const dist = (a, b) => {
+      const row = Array.from({ length: b.length + 1 }, (_, j) => j);
+      for (let i = 1; i <= a.length; i++) {
+        let prev = row[0]; row[0] = i;
+        for (let j = 1; j <= b.length; j++) {
+          const cur = row[j];
+          row[j] = Math.min(row[j] + 1, row[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1));
+          prev = cur;
+        }
+      }
+      return row[b.length];
+    };
+    // 最後一段 (去掉 nishina- 前綴) 也拿來比對歌曲 id, 打錯一兩個字的歌名網址也找得到
+    const tail = path.split('/').pop().replace(/^nishina-/, '');
+    const scored = cands.map(c => {
+      const href = c.href.replace(/\/+$/, '').toLowerCase();
+      const full = dist(path, href) / Math.max(path.length, href.length);
+      const id = href.split('/').pop().replace(/^nishina-/, '');
+      const part = tail.length > 2 && (id.includes(tail) || tail.includes(id)) ? 0.1 : dist(tail, id) / Math.max(tail.length, id.length, 1);
+      return { ...c, s: Math.min(full, part) };
+    }).sort((a, b) => a.s - b.s);
+    // 只列跟最像那筆差不多像的, 短 id (bugs / plum) 編輯距離天生小, 不設上限會被帶進來
+    const near = scored.filter(c => c.s < 0.5 && c.s <= Math.max(scored[0].s * 2, 0.1)).slice(0, 5);
+    const show = near.length ? near : cands.filter(c => c.t === '頁面').slice(0, 6);
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    list.innerHTML = show.map(c => `<a href="${c.href}"><span${c.ja ? ' lang="ja"' : ''}>${esc(c.k)}</span><span>${esc(c.t)}</span></a>`).join('');
+  })();
+</script>
