@@ -1,6 +1,6 @@
 {
   "meta": {
-    "total": 52,
+    "total": 53,
     "tour_names": [
       "Feeling",
       "MUSICK",
@@ -394,31 +394,18 @@
         "tourName": "クランベリージャムをかけて"
       }
     ],
-    "MUSICK": [
-      {
-        "videoId": "jizxMwZn3xA",
-        "title": "nishina \"MUSICK“",
-        "url": "https://www.youtube.com/shorts/jizxMwZn3xA",
-        "thumbnail": "https://i.ytimg.com/vi/jizxMwZn3xA/hqdefault.jpg",
-        "viewCount": 6800,
-        "versionType": null,
-        "instrumental": false,
-        "anchors": [],
-        "tourName": "MUSICK"
-      },
-      {
-        "videoId": "5ss09eEBrT4",
-        "title": "nishina \"weekly\" MUSICK",
-        "url": "https://www.youtube.com/shorts/5ss09eEBrT4",
-        "thumbnail": "https://i.ytimg.com/vi/5ss09eEBrT4/hqdefault.jpg",
-        "viewCount": 4900,
-        "versionType": null,
-        "instrumental": false,
-        "anchors": [],
-        "tourName": "MUSICK"
-      }
-    ],
     "MUSICK 2": [
+      {
+        "videoId": "yXZBF6ndYmg",
+        "title": "nishina - MUSICK2 in Kumamoto",
+        "url": "https://www.youtube.com/shorts/yXZBF6ndYmg",
+        "thumbnail": "https://i.ytimg.com/vi/yXZBF6ndYmg/hqdefault.jpg",
+        "viewCount": 7300,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "MUSICK 2"
+      },
       {
         "videoId": "Rj5CL1PqDTE",
         "title": "nishina - MUSICK2 in Fukuoka",
@@ -517,6 +504,30 @@
         "instrumental": false,
         "anchors": [],
         "tourName": "MUSICK 2"
+      }
+    ],
+    "MUSICK": [
+      {
+        "videoId": "jizxMwZn3xA",
+        "title": "nishina \"MUSICK“",
+        "url": "https://www.youtube.com/shorts/jizxMwZn3xA",
+        "thumbnail": "https://i.ytimg.com/vi/jizxMwZn3xA/hqdefault.jpg",
+        "viewCount": 6800,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "MUSICK"
+      },
+      {
+        "videoId": "5ss09eEBrT4",
+        "title": "nishina \"weekly\" MUSICK",
+        "url": "https://www.youtube.com/shorts/5ss09eEBrT4",
+        "thumbnail": "https://i.ytimg.com/vi/5ss09eEBrT4/hqdefault.jpg",
+        "viewCount": 4900,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "MUSICK"
       }
     ],
     "SUPER COMPLEX": [

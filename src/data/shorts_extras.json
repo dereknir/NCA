@@ -1,13 +1,13 @@
 {
   "meta": {
-    "total": 109,
+    "total": 112,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 34,
-      "live_song": 40,
+      "promo": 35,
+      "live_song": 41,
       "mc": 7,
-      "travel": 8,
+      "travel": 9,
       "yearly": 6,
       "ad": 2,
       "tv": 3
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 34,
+      "count": 35,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -414,6 +414,16 @@
           "anchors": []
         },
         {
+          "videoId": "3CMOfOHiF7Q",
+          "title": "nishina plum",
+          "url": "https://www.youtube.com/shorts/3CMOfOHiF7Q",
+          "thumbnail": "https://i.ytimg.com/vi/3CMOfOHiF7Q/hqdefault.jpg",
+          "viewCount": 2100,
+          "versionType": "mv",
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "h6_BrqVFBvc",
           "title": "plum on 9.4",
           "url": "https://www.youtube.com/shorts/h6_BrqVFBvc",
@@ -468,7 +478,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 40,
+      "count": 41,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -989,6 +999,19 @@
           "appearanceName": "TREASURE05X 2023 20th Anniversary",
           "songId": "nishina-ainikoi",
           "songTitle": "アイニコイ"
+        },
+        {
+          "videoId": "RLDY4ngOZZs",
+          "title": "🇰🇷WONDERLIVET 2026",
+          "url": "https://www.youtube.com/shorts/RLDY4ngOZZs",
+          "thumbnail": "https://i.ytimg.com/vi/RLDY4ngOZZs/hqdefault.jpg",
+          "viewCount": 2700,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": null,
+          "songId": "nishina-slow-motion",
+          "songTitle": "スローモーション"
         }
       ]
     },
@@ -1072,7 +1095,7 @@
     "travel": {
       "displayName": "旅行",
       "emoji": "✈️",
-      "count": 8,
+      "count": 9,
       "shorts": [
         {
           "videoId": "JI86pWwhdf4",
@@ -1151,6 +1174,16 @@
           "thumbnail": "https://i.ytimg.com/vi/kyR5zgN_JYE/hqdefault.jpg",
           "viewCount": 1900,
           "versionType": "live",
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "NDFnrPUdM0U",
+          "title": "The more I lose, the harder it gets",
+          "url": "https://www.youtube.com/shorts/NDFnrPUdM0U",
+          "thumbnail": "https://i.ytimg.com/vi/NDFnrPUdM0U/hqdefault.jpg",
+          "viewCount": 1900,
+          "versionType": null,
           "instrumental": false,
           "anchors": []
         }
