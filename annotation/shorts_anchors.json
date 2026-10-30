@@ -14147,7 +14147,7 @@
         "line": 15
       },
       {
-        "t": 11.84,
+        "t": 11.56,
         "line": 16
       },
       {
@@ -14155,24 +14155,28 @@
         "line": 17
       },
       {
-        "t": 18.7,
+        "t": 18.84,
         "line": 18
       },
       {
-        "t": 22.36,
+        "t": 21.19,
         "line": 19
       },
       {
-        "t": 23,
+        "t": 23.39,
         "line": 20
       },
       {
         "t": 25.66,
         "line": 21
+      },
+      {
+        "t": 27.72,
+        "line": 22
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -14619,19 +14623,19 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0,
+        "t": 0.58,
         "line": 23
       },
       {
-        "t": 3.2,
+        "t": 3.3,
         "line": 24
       },
       {
-        "t": 5.2,
+        "t": 5.7,
         "line": 25
       },
       {
-        "t": 8.12,
+        "t": 8.1,
         "line": 26
       },
       {
@@ -14651,8 +14655,8 @@
         "line": 30
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A",
@@ -16356,10 +16360,6 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0,
-        "line": 12
-      },
-      {
         "t": 1.15,
         "line": 13
       },
@@ -16372,23 +16372,31 @@
         "line": 15
       },
       {
-        "t": 13.12,
+        "t": 13.06,
         "line": 16
       },
       {
-        "t": 21.36,
+        "t": 17.94,
         "line": 17
       },
       {
-        "t": 24.24,
+        "t": 20.34,
         "line": 18
       },
       {
-        "t": 27.76,
+        "t": 22.69,
+        "line": 19
+      },
+      {
+        "t": 24.89,
+        "line": 20
+      },
+      {
+        "t": 27.16,
         "line": 21
       },
       {
-        "t": 29.68,
+        "t": 29.22,
         "line": 22
       },
       {
@@ -16408,8 +16416,8 @@
         "line": 26
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -18653,50 +18661,50 @@
     "anchors": [
       {
         "t": 0,
-        "line": 53
+        "line": 13
       },
       {
-        "t": 2.5,
-        "line": 54
+        "t": 2.47,
+        "line": 14
       },
       {
-        "t": 5.88,
-        "line": 55
+        "t": 5.85,
+        "line": 15
       },
       {
-        "t": 11.78,
-        "line": 56
+        "t": 11.49,
+        "line": 16
       },
       {
-        "t": 15.76,
-        "line": 57
+        "t": 16.37,
+        "line": 17
       },
       {
-        "t": 18.66,
-        "line": 58
+        "t": 18.77,
+        "line": 18
       },
       {
-        "t": 20.88,
-        "line": 59
+        "t": 21.12,
+        "line": 19
       },
       {
-        "t": 22.81,
-        "line": 60
+        "t": 23.32,
+        "line": 20
       },
       {
-        "t": 26.01,
-        "line": 61
+        "t": 25.59,
+        "line": 21
       },
       {
-        "t": 27.15,
-        "line": 62
+        "t": 27.65,
+        "line": 22
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "B"
+    "autoGrade": "A"
   },
   "YxpWqnlt2Ao": {
     "songId": "nishina-friday-kids-china-town",
@@ -19389,28 +19397,36 @@
         "line": 15
       },
       {
-        "t": 15.84,
+        "t": 11.56,
+        "line": 16
+      },
+      {
+        "t": 16.44,
         "line": 17
       },
       {
-        "t": 19.68,
+        "t": 18.84,
         "line": 18
       },
       {
-        "t": 23.04,
+        "t": 21.19,
+        "line": 19
+      },
+      {
+        "t": 23.39,
         "line": 20
       },
       {
-        "t": 26.24,
+        "t": 25.66,
         "line": 21
       },
       {
-        "t": 28.96,
+        "t": 27.72,
         "line": 22
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A",
@@ -20593,47 +20609,47 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.16,
-        "line": 53
+        "t": 0.14,
+        "line": 13
       },
       {
         "t": 3.04,
-        "line": 54
+        "line": 14
       },
       {
         "t": 6.42,
-        "line": 55
+        "line": 15
       },
       {
-        "t": 14.42,
-        "line": 57
+        "t": 12.05,
+        "line": 16
       },
       {
-        "t": 17.1,
-        "line": 58
+        "t": 16.93,
+        "line": 17
       },
       {
-        "t": 19.32,
-        "line": 59
+        "t": 19.33,
+        "line": 18
       },
       {
-        "t": 21.25,
-        "line": 60
+        "t": 21.68,
+        "line": 19
       },
       {
-        "t": 24.45,
-        "line": 61
+        "t": 23.88,
+        "line": 20
       },
       {
-        "t": 25.59,
-        "line": 62
+        "t": 26.15,
+        "line": 21
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "B",
+    "autoGrade": "A",
     "songConfirmed": true
   },
   "bf7gTIo9STY": {
@@ -20976,8 +20992,12 @@
         "line": 8
       },
       {
-        "t": 6.22,
+        "t": 6.12,
         "line": 9
+      },
+      {
+        "t": 10.74,
+        "line": 10
       },
       {
         "t": 13.15,
@@ -20988,7 +21008,7 @@
         "line": 12
       },
       {
-        "t": 20.67,
+        "t": 20.66,
         "line": 13
       },
       {
@@ -21000,28 +21020,32 @@
         "line": 15
       },
       {
-        "t": 37.12,
+        "t": 32.56,
+        "line": 16
+      },
+      {
+        "t": 37.44,
         "line": 17
       },
       {
-        "t": 40.56,
+        "t": 39.84,
         "line": 18
       },
       {
-        "t": 41.68,
+        "t": 42.19,
         "line": 19
       },
       {
-        "t": 44.48,
+        "t": 44.39,
         "line": 20
       },
       {
-        "t": 46.8,
+        "t": 46.66,
         "line": 21
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -21685,32 +21709,32 @@
         "line": 15
       },
       {
-        "t": 11.5,
+        "t": 11.48,
         "line": 16
       },
       {
-        "t": 15.76,
+        "t": 16.36,
         "line": 17
       },
       {
-        "t": 18.64,
+        "t": 18.76,
         "line": 18
       },
       {
-        "t": 20.74,
+        "t": 21.11,
         "line": 19
       },
       {
-        "t": 22.84,
+        "t": 23.31,
         "line": 20
       },
       {
-        "t": 25.6,
+        "t": 25.58,
         "line": 21
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A",
@@ -23437,50 +23461,50 @@
     "anchors": [
       {
         "t": 0,
-        "line": 53
+        "line": 13
       },
       {
         "t": 2.46,
-        "line": 54
+        "line": 14
       },
       {
         "t": 5.84,
-        "line": 55
+        "line": 15
       },
       {
-        "t": 11.54,
-        "line": 56
+        "t": 11.49,
+        "line": 16
       },
       {
-        "t": 13.86,
-        "line": 57
+        "t": 16.37,
+        "line": 17
       },
       {
-        "t": 18.64,
-        "line": 58
+        "t": 18.77,
+        "line": 18
       },
       {
-        "t": 20.89,
-        "line": 59
+        "t": 21.12,
+        "line": 19
       },
       {
-        "t": 22.84,
-        "line": 60
+        "t": 23.32,
+        "line": 20
       },
       {
-        "t": 26.04,
-        "line": 61
+        "t": 25.59,
+        "line": 21
       },
       {
-        "t": 27.18,
-        "line": 62
+        "t": 27.65,
+        "line": 22
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "B",
+    "autoGrade": "A",
     "songConfirmed": true
   },
   "91fORvXTPrE": {
@@ -23576,11 +23600,11 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0,
+        "t": 0.1,
         "line": 27
       },
       {
-        "t": 2.58,
+        "t": 2.46,
         "line": 28
       },
       {
@@ -23588,11 +23612,11 @@
         "line": 29
       },
       {
-        "t": 6.84,
+        "t": 7.36,
         "line": 30
       },
       {
-        "t": 10.82,
+        "t": 11.26,
         "line": 31
       },
       {
@@ -23604,11 +23628,11 @@
         "line": 33
       },
       {
-        "t": 19.12,
+        "t": 20.69,
         "line": 34
       },
       {
-        "t": 22.74,
+        "t": 23.08,
         "line": 35
       },
       {
@@ -23620,8 +23644,8 @@
         "line": 37
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -23646,44 +23670,44 @@
         "line": 53
       },
       {
-        "t": 15.04,
+        "t": 14.67,
         "line": 54
       },
       {
-        "t": 18.51,
+        "t": 18.46,
         "line": 55
       },
       {
-        "t": 24.26,
+        "t": 23.69,
         "line": 56
       },
       {
-        "t": 32.4,
+        "t": 28.62,
         "line": 57
       },
       {
-        "t": 33.36,
+        "t": 31.03,
         "line": 58
       },
       {
-        "t": 34.82,
+        "t": 33.42,
         "line": 59
       },
       {
-        "t": 36.08,
+        "t": 35.73,
         "line": 60
       },
       {
-        "t": 38.48,
+        "t": 38.06,
         "line": 61
       },
       {
-        "t": 39.62,
+        "t": 40.03,
         "line": 62
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -24014,48 +24038,44 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0,
+        "t": 0.1,
         "line": 53
       },
       {
-        "t": 1.36,
+        "t": 1.45,
         "line": 54
       },
       {
-        "t": 4.96,
+        "t": 5.24,
         "line": 55
       },
       {
-        "t": 10.92,
+        "t": 10.47,
         "line": 56
       },
       {
-        "t": 15.24,
+        "t": 15.4,
         "line": 57
       },
       {
-        "t": 17.7,
+        "t": 17.81,
         "line": 58
       },
       {
-        "t": 19.94,
+        "t": 20.2,
         "line": 59
       },
       {
-        "t": 21.88,
+        "t": 22.51,
         "line": 60
       },
       {
-        "t": 24.72,
+        "t": 24.84,
         "line": 61
-      },
-      {
-        "t": 25.86,
-        "line": 62
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A",
@@ -24298,36 +24318,36 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 0.56,
+        "t": 0.29,
         "line": 16
       },
       {
-        "t": 5.18,
+        "t": 5.17,
         "line": 17
       },
       {
-        "t": 7.44,
+        "t": 7.57,
         "line": 18
       },
       {
-        "t": 10.84,
+        "t": 9.92,
         "line": 19
       },
       {
-        "t": 11.64,
+        "t": 12.12,
         "line": 20
       },
       {
-        "t": 14.74,
+        "t": 14.38,
         "line": 21
       },
       {
-        "t": 16.38,
+        "t": 16.45,
         "line": 22
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -25219,62 +25239,9 @@
     "instrumental": false
   },
   "ZoP8h5hdGP4": {
-    "songId": "nishina-sugar-spot",
-    "anchors": [
-      {
-        "t": 0,
-        "line": 50
-      },
-      {
-        "t": 1.96,
-        "line": 51
-      },
-      {
-        "t": 5.94,
-        "line": 52
-      },
-      {
-        "t": 13.13,
-        "line": 53
-      },
-      {
-        "t": 14.82,
-        "line": 54
-      },
-      {
-        "t": 18.25,
-        "line": 55
-      },
-      {
-        "t": 23.91,
-        "line": 56
-      },
-      {
-        "t": 28.71,
-        "line": 57
-      },
-      {
-        "t": 31.44,
-        "line": 58
-      },
-      {
-        "t": 33.24,
-        "line": 59
-      },
-      {
-        "t": 34.8,
-        "line": 60
-      },
-      {
-        "t": 37.2,
-        "line": 61
-      },
-      {
-        "t": 38.34,
-        "line": 62
-      }
-    ],
-    "status": "auto",
+    "songId": "__promo",
+    "anchors": [],
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
@@ -25664,39 +25631,39 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.5,
+        "t": 0.07,
         "line": 30
       },
       {
-        "t": 1.76,
+        "t": 1.49,
         "line": 31
       },
       {
-        "t": 3.08,
+        "t": 2.44,
         "line": 32
       },
       {
-        "t": 4.4,
+        "t": 4.74,
         "line": 33
       },
       {
-        "t": 11.92,
+        "t": 7.1,
         "line": 34
       },
       {
-        "t": 17.2,
+        "t": 19.11,
         "line": 35
       },
       {
-        "t": 22.48,
+        "t": 21.37,
         "line": 36
       },
       {
-        "t": 31.36,
+        "t": 23.78,
         "line": 37
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -25710,20 +25677,20 @@
         "line": 19
       },
       {
-        "t": 10.14,
+        "t": 9.72,
         "line": 20
       },
       {
-        "t": 15.06,
+        "t": 14.86,
         "line": 21
       },
       {
-        "t": 20.58,
+        "t": 20.44,
         "line": 22
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -25732,51 +25699,55 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
-        "t": 1.04,
+        "t": 0,
+        "line": 52
+      },
+      {
+        "t": 1.38,
         "line": 53
       },
       {
-        "t": 2.8,
+        "t": 2.73,
         "line": 54
       },
       {
-        "t": 5.46,
+        "t": 6.52,
         "line": 55
       },
       {
-        "t": 11.74,
+        "t": 11.75,
         "line": 56
       },
       {
-        "t": 16.14,
+        "t": 16.68,
         "line": 57
       },
       {
-        "t": 18.94,
+        "t": 19.09,
         "line": 58
       },
       {
-        "t": 21.16,
+        "t": 21.48,
         "line": 59
       },
       {
-        "t": 23.09,
+        "t": 23.79,
         "line": 60
       },
       {
-        "t": 26.29,
+        "t": 26.12,
         "line": 61
       },
       {
-        "t": 27.43,
+        "t": 28.09,
         "line": 62
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "B",
+    "autoGrade": "A",
     "songConfirmed": true
   },
   "RaA3mR-iBtk": {
@@ -25856,7 +25827,19 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.24,
+        "t": 0,
+        "line": 21
+      },
+      {
+        "t": 2.04,
+        "line": 22
+      },
+      {
+        "t": 4.8,
+        "line": 23
+      },
+      {
+        "t": 9.73,
         "line": 24
       },
       {
@@ -25872,11 +25855,11 @@
         "line": 27
       },
       {
-        "t": 21.08,
+        "t": 20.69,
         "line": 28
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -26079,6 +26062,30 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
+        "t": 0,
+        "line": 8
+      },
+      {
+        "t": 2.01,
+        "line": 9
+      },
+      {
+        "t": 4.89,
+        "line": 10
+      },
+      {
+        "t": 9.57,
+        "line": 11
+      },
+      {
+        "t": 11.49,
+        "line": 12
+      },
+      {
+        "t": 13.55,
+        "line": 13
+      },
+      {
         "t": 28.5,
         "line": 14
       },
@@ -26103,19 +26110,23 @@
         "line": 19
       },
       {
-        "t": 47.14,
+        "t": 46.32,
         "line": 20
       },
       {
-        "t": 48.46,
+        "t": 51.69,
         "line": 21
       },
       {
-        "t": 51.92,
+        "t": 53.72,
         "line": 22
+      },
+      {
+        "t": 56.48,
+        "line": 23
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -26129,56 +26140,56 @@
         "line": 50
       },
       {
-        "t": 2.08,
+        "t": 2.01,
         "line": 51
       },
       {
-        "t": 6.3,
+        "t": 6.06,
         "line": 52
       },
       {
-        "t": 13.93,
+        "t": 13.37,
         "line": 53
       },
       {
-        "t": 15.73,
+        "t": 14.7,
         "line": 54
       },
       {
-        "t": 19.36,
+        "t": 18.49,
         "line": 55
       },
       {
-        "t": 25.37,
+        "t": 23.72,
         "line": 56
       },
       {
-        "t": 30.46,
+        "t": 28.65,
         "line": 57
       },
       {
-        "t": 33.36,
+        "t": 31.06,
         "line": 58
       },
       {
-        "t": 34.56,
+        "t": 33.45,
         "line": 59
       },
       {
-        "t": 35.68,
+        "t": 35.76,
         "line": 60
       },
       {
-        "t": 38.08,
+        "t": 38.09,
         "line": 61
       },
       {
-        "t": 39.22,
+        "t": 40.08,
         "line": 62
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -26243,40 +26254,40 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0,
+        "t": 0.25,
         "line": 30
       },
       {
-        "t": 0.89,
+        "t": 1.71,
         "line": 31
       },
       {
-        "t": 2,
+        "t": 2.66,
         "line": 32
       },
       {
-        "t": 4.64,
+        "t": 4.96,
         "line": 33
       },
       {
-        "t": 5.76,
+        "t": 7.32,
         "line": 34
       },
       {
-        "t": 14.48,
+        "t": 19.32,
         "line": 35
       },
       {
-        "t": 23.2,
+        "t": 21.58,
         "line": 36
       },
       {
-        "t": 31.15,
+        "t": 23.99,
         "line": 37
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -32590,32 +32601,32 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0,
+        "t": 0.33,
         "line": 21
       },
       {
-        "t": 2.56,
+        "t": 2.36,
         "line": 22
       },
       {
-        "t": 5.76,
+        "t": 5.12,
         "line": 23
       },
       {
-        "t": 8.8,
+        "t": 10.05,
         "line": 24
       },
       {
-        "t": 12.48,
+        "t": 12.16,
         "line": 25
       },
       {
-        "t": 14.82,
+        "t": 14.08,
         "line": 26
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -32692,32 +32703,52 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 14.13,
+        "t": 0,
+        "line": 24
+      },
+      {
+        "t": 7.02,
+        "line": 25
+      },
+      {
+        "t": 8.58,
+        "line": 26
+      },
+      {
+        "t": 9.54,
+        "line": 27
+      },
+      {
+        "t": 11.84,
+        "line": 28
+      },
+      {
+        "t": 14.22,
         "line": 29
       },
       {
-        "t": 16.65,
+        "t": 16.68,
         "line": 30
       },
       {
-        "t": 17.91,
+        "t": 18.09,
         "line": 31
       },
       {
-        "t": 19.02,
+        "t": 19.04,
         "line": 32
       },
       {
-        "t": 21.22,
+        "t": 21.34,
         "line": 33
       },
       {
-        "t": 23.85,
+        "t": 23.7,
         "line": 34
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -34304,32 +34335,52 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 5.64,
+        "t": 0,
+        "line": 24
+      },
+      {
+        "t": 1.8,
+        "line": 25
+      },
+      {
+        "t": 3.36,
+        "line": 26
+      },
+      {
+        "t": 4.32,
+        "line": 27
+      },
+      {
+        "t": 6.62,
+        "line": 28
+      },
+      {
+        "t": 9,
         "line": 29
       },
       {
-        "t": 8.16,
+        "t": 11.46,
         "line": 30
       },
       {
-        "t": 11.39,
+        "t": 12.88,
         "line": 31
       },
       {
-        "t": 14.24,
+        "t": 13.83,
         "line": 32
       },
       {
-        "t": 15.76,
+        "t": 16.13,
         "line": 33
       },
       {
-        "t": 18.39,
+        "t": 18.49,
         "line": 34
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -34369,26 +34420,34 @@
     "anchors": [
       {
         "t": 0.16,
-        "line": 35
+        "line": 8
       },
       {
-        "t": 4.72,
-        "line": 36
+        "t": 3.16,
+        "line": 9
+      },
+      {
+        "t": 6.04,
+        "line": 10
       },
       {
         "t": 10.72,
-        "line": 37
+        "line": 11
       },
       {
-        "t": 14.72,
-        "line": 38
+        "t": 12.64,
+        "line": 12
+      },
+      {
+        "t": 14.7,
+        "line": 13
       }
     ],
     "status": "auto",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "B"
+    "autoGrade": "A"
   },
   "dhN7fimPUg8": {
     "songId": "nishina-wawon",
@@ -35765,20 +35824,20 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0,
+        "t": 4.7,
         "line": 35
       },
       {
-        "t": 8.64,
+        "t": 6.96,
         "line": 36
       },
       {
-        "t": 12.16,
+        "t": 9.37,
         "line": 37
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -37092,31 +37151,51 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 7.48,
+        "t": 0.65,
+        "line": 25
+      },
+      {
+        "t": 2.21,
+        "line": 26
+      },
+      {
+        "t": 3.17,
+        "line": 27
+      },
+      {
+        "t": 5.47,
+        "line": 28
+      },
+      {
+        "t": 7.85,
         "line": 29
       },
       {
-        "t": 10,
+        "t": 10.31,
         "line": 30
       },
       {
-        "t": 12.84,
+        "t": 11.73,
+        "line": 31
+      },
+      {
+        "t": 12.68,
         "line": 32
       },
       {
-        "t": 15.36,
+        "t": 14.98,
         "line": 33
       },
       {
-        "t": 17.99,
+        "t": 17.34,
         "line": 34
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "B"
+    "autoGrade": "A"
   },
   "h5WHuNkTAAI": {
     "songId": "nishina-cranberry-jam",
