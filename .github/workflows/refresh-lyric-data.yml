@@ -56,6 +56,9 @@ jobs:
       - name: Build KWIC index → kwic_index.json + inject into HTML
         run: python scripts/build_kwic.py
 
+      - name: 完整 Live 素材跟著歌詞重整 (句數 / 歌詞改了要重算)
+        run: python scripts/build_full_live.py
+
       # 新歌名/新內文的字若不在字集裡, 像素標題/粉圓內文會混排 fallback → 一起重生
       - name: Rebuild font subsets (charset 掃全站 → pyftsubset)
         run: |
@@ -74,6 +77,7 @@ jobs:
                   public/lyric-universe/index.html \
                   public/kwic/index.html \
                   public/annotate/lyrics.json \
+                  src/data/full_live.json \
                   data/site_charset.txt \
                   public/fonts/
           if git diff --staged --quiet; then

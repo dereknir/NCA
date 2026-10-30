@@ -61,6 +61,11 @@ jobs:
       - name: Rebuild shorts_by_song.json + shorts_extras.json from anchors
         run: python scripts/import_anchors.py
 
+      - name: 完整 Live — 補影片長度 + 重整素材 (src/data/full_live.json)
+        run: |
+          python scripts/fetch_short_durations.py
+          python scripts/build_full_live.py
+
       - name: Refresh setlists from Linkfire hub (each Spotify playlist; 並鏡像到 public/annotate/)
         run: python scripts/scrape_setlists.py
         continue-on-error: true    # Spotify embed 若暫時掛掉不阻塞其他步驟
@@ -106,6 +111,8 @@ jobs:
                   src/data/shorts_by_song.json \
                   src/data/shorts_extras.json \
                   src/data/shorts_tours.json \
+                  src/data/full_live.json \
+                  data/short_durations.json \
                   src/data/setlists.json \
                   live/eplus_state.json \
                   live/upcoming.json \

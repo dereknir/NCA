@@ -9,7 +9,7 @@ name: Sync derived data (annotator push)
 #   本份做:  只跑衍生檔部分 (~30 秒), 不重抓 YouTube
 #
 # 無限循環保護: 這個 workflow 的 commit 動作只 push 衍生檔
-# (shorts_by_song.json / shorts_extras.json / live_pool.json),
+# (shorts_by_song.json / shorts_extras.json / live_pool.json / full_live.json),
 # 從不 push annotation/shorts_anchors.json — 所以自己不會再觸發自己.
 on:
   push:
@@ -48,13 +48,19 @@ jobs:
       - name: Rebuild gacha LIVE pool from shorts_anchors.json
         run: python scripts/build_gacha_live_pool.py
 
+      - name: 完整 Live — 補影片長度 + 重整素材 (src/data/full_live.json)
+        run: |
+          python scripts/fetch_short_durations.py
+          python scripts/build_full_live.py
+
       - name: Commit + push if changed
         id: commit
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # 只 stage 衍生檔案, 絕不動 shorts_anchors.json (那是 source of truth)
-          git add src/data/shorts_by_song.json src/data/shorts_extras.json src/data/shorts_tours.json public/gacha/live_pool.json
+          git add src/data/shorts_by_song.json src/data/shorts_extras.json src/data/shorts_tours.json public/gacha/live_pool.json \
+                  src/data/full_live.json data/short_durations.json
           if git diff --staged --quiet; then
             echo "committed=no" >> $GITHUB_OUTPUT
             echo "→ 衍生檔跟目前 anchors 已同步, 沒東西可 commit"
