@@ -1,0 +1,70 @@
+/* scrollbar.css — 全站像素捲軸 (不要瀏覽器預設的那種)
+   site-shell.css 開頭 @import 這份, 所以 Astro 頁和吃外殼的靜態頁都有;
+   審片工具 / にしなの宇宙 / pixel-lab 沒吃外殼, 各自 <link> 這份。
+   長相: 暗色棋盤格軌道 + 該頁行星色的滑塊 (亮邊 / 暗邊 / 深色外框 / 中間止滑紋) + 深藍按鈕配金色像素箭頭。
+   注意: 元素上只要設了 scrollbar-width / scrollbar-color, Chrome 就不吃下面這些 ::-webkit-scrollbar,
+   要捲軸長這樣就別在個別元素設那兩個屬性 (要藏捲軸用 scrollbar-width: none 沒關係)。 */
+
+:root {
+  --sb-bg: #0c0c18; --sb-dot: #151b31; --sb-edge: #05050b;
+  --sb-btn: #243154; --sb-btn-hi: #33447a;
+  --sb-thumb: rgb(var(--sh-accent, 92 168 255));
+}
+
+::-webkit-scrollbar { width: 12px; height: 12px; background: var(--sb-bg); }
+html::-webkit-scrollbar, body::-webkit-scrollbar { width: 16px; height: 16px; }
+
+::-webkit-scrollbar-track {
+  background: repeating-conic-gradient(var(--sb-dot) 0 25%, var(--sb-bg) 0 50%) 0 0 / 4px 4px;
+  box-shadow: inset 2px 0 0 var(--sb-edge);
+}
+::-webkit-scrollbar-track:horizontal { box-shadow: inset 0 2px 0 var(--sb-edge); }
+
+/* 滑塊: 左上亮邊 + 右下暗邊 = 像素凸起; 按住時反過來 = 凹下去 */
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--sb-edge);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='8' shape-rendering='crispEdges'%3E%3Cg fill='%2305050b' fill-opacity='.55'%3E%3Crect width='6' height='2'/%3E%3Crect y='3' width='6' height='2'/%3E%3Crect y='6' width='6' height='2'/%3E%3C/g%3E%3C/svg%3E") center no-repeat,
+              var(--sb-thumb);
+  box-shadow: inset 2px 2px 0 rgb(255 255 255 / .45), inset -2px -2px 0 rgb(0 0 0 / .35);
+}
+::-webkit-scrollbar-thumb:horizontal {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6' shape-rendering='crispEdges'%3E%3Cg fill='%2305050b' fill-opacity='.55'%3E%3Crect width='2' height='6'/%3E%3Crect x='3' width='2' height='6'/%3E%3Crect x='6' width='2' height='6'/%3E%3C/g%3E%3C/svg%3E") center no-repeat,
+              var(--sb-thumb);
+}
+::-webkit-scrollbar-thumb:hover { background-color: #e8c94a; }
+::-webkit-scrollbar-thumb:active { box-shadow: inset -2px -2px 0 rgb(255 255 255 / .45), inset 2px 2px 0 rgb(0 0 0 / .35); }
+
+/* 兩端的箭頭按鈕 (要寫成 ::-webkit-scrollbar-button 本身, 加 :single-button 新版 Chrome 不畫) */
+::-webkit-scrollbar-button {
+  display: block; width: 12px; height: 12px;
+  border: 2px solid var(--sb-edge);
+  background: var(--sb-btn) center / 8px 8px no-repeat;
+  box-shadow: inset 2px 2px 0 rgb(255 255 255 / .16), inset -2px -2px 0 rgb(0 0 0 / .35);
+}
+html::-webkit-scrollbar-button, body::-webkit-scrollbar-button { width: 16px; height: 16px; }
+::-webkit-scrollbar-button:hover { background-color: var(--sb-btn-hi); }
+::-webkit-scrollbar-button:active { box-shadow: inset -2px -2px 0 rgb(255 255 255 / .16), inset 2px 2px 0 rgb(0 0 0 / .35); }
+::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' shape-rendering='crispEdges' fill='%23e8c94a'%3E%3Crect x='3' y='2' width='2' height='1'/%3E%3Crect x='2' y='3' width='4' height='1'/%3E%3Crect x='1' y='4' width='6' height='1'/%3E%3Crect y='5' width='8' height='1'/%3E%3C/svg%3E"); }
+::-webkit-scrollbar-button:vertical:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' shape-rendering='crispEdges' fill='%23e8c94a'%3E%3Crect y='2' width='8' height='1'/%3E%3Crect x='1' y='3' width='6' height='1'/%3E%3Crect x='2' y='4' width='4' height='1'/%3E%3Crect x='3' y='5' width='2' height='1'/%3E%3C/svg%3E"); }
+::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' shape-rendering='crispEdges' fill='%23e8c94a'%3E%3Crect x='2' y='3' width='1' height='2'/%3E%3Crect x='3' y='2' width='1' height='4'/%3E%3Crect x='4' y='1' width='1' height='6'/%3E%3Crect x='5' width='1' height='8'/%3E%3C/svg%3E"); }
+::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' shape-rendering='crispEdges' fill='%23e8c94a'%3E%3Crect x='2' width='1' height='8'/%3E%3Crect x='3' y='1' width='1' height='6'/%3E%3Crect x='4' y='2' width='1' height='4'/%3E%3Crect x='5' y='3' width='1' height='2'/%3E%3C/svg%3E"); }
+::-webkit-scrollbar-button:vertical:start:increment, ::-webkit-scrollbar-button:vertical:end:decrement,
+::-webkit-scrollbar-button:horizontal:start:increment, ::-webkit-scrollbar-button:horizontal:end:decrement { display: none; }
+
+::-webkit-scrollbar-corner { background: var(--sb-bg); }
+
+/* 手機 / 平板: 細一點, 不放箭頭 (手指捲不需要) */
+@media (pointer: coarse) {
+  ::-webkit-scrollbar, html::-webkit-scrollbar, body::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb:horizontal { border-width: 1px; background-image: none; box-shadow: none; }
+  ::-webkit-scrollbar-button { display: none; }
+}
+
+/* Firefox 不支援上面那套, 只能換顏色 */
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-color: var(--sb-thumb) var(--sb-bg); }
+}

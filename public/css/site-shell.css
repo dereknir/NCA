@@ -3,6 +3,8 @@
    規則跟 global.css 一致: 像素字只用 12 / 24 / 36px, 內文 PX10 20px。
    每頁的行星主色由 hero 上的 --sh-accent 帶進來 (JS 依 data-planet 設定)。 */
 
+@import url('/css/scrollbar.css');   /* 全站像素捲軸 */
+
 @font-face { font-family: 'PX-ZH'; src: url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2'); font-display: swap; }
 @font-face { font-family: 'PX-JA'; src: url('/fonts/pixel/fp12-site-ja.woff2') format('woff2'); font-display: swap; }
 @font-face { font-family: 'PX10-ZH'; src: url('/fonts/pixel/fp10-site-zh_hant.woff2') format('woff2'); font-display: swap; }

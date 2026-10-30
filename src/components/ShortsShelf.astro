@@ -201,15 +201,7 @@ const componentId = `shelf-${Math.random().toString(36).slice(2, 9)}`;
     scroll-padding: 0 0.75rem;
     padding: 0.25rem 0.25rem 1rem;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: rgb(156 163 175) transparent;
   }
-  .shelf-row::-webkit-scrollbar { height: 6px; }
-  .shelf-row::-webkit-scrollbar-thumb {
-    background: rgb(209 213 219);
-    border-radius: 3px;
-  }
-  :global(.dark) .shelf-row::-webkit-scrollbar-thumb { background: rgb(55 65 81); }
 
   .shelf-card {
     flex: 0 0 130px;

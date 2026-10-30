@@ -394,13 +394,6 @@ if (!shorts || shorts.length === 0) return null;
     overflow-y: auto;
     /* 上下留白 = 半個容器高 (JS 以 ResizeObserver 設定), 第一句 / 最後一句也能捲到正中央 */
     padding: var(--stage-lyrics-pad, 20vh) 1rem;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
-  }
-  .stage-lyrics::-webkit-scrollbar { width: 6px; }
-  .stage-lyrics::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 3px;
   }
 
   .stage-lyrics .lyrics-line {
