@@ -1,7 +1,7 @@
 {
  "meta": {
   "songs": 42,
-  "lines": 1598,
+  "lines": 1605,
   "albums": [
    {
     "name": "odds and ends",
@@ -36,7 +36,7 @@
     {
      "album": "1999",
      "count": 19,
-     "density": 5.41
+     "density": 5.37
     },
     {
      "album": "日々散漫",
@@ -99,12 +99,12 @@
     {
      "album": "1999",
      "count": 14,
-     "density": 3.99
+     "density": 3.95
     },
     {
      "album": "日々散漫",
      "count": 21,
-     "density": 2.36
+     "density": 2.35
     },
     {
      "album": "單曲",
@@ -152,7 +152,7 @@
   },
   {
    "group": "空",
-   "total": 30,
+   "total": 29,
    "perAlbum": [
     {
      "album": "odds and ends",
@@ -161,8 +161,8 @@
     },
     {
      "album": "1999",
-     "count": 9,
-     "density": 2.56
+     "count": 8,
+     "density": 2.26
     },
     {
      "album": "日々散漫",
@@ -230,7 +230,7 @@
     {
      "album": "日々散漫",
      "count": 23,
-     "density": 2.59
+     "density": 2.58
     },
     {
      "album": "單曲",
@@ -293,7 +293,7 @@
     {
      "album": "日々散漫",
      "count": 23,
-     "density": 2.59
+     "density": 2.58
     },
     {
      "album": "單曲",
@@ -351,12 +351,12 @@
     {
      "album": "1999",
      "count": 4,
-     "density": 1.14
+     "density": 1.13
     },
     {
      "album": "日々散漫",
      "count": 10,
-     "density": 1.13
+     "density": 1.12
     },
     {
      "album": "單曲",
@@ -446,7 +446,7 @@
      "song": "nishina-kedamono-no-friends",
      "title": "ケダモノのフレンズ",
      "idx": 16,
-     "ja": "遠くで一つ星が壊れたよ",
+     "ja": "遠くで1つ星が壊れたよ",
      "zh": "遠處有一顆星星碎裂了喔"
     },
     {
@@ -477,7 +477,7 @@
     {
      "album": "1999",
      "count": 6,
-     "density": 1.71
+     "density": 1.69
     },
     {
      "album": "日々散漫",
@@ -540,7 +540,7 @@
     {
      "album": "1999",
      "count": 6,
-     "density": 1.71
+     "density": 1.69
     },
     {
      "album": "日々散漫",
@@ -603,7 +603,7 @@
     {
      "album": "1999",
      "count": 4,
-     "density": 1.14
+     "density": 1.13
     },
     {
      "album": "日々散漫",
@@ -705,7 +705,7 @@
   },
   {
    "group": "月",
-   "total": 6,
+   "total": 7,
    "perAlbum": [
     {
      "album": "odds and ends",
@@ -719,8 +719,8 @@
     },
     {
      "album": "日々散漫",
-     "count": 4,
-     "density": 0.45
+     "count": 5,
+     "density": 0.56
     },
     {
      "album": "單曲",
@@ -778,7 +778,7 @@
     {
      "album": "1999",
      "count": 2,
-     "density": 0.57
+     "density": 0.56
     },
     {
      "album": "日々散漫",
@@ -843,12 +843,12 @@
     {
      "album": "1999",
      "count": 10,
-     "density": 2.85
+     "density": 2.82
     },
     {
      "album": "日々散漫",
      "count": 19,
-     "density": 2.14
+     "density": 2.13
     },
     {
      "album": "單曲",
@@ -869,12 +869,12 @@
     {
      "album": "1999",
      "count": 12,
-     "density": 3.42
+     "density": 3.39
     },
     {
      "album": "日々散漫",
      "count": 16,
-     "density": 1.8
+     "density": 1.79
     },
     {
      "album": "單曲",
@@ -895,12 +895,12 @@
     {
      "album": "1999",
      "count": 8,
-     "density": 2.28
+     "density": 2.26
     },
     {
      "album": "日々散漫",
      "count": 10,
-     "density": 1.13
+     "density": 1.12
     },
     {
      "album": "單曲",
@@ -921,7 +921,7 @@
     {
      "album": "1999",
      "count": 4,
-     "density": 1.14
+     "density": 1.13
     },
     {
      "album": "日々散漫",
@@ -1151,8 +1151,8 @@
    "album": "1999",
    "year": "2022",
    "songs": 11,
-   "lines": 351,
-   "kanaRatio": 0.721,
+   "lines": 354,
+   "kanaRatio": 0.715,
    "avgLineChars": 10.9,
    "topTerms": [
     {
@@ -1161,6 +1161,10 @@
     },
     {
      "term": "レイ",
+     "score": 6.0
+    },
+    {
+     "term": "間",
      "score": 6.0
     },
     {
@@ -1182,10 +1186,6 @@
     {
      "term": "壊れる",
      "score": 4.2
-    },
-    {
-     "term": "怖い",
-     "score": 3.6
     }
    ]
   },
@@ -1193,7 +1193,7 @@
    "album": "日々散漫",
    "year": "2026",
    "songs": 20,
-   "lines": 888,
+   "lines": 892,
    "kanaRatio": 0.708,
    "avgLineChars": 9.2,
    "topTerms": [
@@ -1226,7 +1226,7 @@
      "score": 7.2
     },
     {
-     "term": "命",
+     "term": "トゥインクル",
      "score": 7.2
     }
    ]
@@ -1277,9 +1277,9 @@
  "network": {
   "method": {
    "window": "歌內連續 2 行",
-   "nWindows": 1298,
+   "nWindows": 1301,
    "minPair": 3,
-   "dedup": "同曲同 ja 行唯一化 (去除 300 個副歌重複行)"
+   "dedup": "同曲同 ja 行唯一化 (去除 304 個副歌重複行)"
   },
   "nodes": [
    {
@@ -1571,54 +1571,6 @@
     ]
    },
    {
-    "id": "空",
-    "count": 15,
-    "refs": [
-     {
-      "song": "nishina-adaada",
-      "title": "婀娜婀娜",
-      "idx": 49,
-      "ja": "見上げる空に群青",
-      "zh": "仰望天空呈現一片群青色"
-     },
-     {
-      "song": "nishina-centi",
-      "title": "centi",
-      "idx": 22,
-      "ja": "空っぽの空に",
-      "zh": "對著空蕩蕩的天空"
-     },
-     {
-      "song": "nishina-centi",
-      "title": "centi",
-      "idx": 24,
-      "ja": "見上げた空の",
-      "zh": "仰望的天空"
-     },
-     {
-      "song": "nishina-clover",
-      "title": "クローバー",
-      "idx": 0,
-      "ja": "口笛を吹けば空高く弾んだ",
-      "zh": "只要吹起口哨,心就會在天空中高高彈跳"
-     },
-     {
-      "song": "nishina-clover",
-      "title": "クローバー",
-      "idx": 24,
-      "ja": "あの雲間の先に青く澄んだ空",
-      "zh": "在那雲隙的前方,是一片蔚藍清澈的天空"
-     },
-     {
-      "song": "nishina-debbie",
-      "title": "debbie",
-      "idx": 6,
-      "ja": "ただ青く遠い空で",
-      "zh": "只是在那蔚藍遙遠的天空中"
-     }
-    ]
-   },
-   {
     "id": "分かる",
     "count": 15,
     "refs": [
@@ -1663,6 +1615,54 @@
       "idx": 24,
       "ja": "本当は分かってる",
       "zh": "其實我心裡很清楚"
+     }
+    ]
+   },
+   {
+    "id": "空",
+    "count": 14,
+    "refs": [
+     {
+      "song": "nishina-adaada",
+      "title": "婀娜婀娜",
+      "idx": 49,
+      "ja": "見上げる空に群青",
+      "zh": "仰望天空呈現一片群青色"
+     },
+     {
+      "song": "nishina-centi",
+      "title": "centi",
+      "idx": 22,
+      "ja": "空っぽの空に",
+      "zh": "對著空蕩蕩的天空"
+     },
+     {
+      "song": "nishina-centi",
+      "title": "centi",
+      "idx": 24,
+      "ja": "見上げた空の",
+      "zh": "仰望的天空"
+     },
+     {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 0,
+      "ja": "口笛を吹けば空高く弾んだ",
+      "zh": "只要吹起口哨,心就會在天空中高高彈跳"
+     },
+     {
+      "song": "nishina-clover",
+      "title": "クローバー",
+      "idx": 24,
+      "ja": "あの雲間の先に青く澄んだ空",
+      "zh": "在那雲隙的前方,是一片蔚藍清澈的天空"
+     },
+     {
+      "song": "nishina-debbie",
+      "title": "debbie",
+      "idx": 6,
+      "ja": "ただ青く遠い空で",
+      "zh": "只是在那蔚藍遙遠的天空中"
      }
     ]
    },
@@ -1928,7 +1928,7 @@
       "song": "nishina-kedamono-no-friends",
       "title": "ケダモノのフレンズ",
       "idx": 16,
-      "ja": "遠くで一つ星が壊れたよ",
+      "ja": "遠くで1つ星が壊れたよ",
       "zh": "遠處有一顆星星碎裂了喔"
      },
      {
@@ -2518,7 +2518,7 @@
       "song": "nishina-one-room",
       "title": "ワンルーム",
       "idx": 28,
-      "ja": "君もずっと気づいていただろう",
+      "ja": "君もずっと気づいていたんだろう",
       "zh": "你其實也一直都有察覺到吧"
      },
      {
@@ -3046,63 +3046,15 @@
       "song": "nishina-u-plus",
       "title": "U+",
       "idx": 8,
-      "ja": "地球の陰謀 この時代で暴きたい",
-      "zh": "地球的陰謀 我想在這個時代將其揭穿"
+      "ja": "地球の陰謀をこの時代に暴きたい",
+      "zh": "地球的陰謀 我都想在這個時代揭穿"
      },
      {
       "song": "nishina-u-plus",
       "title": "U+",
       "idx": 12,
-      "ja": "地球儀の真ん中丸く切り抜いて矢印足せば",
-      "zh": "將地球儀的中心 圓圓地挖空 加上箭頭的話"
-     }
-    ]
-   },
-   {
-    "id": "世界",
-    "count": 7,
-    "refs": [
-     {
-      "song": "nishina-1999",
-      "title": "1999",
-      "idx": 19,
-      "ja": "世界凶悪犯罪者も",
-      "zh": "即使是世界級的兇惡罪犯"
-     },
-     {
-      "song": "nishina-friday-kids-china-town",
-      "title": "FRIDAY KIDS CHINA TOWN",
-      "idx": 20,
-      "ja": "なんでも笑えちゃうよー（こそ 世界へ）",
-      "zh": "什麼事都能一笑置之喔ー（正是因為如此 走向世界）"
-     },
-     {
-      "song": "nishina-kedamono-no-friends",
-      "title": "ケダモノのフレンズ",
-      "idx": 41,
-      "ja": "はぐれた世界の隅",
-      "zh": "在走散的世界角落"
-     },
-     {
-      "song": "nishina-nekoze",
-      "title": "ねこぜ",
-      "idx": 27,
-      "ja": "世界を回すのだ",
-      "zh": "在轉動著這個世界啊"
-     },
-     {
-      "song": "nishina-twinkle-little-star",
-      "title": "Twinkle Little Star",
-      "idx": 55,
-      "ja": "誰のものでもないこの世界に",
-      "zh": "在這個不屬於任何人的世界裡"
-     },
-     {
-      "song": "nishina-u-plus",
-      "title": "U+",
-      "idx": 1,
-      "ja": "世界に引いた幾千のBorderline",
-      "zh": "在這個世上劃下的 幾千條 Borderline（界線）"
+      "ja": "地球儀の中を丸くくり抜いて",
+      "zh": "把地球儀的中間挖出一個圓"
      }
     ]
    },
@@ -3151,6 +3103,54 @@
       "idx": 37,
       "ja": "飲み干した歴史は何を謳うだろう",
       "zh": "一飲而盡的歷史 會謳歌些什麼呢"
+     }
+    ]
+   },
+   {
+    "id": "止める",
+    "count": 7,
+    "refs": [
+     {
+      "song": "nishina-adaada",
+      "title": "婀娜婀娜",
+      "idx": 9,
+      "ja": "つまんないこと言うのやめなよ",
+      "zh": "別再說些無聊的話了"
+     },
+     {
+      "song": "nishina-debbie",
+      "title": "debbie",
+      "idx": 17,
+      "ja": "奏でる手を止めないでよ",
+      "zh": "請別停下演奏的雙手"
+     },
+     {
+      "song": "nishina-glory",
+      "title": "グローリー",
+      "idx": 7,
+      "ja": "「くだらないからもうやめてよ」",
+      "zh": "「太無聊了快住手吧」"
+     },
+     {
+      "song": "nishina-heavy-smoke",
+      "title": "ヘビースモーク",
+      "idx": 2,
+      "ja": "君はヘビースモーカーやめられなくて",
+      "zh": "你是個老菸槍 戒也戒不掉"
+     },
+     {
+      "song": "nishina-heavy-smoke",
+      "title": "ヘビースモーク",
+      "idx": 6,
+      "ja": "彼女ができたらやめるって笑って",
+      "zh": "笑著說「交了女朋友就會戒啦」"
+     },
+     {
+      "song": "nishina-rinne",
+      "title": "輪廻",
+      "idx": 11,
+      "ja": "運命も定めも気に留めず恵みになれ",
+      "zh": "不去在意命運或宿命 讓一切都化作恩賜吧"
      }
     ]
    },
@@ -3208,24 +3208,24 @@
     "source": "愛",
     "target": "歌う",
     "count": 6,
-    "pmi": 3.87,
-    "ppmi": 3.87,
-    "g2": 24.6
+    "pmi": 3.88,
+    "ppmi": 3.88,
+    "g2": 24.7
    },
    {
     "source": "空",
     "target": "青い",
     "count": 5,
-    "pmi": 3.72,
-    "ppmi": 3.72,
-    "g2": 18.8
+    "pmi": 3.82,
+    "ppmi": 3.82,
+    "g2": 19.5
    },
    {
     "source": "悲しみ",
     "target": "愛しい",
     "count": 4,
-    "pmi": 4.11,
-    "ppmi": 4.11,
+    "pmi": 4.12,
+    "ppmi": 4.12,
     "g2": 17.1
    },
    {
@@ -3251,6 +3251,14 @@
     "pmi": 4.02,
     "ppmi": 4.02,
     "g2": 12.2
+   },
+   {
+    "source": "手",
+    "target": "止める",
+    "count": 3,
+    "pmi": 3.95,
+    "ppmi": 3.95,
+    "g2": 11.9
    },
    {
     "source": "孤独",
@@ -3288,8 +3296,8 @@
     "source": "泣く",
     "target": "風",
     "count": 3,
-    "pmi": 3.0,
-    "ppmi": 3.0,
+    "pmi": 3.01,
+    "ppmi": 3.01,
     "g2": 7.9
    },
    {
@@ -3314,7 +3322,7 @@
     "count": 3,
     "pmi": 2.32,
     "ppmi": 2.32,
-    "g2": 5.3
+    "g2": 5.4
    },
    {
     "source": "優しい",
@@ -3328,16 +3336,16 @@
     "source": "夜",
     "target": "甘い",
     "count": 4,
-    "pmi": 1.71,
-    "ppmi": 1.71,
+    "pmi": 1.72,
+    "ppmi": 1.72,
     "g2": 4.4
    },
    {
     "source": "リズム",
     "target": "夜",
     "count": 3,
-    "pmi": 1.88,
-    "ppmi": 1.88,
+    "pmi": 1.89,
+    "ppmi": 1.89,
     "g2": 3.9
    },
    {
@@ -3362,21 +3370,21 @@
     "a": "愛",
     "b": "歌う",
     "count": 6,
-    "pmi": 3.87,
-    "g2": 24.6
+    "pmi": 3.88,
+    "g2": 24.7
    },
    {
     "a": "空",
     "b": "青い",
     "count": 5,
-    "pmi": 3.72,
-    "g2": 18.8
+    "pmi": 3.82,
+    "g2": 19.5
    },
    {
     "a": "悲しみ",
     "b": "愛しい",
     "count": 4,
-    "pmi": 4.11,
+    "pmi": 4.12,
     "g2": 17.1
    },
    {
@@ -3399,6 +3407,13 @@
     "count": 3,
     "pmi": 4.02,
     "g2": 12.2
+   },
+   {
+    "a": "手",
+    "b": "止める",
+    "count": 3,
+    "pmi": 3.95,
+    "g2": 11.9
    },
    {
     "a": "孤独",
@@ -3432,7 +3447,7 @@
     "a": "泣く",
     "b": "風",
     "count": 3,
-    "pmi": 3.0,
+    "pmi": 3.01,
     "g2": 7.9
    },
    {
@@ -3454,14 +3469,7 @@
     "b": "最後",
     "count": 3,
     "pmi": 2.32,
-    "g2": 5.3
-   },
-   {
-    "a": "優しい",
-    "b": "夜",
-    "count": 6,
-    "pmi": 1.36,
-    "g2": 4.5
+    "g2": 5.4
    }
   ]
  }
