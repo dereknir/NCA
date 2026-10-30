@@ -19,7 +19,7 @@
 |---|---|---|
 | data/*.json | 六份資料(news/events/tours/setlists/japan/series) | 照 DATA-REFRESH-POLICY |
 | inject.py | 資料→三頁注入(佔位符斷言) | 資料更新後執行 |
-| og-gen.mjs + og/*.png | 三頁 OG 分享圖產生器 | 與 inject.py 一起跑 |
+| og-gen.mjs → public/og/*.png | 三頁 OG 分享圖產生器 (畫法共用 scripts/og-lib.mjs) | 與 inject.py 一起跑 |
 | watch-eplus.py | eplus 新場次哨兵(日更) | cron 部署 |
 | build-japan-paths.v2.mjs | 日本地圖 topojson→像素路徑 | 幾乎不再需要 |
 | DATA-REFRESH-POLICY.md | 資料更新政策(給 Claude Code) | 政策變更時 |

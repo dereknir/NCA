@@ -6,6 +6,7 @@ import TocDrawer from '../../components/TocDrawer.astro';
 import LiveStage from '../../components/LiveStage.astro';
 import shortsData from '../../data/shorts_by_song.json';
 import { getCollection, render } from 'astro:content';
+import { existsSync } from 'node:fs';
 
 export async function getStaticPaths() {
   const translations = await getCollection('translations');
@@ -47,7 +48,10 @@ const nextSong = trackNumber
   : undefined;
 
 const description = `${artist} 的「${title}」日文歌曲翻譯。${tags?.slice(0, 3).join('、') ?? ''}`;
-const image = coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg` : undefined);
+// 分享圖: scripts/og-pages.mjs 畫的 1200×630 歌曲卡優先, 新歌還沒跑腳本就先退回封面
+const ogCard = `/og/song/${translation.id}.png`;
+const image = existsSync(`public${ogCard}`) ? ogCard
+  : coverImage ?? (youtubeId ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg` : undefined);
 
 // 抓當前歌曲已標註的 shorts (由 scripts/import_anchors.py 產出)
 const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation.id] ?? [];
