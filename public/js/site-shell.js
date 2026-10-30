@@ -67,10 +67,12 @@
   function starfield(bg, seed) {
     const c = document.createElement('canvas');
     bg.append(c);
-    const W = c.width = 320, H = c.height = 120, g = c.getContext('2d');
+    // 寬固定 320 格, 高照 hero 比例算 — 手機 hero 又窄又高, 固定 120 會把星星拉成直線
+    const W = c.width = 320, H = c.height = Math.max(60, Math.round(W * (bg.clientHeight || 120) / (bg.clientWidth || W)));
+    const g = c.getContext('2d');
     let s = (seed * 9301 | 0) % 2147483646 + 1;
     const r = () => (s = s * 16807 % 2147483647) / 2147483647;
-    const st = Array.from({ length: 90 }, () => ({ x: r() * W | 0, y: r() * H | 0, p: r() * 6.28, b: r() < .15 }));
+    const st = Array.from({ length: Math.round(90 * H / 120) }, () => ({ x: r() * W | 0, y: r() * H | 0, p: r() * 6.28, b: r() < .15 }));
     loop(c, t => {
       g.clearRect(0, 0, W, H);
       for (const p of st) {
@@ -259,7 +261,7 @@
       if (hero.dataset.cover) mosaic(bg, hero.dataset.cover);
       else {
         starfield(bg, pkey ? pkey.length * 7.3 : 3);
-        if (planet) orb(hero, planet);
+        if (planet && hero.dataset.orb !== 'off') orb(hero, planet);
       }
     }
     if (idx) buildCli(idx);   // ClientRouter 換頁會換掉 body, 指令列要重建 (buildCli 自己防重複)
