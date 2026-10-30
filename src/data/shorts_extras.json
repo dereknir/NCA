@@ -1,11 +1,11 @@
 {
   "meta": {
-    "total": 105,
+    "total": 108,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 33,
-      "live_song": 38,
+      "promo": 34,
+      "live_song": 40,
       "mc": 7,
       "travel": 7,
       "yearly": 6,
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 33,
+      "count": 34,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -334,6 +334,16 @@
           "anchors": []
         },
         {
+          "videoId": "7oT4bzFmuuQ",
+          "title": "Your lucky nishina track next week!?",
+          "url": "https://www.youtube.com/shorts/7oT4bzFmuuQ",
+          "thumbnail": "https://i.ytimg.com/vi/7oT4bzFmuuQ/hqdefault.jpg",
+          "viewCount": 3900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "iLoKBVKZYgM",
           "title": "bugs - 1.31 release",
           "url": "https://www.youtube.com/shorts/iLoKBVKZYgM",
@@ -458,7 +468,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 38,
+      "count": 40,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -836,6 +846,32 @@
           "appearanceName": "第４９回東北工業大学大学祭 - 祭高潮 - ARTIST LIVE 2024",
           "songId": "nishina-kedamono-no-friends",
           "songTitle": "ケダモノのフレンズ"
+        },
+        {
+          "videoId": "3893RTdOBIY",
+          "title": "💡SUMMER SONIC 2026 TOKYO",
+          "url": "https://www.youtube.com/shorts/3893RTdOBIY",
+          "thumbnail": "https://i.ytimg.com/vi/3893RTdOBIY/hqdefault.jpg",
+          "viewCount": 4400,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "SUMMER SONIC 2026 TOKYO",
+          "songId": "nishina-wawon",
+          "songTitle": "わをん"
+        },
+        {
+          "videoId": "2-dSPN4afKc",
+          "title": "🐤SUMMER SONIC 2026 TOKYO",
+          "url": "https://www.youtube.com/shorts/2-dSPN4afKc",
+          "thumbnail": "https://i.ytimg.com/vi/2-dSPN4afKc/hqdefault.jpg",
+          "viewCount": 4000,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "SUMMER SONIC 2026 TOKYO",
+          "songId": "nishina-wawon",
+          "songTitle": "わをん"
         },
         {
           "videoId": "9NZXQa8LbtI",
