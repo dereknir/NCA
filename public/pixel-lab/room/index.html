@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>房間配置草圖</title>
+<link rel="stylesheet" href="/css/scrollbar.css">
+<style>
+/* 首頁「2005 年 Derek 的房間」配置草圖: 只決定每樣東西放哪、點了通到哪, 還不是美術。
+   房間是整個網站的大廳: 手機和電腦是房間裡的裝置, 宇宙是窗外的景色。
+   之後在 Aseprite 照這個配置畫, 畫布 480×270 (16:9), 放大 ×3 / ×4 顯示。 */
+@font-face { font-family: PXZ; src: url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2'); }
+@font-face { font-family: PXJ; src: url('/fonts/pixel/fp12-site-ja.woff2') format('woff2'); }
+:root { --ink: #e8ecf6; --ink2: #b6c2e0; --ink3: #6f7a99; --line: #243154; --gold: #e8c94a; --px: PXZ, PXJ, sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #0a0a15; color: var(--ink); font: 12px/1.7 var(--px); }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 32px 24px 64px; }
+h1 { font: 36px/1.2 var(--px); margin: 0 0 6px; }
+.sub { color: var(--ink2); margin: 0 0 24px; }
+.room { position: relative; aspect-ratio: 16 / 9; border: 2px solid var(--line); background:
+  linear-gradient(#171230 0 78%, #3a281f 78% 100%); overflow: hidden; }
+.z { position: absolute; border: 2px dashed var(--c, #9fb6ff); background: color-mix(in srgb, var(--c, #9fb6ff) 12%, transparent);
+  color: #fff; padding: 6px 8px; cursor: pointer; transition: background .15s; }
+.z:hover, .z.on { background: color-mix(in srgb, var(--c, #9fb6ff) 30%, transparent); }
+.z b { display: block; font: 12px var(--px); color: var(--c); }
+.z span { color: var(--ink2); }
+.z.big b { font-size: 24px; }
+.grid { position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgb(255 255 255 / .04) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .04) 1px, transparent 1px);
+  background-size: calc(100% / 30) calc(100% / 16.875); }
+.desk { position: absolute; left: 0; right: 0; top: 78%; height: 2px; background: #8a6247; }
+.lbl { position: absolute; color: var(--ink3); }
+table { width: 100%; border-collapse: collapse; margin-top: 28px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--gold); font-weight: 400; }
+td:first-child { white-space: nowrap; }
+tr.on td { background: #141d31; }
+.dot { display: inline-block; width: 10px; height: 10px; background: var(--c); margin-right: 6px; }
+h2 { font: 24px var(--px); margin: 40px 0 8px; }
+ul { color: var(--ink2); padding-left: 18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>房間配置草圖</h1>
+  <p class="sub">首頁 = 2005 年 Derek 的房間，夜裡。每一塊是一樣東西，點了會通到網站的哪裡。滑過方塊或表格會互相標出來。</p>
+
+  <div class="room" id="room">
+    <div class="grid"></div>
+    <div class="desk"></div>
+    <span class="lbl" style="left:1%;top:79%">書桌面</span>
+    <!-- 每塊位置用 % (畫布 480×270 的比例), data-k 對到下面表格 -->
+    <div class="z" data-k="window" style="--c:#60e0d2;left:30%;top:6%;width:40%;height:42%"><b>窗＋望遠鏡</b><span>夜空、月亮、遠方城市</span></div>
+    <div class="z" data-k="poster" style="--c:#f064a0;left:5%;top:10%;width:16%;height:30%"><b>海報牆</b><span>今日の一曲封面</span></div>
+    <div class="z" data-k="calendar" style="--c:#ff8c69;left:80%;top:10%;width:11%;height:22%"><b>月曆</b><span>圈著下一場</span></div>
+    <div class="z" data-k="tickets" style="--c:#e8c94a;left:80%;top:35%;width:11%;height:14%"><b>票根板</b><span>貼滿去過的場</span></div>
+    <div class="z" data-k="cd" style="--c:#5ca8ff;left:5%;top:46%;width:18%;height:31%"><b>CD 架</b><span>一張專輯一片</span></div>
+    <div class="z" data-k="pc" style="--c:#9fb6ff;left:62%;top:52%;width:24%;height:26%"><b>CRT 電腦</b><span>螢幕上就是一般網站</span></div>
+    <div class="z big" data-k="phone" style="--c:#c9c3e6;left:42%;top:40%;width:12%;height:38%"><b>N247i</b><span>主角</span></div>
+    <div class="z" data-k="notebook" style="--c:#b6c2e0;left:26%;top:68%;width:12%;height:10%"><b>筆記本</b><span>日記</span></div>
+    <div class="z" data-k="drawer" style="--c:#46be6e;left:27%;top:82%;width:16%;height:14%"><b>抽屜</b><span>卡匣</span></div>
+    <div class="z" data-k="radio" style="--c:#ffb347;left:88%;top:62%;width:9%;height:16%"><b>收音機</b><span>花絮</span></div>
+  </div>
+
+  <table id="map">
+    <tr><th>東西</th><th>點了之後</th><th>對應網站</th><th>為什麼放這裡</th></tr>
+    <tr data-k="phone"><td><span class="dot" style="--c:#c9c3e6"></span>N247i（桌上正中間）</td><td>手機掀開：着うた、ワンセグ、メール、MENU 全部在手機裡</td><td>翻譯、完整 Live、全站選單</td><td>主角，第一眼就要看到；已經做好</td></tr>
+    <tr data-k="pc"><td><span class="dot" style="--c:#9fb6ff"></span>CRT 電腦（桌上右邊）</td><td>鏡頭推進螢幕 → 螢幕上就是現在的網站（終端機提示、指令列都在這台電腦裡）</td><td>內頁全部照舊</td><td>把「終端機」主題收進房間：那是電腦，所以有 derek@nishina $</td></tr>
+    <tr data-k="window"><td><span class="dot" style="--c:#60e0d2"></span>窗＋望遠鏡（手機後面）</td><td>從望遠鏡看出去 → 星空</td><td>にしなの宇宙、歌詞星圖、歌詞宇宙</td><td>把「宇宙」主題收進房間：那是窗外的景色</td></tr>
+    <tr data-k="cd"><td><span class="dot" style="--c:#5ca8ff"></span>CD 架（左下）</td><td>抽出一片 → 專輯曲目 → 翻譯</td><td>翻譯列表（照專輯）</td><td>一張專輯一片 CD，最直覺</td></tr>
+    <tr data-k="poster"><td><span class="dot" style="--c:#f064a0"></span>海報牆（左上）</td><td>今天的封面，點了看那首歌</td><td>今日の一曲</td><td>每天換，房間每天看起來不一樣</td></tr>
+    <tr data-k="calendar"><td><span class="dot" style="--c:#ff8c69"></span>月曆（右上）</td><td>圈著下一場，翻開是行程</td><td>Live（下一場倒數、雷達）</td><td>真的會在月曆上圈演唱會日期</td></tr>
+    <tr data-k="tickets"><td><span class="dot" style="--c:#e8c94a"></span>票根板（月曆下面）</td><td>貼著去過的場次票根</td><td>Setlist、公演史</td><td>收藏感</td></tr>
+    <tr data-k="notebook"><td><span class="dot" style="--c:#b6c2e0"></span>筆記本（手機左邊）</td><td>翻開</td><td>日記</td><td>私人的東西放桌上</td></tr>
+    <tr data-k="drawer"><td><span class="dot" style="--c:#46be6e"></span>抽屜（桌下）</td><td>拉開是一堆卡匣 / 扭蛋</td><td>歌詞卡ガチャ</td><td>收藏品放抽屜</td></tr>
+    <tr data-k="radio"><td><span class="dot" style="--c:#ffb347"></span>收音機（桌角）</td><td>轉台</td><td>花絮（非歌曲的 shorts）</td><td>雜談、MC 適合用聽的</td></tr>
+  </table>
+
+  <h2>還要決定的</h2>
+  <ul>
+    <li>視角：正面看過去（像這張草圖，點東西）還是俯視（像 Peter，角色走過去）？我建議正面，因為手機是主角、要夠大</li>
+    <li>畫布大小：480×270（16:9）放大 ×3 / ×4；手機版改成直的構圖（窗在上、桌子在下、手機置中）</li>
+    <li>活的細節：窗外偶爾流星、月曆每天自動翻、檯燈可以開關、CRT 螢幕有掃描線在閃</li>
+    <li>關於我、作品集：放在電腦裡（桌面上的資料夾），還是牆上另外掛一個東西？</li>
+  </ul>
+</div>
+<script>
+// 滑過方塊 ↔ 表格互相標示
+const on = k => document.querySelectorAll('[data-k]').forEach(e => e.classList.toggle('on', e.dataset.k === k));
+document.querySelectorAll('[data-k]').forEach(e => { e.addEventListener('mouseenter', () => on(e.dataset.k)); e.addEventListener('mouseleave', () => on(null)); });
+</script>
+</body>
+</html>
