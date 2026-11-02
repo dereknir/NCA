@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>N247i — 像素ガラケー</title>
+<link rel="stylesheet" href="/css/scrollbar.css">
+<style>
+/* N247i: ③ 闔著 (外面小螢幕 + 通知燈) → 點一下パカッ掀開 → ① 今天這首歌正在放 → 過幾秒 ⑥ 新着メール。
+   にしな = に・し・な = 2・4・7: 機型 N247i (照 docomo「N903i」的命名, N 當作にしな)、依序按 2 4 7 會打給にしな、
+   2:47 / 14:47 待受有特別動畫 (?t=14:47 可以直接預覽)。鍵盤 12 顆鍵 = 網站 12 個地方, 按數字直接去。
+   當年 docomo 的待受畫面上方不會顯示電信名稱, 只有天線 / 電池 / 未讀メール 這些ピクト。 */
+@font-face { font-family: PXZ; src: url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2'); }
+@font-face { font-family: PXJ; src: url('/fonts/pixel/fp12-site-ja.woff2') format('woff2'); }
+:root { --bg: #0a0a15; --ink: #e8ecf6; --ink2: #b6c2e0; --ink3: #6f7a99; --line: #243154; --gold: #e8c94a; --acc: #ff8c69;
+  --px: PXZ, PXJ, sans-serif; --pxj: PXJ, PXZ, sans-serif;
+  --body: #c9c3e6; --body2: #9d95c9; --dark: #3b335f; --hi: #ece8ff; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font: 12px/1.6 var(--px); }
+body { min-height: 100vh; background: radial-gradient(60% 50% at 50% 10%, #1d1638, transparent 70%), var(--bg); }
+.wrap { max-width: 980px; margin: 0 auto; padding: 32px 24px 64px; display: grid; grid-template-columns: 300px 1fr; gap: 48px; align-items: start; }
+.side h1 { font: 36px/1.2 var(--px); margin: 0 0 8px; }
+.side h1 b { color: var(--gold); font-weight: 400; }
+.side p { color: var(--ink2); margin: 0 0 14px; }
+.side ul { color: var(--ink2); padding-left: 18px; line-height: 1.9; margin: 0 0 16px; }
+.side kbd { font: 12px var(--px); color: var(--gold); border: 2px solid var(--line); padding: 0 5px; }
+.side a { color: var(--acc); }
+
+/* ---------- 機身 ---------- */
+.phone { width: 268px; position: relative; }
+.shell { background: var(--body); border: 4px solid var(--dark); box-shadow: inset 4px 4px 0 var(--hi), inset -4px -4px 0 var(--body2); position: relative; }
+/* 闔著 */
+.closed { border-radius: 28px 28px 30px 30px; height: 380px; display: grid; place-items: center; cursor: pointer; }
+.closed .cam { position: absolute; top: 40px; left: 52px; width: 18px; height: 18px; border-radius: 50%; background: #1d1838; border: 3px solid var(--dark); }
+.closed .led { position: absolute; top: 46px; right: 52px; width: 8px; height: 8px; background: #46ff9a; box-shadow: 0 0 10px #46ff9a; }
+.closed .led.on { animation: led 1.6s steps(2) infinite; }
+@keyframes led { 50% { background: #ff8c69; box-shadow: 0 0 10px #ff8c69; } }
+.sub-lcd { width: 140px; height: 70px; background: #07120c; border: 4px solid var(--dark); position: relative; overflow: hidden;
+  color: #8dffb3; font: 12px var(--px); text-shadow: 0 0 4px #3cff86; margin-top: -40px; }
+.sub-lcd .t { position: absolute; top: 4px; left: 0; right: 0; text-align: center; font: 24px var(--px); }
+.sub-lcd .m { position: absolute; bottom: 4px; white-space: nowrap; animation: ticker 11s linear infinite; }
+@keyframes ticker { from { transform: translateX(140px); } to { transform: translateX(-100%); } }
+.model { position: absolute; bottom: 64px; left: 0; right: 0; text-align: center; color: var(--dark); }
+.model b { display: block; font: 24px var(--px); letter-spacing: .12em; }
+.model span { letter-spacing: .3em; }
+.closed .hint { position: absolute; bottom: 22px; left: 0; right: 0; text-align: center; color: var(--body2); }
+/* 掀開 */
+.open { display: none; }
+.phone.is-open .closed { display: none; }
+.phone.is-open .open { display: block; animation: pakat .32s steps(5); transform-origin: 50% 55%; }
+@keyframes pakat { from { transform: scaleY(.55); } 60% { transform: scaleY(1.04); } to { transform: scaleY(1); } }
+.top { border-radius: 28px 28px 10px 10px; padding: 18px 14px 14px; }
+.top::before { content: ''; position: absolute; left: 50%; top: 7px; width: 36px; height: 4px; margin-left: -18px; background: var(--dark); }
+.hinge { height: 16px; margin: 0 24px; background: var(--body2); border-left: 4px solid var(--dark); border-right: 4px solid var(--dark);
+  box-shadow: inset 0 4px 0 var(--dark), inset 0 -4px 0 var(--dark); }
+.bot { border-radius: 10px 10px 30px 30px; padding: 12px 16px 18px; }
+.brand { text-align: center; color: var(--dark); margin-top: 6px; letter-spacing: .2em; }
+
+/* ---------- 螢幕 ---------- */
+.lcd { position: relative; width: 232px; height: 310px; background: #0b1022; border: 4px solid var(--dark); overflow: hidden; }
+.lcd::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 30;
+  background: repeating-linear-gradient(0deg, rgb(0 0 0 / .22) 0 1px, transparent 1px 3px); }
+.pict { position: absolute; left: 0; right: 0; top: 0; z-index: 20; height: 18px; display: flex; align-items: center; gap: 6px; padding: 0 6px;
+  background: linear-gradient(rgb(0 0 0 / .55), transparent); }
+.pict canvas { height: 12px; image-rendering: pixelated; }
+.pict .sp { flex: 1; }
+.pict .mailp { display: none; } .pict .mailp.on { display: block; }
+canvas.px { image-rendering: pixelated; display: block; }
+.view { position: absolute; inset: 0; display: none; } .view.on { display: block; }
+.softbar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 15; height: 20px; display: flex; justify-content: space-between; align-items: center;
+  padding: 0 6px; color: #9fe3ff; background: #142047; }
+.softbar span:nth-child(2) { color: #fff; }
+
+/* 待受 = ① 着うた再生中 */
+.np-bg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.np-shade { position: absolute; inset: 0; background: linear-gradient(rgb(5 5 15 / .35), rgb(5 5 15 / .72) 55%, rgb(5 5 15 / .92)); }
+.np-date { position: absolute; top: 24px; left: 0; right: 0; text-align: center; color: #fff; text-shadow: 1px 1px 0 #000; }
+.np-clock { position: absolute; top: 40px; left: 0; right: 0; text-align: center; font: 36px var(--px); color: #fff; text-shadow: 2px 2px 0 #000; }
+.np-clock.special { color: var(--gold); animation: glow .6s steps(2) infinite; }
+@keyframes glow { 50% { text-shadow: 2px 2px 0 #000, 0 0 12px var(--gold); } }
+.np-msg { position: absolute; top: 84px; left: 0; right: 0; text-align: center; color: var(--gold); text-shadow: 1px 1px 0 #000; }
+.np-lyric { position: absolute; top: 104px; left: 10px; right: 10px; text-align: center; text-shadow: 1px 1px 0 #000; }
+.np-lyric .ja { font: 12px/1.6 var(--pxj); color: #fff; display: block; }
+.np-lyric .ja i { font-style: normal; color: var(--gold); }
+.np-lyric .zh { color: var(--ink2); display: block; }
+.np-card { position: absolute; left: 6px; right: 6px; bottom: 26px; padding: 7px 8px; background: rgb(20 26 52 / .85); border: 2px solid rgb(255 255 255 / .18); }
+.np-row { display: flex; gap: 8px; align-items: center; }
+.np-row canvas { width: 32px; height: 32px; border: 2px solid #05050b; flex: none; }
+.np-meta { min-width: 0; flex: 1; overflow: hidden; }
+.np-title { white-space: nowrap; font: 12px var(--pxj); color: #fff; }
+.np-artist { color: var(--ink3); }
+.np-bar { height: 6px; margin: 7px 0 3px; background: #0b1022; border: 1px solid #05050b; position: relative; }
+.np-bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--acc); }
+.np-time { display: flex; justify-content: space-between; color: var(--ink3); }
+
+/* MENU = 12 鍵 */
+.menu { position: absolute; left: 6px; right: 6px; top: 22px; bottom: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.menu a { display: grid; justify-items: center; align-content: center; gap: 1px; color: #cfe8ff; text-decoration: none; border: 2px solid transparent; font: 12px var(--px); }
+.menu a canvas { width: 24px; height: 24px; }
+.menu a.sel { border-color: var(--gold); background: #1c2a5c; color: #fff; }
+.menu-title { position: absolute; top: 20px; left: 0; right: 0; text-align: center; color: var(--gold); z-index: 2; display: none; }
+
+/* メール */
+.ring { position: absolute; inset: 0; z-index: 25; display: none; place-items: center; text-align: center; background: #142047; color: #fff; }
+.ring.on { display: grid; animation: ringbg .5s steps(2) infinite; }
+@keyframes ringbg { 50% { background: #2a1f5c; } }
+.ring b { display: block; font: 24px var(--px); color: var(--gold); margin: 8px 0; }
+.mail { background: #f4f1ff; color: #142047; padding: 24px 10px 26px; font: 12px/1.75 var(--pxj); }
+.mail .hd { border-bottom: 2px dashed #9d95c9; padding-bottom: 4px; margin-bottom: 6px; color: #3b335f; }
+.mail .deco { color: #e0403a; }
+.shake { animation: shake .12s steps(2) 6; }
+@keyframes shake { 50% { transform: translateX(3px) rotate(.6deg); } }
+
+/* 247 */
+.call { background: #07120c; color: #8dffb3; text-align: center; padding-top: 40px; text-shadow: 0 0 4px #3cff86; }
+.call .big { font: 36px var(--px); letter-spacing: .2em; margin: 10px 0 2px; color: #fff; }
+.call .kana { font: 24px var(--pxj); letter-spacing: .3em; }
+.call .ly { margin: 18px 10px 0; font: 12px/1.7 var(--pxj); color: #d6ffe4; }
+.call .zh2 { color: #6fbf8a; }
+
+/* 鍵盤 */
+.dpad { display: grid; grid-template-columns: 1fr 64px 1fr; align-items: center; gap: 8px; margin-bottom: 12px; }
+.dpad button { font: 12px var(--px); color: var(--dark); background: var(--body2); border: 3px solid var(--dark); height: 24px; cursor: pointer; padding: 0; }
+.dpad .ring2 { width: 64px; height: 64px; border: 4px solid var(--dark); background: var(--body2); display: grid; place-items: center; border-radius: 50%;
+  box-shadow: inset 4px 4px 0 var(--hi); }
+.dpad .ring2 button { width: 26px; height: 26px; border-radius: 50%; background: var(--acc); border: 3px solid var(--dark); }
+.keys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.keys button { font: 12px var(--px); color: var(--dark); background: var(--hi); border: 3px solid var(--dark); padding: 5px 0; cursor: pointer;
+  box-shadow: inset -3px -3px 0 var(--body2); line-height: 1.2; }
+.keys button small { display: block; font-size: 12px; color: #6c63a0; }
+.keys button.n247 { background: #fff4cf; }     /* 2 4 7: 留給有發現的人 */
+.keys button:active, .keys button.hit { box-shadow: inset 3px 3px 0 var(--body2); background: var(--gold); }
+@media (max-width: 760px) { .wrap { grid-template-columns: 1fr; } .phone { margin: 0 auto; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="phone" id="phone">
+    <div class="shell closed" id="closed">
+      <span class="cam"></span><span class="led" id="led"></span>
+      <div class="sub-lcd"><div class="t" id="subT">--:--</div><div class="m" id="subM"></div></div>
+      <div class="model"><b>N247i</b><span>NISHINA</span></div>
+      <div class="hint">點一下打開</div>
+    </div>
+    <div class="open">
+      <div class="shell top">
+        <div class="lcd" id="lcd">
+          <div class="pict"><canvas id="pAnt" width="11" height="8"></canvas><canvas class="mailp" id="pMail" width="9" height="7"></canvas><span class="sp"></span><canvas id="pBat" width="11" height="7"></canvas></div>
+          <div class="view on" id="vStandby"></div>
+          <div class="view" id="vMenu"><div class="menu" id="menu"></div></div>
+          <div class="view mail" id="vMail"></div>
+          <div class="view call" id="vCall"></div>
+          <div class="ring" id="ring"><div>✉<b>新着メール 1件</b>にしな<br><br>決定キーで開く</div></div>
+          <div class="softbar"><span id="sL">メール</span><span id="sC">MENU</span><span id="sR">完整Live</span></div>
+        </div>
+      </div>
+      <div class="hinge"></div>
+      <div class="shell bot">
+        <div class="dpad"><button type="button" id="kL" aria-label="左ソフトキー"></button>
+          <span class="ring2"><button type="button" id="kC" aria-label="決定"></button></span>
+          <button type="button" id="kR" aria-label="右ソフトキー"></button></div>
+        <div class="keys" id="keys"></div>
+        <div class="brand">N247i</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="side">
+    <h1><b>N</b>247i</h1>
+    <p>にしな＝に・し・な＝2・4・7。照當年 docomo「N903i」的命名方式，N 就當作にしな。</p>
+    <ul>
+      <li>點手機打開（闔著時外面的小螢幕在跑今天的歌，通知燈在閃）</li>
+      <li>待受在放「今天這首歌」，每天換一首；按 <kbd>Enter</kbd> 或中間的鍵去聽完整 Live</li>
+      <li>過幾秒會收到新着メール</li>
+      <li>左鍵 / <kbd>M</kbd>＝メール、右鍵＝完整 Live、下面那排中間＝MENU</li>
+      <li>MENU 裡 12 個地方，鍵盤 <kbd>1</kbd>–<kbd>9</kbd> <kbd>*</kbd> <kbd>0</kbd> <kbd>#</kbd> 直接去（原型只會標出來，不會真的跳走，按 Enter 才跳）</li>
+      <li>依序按 <kbd>2</kbd> <kbd>4</kbd> <kbd>7</kbd>：打給にしな</li>
+      <li><kbd>Esc</kbd> 回待受；回待受再按一次 Esc 闔上</li>
+      <li>2:47 / 14:47 有特別的待受，網址加 <a href="?t=14:47">?t=14:47</a> 直接看</li>
+    </ul>
+    <p style="color:var(--ink3)">當年 docomo 手機的待受畫面上方不會顯示電信名稱，只有天線、電池、未讀メール這些ピクト，「docomo」是印在機身上的。</p>
+  </div>
+</div>
+
+<script>
+const SONGS = [{"id": "nishina-haru-ichiban", "title": "春一番", "album": "日々散漫", "cover": "/covers/nishina/haru-ichiban.jpg", "lines": [{"ja": "青い春にくたびれたシャツ", "zh": "青春裡那件穿舊了的襯衫"}, {"ja": "懐かしいシャンプーの匂い", "zh": "令人懷念的洗髮精香味"}, {"ja": "揺れるハンガー 子供が笑う声", "zh": "搖晃的衣架 孩子們的笑聲"}, {"ja": "元気でいますか？", "zh": "你過得好嗎？"}, {"ja": "さよならと蕾が膨らんで", "zh": "伴隨著「再見」 花苞漸漸綻放"}, {"ja": "胸に帰ってきてしまうよ", "zh": "（那份思念）又回到了我的心頭啊"}, {"ja": "開けっ放しにした窓", "zh": "敞開著的窗戶"}, {"ja": "遠くで鳴るチャイム", "zh": "遠處響起的鐘聲"}, {"ja": "吹き込んだ春一番", "zh": "吹進屋內的第一陣春風"}, {"ja": "好きだった", "zh": "曾經好喜歡你"}, {"ja": "こっそり溶かして飲み干した", "zh": "偷偷地將這份心意融化並一飲而盡"}, {"ja": "好きだった", "zh": "曾經好喜歡你"}, {"ja": "ずっとそっとそっと", "zh": "一直、悄悄地、悄悄地"}, {"ja": "気がついたら鼻歌交じり", "zh": "回過神來 正哼著歌"}, {"ja": "君が口ずさんでたバンド", "zh": "那是你曾經哼唱過的樂團"}, {"ja": "揺れるカーテン窓側の席", "zh": "搖曳的窗簾 靠窗的座位"}, {"ja": "覚えていますか", "zh": "你還記得嗎"}, {"ja": "校庭の桜の木の下に", "zh": "明明以為已經把這份心意"}, {"ja": "置いてきたつもりだったのに", "zh": "留在校園的櫻花樹下了說"}, {"ja": "流しっ放しのラジオ", "zh": "一直開著的收音機裡"}, {"ja": "いつしかの3月9日", "zh": "不知不覺播放著的那首《3月9日》"}, {"ja": "吹き込んだ春一番", "zh": "吹進屋內的第一陣春風"}, {"ja": "好きだった", "zh": "曾經好喜歡你"}, {"ja": "あの日見つめた貴方のまま", "zh": "依然是那天我凝視著的你"}, {"ja": "好きだった", "zh": "曾經好喜歡你"}, {"ja": "ずっとそのままずっと", "zh": "一直、就這樣一直"}, {"ja": "好きだった", "zh": "曾經好喜歡你"}]}, {"id": "nishina-seiran-yuuei", "title": "青藍遊泳", "album": "1999", "cover": "/covers/nishina/1999.jpg", "lines": [{"ja": "門出の夜に忍び込んで", "zh": "潛入啟程之夜"}, {"ja": "青いプール金魚を放とう", "zh": "在湛藍的泳池裡放生金魚吧"}, {"ja": "叱られる事全部し終わる時", "zh": "當把所有會被挨罵的事情都做完時"}, {"ja": "僕らみんな他人になる", "zh": "我們都將成為陌生人"}, {"ja": "飛び込めばあふれる笑い声", "zh": "一躍而入便滿溢而出的笑聲"}, {"ja": "染み込んだ夜の向こう", "zh": "滲透進夜晚的彼岸"}, {"ja": "なんとなく届く気がして", "zh": "總覺得似乎能夠觸及"}, {"ja": "手を伸ばした", "zh": "而伸出了手"}, {"ja": "永遠に僕らは大人になれずに", "zh": "我們永遠無法成為大人"}, {"ja": "夜空の星屑 盗む事ばかり企んでいる", "zh": "總是企圖著偷走夜空中的星屑"}, {"ja": "さらば友よ 忘れてしまえよ", "zh": "再見了朋友 把它忘了吧"}, {"ja": "ただ好き勝手に泳いでいく", "zh": "只是隨心所欲地游著"}, {"ja": "尾鰭を揺らし もがいている", "zh": "搖動著尾鰭 掙扎著"}, {"ja": "赤い奇跡を僕らは見つけた", "zh": "我們發現了紅色的奇蹟"}, {"ja": "この先々に海は無くとも", "zh": "即使前方再也沒有海洋"}, {"ja": "誰も信じてはくれなくても", "zh": "即使沒有任何人願意相信"}, {"ja": "振り向けばまだそこに笑い声", "zh": "一回頭 那裡依然有笑聲"}, {"ja": "見上げた夜の星座", "zh": "仰望著夜空的星座"}, {"ja": "名残惜しさは振り払って", "zh": "揮去依依不捨的眷戀"}, {"ja": "もう行かなきゃ", "zh": "已經不得不出發了"}, {"ja": "永遠に僕は大人になれずに", "zh": "我永遠無法成為大人"}, {"ja": "夜空の星屑 盗む事ばかり企んでいる", "zh": "總是企圖著偷走夜空中的星屑"}, {"ja": "さらば友よ 忘れてしまえよ", "zh": "再見了朋友 把它忘了吧"}, {"ja": "ただ必死になって泳いでいく", "zh": "只是拚了命地向前游去"}, {"ja": "ただ必死になって泳いでいく", "zh": "只是拚了命地向前游去"}]}, {"id": "nishina-rendezvous", "title": "ランデブー", "album": "odds and ends", "cover": "/covers/nishina/rendezvous.jpg", "lines": [{"ja": "Spaceキーワンクリックで", "zh": "只需輕點一下空白鍵"}, {"ja": "今夜は逃避行してみようよ", "zh": "今晚就來嘗試一場私奔吧"}, {"ja": "つまらないシーンはスキップして", "zh": "跳過那些無聊的場景"}, {"ja": "ひとマス分飛び越えたら Making love", "zh": "躍過一個空格後 便陷入熱戀 Making love"}, {"ja": "燃え上がるイノチミジカシ", "zh": "燃燒吧 人生苦短（生命如花綻放頃刻間）"}, {"ja": "run run rendezvoused", "zh": "run run rendezvoused（奔跑吧 秘密約會）"}, {"ja": "You are my amai darling", "zh": "你是我最甜蜜的（amai）親愛的"}, {"ja": "月面着陸凸凹だって", "zh": "就算月球表面凹凸不平"}, {"ja": "プラスして完全無欠", "zh": "加總起來也是完美無缺"}, {"ja": "二人だけの衛星を作ろう", "zh": "讓我們創造只屬於兩人的衛星吧"}, {"ja": "Freeze させた思考で", "zh": "帶著凍結後的思考"}, {"ja": "夢中になれない大人はつまらない", "zh": "無法忘我投入的大人最無趣了"}, {"ja": "やるべき事は後回し", "zh": "該做的事先丟到一邊去"}, {"ja": "正しさだけじゃ物足りない Crazy night", "zh": "只有「正確」可滿足不了這 Crazy night（瘋狂夜晚）"}, {"ja": "愛すべき愚か者たち", "zh": "我們這群可愛又迷人的愚蠢傢伙"}, {"ja": "run run rendezvoused", "zh": "run run rendezvoused（奔跑吧 秘密約會）"}, {"ja": "相対速度は0になって", "zh": "相對速度歸零"}, {"ja": "宇宙空間でんぐり返し", "zh": "在宇宙空間中翻個筋斗"}, {"ja": "目が回ってキスをしようよ", "zh": "轉到頭暈目眩時 就來接吻吧"}, {"ja": "嘘みたいに You take my breath away", "zh": "像說謊一樣 你美得讓我屏息（You take my breath away）"}, {"ja": "1, 2, 3から始まったように赤い糸絡まった夜", "zh": "宛如從 1, 2, 3 開始般 紅線交纏的夜晚"}, {"ja": "大気圏超えてどこまでも Go", "zh": "超越大氣層 無論天涯海角 Go"}, {"ja": "収まりきる愛は欲しくはないの", "zh": "我才不想要那種能被輕易收納的愛呢"}, {"ja": "青くて丸い地球儀溢れ出したら急に", "zh": "當那青藍圓潤的地球儀 情感突然滿溢而出時"}, {"ja": "たまらなくなって飛び出してみようよ", "zh": "變得無法忍受 就這樣飛奔出去吧"}, {"ja": "予測不能", "zh": "一切無法預測"}, {"ja": "run run rendezvoused", "zh": "run run rendezvoused（奔跑吧 秘密約會）"}, {"ja": "You are my amai darling", "zh": "你是我最甜蜜的（amai）親愛的"}, {"ja": "run run rendezvoused", "zh": "run run rendezvoused（奔跑吧 秘密約會）"}, {"ja": "You are my amai darling", "zh": "你是我最甜蜜的（amai）親愛的"}, {"ja": "月面着陸凸凹だって", "zh": "就算月球表面凹凸不平"}, {"ja": "プラスして完全無欠", "zh": "加總起來也是完美無缺"}, {"ja": "二人だけの衛星を作ろう", "zh": "讓我們創造只屬於兩人的衛星吧"}, {"ja": "run run rendezvoused", "zh": "run run rendezvoused（奔跑吧 秘密約會）"}, {"ja": "相対速度は0になって", "zh": "相對速度歸零"}, {"ja": "貴方は私で君は僕", "zh": "你是我就像我是你"}, {"ja": "他人はもうどうでもいい", "zh": "旁人如何都已經無所謂了"}, {"ja": "宇宙みたいに You take my breath away", "zh": "像宇宙一般 你讓我深深著迷（You take my breath away）"}]}, {"id": "nishina-1999", "title": "1999", "album": "1999", "cover": "/covers/nishina/1999.jpg", "lines": [{"ja": "もしも地球最後の日は", "zh": "如果地球的最後一天到來"}, {"ja": "打ち上げ花火みたいがいい", "zh": "希望能像升空的煙火一樣"}, {"ja": "幼く笑う横顔を 半分照らして", "zh": "照亮你那稚氣笑臉的一半"}, {"ja": "街で流れるバースデイソング", "zh": "街道上流淌著的生日快樂歌"}, {"ja": "吹き消した蝋の灯火", "zh": "吹熄了的蠟燭燈火"}, {"ja": "願う小さな希望が 叶うように", "zh": "祈禱著那微小的希望 能夠實現"}, {"ja": "うれしいと時々かなしい", "zh": "開心的時候 有時也會感到悲傷"}, {"ja": "光って飛び散って壊れていく", "zh": "閃耀著、飛散著、逐漸崩壞碎裂"}, {"ja": "地球が滅亡する素敵な夜のこと", "zh": "關於地球毀滅的那美好的夜晚"}, {"ja": "小さな街で2人は永遠に変わる", "zh": "在這座小鎮裡 我們兩人將化作永恆"}, {"ja": "あのよの続きをしようよ 1999", "zh": "讓我們繼續「那個世界（那夜）」的故事吧 1999"}, {"ja": "飲み干したメロンソーダの", "zh": "喝光了的哈密瓜汽水"}, {"ja": "さくらんぼだけ残ってる", "zh": "只留下了那顆櫻桃"}, {"ja": "終末を知った僕らの 鮮やかな日々", "zh": "知曉了末日將至的我們 那色彩鮮豔的日子"}, {"ja": "善も悪もひっくるめて", "zh": "將善與惡全都包攬在內"}, {"ja": "光って飛び散って 壊れていく", "zh": "閃耀著、飛散著、逐漸崩壞碎裂"}, {"ja": "いつかはきっとすぐ訪れる夜のこと", "zh": "關於那總有一天、必定很快就會到來的夜晚"}, {"ja": "誰もがきっと愛しき人の手を握る", "zh": "所有人一定都會緊緊握住心愛之人的手"}, {"ja": "あのよの果てを教えてよ 1999", "zh": "請告訴我「那個世界（那夜）」的盡頭吧 1999"}, {"ja": "世界凶悪犯罪者も", "zh": "即使是世界級的兇惡罪犯"}, {"ja": "夢見がちな優しいあの子も", "zh": "還是那個愛做夢的溫柔孩子"}, {"ja": "最後は等しく身を委ねる", "zh": "到最後都將平等地委身於此"}, {"ja": "言えなかった大好きも", "zh": "沒能說出口的「最喜歡你」也好"}, {"ja": "さよならとあの時のごめんねも", "zh": "那句「再見」以及當時的「對不起」也好"}, {"ja": "抱きしめ抱え星になるんだろう", "zh": "都會被緊緊擁抱著、環抱著 化作星星的吧"}, {"ja": "光って飛び散って壊れていく", "zh": "閃耀著、飛散著、逐漸崩壞碎裂"}, {"ja": "地球が滅亡する素敵な夜のこと", "zh": "關於地球毀滅的那美好的夜晚"}, {"ja": "僕らはきっと変わらぬ愛を歌う", "zh": "我們一定會歌唱著永恆不變的愛"}, {"ja": "あのよの続きをしようよ 1999", "zh": "讓我們繼續「那個世界（那夜）」的故事吧 1999"}, {"ja": "あのよの果てを教えてよ 1999", "zh": "請告訴我「那個世界（那夜）」的盡頭吧 1999"}]}];
+const Q = new URLSearchParams(location.search);
+const pad = n => String(n).padStart(2, '0');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const WD = ['日', '月', '火', '水', '木', '金', '土'];
+// 時間: ?t=14:47 可以假裝現在幾點
+const fake = Q.get('t')?.match(/^(\d{1,2}):(\d{2})$/);
+const now = () => { const d = new Date(); if (fake) d.setHours(+fake[1], +fake[2]); return d; };
+const hhmm = () => { const d = now(); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+const is247 = () => { const d = now(); return (d.getHours() === 2 || d.getHours() === 14) && d.getMinutes() === 47; };
+const dateJa = () => { const d = now(); return `${d.getMonth() + 1}月${d.getDate()}日(${WD[d.getDay()]})`; };
+const jstDay = Math.floor((Date.now() + 9 * 36e5) / 864e5);
+const SONG = SONGS[jstDay % SONGS.length];                 // 今天這首歌, 每天換
+const daysToLive = Math.round((Date.parse('2026-11-11') - jstDay * 864e5) / 864e5);
+const $ = id => document.getElementById(id);
+
+/* ---------- 小圖示 ---------- */
+function bitmap(c, rows, color) {
+  const g = c.getContext('2d'); g.clearRect(0, 0, c.width, c.height); g.fillStyle = color;
+  rows.forEach((r, y) => [...r].forEach((ch, x) => ch !== '.' && g.fillRect(x, y, 1, 1)));
+  return c;
+}
+// アンテナピクト: Y 字天線 + 三格
+bitmap($('pAnt'), ['#.#......##', '#.#....####', '.#...######', '.#..#######', '.#..#######', '.#..#######', '.#..#######', '.#..#######'].map(r => r), '#ffffff');
+bitmap($('pMail'), ['#########', '##.....##', '#.#...#.#', '#..#.#..#', '#...#...#', '#.......#', '#########'], '#e8c94a');
+bitmap($('pBat'), ['#########..', '#.##.##.###', '#.##.##.#.#', '#.##.##.#.#', '#.##.##.###', '#.......#..', '#########..'], '#ffffff');
+const ICONS = {
+  lyric: ['...##...', '...###..', '...#.##.', '...#..#.', '...#....', '.###....', '####....', '.##.....'],
+  full:  ['..####..', '.#....#.', '#..##..#', '#.####.#', '#.####.#', '#..##..#', '.#....#.', '..####..'],
+  live:  ['.#....#.', '..#..#..', '########', '#......#', '#.####.#', '#.####.#', '#......#', '########'],
+  uni:   ['...#....', '..###...', '.#####..', '#######.', '.#####..', '..###...', '...#....', '........'],
+  index: ['.#####..', '#.....#.', '#.....#.', '#.....#.', '.#####..', '.....##.', '......##', '.......#'],
+  star:  ['...#....', '...#....', '..###...', '#######.', '.#####..', '.##.##..', '.#...#..', '........'],
+  list:  ['########', '........', '#.######', '........', '#.######', '........', '#.######', '........'],
+  cam:   ['........', '..##....', '########', '#..##..#', '#.#..#.#', '#..##..#', '########', '........'],
+  gacha: ['..####..', '.#....#.', '#.#..#.#', '#......#', '########', '#.####.#', '#......#', '.######.'],
+  diary: ['.######.', '.#....#.', '.#.##.#.', '.#....#.', '.#.##.#.', '.#....#.', '.######.', '........'],
+  orbit: ['..####..', '.#....#.', '#..##..#', '#.####.#', '#.####.#', '#..##..#', '.#....#.', '..####..'],
+  me:    ['..###...', '.#####..', '.#####..', '..###...', '........', '.#####..', '#######.', '#######.'],
+};
+const icon = (n, color) => { const c = document.createElement('canvas'); c.width = c.height = 8; c.className = 'px'; return bitmap(c, ICONS[n], color); };
+
+/* ---------- 12 鍵 = 網站 12 個地方 ---------- */
+const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '0', '#'];
+const KANA = { 1: 'あ', 2: 'か', 3: 'さ', 4: 'た', 5: 'な', 6: 'は', 7: 'ま', 8: 'や', 9: 'ら', 0: 'わ', '*': '', '#': '' };
+const APPS = [
+  ['lyric', '翻譯', '/translations', '#ff8c69'], ['full', '完整Live', '/live/full/', '#e8c94a'], ['live', 'Live', '/live/', '#ff8c69'],
+  ['uni', '歌詞宇宙', '/lyric-universe/', '#f064a0'], ['index', '索引', '/kwic/', '#5ca8ff'], ['star', '星圖', '/star-map/', '#60e0d2'],
+  ['list', 'Setlist', '/setlists/', '#e8c94a'], ['cam', '花絮', '/extras/', '#46be6e'], ['gacha', 'ガチャ', '/gacha/', '#e8c94a'],
+  ['diary', '日記', '/diary', '#b6c2e0'], ['orbit', '宇宙', '/galaxy/', '#ffb347'], ['me', 'プロフ', '/about', '#c86ef0'],
+];
+const menu = $('menu');
+APPS.forEach(([ic, label, href, col], i) => {
+  const a = document.createElement('a'); a.href = href; a.dataset.i = i;
+  a.append(icon(ic, col)); a.insertAdjacentHTML('beforeend', `<span>${KEYS[i]} ${label}</span>`);
+  a.onclick = e => { e.preventDefault(); if (sel === i) location.href = href; else pick(i); };
+  menu.append(a);
+});
+let sel = 0;
+const pick = i => { sel = i; [...menu.children].forEach((a, j) => a.classList.toggle('sel', j === i)); };
+pick(0);
+
+/* ---------- 畫面切換 ---------- */
+let view = 'standby';
+function show(v) {
+  view = v;
+  ['Standby', 'Menu', 'Mail', 'Call'].forEach(n => $('v' + n).classList.toggle('on', n.toLowerCase() === v));
+  const soft = { standby: ['メール', 'MENU', '完整Live'], menu: ['戻る', '選択', '完整Live'], mail: ['戻る', '', '返信'], call: ['', '終話', ''] }[v];
+  [$('sL').textContent, $('sC').textContent, $('sR').textContent] = soft;
+}
+
+/* ---------- 待受: 今天這首歌 ---------- */
+const st = $('vStandby');
+const bg = document.createElement('canvas'); bg.width = 24; bg.height = 32; bg.className = 'px np-bg'; st.append(bg);
+const coverImg = new Image(); coverImg.onload = () => { bg.getContext('2d').drawImage(coverImg, 0, 0, 24, 32); thumb.getContext('2d').drawImage(coverImg, 0, 0, 16, 16); };
+st.insertAdjacentHTML('beforeend', `<div class="np-shade"></div><div class="np-date"></div><div class="np-clock"></div><div class="np-msg"></div>
+  <div class="np-lyric"><span class="ja"></span><span class="zh"></span></div>
+  <div class="np-card"><div class="np-row"></div><div class="np-bar"><i></i></div><div class="np-time"><span class="a">0:00</span><span>今日の一曲</span></div></div>`);
+const thumb = document.createElement('canvas'); thumb.width = thumb.height = 16; thumb.className = 'px';
+st.querySelector('.np-row').append(thumb);
+st.querySelector('.np-row').insertAdjacentHTML('beforeend', `<div class="np-meta"><div class="np-title">♪ ${esc(SONG.title)}</div><div class="np-artist">にしな・${esc(SONG.album)}</div></div>`);
+coverImg.src = SONG.cover;
+const nja = st.querySelector('.ja'), nzh = st.querySelector('.zh'), nbar = st.querySelector('.np-bar i'), na = st.querySelector('.np-time .a');
+const t0 = performance.now(), PER = 3600;
+(function karaoke(t) {
+  const dt = Math.max(0, t - t0), n = SONG.lines.length, k = Math.floor(dt / PER) % n, p = (dt % PER) / PER;
+  const chars = [...SONG.lines[k].ja], cut = Math.ceil(chars.length * Math.min(1, p * 1.4));
+  nja.innerHTML = `<i>${esc(chars.slice(0, cut).join(''))}</i>${esc(chars.slice(cut).join(''))}`;
+  nzh.textContent = SONG.lines[k].zh;
+  const frac = (dt % (n * PER)) / (n * PER); nbar.style.width = frac * 100 + '%';
+  const s = frac * n * 6; na.textContent = `${Math.floor(s / 60)}:${pad(Math.floor(s % 60))}`;
+  requestAnimationFrame(karaoke);
+})(t0);
+function tickClock() {
+  const special = is247();
+  st.querySelector('.np-date').textContent = dateJa();
+  const c = st.querySelector('.np-clock'); c.textContent = hhmm(); c.classList.toggle('special', special);
+  st.querySelector('.np-msg').textContent = special ? '— に・し・な の時間 —' : (daysToLive > 0 ? `ライブまであと ${daysToLive} 日` : '');
+  $('subT').textContent = hhmm();
+}
+tickClock(); setInterval(tickClock, 10000);
+
+/* ---------- 闔著 / 掀開 ---------- */
+let unread = true;
+$('subM').textContent = `♪ 今日の一曲「${SONG.title}」 ◆ N247i ◆ 新着メール 1件 ◆ ライブまであと ${daysToLive} 日 ◆`;
+$('led').classList.add('on');
+const phone = $('phone');
+function openPhone() { phone.classList.add('is-open'); show('standby'); $('pMail').classList.toggle('on', unread); if (unread) setTimeout(incoming, 3000); }
+function closePhone() { phone.classList.remove('is-open'); $('led').classList.toggle('on', unread); }
+$('closed').onclick = openPhone;
+
+/* ---------- 新着メール ---------- */
+let ringing = false;
+function incoming() {
+  if (!phone.classList.contains('is-open') || !unread || ringing) return;
+  ringing = true; $('ring').classList.add('on');
+  const top = document.querySelector('.top'); top.classList.remove('shake'); void top.offsetWidth; top.classList.add('shake');
+}
+function openMail() {
+  ringing = false; unread = false; $('ring').classList.remove('on'); $('pMail').classList.remove('on');
+  $('vMail').innerHTML = `<div class="hd">From: にしな<br>Sub: <span class="deco">★</span>今日の一曲<span class="deco">★</span></div>
+    今日は「${esc(SONG.title)}」を<br>最初から最後まで聴けるよ <span class="deco">♪♪</span><br>
+    ${daysToLive > 0 ? `11/11 は心斎橋 BIGCAT！<br>あと <b>${daysToLive}</b> 日 <span class="deco">(*^▽^*)</span><br>` : ''}<br>
+    <span style="color:#6f7a99">右鍵：完整 Live ・ 左鍵：戻る</span>`;
+  show('mail');
+}
+
+/* ---------- 247: 依序按 2 4 7 打給にしな ---------- */
+let dialed = '';
+function dial(k) {
+  dialed = (dialed + k).slice(-3);
+  if (dialed === '247') { dialed = ''; call247(); return true; }
+  return false;
+}
+function call247() {
+  const L = SONGS[Math.floor(Math.random() * SONGS.length)], ln = L.lines[Math.floor(Math.random() * L.lines.length)];
+  $('vCall').innerHTML = `<div>発信中…</div><div class="big">247</div><div class="kana">に し な</div>`;
+  show('call');
+  setTimeout(() => {
+    if (view !== 'call') return;
+    $('vCall').innerHTML = `<div>通話中 00:24</div><div class="big">247</div><div class="kana">に し な</div>
+      <div class="ly">「${esc(ln.ja)}」<br><span class="zh2">${esc(ln.zh)}</span><br><span class="zh2">—「${esc(L.title)}」</span></div>`;
+  }, 1600);
+}
+
+/* ---------- 按鍵 ---------- */
+const keys = $('keys');
+KEYS.forEach((k, i) => {
+  const b = document.createElement('button'); b.type = 'button';
+  if ('247'.includes(k)) b.className = 'n247';
+  b.innerHTML = `${k}<small>${KANA[k]}</small>`;
+  b.onclick = () => press(k);
+  keys.append(b);
+});
+function flash(k) { const b = keys.children[KEYS.indexOf(k)]; if (!b) return; b.classList.add('hit'); setTimeout(() => b.classList.remove('hit'), 120); }
+function press(k) {
+  if (!phone.classList.contains('is-open')) return openPhone();
+  flash(k);
+  if (dial(k)) return;
+  if (view === 'standby' || view === 'menu') { show('menu'); pick(KEYS.indexOf(k)); }
+}
+function soft(which) {
+  if (!phone.classList.contains('is-open')) return openPhone();
+  if (ringing) return openMail();
+  if (view === 'standby') { if (which === 'L') openMail(); if (which === 'C') show('menu'); if (which === 'R') location.href = `/live/full/${SONG.id}/`; }
+  else if (view === 'menu') { if (which === 'L') show('standby'); if (which === 'C') location.href = APPS[sel][2]; if (which === 'R') location.href = `/live/full/${SONG.id}/`; }
+  else if (view === 'mail') { if (which === 'L') show('standby'); if (which === 'R') location.href = `/live/full/${SONG.id}/`; }
+  else if (view === 'call') show('standby');
+}
+$('kL').onclick = () => soft('L'); $('kR').onclick = () => soft('R'); $('kC').onclick = () => center();
+function center() {
+  if (!phone.classList.contains('is-open')) return openPhone();
+  if (ringing) return openMail();
+  if (view === 'standby') location.href = `/live/full/${SONG.id}/`;
+  else if (view === 'menu') location.href = APPS[sel][2];
+  else show('standby');
+}
+addEventListener('keydown', e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key;
+  if (KEYS.includes(k)) { e.preventDefault(); press(k); }
+  else if (k === 'Enter') { e.preventDefault(); center(); }
+  else if (k === 'm' || k === 'M') soft('L');
+  else if (k === 'Escape') { if (view === 'standby') closePhone(); else show('standby'); }
+  else if (view === 'menu' && /^Arrow/.test(k)) {
+    e.preventDefault();
+    const d = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -3, ArrowDown: 3 }[k];
+    pick((sel + d + APPS.length) % APPS.length);
+  }
+});
+</script>
+</body>
+</html>
