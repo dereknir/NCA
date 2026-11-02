@@ -1,0 +1,61 @@
+---
+/**
+ * 首頁的房間: 2005 年夜裡我的房間 (/img/room/room.png, 480×270 的像素畫; Aseprite 原檔不進 repo)。
+ * 房間裡的東西就是網站的入口, 座標全部寫原圖像素, 螢幕上的大小交給 /js/room.js 算倍率。
+ * 熱區疊的順序有意義: 後面的蓋在前面上面 (月亮、望遠鏡在窗戶上; 桌面資料夾在電腦上; しっぽ在軟木板上)。
+ */
+interface Spot { k: string; name: string; sub: string; x: number; y: number; w: number; h: number; href?: string; act?: string }
+
+const SPOTS: Spot[] = [
+  { k: 'poster', name: '海報', sub: '完整 Live', x: 26, y: 28, w: 76, h: 76, href: '/live/full/' },
+  { k: 'clock', name: '掛鐘', sub: '一直停在 2:47', x: 104, y: 28, w: 19, h: 19, act: 'none' },
+  { k: 'sky', name: '窗外的星星', sub: '歌詞星圖', x: 152, y: 17, w: 176, h: 110, href: '/star-map/' },
+  { k: 'moon', name: '月亮', sub: '歌詞宇宙', x: 285, y: 25, w: 29, h: 29, href: '/lyric-universe/' },
+  { k: 'telescope', name: '望遠鏡', sub: 'にしなの宇宙', x: 163, y: 100, w: 37, h: 28, href: '/galaxy/' },
+  { k: 'shelf', name: 'CD 架', sub: '日文歌翻譯', x: 22, y: 128, w: 86, h: 74, href: '/translations' },
+  { k: 'cabinet', name: '櫃子', sub: '歌詞索引', x: 22, y: 202, w: 86, h: 66, href: '/kwic/' },
+  { k: 'mug', name: '馬克杯', sub: '還是熱的', x: 149, y: 186, w: 14, h: 20, act: 'none' },
+  { k: 'notebook', name: '筆記本', sub: '日記', x: 164, y: 199, w: 40, h: 10, href: '/diary' },
+  { k: 'drawer', name: '抽屜', sub: '歌詞卡ガチャ', x: 121, y: 223, w: 82, h: 20, href: '/gacha/' },
+  { k: 'phone', name: 'N247i', sub: '拿起來看看', x: 210, y: 150, w: 42, h: 58, act: 'phone' },
+  { k: 'crt', name: '電腦', sub: '指令列', x: 258, y: 118, w: 98, h: 88, act: 'cli' },
+  { k: 'about', name: '資料夾', sub: '關於我', x: 325, y: 137, w: 16, h: 16, href: '/about' },
+  { k: 'projects', name: '資料夾', sub: '作品集', x: 325, y: 153, w: 16, h: 16, href: '/projects' },
+  { k: 'radio', name: '收音機', sub: '花絮', x: 374, y: 146, w: 50, h: 60, href: '/extras/' },
+  { k: 'calendar', name: '月曆', sub: 'Live 演出', x: 401, y: 14, w: 48, h: 68, href: '/live/' },
+  { k: 'corkboard', name: '軟木板', sub: '巡演 Setlist', x: 393, y: 87, w: 64, h: 43, href: '/setlists/' },
+  { k: 'shippo', name: 'しっぽ', sub: 'にしな的周邊', x: 428, y: 121, w: 32, h: 63, act: 'shippo' },
+];
+
+// 會亮的小東西 (圖上本來就畫了, 這裡只負責閃)。
+// 用蓋的那兩個多蓋一圈: 倍率有小數時 (手機 8/3) 邊界會差一個實體像素, 底下的燈會露一圈邊
+const PX = [
+  { c: 'rm-led-mail', x: 236, y: 159, w: 2, h: 1 },   // 手機轉軸的來信燈
+  { c: 'rm-led-hdd', x: 394, y: 257, w: 3, h: 3 },    // 主機的硬碟燈 (395,258)
+  { c: 'rm-cursor', x: 282, y: 162, w: 5, h: 6 },     // 終端機游標 (283,163 3×4)
+];
+const pos = (o: { x: number; y: number; w: number; h: number }) => `--x:${o.x};--y:${o.y};--w:${o.w};--h:${o.h}`;
+---
+
+<section class="rm" data-room aria-label="Derek 的房間">
+  <div class="rm-pan">
+    <div class="rm-stage">
+      <img class="rm-bg" src="/img/room/room.png" width="480" height="270" decoding="async"
+        alt="夜裡的房間: 書桌上有檯燈、插在充電座上的折疊手機、CRT 電腦和收音機, 窗外是月亮和城市">
+      <img class="rm-shippo" src="/img/room/shippo.png" width="480" height="270" alt="" aria-hidden="true">
+      {PX.map(p => <span class={`rm-px ${p.c}`} style={pos(p)} aria-hidden="true"></span>)}
+      <div class="rm-scan" style={pos({ x: 271, y: 135, w: 72, h: 41 })} aria-hidden="true"><i></i></div>
+      <div class="rm-sky" style={pos({ x: 153, y: 18, w: 85, h: 52 })} aria-hidden="true"></div>
+      <div class="rm-sky" style={pos({ x: 240, y: 18, w: 87, h: 52 })} aria-hidden="true"></div>
+      {SPOTS.map(s => s.href
+        ? <a class="rm-hs" href={s.href} data-k={s.k} data-name={s.name} data-sub={s.sub} style={pos(s)} aria-label={`${s.name}: ${s.sub}`}></a>
+        : <button class="rm-hs" type="button" data-k={s.k} data-act={s.act} data-name={s.name} data-sub={s.sub} style={pos(s)} aria-label={`${s.name}: ${s.sub}`}></button>)}
+      <div class="rm-tip" aria-hidden="true"><b></b><i></i></div>
+    </div>
+  </div>
+  <a class="rm-hint" href="#"><span class="rm-wide">點房間裡的東西逛逛 · 往下是最新翻譯和日記</span><span class="rm-narrow">左右滑看看 · 點一下看名字, 再點一下進去</span></a>
+</section>
+<link rel="stylesheet" href="/css/n247i.css">
+<link rel="stylesheet" href="/css/room.css">
+<script is:inline src="/js/n247i.js"></script>
+<script is:inline src="/js/room.js"></script>

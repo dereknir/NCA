@@ -1,0 +1,79 @@
+/* room.css — 首頁的房間 (行為在 /js/room.js, 圖 /img/room/*.png)
+   class 全部 rm- 開頭。房間原圖 480×270, 所有座標都用原圖像素寫, 乘上 --s (倍率) 才是螢幕上的大小。 */
+
+.rm { position: relative; height: calc(100svh - 56px); min-height: 320px; background: #161229; overflow: hidden; }
+.rm-pan { position: absolute; inset: 0; display: flex; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain; }
+.rm-pan::-webkit-scrollbar { display: none; }
+.rm-stage { --s: 2; position: relative; flex: none; margin: auto; width: calc(480px * var(--s)); height: calc(270px * var(--s)); }
+.rm-stage > img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; user-select: none; -webkit-user-drag: none; }
+
+/* 原圖座標 → 螢幕: 每個小元件用 --x --y --w --h 寫原圖上的位置 */
+.rm-px, .rm-hs, .rm-sky, .rm-scan { position: absolute; left: calc(var(--x) * var(--s) * 1px); top: calc(var(--y) * var(--s) * 1px);
+  width: calc(var(--w, 1) * var(--s) * 1px); height: calc(var(--h, 1) * var(--s) * 1px); }
+.rm-px, .rm-sky, .rm-scan { pointer-events: none; }
+
+/* しっぽ: 掛在軟木板的圖釘上 (原圖 447,124), 平常微微晃, 點了或滑過去晃大一點 */
+.rm-shippo { transform-origin: 93.13% 45.93%; animation: rm-sway 7s ease-in-out infinite; }
+.rm-shippo.swing { animation: rm-swing 1.8s ease-out; }
+@keyframes rm-sway { 0%, 100% { rotate: 0deg; } 30% { rotate: 1.2deg; } 65% { rotate: -.8deg; } }
+@keyframes rm-swing { 0% { rotate: 0deg; } 15% { rotate: 9deg; } 35% { rotate: -6deg; } 55% { rotate: 3.5deg; } 75% { rotate: -1.5deg; } 100% { rotate: 0deg; } }
+
+/* 會亮的小東西: 手機轉軸的來信燈、主機硬碟燈、終端機游標、螢幕掃描線 */
+.rm-led-mail { background: #7ee0b0; animation: rm-mail 1.6s steps(1) infinite; }
+@keyframes rm-mail { 50% { background: #f29b4a; } }
+.rm-led-hdd { background: #2b2249; animation: rm-hdd 2.9s steps(1) infinite; }   /* 蓋在硬碟燈上, 透明的時候燈就亮 */
+@keyframes rm-hdd { 0%, 9%, 31%, 58%, 66% { opacity: 0; } 5%, 18%, 44%, 62%, 80% { opacity: 1; } }
+.rm-cursor { background: #07060f; animation: rm-blink 1.06s steps(1) infinite; }
+@keyframes rm-blink { 50% { opacity: 0; } }
+.rm-scan { overflow: hidden; }
+.rm-scan i { position: absolute; left: 0; right: 0; height: calc(var(--s) * 2px); background: rgb(143 176 224 / .12); animation: rm-scan 7s steps(46) infinite; }
+@keyframes rm-scan { from { top: -10%; } to { top: 110%; } }
+
+/* 窗外的流星 (左右兩片玻璃各自裁切, 才不會劃過窗框) */
+.rm-sky { overflow: hidden; }
+.rm-sky i { position: absolute; width: calc(var(--s) * 9px); height: calc(var(--s) * 1px); transform-origin: left center; rotate: -26.6deg;
+  background: linear-gradient(90deg, #ece8ff, rgb(236 232 255 / 0)); }
+
+/* 熱區: 平常看不到, 滑過去 / 鍵盤停到 / 觸控點第一下 → 四個角框起來 */
+.rm-hs { display: block; padding: 0; border: 0; background: none; cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent;
+  --c: #ece8ff; --t: calc(var(--s) * 1px); --l: calc(var(--s) * 4px); }
+.rm-hs:is(:hover, :focus-visible, .on) {
+  background:
+    linear-gradient(var(--c) 0 0) left top / var(--l) var(--t), linear-gradient(var(--c) 0 0) left top / var(--t) var(--l),
+    linear-gradient(var(--c) 0 0) right top / var(--l) var(--t), linear-gradient(var(--c) 0 0) right top / var(--t) var(--l),
+    linear-gradient(var(--c) 0 0) left bottom / var(--l) var(--t), linear-gradient(var(--c) 0 0) left bottom / var(--t) var(--l),
+    linear-gradient(var(--c) 0 0) right bottom / var(--l) var(--t), linear-gradient(var(--c) 0 0) right bottom / var(--t) var(--l);
+  background-repeat: no-repeat; }
+
+/* 名牌: 浮在東西上面 (太靠上就放下面) */
+.rm-tip { position: absolute; z-index: 3; transform: translate(-50%, -100%); margin-top: -6px; padding: 6px 10px; pointer-events: none;
+  font: 12px/1.5 var(--sh-px, monospace); color: #ece8ff; background: #0e0b1d; border: 2px solid #ece8ff; box-shadow: 3px 3px 0 #07060f;
+  white-space: nowrap; text-align: center; opacity: 0; transition: opacity .12s steps(2); }
+.rm-tip.below { transform: translate(-50%, 0); margin-top: 6px; }
+.rm-tip.show { opacity: 1; }
+.rm-tip b { display: block; font-weight: 400; }
+.rm-tip i { display: block; font-style: normal; color: #9d95c9; }
+
+/* 房間底下的提示, 點了捲到一般版首頁 */
+.rm-hint { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); z-index: 2; padding: 4px 10px;
+  font: 12px var(--sh-px, monospace); color: #9d95c9; background: rgb(14 11 29 / .85); border: 2px solid #3b335f;
+  text-decoration: none; white-space: nowrap; }
+.rm-hint:hover { color: #ece8ff; border-color: #9d95c9; }
+.rm-narrow { display: none; }
+/* 窄螢幕: 底下有站上的 N247i 按鈕, 提示改放上面、換短句 */
+@media (max-width: 640px) {
+  .rm-hint { top: 10px; bottom: auto; }
+  .rm-wide { display: none; }
+  .rm-narrow { display: inline; }
+}
+
+/* 拿起手機: 疊一層, 裡面是網頁版 N247i */
+.rm-pick { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; background: rgb(7 6 15 / .78); }
+.rm-pick-x { position: absolute; top: 14px; right: 14px; font: 12px var(--sh-px, monospace); color: #3b335f; background: #ece8ff;
+  border: 3px solid #3b335f; box-shadow: inset -3px -3px 0 #9d95c9, 3px 3px 0 rgb(0 0 0 / .45); padding: 6px 12px; cursor: pointer; }
+.rm-pick-x:hover { background: #e8c94a; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rm-shippo, .rm-shippo.swing, .rm-led-mail, .rm-led-hdd, .rm-cursor, .rm-scan i { animation: none; }
+  .rm-led-hdd, .rm-cursor { opacity: 0; }
+}
