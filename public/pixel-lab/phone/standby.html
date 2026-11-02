@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixel Phone — 待受畫面提案</title>
+<link rel="stylesheet" href="/css/scrollbar.css">
+<style>
+/* ガラケー待受的六種玩法並排比較, 全部用春一番的真資料 (歌詞 / 封面 / live shorts)。
+   ① 着うた再生中 (鎖屏播放)  ② マチキャラ  ③ サブディスプレイ (闔著的手機)
+   ④ ワンセグ  ⑤ きせかえ  ⑥ 着信 / 新着メール */
+@font-face { font-family: PXZ; src: url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2'); }
+@font-face { font-family: PXJ; src: url('/fonts/pixel/fp12-site-ja.woff2') format('woff2'); }
+:root { --bg: #0a0a15; --ink: #e8ecf6; --ink2: #b6c2e0; --ink3: #6f7a99; --line: #243154; --gold: #e8c94a; --acc: #ff8c69;
+  --px: PXZ, PXJ, sans-serif; --pxj: PXJ, PXZ, sans-serif;
+  --body: #c9c3e6; --body2: #9d95c9; --dark: #3b335f; --hi: #ece8ff; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font: 12px/1.6 var(--px); }
+body { min-height: 100vh; background: radial-gradient(70% 50% at 30% 0%, #1a1530, transparent 70%), var(--bg); }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 32px 24px 64px; }
+h1 { font: 36px/1.2 var(--px); margin: 0 0 6px; }
+.sub { color: var(--ink2); margin: 0 0 32px; max-width: 60em; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px 32px; }
+.card h2 { font: 24px var(--px); margin: 0 0 2px; }
+.card h2 b { color: var(--acc); font-weight: 400; margin-right: 6px; }
+.card .what { color: var(--ink3); min-height: 3.2em; margin: 0 0 14px; }
+.card .feel { margin-top: 12px; color: var(--ink2); }
+.card .feel span { display: inline-block; border: 2px solid var(--line); padding: 0 6px; margin: 0 4px 4px 0; }
+
+/* ガラケー上半部 (螢幕那半) */
+.lid { width: 268px; margin: 0 auto; background: var(--body); border: 4px solid var(--dark); border-radius: 28px 28px 10px 10px;
+  padding: 18px 14px 16px; position: relative; box-shadow: inset 4px 4px 0 var(--hi), inset -4px -4px 0 var(--body2); }
+.lid::before { content: ''; position: absolute; left: 50%; top: 7px; width: 36px; height: 4px; margin-left: -18px; background: var(--dark); }
+.lcd { position: relative; width: 232px; height: 310px; background: #0b1022; border: 4px solid var(--dark); overflow: hidden; cursor: pointer; }
+.lcd::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 20;
+  background: repeating-linear-gradient(0deg, rgb(0 0 0 / .22) 0 1px, transparent 1px 3px); }
+.sb { position: absolute; left: 0; right: 0; top: 0; z-index: 10; display: flex; justify-content: space-between; padding: 3px 6px;
+  font: 12px var(--px); color: #fff; text-shadow: 1px 1px 0 #000; }
+.keys-hint { text-align: center; color: var(--ink3); margin-top: 8px; }
+.keys-hint kbd { font: 12px var(--px); color: var(--gold); border: 2px solid var(--line); padding: 0 4px; }
+canvas.px { image-rendering: pixelated; display: block; }
+
+/* ① 着うた再生中 */
+.np-bg { position: absolute; inset: 0; width: 100%; height: 100%; filter: saturate(1.2); }
+.np-bg + .np-shade { position: absolute; inset: 0; background: linear-gradient(rgb(5 5 15 / .35), rgb(5 5 15 / .75) 60%, rgb(5 5 15 / .9)); }
+.np-date { position: absolute; top: 28px; left: 0; right: 0; text-align: center; color: #fff; text-shadow: 1px 1px 0 #000; }
+.np-clock { position: absolute; top: 44px; left: 0; right: 0; text-align: center; font: 36px var(--px); color: #fff; text-shadow: 2px 2px 0 #000; letter-spacing: .04em; }
+.np-lyric { position: absolute; top: 108px; left: 12px; right: 12px; text-align: center; text-shadow: 1px 1px 0 #000; }
+.np-lyric .ja { font: 12px/1.6 var(--pxj); color: #fff; display: block; }
+.np-lyric .ja i { font-style: normal; color: var(--gold); }
+.np-lyric .zh { color: var(--ink2); display: block; }
+.np-card { position: absolute; left: 8px; right: 8px; bottom: 10px; padding: 8px; background: rgb(20 26 52 / .82); border: 2px solid rgb(255 255 255 / .18); }
+.np-row { display: flex; gap: 8px; align-items: center; }
+.np-row canvas { width: 32px; height: 32px; border: 2px solid #05050b; flex: none; }
+.np-meta { min-width: 0; flex: 1; overflow: hidden; }
+.np-title { white-space: nowrap; font: 12px var(--pxj); color: #fff; display: inline-block; animation: marquee 7s linear infinite; }
+.np-artist { color: var(--ink3); }
+@keyframes marquee { 0%, 15% { transform: translateX(0); } 85%, 100% { transform: translateX(-40%); } }
+.np-bar { height: 6px; margin: 8px 0 4px; background: #0b1022; border: 1px solid #05050b; position: relative; }
+.np-bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--acc); }
+.np-time { display: flex; justify-content: space-between; color: var(--ink3); }
+.np-ctl { display: flex; justify-content: center; gap: 22px; color: #fff; font: 12px var(--px); margin-top: 2px; }
+
+/* ② マチキャラ */
+.mc-bubble { position: absolute; left: 14px; right: 14px; top: 92px; padding: 6px 8px; background: #fff; color: #142047; border: 2px solid #05050b;
+  font: 12px/1.6 var(--pxj); text-align: center; z-index: 5; }
+.mc-bubble::after { content: ''; position: absolute; left: var(--tail, 50%); bottom: -8px; width: 8px; height: 8px; background: #fff;
+  border-right: 2px solid #05050b; border-bottom: 2px solid #05050b; transform: rotate(45deg); }
+.mc-clock { position: absolute; top: 26px; left: 0; right: 0; text-align: center; font: 36px var(--px); color: #fff; text-shadow: 2px 2px 0 #000; }
+
+/* ③ サブディスプレイ */
+.flip { position: relative; width: 268px; height: 350px; margin: 0 auto; perspective: 900px; }
+.outer { position: absolute; inset: 0; background: var(--body); border: 4px solid var(--dark); border-radius: 28px 28px 10px 10px;
+  box-shadow: inset 4px 4px 0 var(--hi), inset -4px -4px 0 var(--body2); display: grid; place-items: center; transform-origin: 50% 100%;
+  transition: transform .45s steps(6), opacity .1s .4s; cursor: pointer; z-index: 2; }
+.flip.open .outer { transform: rotateX(-180deg); opacity: 0; }
+.sub-lcd { width: 132px; height: 64px; background: #07120c; border: 4px solid var(--dark); position: relative; overflow: hidden;
+  color: #8dffb3; font: 12px var(--px); text-shadow: 0 0 4px #3cff86; }
+.sub-lcd .t { position: absolute; top: 4px; left: 0; right: 0; text-align: center; font: 24px var(--px); }
+.sub-lcd .m { position: absolute; bottom: 3px; white-space: nowrap; animation: ticker 9s linear infinite; }
+@keyframes ticker { from { transform: translateX(132px); } to { transform: translateX(-100%); } }
+.cam { position: absolute; top: 40px; width: 18px; height: 18px; border-radius: 50%; background: #1d1838; border: 3px solid var(--dark); }
+.led { position: absolute; top: 46px; right: 52px; width: 8px; height: 8px; background: #46ff9a; box-shadow: 0 0 10px #46ff9a; animation: led 1.6s steps(2) infinite; }
+@keyframes led { 50% { background: #ff8c69; box-shadow: 0 0 10px #ff8c69; } }
+.brand { position: absolute; bottom: 36px; font: 12px var(--px); color: var(--dark); letter-spacing: .3em; }
+.flip .inner { position: absolute; inset: 0; z-index: 1; }   /* 自己一層, 裡面的狀態列不會透到外殼上 */
+
+/* ④ ワンセグ */
+.tv { position: absolute; inset: 0; background: #000; }
+.tv img { position: absolute; left: 0; top: 18px; width: 100%; height: 230px; object-fit: cover; image-rendering: pixelated; filter: contrast(1.1) saturate(1.2); }
+.tv .noise { position: absolute; left: 0; top: 18px; width: 100%; height: 230px; opacity: 0; z-index: 3; }
+.tv .noise.on { opacity: 1; }
+.tv .ch { position: absolute; left: 8px; top: 24px; z-index: 4; font: 24px var(--px); color: #8dffb3; text-shadow: 2px 2px 0 #000; }
+.tv .live { position: absolute; right: 8px; top: 28px; z-index: 4; background: #e0403a; color: #fff; padding: 0 6px; }
+.tv .ttl { position: absolute; left: 8px; right: 8px; top: 214px; z-index: 4; font: 12px var(--pxj); color: #fff; text-shadow: 1px 1px 0 #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tv .telop { position: absolute; left: 0; right: 0; top: 252px; height: 22px; background: #142047; border-top: 2px solid var(--gold); overflow: hidden; }
+.tv .telop span { position: absolute; top: 2px; white-space: nowrap; color: var(--gold); animation: ticker2 12s linear infinite; }
+@keyframes ticker2 { from { transform: translateX(232px); } to { transform: translateX(-100%); } }
+.tv .soft { position: absolute; left: 0; right: 0; bottom: 0; height: 32px; display: flex; justify-content: space-around; align-items: center; color: #9fe3ff; background: #0b1022; }
+
+/* ⑤ きせかえ */
+.kz { position: absolute; inset: 0; transition: background .3s; }
+.kz .wall { position: absolute; left: 0; right: 0; top: 18px; height: 120px; }
+.kz .clock { position: absolute; top: 96px; right: 10px; font: 36px var(--px); text-shadow: 2px 2px 0 rgb(0 0 0 / .5); }
+.kz .menu { position: absolute; left: 8px; right: 8px; top: 146px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.kz .menu span { display: grid; justify-items: center; padding: 4px 0; font: 12px var(--px); border: 2px solid transparent; }
+.kz .menu span.sel { border-color: currentColor; }
+.kz .menu canvas { width: 24px; height: 24px; }
+.kz .name { position: absolute; left: 0; right: 0; bottom: 0; height: 30px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.kz .loading { position: absolute; inset: 0; z-index: 8; background: #0b1022; display: none; place-items: center; text-align: center; color: #9fe3ff; }
+.kz .loading.on { display: grid; }
+.kz .loading i { display: block; width: 140px; height: 10px; border: 2px solid #9fe3ff; margin: 8px auto 0; position: relative; }
+.kz .loading i::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: var(--p, 0%); background: #9fe3ff; }
+
+/* ⑥ 着信 / 新着メール */
+.ml-idle { position: absolute; inset: 0; }
+.ml-idle .clock { position: absolute; top: 60px; left: 0; right: 0; text-align: center; font: 36px var(--px); color: #fff; }
+.ml-idle .date { position: absolute; top: 44px; left: 0; right: 0; text-align: center; color: var(--ink2); }
+.ml-ring { position: absolute; inset: 0; z-index: 6; display: none; place-items: center; text-align: center; background: #142047; color: #fff; }
+.ml-ring.on { display: grid; animation: ringbg .5s steps(2) infinite; }
+@keyframes ringbg { 50% { background: #2a1f5c; } }
+.ml-ring b { display: block; font: 24px var(--px); color: var(--gold); margin: 8px 0; }
+.ml-mail { position: absolute; inset: 0; z-index: 7; display: none; background: #f4f1ff; color: #142047; padding: 22px 10px 10px; font: 12px/1.7 var(--pxj); }
+.ml-mail.on { display: block; }
+.ml-mail .hd { border-bottom: 2px dashed #9d95c9; padding-bottom: 4px; margin-bottom: 6px; color: #3b335f; }
+.ml-mail .deco { color: #e0403a; }
+.lid.shake { animation: shake .12s steps(2) 6; }
+@keyframes shake { 50% { transform: translateX(3px) rotate(.6deg); } }
+
+.notes { margin-top: 48px; color: var(--ink2); max-width: 64em; }
+.notes h3 { font: 12px var(--px); color: var(--gold); letter-spacing: .1em; margin: 0 0 6px; }
+@media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>待受畫面 — 六種玩法</h1>
+  <p class="sub">都是ガラケー年代真的有的東西，用《春一番》的歌詞、封面和現場 shorts 做。每一支都可以點，看它會怎麼動。也可以混搭，例如③闔著的手機掀開後是①。</p>
+
+  <div class="grid">
+    <section class="card">
+      <h2><b>①</b>着うた再生中</h2>
+      <p class="what">像你給的鎖屏播放：封面馬賽克當背景，正中間跟著唱到哪一句，下面是播放卡。點一下就去聽完整 Live。</p>
+      <div class="lid"><div class="lcd" id="v1"></div></div>
+      <p class="feel"><span>有溫度</span><span>一打開就在放歌</span><span>直接連到完整 Live</span></p>
+    </section>
+
+    <section class="card">
+      <h2><b>②</b>マチキャラ</h2>
+      <p class="what">待受裡住著一隻像素小角色，會走來走去、跟你講話：早安、離下一場還幾天、今天的一句歌詞。點牠會跳。</p>
+      <div class="lid"><div class="lcd" id="v2"></div></div>
+      <p class="feel"><span>可愛</span><span>每天說的話不一樣</span><span>要設計一隻角色</span></p>
+    </section>
+
+    <section class="card">
+      <h2><b>③</b>サブディスプレイ</h2>
+      <p class="what">手機一開始是闔著的，外面的小螢幕跑時間和跑馬燈，通知燈在閃。點一下「パカッ」掀開。</p>
+      <div class="flip" id="v3"></div>
+      <p class="feel"><span>掀開那一下最爽</span><span>適合當首頁的第一眼</span><span>可以接其他任何一種</span></p>
+    </section>
+
+    <section class="card">
+      <h2><b>④</b>ワンセグ</h2>
+      <p class="what">待受直接是電視：轉台就換一支現場 shorts，下面跑字幕新聞。點螢幕或按 ← → 轉台。</p>
+      <div class="lid"><div class="lcd" id="v4"></div></div>
+      <p class="feel"><span>熱鬧</span><span>直接看到現場畫面</span><span>shorts 很多可以一直轉</span></p>
+    </section>
+
+    <section class="card">
+      <h2><b>⑤</b>きせかえ</h2>
+      <p class="what">整支手機換主題：每張專輯一套配色、桌布和圖示。點一下會跑「きせかえ中…」換下一套。</p>
+      <div class="lid"><div class="lcd" id="v5"></div></div>
+      <p class="feel"><span>收藏感</span><span>可以每張專輯一套</span><span>比較像設定，不是主角</span></p>
+    </section>
+
+    <section class="card">
+      <h2><b>⑥</b>着信・新着メール</h2>
+      <p class="what">待受平常很安靜，過幾秒手機會震動、來電、收到デコメ：「新翻譯上線」「ライブまであと N 日」。點開讀信。</p>
+      <div class="lid" id="v6lid"><div class="lcd" id="v6"></div></div>
+      <p class="feel"><span>有事件感</span><span>適合通知新東西</span><span>一直來會煩，要控制頻率</span></p>
+    </section>
+  </div>
+
+  <div class="notes">
+    <h3>我的看法</h3>
+    <p>首頁第一眼用③（闔著、通知燈在閃，點下去掀開），掀開後的待受是①（正在放今天的一首歌，點了就去完整 Live）；
+    ⑥當作有新東西時才出現的事件，②⑤之後再加。④的熱鬧感可以放在 0 號鍵或某個 App 裡。</p>
+  </div>
+</div>
+
+<script>
+const DATA = {"id": "nishina-haru-ichiban", "title": "春一番", "album": "日々散漫", "cover": "/covers/nishina/haru-ichiban.jpg", "lines": [{"ja": "青い春にくたびれたシャツ", "zh": "青春裡那件穿舊了的襯衫"}, {"ja": "懐かしいシャンプーの匂い", "zh": "令人懷念的洗髮精香味"}, {"ja": "揺れるハンガー 子供が笑う声", "zh": "搖晃的衣架 孩子們的笑聲"}, {"ja": "元気でいますか？", "zh": "你過得好嗎？"}, {"ja": "さよならと蕾が膨らんで", "zh": "伴隨著「再見」 花苞漸漸綻放"}, {"ja": "胸に帰ってきてしまうよ", "zh": "（那份思念）又回到了我的心頭啊"}, {"ja": "開けっ放しにした窓", "zh": "敞開著的窗戶"}, {"ja": "遠くで鳴るチャイム", "zh": "遠處響起的鐘聲"}, {"ja": "吹き込んだ春一番", "zh": "吹進屋內的第一陣春風"}, {"ja": "好きだった", "zh": "曾經好喜歡你"}, {"ja": "こっそり溶かして飲み干した", "zh": "偷偷地將這份心意融化並一飲而盡"}, {"ja": "好きだった", "zh": "曾經好喜歡你"}, {"ja": "ずっとそっとそっと", "zh": "一直、悄悄地、悄悄地"}, {"ja": "気がついたら鼻歌交じり", "zh": "回過神來 正哼著歌"}, {"ja": "君が口ずさんでたバンド", "zh": "那是你曾經哼唱過的樂團"}, {"ja": "揺れるカーテン窓側の席", "zh": "搖曳的窗簾 靠窗的座位"}, {"ja": "覚えていますか", "zh": "你還記得嗎"}, {"ja": "校庭の桜の木の下に", "zh": "明明以為已經把這份心意"}, {"ja": "置いてきたつもりだったのに", "zh": "留在校園的櫻花樹下了說"}, {"ja": "流しっ放しのラジオ", "zh": "一直開著的收音機裡"}, {"ja": "いつしかの3月9日", "zh": "不知不覺播放著的那首《3月9日》"}, {"ja": "吹き込んだ春一番", "zh": "吹進屋內的第一陣春風"}, {"ja": "好きだった", "zh": "曾經好喜歡你"}, {"ja": "あの日見つめた貴方のまま", "zh": "依然是那天我凝視著的你"}, {"ja": "好きだった", "zh": "曾經好喜歡你"}, {"ja": "ずっとそのままずっと", "zh": "一直、就這樣一直"}, {"ja": "好きだった", "zh": "曾經好喜歡你"}], "shorts": [{"v": "tdMiXOldBug", "title": "Always, gently, quietly", "views": 12000}, {"v": "xOUNVTeODhg", "title": "The first wind of spring is here", "views": 10000}, {"v": "rJmkgcQGWuw", "title": "Secretly melting those feelings", "views": 8800}, {"v": "X_jxaIa35C4", "title": "好きだった こっそり溶かして飲み干した", "views": 8200}, {"v": "eNIRdu6gAR8", "title": "How have you been?", "views": 7200}, {"v": "B_vKXSdRlKw", "title": "Forever and forever more", "views": 6100}, {"v": "Lm2MMRJi4no", "title": "somedays' the song “March 9th”", "views": 5800}, {"v": "ZUVknBY-5Bg", "title": "I loved you", "views": 5100}]};
+const pad = n => String(n).padStart(2, '0');
+const now = () => new Date();
+const WD = ['日', '月', '火', '水', '木', '金', '土'];
+const clock = () => { const d = now(); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+const dateJa = () => { const d = now(); return `${d.getMonth() + 1}月${d.getDate()}日(${WD[d.getDay()]})`; };
+const jstToday = () => Date.parse(new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10));
+const daysToLive = Math.round((Date.parse('2026-11-11') - jstToday()) / 864e5);
+const sbar = () => `<div class="sb"><span>▂▄▆█</span><span>${clock()}</span><span>▮▮▮</span></div>`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+// 每天固定一句 (同一天看到同一句)
+const dayIdx = Math.floor(jstToday() / 864e5);
+const lineOfDay = DATA.lines[dayIdx % DATA.lines.length];
+
+// 封面縮成小格子畫在 canvas (像素馬賽克)
+function mosaic(w, h, src, cb) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h; c.className = 'px';
+  const im = new Image(); im.onload = () => { c.getContext('2d').drawImage(im, 0, 0, w, h); cb && cb(c); }; im.src = src;
+  return c;
+}
+
+/* ---------- ① 着うた再生中 ---------- */
+(function () {
+  const el = document.getElementById('v1');
+  el.innerHTML = sbar();
+  const bg = mosaic(24, 32, DATA.cover); bg.className = 'px np-bg'; el.append(bg);
+  el.insertAdjacentHTML('beforeend', `<div class="np-shade"></div>
+    <div class="np-date">${dateJa()}</div><div class="np-clock">${clock()}</div>
+    <div class="np-lyric"><span class="ja"></span><span class="zh"></span></div>
+    <div class="np-card"><div class="np-row"></div>
+      <div class="np-bar"><i></i></div><div class="np-time"><span class="a">0:00</span><span>完整 Live 2:46</span></div>
+      <div class="np-ctl"><span>◀◀</span><span class="pp">❙❙</span><span>▶▶</span></div></div>`);
+  const row = el.querySelector('.np-row');
+  row.append(mosaic(16, 16, DATA.cover));
+  row.insertAdjacentHTML('beforeend', `<div class="np-meta"><span class="np-title">♪ ${esc(DATA.title)} ― 着うたフル ・ 決定キーで完整 Live</span><div class="np-artist">にしな・${esc(DATA.album)}</div></div>`);
+  const ja = el.querySelector('.np-lyric .ja'), zh = el.querySelector('.np-lyric .zh'), bar = el.querySelector('.np-bar i'), a = el.querySelector('.np-time .a');
+  let i = 0, t0 = performance.now();
+  (function f(t) {
+    const dt = Math.max(0, t - t0), per = 3600, k = Math.floor(dt / per) % DATA.lines.length, p = (dt % per) / per;
+    const ln = DATA.lines[k], cut = Math.ceil([...ln.ja].length * Math.min(1, p * 1.4));
+    ja.innerHTML = `<i>${esc([...ln.ja].slice(0, cut).join(''))}</i>${esc([...ln.ja].slice(cut).join(''))}`;
+    zh.textContent = ln.zh;
+    const total = DATA.lines.length * per, el2 = dt % total;
+    bar.style.width = (el2 / total * 100) + '%';
+    const s = el2 / total * 166; a.textContent = `${Math.floor(s / 60)}:${pad(Math.floor(s % 60))}`;
+    requestAnimationFrame(f);
+  })(t0);
+  el.onclick = () => window.open(`/live/full/${DATA.id}/`, '_blank');
+})();
+
+/* ---------- ② マチキャラ ---------- */
+(function () {
+  const el = document.getElementById('v2');
+  el.innerHTML = sbar() + `<div class="mc-clock">${clock()}</div><div class="mc-bubble"></div>`;
+  const cv = document.createElement('canvas'); cv.width = 116; cv.height = 155; cv.className = 'px';
+  cv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%';
+  el.prepend(cv);
+  const g = cv.getContext('2d');
+  // 16×16 小角色 (兩格走路 + 睡覺), 字母對應顏色
+  const PAL = { k: '#05050b', w: '#ffffff', o: '#ff8c69', d: '#c25a44', y: '#e8c94a', p: '#ffb3c7' };
+  const F = [
+    ['......kk..kk....', '.....kook.kok...', '....koooooook...', '...kooooooooook.', '...koowkoowkook.', '...kookkookkook.', '...kooopppoook..', '....kooooooook..', '.....kkooookk...', '....kyykkkkyyk..', '....kyyyyyyyyk..', '.....kyyyyyyk...', '.....koook.kk...', '.....kddk..kk...', '......kk........', '................'],
+    ['......kk..kk....', '.....kook.kok...', '....koooooook...', '...kooooooooook.', '...koowkoowkook.', '...kookkookkook.', '...kooopppoook..', '....kooooooook..', '.....kkooookk...', '....kyykkkkyyk..', '....kyyyyyyyyk..', '.....kyyyyyyk...', '.....kk.koook...', '.....kk..kddk...', '..........kk....', '................'],
+  ];
+  const SLEEP = ['................', '................', '................', '................', '......kk..kk....', '.....kook.kok...', '....koooooook...', '...kooooooooook.', '...kookkookkook.', '...kooopppoook..', '...kooooooooook.', '....kyyyyyyyyk..', '...kyyyyyyyyyyk.', '...kkkkkkkkkkkk.', '................', '................'];
+  const draw = (rows, x, y, flip) => rows.forEach((r, j) => [...r].forEach((ch, i) => {
+    if (ch === '.') return; g.fillStyle = PAL[ch]; g.fillRect(x + (flip ? 15 - i : i), y + j, 1, 1); }));
+  let s = 3; const rnd = () => (s = s * 16807 % 2147483647) / 2147483647;
+  const stars = Array.from({ length: 30 }, () => [rnd() * 116 | 0, rnd() * 70 | 0]);
+  const h = now().getHours(), night = h >= 23 || h < 6;
+  const LINES = night ? ['Zzz…', 'むにゃ… 春一番…']
+    : [h < 11 ? 'おはよ！今日もいい日になるよ' : h < 18 ? 'こんにちは！なに聴く？' : 'おつかれさま〜',
+       daysToLive > 0 ? `ライブまであと ${daysToLive} 日！` : '今日はライブの日！',
+       `今日の一言：「${lineOfDay.ja}」`, '「春一番」の完整 Live、聴いた？', `${lineOfDay.zh}`];
+  let li = 0, x = 50, dir = 1, jump = 0;
+  const bubble = el.querySelector('.mc-bubble');
+  const say = () => { bubble.textContent = LINES[li++ % LINES.length]; };
+  say(); setInterval(say, 3500);
+  el.onclick = () => { jump = 10; say(); };
+  (function f(t) {
+    g.fillStyle = '#0b1022'; g.fillRect(0, 0, 116, 155);
+    stars.forEach(([sx, sy], k) => { g.fillStyle = (Math.sin(t / 600 + k) > .4) ? '#9fe3ff' : '#2a3a70'; g.fillRect(sx, sy, 1, 1); });
+    g.fillStyle = '#1d2a55'; g.fillRect(0, 128, 116, 27); g.fillStyle = '#2b3d78'; for (let i = 0; i < 116; i += 4) g.fillRect(i, 128, 2, 1);
+    if (night) { draw(SLEEP, 50, 112, false); }
+    else {
+      if (Math.floor(t / 2000) % 4 !== 3) { x += dir * .25; if (x > 92 || x < 6) dir *= -1; }
+      jump = Math.max(0, jump - .5);
+      const y = 112 - Math.round(Math.sin(jump / 10 * Math.PI) * 10);
+      draw(F[Math.floor(t / 250) % 2], Math.round(x), y, dir < 0);
+      bubble.style.setProperty('--tail', Math.round((x + 8) / 116 * 100) + '%');
+    }
+    requestAnimationFrame(f);
+  })(0);
+})();
+
+/* ---------- ③ サブディスプレイ ---------- */
+(function () {
+  const el = document.getElementById('v3');
+  el.innerHTML = `<div class="inner"><div class="lid" style="height:100%"><div class="lcd" id="v3s"></div></div></div>
+    <div class="outer"><span class="cam" style="left:56px"></span><span class="led"></span>
+      <div class="sub-lcd"><div class="t">${clock()}</div><div class="m">♪ ${esc(DATA.title)} ― にしな ◆ 新着メール 1件 ◆ ライブまであと ${daysToLive} 日 ◆</div></div>
+      <span class="brand">NISHINA</span></div>`;
+  const s = document.getElementById('v3s');
+  const bg = mosaic(24, 32, DATA.cover); bg.className = 'px np-bg'; s.append(bg);
+  s.insertAdjacentHTML('beforeend', `${sbar()}<div class="np-shade"></div><div class="np-date">${dateJa()}</div><div class="np-clock">${clock()}</div>
+    <div class="np-lyric"><span class="ja">${esc(lineOfDay.ja)}</span><span class="zh">${esc(lineOfDay.zh)}</span></div>
+    <div class="np-card" style="text-align:center;color:#fff">（掀開後接①的播放畫面）<br>再點一下闔上</div>`);
+  el.onclick = () => el.classList.toggle('open');
+})();
+
+/* ---------- ④ ワンセグ ---------- */
+(function () {
+  const el = document.getElementById('v4');
+  el.innerHTML = `<div class="tv">${sbar()}<img alt=""><canvas class="noise px" width="58" height="58"></canvas>
+    <div class="ch"></div><div class="live">● LIVE</div><div class="ttl"></div>
+    <div class="telop"><span>【速報】11/11 GLICO LIVE「NEXT」SPECIAL 心斎橋BIGCAT ・ あと ${daysToLive} 日 ◆ 「春一番」完整 Live 公開中 ◆ ${esc(lineOfDay.ja)} ◆</span></div>
+    <div class="soft"><span>◀ 前ch</span><span>ワンセグ</span><span>次ch ▶</span></div></div>`;
+  const img = el.querySelector('img'), nz = el.querySelector('.noise'), g = nz.getContext('2d'), id = g.createImageData(58, 58);
+  let ch = 0;
+  const show = () => {
+    const s = DATA.shorts[ch];
+    img.src = `https://i.ytimg.com/vi/${s.v}/hqdefault.jpg`;
+    el.querySelector('.ch').textContent = `CH ${pad(ch + 1)}`;
+    el.querySelector('.ttl').textContent = s.title;
+  };
+  const zap = d => {
+    ch = (ch + d + DATA.shorts.length) % DATA.shorts.length;
+    nz.classList.add('on');
+    let n = 0; const iv = setInterval(() => {
+      for (let i = 0; i < id.data.length; i += 4) { const v = Math.random() * 255 | 0; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 255; }
+      g.putImageData(id, 0, 0); if (++n === 6) { clearInterval(iv); nz.classList.remove('on'); show(); }
+    }, 50);
+  };
+  show();
+  el.onclick = e => zap(e.offsetX < el.clientWidth / 2 ? -1 : 1);
+  addEventListener('keydown', e => { if (e.key === 'ArrowRight') zap(1); if (e.key === 'ArrowLeft') zap(-1); });
+})();
+
+/* ---------- ⑤ きせかえ ---------- */
+(function () {
+  const el = document.getElementById('v5');
+  const THEMES = [
+    { name: '日々散漫', bg: '#2a1b14', wall: ['#ff8c69', '#ffb347', '#5a2e22'], ink: '#ffe6d6', pat: 'sun' },
+    { name: '1999', bg: '#0e1430', wall: ['#e8ecf6', '#9fb6ff', '#1d2a55'], ink: '#e8ecf6', pat: 'moon' },
+    { name: 'odds and ends', bg: '#101a2e', wall: ['#60e0d2', '#f064a0', '#162444'], ink: '#d8fff9', pat: 'grid' },
+  ];
+  const ICON = {
+    note: ['...##...', '...###..', '...#.##.', '...#..#.', '...#....', '.###....', '####....', '.##.....'],
+    mail: ['........', '########', '##....##', '#.#..#.#', '#..##..#', '#......#', '########', '........'],
+    star: ['...#....', '...#....', '..###...', '#######.', '.#####..', '.##.##..', '.#...#..', '........'],
+  };
+  const icon = (n, c) => { const k = document.createElement('canvas'); k.width = k.height = 8; k.className = 'px'; const g = k.getContext('2d'); g.fillStyle = c;
+    ICON[n].forEach((r, y) => [...r].forEach((ch, x) => ch !== '.' && g.fillRect(x, y, 1, 1))); return k; };
+  let ti = 0;
+  function render() {
+    const T = THEMES[ti];
+    el.innerHTML = `<div class="kz" style="background:${T.bg};color:${T.ink}">${sbar()}<canvas class="wall px" width="58" height="30"></canvas>
+      <div class="clock">${clock()}</div><div class="menu"></div>
+      <div class="name" style="background:${T.wall[2]}">きせかえ：<b style="font-weight:400;color:${T.wall[0]}">${T.name}</b></div>
+      <div class="loading"><div>きせかえ中…<i></i></div></div></div>`;
+    const w = el.querySelector('.wall'), g = w.getContext('2d');
+    g.fillStyle = T.wall[2]; g.fillRect(0, 0, 58, 30);
+    for (let y = 0; y < 30; y++) for (let x = 0; x < 58; x++) {
+      if (T.pat === 'sun' && Math.hypot(x - 40, y - 12) < 8) { g.fillStyle = (x + y) % 3 ? T.wall[0] : T.wall[1]; g.fillRect(x, y, 1, 1); }
+      if (T.pat === 'moon' && Math.hypot(x - 40, y - 12) < 9 && Math.hypot(x - 44, y - 9) > 8) { g.fillStyle = T.wall[0]; g.fillRect(x, y, 1, 1); }
+      if (T.pat === 'grid' && (x % 6 === 0 || y % 6 === 0)) { g.fillStyle = (x + y) % 12 < 6 ? T.wall[0] : T.wall[1]; g.fillRect(x, y, 1, 1); }
+    }
+    const m = el.querySelector('.menu');
+    [['note', '着うた'], ['mail', 'メール'], ['star', '星図'], ['star', '宇宙'], ['note', 'Live'], ['mail', '日記']].forEach(([n, l], i) => {
+      const s = document.createElement('span'); if (i === 0) s.className = 'sel'; s.style.color = i % 2 ? T.wall[1] : T.wall[0];
+      s.append(icon(n, i % 2 ? T.wall[1] : T.wall[0])); s.insertAdjacentHTML('beforeend', `<span style="color:${T.ink}">${l}</span>`); m.append(s);
+    });
+  }
+  render();
+  el.onclick = () => {
+    const ld = el.querySelector('.loading'), bar = ld.querySelector('i'); ld.classList.add('on');
+    let p = 0; const iv = setInterval(() => { p += 12; bar.style.setProperty('--p', Math.min(100, p) + '%');
+      if (p >= 110) { clearInterval(iv); ti = (ti + 1) % THEMES.length; render(); } }, 70);
+  };
+})();
+
+/* ---------- ⑥ 着信・新着メール ---------- */
+(function () {
+  const el = document.getElementById('v6'), lid = document.getElementById('v6lid');
+  el.innerHTML = `${sbar()}<div class="ml-idle"><div class="date">${dateJa()}</div><div class="clock">${clock()}</div></div>
+    <div class="ml-ring"><div>📩<b>新着メール 1件</b>にしな official<br><br>決定キーで開く</div></div>
+    <div class="ml-mail"><div class="hd">From: にしな official<br>Sub: <span class="deco">★</span>新しい翻訳が届いたよ<span class="deco">★</span></div>
+      「${esc(DATA.title)}」の完整 Live が聴けるようになったよ <span class="deco">♪♪</span><br>
+      あと、<b>11/11</b> は心斎橋 BIGCAT！<br>あと <b>${daysToLive}</b> 日 <span class="deco">(*^▽^*)</span><br><br>
+      <span style="color:#6f7a99">— 點一下回到待受 —</span></div>`;
+  const ring = el.querySelector('.ml-ring'), mail = el.querySelector('.ml-mail');
+  let state = 'idle';
+  const incoming = () => { if (state !== 'idle') return; state = 'ring'; ring.classList.add('on'); lid.classList.remove('shake'); void lid.offsetWidth; lid.classList.add('shake'); };
+  setTimeout(incoming, 2500);
+  el.onclick = () => {
+    if (state === 'ring') { ring.classList.remove('on'); mail.classList.add('on'); state = 'mail'; }
+    else if (state === 'mail') { mail.classList.remove('on'); state = 'idle'; setTimeout(incoming, 6000); }
+    else incoming();
+  };
+})();
+
+// 時鐘每分鐘更新
+setInterval(() => document.querySelectorAll('.np-clock, .mc-clock, .ml-idle .clock, .kz .clock').forEach(e => e.textContent = clock()), 15000);
+</script>
+</body>
+</html>
