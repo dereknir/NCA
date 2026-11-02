@@ -1,0 +1,121 @@
+/* n247i.css — 像素ガラケー N247i (首頁 hero / 手機上的導航, 行為在 /js/n247i.js)
+   class 全部 n2- 開頭, 不跟站上其他樣式打架。字型沿用 site-shell 的像素字 (--sh-px / --sh-pxja)。 */
+
+.n2 { --n2-body: #c9c3e6; --n2-body2: #9d95c9; --n2-dark: #3b335f; --n2-hi: #ece8ff; --n2-gold: #e8c94a; --n2-acc: #ff8c69;
+  width: 268px; position: relative; font: 12px/1.6 var(--sh-px); color: #e8ecf6; user-select: none; -webkit-user-select: none; }
+.n2 * { box-sizing: border-box; }
+.n2 canvas { image-rendering: pixelated; display: block; }
+.n2-shell { background: var(--n2-body); border: 4px solid var(--n2-dark); position: relative;
+  box-shadow: inset 4px 4px 0 var(--n2-hi), inset -4px -4px 0 var(--n2-body2); }
+
+/* 闔著: 外面的小螢幕 + 通知燈 */
+.n2-closed { border-radius: 28px 28px 30px 30px; height: 380px; display: grid; place-items: center; cursor: pointer; }
+.n2-closed:focus-visible { outline: 2px solid var(--n2-gold); outline-offset: 4px; }
+.n2-cam { position: absolute; top: 40px; left: 52px; width: 18px; height: 18px; border-radius: 50%; background: #1d1838; border: 3px solid var(--n2-dark); }
+.n2-led { position: absolute; top: 46px; right: 52px; width: 8px; height: 8px; background: #2c5b40; }
+.n2-led.on { background: #46ff9a; box-shadow: 0 0 10px #46ff9a; animation: n2-led 1.6s steps(2) infinite; }
+@keyframes n2-led { 50% { background: #ff8c69; box-shadow: 0 0 10px #ff8c69; } }
+.n2-sub { width: 140px; height: 70px; margin-top: -40px; background: #07120c; border: 4px solid var(--n2-dark); position: relative; overflow: hidden;
+  color: #8dffb3; text-shadow: 0 0 4px #3cff86; }
+.n2-sub .t { position: absolute; top: 4px; left: 0; right: 0; text-align: center; font: 24px var(--sh-px); }
+.n2-sub .m { position: absolute; bottom: 4px; left: 0; white-space: nowrap; animation: n2-ticker 12s linear infinite; }
+@keyframes n2-ticker { from { transform: translateX(140px); } to { transform: translateX(-100%); } }
+.n2-model { position: absolute; bottom: 70px; left: 0; right: 0; text-align: center; color: var(--n2-dark); font: 24px var(--sh-px); letter-spacing: .12em; }
+.n2-hint { position: absolute; bottom: 24px; left: 0; right: 0; text-align: center; color: var(--n2-body2); }
+
+/* 掀開 */
+.n2-open { display: none; }
+.n2.is-open .n2-closed { display: none; }
+.n2.is-open .n2-open { display: block; animation: n2-pakat .32s steps(5); transform-origin: 50% 55%; }
+@keyframes n2-pakat { from { transform: scaleY(.55); } 60% { transform: scaleY(1.04); } to { transform: scaleY(1); } }
+.n2-top { border-radius: 28px 28px 10px 10px; padding: 18px 14px 14px; }
+.n2-top::before { content: ''; position: absolute; left: 50%; top: 7px; width: 36px; height: 4px; margin-left: -18px; background: var(--n2-dark); }
+.n2-hinge { height: 16px; margin: 0 24px; background: var(--n2-body2); border-left: 4px solid var(--n2-dark); border-right: 4px solid var(--n2-dark);
+  box-shadow: inset 0 4px 0 var(--n2-dark), inset 0 -4px 0 var(--n2-dark); }
+.n2-bot { border-radius: 10px 10px 30px 30px; padding: 12px 16px 16px; }
+.n2-brand { text-align: center; color: var(--n2-dark); margin-top: 6px; letter-spacing: .2em; }
+.n2-shake { animation: n2-shake .12s steps(2) 6; }
+@keyframes n2-shake { 50% { transform: translateX(3px) rotate(.6deg); } }
+
+/* 螢幕 */
+.n2-lcd { position: relative; width: 232px; height: 310px; background: #0b1022; border: 4px solid var(--n2-dark); overflow: hidden; }
+.n2-lcd::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 30;
+  background: repeating-linear-gradient(0deg, rgb(0 0 0 / .22) 0 1px, transparent 1px 3px); }
+.n2-pict { position: absolute; left: 0; right: 0; top: 0; z-index: 20; height: 18px; display: flex; align-items: center; gap: 6px; padding: 0 6px;
+  background: linear-gradient(rgb(0 0 0 / .55), transparent); }
+.n2-pict canvas { height: 12px; }
+.n2-pict .sp { flex: 1; }
+.n2-pict .mailp { display: none; } .n2-pict .mailp.on { display: block; }
+.n2-view { position: absolute; inset: 0; display: none; } .n2-view.on { display: block; }
+.n2-soft { position: absolute; left: 0; right: 0; bottom: 0; z-index: 15; height: 20px; display: flex; justify-content: space-between; align-items: center;
+  padding: 0 6px; color: #9fe3ff; background: #142047; }
+.n2-soft span:nth-child(2) { color: #fff; }
+
+/* 待受: 今日の一曲 */
+.n2-np-bg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.n2-np-shade { position: absolute; inset: 0; background: linear-gradient(rgb(5 5 15 / .35), rgb(5 5 15 / .72) 55%, rgb(5 5 15 / .92)); }
+.n2-np-date { position: absolute; top: 24px; left: 0; right: 0; text-align: center; color: #fff; text-shadow: 1px 1px 0 #000; }
+.n2-np-clock { position: absolute; top: 40px; left: 0; right: 0; text-align: center; font: 36px var(--sh-px); color: #fff; text-shadow: 2px 2px 0 #000; }
+.n2-np-clock.special { color: var(--n2-gold); animation: n2-glow .6s steps(2) infinite; }
+@keyframes n2-glow { 50% { text-shadow: 2px 2px 0 #000, 0 0 12px var(--n2-gold); } }
+.n2-np-msg { position: absolute; top: 84px; left: 0; right: 0; text-align: center; color: var(--n2-gold); text-shadow: 1px 1px 0 #000; }
+.n2-np-lyric { position: absolute; top: 104px; left: 10px; right: 10px; text-align: center; text-shadow: 1px 1px 0 #000; }
+.n2-np-lyric .ja { font: 12px/1.6 var(--sh-pxja); color: #fff; display: block; }
+.n2-np-lyric .ja i { font-style: normal; color: var(--n2-gold); }
+.n2-np-lyric .zh { color: #b6c2e0; display: block; }
+.n2-np-card { position: absolute; left: 6px; right: 6px; bottom: 26px; padding: 7px 8px; background: rgb(20 26 52 / .85); border: 2px solid rgb(255 255 255 / .18); }
+.n2-np-row { display: flex; gap: 8px; align-items: center; }
+.n2-np-row canvas { width: 32px; height: 32px; border: 2px solid #05050b; flex: none; }
+.n2-np-meta { min-width: 0; flex: 1; overflow: hidden; }
+.n2-np-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 12px var(--sh-pxja); color: #fff; }
+.n2-np-artist { color: #6f7a99; }
+.n2-np-bar { height: 6px; margin: 7px 0 3px; background: #0b1022; border: 1px solid #05050b; position: relative; }
+.n2-np-bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--n2-acc); }
+.n2-np-time { display: flex; justify-content: space-between; color: #6f7a99; }
+
+/* MENU */
+.n2-menu { position: absolute; left: 6px; right: 6px; top: 22px; bottom: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.n2-menu a { display: grid; justify-items: center; align-content: center; gap: 1px; color: #cfe8ff; text-decoration: none; border: 2px solid transparent; }
+.n2-menu a canvas { width: 24px; height: 24px; }
+.n2-menu a.sel { border-color: var(--n2-gold); background: #1c2a5c; color: #fff; }
+
+/* 新着メール */
+.n2-ring { position: absolute; inset: 0; z-index: 25; display: none; place-items: center; text-align: center; background: #142047; color: #fff; }
+.n2-ring.on { display: grid; animation: n2-ringbg .5s steps(2) infinite; }
+@keyframes n2-ringbg { 50% { background: #2a1f5c; } }
+.n2-ring b { display: block; font: 24px var(--sh-px); color: var(--n2-gold); margin: 8px 0; font-weight: 400; }
+.n2-mail { background: #f4f1ff; color: #142047; padding: 24px 10px 26px; font: 12px/1.75 var(--sh-pxja); }
+.n2-mail .hd { border-bottom: 2px dashed #9d95c9; padding-bottom: 4px; margin-bottom: 6px; color: #3b335f; }
+.n2-mail .deco { color: #e0403a; }
+.n2-mail .ft { color: #6f7a99; }
+
+/* 撥號 / 電話帳 / 通話 */
+.n2-dial { padding: 26px 12px 0; }
+.n2-dial .dl { color: #6f7a99; }
+.n2-dial .num { font: 36px/1.2 var(--sh-px); color: #fff; text-align: right; word-break: break-all; margin-top: 40px; letter-spacing: .06em; }
+.n2-dial .dh { position: absolute; bottom: 28px; left: 0; right: 0; text-align: center; color: #6f7a99; }
+.n2-book { padding: 24px 8px 0; }
+.n2-book .bh { color: var(--n2-gold); margin-bottom: 6px; }
+.n2-book .be { display: flex; justify-content: space-between; padding: 4px 8px; border: 2px solid var(--n2-gold); background: #1c2a5c; color: #fff; font: 12px var(--sh-pxja); }
+.n2-call { background: #07120c; color: #8dffb3; text-align: center; padding-top: 40px; text-shadow: 0 0 4px #3cff86; }
+.n2-call .big { font: 36px var(--sh-px); letter-spacing: .2em; margin: 10px 0 2px; color: #fff; }
+.n2-call .big2 { font: 24px var(--sh-px); color: #fff; margin: 14px 0; word-break: break-all; }
+.n2-call .kana { font: 24px var(--sh-pxja); letter-spacing: .3em; }
+.n2-call .ly { margin: 18px 10px 0; font: 12px/1.7 var(--sh-pxja); color: #d6ffe4; }
+.n2-call .zh2 { color: #6fbf8a; }
+
+/* 鍵盤 */
+.n2-dpad { display: grid; grid-template-columns: 1fr 64px 1fr; align-items: center; gap: 8px; margin-bottom: 12px; }
+.n2-dpad button { color: var(--n2-dark); background: var(--n2-body2); border: 3px solid var(--n2-dark); height: 24px; cursor: pointer; padding: 0; }
+.n2-dpad .ring { width: 64px; height: 64px; border: 4px solid var(--n2-dark); background: var(--n2-body2); display: grid; place-items: center; border-radius: 50%;
+  box-shadow: inset 4px 4px 0 var(--n2-hi); }
+.n2-dpad .ring button { width: 26px; height: 26px; border-radius: 50%; background: var(--n2-acc); border: 3px solid var(--n2-dark); }
+.n2-keys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.n2-keys button { font: 12px/1.2 var(--sh-px); color: var(--n2-dark); background: var(--n2-hi); border: 3px solid var(--n2-dark); padding: 5px 0; cursor: pointer;
+  box-shadow: inset -3px -3px 0 var(--n2-body2); }
+.n2-keys button small { display: block; font-size: 12px; color: #6c63a0; }
+.n2-keys button.n247 small { color: #d9507a; }     /* 2 4 7 的假名是「に し な」, 換個顏色就是提示 */
+.n2-keys button:active, .n2-keys button.hit { box-shadow: inset 3px 3px 0 var(--n2-body2); background: var(--n2-gold); }
+
+/* 手機上的導航: 疊在整頁上 */
+.n2-overlay { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; background: rgb(5 5 12 / .78); overflow: auto; padding: 16px 0; }

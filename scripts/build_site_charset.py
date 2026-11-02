@@ -121,7 +121,7 @@ def main():
         chars |= set(pool.read_text(encoding="utf-8"))
 
     # 全站外殼: 頁首選單 / 指令列的字串在 JS 跟 site-nav.json 裡; 歌詞宇宙、索引、星圖的 hero 寫在靜態 HTML
-    for rel in ["public/js/site-shell.js", "src/data/site-nav.json",
+    for rel in ["public/js/site-shell.js", "public/js/n247i.js", "src/data/site-nav.json",
                 "public/kwic/index.html", "public/lyric-universe/index.html", "public/star-map/index.html"]:
         f = ROOT / rel
         if f.exists():

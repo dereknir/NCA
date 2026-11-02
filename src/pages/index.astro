@@ -38,14 +38,14 @@ const stats = {
   title="Derek's Site"
   description="歡迎來到 Derek 的個人網站。探索日文歌曲翻譯、閱讀生活日記，以及查看程式作品集。"
 >
-  <!-- Hero Section: 全寬 100vw galaxy 背景 (slot="hero" 跳出 container) -->
+  <!-- Hero Section: 全寬 100vw galaxy 背景 (slot="hero" 跳出 container); 左邊文字, 右邊像素ガラケー N247i -->
   <section slot="hero" class="hero-galaxy px-scanline">
     <canvas class="hero-galaxy-canvas" aria-hidden="true"></canvas>
     <div class="hero-galaxy-content">
+     <div class="hero-galaxy-text">
       <h1 class="hero-galaxy-title px-font">歡迎來到我的個人空間</h1>
       <p class="hero-galaxy-sub px-font">日文歌翻譯 · 生活日記 · 程式作品</p>
       <div class="hero-galaxy-cta">
-        <a href="/galaxy/" class="hero-btn hero-btn-galaxy px-btn">🪐 進入にしなの宇宙</a>
         <a href="/translations" class="hero-btn hero-btn-primary px-btn px-btn-pri">探索翻譯</a>
         <a href="/projects" class="hero-btn hero-btn-ghost px-btn">查看作品</a>
       </div>
@@ -73,8 +73,13 @@ const stats = {
           )}
         </div>
       )}
+     </div>
+     <div class="hero-phone"><div data-n247i></div></div>
     </div>
   </section>
+  <link rel="stylesheet" href="/css/n247i.css">
+  <script is:inline src="/js/n247i.js"></script>
+  <script is:inline>window.N247i && N247i.mount(document.querySelector('[data-n247i]'));</script>
 
   <!-- Recent Translations (only fully translated songs) -->
   {recentTranslations.length > 0 && (
@@ -161,9 +166,18 @@ const stats = {
     .hero-galaxy-content {
       position: relative;
       z-index: 2;   /* 蓋過掃描線疊層 */
-      text-align: center;
-      max-width: 720px;
+      max-width: 1024px;
       margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 268px;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-phone { justify-self: end; }
+    @media (max-width: 760px) {
+      .hero-galaxy-content { grid-template-columns: 1fr; text-align: center; }
+      .hero-galaxy-cta, .hero-galaxy-stats { justify-content: center !important; }
+      .hero-phone { justify-self: center; }
     }
     .hero-galaxy-title {
       font-size: 36px;   /* 像素紀律: 12 的整數倍 */
@@ -183,7 +197,7 @@ const stats = {
     }
     .hero-galaxy-cta {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 1rem;
       flex-wrap: wrap;
       margin-bottom: 3rem;
@@ -199,17 +213,6 @@ const stats = {
       color: #fff;
     }
     .hero-btn-primary:hover { background: rgb(29 78 216); }
-    .hero-btn-galaxy {
-      background: rgb(232 201 74);          /* 站台金 — 全 hero 最搶眼的一顆 */
-      border-color: rgb(190 160 50) !important;
-      color: #16213c !important;
-      box-shadow: 3px 3px 0 rgba(0, 0, 0, .5), 0 0 18px rgba(232, 201, 74, .25);
-    }
-    .hero-btn-galaxy:hover {
-      background: rgb(245 218 100);
-      color: #16213c !important;
-      border-color: rgb(190 160 50) !important;
-    }
     .hero-btn-ghost {
       border: 1.5px solid rgba(255, 255, 255, 0.3);
       color: #fff;
@@ -220,13 +223,13 @@ const stats = {
     }
     .hero-galaxy-stats {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 2.5rem;
       font-size: 0.85rem;
       color: rgba(255, 255, 255, 0.55);
       flex-wrap: wrap;
     }
-    .hero-galaxy-stats > div { text-align: center; }
+    .hero-galaxy-stats > div { text-align: left; }
     .hero-stat-num {
       font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
       font-size: 24px;   /* 像素紀律 */

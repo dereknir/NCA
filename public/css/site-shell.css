@@ -175,6 +175,8 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
   font: 12px var(--sh-px); color: var(--sh-ink2); background: rgb(10 10 21 / .88); border: 2px solid var(--sh-line);
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); filter: drop-shadow(3px 3px 0 rgb(0 0 0 / .5)); }
 .sh-cli-pill:hover { border-color: rgb(var(--sh-accent)); }
+.sh-cli-pill--phone { cursor: pointer; }
+.sh-cli-phone { width: 18px; height: 24px; image-rendering: pixelated; }
 .sh-cli-pill .gt { color: var(--sh-ink3); }
 .sh-cli-pill .hint { color: var(--sh-ink3); }
 .sh-cli-panel { display: none; }

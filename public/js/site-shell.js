@@ -149,12 +149,36 @@
     });
   }
 
+  /* ---------- N247i (觸控裝置的指令列按鈕) ---------- */
+  // 12×16 的小折疊機, 像素畫成 SVG
+  const PHONE_ICON = '<svg class="sh-cli-phone" viewBox="0 0 12 16" width="12" height="16" shape-rendering="crispEdges" aria-hidden="true">'
+    + '<rect x="1" y="0" width="10" height="16" fill="#3b335f"/><rect x="2" y="1" width="8" height="14" fill="#c9c3e6"/>'
+    + '<rect x="3" y="2" width="6" height="5" fill="#0b1022"/><rect x="4" y="3" width="2" height="1" fill="#e8c94a"/>'
+    + '<rect x="2" y="8" width="8" height="1" fill="#3b335f"/>'
+    + '<rect x="3" y="10" width="2" height="1" fill="#3b335f"/><rect x="7" y="10" width="2" height="1" fill="#3b335f"/>'
+    + '<rect x="3" y="12" width="2" height="1" fill="#3b335f"/><rect x="7" y="12" width="2" height="1" fill="#3b335f"/></svg>';
+  let phoneP = null;
+  function loadPhone() {
+    if (window.N247i) return Promise.resolve();
+    if (!document.querySelector('link[href="/css/n247i.css"]')) {
+      const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/css/n247i.css'; document.head.append(l);
+    }
+    return phoneP || (phoneP = new Promise((res, rej) => {
+      const sc = document.createElement('script'); sc.src = '/js/n247i.js'; sc.onload = res; sc.onerror = rej; document.head.append(sc);
+    }));
+  }
+
   /* ---------- 指令列 ---------- */
   function buildCli(idx) {
     if (document.querySelector('.sh-cli')) return;
     const box = document.createElement('div');
     box.className = 'sh-cli';
-    box.innerHTML = `<div class="sh-cli-pill" role="button" tabindex="0" aria-label="打開指令列"><span>guest@nishina</span><span class="gt">&gt;</span><span class="hint">按 / 搜尋歌名、跳頁</span></div>
+    // 觸控裝置沒有實體鍵盤, 指令列按鈕換成像素ガラケー N247i (打開直接是 MENU, 左鍵「検索」再回到指令列)
+    const coarse = matchMedia('(pointer: coarse)').matches;
+    const pillHTML = coarse
+      ? `<div class="sh-cli-pill sh-cli-pill--phone" role="button" tabindex="0" aria-label="打開 N247i 選單">${PHONE_ICON}<span>N247i</span><span class="hint">MENU</span></div>`
+      : `<div class="sh-cli-pill" role="button" tabindex="0" aria-label="打開指令列"><span>guest@nishina</span><span class="gt">&gt;</span><span class="hint">按 / 搜尋歌名、跳頁</span></div>`;
+    box.innerHTML = `${pillHTML}
       <div class="sh-cli-panel"><div class="sh-wrap"><div class="sh-cli-out" role="listbox"></div>
       <label class="sh-cli-line"><span class="u">guest@nishina</span><span class="gt">&gt;</span><input type="text" autocomplete="off" spellcheck="false" placeholder="/help" aria-label="指令列"><button class="esc" type="button">esc</button></label></div></div>`;
     document.body.append(box);
@@ -202,8 +226,9 @@
       input.focus();
     }
     function close() { box.classList.remove('open'); input.value = ''; render(); input.blur(); }
-    pill.addEventListener('click', () => open());
-    pill.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    const tap = () => coarse ? loadPhone().then(() => window.N247i.overlay()).catch(() => open()) : open();
+    pill.addEventListener('click', tap);
+    pill.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tap(); } });
     box.querySelector('.esc').addEventListener('click', close);
     input.addEventListener('input', () => { sel = 0; render(); });
     input.addEventListener('keydown', e => {
