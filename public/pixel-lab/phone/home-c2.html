@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首頁 C2 — 書桌上的 N247i</title>
+<link rel="stylesheet" href="/css/site-shell.css">
+<link rel="stylesheet" href="/css/n247i.css">
+<script src="/js/site-shell.js" defer></script>
+<style>
+  /* 首頁 C2: 整個首頁是一個場景 — 夜裡的房間, N247i 立在書桌上。
+     頁首、按鈕都畫成跟手機按鍵同一種質感 (不要網頁導覽列那條);
+     房間用 4px 一格畫, 跟手機外框的像素一樣大。 */
+  html, body { margin: 0; height: 100%; background: #0d0b1c; color: var(--sh-ink); }
+  body { overflow: hidden; }
+  .scene { position: fixed; inset: 0; }
+  #room { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }   /* 只有房間, 手機裡的小 canvas 不要動 */
+
+  /* 頁首: 浮在場景上, 沒有底色和分隔線 */
+  .sh-hd { position: absolute; left: 0; right: 0; top: 0; height: auto; background: none !important; border: 0 !important;
+    box-shadow: none !important; backdrop-filter: none !important; padding-top: 18px; }
+  .sh-hd .sh-wrap { max-width: none; padding: 0 28px; align-items: flex-start; }
+  .sh-hd .sh-prog, .sh-hd .sh-dock { display: none; }
+  .sh-logo { font: 36px/1 var(--sh-px); color: #fff; text-shadow: 3px 3px 0 #05050b; letter-spacing: .02em; }
+  .sh-logo::after { content: 'にしな的歌詞與 Live'; display: block; margin-top: 8px; font: 12px var(--sh-px); color: #c9c3e6; text-shadow: 2px 2px 0 #05050b; letter-spacing: .2em; }
+  .sh-nav { gap: 10px; }
+  .key, .sh-grp > button, .sh-burger { font: 12px var(--sh-px) !important; color: #3b335f !important; background: #ece8ff !important;
+    border: 3px solid #3b335f !important; box-shadow: inset -3px -3px 0 #9d95c9, 3px 3px 0 rgb(0 0 0 / .45) !important;
+    padding: 7px 14px !important; letter-spacing: .06em; cursor: pointer; text-decoration: none; }
+  .key { display: inline-block; }
+  .sh-grp > button::after { color: #9d95c9 !important; }
+  .sh-grp > button::before { display: none !important; }
+  .key:active, .sh-grp > button:active { box-shadow: inset 3px 3px 0 #9d95c9 !important; transform: translate(2px, 2px); }
+  .sh-grp:hover > button, .sh-grp.open > button, .key:hover { background: #e8c94a !important; }
+  .sh-menu { margin-top: 8px; border: 3px solid #3b335f !important; background: #ece8ff !important; box-shadow: 4px 4px 0 rgb(0 0 0 / .5) !important; }
+  .sh-menu a { color: #3b335f !important; }
+  .sh-menu a:hover { background: #c9c3e6 !important; }
+  .sh-menu kbd, .sh-menu a span { color: #6c63a0 !important; }
+
+  /* 手機立在桌上: 底部對齊桌面, 大小跟著畫面 */
+  .stand { position: absolute; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+  /* 右下的捷徑 (逃生路線) */
+  .shortcuts { position: absolute; right: 28px; bottom: 22px; display: flex; gap: 10px; }
+  /* 月曆上的字 */
+  .cal { position: absolute; text-align: center; color: #3b335f; font: 12px var(--sh-px); pointer-events: none; }
+  .cal b { display: block; font: 36px/1 var(--sh-px); color: #3b335f; font-weight: 400; }
+  .cal i { font-style: normal; color: #d9507a; }
+
+  @media (max-width: 760px) {
+    body { overflow: auto; }
+    .scene { position: relative; min-height: 100%; }
+    .sh-logo { font-size: 24px; }
+    .shortcuts { position: absolute; left: 0; right: 0; justify-content: center; }
+    .cal { display: none; }
+  }
+</style>
+</head>
+<body data-sh-pill="off">
+<div class="scene" id="scene">
+  <canvas id="room"></canvas>
+  <div class="cal" id="cal"></div>
+  <div class="stand" id="stand"><div data-n247i></div></div>
+  <div class="shortcuts"><a class="key" href="/translations">最新翻譯</a><a class="key" href="/live/full/">完整 Live</a><a class="key" href="#" id="search">／ 搜尋</a></div>
+  <div class="sh-hd" data-sh-header></div>
+</div>
+<script src="/js/n247i.js"></script>
+<script>
+(function () {
+  const P = 4;                       // 一格 4px, 跟手機外框一樣
+  const scene = document.getElementById('scene'), cv = document.getElementById('room'), g = cv.getContext('2d');
+  const stand = document.getElementById('stand'), host = stand.firstElementChild, cal = document.getElementById('cal');
+  const OPEN_H = 648, CLOSED_H = 388, PHONE_W = 268;
+  let cover = null, live = null;
+  fetch('/n247i.json').then(r => r.json()).then(d => {
+    const day = Math.floor((Date.now() + 9 * 36e5) / 864e5);
+    const song = d.songs[day % d.songs.length];
+    const today = new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10);
+    live = d.upcoming.find(e => e.date >= today);
+    if (song && song.cover) { const im = new Image(); im.onload = () => { cover = im; draw(); }; im.src = song.cover; }
+    draw();
+  });
+  let s = 21; const rnd = () => (s = s * 16807 % 2147483647) / 2147483647;
+  const rect = (x, y, w, h, c) => { g.fillStyle = c; g.fillRect(x, y, w, h); };
+  const dith = (x, y) => ((x + y) & 1) === 0;
+
+  function layout() {
+    const W = innerWidth, mobile = W <= 760;
+    const k = mobile ? (W - 32) / PHONE_W : Math.max(.7, Math.min(1.6, (innerHeight * .9 - 70) / OPEN_H));
+    host.style.zoom = k.toFixed(3);
+    // 手機上: 桌面跟著手機現在多高走 (闔著時整支在第一屏, 掀開後桌子往下移, 頁面變長可以捲)
+    const ph = mobile ? (host.classList.contains('is-open') ? OPEN_H : CLOSED_H) : OPEN_H;
+    const deskTop = mobile ? Math.max(innerHeight - 90, 110 + ph * k - 14) : Math.round(innerHeight * .9);
+    scene.style.height = mobile ? deskTop + 90 + 'px' : '';
+    stand.style.top = (deskTop + 14 - ph * k) + 'px';
+    stand.style.height = ph * k + 'px';
+    return { W, H: mobile ? deskTop + 90 : innerHeight, deskTop, k, mobile };
+  }
+
+  function draw() {
+    const L = layout();
+    const w = Math.ceil(L.W / P), h = Math.ceil(L.H / P), desk = Math.round(L.deskTop / P);
+    cv.width = w; cv.height = h; s = 21;
+    // 牆: 深紫藍, 上暗下亮一點, 棋盤格過渡
+    for (let y = 0; y < desk; y++) for (let x = 0; x < w; x++) {
+      const t = y / desk; rect(x, y, 1, 1, t > .55 && dith(x, y) ? '#1a1530' : t > .3 ? '#151127' : '#110e20');
+    }
+    // 窗: 在手機後面, 夜空 + 月亮 + 遠方的城市
+    const ww = Math.round(w * (L.mobile ? .86 : .5)), wx = Math.round((w - ww) / 2), wy = Math.round(desk * .12), wh = Math.round(desk * .62);
+    rect(wx - 2, wy - 2, ww + 4, wh + 4, '#3b2a22'); rect(wx - 1, wy - 1, ww + 2, wh + 2, '#5a3d2e');
+    for (let y = 0; y < wh; y++) for (let x = 0; x < ww; x++) rect(wx + x, wy + y, 1, 1, y / wh > .6 && dith(x, y) ? '#1b2350' : y / wh > .3 ? '#141b40' : '#0e1330');
+    for (let i = 0; i < ww * wh / 40; i++) { const x = rnd() * ww | 0, y = rnd() * wh * .7 | 0; rect(wx + x, wy + y, 1, 1, rnd() < .15 ? '#e8c94a' : '#cdd6ee'); }
+    const mx = wx + Math.round(ww * .78), my = wy + Math.round(wh * .22), mr = Math.max(4, Math.round(ww * .05));
+    for (let y = -mr; y <= mr; y++) for (let x = -mr; x <= mr; x++) if (x * x + y * y <= mr * mr && (x - mr * .4) ** 2 + (y + mr * .2) ** 2 > mr * mr * .7) rect(mx + x, my + y, 1, 1, '#f4ecc8');
+    let bx = wx; while (bx < wx + ww) { const bw = 3 + (rnd() * 6 | 0), bh = 4 + (rnd() * wh * .22 | 0); rect(bx, wy + wh - bh, Math.min(bw, wx + ww - bx), bh, '#090c22');
+      for (let j = 0; j < bh - 2; j += 2) if (rnd() < .25) rect(bx + 1 + (rnd() * Math.max(1, bw - 2) | 0), wy + wh - bh + 1 + j, 1, 1, '#e8c94a'); bx += bw; }
+    rect(wx + Math.round(ww / 2), wy, 1, wh, '#5a3d2e'); rect(wx, wy + Math.round(wh / 2), ww, 1, '#5a3d2e');   // 窗格
+    // 海報: 今日の一曲的封面 (左邊牆上), 四角膠帶
+    if (!L.mobile && cover) {
+      const ps = Math.round(Math.min(w * .1, desk * .28)), px = Math.round(w * .1), py = Math.round(desk * .18);
+      rect(px - 1, py - 1, ps + 2, ps + 2, '#05050b');
+      const off = document.createElement('canvas'); off.width = off.height = ps; off.getContext('2d').drawImage(cover, 0, 0, ps, ps);
+      g.drawImage(off, px, py);
+      [[px - 1, py - 1], [px + ps - 2, py - 1], [px - 1, py + ps - 2], [px + ps - 2, py + ps - 2]].forEach(([x, y]) => rect(x, y, 3, 2, '#e8dfb0'));
+    }
+    // 月曆: 下一場 Live 那天圈起來 (右邊牆上)
+    if (!L.mobile) {
+      const cw = Math.round(Math.min(w * .08, desk * .22)), ch = Math.round(cw * 1.25), cx = Math.round(w * .84 - cw), cy = Math.round(desk * .2);
+      rect(cx - 1, cy - 1, cw + 2, ch + 2, '#05050b'); rect(cx, cy, cw, ch, '#ece8ff'); rect(cx, cy, cw, Math.round(ch * .22), '#d9507a');
+      rect(cx + Math.round(cw / 2) - 1, cy - 3, 2, 3, '#9d95c9');
+      cal.style.left = cx * P + 'px'; cal.style.top = (cy + Math.round(ch * .22)) * P + 'px'; cal.style.width = cw * P + 'px';
+      if (live) { const [, m, d] = live.date.split('-').map(Number); cal.innerHTML = `${m}月<b>${d}</b><i>● ライブ</i>`; }
+    }
+    // 檯燈的光: 桌上一圈暖色 (棋盤格做漸層)
+    // 桌子: 木頭, 前緣一條亮線
+    for (let y = desk; y < h; y++) for (let x = 0; x < w; x++) {
+      const plank = (y - desk) % 6 === 5, cx0 = w / 2, d2 = ((x - cx0) / (w * .32)) ** 2 + ((y - desk) / ((h - desk) * 1.6)) ** 2;
+      let c = plank ? '#3a281f' : '#4a3326';
+      if (d2 < 1 && (d2 < .45 || dith(x, y))) c = plank ? '#4d3527' : '#6a4a35';
+      rect(x, y, 1, 1, c);
+    }
+    rect(0, desk, w, 1, '#8a6247');
+    // 手機的影子
+    const sw = Math.round(PHONE_W * L.k / P * .9), sx = Math.round(w / 2 - sw / 2);
+    for (let x = 0; x < sw; x++) { const e = Math.abs(x - sw / 2) / (sw / 2); if (e < .95) rect(sx + x, desk + 2, 1, e < .6 ? 3 : 2, 'rgba(10,6,4,.55)'); }
+  }
+  draw(); addEventListener('resize', draw);
+  new MutationObserver(() => draw()).observe(host, { attributes: true, attributeFilter: ['class'] });
+  document.getElementById('search').addEventListener('click', e => { e.preventDefault(); window.__shellCli?.open(); });
+  window.N247i && N247i.mount(host);
+})();
+</script>
+</body>
+</html>
