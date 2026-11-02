@@ -6,6 +6,7 @@
  * 手機 = 把網頁版 N247i 拿起來 (疊一層, 闔上就放回去); 電腦 = 指令列; しっぽ 點了會晃; 檯燈可以開關 (記在瀏覽器)。
  * 海報 = 今日の一曲的封面 (跟 N247i 待受同一首), 用房間的色盤重畫; 月曆每天自己翻到今天, 圈下一場;
  * 書櫃上的鬧鐘是現在幾點 (2:47 / 14:47 會變粉紅)。
+ * 開場: 走廊上虛掩的門, 門縫裡的鏡頭在房間裡慢慢看; 壓下門把 → 門推開 → 走進房間 (Enter 開門, Esc 跳過)。
  */
 (() => {
   const root = document.querySelector('[data-room]');
@@ -224,5 +225,72 @@
       setTimeout(shoot, 7000 + Math.random() * 11000);
     };
     setTimeout(shoot, 2500);
+  }
+  /* ---------- 開場: 走廊上虛掩的門 ---------- */
+  const door = root.querySelector('.rm-door');
+  if (door && document.documentElement.classList.contains('rm-intro')) intro();
+  function intro() {
+    const dstage = door.querySelector('.rm-door-stage'), img = door.querySelector('.rm-door-img'), knob = door.querySelector('.rm-knob');
+    const FRAMES = [0, 1, 2, 3].map(i => `/img/room/door-${i}.png`);
+    FRAMES.slice(1).forEach(src => { new Image().src = src; });
+    const GAP = [279, 140];   // 門縫的中間 (走廊圖的座標)
+    // 從門縫看進去會停的地方: 房間原圖的座標 + 放大幾倍 (1 = 房間平常的大小)
+    const SHOTS = [[230, 150, 1.15], [306, 150, 1.05], [415, 140, 1.1], [64, 115, 1.05], [190, 110, 1]];
+    let tour = null, opening = false, base;
+    const shot = ([x, y, z]) => {
+      const d = dstage.getBoundingClientRect(), k = d.width / 480;
+      return `translate(${d.left + GAP[0] * k - base.left - x * s * z}px, ${d.top + GAP[1] * k - base.top - y * s * z}px) scale(${z})`;
+    };
+    function startTour() {
+      if (tour) tour.cancel();
+      stage.style.transformOrigin = '0 0'; stage.style.transform = 'none';
+      base = stage.getBoundingClientRect();
+      if (still) { stage.style.transform = shot(SHOTS[0]); return; }
+      const hold = 2200, move = 1800, per = hold + move, total = per * SHOTS.length, frames = [];
+      SHOTS.forEach((sh, i) => {
+        frames.push({ offset: (i * per) / total, transform: shot(sh), easing: 'linear' });
+        frames.push({ offset: (i * per + hold) / total, transform: shot(sh), easing: 'cubic-bezier(.6,0,.3,1)' });
+      });
+      frames.push({ offset: 1, transform: shot(SHOTS[0]) });
+      tour = stage.animate(frames, { duration: total, iterations: Infinity });
+    }
+    const onResize = () => startTour();
+    const onKey = e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(false); }
+      else if (e.key === 'Escape') { e.preventDefault(); open(true); }
+    };
+    startTour();
+    addEventListener('resize', onResize);
+    addEventListener('keydown', onKey);
+    knob.addEventListener('pointerdown', () => { if (!opening) img.src = FRAMES[1]; });   // 壓下去那一格
+    knob.addEventListener('pointerleave', () => { if (!opening) img.src = FRAMES[0]; });
+    knob.addEventListener('click', () => open(false));
+    knob.focus({ preventScroll: true });
+
+    function open(skip) {
+      if (opening) return;
+      opening = true;
+      try { sessionStorage.setItem('rm-door', '1'); } catch {}
+      removeEventListener('resize', onResize); removeEventListener('keydown', onKey);
+      const from = getComputedStyle(stage).transform;
+      if (tour) tour.cancel();
+      stage.style.transform = from;
+      const done = () => {
+        stage.getAnimations().forEach(a => { if (a !== tour) a.cancel(); });
+        stage.style.transform = ''; stage.style.transformOrigin = '';
+        door.remove(); document.documentElement.classList.remove('rm-intro');
+      };
+      if (skip || still) return done();
+      door.classList.add('opening');
+      img.src = FRAMES[1];
+      setTimeout(() => {   // 門推開一半, 房間開始拉回原位
+        img.src = FRAMES[2];
+        stage.animate([{ transform: from }, { transform: 'none' }], { duration: 1100, easing: 'cubic-bezier(.25,.6,.2,1)', fill: 'forwards' });
+      }, 200);
+      setTimeout(() => {   // 門全開, 視角穿過門口走進去
+        img.src = FRAMES[3];
+        dstage.animate([{ scale: 1, opacity: 1 }, { scale: 2.4, opacity: 0 }], { duration: 850, easing: 'cubic-bezier(.5,0,.6,1)', fill: 'forwards' }).onfinish = done;
+      }, 380);
+    }
   }
 })();

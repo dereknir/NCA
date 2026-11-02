@@ -68,8 +68,37 @@
   border: 3px solid #3b335f; box-shadow: inset -3px -3px 0 #9d95c9, 3px 3px 0 rgb(0 0 0 / .45); padding: 6px 12px; cursor: pointer; }
 .rm-pick-x:hover { background: #e8c94a; }
 
+/* 開場: 走廊上虛掩的門。門的圖蓋滿整個畫面 (裁掉兩邊的牆), 門口是透明的, 看得到後面的房間 */
+.rm-door { display: none; position: absolute; inset: 0; z-index: 20; overflow: hidden; }
+.rm-intro .rm-door { display: block; }
+.rm-intro .rm-swipe { display: none; }   /* 進了房間才提示可以滑 */
+.rm-door-stage { position: absolute; left: 50%; top: 50%; width: max(100%, 100svh * 480 / 270); aspect-ratio: 480 / 270;
+  translate: -50% -50%; transform-origin: 50% 52%; }
+.rm-door-img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; user-select: none; -webkit-user-drag: none; }
+/* 直的螢幕: 讓整扇門 (門口 + 門框約 190 格寬) 剛好塞滿寬度, 上下空出來的地方接著畫走廊的牆和地板 */
+@media (max-aspect-ratio: 1 / 1) { .rm-door-stage { width: calc(100% * 480 / 190); } }
+.rm-door-stage::before, .rm-door-stage::after { content: ''; position: absolute; left: 0; right: 0; height: 100svh; }
+.rm-door-stage::before { bottom: 100%; background: #0e0b1d; }
+.rm-door-stage::after { top: 100%; background: #0e0b1d; }
+.rm-dp { position: absolute; left: calc(var(--x) * 100% / 480); top: calc(var(--y) * 100% / 270);
+  width: calc(var(--w) * 100% / 480); height: calc(var(--h) * 100% / 270); }
+/* 門把: 一直有一圈暖光在呼吸, 滑過去更亮; 壓下去那一格由 room.js 換圖 */
+.rm-knob { padding: 0; border: 0; background: none; cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent; }
+.rm-knob::before { content: ''; position: absolute; inset: -70% -40%; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgb(255 210 122 / .45), rgb(255 210 122 / 0)); animation: rm-glow 2.6s ease-in-out infinite; }
+.rm-knob:is(:hover, :focus-visible)::before { animation: none; opacity: 1; background: radial-gradient(closest-side, rgb(255 210 122 / .7), rgb(255 210 122 / 0)); }
+@keyframes rm-glow { 0%, 100% { opacity: .3; } 50% { opacity: 1; } }
+.rm-glint { pointer-events: none; opacity: 0; animation: rm-glint 3.2s steps(1) infinite;
+  background: linear-gradient(#fff3c4 0 0) center / 100% 34% no-repeat, linear-gradient(#fff3c4 0 0) center / 34% 100% no-repeat; }
+@keyframes rm-glint { 0%, 88% { opacity: 0; } 90%, 96% { opacity: 1; } }
+.rm-door.opening .rm-knob::before, .rm-door.opening .rm-glint { display: none; }   /* 門一推開門把就跟著轉走了, 光不能留在原地 */
+.rm-rush { position: absolute; left: 0; right: 0; bottom: 18px; margin: 0; text-align: center; font: 12px var(--sh-px, monospace); color: #9d95c9; text-shadow: 2px 2px 0 #07060f; }
+.rm-rush a { color: #ece8ff; text-decoration: none; border-bottom: 2px solid #3b335f; margin: 0 6px; }
+.rm-rush a:hover { color: #e8c94a; border-color: #e8c94a; }
+
 @media (prefers-reduced-motion: reduce) {
   .rm-shippo, .rm-shippo.swing, .rm-led-mail, .rm-led-hdd, .rm-cursor, .rm-scan i { animation: none; }
   .rm-led-hdd, .rm-cursor { opacity: 0; }
   .rm-swipe { animation: none; }
+  .rm-knob::before, .rm-glint { animation: none; }
 }

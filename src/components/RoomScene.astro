@@ -6,6 +6,8 @@
  * 名牌只寫點了會去哪, 東西本身是什麼看圖就知道。
  * 海報 (今日の一曲的封面)、月曆 (這個月、今天、下一場)、書櫃上的鬧鐘 (現在幾點) 是 room.js 畫在 canvas 上的;
  * 檯燈關掉換 room-off.png。
+ * 開場: 走廊上虛掩的門 (/img/room/door-0~3.png, 門口是透明的, 後面就是這間房間);
+ * 每次打開網站演一次 (sessionStorage), 壓下門把才進來。
  */
 interface Spot { k: string; sub: string; x: number; y: number; w: number; h: number; href?: string; act?: string }
 
@@ -41,6 +43,12 @@ const PX = [
 const pos = (o: { x: number; y: number; w: number; h: number }) => `--x:${o.x};--y:${o.y};--w:${o.w};--h:${o.h}`;
 ---
 
+<link rel="stylesheet" href="/css/room.css">
+<!-- 這次打開網站還沒進過門就先把門蓋上 (在畫面出來之前決定, 才不會先閃一下房間); 分享出去的 ?n2= 連結直接進房間 -->
+<script is:inline>
+  try { if (!sessionStorage.getItem('rm-door') && !/[?&]n2=/.test(location.search)) document.documentElement.classList.add('rm-intro'); } catch (e) {}
+</script>
+
 <section class="rm" data-room aria-label="Derek 的房間">
   <h1 class="sr-only">Derek 的房間</h1>
   <div class="rm-pan">
@@ -62,8 +70,19 @@ const pos = (o: { x: number; y: number; w: number; h: number }) => `--x:${o.x};-
     </div>
   </div>
   <p class="rm-swipe" aria-hidden="true">← 左右滑 →</p>
+
+  <!-- 開場: 走廊上虛掩的門。門縫看得到房間 (room.js 讓鏡頭在裡面慢慢看), 壓下門把才進來 -->
+  <div class="rm-door">
+    <div class="rm-door-stage">
+      <img class="rm-door-img" src="/img/room/door-0.png" width="480" height="270" alt="走廊上虛掩的房門, 門牌寫著 derekk, 門縫透出房間的燈光">
+      <span class="rm-dp rm-glint" style={pos({ x: 228, y: 138, w: 3, h: 3 })} aria-hidden="true"></span>
+      <button class="rm-dp rm-knob" type="button" style={pos({ x: 218, y: 128, w: 30, h: 26 })} aria-label="壓下門把, 進房間"></button>
+    </div>
+    <!-- 趕時間的捷徑, 先收起來, 之後要用再打開
+    <p class="rm-rush">趕時間的話 → <a href="/about">關於我</a><a href="/projects">作品集</a></p>
+    -->
+  </div>
 </section>
 <link rel="stylesheet" href="/css/n247i.css">
-<link rel="stylesheet" href="/css/room.css">
 <script is:inline src="/js/n247i.js"></script>
 <script is:inline src="/js/room.js"></script>
