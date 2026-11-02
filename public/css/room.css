@@ -1,7 +1,8 @@
 /* room.css — 首頁的房間 (行為在 /js/room.js, 圖 /img/room/*.png)
    class 全部 rm- 開頭。房間原圖 480×270, 所有座標都用原圖像素寫, 乘上 --s (倍率) 才是螢幕上的大小。 */
 
-.rm { position: relative; height: calc(100svh - 56px); min-height: 320px; background: #161229; overflow: hidden; }
+.rm { position: relative; height: 100svh; min-height: 320px;   /* 首頁就只有房間, 整個畫面都是它 */
+  background: #161229; overflow: hidden; }
 .rm-pan { position: absolute; inset: 0; display: flex; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain; }
 .rm-pan::-webkit-scrollbar { display: none; }
 .rm-stage { --s: 2; position: relative; flex: none; margin: auto; width: calc(480px * var(--s)); height: calc(270px * var(--s)); }
@@ -11,12 +12,12 @@
 .rm-px, .rm-hs, .rm-sky, .rm-scan, .rm-cv { position: absolute; left: calc(var(--x) * var(--s) * 1px); top: calc(var(--y) * var(--s) * 1px);
   width: calc(var(--w, 1) * var(--s) * 1px); height: calc(var(--h, 1) * var(--s) * 1px); }
 .rm-px, .rm-sky, .rm-scan, .rm-cv { pointer-events: none; }
-/* 海報、月曆: room.js 用房間的色盤畫好才顯示, 畫不出來就留原圖 */
+/* 海報、月曆、鬧鐘: room.js 畫好才顯示, 畫不出來就留原圖 */
 .rm-cv { image-rendering: pixelated; }
 .rm-cv:not(.on) { visibility: hidden; }
 
-/* しっぽ: 掛在軟木板的圖釘上 (原圖 447,124), 平常微微晃, 點了或滑過去晃大一點 */
-.rm-shippo { transform-origin: 93.13% 45.93%; animation: rm-sway 7s ease-in-out infinite; }
+/* しっぽ: 掛在軟木板的圖釘上 (原圖 439,124), 平常微微晃, 點了或滑過去晃大一點 */
+.rm-shippo { transform-origin: 91.46% 45.93%; animation: rm-sway 7s ease-in-out infinite; }
 .rm-shippo.swing { animation: rm-swing 1.8s ease-out; }
 @keyframes rm-sway { 0%, 100% { rotate: 0deg; } 30% { rotate: 1.2deg; } 65% { rotate: -.8deg; } }
 @keyframes rm-swing { 0% { rotate: 0deg; } 15% { rotate: 9deg; } 35% { rotate: -6deg; } 55% { rotate: 3.5deg; } 75% { rotate: -1.5deg; } 100% { rotate: 0deg; } }
@@ -37,7 +38,7 @@
 .rm-sky i { position: absolute; width: calc(var(--s) * 9px); height: calc(var(--s) * 1px); transform-origin: left center; rotate: -26.6deg;
   background: linear-gradient(90deg, #ece8ff, rgb(236 232 255 / 0)); }
 
-/* 熱區: 平常看不到, 滑過去 / 鍵盤停到 / 觸控點第一下 → 四個角框起來 */
+/* 熱區: 平常看不到, 滑過去 / 鍵盤停到 → 四個角框起來 */
 .rm-hs { display: block; padding: 0; border: 0; background: none; cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent;
   --c: #ece8ff; --t: calc(var(--s) * 1px); --l: calc(var(--s) * 4px); }
 .rm-hs:is(:hover, :focus-visible, .on) {
@@ -48,27 +49,18 @@
     linear-gradient(var(--c) 0 0) right bottom / var(--l) var(--t), linear-gradient(var(--c) 0 0) right bottom / var(--t) var(--l);
   background-repeat: no-repeat; }
 
-/* 名牌: 浮在東西上面 (太靠上就放下面) */
-.rm-tip { position: absolute; z-index: 3; transform: translate(-50%, -100%); margin-top: -6px; padding: 6px 10px; pointer-events: none;
-  font: 12px/1.5 var(--sh-px, monospace); color: #ece8ff; background: #0e0b1d; border: 2px solid #ece8ff; box-shadow: 3px 3px 0 #07060f;
-  white-space: nowrap; text-align: center; opacity: 0; transition: opacity .12s steps(2); }
-.rm-tip.below { transform: translate(-50%, 0); margin-top: 6px; }
+/* 名牌: 只寫點了會去哪, 小小一行浮在東西上面 (太靠上就放下面) */
+.rm-tip { position: absolute; z-index: 3; transform: translate(-50%, -100%); margin-top: -4px; padding: 2px 8px; pointer-events: none;
+  font: 12px/1.5 var(--sh-px, monospace); color: #ece8ff; background: rgb(14 11 29 / .82); white-space: nowrap;
+  opacity: 0; transition: opacity .12s steps(2); }
+.rm-tip.below { transform: translate(-50%, 0); margin-top: 4px; }
 .rm-tip.show { opacity: 1; }
-.rm-tip b { display: block; font-weight: 400; }
-.rm-tip i { display: block; font-style: normal; color: #9d95c9; }
 
-/* 房間底下的提示, 點了捲到一般版首頁 */
-.rm-hint { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); z-index: 2; padding: 4px 10px;
-  font: 12px var(--sh-px, monospace); color: #9d95c9; background: rgb(14 11 29 / .85); border: 2px solid #3b335f;
-  text-decoration: none; white-space: nowrap; }
-.rm-hint:hover { color: #ece8ff; border-color: #9d95c9; }
-.rm-narrow { display: none; }
-/* 窄螢幕: 底下有站上的 N247i 按鈕, 提示改放上面、換短句 */
-@media (max-width: 640px) {
-  .rm-hint { top: 10px; bottom: auto; }
-  .rm-wide { display: none; }
-  .rm-narrow { display: inline; }
-}
+/* 直的螢幕要左右滑才看得完, 一開始提示一下就淡掉 */
+.rm-swipe { display: none; position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); margin: 0; padding: 2px 8px; pointer-events: none;
+  font: 12px var(--sh-px, monospace); color: #c9c3e6; background: rgb(14 11 29 / .7); animation: rm-fade 4s steps(8) forwards; }
+@keyframes rm-fade { 0%, 60% { opacity: 1; } 100% { opacity: 0; } }
+@media (orientation: portrait) { .rm-swipe { display: block; } }
 
 /* 拿起手機: 疊一層, 裡面是網頁版 N247i */
 .rm-pick { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; background: rgb(7 6 15 / .78); }
@@ -79,4 +71,5 @@
 @media (prefers-reduced-motion: reduce) {
   .rm-shippo, .rm-shippo.swing, .rm-led-mail, .rm-led-hdd, .rm-cursor, .rm-scan i { animation: none; }
   .rm-led-hdd, .rm-cursor { opacity: 0; }
+  .rm-swipe { animation: none; }
 }

@@ -2,16 +2,16 @@
  *
  * 房間是 480×270 的像素畫: 依畫面算一個倍率 --s, 對齊螢幕實體像素, 放大後每一格一樣大。
  * 直的螢幕塞不下就照高度放大、左右滑著看, 一開始停在手機那邊。
- * 熱區: 滑鼠滑過去出現名牌; 觸控裝置第一下先看名牌, 再點一下才進去。
+ * 熱區: 滑鼠滑過去四個角框起來, 名牌只寫點了會去哪; 觸控直接點就進去。
  * 手機 = 把網頁版 N247i 拿起來 (疊一層, 闔上就放回去); 電腦 = 指令列; しっぽ 點了會晃; 檯燈可以開關 (記在瀏覽器)。
- * 海報 = 今日の一曲的封面 (跟 N247i 待受同一首), 用房間的色盤重畫; 月曆每天自己翻到今天, 圈下一場。
+ * 海報 = 今日の一曲的封面 (跟 N247i 待受同一首), 用房間的色盤重畫; 月曆每天自己翻到今天, 圈下一場;
+ * 書櫃上的鬧鐘是現在幾點 (2:47 / 14:47 會變粉紅)。
  */
 (() => {
   const root = document.querySelector('[data-room]');
   if (!root) return;
   const pan = root.querySelector('.rm-pan'), stage = root.querySelector('.rm-stage'), tip = root.querySelector('.rm-tip');
   const shippo = stage.querySelector('.rm-shippo');
-  const coarse = matchMedia('(pointer: coarse)').matches;
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const W = 480, H = 270, PHONE_X = 230;
   const v = (el, k) => +el.style.getPropertyValue('--' + k);
@@ -40,23 +40,20 @@
   function showTip(el) {
     if (cur && cur !== el) cur.classList.remove('on');
     cur = el; el.classList.add('on');
-    tip.querySelector('b').textContent = el.dataset.name;
-    tip.querySelector('i').textContent = el.dataset.sub;
+    tip.textContent = el.dataset.sub;
+    if (!el.dataset.sub) return tip.classList.remove('show');   // しっぽ 只框不寫
     place(el); tip.classList.add('show');
   }
   function hideTip() { if (cur) cur.classList.remove('on'); cur = null; tip.classList.remove('show'); }
 
   /* ---------- 點了之後 ---------- */
   const ACTS = { phone: pickUp, cli: () => window.__shellCli?.open(), shippo: swing, lamp: () => setLamp(!lampOn), none() {} };
-  let armed = true;
   stage.querySelectorAll('.rm-hs').forEach(el => {
     el.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { showTip(el); if (el.dataset.act === 'shippo') swing(); } });
     el.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && cur === el) hideTip(); });
-    el.addEventListener('pointerdown', e => { armed = e.pointerType === 'mouse' || cur === el; });
     el.addEventListener('focus', () => showTip(el));
     el.addEventListener('blur', () => { if (cur === el) hideTip(); });
     el.addEventListener('click', e => {
-      if (coarse && !armed) { e.preventDefault(); showTip(el); armed = true; return; }   // 觸控: 第一下先看名牌
       const act = el.dataset.act;
       if (!act) return;   // 連結照常走
       e.preventDefault();
@@ -93,7 +90,7 @@
   const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
   function drawPoster(song) {
     const spot = stage.querySelector('[data-k="poster"]');
-    spot.href = `/live/full/${song.id}/`; spot.dataset.name = '今日の一曲'; spot.dataset.sub = `${song.title} · 完整 Live`;
+    spot.href = `/live/full/${song.id}/`; spot.dataset.sub = `${song.title} · 完整 Live`;
     spot.setAttribute('aria-label', `今日の一曲: ${song.title} 的完整 Live`);
     if (!song.cover) return;
     const img = new Image();
@@ -151,17 +148,31 @@
   drawCal(null);
   fetch('/n247i.json').then(r => r.json()).then(d => {
     const next = (d.upcoming || []).find(e => e.date >= today), cal = stage.querySelector('[data-k="calendar"]');
-    if (next) cal.dataset.sub = `下一場 ${+next.date.slice(5, 7)}/${+next.date.slice(8)} ${next.venue}`;
+    if (next) cal.dataset.sub = `Live 演出 · 下一場 ${+next.date.slice(5, 7)}/${+next.date.slice(8)}`;
     drawCal(next);
     const song = d.songs.length ? d.songs[jstDay % d.songs.length] : null;   // N247i 的今日の一曲也是這樣挑
     if (song) drawPoster(song);
   }).catch(() => {});
 
-  /* 底下的提示: 點了捲到一般版首頁 */
-  root.querySelector('.rm-hint')?.addEventListener('click', e => {
-    e.preventDefault();
-    scrollTo({ top: scrollY + root.getBoundingClientRect().bottom - 56, behavior: still ? 'auto' : 'smooth' });
-  });
+  /* ---------- 書櫃上的鬧鐘: 黑底綠字, 跟著現在的時間走 ---------- */
+  const DIG = { 0: [7, 5, 5, 5, 7], 1: [1, 1, 1, 1, 1], 2: [7, 1, 7, 4, 7], 3: [7, 1, 7, 1, 7], 4: [5, 5, 7, 1, 1],
+    5: [7, 4, 7, 1, 7], 6: [7, 4, 7, 5, 7], 7: [7, 1, 1, 1, 1], 8: [7, 5, 7, 5, 7], 9: [7, 5, 7, 1, 7] };   // 3×5 的七段數字
+  const clock = stage.querySelector('.rm-clock'), cx = clock.getContext('2d');
+  function tickClock() {
+    const d = new Date(), hh = String(d.getHours()).padStart(2, '0'), mm = String(d.getMinutes()).padStart(2, '0');
+    const col = mm === '47' && (hh === '02' || hh === '14') ? '#d9507a' : '#7ee0b0';   // にしな = 2:47
+    cx.fillStyle = '#07060f'; cx.fillRect(0, 0, 25, 8); cx.fillStyle = col;
+    [...hh, ':', ...mm].forEach((ch, i) => {
+      const x0 = 4 + i * 4 - (i > 2 ? 2 : 0);
+      if (ch === ':') { if (d.getSeconds() % 2 === 0) { cx.fillRect(x0, 2, 1, 1); cx.fillRect(x0, 4, 1, 1); } return; }
+      DIG[ch].forEach((row, r) => { for (let b = 0; b < 3; b++) if (row & (4 >> b)) cx.fillRect(x0 + b, 1 + r, 1, 1); });
+    });
+    clock.classList.add('on');
+  }
+  tickClock(); setInterval(tickClock, 1000);
+
+  /* 直的螢幕一開始提示可以左右滑, 滑過就不用了 */
+  pan.addEventListener('scroll', () => root.querySelector('.rm-swipe')?.remove(), { once: true, passive: true });
 
   /* ---------- 拿起手機 ---------- */
   function pickUp() {
