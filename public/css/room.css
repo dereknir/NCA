@@ -8,9 +8,12 @@
 .rm-stage > img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; user-select: none; -webkit-user-drag: none; }
 
 /* 原圖座標 → 螢幕: 每個小元件用 --x --y --w --h 寫原圖上的位置 */
-.rm-px, .rm-hs, .rm-sky, .rm-scan { position: absolute; left: calc(var(--x) * var(--s) * 1px); top: calc(var(--y) * var(--s) * 1px);
+.rm-px, .rm-hs, .rm-sky, .rm-scan, .rm-cv { position: absolute; left: calc(var(--x) * var(--s) * 1px); top: calc(var(--y) * var(--s) * 1px);
   width: calc(var(--w, 1) * var(--s) * 1px); height: calc(var(--h, 1) * var(--s) * 1px); }
-.rm-px, .rm-sky, .rm-scan { pointer-events: none; }
+.rm-px, .rm-sky, .rm-scan, .rm-cv { pointer-events: none; }
+/* 海報、月曆: room.js 用房間的色盤畫好才顯示, 畫不出來就留原圖 */
+.rm-cv { image-rendering: pixelated; }
+.rm-cv:not(.on) { visibility: hidden; }
 
 /* しっぽ: 掛在軟木板的圖釘上 (原圖 447,124), 平常微微晃, 點了或滑過去晃大一點 */
 .rm-shippo { transform-origin: 93.13% 45.93%; animation: rm-sway 7s ease-in-out infinite; }
