@@ -78,6 +78,9 @@
           <div class="n2-view n2-call" data-v="call"></div>
           <div class="n2-view n2-dial" data-v="dial"></div>
           <div class="n2-view n2-book" data-v="book"></div>
+          <div class="n2-view n2-list" data-v="list"></div>
+          <div class="n2-view n2-song" data-v="song"></div>
+          <div class="n2-view n2-conn" data-v="conn"></div>
           <div class="n2-ring"><div>✉<b>新着メール 1件</b>にしな<br><br>決定キーで開く</div></div>
           <div class="n2-soft"><span></span><span></span><span></span></div>
         </div></div>
@@ -110,7 +113,7 @@
       const a = document.createElement('a'); a.href = href;
       const c = bitmap(canvas(8, 8), ICONS[ic], col);
       a.append(c); a.insertAdjacentHTML('beforeend', `<span>${KEYS[i]} ${label}</span>`);
-      a.addEventListener('click', e => { if (sel !== i) { e.preventDefault(); pick(i); } });
+      a.addEventListener('click', e => { e.preventDefault(); if (sel !== i) pick(i); else launch(i); });
       menu.append(a);
     });
     const pick = i => { sel = i; [...menu.children].forEach((a, j) => a.classList.toggle('sel', j === i)); };
@@ -127,15 +130,87 @@
     });
 
     let view = 'standby', ringing = false, number = '', song = null, data = { songs: [], upcoming: [] };
+    // 網址上的 ?n2= 要在第一次 show() 之前先讀起來 (show 回待受時會把它清掉)
+    const route = !overlay && new URLSearchParams(location.search).get('n2');
     const SOFT = {
       standby: ['メール', 'MENU', '完整Live'],
       menu: overlay ? ['検索', '選択', '閉じる'] : ['戻る', '選択', '完整Live'],
       mail: ['戻る', '', '完整Live'], call: ['', '終話', ''], dial: ['電話帳', '発信', 'クリア'], book: ['戻る', '発信', ''],
+      list: ['戻る', '選択', ''], song: ['戻る', '解説', 'PC'], conn: ['', '', ''],
     };
-    function show(v) {
+    function show(v, soft) {
       view = v;
       Object.entries(views).forEach(([k, e]) => e.classList.toggle('on', k === v));
-      SOFT[v].forEach((t, i) => { softEls[i].textContent = t; });
+      (soft || SOFT[v]).forEach((t, i) => { softEls[i].textContent = t; });
+      if (!overlay && (v === 'standby' || v === 'menu')) setRoute(null);
+    }
+
+    /* ---------- App: 清單 (着うた的專輯 / 歌, ワンセグ的歌) ---------- */
+    let list = null;     // { title, items: [{ label, sub, act }], sel, back }
+    function openList(l) { list = { sel: 0, ...l }; renderList(); show('list'); }
+    function renderList() {
+      views.list.innerHTML = `<div class="hd">${esc(list.title)}</div>` + list.items.map((it, i) =>
+        `<div class="it${i === list.sel ? ' sel' : ''}" data-i="${i}"><span class="n">${i < 9 ? i + 1 : ''}</span><span class="l">${esc(it.label)}</span>${it.sub ? `<span class="s">${esc(it.sub)}</span>` : ''}</div>`).join('');
+      views.list.querySelector('.sel')?.scrollIntoView({ block: 'nearest' });
+    }
+    function listMove(d) { list.sel = (list.sel + d + list.items.length) % list.items.length; renderList(); }
+    views.list.addEventListener('click', e => { const it = e.target.closest('.it'); if (!it) return; active = phone; list.sel = +it.dataset.i; renderList(); list.items[list.sel].act(); });
+
+    /* 着うた: 專輯資料夾 → 歌 → 歌詞 / 解説 (資料: /n247i/uta.json, /n247i/uta/<id>.json) */
+    let utaP = null;
+    const loadUta = () => utaP || (utaP = fetch('/n247i/uta.json').then(r => r.json()));
+    function openUta(albumIdx) {
+      loadUta().then(u => {
+        if (albumIdx == null) {
+          openList({ title: '♪ 着うた', back: () => show('menu'),
+            items: u.albums.map((a, i) => ({ label: a.album, sub: `${a.year ? a.year + ' · ' : ''}${a.songs.length}曲`, act: () => openUta(i) })) });
+          setRoute('uta');
+        } else {
+          const a = u.albums[albumIdx];
+          openList({ title: `♪ ${a.album}`, back: () => openUta(),
+            items: a.songs.map(sg => ({ label: sg.title, sub: sg.full ? '完整Live' : '', act: () => openSong(sg.id, () => openUta(albumIdx)) })) });
+        }
+      });
+    }
+    let cur = null, songMode = 'lyrics', songBack = null;
+    function openSong(id, back) {
+      songBack = back || (() => openUta());
+      views.song.innerHTML = '<div class="hd">読込中…</div>'; show('song');
+      fetch(`/n247i/uta/${id}.json`).then(r => r.json()).then(d => { cur = d; songMode = 'lyrics'; renderSong(); setRoute('uta/' + id); });
+    }
+    function renderSong() {
+      const d = cur;
+      views.song.innerHTML = `<div class="hd">♪ ${esc(d.title)}<i>${esc(d.album)}${d.year ? ' · ' + d.year : ''}</i></div>` + (songMode === 'lyrics'
+        ? (d.lines.length ? d.lines.map(l => `<div class="ln"><span class="ja">${esc(l.ja)}</span>${l.zh ? `<span class="zh">${esc(l.zh)}</span>` : ''}</div>`).join('') : '<p class="none">（純演奏・歌詞なし）</p>')
+        : (d.note.length ? d.note.map(p => `<p>${esc(p)}</p>`).join('') : '<p class="none">（解説はまだありません）</p>'));
+      views.song.scrollTop = 0;
+      show('song', ['戻る', songMode === 'lyrics' ? '解説' : '歌詞', d.full ? '完整Live' : 'PC']);
+    }
+
+    /* ワンセグ: 能完整播的歌 → サイクロイド大螢幕 */
+    function openSegList() {
+      openList({ title: '📺 ワンセグ ・ 完整 Live', back: () => show('menu'),
+        items: data.songs.map(sg => ({ label: sg.title, sub: sg.album, act: () => openSeg(sg.id, sg.title) })) });
+    }
+
+    /* 跳出去的頁面: 「接続中…」再走; 大型視覺化 (歌詞宇宙 / 索引 / 星圖) 用 PCサイトビューアー */
+    function connect(href, pc) {
+      views.conn.innerHTML = `<div>${pc ? 'PCサイトビューアー' : 'iモード'}</div><b>接続中…</b><i><u></u></i>`;
+      show('conn');
+      setTimeout(() => { location.href = href; }, 520);
+    }
+    function launch(i) {
+      if (i === 0) return openUta();
+      if (i === 1) return openSegList();
+      connect(APPS[i][2], i >= 3 && i <= 5);
+    }
+
+    /* 網址: 手機裡的畫面也有網址 (?n2=uta/<id>), 分享出去對方打開就直接開在那首歌 */
+    function setRoute(r) {
+      if (overlay) return;
+      const u = new URL(location.href);
+      if (r) u.searchParams.set('n2', r); else u.searchParams.delete('n2');
+      if (u.href !== location.href) history.replaceState(history.state, '', u);
     }
     const daysToLive = () => {
       const today = jstDate(), next = data.upcoming.find(e => e.date >= today);
@@ -229,13 +304,14 @@
     function openBook() { views.book.innerHTML = '<div class="bh">電話帳</div><div class="be"><span>にしな</span><span>247</span></div>'; show('book'); }
 
     /* 按鍵 */
-    const fullLive = () => { if (song) location.href = `/live/full/${song.id}/`; };
+    const fullLive = () => { if (song) openSeg(song.id, song.title); };
     function flash(k) { const b = keys.children[KEYS.indexOf(k)]; if (!b) return; b.classList.add('hit'); setTimeout(() => b.classList.remove('hit'), 120); }
     function press(k) {
       active = phone;
       if (!phone.isOpen()) return open();
       flash(k);
       if (view === 'menu') pick(KEYS.indexOf(k));
+      else if (view === 'list' && /\d/.test(k) && +k >= 1 && +k <= list.items.length) { list.sel = +k - 1; renderList(); list.items[list.sel].act(); }
       else if (view === 'standby' || view === 'dial') typeDigit(k);
     }
     function soft(w) {
@@ -243,8 +319,15 @@
       if (!phone.isOpen()) return open();
       if (ringing) return openMail();
       if (view === 'standby') { if (w === 'L') openMail(); if (w === 'C') show('menu'); if (w === 'R') fullLive(); }
+      else if (view === 'list') { if (w === 'L') list.back(); if (w === 'C') list.items[list.sel].act(); }
+      else if (view === 'song') {
+        if (w === 'L') songBack();
+        if (w === 'C') { songMode = songMode === 'lyrics' ? 'note' : 'lyrics'; renderSong(); }
+        if (w === 'R') { if (cur.full) openSeg(cur.id, cur.title); else connect(`/translations/${cur.id}/`, true); }
+      }
+      else if (view === 'conn') {}
       else if (view === 'menu') {
-        if (w === 'C') location.href = APPS[sel][2];
+        if (w === 'C') launch(sel);
         if (overlay) { if (w === 'L') { close(); window.__shellCli?.open(); } if (w === 'R') close(); }
         else { if (w === 'L') show('standby'); if (w === 'R') fullLive(); }
       }
@@ -259,7 +342,13 @@
       if (KEYS.includes(k)) { e.preventDefault(); press(k); }
       else if (k === 'Enter') { e.preventDefault(); soft('C'); }
       else if (k === 'Backspace' && view === 'dial') { e.preventDefault(); clearDigit(); }
-      else if (k === 'Escape') { e.preventDefault(); if (view === (overlay ? 'menu' : 'standby')) close(); else show(overlay ? 'menu' : 'standby'); }
+      else if (k === 'Escape') {
+        e.preventDefault();
+        if (view === 'list') list.back(); else if (view === 'song') songBack();
+        else if (view === (overlay ? 'menu' : 'standby')) close(); else show(overlay ? 'menu' : 'standby');
+      }
+      else if ((view === 'list') && (k === 'ArrowDown' || k === 'ArrowUp')) { e.preventDefault(); listMove(k === 'ArrowDown' ? 1 : -1); }
+      else if (view === 'song' && (k === 'ArrowDown' || k === 'ArrowUp')) { e.preventDefault(); views.song.scrollBy(0, k === 'ArrowDown' ? 48 : -48); }
       else if (view === 'menu' && /^Arrow/.test(k)) {
         e.preventDefault();
         pick((sel + { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -3, ArrowDown: 3 }[k] + APPS.length) % APPS.length);
@@ -268,6 +357,7 @@
 
     function open() {
       root.classList.add('is-open'); active = phone;
+      if (root.contains(document.activeElement)) document.activeElement.blur();   // 焦點留在藏起來的外殼上, 下一個 Enter 會又「打開」一次
       show(overlay ? 'menu' : 'standby');
       if (!overlay) setTimeout(incoming, 2500);
     }
@@ -285,6 +375,13 @@
     loadData().then(d => {
       data = d; song = d.songs.length ? d.songs[jstDay() % d.songs.length] : null;
       buildStandby(); tick(); refreshUnread();
+      const r = route;
+      if (r) {
+        root.classList.add('is-open'); active = phone;
+        const [app, id] = r.split('/');
+        if (app === 'uta' && id) openSong(id); else if (app === 'uta') openUta();
+        else if (app === 'seg' && id) { show('standby'); openSeg(id, (d.songs.find(x => x.id === id) || {}).title || ''); }
+      }
     });
     const timer = setInterval(() => { if (!root.isConnected) return clearInterval(timer); tick(); }, 10000);
     show(overlay ? 'menu' : 'standby');
@@ -292,7 +389,36 @@
     return phone;
   }
 
+  /* ワンセグ: 螢幕轉 90 度變成橫的大螢幕 (サイクロイド), 裡面是完整 Live 播放器的精簡版 (/live/full/<id>/?embed=1)
+     手機直拿的時候不轉, 直接全螢幕 */
+  let tv = null;
+  function openSeg(id, title) {
+    closeSeg();
+    tv = document.createElement('div'); tv.className = 'n2-tv';
+    tv.innerHTML = `<div class="n2-tv-set"><div class="n2-tv-bar"><span>📺 ワンセグ ・ 完整 Live「${esc(title)}」</span>
+        <button type="button" class="n2-tv-x">◀ 戻る</button></div>
+      <div class="n2-tv-screen"><iframe title="完整 Live「${esc(title)}」" src="/live/full/${encodeURIComponent(id)}/?embed=1" allow="autoplay; encrypted-media"></iframe></div></div>`;
+    document.body.append(tv);
+    window.__scrollLockCount = (window.__scrollLockCount || 0) + 1;
+    const fr = tv.querySelector('iframe');
+    fr.addEventListener('load', () => fr.classList.add('on'));
+    tv.querySelector('.n2-tv-x').addEventListener('click', closeSeg);
+    tv.addEventListener('click', e => { if (e.target === tv) closeSeg(); });
+    requestAnimationFrame(() => tv && tv.classList.add('on'));
+    const u = new URL(location.href);
+    if (!document.querySelector('.n2-overlay')) { u.searchParams.set('n2', 'seg/' + id); history.replaceState(history.state, '', u); }
+  }
+  function closeSeg() {
+    if (!tv) return;
+    tv.remove(); tv = null;
+    window.__scrollLockCount = Math.max(0, (window.__scrollLockCount || 1) - 1);
+    const u = new URL(location.href);
+    if (u.searchParams.get('n2')?.startsWith('seg/')) { u.searchParams.delete('n2'); history.replaceState(history.state, '', u); }
+  }
+
   addEventListener('keydown', e => {
+    if (tv && e.key === 'Escape') { e.preventDefault(); closeSeg(); return; }
+    if (tv) return;
     if (!active || !active.isOpen() || !active.root.isConnected) return;
     if (e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
     const t = e.target;

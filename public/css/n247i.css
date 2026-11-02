@@ -119,3 +119,45 @@
 
 /* 手機上的導航: 疊在整頁上 */
 .n2-overlay { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; background: rgb(5 5 12 / .78); overflow: auto; padding: 16px 0; }
+
+/* ---------- App 畫面 (着うた / ワンセグ清單 / 接続中) ---------- */
+.n2-list, .n2-song { top: 18px; bottom: 20px; padding: 0 0 4px; overflow-y: auto; scrollbar-width: none; }   /* 從狀態列下面開始捲, 標題列才不會鑽到天線底下 */
+.n2-list::-webkit-scrollbar, .n2-song::-webkit-scrollbar { display: none; }      /* 小螢幕裡不放捲軸, 用方向鍵 / 手指捲 */
+.n2-list .hd, .n2-song .hd { position: sticky; top: 0; z-index: 2; padding: 3px 8px; background: #142047; color: var(--n2-gold); font: 12px var(--sh-pxja); }
+.n2-song .hd i { display: block; font-style: normal; color: #6f7a99; font-family: var(--sh-px); }
+.n2-list .it { display: flex; align-items: baseline; gap: 6px; padding: 5px 8px; border-bottom: 1px dashed #1c2a5c; color: #cfe8ff; cursor: pointer; font: 12px var(--sh-pxja); }
+.n2-list .it .n { width: 10px; color: #6f7a99; flex: none; font-family: var(--sh-px); }
+.n2-list .it .l { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.n2-list .it .s { color: #6f7a99; font: 12px var(--sh-px); white-space: nowrap; }
+.n2-list .it.sel { background: #1c2a5c; color: #fff; box-shadow: inset 3px 0 0 var(--n2-gold); }
+.n2-list .it.sel .s { color: var(--n2-gold); }
+.n2-song .ln { padding: 5px 8px; border-bottom: 1px dashed #1c2a5c; }
+.n2-song .ln .ja { display: block; font: 12px/1.6 var(--sh-pxja); color: #fff; }
+.n2-song .ln .zh { display: block; font: 12px/1.6 var(--sh-px); color: #9fb0d8; }
+.n2-song p { margin: 0; padding: 6px 8px; font: 12px/1.75 var(--sh-px); color: #dfe6f7; }
+.n2-song p.none { color: #6f7a99; }
+.n2-conn { display: none; place-items: center; align-content: center; text-align: center; color: #9fe3ff; background: #0b1022; }
+.n2-conn.on { display: grid; }
+.n2-conn b { display: block; font: 24px var(--sh-px); color: #fff; font-weight: 400; margin: 6px 0 10px; }
+.n2-conn i { display: block; width: 140px; height: 10px; border: 2px solid #9fe3ff; position: relative; }
+.n2-conn i u { position: absolute; left: 0; top: 0; bottom: 0; background: #9fe3ff; animation: n2-conn .5s steps(7) forwards; }
+@keyframes n2-conn { from { width: 0; } to { width: 100%; } }
+
+/* ---------- ワンセグ大螢幕 (サイクロイド: 轉 90 度放大) ---------- */
+.n2-tv { position: fixed; inset: 0; z-index: 95; display: grid; place-items: center; background: rgb(5 5 12 / .82); }
+.n2-tv-set { --n2-dark: #3b335f; width: min(1120px, 94vw); height: min(640px, 86vh); display: flex; flex-direction: column;
+  background: #c9c3e6; border: 4px solid var(--n2-dark); border-radius: 22px; padding: 12px 16px 16px;
+  box-shadow: inset 4px 4px 0 #ece8ff, inset -4px -4px 0 #9d95c9, 0 20px 60px rgb(0 0 0 / .6);
+  transform: rotate(90deg) scale(.35); opacity: 0; transition: transform .45s steps(6), opacity .1s; }
+.n2-tv.on .n2-tv-set { transform: none; opacity: 1; }
+.n2-tv-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; font: 12px var(--sh-px); color: #3b335f; }
+.n2-tv-bar span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--sh-pxja); }
+.n2-tv-x { font: 12px var(--sh-px); color: #3b335f; background: #ece8ff; border: 3px solid #3b335f; padding: 4px 12px; cursor: pointer;
+  box-shadow: inset -3px -3px 0 #9d95c9; flex: none; }
+.n2-tv-x:hover { background: #e8c94a; }
+.n2-tv-screen { flex: 1; min-height: 0; background: #05050b; border: 4px solid #3b335f; position: relative; }
+.n2-tv-screen iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; opacity: 0; transition: opacity .2s; }
+.n2-tv-screen iframe.on { opacity: 1; }
+@media (max-aspect-ratio: 1/1) {      /* 手機直拿: 不轉, 直接全螢幕直的 */
+  .n2-tv-set { width: 100vw; height: 100svh; border-radius: 0; border-width: 0; padding: 8px; transform: translateY(20%); }
+}
