@@ -71,17 +71,29 @@ const pos = (o: { x: number; y: number; w: number; h: number }) => `--x:${o.x};-
   </div>
   <p class="rm-swipe" aria-hidden="true">← 左右滑 →</p>
 
-  <!-- 開場: 走廊上虛掩的門。門縫看得到房間 (room.js 讓鏡頭在裡面慢慢看), 壓下門把才進來 -->
+  <!-- 開場: 走廊上虛掩的門。門縫裡的房間亮到看不清, 光一路鋪到腳邊 (窗簾影子、灰塵、歌詞都畫在這層), 壓下門把才進來 -->
   <div class="rm-door">
     <div class="rm-door-stage">
-      <img class="rm-door-img" src="/img/room/door-0.png" width="480" height="270" alt="走廊上虛掩的房門, 門牌寫著 derekk, 門縫透出房間的燈光">
-      <span class="rm-dp rm-glint" style={pos({ x: 228, y: 138, w: 3, h: 3 })} aria-hidden="true"></span>
-      <button class="rm-dp rm-knob" type="button" style={pos({ x: 218, y: 128, w: 30, h: 26 })} aria-label="壓下門把, 進房間"></button>
+      <img class="rm-door-img" src="/img/room/door-0.png" width="480" height="270" alt="走廊上虛掩的房門, 門牌寫著 derekk, 門縫透出的光一路鋪到腳邊">
+      <canvas class="rm-door-fx" width="480" height="270" aria-hidden="true"></canvas>
+      <span class="rm-dp rm-halo" style={pos({ x: 255, y: 20, w: 37, h: 147 })} aria-hidden="true"></span>
+      <div class="rm-lyrics" aria-hidden="true"></div>
+      <span class="rm-dp rm-glint" style={pos({ x: 244, y: 93, w: 3, h: 3 })} aria-hidden="true"></span>
+      <button class="rm-dp rm-knob" type="button" style={pos({ x: 232, y: 86, w: 22, h: 20 })} aria-label="壓下門把, 進房間"></button>
     </div>
     <!-- 趕時間的捷徑, 先收起來, 之後要用再打開
     <p class="rm-rush">趕時間的話 → <a href="/about">關於我</a><a href="/projects">作品集</a></p>
     -->
   </div>
+  <div class="rm-flood" aria-hidden="true"></div>
+  <!-- 聲音: 預設關著, 按了才響 -->
+  <button class="rm-snd" type="button" aria-pressed="false" aria-label="聲音">
+    <svg viewBox="0 0 11 9" width="22" height="18" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true">
+      <path d="M0 3h2v3H0zM2 2h1v5H2zM3 1h1v7H3zM4 0h1v9H4z"/>
+      <path class="rm-snd-on" d="M6 3h1v3H6zM8 1h1v1H8zM9 2h1v5H9zM8 7h1v1H8z"/>
+      <path class="rm-snd-off" d="M6 2h1v1H6zM7 3h1v1H7zM8 4h1v1H8zM9 5h1v1H9zM10 6h1v1h-1zM10 2h1v1h-1zM9 3h1v1H9zM7 5h1v1H7zM6 6h1v1H6z"/>
+    </svg>
+  </button>
 </section>
 <link rel="stylesheet" href="/css/n247i.css">
 <script is:inline src="/js/n247i.js"></script>
