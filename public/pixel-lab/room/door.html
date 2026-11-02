@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首頁開場 — 從鑰匙孔看進去</title>
+<style>
+/* 首頁開場的原型: 臉貼在房門前, 從鑰匙孔看進房間 — 裡面的鏡頭一直在東西之間漂 (手機 → 電腦 → 海報 → しっぽ → 月亮 → 整間)。
+   按「推門進去」或點門把: 門把轉一下, 門往裡推開, 鏡頭從當下停的東西拉遠到整個房間。
+   門現在是 CSS 拼的, 感覺對了再用 Aseprite 畫正式的。任何鍵 = 直接跳過。 */
+@font-face { font-family: PXZ; src: url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2'); }
+@font-face { font-family: PXJ; src: url('/fonts/pixel/fp12-site-ja.woff2') format('woff2'); }
+:root { --px: PXZ, PXJ, monospace; --u: 1vmin; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #07060f; overflow: hidden; }
+.scene { position: fixed; inset: 0; perspective: 1600px; }
+
+/* 房間 (在門後面) */
+.cam { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+.cam img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+.cam .shippo { transform-origin: 91.46% 45.93%; animation: sway 7s ease-in-out infinite; }
+@keyframes sway { 0%, 100% { rotate: 0deg; } 30% { rotate: 1.5deg; } 65% { rotate: -1deg; } }
+
+/* 門: 整片蓋住畫面, 只有鑰匙孔是空的 */
+.door { position: absolute; inset: 0; transform-origin: left center; backface-visibility: hidden;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 calc(var(--u) * 14), #2b180f calc(var(--u) * 14) calc(var(--u) * 14.5)),
+    repeating-linear-gradient(0deg, #3a2219 0 calc(var(--u) * 3), #3d2419 calc(var(--u) * 3) calc(var(--u) * 6));
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 1 16 25' shape-rendering='crispEdges'%3E%3Cpath d='M5 1h6v1h-6zM4 2h8v1h-8zM3 3h10v1h-10zM2 4h12v1h-12zM2 5h12v1h-12zM1 6h14v1h-14zM1 7h14v1h-14zM1 8h14v1h-14zM2 9h12v1h-12zM2 10h12v1h-12zM3 11h10v1h-10zM4 12h8v1h-8zM5 13h6v1h-6zM5 14h6v1h-6zM4 15h8v1h-8zM4 16h8v1h-8zM4 17h8v1h-8zM3 18h10v1h-10zM3 19h10v1h-10zM3 20h10v1h-10zM2 21h12v1h-12zM2 22h12v1h-12zM2 23h12v1h-12zM2 24h12v1h-12zM1 25h14v1h-14z'/%3E%3C/svg%3E") 50% var(--ky) / auto var(--kh) no-repeat, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  --ky: 47%; --kh: 34vmin; }
+/* 兩塊門板的凹框 */
+.door i { position: absolute; left: 9%; right: 9%; border: calc(var(--u) * 1.2) solid; border-color: #24140f #7a4b30 #7a4b30 #24140f; background: rgb(87 52 36 / .35); }
+.door i:nth-child(1) { top: 5%; height: 18%; }
+.door i:nth-child(2) { top: 78%; height: 18%; }
+/* 鑰匙孔外面那塊黃銅片 */
+.plate { position: absolute; left: 50%; top: 47%; width: calc(var(--u) * 30); height: calc(var(--u) * 50); transform: translate(-50%, -50%);
+  background: #a3673b; border: calc(var(--u) * 1.2) solid; border-color: #c98d52 #573424 #573424 #c98d52; box-shadow: calc(var(--u) * .8) calc(var(--u) * .8) 0 #24140f; }
+/* 門上的名牌就是標題 (不另外浮一行字): 名字 + 一行自我介紹刻在下面 */
+.plate-name { position: absolute; left: 50%; top: 6%; transform: translateX(-50%); padding: calc(var(--u) * 1.6) calc(var(--u) * 4) calc(var(--u) * 1.2);
+  margin: 0; font: 400 calc(var(--u) * 6)/1 var(--px); letter-spacing: .14em; white-space: nowrap; text-align: center; color: #24140f; background: #c98d52;
+  border: calc(var(--u) * .8) solid; border-color: #ffd27a #7a4b30 #7a4b30 #ffd27a; box-shadow: calc(var(--u) * .8) calc(var(--u) * .8) 0 #24140f; }
+.plate-name small { display: block; margin-top: calc(var(--u) * 1.2); font: 12px var(--px); letter-spacing: .25em; color: #573424; }
+/* 門把 */
+.knob { position: absolute; left: 82%; top: 47%; width: calc(var(--u) * 9); height: calc(var(--u) * 9); transform: translate(-50%, -50%);
+  padding: 0; border: 0; cursor: pointer; background: none; }
+.knob::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff3c4 0 12%, #e8c94a 13% 45%, #c98d52 46% 70%, #7a4b30 71%);
+  box-shadow: calc(var(--u) * .8) calc(var(--u) * .8) 0 #24140f; transition: rotate .18s steps(3); }
+.knob:hover::before, .knob:focus-visible::before { filter: brightness(1.15); }
+.turn .knob::before { rotate: -60deg; }
+
+/* 標題、按鈕、捷徑 (學 Peter: 沒時間的人有路可以直接走) */
+.ui { position: absolute; inset: 0; pointer-events: none; color: #ece8ff; font-family: var(--px); text-align: center; transition: opacity .25s steps(3); }
+.ui > * { pointer-events: auto; }
+.enter { position: absolute; left: 50%; top: 79%; transform: translateX(-50%); font: 12px var(--px); letter-spacing: .2em; color: #3b335f; background: #ece8ff; cursor: pointer;
+  border: 3px solid #3b335f; box-shadow: inset -3px -3px 0 #9d95c9, 4px 4px 0 #07060f; padding: 10px 22px; }
+.enter:hover { background: #e8c94a; }
+.enter:active { transform: translate(calc(-50% + 2px), 2px); box-shadow: inset 3px 3px 0 #9d95c9; }
+.rush { position: absolute; left: 0; right: 0; bottom: 18px; margin: 0; font: 12px var(--px); color: #9d95c9; text-shadow: 2px 2px 0 #07060f; }
+.rush a { color: #ece8ff; text-decoration: none; border-bottom: 2px solid #3b335f; margin: 0 6px; }
+.rush a:hover { color: #e8c94a; border-color: #e8c94a; }
+.hint { position: absolute; right: 16px; top: 14px; margin: 0; font: 12px var(--px); color: #6f6a99; }
+.open .ui { opacity: 0; pointer-events: none; }
+.open .ui > * { pointer-events: none; }
+
+/* 原型到這裡為止的說明 */
+.after { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: none; font: 12px var(--px); color: #c9c3e6;
+  background: rgb(14 11 29 / .85); padding: 6px 12px; border: 2px solid #3b335f; }
+.after button { font: inherit; color: #e8c94a; background: none; border: 0; cursor: pointer; text-decoration: underline; }
+.done .after { display: block; }
+
+</style>
+</head>
+<body>
+<div class="scene" id="scene">
+  <div class="cam" id="cam">
+    <img src="/img/room/room.png" alt="">
+    <img class="shippo" src="/img/room/shippo.png" alt="">
+  </div>
+  <div class="door" id="door">
+    <i></i><i></i>
+    <div class="plate"></div>
+    <h1 class="plate-name">DEREK NI<small>日文歌翻譯 · 程式作品 · 日記</small></h1>
+    <button class="knob" id="knob" type="button" aria-label="轉門把, 推門進去"></button>
+  </div>
+  <div class="ui">
+    <button class="enter" id="enter" type="button">推門進去</button>
+    <p class="rush">趕時間的話 → <a href="/about">關於我</a><a href="/projects">作品集</a></p>
+    <p class="hint">任何鍵跳過</p>
+  </div>
+  <p class="after">（原型）接進首頁後, 這裡就是可以點的房間 · <button id="replay" type="button">再演一次</button></p>
+</div>
+<script>
+(() => {
+  const scene = document.getElementById('scene'), cam = document.getElementById('cam'), door = document.getElementById('door');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const W = 480, H = 270;
+  // 鑰匙孔裡輪流看的東西: 原圖座標的中心 + 放大幾倍 (以「房間塞滿畫面高度」為 1)
+  const SHOTS = [[230, 178, 3.2], [306, 158, 2.5], [64, 66, 2.8], [436, 152, 2.9], [299, 40, 2.8], [240, 135, 1.25]];
+  let K, tour, entered = false;
+
+  const at = (x, y, z, cx = innerWidth / 2, cy = innerHeight * .47) =>
+    `translate(${cx - x * K * z}px, ${cy - y * K * z}px) scale(${z})`;
+  const full = () => {   // 推開門之後: 整間房間放進畫面
+    const z = Math.min(innerWidth / (W * K), innerHeight / (H * K));
+    return `translate(${(innerWidth - W * K * z) / 2}px, ${(innerHeight - H * K * z) / 2}px) scale(${z})`;
+  };
+  function size() {
+    K = innerHeight / H;
+    cam.style.width = W * K + 'px'; cam.style.height = H * K + 'px';
+  }
+  function startTour() {
+    if (still) { cam.style.transform = at(240, 135, 1.25); return; }
+    const hold = 1900, move = 1500, per = hold + move, total = per * SHOTS.length, frames = [];
+    SHOTS.forEach(([x, y, z], i) => {
+      frames.push({ offset: (i * per) / total, transform: at(x, y, z), easing: 'linear' });
+      frames.push({ offset: (i * per + hold) / total, transform: at(x, y, z), easing: 'cubic-bezier(.6,0,.3,1)' });
+    });
+    frames.push({ offset: 1, transform: at(...SHOTS[0]) });
+    tour = cam.animate(frames, { duration: total, iterations: Infinity });
+  }
+
+  function enter(skip) {
+    if (entered) return; entered = true;
+    const now = getComputedStyle(cam).transform;
+    tour && tour.cancel();
+    cam.style.transform = now;
+    scene.classList.add('turn');
+    if (skip || still) { scene.classList.add('open', 'done'); door.style.display = 'none'; cam.style.transform = full(); return; }
+    setTimeout(() => {
+      scene.classList.add('open');
+      door.animate([{ transform: 'rotateY(0)' }, { transform: 'rotateY(-104deg)', opacity: .2 }], { duration: 950, easing: 'cubic-bezier(.55,0,.25,1)', fill: 'forwards' });
+      cam.animate([{ transform: now }, { transform: full() }], { duration: 1300, delay: 150, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'forwards' })
+        .onfinish = () => { cam.style.transform = full(); door.style.display = 'none'; scene.classList.add('done'); };
+    }, 260);
+  }
+
+  function reset() {
+    entered = false; scene.className = 'scene'; door.style.display = ''; door.getAnimations().forEach(a => a.cancel());
+    cam.getAnimations().forEach(a => a.cancel()); startTour();
+  }
+
+  size(); startTour();
+  addEventListener('resize', () => { size(); if (entered) cam.style.transform = full(); else { tour && tour.cancel(); startTour(); } });
+  document.getElementById('enter').addEventListener('click', () => enter(false));
+  document.getElementById('knob').addEventListener('click', () => enter(false));
+  document.getElementById('replay').addEventListener('click', reset);
+  addEventListener('keydown', e => { if (entered || e.metaKey || e.ctrlKey) return; if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); enter(false); } else enter(true); });
+})();
+</script>
+</body>
+</html>
