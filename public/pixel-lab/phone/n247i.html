@@ -42,7 +42,6 @@ body { min-height: 100vh; background: radial-gradient(60% 50% at 50% 10%, #1d163
 @keyframes ticker { from { transform: translateX(140px); } to { transform: translateX(-100%); } }
 .model { position: absolute; bottom: 64px; left: 0; right: 0; text-align: center; color: var(--dark); }
 .model b { display: block; font: 24px var(--px); letter-spacing: .12em; }
-.model span { letter-spacing: .3em; }
 .closed .hint { position: absolute; bottom: 22px; left: 0; right: 0; text-align: center; color: var(--body2); }
 /* 掀開 */
 .open { display: none; }
@@ -117,6 +116,15 @@ canvas.px { image-rendering: pixelated; display: block; }
 .call .kana { font: 24px var(--pxj); letter-spacing: .3em; }
 .call .ly { margin: 18px 10px 0; font: 12px/1.7 var(--pxj); color: #d6ffe4; }
 .call .zh2 { color: #6fbf8a; }
+.call .big2 { font: 24px var(--px); color: #fff; margin: 14px 0; word-break: break-all; }
+/* 撥號: 待受直接按數字 → 這裡 */
+.dial { padding: 26px 12px 0; }
+.dial .dl { color: var(--ink3); }
+.dial .num { font: 36px/1.2 var(--px); color: #fff; text-align: right; word-break: break-all; margin-top: 40px; letter-spacing: .06em; }
+.dial .dh { position: absolute; bottom: 28px; left: 0; right: 0; text-align: center; color: var(--ink3); }
+.book { padding: 24px 8px 0; }
+.book .bh { color: var(--gold); margin-bottom: 6px; }
+.book .be { display: flex; justify-content: space-between; padding: 4px 8px; border: 2px solid var(--gold); background: #1c2a5c; color: #fff; font: 12px var(--pxj); }
 
 /* 鍵盤 */
 .dpad { display: grid; grid-template-columns: 1fr 64px 1fr; align-items: center; gap: 8px; margin-bottom: 12px; }
@@ -128,7 +136,7 @@ canvas.px { image-rendering: pixelated; display: block; }
 .keys button { font: 12px var(--px); color: var(--dark); background: var(--hi); border: 3px solid var(--dark); padding: 5px 0; cursor: pointer;
   box-shadow: inset -3px -3px 0 var(--body2); line-height: 1.2; }
 .keys button small { display: block; font-size: 12px; color: #6c63a0; }
-.keys button.n247 { background: #fff4cf; }     /* 2 4 7: 留給有發現的人 */
+.keys button.n247 small { color: #d9507a; }     /* 2 4 7 的假名換成「に し な」, 換個顏色就是提示 */
 .keys button:active, .keys button.hit { box-shadow: inset 3px 3px 0 var(--body2); background: var(--gold); }
 @media (max-width: 760px) { .wrap { grid-template-columns: 1fr; } .phone { margin: 0 auto; } }
 </style>
@@ -139,7 +147,7 @@ canvas.px { image-rendering: pixelated; display: block; }
     <div class="shell closed" id="closed">
       <span class="cam"></span><span class="led" id="led"></span>
       <div class="sub-lcd"><div class="t" id="subT">--:--</div><div class="m" id="subM"></div></div>
-      <div class="model"><b>N247i</b><span>NISHINA</span></div>
+      <div class="model"><b>N247i</b></div>
       <div class="hint">點一下打開</div>
     </div>
     <div class="open">
@@ -150,6 +158,8 @@ canvas.px { image-rendering: pixelated; display: block; }
           <div class="view" id="vMenu"><div class="menu" id="menu"></div></div>
           <div class="view mail" id="vMail"></div>
           <div class="view call" id="vCall"></div>
+          <div class="view dial" id="vDial"></div>
+          <div class="view book" id="vBook"></div>
           <div class="ring" id="ring"><div>✉<b>新着メール 1件</b>にしな<br><br>決定キーで開く</div></div>
           <div class="softbar"><span id="sL">メール</span><span id="sC">MENU</span><span id="sR">完整Live</span></div>
         </div>
@@ -167,14 +177,15 @@ canvas.px { image-rendering: pixelated; display: block; }
 
   <div class="side">
     <h1><b>N</b>247i</h1>
-    <p>にしな＝に・し・な＝2・4・7。照當年 docomo「N903i」的命名方式，N 就當作にしな。</p>
+    <p>にしな＝に・し・な＝2・4・7。照當年 docomo「N903i」的命名方式，N 就當作にしな；鍵盤上 2 4 7 的假名也換成了に し な。</p>
     <ul>
       <li>點手機打開（闔著時外面的小螢幕在跑今天的歌，通知燈在閃）</li>
-      <li>待受在放「今天這首歌」，每天換一首；按 <kbd>Enter</kbd> 或中間的鍵去聽完整 Live</li>
+      <li>待受在放「今天這首歌」，每天換一首；右鍵 / <kbd>L</kbd> 去聽完整 Live</li>
       <li>過幾秒會收到新着メール</li>
-      <li>左鍵 / <kbd>M</kbd>＝メール、右鍵＝完整 Live、下面那排中間＝MENU</li>
-      <li>MENU 裡 12 個地方，鍵盤 <kbd>1</kbd>–<kbd>9</kbd> <kbd>*</kbd> <kbd>0</kbd> <kbd>#</kbd> 直接去（原型只會標出來，不會真的跳走，按 Enter 才跳）</li>
-      <li>依序按 <kbd>2</kbd> <kbd>4</kbd> <kbd>7</kbd>：打給にしな</li>
+      <li>左鍵 / <kbd>M</kbd>＝メール、中間的圓鍵 / <kbd>Enter</kbd>＝MENU、右鍵 / <kbd>L</kbd>＝完整 Live</li>
+      <li>MENU 裡 12 個地方，進 MENU 後按 <kbd>1</kbd>–<kbd>9</kbd> <kbd>*</kbd> <kbd>0</kbd> <kbd>#</kbd> 選、Enter 去</li>
+      <li>待受直接按數字＝撥號（跟真的ガラケー一樣），Enter 発信、<kbd>Backspace</kbd> 刪一碼；撥號畫面左鍵是電話帳</li>
+      <li>鍵盤的 2 4 7 寫的是「に し な」……撥撥看</li>
       <li><kbd>Esc</kbd> 回待受；回待受再按一次 Esc 闔上</li>
       <li>2:47 / 14:47 有特別的待受，網址加 <a href="?t=14:47">?t=14:47</a> 直接看</li>
     </ul>
@@ -227,7 +238,7 @@ const icon = (n, color) => { const c = document.createElement('canvas'); c.width
 
 /* ---------- 12 鍵 = 網站 12 個地方 ---------- */
 const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '0', '#'];
-const KANA = { 1: 'あ', 2: 'か', 3: 'さ', 4: 'た', 5: 'な', 6: 'は', 7: 'ま', 8: 'や', 9: 'ら', 0: 'わ', '*': '', '#': '' };
+const KANA = { 1: 'あ', 2: 'に', 3: 'さ', 4: 'し', 5: 'な', 6: 'は', 7: 'な', 8: 'や', 9: 'ら', 0: 'わ', '*': '', '#': '' };   // 2 4 7 = に し な
 const APPS = [
   ['lyric', '翻譯', '/translations', '#ff8c69'], ['full', '完整Live', '/live/full/', '#e8c94a'], ['live', 'Live', '/live/', '#ff8c69'],
   ['uni', '歌詞宇宙', '/lyric-universe/', '#f064a0'], ['index', '索引', '/kwic/', '#5ca8ff'], ['star', '星圖', '/star-map/', '#60e0d2'],
@@ -249,8 +260,9 @@ pick(0);
 let view = 'standby';
 function show(v) {
   view = v;
-  ['Standby', 'Menu', 'Mail', 'Call'].forEach(n => $('v' + n).classList.toggle('on', n.toLowerCase() === v));
-  const soft = { standby: ['メール', 'MENU', '完整Live'], menu: ['戻る', '選択', '完整Live'], mail: ['戻る', '', '返信'], call: ['', '終話', ''] }[v];
+  ['Standby', 'Menu', 'Mail', 'Call', 'Dial', 'Book'].forEach(n => $('v' + n).classList.toggle('on', n.toLowerCase() === v));
+  const soft = { standby: ['メール', 'MENU', '完整Live'], menu: ['戻る', '選択', '完整Live'], mail: ['戻る', '', '完整Live'], call: ['', '終話', ''],
+    dial: ['電話帳', '発信', 'クリア'], book: ['戻る', '発信', ''] }[v];
   [$('sL').textContent, $('sC').textContent, $('sR').textContent] = soft;
 }
 
@@ -310,13 +322,21 @@ function openMail() {
   show('mail');
 }
 
-/* ---------- 247: 依序按 2 4 7 打給にしな ---------- */
-let dialed = '';
-function dial(k) {
-  dialed = (dialed + k).slice(-3);
-  if (dialed === '247') { dialed = ''; call247(); return true; }
-  return false;
+/* ---------- 撥號: 跟真的ガラケー一樣, 待受直接按數字就開始撥, 決定鍵発信 ----------
+   撥 247 = 打給にしな (電話帳裡有這一筆, 不知道的人翻電話帳也找得到); 其他號碼是當年那句「現在使われておりません」 */
+let number = '';
+function renderDial() { $('vDial').innerHTML = `<div class="dl">発信番号</div><div class="num">${esc(number) || '&nbsp;'}</div><div class="dh">決定キー：発信</div>`; }
+function typeDigit(k) { if (view !== 'dial') { number = ''; show('dial'); } number = (number + k).slice(0, 16); renderDial(); }
+function placeCall() {
+  if (!number) return;
+  if (number === '247') return call247();
+  const n = number;
+  $('vCall').innerHTML = `<div>発信中…</div><div class="big2">${esc(n)}</div>`;
+  show('call');
+  setTimeout(() => { if (view === 'call') $('vCall').innerHTML = `<div class="big2">${esc(n)}</div><div class="ly">おかけになった電話番号は<br>現在使われておりません。</div>`; }, 1400);
 }
+const BOOK = [['にしな', '247']];
+function openBook() { $('vBook').innerHTML = '<div class="bh">電話帳</div>' + BOOK.map(([n, t]) => `<div class="be"><span>${n}</span><span>${t}</span></div>`).join(''); show('book'); }
 function call247() {
   const L = SONGS[Math.floor(Math.random() * SONGS.length)], ln = L.lines[Math.floor(Math.random() * L.lines.length)];
   $('vCall').innerHTML = `<div>発信中…</div><div class="big">247</div><div class="kana">に し な</div>`;
@@ -341,8 +361,8 @@ function flash(k) { const b = keys.children[KEYS.indexOf(k)]; if (!b) return; b.
 function press(k) {
   if (!phone.classList.contains('is-open')) return openPhone();
   flash(k);
-  if (dial(k)) return;
-  if (view === 'standby' || view === 'menu') { show('menu'); pick(KEYS.indexOf(k)); }
+  if (view === 'menu') pick(KEYS.indexOf(k));                 // MENU 裡: 數字 = 選那一格
+  else if (view === 'standby' || view === 'dial') typeDigit(k);  // 待受: 數字 = 開始撥號
 }
 function soft(which) {
   if (!phone.classList.contains('is-open')) return openPhone();
@@ -350,14 +370,19 @@ function soft(which) {
   if (view === 'standby') { if (which === 'L') openMail(); if (which === 'C') show('menu'); if (which === 'R') location.href = `/live/full/${SONG.id}/`; }
   else if (view === 'menu') { if (which === 'L') show('standby'); if (which === 'C') location.href = APPS[sel][2]; if (which === 'R') location.href = `/live/full/${SONG.id}/`; }
   else if (view === 'mail') { if (which === 'L') show('standby'); if (which === 'R') location.href = `/live/full/${SONG.id}/`; }
+  else if (view === 'dial') { if (which === 'L') openBook(); if (which === 'C') placeCall(); if (which === 'R') clearDigit(); }
+  else if (view === 'book') { if (which === 'L') show('standby'); if (which === 'C') { number = '247'; placeCall(); } }
   else if (view === 'call') show('standby');
 }
+function clearDigit() { number = number.slice(0, -1); if (number) renderDial(); else show('standby'); }
 $('kL').onclick = () => soft('L'); $('kR').onclick = () => soft('R'); $('kC').onclick = () => center();
 function center() {
   if (!phone.classList.contains('is-open')) return openPhone();
   if (ringing) return openMail();
-  if (view === 'standby') location.href = `/live/full/${SONG.id}/`;
+  if (view === 'standby') show('menu');                        // 待受按決定鍵 = 開 MENU (跟真的一樣)
   else if (view === 'menu') location.href = APPS[sel][2];
+  else if (view === 'dial') placeCall();
+  else if (view === 'book') { number = '247'; placeCall(); }
   else show('standby');
 }
 addEventListener('keydown', e => {
@@ -366,6 +391,8 @@ addEventListener('keydown', e => {
   if (KEYS.includes(k)) { e.preventDefault(); press(k); }
   else if (k === 'Enter') { e.preventDefault(); center(); }
   else if (k === 'm' || k === 'M') soft('L');
+  else if ((k === 'l' || k === 'L') && view !== 'dial') soft('R');
+  else if (k === 'Backspace' && view === 'dial') { e.preventDefault(); clearDigit(); }
   else if (k === 'Escape') { if (view === 'standby') closePhone(); else show('standby'); }
   else if (view === 'menu' && /^Arrow/.test(k)) {
     e.preventDefault();
