@@ -1,102 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-import ContentCard from '../components/ContentCard.astro';
 import RoomScene from '../components/RoomScene.astro';
-
-const allTranslations = await getCollection('translations');
-
-// A track is "done" if it's instrumental (self-contained content) OR has a real translation body.
-type Translation = typeof allTranslations[number];
-const isDone = (entry: Translation) =>
-  entry.data.instrumental === true ||
-  (!!entry.body && !entry.body.includes('翻譯準備中'));
-
-const translatedOnly = allTranslations.filter(t => isDone(t));
-
-const recentTranslations = translatedOnly
-  .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf())
-  .slice(0, 3);
-
-const featuredProjects = (await getCollection('projects'))
-  .filter(project => project.data.featured)
-  .slice(0, 3);
-
-const recentDiary = (await getCollection('diary'))
-  .filter(entry => !entry.data.isPrivate)
-  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
-  .slice(0, 3);
-
 ---
 
+<!-- 首頁就是 2005 年夜裡我的房間: 房間裡的東西就是整個網站的入口, 進到各頁才有頁首 (src/components/RoomScene.astro) -->
 <BaseLayout
   title="Derek's Site"
   description="歡迎來到 Derek 的個人網站。探索日文歌曲翻譯、閱讀生活日記，以及查看程式作品集。"
+  immersive
 >
-  <!-- Hero: 2005 年夜裡我的房間, 房間裡的東西就是網站的入口 (src/components/RoomScene.astro) -->
   <RoomScene slot="hero" />
-
-  <!-- Recent Translations (only fully translated songs) -->
-  {recentTranslations.length > 0 && (
-    <section class="py-12">
-      <div class="flex justify-between items-center mb-8">
-        <h2 class="px text-3xl font-bold">最新翻譯</h2>
-        <a href="/translations" class="text-blue-600 hover:text-blue-800">查看全部 →</a>
-      </div>
-      <div class="grid md:grid-cols-3 gap-6">
-        {recentTranslations.map(translation => (
-          <ContentCard
-            title={translation.data.title}
-            subtitle={`${translation.data.artist}${translation.data.album ? ` · ${translation.data.album}` : ''}`}
-            href={`/translations/${translation.id}`}
-            date={translation.data.publishDate}
-            tags={translation.data.tags}
-          />
-        ))}
-      </div>
-    </section>
-  )}
-
-  <!-- Recent Diary -->
-  {recentDiary.length > 0 && (
-    <section class="py-12">
-      <div class="flex justify-between items-center mb-8">
-        <h2 class="px text-3xl font-bold">最近日記</h2>
-        <a href="/diary" class="text-blue-600 hover:text-blue-800">查看全部 →</a>
-      </div>
-      <div class="grid md:grid-cols-3 gap-6">
-        {recentDiary.map(entry => (
-          <ContentCard
-            title={entry.data.title}
-            subtitle={entry.data.mood ?? '📝'}
-            href={`/diary/${entry.id}`}
-            date={entry.data.date}
-            tags={entry.data.tags}
-          />
-        ))}
-      </div>
-    </section>
-  )}
-
-  <!-- Featured Projects -->
-  {featuredProjects.length > 0 && (
-    <section class="py-12">
-      <div class="flex justify-between items-center mb-8">
-        <h2 class="px text-3xl font-bold">精選作品</h2>
-        <a href="/projects" class="text-blue-600 hover:text-blue-800">查看全部 →</a>
-      </div>
-      <div class="grid md:grid-cols-3 gap-6">
-        {featuredProjects.map(project => (
-          <ContentCard
-            title={project.data.title}
-            description={project.data.description}
-            href={`/projects/${project.id}`}
-            image={project.data.coverImage}
-            tags={project.data.techStack}
-          />
-        ))}
-      </div>
-    </section>
-  )}
-
 </BaseLayout>

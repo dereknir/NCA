@@ -16,6 +16,9 @@ interface Props {
   /** 內容寬度: wide (列表/工具 1024) / read (閱讀 896) / legacy (舊 container, 還沒改版的頁)。
    *  跟 PageHero 的 width 一致, hero 左緣才會對齊內文。 */
   width?: 'wide' | 'read' | 'stage' | 'legacy';
+  /** 沉浸模式 (首頁的房間): 整頁只剩 hero, 沒有頁首、內文、頁尾;
+   *  左下的指令列按鈕也收起來 (房間裡的電腦就是指令列, 手機就是 N247i), 按 / 照樣叫得出來。 */
+  immersive?: boolean;
 }
 
 const {
@@ -25,7 +28,8 @@ const {
   article = false,
   publishDate,
   viewTransitions = false,
-  width = 'legacy'
+  width = 'legacy',
+  immersive = false
 } = Astro.props;
 
 // 目前頁面屬於哪個選單項 (路徑前綴最長者); site-shell.js 對靜態頁用同一套規則
@@ -112,7 +116,8 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   </script>
 </head>
 
-<body class="min-h-screen bg-[#0a0a15] text-gray-100 font-sans">
+<body class="min-h-screen bg-[#0a0a15] text-gray-100 font-sans" data-sh-pill={immersive ? 'off' : undefined}>
+  {!immersive && <>
   <!-- 頁首: 4 組下拉 + 單鍵 [X]; 捲動後標題縮進 .sh-dock (樣式/行為在 site-shell) -->
   <header class="sh-hd">
     <div class="sh-wrap">
@@ -137,10 +142,12 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
     </div>
     <div class="sh-prog"></div>
   </header>
+  </>}
 
   <!-- Optional 100vw hero (bleeds out of container) -->
   <slot name="hero" />
 
+  {!immersive && <>
   <!-- Main Content -->
   <main class={mainClass}>
     <slot />
@@ -171,6 +178,7 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
       </div>
     </div>
   </footer>
+  </>}
 
   <style is:global>
     .site-footer {
