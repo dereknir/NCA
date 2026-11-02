@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首頁 B — 第一屏只有手機</title>
+<link rel="stylesheet" href="/css/site-shell.css">
+<link rel="stylesheet" href="/css/n247i.css">
+<script src="/js/site-shell.js" defer></script>
+<style>
+  /* 首頁 B: 第一屏只有手機 (放大置中), 往下捲是原本的首頁內容 */
+  body { margin: 0; background: var(--sh-bg); color: var(--sh-ink); }
+  .stage { position: relative; height: calc(100svh - 56px); min-height: 520px; display: flex; flex-direction: column; overflow: hidden; }
+  .stage canvas.sky { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+  .room { position: relative; flex: 1; display: grid; place-items: center; min-height: 0; }
+  .room > div { display: grid; place-items: center; }
+  .escape { position: relative; text-align: center; padding: 0 16px 18px; font: 12px/1.8 var(--sh-px); color: var(--sh-ink3); }
+  .escape a { color: var(--sh-ink2); }
+  .escape .down { display: block; color: var(--sh-ink3); animation: bob 1.4s steps(2) infinite; }
+  @keyframes bob { 50% { transform: translateY(4px); } }
+  .below { max-width: 1072px; margin: 0 auto; padding: 48px 24px 120px; }
+  .below h2 { font: 24px var(--sh-px); margin: 32px 0 12px; }
+  .below .ph { border: 2px dashed var(--sh-line); padding: 32px; color: var(--sh-ink3); font: 12px var(--sh-px); text-align: center; }
+</style>
+</head>
+<body data-sh-pill="off">
+<div class="sh-hd" data-sh-header></div>
+<section class="stage" data-stage>
+  <canvas class="sky"></canvas>
+  <div class="room"><div><div data-n247i></div></div></div>
+  <p class="escape">沒時間玩？直接看 <a href="/translations">最新翻譯</a> · <a href="/live/full/">完整 Live</a><span class="down">↓ 往下捲還有更多</span></p>
+</section>
+<main class="below">
+  <h2>最新翻譯</h2><div class="ph">（這裡接原本首頁的「最新翻譯」三張卡）</div>
+  <h2>最近日記</h2><div class="ph">（原本的「最近日記」）</div>
+  <h2>精選作品</h2><div class="ph">（原本的「精選作品」）</div>
+</main>
+<script src="/js/n247i.js"></script>
+<script src="stage.js"></script>
+</body>
+</html>
