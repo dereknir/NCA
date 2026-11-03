@@ -4,8 +4,10 @@
  * 首頁就只有這間房間, 房間裡的東西就是網站的入口; 座標全部寫原圖像素, 螢幕上的大小交給 /js/room.js 算倍率。
  * 熱區疊的順序有意義: 後面的蓋在前面上面 (月亮、望遠鏡在窗戶上; 桌面資料夾在電腦上; しっぽ在軟木板上)。
  * 名牌只寫點了會去哪, 東西本身是什麼看圖就知道。
- * 房間跟著東京現在的天色: 白天 (檯燈關著、窗外藍天)、傍晚、晚上, 檯燈開關各一張, 都是事先畫好的圖;
- * 用哪一張由下面那段 script 在畫面出來之前決定 (網址放進 --rm-room 這些 CSS 變數), 之後 room.js 每隔一陣子再看一次。
+ * 房間跟著東京現在的天色: 房間本身分白天 (檯燈關著)、傍晚、晚上, 檯燈開關各一張;
+ * 窗外的天空自己一層 (/img/room/sky/, 照東京灣直播抄的天色, 太陽高度一格一套), 從房間的窗、窗外都是透明的玻璃那塊看出去。
+ * 凌晨 2:47 那一分鐘是原本那片夜空 (前後一小時慢慢接回去)。
+ * 用哪幾張由下面那段 script 在畫面出來之前決定 (網址放進 --rm-room 這些 CSS 變數), 之後 room.js 每隔一陣子再看一次。
  * 海報 (今日の一曲的封面)、月曆 (這個月、今天、下一場)、書櫃上的鬧鐘 (現在幾點) 是 room.js 畫在 canvas 上的。
  * 開場: 站在一樓的屋頂上, 二樓我房間的窗開著一條縫 (/img/room/window-*.png, 480×400);
  * 每次打開網站演一次 (sessionStorage), 把窗拉開才進來, 所以房間裡的窗是開著的。
@@ -57,35 +59,45 @@ const pos = (o: { x: number; y: number; w: number; h: number }) => `--x:${o.x};-
       const [hh, mm] = q.get('t').split(':').map(Number), j = new Date(t0 + 9 * 36e5);
       j.setUTCHours(hh || 0, mm || 0, 0, 0); start = j.getTime() - 9 * 36e5;
     }
-    function sunAlt() {
-      const rad = Math.PI / 180, n = (start + (Date.now() - t0) * speed) / 864e5 + 2440587.5 - 2451545;
+    const now = () => start + (Date.now() - t0) * speed;
+    function sunAlt(ms) {
+      const rad = Math.PI / 180, n = ms / 864e5 + 2440587.5 - 2451545;
       const g = (357.528 + .9856003 * n) * rad, lam = (280.46 + .9856474 * n + 1.915 * Math.sin(g) + .02 * Math.sin(2 * g)) * rad;
       const eps = (23.439 - 4e-7 * n) * rad, ra = Math.atan2(Math.cos(eps) * Math.sin(lam), Math.cos(lam)), dec = Math.asin(Math.sin(eps) * Math.sin(lam));
       const lst = ((18.697374558 + 24.06570982441908 * n) % 24 + 139.69 / 15) * 15 * rad, lat = 35.68 * rad;
       return Math.asin(Math.sin(lat) * Math.sin(dec) + Math.cos(lat) * Math.cos(dec) * Math.cos(lst - ra)) / rad;
     }
-    const ROOM = { d: ['room-d', 'room-d-on'], k: ['room-k-off', 'room-k'], n: ['room-off', 'room'] };
+    const ROOM = { d: ['room-d', 'room-d-on'], k: ['room-off', 'room'], n: ['room-off', 'room'] };
     const room = window.__room = {
       speed,
-      // 太陽低於 3° 天就暗下來了 (傍晚, 房間的燈看得出來亮著), 低於 -6° 是晚上
-      set() { const a = sunAlt(); return a > 3 ? 'd' : a > -6 ? 'k' : 'n'; },
+      // 現在的樣子: s = 房間 (白天 d / 傍晚 k / 晚上 n), k = 天空是哪一套 (照東京灣直播抄的天色, 太陽高度一格一套)
+      now() {
+        const t = now(), a = sunAlt(t), s = a > 3 ? 'd' : a > -6 ? 'k' : 'n';   // 太陽低於 3° 天就暗下來了, 低於 -6° 是晚上
+        if (a < -12) {   // 凌晨 2:47 (にしな) 那一分鐘是原本那片夜空, 前後一小時每 10 分鐘一格慢慢接回去
+          const d = (t / 6e4 + 540) % 1440 - 167;
+          if (d >= 0 && d < 1) return { s, k: 'a0' };
+          if (Math.abs(d) <= 60) return { s, k: 'a' + Math.ceil(Math.abs(d) / 10) };
+        }
+        const b = a < -18 ? 'n' : a < -12 ? 2 * Math.floor(a / 2) : a < 12 ? Math.floor(a) : Math.min(36, 12 + 4 * Math.floor((a - 12) / 4));
+        return { s, k: (sunAlt(t + 6e4) > a ? 'r' : 's') + b };   // r = 早上 (太陽往上), s = 下午
+      },
       // 檯燈: 白天關著、天黑開著; 這次逛網站自己開關過就照那樣 (白天跟天黑以後各記各的)
       lamp(s) {
         try { const v = sessionStorage.getItem(s === 'd' ? 'rm-lamp-d' : 'rm-lamp-n'); if (v) return v === 'on'; } catch (e) {}
         return s !== 'd';
       },
-      urls(s, lamp) {
+      urls(s, lamp, k) {
         const lit = s === 'd' ? 'd' : 'n', f = n => `/img/room/${n}.png`;   // 傍晚從窗外看, 房間的燈已經開了
-        return { room: f(ROOM[s][+lamp]), shippo: f(s === 'd' ? 'shippo-d' : 'shippo'), edge: f(s === 'd' ? 'room-edge-d' : 'room-edge'),
-          out: f('window-' + s), sash: f('window-sash-' + lit), frame: f('window-frame-' + lit) };
+        return { room: f(ROOM[s][+lamp]), sky: f('sky/' + k), shippo: f(s === 'd' ? 'shippo-d' : 'shippo'), edge: f(s === 'd' ? 'room-edge-d' : 'room-edge'),
+          out: f('window-' + s), outsky: f(`sky/${k}-out`), sash: f('window-sash-' + lit), frame: f('window-frame-' + lit) };
       },
-      paint(s, lamp) {
-        h.dataset.rmSet = s; h.dataset.rmLamp = lamp ? 'on' : 'off';
-        for (const [k, u] of Object.entries(room.urls(s, lamp))) h.style.setProperty('--rm-' + k, `url(${u})`);
+      paint(s, lamp, k) {
+        h.dataset.rmSet = s; h.dataset.rmLamp = lamp ? 'on' : 'off'; h.dataset.rmSky = k;
+        for (const [n, u] of Object.entries(room.urls(s, lamp, k))) h.style.setProperty('--rm-' + n, `url(${u})`);
       },
     };
-    const s = room.set();
-    room.paint(s, room.lamp(s));
+    const { s, k } = room.now();
+    room.paint(s, room.lamp(s), k);
     try { if (!sessionStorage.getItem('rm-intro') && !q.has('n2')) h.classList.add('rm-intro'); } catch (e) {}
   })();
 </script>

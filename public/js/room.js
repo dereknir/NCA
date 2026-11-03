@@ -6,7 +6,8 @@
  * 手機 = 把網頁版 N247i 拿起來 (疊一層, 闔上就放回去); 電腦 = 指令列; しっぽ 點了會晃; 檯燈可以開關。
  * 海報 = 今日の一曲的封面 (跟 N247i 待受同一首), 用房間的色盤重畫; 月曆每天自己翻到今天, 圈下一場;
  * 書櫃上的鬧鐘是現在幾點 (2:47 / 14:47 會變粉紅)。
- * 天色: 照東京現在的太陽高度換白天 / 傍晚 / 晚上的房間 (第一張是 RoomScene 開頭那段 script 決定的, 這裡每 15 秒再看一次);
+ * 天色: 照東京現在的太陽高度換白天 / 傍晚 / 晚上的房間, 窗外的天空 (照東京灣直播抄的) 太陽高度一格換一套;
+ * 凌晨 2:47 那一分鐘是原本那片夜空。第一張是 RoomScene 開頭那段 script 決定的, 這裡每 15 秒再看一次。
  * 白天的海報、月曆、鬧鐘跟著房間亮一階, 流星只有晚上才有。
  * 開場: 站在一樓的屋頂上, 二樓我房間的窗開著一條縫, 今天那首歌的歌詞從縫裡飄出來 (晚上飄過屋簷會變成一顆星);
  * 把外面那扇窗往右拉開 (拖、點、Enter), 拉到底停一下就直接切到房間裡。鏡頭不動, 沒有特效; Esc 直接進去。
@@ -16,7 +17,7 @@
   const root = document.querySelector('[data-room]');
   if (!root) return;
   const pan = root.querySelector('.rm-pan'), stage = root.querySelector('.rm-stage'), tip = root.querySelector('.rm-tip');
-  const shippo = stage.querySelector('.rm-shippo'), html = document.documentElement, sky = window.__room;
+  const shippo = stage.querySelector('.rm-shippo'), html = document.documentElement, sun = window.__room;
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const W = 480, H = 270, PHONE_X = 230;
   const v = (el, k) => +el.style.getPropertyValue('--' + k);
@@ -75,17 +76,17 @@
   /* ---------- 天色、檯燈: 換之前先把那一套圖載好, 換的時候才不會閃一下 ---------- */
   const bg = stage.querySelector('.rm-bg'), lampSpot = stage.querySelector('[data-k="lamp"]');
   const WHEN = { d: ['白天', '藍天和城市'], k: ['傍晚', '傍晚的天和月亮'], n: ['夜裡', '月亮和城市'] };
-  let set = html.dataset.rmSet || 'n', lampOn = html.dataset.rmLamp !== 'off', want = { s: set, on: lampOn };
+  let set = html.dataset.rmSet || 'n', lampOn = html.dataset.rmLamp !== 'off', want = { s: set, on: lampOn, k: html.dataset.rmSky || 'a0' };
   const load = src => new Promise(ok => { const i = new Image(); i.onload = i.onerror = ok; i.src = src; });
-  const ready = (st, on) => Promise.all(Object.values(sky.urls(st, on)).map(load));
-  function go(st, on) {
-    if (st === want.s && on === want.on) return;
-    const w = want = { s: st, on };
-    ready(st, on).then(() => { if (want === w) { sky.paint(st, on); set = st; lampOn = on; dress(); } });
+  const ready = (st, on, k) => Promise.all(Object.values(sun.urls(st, on, k)).map(load));
+  function go(st, on, k) {
+    if (st === want.s && on === want.on && k === want.k) return;
+    const w = want = { s: st, on, k };
+    ready(st, on, k).then(() => { if (want === w) { sun.paint(st, on, k); set = st; lampOn = on; dress(); } });
   }
   function setLamp(on) {
     try { sessionStorage.setItem(want.s === 'd' ? 'rm-lamp-d' : 'rm-lamp-n', on ? 'on' : 'off'); } catch {}
-    go(want.s, on);
+    go(want.s, on, want.k);
   }
   // 圖以外跟著換的: 檯燈的名牌、讀螢幕用的說明、白天亮一階的海報月曆鬧鐘
   function dress() {
@@ -94,9 +95,10 @@
     const [when, out] = WHEN[set];
     bg.setAttribute('aria-label', `${when}的房間: 書桌上有${lampOn ? '亮著的' : ''}檯燈、插在充電座上的折疊手機、CRT 電腦和收音機, 窗開著, 外面是${out}`);
     paintPoster(); drawCal(); tickClock();
-    ready(set, !lampOn);   // 另一盞燈的圖先載好, 開關的時候馬上換
+    ready(set, !lampOn, want.k);   // 另一盞燈的圖先載好, 開關的時候馬上換
   }
-  setInterval(() => { const st = sky.set(); if (st !== want.s) go(st, sky.lamp(st)); }, sky.speed > 1 ? 250 : 15000);
+  // 每 15 秒看一次天色 (天亮天黑的時候天空幾分鐘就換一套)
+  setInterval(() => { const n = sun.now(); go(n.s, sun.lamp(n.s), n.k); }, sun.speed > 1 ? 250 : 15000);
 
   /* ---------- 海報、月曆 (跟 N247i 待受畫面用同一份資料) ---------- */
   const jst = () => new Date(Date.now() + 9 * 36e5);

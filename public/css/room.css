@@ -1,7 +1,7 @@
 /* room.css — 首頁的房間 (行為在 /js/room.js, 圖 /img/room/*.png)
    class 全部 rm- 開頭。房間原圖 480×270, 所有座標都用原圖像素寫, 乘上 --s (倍率) 才是螢幕上的大小。
-   用哪一張圖 (白天 / 傍晚 / 晚上, 檯燈開關) 是 RoomScene 開頭那段 script 放進 --rm-room 這些變數的, <html> 上也標了
-   data-rm-set (d / k / n) 跟 data-rm-lamp。 */
+   用哪一張圖 (白天 / 傍晚 / 晚上, 檯燈開關, 天空哪一套) 是 RoomScene 開頭那段 script 放進 --rm-room 這些變數的,
+   <html> 上也標了 data-rm-set (d / k / n)、data-rm-lamp 跟 data-rm-sky。 */
 
 .rm { position: relative; height: 100svh; min-height: 320px;   /* 首頁就只有房間, 整個畫面都是它 */
   background: #161229; overflow: hidden; }
@@ -10,6 +10,7 @@
 .rm-pan::-webkit-scrollbar { display: none; }
 .rm-stage { --s: 2; position: relative; flex: none; margin: auto; width: calc(480px * var(--s)); height: calc(270px * var(--s)); }
 .rm-bg, .rm-shippo { position: absolute; inset: 0; background: var(--rm-room, url(/img/room/room.png)) 0 0 / 100% 100% no-repeat; image-rendering: pixelated; }
+.rm-bg { background-image: var(--rm-room, url(/img/room/room.png)), var(--rm-sky, url(/img/room/sky/a0.png)); }   /* 窗的玻璃是透明的, 天空疊在後面 */
 .rm-shippo { background-image: var(--rm-shippo, url(/img/room/shippo.png)); }
 /* 畫面比房間寬或高的時候, 牆、地板、天花板一路接到畫面邊: 房間外面那一圈像素拉長 (border-image 畫在外面, 不算進捲動範圍) */
 .rm-bg { border-image: var(--rm-edge, url(/img/room/room-edge.png)) 1 / 100vmax / 100vmax stretch; }
@@ -83,7 +84,7 @@
 :root[data-rm-set="k"] .rm-out { background: #142050; }
 .rm-out-stage { position: absolute; left: 0; top: 0; width: calc(480px * var(--k, 2)); height: calc(400px * var(--k, 2)); }
 .rm-ol { position: absolute; inset: 0; width: 100%; height: 100%; background: 0 0 / 100% 100% no-repeat; image-rendering: pixelated; pointer-events: none; }
-.rm-ol-base { background-image: var(--rm-out); }       /* 屋子、窗裡的房間、裡面那扇窗 */
+.rm-ol-base { background-image: var(--rm-out), var(--rm-outsky); }   /* 屋子、窗裡的房間、裡面那扇窗; 天空在後面 */
 .rm-ol-sash { background-image: var(--rm-sash); }      /* 外面那扇, 往右拉開 */
 .rm-ol-frame { background-image: var(--rm-frame); }
 .rm-op { position: absolute; left: calc(var(--x) * 100% / 480); top: calc(var(--y) * 100% / 400);
