@@ -3,18 +3,20 @@
  * 房間是 480×270 的像素畫: 依畫面算一個倍率 --s, 對齊螢幕實體像素, 放大後每一格一樣大。
  * 直的螢幕塞不下就照高度放大、左右滑著看, 一開始停在手機那邊。
  * 熱區: 滑鼠滑過去四個角框起來, 名牌只寫點了會去哪; 觸控直接點就進去。
- * 手機 = 把網頁版 N247i 拿起來 (疊一層, 闔上就放回去); 電腦 = 指令列; しっぽ 點了會晃; 檯燈可以開關 (記在瀏覽器)。
+ * 手機 = 把網頁版 N247i 拿起來 (疊一層, 闔上就放回去); 電腦 = 指令列; しっぽ 點了會晃; 檯燈可以開關。
  * 海報 = 今日の一曲的封面 (跟 N247i 待受同一首), 用房間的色盤重畫; 月曆每天自己翻到今天, 圈下一場;
  * 書櫃上的鬧鐘是現在幾點 (2:47 / 14:47 會變粉紅)。
- * 開場: 走廊上虛掩的門, 門縫裡的房間亮到看不清, 光一路鋪到腳邊 (窗簾影子偶爾掃過、灰塵、今天那首歌的歌詞沿著光漂過來);
- * 壓下門把 → 門推開, 光淹滿畫面 → 眼睛慢慢適應, 看清房間 (Enter 開門, Esc 跳過)。
- * 右下角的喇叭: 自己合成的 lo-fi, 門關著的時候被門板悶住, 進了房間才清楚。
+ * 天色: 照東京現在的太陽高度換白天 / 傍晚 / 晚上的房間 (第一張是 RoomScene 開頭那段 script 決定的, 這裡每 15 秒再看一次);
+ * 白天的海報、月曆、鬧鐘跟著房間亮一階, 流星只有晚上才有。
+ * 開場: 站在一樓的屋頂上, 二樓我房間的窗開著一條縫, 今天那首歌的歌詞從縫裡飄出來 (晚上飄過屋簷會變成一顆星);
+ * 把外面那扇窗往右拉開 (拖、點、Enter), 拉到底停一下就直接切到房間裡。鏡頭不動, 沒有特效; Esc 直接進去。
+ * 右下角的喇叭: 自己合成的 lo-fi, 隔著玻璃是悶的, 窗拉開一點清楚一點; 外面有風, 偶爾遠遠的平交道跟電車。
  */
 (() => {
   const root = document.querySelector('[data-room]');
   if (!root) return;
   const pan = root.querySelector('.rm-pan'), stage = root.querySelector('.rm-stage'), tip = root.querySelector('.rm-tip');
-  const shippo = stage.querySelector('.rm-shippo');
+  const shippo = stage.querySelector('.rm-shippo'), html = document.documentElement, sky = window.__room;
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const W = 480, H = 270, PHONE_X = 230;
   const v = (el, k) => +el.style.getPropertyValue('--' + k);
@@ -50,7 +52,7 @@
   function hideTip() { if (cur) cur.classList.remove('on'); cur = null; tip.classList.remove('show'); }
 
   /* ---------- 點了之後 ---------- */
-  const ACTS = { phone: pickUp, cli: () => window.__shellCli?.open(), shippo: swing, lamp: () => setLamp(!lampOn), none() {} };
+  const ACTS = { phone: pickUp, cli: () => window.__shellCli?.open(), shippo: swing, lamp: () => setLamp(!want.on), none() {} };
   stage.querySelectorAll('.rm-hs').forEach(el => {
     el.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { showTip(el); if (el.dataset.act === 'shippo') swing(); } });
     el.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && cur === el) hideTip(); });
@@ -70,27 +72,50 @@
   }
   shippo.addEventListener('animationend', () => shippo.classList.remove('swing'));
 
-  /* ---------- 檯燈 ---------- */
-  const bg = stage.querySelector('.rm-bg'), ROOM_ON = bg.getAttribute('src'), ROOM_OFF = '/img/room/room-off.png';
-  const lampSpot = stage.querySelector('[data-k="lamp"]');
-  let lampOn = true;
-  try { lampOn = localStorage.getItem('rm-lamp') !== 'off'; } catch {}
-  function setLamp(on) {
-    lampOn = on; bg.src = on ? ROOM_ON : ROOM_OFF; lampSpot.dataset.sub = on ? '關燈' : '開燈';
-    try { localStorage.setItem('rm-lamp', on ? 'on' : 'off'); } catch {}
-    if (cur === lampSpot) showTip(lampSpot);
+  /* ---------- 天色、檯燈: 換之前先把那一套圖載好, 換的時候才不會閃一下 ---------- */
+  const bg = stage.querySelector('.rm-bg'), lampSpot = stage.querySelector('[data-k="lamp"]');
+  const WHEN = { d: ['白天', '藍天和城市'], k: ['傍晚', '傍晚的天和月亮'], n: ['夜裡', '月亮和城市'] };
+  let set = html.dataset.rmSet || 'n', lampOn = html.dataset.rmLamp !== 'off', want = { s: set, on: lampOn };
+  const load = src => new Promise(ok => { const i = new Image(); i.onload = i.onerror = ok; i.src = src; });
+  const ready = (st, on) => Promise.all(Object.values(sky.urls(st, on)).map(load));
+  function go(st, on) {
+    if (st === want.s && on === want.on) return;
+    const w = want = { s: st, on };
+    ready(st, on).then(() => { if (want === w) { sky.paint(st, on); set = st; lampOn = on; dress(); } });
   }
-  if (!lampOn) setLamp(false); else new Image().src = ROOM_OFF;   // 先載好, 關燈的時候不會閃一下
+  function setLamp(on) {
+    try { sessionStorage.setItem(want.s === 'd' ? 'rm-lamp-d' : 'rm-lamp-n', on ? 'on' : 'off'); } catch {}
+    go(want.s, on);
+  }
+  // 圖以外跟著換的: 檯燈的名牌、讀螢幕用的說明、白天亮一階的海報月曆鬧鐘
+  function dress() {
+    lampSpot.dataset.sub = lampOn ? '關燈' : '開燈';
+    if (cur === lampSpot) showTip(lampSpot);
+    const [when, out] = WHEN[set];
+    bg.setAttribute('aria-label', `${when}的房間: 書桌上有${lampOn ? '亮著的' : ''}檯燈、插在充電座上的折疊手機、CRT 電腦和收音機, 窗開著, 外面是${out}`);
+    paintPoster(); drawCal(); tickClock();
+    ready(set, !lampOn);   // 另一盞燈的圖先載好, 開關的時候馬上換
+  }
+  setInterval(() => { const st = sky.set(); if (st !== want.s) go(st, sky.lamp(st)); }, sky.speed > 1 ? 250 : 15000);
 
   /* ---------- 海報、月曆 (跟 N247i 待受畫面用同一份資料) ---------- */
   const jst = () => new Date(Date.now() + 9 * 36e5);
   const today = jst().toISOString().slice(0, 10), jstDay = Math.floor((Date.now() + 9 * 36e5) / 864e5);
 
   // 房間的色盤 (原圖 35 色), 海報重畫只用這些顏色
-  const PAL = ['07060f', '0e0b1d', '161229', '1f1838', '2b2249', '3b335f', '0c1430', '142050', '22377a', '3f63a8', '8fb0e0', 'eef0d6',
+  const HEX = ['07060f', '0e0b1d', '161229', '1f1838', '2b2249', '3b335f', '0c1430', '142050', '22377a', '3f63a8', '8fb0e0', 'eef0d6',
     '24140f', '3a2219', '573424', '7a4b30', 'a3673b', 'c98d52', '6e2a2a', 'c4532a', 'f29b4a', 'ffd27a', 'fff3c4', '9d95c9', 'c9c3e6',
-    'ece8ff', 'd9507a', '2c5b40', '7ee0b0', 'e8c94a', '5ca8ff', 'cfc2a4', '8f8270', '3e2a45', '5a3a48'].map(h => [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16)));
+    'ece8ff', 'd9507a', '2c5b40', '7ee0b0', 'e8c94a', '5ca8ff', 'cfc2a4', '8f8270', '3e2a45', '5a3a48'];
+  const PAL = HEX.map(h => [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16)));
+  // 白天: 每條色階往亮的那邊走一格, 跟白天那張房間圖同一張表 (沒在表上的顏色不變, 像螢幕、LED 自己會亮)
+  const UP = {};
+  for (const ramp of [['07060f', '0e0b1d', '161229', '1f1838', '2b2249', '3b335f', '9d95c9', 'c9c3e6', 'ece8ff'],
+    ['24140f', '3a2219', '573424', '7a4b30', 'a3673b', 'c98d52'], ['3e2a45', '5a3a48', '8f8270', 'cfc2a4', 'eef0d6'],
+    ['0c1430', '142050', '22377a', '3f63a8', '8fb0e0']]) ramp.forEach((c, i) => { UP['#' + c] = '#' + (ramp[i + 1] || c); });
+  const lit = col => set === 'd' ? UP[col] || col : col;
+  const UPI = HEX.map(h => HEX.indexOf((UP['#' + h] || '#' + h).slice(1)));   // 色盤第幾色 → 白天是第幾色
   const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+  let posterIdx = null;   // 海報每一格是色盤的第幾色 (晚上的顏色)
   function drawPoster(song) {
     const spot = stage.querySelector('[data-k="poster"]');
     spot.href = `/live/full/${song.id}/`; spot.dataset.sub = `${song.title} · 完整 Live`;
@@ -100,17 +125,25 @@
     img.onload = () => {
       const c = stage.querySelector('.rm-poster'), x = c.getContext('2d', { willReadFrequently: true }), N = c.width;
       x.imageSmoothingQuality = 'high'; x.drawImage(img, 0, 0, N, N);
-      const im = x.getImageData(0, 0, N, N), p = im.data;
+      const p = x.getImageData(0, 0, N, N).data;
+      posterIdx = new Uint8Array(N * N);
       for (let i = 0; i < p.length; i += 4) {
         const k = i / 4, t = (BAYER[(k / N & 3) * 4 + (k % N & 3)] / 16 - .5) * 12;
         const r = p[i] * .8 + t, g = p[i + 1] * .8 + t, b = p[i + 2] * .88 + t;   // 夜裡的房間: 壓暗一點、偏冷
-        let best = PAL[0], bd = Infinity;
-        for (const q of PAL) { const dr = r - q[0], dg = g - q[1], db = b - q[2], dd = 3 * dr * dr + 4 * dg * dg + 2 * db * db; if (dd < bd) { bd = dd; best = q; } }
-        p[i] = best[0]; p[i + 1] = best[1]; p[i + 2] = best[2]; p[i + 3] = 255;
+        let best = 0, bd = Infinity;
+        PAL.forEach((q, n) => { const dr = r - q[0], dg = g - q[1], db = b - q[2], dd = 3 * dr * dr + 4 * dg * dg + 2 * db * db; if (dd < bd) { bd = dd; best = n; } });
+        posterIdx[k] = best;
       }
-      x.putImageData(im, 0, 0); c.classList.add('on');
+      paintPoster(); c.classList.add('on');
     };
     img.src = song.cover;
+  }
+  function paintPoster() {
+    if (!posterIdx) return;
+    const c = stage.querySelector('.rm-poster'), x = c.getContext('2d', { willReadFrequently: true }), N = c.width;
+    const im = x.createImageData(N, N), p = im.data;
+    posterIdx.forEach((n, k) => { const q = PAL[set === 'd' ? UPI[n] : n]; p[k * 4] = q[0]; p[k * 4 + 1] = q[1]; p[k * 4 + 2] = q[2]; p[k * 4 + 3] = 255; });
+    x.putImageData(im, 0, 0);
   }
 
   // 月曆: 照原圖的排法畫這個月 (5×7 像素字), 今天塗黃、過去的日子變淡、下一場用粉紅筆圈起來
@@ -121,10 +154,11 @@
     S: '15161614010130', T: '31040404040404', U: '17171717171714', V: '17171717171004', Y: '17171004040404' };
   const MON = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
   const RING = [[1, 0], [2, 0], [3, 0], [0, 1], [4, 1], [0, 2], [4, 2], [0, 3], [4, 3], [0, 4], [4, 4], [1, 5], [2, 5], [3, 5], [5, 0], [6, -1]];
-  function drawCal(next) {
+  let next = null;   // 下一場
+  function drawCal() {
     const c = stage.querySelector('.rm-cal'), x = c.getContext('2d');
-    const dot = (px, py, col) => { x.fillStyle = col; x.fillRect(px, py, 1, 1); };
-    const box = (px, py, w, h, col) => { x.fillStyle = col; x.fillRect(px, py, w, h); };
+    const dot = (px, py, col) => { x.fillStyle = lit(col); x.fillRect(px, py, 1, 1); };
+    const box = (px, py, w, h, col) => { x.fillStyle = lit(col); x.fillRect(px, py, w, h); };
     const text = (str, px, py, col) => [...str].forEach((ch, n) => {
       const g = FONT[ch];
       for (let r = 0; r < 7; r++) for (let b = 0; b < 5; b++) if (+g.slice(r * 2, r * 2 + 2) & (16 >> b)) dot(px + n * 6 + b, py + r, col);
@@ -148,12 +182,12 @@
     c.classList.add('on');
   }
 
-  drawCal(null);
-  let todayLines = [];   // 今日の一曲的歌詞, 開場的門縫用
+  let todayLines = [];   // 今日の一曲的歌詞, 開場從窗縫飄出來的就是這首
   fetch('/n247i.json').then(r => r.json()).then(d => {
-    const next = (d.upcoming || []).find(e => e.date >= today), cal = stage.querySelector('[data-k="calendar"]');
+    next = (d.upcoming || []).find(e => e.date >= today) || null;
+    const cal = stage.querySelector('[data-k="calendar"]');
     if (next) cal.dataset.sub = `Live 演出 · 下一場 ${+next.date.slice(5, 7)}/${+next.date.slice(8)}`;
-    drawCal(next);
+    drawCal();
     const song = d.songs.length ? d.songs[jstDay % d.songs.length] : null;   // N247i 的今日の一曲也是這樣挑
     if (song) { drawPoster(song); todayLines = song.lines.filter(l => l.ja); }
   }).catch(() => {});
@@ -165,7 +199,7 @@
   function tickClock() {
     const d = new Date(), hh = String(d.getHours()).padStart(2, '0'), mm = String(d.getMinutes()).padStart(2, '0');
     const col = mm === '47' && (hh === '02' || hh === '14') ? '#d9507a' : '#7ee0b0';   // にしな = 2:47
-    cx.fillStyle = '#07060f'; cx.fillRect(0, 0, 25, 8); cx.fillStyle = col;
+    cx.fillStyle = lit('#07060f'); cx.fillRect(0, 0, 25, 8); cx.fillStyle = col;
     [...hh, ':', ...mm].forEach((ch, i) => {
       const x0 = 4 + i * 4 - (i > 2 ? 2 : 0);
       if (ch === ':') { if (d.getSeconds() % 2 === 0) { cx.fillRect(x0, 2, 1, 1); cx.fillRect(x0, 4, 1, 1); } return; }
@@ -173,7 +207,8 @@
     });
     clock.classList.add('on');
   }
-  tickClock(); setInterval(tickClock, 1000);
+  setInterval(tickClock, 1000);
+  dress();
 
   /* 直的螢幕一開始提示可以左右滑, 滑過就不用了 */
   pan.addEventListener('scroll', () => root.querySelector('.rm-swipe')?.remove(), { once: true, passive: true });
@@ -215,24 +250,26 @@
   // 分享出去的 ?n2=uta/<id> 這種連結: 直接拿起手機, 讓手機自己開到那一頁
   if (new URLSearchParams(location.search).has('n2')) pickUp();
 
-  /* ---------- 窗外的流星 ---------- */
+  /* ---------- 窗外的流星 (晚上才有) ---------- */
   if (!still) {
     const panes = [...stage.querySelectorAll('.rm-sky')];
     const shoot = () => {
+      setTimeout(shoot, 7000 + Math.random() * 11000);
+      if (set !== 'n') return;
       const pane = panes[Math.random() * panes.length | 0], st = document.createElement('i');
       const x0 = 18 + Math.random() * (v(pane, 'w') - 18), y0 = Math.random() * v(pane, 'h') * .45;
       st.style.left = x0 * s + 'px'; st.style.top = y0 * s + 'px';
       pane.append(st);
       st.animate([{ translate: '0 0', opacity: 1 }, { translate: `${-26 * s}px ${13 * s}px`, opacity: 0 }],
         { duration: 700, easing: 'steps(9)' }).onfinish = () => st.remove();
-      setTimeout(shoot, 7000 + Math.random() * 11000);
     };
     setTimeout(shoot, 2500);
   }
-  /* ---------- 聲音: 自己合成的 lo-fi。門關著的時候被門板悶住 (低通), 進了房間才清楚 ---------- */
+
+  /* ---------- 聲音: 自己合成的 lo-fi。隔著玻璃是悶的 (低通), 窗拉開一點清楚一點, 進了房間才清楚 ---------- */
   const lofi = (() => {
-    let ac = null, bus, lp, noise, on = false, step = 0, nextT = 0, timer = 0;
-    let inside = !document.documentElement.classList.contains('rm-intro');
+    let ac = null, bus, lp, noise, long, amb, far, windG, rollG, on = false, step = 0, nextT = 0, timer = 0, nextTrain = 0, ajar = 0;
+    let inside = !html.classList.contains('rm-intro');
     const SIX = 60 / 74 / 4, hz = m => 440 * 2 ** ((m - 69) / 12);
     const CH = [[53, 57, 60, 64], [52, 55, 59, 62], [50, 53, 57, 60], [48, 52, 55, 59]];   // Fmaj7 → Em7 → Dm7 → Cmaj7, 一個和弦一小節
     const BASS = [41, 40, 38, 36];
@@ -241,19 +278,33 @@
       [67, _, _, 64, _, _, 62, _, 64, _, 67, _, _, _, _, _],
       [65, _, _, 64, _, _, 62, _, 60, _, _, 62, _, _, _, _],
       [64, _, _, _, 62, _, 60, _, 59, _, _, _, 55, _, _, _]];
-    const MUFFLED = 380, LATCHED = 900, OPEN = 12000;
+    const MUFFLED = 380, AJAR = 2200, OPEN = 12000;
     function build() {
       ac = new (window.AudioContext || window.webkitAudioContext)();
-      lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = 1.1; lp.frequency.value = inside ? OPEN : MUFFLED;
+      lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = 1.1; lp.frequency.value = inside ? OPEN : MUFFLED + (AJAR - MUFFLED) * ajar;
       const master = ac.createGain(); master.gain.value = .55;
       bus = ac.createGain(); bus.connect(lp).connect(master).connect(ac.destination);
       noise = ac.createBuffer(1, ac.sampleRate, ac.sampleRate);
       const d = noise.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      long = ac.createBuffer(1, ac.sampleRate * 4, ac.sampleRate);
+      const l = long.getChannelData(0); for (let i = 0, b = 0; i < l.length; i++) { b = b * .97 + (Math.random() * 2 - 1) * .3; l[i] = b; }
       // 唱片的沙沙聲: 很稀的爆點
       const cb = ac.createBuffer(1, ac.sampleRate * 3, ac.sampleRate), c = cb.getChannelData(0);
       for (let i = 0; i < c.length; i++) c[i] = Math.random() < .0007 ? (Math.random() - .5) * 1.4 : (Math.random() - .5) * .02;
       const crackle = ac.createBufferSource(), cg = ac.createGain();
       crackle.buffer = cb; crackle.loop = true; cg.gain.value = .12; crackle.connect(cg).connect(bus); crackle.start();
+      // 外面的聲音 (不被玻璃悶住): 風, 遠遠的平交道跟電車
+      amb = ac.createGain(); amb.connect(ac.destination);
+      far = ac.createBiquadFilter(); far.type = 'lowpass'; far.frequency.value = 1500; far.connect(amb);
+      const ws = ac.createBufferSource(), wf = ac.createBiquadFilter();
+      ws.buffer = long; ws.loop = true; wf.type = 'bandpass'; wf.frequency.value = 420; wf.Q.value = .6;
+      windG = ac.createGain(); windG.gain.value = inside ? .012 : .02;
+      ws.connect(wf).connect(windG).connect(amb); ws.start();
+      // 拉窗: 鋁窗的滾輪在軌道上「ゴロゴロ」, 音量跟著速度
+      const rs = ac.createBufferSource(), rf = ac.createBiquadFilter();
+      rs.buffer = long; rs.loop = true; rf.type = 'bandpass'; rf.frequency.value = 850; rf.Q.value = 2.2;
+      rollG = ac.createGain(); rollG.gain.value = 0; rs.connect(rf).connect(rollG).connect(ac.destination); rs.start();
+      nextTrain = ac.currentTime + 18;
     }
     function env(t, vol, a, len) { const g = ac.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + a); g.gain.exponentialRampToValueAtTime(.0001, t + len); g.connect(bus); return g; }
     function keys(t, m, len, vol) {   // 電鋼琴: 正弦加一點點高八度的三角波, 每個音隨機偏一點點, 像舊錄音帶
@@ -283,8 +334,26 @@
       if (i === 4 || i === 12) hiss(t, 'bandpass', 1800, .22, .16);
       if (!(i & 1)) hiss(t, 'highpass', 7000, i % 4 ? .025 : .045, .04);
     }
-    function tick() { while (nextT < ac.currentTime + .15) { play(step % 64, nextT); step++; nextT += SIX; } }
-    const to = (f, tc) => { if (ac) lp.frequency.setTargetAtTime(f, ac.currentTime, tc); };
+    function bell(t, vol) {   // 平交道的鐘「カンカン」
+      for (const [f, g0] of [[700, 1], [1050, .55], [1400, .22]]) {
+        const o = ac.createOscillator(), g = ac.createGain();
+        o.frequency.value = f; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol * g0, t + .005); g.gain.exponentialRampToValueAtTime(.0001, t + .32);
+        o.connect(g).connect(far); o.start(t); o.stop(t + .35);
+      }
+    }
+    function train(t) {   // 鐘響一陣, 電車轟轟地過去, 鐵軌接縫「タタン」
+      for (let i = 0; i < 14; i++) bell(t + i * .46, .004 + .018 * Math.sin(Math.PI * (i + .5) / 14));
+      const t0 = t + 4.5, src = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
+      src.buffer = long; src.loop = true; f.type = 'lowpass'; f.frequency.value = 170;
+      g.gain.setValueAtTime(0, t0); g.gain.linearRampToValueAtTime(.09, t0 + 2.5); g.gain.linearRampToValueAtTime(0, t0 + 6.5);
+      src.connect(f).connect(g).connect(amb); src.start(t0); src.stop(t0 + 6.6);
+      for (let j = 0; j < 7; j++) { const tt = t0 + .8 + j * .78; hiss(tt, 'lowpass', 220, .05, .07, amb); hiss(tt + .14, 'lowpass', 220, .04, .07, amb); }
+    }
+    function tick() {
+      while (nextT < ac.currentTime + .15) { play(step % 64, nextT); step++; nextT += SIX; }
+      if (ac.currentTime > nextTrain) { train(ac.currentTime + .1); nextTrain = ac.currentTime + 80 + Math.random() * 40; }
+    }
+    const ok = () => on && ac;
     return {
       toggle() {
         on = !on;
@@ -292,86 +361,73 @@
         else { clearInterval(timer); ac.suspend(); }
         return on;
       },
-      // 壓門把: 門鎖「喀」一聲 (在門外, 不被悶住), 門鬆開一點, 裡面的聲音漏出來多一點
-      latch() { if (!on) return; const t = ac.currentTime; hiss(t, 'bandpass', 2600, .5, .03, ac.destination); hiss(t + .07, 'bandpass', 1900, .35, .04, ac.destination); to(LATCHED, .05); },
-      release() { if (on && !inside) to(MUFFLED, .1); },
-      open() { inside = true; to(OPEN, .45); },
+      setOpen(f) { ajar = f; if (ac && !inside) lp.frequency.setTargetAtTime(MUFFLED + (AJAR - MUFFLED) * f, ac.currentTime, .05); },
+      roll(vel) { if (ok()) rollG.gain.setTargetAtTime(Math.min(.1, vel * .045), ac.currentTime, .03); },
+      seam(vel) { if (ok()) hiss(ac.currentTime, 'bandpass', 2600 + Math.random() * 900, .02 + vel * .03, .015, ac.destination); },   // 軌道的接縫
+      stop() {   // 拉到底「コトン」
+        if (!ok()) return;
+        const t = ac.currentTime; rollG.gain.setTargetAtTime(0, t, .02);
+        hiss(t, 'lowpass', 300, .16, .07, ac.destination); hiss(t, 'bandpass', 900, .05, .04, ac.destination);
+      },
+      inside() { inside = true; if (ac) { lp.frequency.setTargetAtTime(OPEN, ac.currentTime, .3); windG.gain.setTargetAtTime(.012, ac.currentTime, .6); } },
     };
   })();
   const snd = root.querySelector('.rm-snd');
   snd.addEventListener('click', () => snd.setAttribute('aria-pressed', lofi.toggle()));
 
-  /* ---------- 開場: 走廊上虛掩的門 ---------- */
-  const door = root.querySelector('.rm-door'), flood = root.querySelector('.rm-flood');
-  if (door && document.documentElement.classList.contains('rm-intro')) intro();
+  /* ---------- 開場: 站在一樓的屋頂上, 二樓我房間的窗開著一條縫 ---------- */
+  const out = root.querySelector('.rm-out');
+  if (html.classList.contains('rm-intro')) intro(); else out.remove();
   function intro() {
-    const dstage = door.querySelector('.rm-door-stage'), img = door.querySelector('.rm-door-img'), knob = door.querySelector('.rm-knob');
-    const lyr = door.querySelector('.rm-lyrics'), cv = door.querySelector('.rm-door-fx'), g = cv.getContext('2d');
-    const FRAMES = [0, 1, 2, 3].map(i => `/img/room/door-${i}.png`);
-    FRAMES.slice(1).forEach(src => { new Image().src = src; });
-    const GAP = { x0: 255, x1: 290, y0: 20, y1: 166 };                        // 門縫 (走廊圖的座標)
-    const BEAM = { y0: 167, y1: 269, l0: 255, l1: 214, r0: 292, r1: 372 };    // 地上那道光的四個角
-    const xl = y => BEAM.l0 + (BEAM.l1 - BEAM.l0) * (y - BEAM.y0) / (BEAM.y1 - BEAM.y0);
-    const xr = y => BEAM.r0 + (BEAM.r1 - BEAM.r0) * (y - BEAM.y0) / (BEAM.y1 - BEAM.y0);
-    const DEPTH = .85, LOOK = [160, 135];   // 房間在門後比門小一點; 門縫正對房間的這一點 (檯燈附近)
-    let k = 1, dx = 0, dy = 0, opening = false;
+    const OW = 480, OH = 400;
+    const ostage = out.querySelector('.rm-out-stage'), sash = out.querySelector('.rm-ol-sash'), grab = out.querySelector('.rm-grab');
+    const lyr = out.querySelector('.rm-lyrics'), gfx = out.querySelector('.rm-ol-fx').getContext('2d');
+    const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+    let state = 'out', k = 1;
+    pan.inert = true;   // 還站在窗外, Tab 不會跑到房間裡的東西上
 
-    // 走廊圖蓋滿畫面, 以門跟地上那道光為中心 (直的螢幕也是); 房間擺在門後
+    // 窗外的圖蓋滿畫面, 窗在正中間 (直的手機也是)
     function layout() {
       const r = root.getBoundingClientRect();
-      k = Math.max(r.width / W, r.height / H);
-      dx = Math.min(0, Math.max(r.width - W * k, r.width / 2 - 262 * k));
-      dy = Math.min(0, Math.max(r.height - H * k, r.height / 2 - 135 * k));
-      Object.assign(dstage.style, { left: dx + 'px', top: dy + 'px', width: W * k + 'px', height: H * k + 'px', translate: 'none' });
-      root.style.setProperty('--k', k);
-      stage.style.transformOrigin = '0 0'; stage.style.transform = 'none';
-      const base = stage.getBoundingClientRect(), z = k * DEPTH / s;
-      stage.style.transform = `translate(${r.left + dx + (GAP.x0 + GAP.x1) / 2 * k - base.left - LOOK[0] * s * z}px, ${r.top + dy + 93 * k - base.top - LOOK[1] * s * z}px) scale(${z})`;
+      k = Math.max(r.width / OW, r.height / OH);
+      const ox = clamp(r.width / 2 - 240 * k, r.width - OW * k, 0), oy = clamp(r.height / 2 - 200 * k, r.height - OH * k, 0);
+      out.style.setProperty('--k', k); ostage.style.translate = `${ox}px ${oy}px`;
+      placeSash();
     }
 
-    // 影子跟灰塵畫在 480×270 的 canvas 上, 一格就是走廊圖的一格
-    const im = g.createImageData(W, H), px = im.data;
-    const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map(n => (n + .5) / 16);
-    const put = (x, y, r, gg, b, a) => { const i = (y * W + x) * 4; px[i] = r; px[i + 1] = gg; px[i + 2] = b; px[i + 3] = a; };
-    // 窗簾影子: 隔一陣子, 房間裡的窗簾被風吹到燈前面, 影子從光的一邊掃進來, 停一下又退回去
-    const sw = { t: 0, dur: 0, peak: 0, side: 1, wait: 2400 };
-    function shadow(dt) {
-      if (!sw.dur) { sw.wait -= dt; if (sw.wait <= 0) Object.assign(sw, { t: 0, dur: 3400 + Math.random() * 1800, peak: .3 + Math.random() * .4, side: Math.random() < .6 ? -1 : 1 }); return; }
-      sw.t += dt;
-      if (sw.t >= sw.dur) { sw.dur = 0; sw.wait = 6000 + Math.random() * 7000; return; }
-      const e = -.15 + (sw.peak + .15) * Math.sin(Math.PI * sw.t / sw.dur) ** 1.4, PEN = .1;
-      const amt = (u, y) => {
-        if (sw.side > 0) u = 1 - u;
-        const w = e + .025 * Math.sin(y * .11 + sw.t / 260) + .015 * Math.sin(y * .37 - sw.t / 170);   // 布的皺褶, 邊緣有點波浪
-        return u < w - PEN ? 1 : u > w ? 0 : (w - u) / PEN;
-      };
-      for (let y = GAP.y0; y <= GAP.y1; y++) for (let x = GAP.x0; x <= GAP.x1; x++)
-        if (amt((x - GAP.x0) / (GAP.x1 - GAP.x0), y) > BAYER[(y & 3) * 4 + (x & 3)]) put(x, y, 87, 52, 36, 170);
-      for (let y = BEAM.y0 + 1; y <= BEAM.y1; y++) {
-        const l = Math.round(xl(y)), r = Math.round(xr(y));
-        for (let x = l; x <= r; x++) if (amt((x - l) / (r - l), y) > BAYER[(y & 3) * 4 + (x & 3)]) put(x, y, 14, 11, 29, 150);
+    // 外面那扇窗往右拉: 8 = 原本開著的縫, 72 = 全開。拖的時候有點重, 像有摩擦的彈簧
+    let off = 8, offT = 8, vel = 0, stuck = true, lastSeam = 8;
+    const placeSash = () => { sash.style.translate = off * k + 'px 0'; };
+    function stepSash(dt) {
+      const d = clamp(offT, 8, 72) - off;
+      if (Math.abs(d) < .05 && Math.abs(vel) < .01) { if (vel) { vel = 0; lofi.roll(0); } return; }
+      vel += (d * .018 - vel * .22) * dt / 16;
+      vel = clamp(vel, -1.6, 1.6);
+      const prev = off; off = clamp(off + vel * dt / 16, 8, 72);
+      if ((off === 72 && vel > 0) || (off === 8 && vel < 0)) { if (Math.abs(vel) > .25) lofi.stop(); vel = 0; }
+      lofi.roll(Math.abs(off - prev) * 16 / dt);
+      if (Math.abs(off - lastSeam) > 5) { lastSeam = off; lofi.seam(Math.min(1, Math.abs(vel))); }
+      lofi.setOpen((off - 8) / 64); placeSash();
+    }
+
+    // 今天那首歌的歌詞: 從窗縫飄出來, 沿著牆往上; 晚上過了屋簷會變成一顆星
+    const fxData = gfx.createImageData(OW, OH), fx32 = new Uint32Array(fxData.data.buffer), stars = [];
+    const BAY = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map(n => (n + .5) / 16), bay = (x, y) => BAY[(y & 3) * 4 + (x & 3)];
+    const STAR = 0xffd6f0ee, STAR2 = 0xffe6c3c9;   // #eef0d6 / #c9c3e6 (ImageData 是 RGBA, 小端序倒過來寫)
+    let drawn = false;
+    function drawStars(t) {
+      if (!stars.length && !drawn) return;
+      fx32.fill(0);
+      for (let i = stars.length - 1; i >= 0; i--) {
+        const st = stars[i], age = t - st.born;
+        if (age > 45000 || set !== 'n') { stars.splice(i, 1); continue; }
+        if (age < 2000 && bay(st.x, st.y) > age / 2000) continue;               // 慢慢浮現
+        if (age > 40000 && bay(st.x, st.y) < (age - 40000) / 5000) continue;    // 慢慢淡掉
+        fx32[st.y * OW + st.x] = Math.sin(age * .003 + st.p) > .3 ? STAR : STAR2;
       }
+      gfx.putImageData(fxData, 0, 0); drawn = stars.length > 0;
     }
-    // 灰塵: 浮在門縫跟地上那道光之間的空氣裡, 靠門縫的比較亮
-    const mote = any => {
-      const py = 34 + Math.random() * 132, qy = 170 + Math.random() * 99, f = Math.random();
-      const px0 = GAP.x0 + Math.random() * (GAP.x1 - GAP.x0), qx = xl(qy) + Math.random() * (xr(qy) - xl(qy));
-      return { x: px0 + f * (qx - px0), y: py + f * (qy - py), vx: (Math.random() - .5) * .035, vy: (Math.random() - .5) * .03 - .006,
-        life: any ? Math.random() * 500 : 0, max: 300 + Math.random() * 500, b: 1 - f * .55, warm: Math.random() < .4 };
-    };
-    const motes = Array.from({ length: 90 }, () => mote(true));
-    function dust(dt, t) {
-      motes.forEach((m, i) => {
-        m.life += dt / 16; m.x += m.vx * dt / 16 + Math.sin((t + i * 300) / 900) * .012; m.y += m.vy * dt / 16;
-        const x = Math.round(m.x), y = Math.round(m.y);
-        if (m.life > m.max || x < 0 || x >= W || y < 0 || y >= H) return (motes[i] = mote(false));
-        let a = Math.sin(Math.PI * m.life / m.max) * m.b * (.55 + .45 * Math.sin((t + i * 97) / 380));
-        if (px[(y * W + x) * 4 + 3]) a *= .25;   // 在影子裡就暗下去
-        if (a > .08) put(x, y, 255, m.warm ? 210 : 243, m.warm ? 122 : 196, Math.min(255, a * 255) | 0);
-      });
-    }
-    // 歌詞: 從門縫底下出發, 沿著地上的光往畫面前面漂, 越近越大
-    let li = 0, lyricTimer = 2600;
+    let li = 0, lyricT = 2600;
     function emitLyric() {
       if (!todayLines.length) return;
       const l = todayLines[li++ % todayLines.length], el = document.createElement('div');
@@ -379,66 +435,71 @@
       el.append(document.createElement('b'), document.createElement('i'));
       el.firstChild.textContent = l.ja; el.lastChild.textContent = l.zh || '';
       lyr.append(el);
-      const at = (y, z, o) => ({ left: ((xl(y) + xr(y)) / 2 / W * 100) + '%', top: (y / H * 100) + '%', opacity: o, transform: `translate(-50%, -100%) scale(${z})` });
-      el.animate([at(171, .3, 0), at(186, .5, .9), at(232, 1, .8), at(268, 1.45, 0)], { duration: 9000, easing: 'linear', fill: 'forwards' }).onfinish = () => el.remove();
-    }
-    let t = 0, last = performance.now();
-    function frame(now) {
-      if (opening) return g.clearRect(0, 0, W, H);
-      const dt = Math.min(50, now - last); last = now; t += dt;
-      px.fill(0); shadow(dt); dust(dt, t); g.putImageData(im, 0, 0);
-      if ((lyricTimer += dt) > 4600) { lyricTimer = 0; emitLyric(); }
-      requestAnimationFrame(frame);
+      const x0 = 167 + off * .5, xe = 185 + Math.random() * 120, ye = 58 + Math.random() * 40;
+      const at = (x, y, z, o) => ({ left: x / OW * 100 + '%', top: y / OH * 100 + '%', opacity: o, transform: `translate(-50%, -50%) scale(${z})` });
+      el.animate([at(x0, 214, .75, 0), at(x0 - 8, 196, .9, .85), at((x0 + xe) / 2 - 14, 150, .82, .75), at((x0 + xe * 2) / 3, 112, .66, .5), at(xe, ye, .35, 0)],
+        { duration: 11000, easing: 'cubic-bezier(.3,.1,.6,1)', fill: 'forwards' }).onfinish = () => {
+        el.remove();
+        if (state === 'out' && set === 'n') stars.push({ x: Math.round(xe), y: Math.round(ye), born: performance.now(), p: Math.random() * 6 });
+      };
     }
 
+    // 進去: 鏡頭不動。窗拉到底、停一下, 直接切到房間裡 (房間裡的窗就是剛剛拉開的樣子)
+    function openUp() {
+      if (state !== 'out') return;
+      if (still) return enterRoom();
+      state = 'opening'; stuck = false; offT = 72;
+      const wait = () => { if (state !== 'opening') return; if (off > 71.5) setTimeout(enterRoom, 420); else requestAnimationFrame(wait); };
+      requestAnimationFrame(wait);
+    }
+    function enterRoom() {
+      if (state === 'in') return;
+      state = 'in';
+      try { sessionStorage.setItem('rm-intro', '1'); } catch {}
+      removeEventListener('resize', layout); removeEventListener('keydown', onKey);
+      lofi.inside();
+      out.remove(); html.classList.remove('rm-intro'); pan.inert = false;
+    }
+
+    // 拖 (往右)、點一下、Enter 都會拉開; Esc 直接進去
+    let drag = null;
+    grab.addEventListener('pointerdown', e => {
+      if (state !== 'out') return;
+      drag = { x: e.clientX, y: e.clientY, off, moved: 0 };
+      grab.setPointerCapture(e.pointerId); grab.classList.add('drag');
+    });
+    grab.addEventListener('pointermove', e => {
+      if (!drag) return;
+      drag.moved = Math.max(drag.moved, Math.hypot(e.clientX - drag.x, e.clientY - drag.y));
+      let to = drag.off + (e.clientX - drag.x) / k;
+      if (stuck) { if (to - 8 < 3) to = 8; else { stuck = false; lofi.seam(1); } }   // 一開始卡卡的, 用點力才動
+      offT = to;
+    });
+    grab.addEventListener('pointerup', () => {
+      if (!drag) return;
+      const d = drag; drag = null; grab.classList.remove('drag');
+      if (d.moved < 6 || off > 30) openUp(); else { offT = 8; stuck = true; }
+    });
+    grab.addEventListener('pointercancel', () => { if (drag) { drag = null; grab.classList.remove('drag'); offT = 8; stuck = true; } });
+    grab.addEventListener('click', e => { if (e.detail === 0) openUp(); });   // 鍵盤按的
     const onKey = e => {
       if (e.target.closest?.('.rm-snd')) return;
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(false); }
-      else if (e.key === 'Escape') { e.preventDefault(); open(true); }
+      if ((e.key === 'Enter' || e.key === ' ') && state === 'out') { e.preventDefault(); openUp(); }
+      else if (e.key === 'Escape' && state !== 'in') { e.preventDefault(); enterRoom(); }
     };
+
+    let last = performance.now();
+    function frame(t) {
+      if (state === 'in') return;
+      const dt = Math.min(50, t - last); last = t;
+      stepSash(dt); drawStars(t);
+      if (state === 'out' && !still && (lyricT += dt) > 5200) { lyricT = 0; emitLyric(); }
+      requestAnimationFrame(frame);
+    }
     layout();
-    if (!still) requestAnimationFrame(frame);
     addEventListener('resize', layout);
     addEventListener('keydown', onKey);
-    knob.addEventListener('pointerdown', () => { if (!opening) { img.src = FRAMES[1]; lofi.latch(); } });   // 壓下去那一格
-    knob.addEventListener('pointerleave', () => { if (!opening) { img.src = FRAMES[0]; lofi.release(); } });
-    knob.addEventListener('click', () => open(false));
-    knob.focus({ preventScroll: true });
-
-    function open(skip) {
-      if (opening) return;
-      opening = true;
-      try { sessionStorage.setItem('rm-door', '1'); } catch {}
-      removeEventListener('resize', layout); removeEventListener('keydown', onKey);
-      lyr.textContent = ''; lofi.open();
-      const done = () => {
-        [pan, door].forEach(el => el.getAnimations().forEach(a => a.cancel()));
-        pan.style.transformOrigin = ''; stage.style.transform = ''; stage.style.transformOrigin = '';
-        door.remove(); document.documentElement.classList.remove('rm-intro');
-      };
-      if (skip || still) { flood.remove(); return done(); }
-      door.classList.add('opening');
-      img.src = FRAMES[1];
-      setTimeout(() => { img.src = FRAMES[2]; }, 200);
-      setTimeout(() => { img.src = FRAMES[3]; }, 380);
-      // 往門口走進去 (房間跟走廊一起朝門縫放大), 光越來越亮, 白到底的那一刻換成房間
-      const o = `${dx + 273 * k}px ${dy + 100 * k}px`;
-      [pan, door].forEach(el => {
-        el.style.transformOrigin = o;
-        el.animate([{ transform: 'scale(1)' }, { transform: 'scale(2.2)' }], { duration: 1050, easing: 'cubic-bezier(.45,0,.75,1)', fill: 'forwards' });
-      });
-      flood.animate([{ opacity: 0 }, { opacity: .25, offset: .45 }, { opacity: 1 }], { delay: 120, duration: 900, easing: 'ease-in', fill: 'forwards' }).onfinish = () => {
-        done();
-        // 眼睛適應: 一開始整間房間亮到發白、糊糊的, 慢慢才看得清楚
-        stage.animate([
-          { filter: 'brightness(2.8) saturate(.25) contrast(.6) blur(4px)' },
-          { filter: 'brightness(1.7) saturate(.55) contrast(.8) blur(1.5px)', offset: .3 },
-          { filter: 'brightness(1.15) saturate(.9) contrast(.95) blur(.3px)', offset: .65 },
-          { filter: 'brightness(1) saturate(1) contrast(1) blur(0px)' }], { duration: 3400, easing: 'ease-out' });
-        flood.style.display = 'block';   // rm-intro 拿掉之後 CSS 會把它藏起來, 淡完才移掉
-        flood.animate([{ opacity: 1 }, { opacity: 1, offset: .12 }, { opacity: 0 }], { duration: 1500, easing: 'cubic-bezier(.3,.6,.4,1)', fill: 'forwards' })
-          .onfinish = () => flood.remove();   // 白到底先停一下, 像被光閃到
-      };
-    }
+    grab.focus({ preventScroll: true });
+    requestAnimationFrame(frame);
   }
 })();

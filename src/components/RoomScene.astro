@@ -1,20 +1,21 @@
 ---
 /**
- * 首頁的房間: 2005 年夜裡我的房間 (/img/room/room.png, 480×270 的像素畫; Aseprite 原檔不進 repo)。
+ * 首頁的房間: 2005 年我的房間 (/img/room/room*.png, 480×270 的像素畫; Aseprite 原檔不進 repo)。
  * 首頁就只有這間房間, 房間裡的東西就是網站的入口; 座標全部寫原圖像素, 螢幕上的大小交給 /js/room.js 算倍率。
  * 熱區疊的順序有意義: 後面的蓋在前面上面 (月亮、望遠鏡在窗戶上; 桌面資料夾在電腦上; しっぽ在軟木板上)。
  * 名牌只寫點了會去哪, 東西本身是什麼看圖就知道。
- * 海報 (今日の一曲的封面)、月曆 (這個月、今天、下一場)、書櫃上的鬧鐘 (現在幾點) 是 room.js 畫在 canvas 上的;
- * 檯燈關掉換 room-off.png。
- * 開場: 走廊上虛掩的門 (/img/room/door-0~3.png, 門口是透明的, 後面就是這間房間);
- * 每次打開網站演一次 (sessionStorage), 壓下門把才進來。
+ * 房間跟著東京現在的天色: 白天 (檯燈關著、窗外藍天)、傍晚、晚上, 檯燈開關各一張, 都是事先畫好的圖;
+ * 用哪一張由下面那段 script 在畫面出來之前決定 (網址放進 --rm-room 這些 CSS 變數), 之後 room.js 每隔一陣子再看一次。
+ * 海報 (今日の一曲的封面)、月曆 (這個月、今天、下一場)、書櫃上的鬧鐘 (現在幾點) 是 room.js 畫在 canvas 上的。
+ * 開場: 站在一樓的屋頂上, 二樓我房間的窗開著一條縫 (/img/room/window-*.png, 480×400);
+ * 每次打開網站演一次 (sessionStorage), 把窗拉開才進來, 所以房間裡的窗是開著的。
  */
 interface Spot { k: string; sub: string; x: number; y: number; w: number; h: number; href?: string; act?: string }
 
 const SPOTS: Spot[] = [
   { k: 'poster', sub: '完整 Live', x: 26, y: 28, w: 76, h: 76, href: '/live/full/' },   // 名牌和連結 room.js 換成今日の一曲
   { k: 'sky', sub: '歌詞星圖', x: 152, y: 17, w: 176, h: 110, href: '/star-map/' },
-  { k: 'moon', sub: '歌詞宇宙', x: 285, y: 25, w: 29, h: 29, href: '/lyric-universe/' },
+  { k: 'moon', sub: '歌詞宇宙', x: 285, y: 25, w: 29, h: 29, href: '/lyric-universe/' },   // 白天也看得到, 淡淡的
   { k: 'telescope', sub: 'にしなの宇宙', x: 163, y: 100, w: 37, h: 28, href: '/galaxy/' },
   { k: 'lamp', sub: '關燈', x: 124, y: 134, w: 64, h: 24, act: 'lamp' },
   { k: 'shelf', sub: '日文歌翻譯', x: 22, y: 128, w: 86, h: 74, href: '/translations' },
@@ -44,21 +45,60 @@ const pos = (o: { x: number; y: number; w: number; h: number }) => `--x:${o.x};-
 ---
 
 <link rel="stylesheet" href="/css/room.css">
-<!-- 這次打開網站還沒進過門就先把門蓋上 (在畫面出來之前決定, 才不會先閃一下房間); 分享出去的 ?n2= 連結直接進房間 -->
+<!-- 在畫面出來之前先決定房間的樣子 (晚一點才換會先閃一下別的房間):
+     現在是白天、傍晚還是晚上 (東京的太陽高度)、檯燈開著沒、這次打開網站從窗外進來過沒有 (分享出去的 ?n2= 連結直接進房間) -->
 <script is:inline>
-  try { if (!sessionStorage.getItem('rm-door') && !/[?&]n2=/.test(location.search)) document.documentElement.classList.add('rm-intro'); } catch (e) {}
+  (() => {
+    const h = document.documentElement, q = new URLSearchParams(location.search);
+    // ?t=17:20 看某個時刻的房間, ?speed=600 讓時間跑快一點
+    const speed = +q.get('speed') || 1, t0 = Date.now();
+    let start = t0;
+    if (q.get('t')) {
+      const [hh, mm] = q.get('t').split(':').map(Number), j = new Date(t0 + 9 * 36e5);
+      j.setUTCHours(hh || 0, mm || 0, 0, 0); start = j.getTime() - 9 * 36e5;
+    }
+    function sunAlt() {
+      const rad = Math.PI / 180, n = (start + (Date.now() - t0) * speed) / 864e5 + 2440587.5 - 2451545;
+      const g = (357.528 + .9856003 * n) * rad, lam = (280.46 + .9856474 * n + 1.915 * Math.sin(g) + .02 * Math.sin(2 * g)) * rad;
+      const eps = (23.439 - 4e-7 * n) * rad, ra = Math.atan2(Math.cos(eps) * Math.sin(lam), Math.cos(lam)), dec = Math.asin(Math.sin(eps) * Math.sin(lam));
+      const lst = ((18.697374558 + 24.06570982441908 * n) % 24 + 139.69 / 15) * 15 * rad, lat = 35.68 * rad;
+      return Math.asin(Math.sin(lat) * Math.sin(dec) + Math.cos(lat) * Math.cos(dec) * Math.cos(lst - ra)) / rad;
+    }
+    const ROOM = { d: ['room-d', 'room-d-on'], k: ['room-k-off', 'room-k'], n: ['room-off', 'room'] };
+    const room = window.__room = {
+      speed,
+      // 太陽低於 3° 天就暗下來了 (傍晚, 房間的燈看得出來亮著), 低於 -6° 是晚上
+      set() { const a = sunAlt(); return a > 3 ? 'd' : a > -6 ? 'k' : 'n'; },
+      // 檯燈: 白天關著、天黑開著; 這次逛網站自己開關過就照那樣 (白天跟天黑以後各記各的)
+      lamp(s) {
+        try { const v = sessionStorage.getItem(s === 'd' ? 'rm-lamp-d' : 'rm-lamp-n'); if (v) return v === 'on'; } catch (e) {}
+        return s !== 'd';
+      },
+      urls(s, lamp) {
+        const lit = s === 'd' ? 'd' : 'n', f = n => `/img/room/${n}.png`;   // 傍晚從窗外看, 房間的燈已經開了
+        return { room: f(ROOM[s][+lamp]), shippo: f(s === 'd' ? 'shippo-d' : 'shippo'), edge: f(s === 'd' ? 'room-edge-d' : 'room-edge'),
+          out: f('window-' + s), sash: f('window-sash-' + lit), frame: f('window-frame-' + lit) };
+      },
+      paint(s, lamp) {
+        h.dataset.rmSet = s; h.dataset.rmLamp = lamp ? 'on' : 'off';
+        for (const [k, u] of Object.entries(room.urls(s, lamp))) h.style.setProperty('--rm-' + k, `url(${u})`);
+      },
+    };
+    const s = room.set();
+    room.paint(s, room.lamp(s));
+    try { if (!sessionStorage.getItem('rm-intro') && !q.has('n2')) h.classList.add('rm-intro'); } catch (e) {}
+  })();
 </script>
 
 <section class="rm" data-room aria-label="Derek 的房間">
   <h1 class="sr-only">Derek 的房間</h1>
   <div class="rm-pan">
     <div class="rm-stage">
-      <img class="rm-bg" src="/img/room/room.png" width="480" height="270" decoding="async"
-        alt="夜裡的房間: 書桌上有檯燈、插在充電座上的折疊手機、CRT 電腦和收音機, 窗外是月亮和城市">
+      <div class="rm-bg" role="img" aria-label="我的房間: 書桌上有檯燈、插在充電座上的折疊手機、CRT 電腦和收音機, 窗開著"></div>
       <canvas class="rm-cv rm-poster" width="66" height="66" style={pos({ x: 31, y: 33, w: 66, h: 66 })} aria-hidden="true"></canvas>
       <canvas class="rm-cv rm-cal" width="44" height="54" style={pos({ x: 395, y: 23, w: 44, h: 54 })} aria-hidden="true"></canvas>
       <canvas class="rm-cv rm-clock" width="25" height="8" style={pos({ x: 54, y: 121, w: 25, h: 8 })} aria-hidden="true"></canvas>
-      <img class="rm-shippo" src="/img/room/shippo.png" width="480" height="270" alt="" aria-hidden="true">
+      <div class="rm-shippo" aria-hidden="true"></div>
       {PX.map(p => <span class={`rm-px ${p.c}`} style={pos(p)} aria-hidden="true"></span>)}
       <div class="rm-scan" style={pos({ x: 271, y: 135, w: 72, h: 41 })} aria-hidden="true"><i></i></div>
       <div class="rm-sky" style={pos({ x: 153, y: 18, w: 85, h: 52 })} aria-hidden="true"></div>
@@ -71,21 +111,21 @@ const pos = (o: { x: number; y: number; w: number; h: number }) => `--x:${o.x};-
   </div>
   <p class="rm-swipe" aria-hidden="true">← 左右滑 →</p>
 
-  <!-- 開場: 走廊上虛掩的門。門縫裡的房間亮到看不清, 光一路鋪到腳邊 (窗簾影子、灰塵、歌詞都畫在這層), 壓下門把才進來 -->
-  <div class="rm-door">
-    <div class="rm-door-stage">
-      <img class="rm-door-img" src="/img/room/door-0.png" width="480" height="270" alt="走廊上虛掩的房門, 門牌寫著 derekk, 門縫透出的光一路鋪到腳邊">
-      <canvas class="rm-door-fx" width="480" height="270" aria-hidden="true"></canvas>
-      <span class="rm-dp rm-halo" style={pos({ x: 255, y: 20, w: 37, h: 147 })} aria-hidden="true"></span>
+  <!-- 開場: 站在一樓的屋頂上, 二樓我房間的窗開著一條縫, 看得到窗下書桌上螢幕、手機、檯燈的背面。
+       今天那首歌的歌詞從縫裡飄出來; 把外面那扇窗往右拉開才進來 -->
+  <div class="rm-out">
+    <div class="rm-out-stage">
+      <i class="rm-ol rm-ol-base" role="img" aria-label="二樓的窗開著一條縫, 窗下是書桌"></i>
+      <i class="rm-ol rm-ol-sash" aria-hidden="true"></i>
+      <i class="rm-ol rm-ol-frame" aria-hidden="true"></i>
+      <canvas class="rm-ol rm-ol-fx" width="480" height="400" aria-hidden="true"></canvas>
       <div class="rm-lyrics" aria-hidden="true"></div>
-      <span class="rm-dp rm-glint" style={pos({ x: 244, y: 93, w: 3, h: 3 })} aria-hidden="true"></span>
-      <button class="rm-dp rm-knob" type="button" style={pos({ x: 232, y: 86, w: 22, h: 20 })} aria-label="壓下門把, 進房間"></button>
+      <button class="rm-op rm-grab" type="button" style={pos({ x: 162, y: 147, w: 157, h: 108 })} aria-label="把窗拉開, 進房間"></button>
     </div>
     <!-- 趕時間的捷徑, 先收起來, 之後要用再打開
     <p class="rm-rush">趕時間的話 → <a href="/about">關於我</a><a href="/projects">作品集</a></p>
     -->
   </div>
-  <div class="rm-flood" aria-hidden="true"></div>
   <!-- 聲音: 預設關著, 按了才響 -->
   <button class="rm-snd" type="button" aria-pressed="false" aria-label="聲音">
     <svg viewBox="0 0 11 9" width="22" height="18" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true">

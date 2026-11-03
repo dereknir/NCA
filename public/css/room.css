@@ -1,12 +1,18 @@
 /* room.css — 首頁的房間 (行為在 /js/room.js, 圖 /img/room/*.png)
-   class 全部 rm- 開頭。房間原圖 480×270, 所有座標都用原圖像素寫, 乘上 --s (倍率) 才是螢幕上的大小。 */
+   class 全部 rm- 開頭。房間原圖 480×270, 所有座標都用原圖像素寫, 乘上 --s (倍率) 才是螢幕上的大小。
+   用哪一張圖 (白天 / 傍晚 / 晚上, 檯燈開關) 是 RoomScene 開頭那段 script 放進 --rm-room 這些變數的, <html> 上也標了
+   data-rm-set (d / k / n) 跟 data-rm-lamp。 */
 
 .rm { position: relative; height: 100svh; min-height: 320px;   /* 首頁就只有房間, 整個畫面都是它 */
   background: #161229; overflow: hidden; }
+:root[data-rm-set="d"] .rm { background: #8f8270; }
 .rm-pan { position: absolute; inset: 0; display: flex; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain; }
 .rm-pan::-webkit-scrollbar { display: none; }
 .rm-stage { --s: 2; position: relative; flex: none; margin: auto; width: calc(480px * var(--s)); height: calc(270px * var(--s)); }
-.rm-stage > img { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; user-select: none; -webkit-user-drag: none; }
+.rm-bg, .rm-shippo { position: absolute; inset: 0; background: var(--rm-room, url(/img/room/room.png)) 0 0 / 100% 100% no-repeat; image-rendering: pixelated; }
+.rm-shippo { background-image: var(--rm-shippo, url(/img/room/shippo.png)); }
+/* 畫面比房間寬或高的時候, 牆、地板、天花板一路接到畫面邊: 房間外面那一圈像素拉長 (border-image 畫在外面, 不算進捲動範圍) */
+.rm-bg { border-image: var(--rm-edge, url(/img/room/room-edge.png)) 1 / 100vmax / 100vmax stretch; }
 
 /* 原圖座標 → 螢幕: 每個小元件用 --x --y --w --h 寫原圖上的位置 */
 .rm-px, .rm-hs, .rm-sky, .rm-scan, .rm-cv { position: absolute; left: calc(var(--x) * var(--s) * 1px); top: calc(var(--y) * var(--s) * 1px);
@@ -26,6 +32,7 @@
 .rm-led-mail { background: #7ee0b0; animation: rm-mail 1.6s steps(1) infinite; }
 @keyframes rm-mail { 50% { background: #f29b4a; } }
 .rm-led-hdd { background: #2b2249; animation: rm-hdd 2.9s steps(1) infinite; }   /* 蓋在硬碟燈上, 透明的時候燈就亮 */
+:root[data-rm-set="d"] .rm-led-hdd { background: #3b335f; }                         /* 白天的主機亮一階 */
 @keyframes rm-hdd { 0%, 9%, 31%, 58%, 66% { opacity: 0; } 5%, 18%, 44%, 62%, 80% { opacity: 1; } }
 .rm-cursor { background: #07060f; animation: rm-blink 1.06s steps(1) infinite; }
 @keyframes rm-blink { 50% { opacity: 0; } }
@@ -33,7 +40,7 @@
 .rm-scan i { position: absolute; left: 0; right: 0; height: calc(var(--s) * 2px); background: rgb(143 176 224 / .12); animation: rm-scan 7s steps(46) infinite; }
 @keyframes rm-scan { from { top: -10%; } to { top: 110%; } }
 
-/* 窗外的流星 (左右兩片玻璃各自裁切, 才不會劃過窗框) */
+/* 窗外的流星 (左右兩片玻璃各自裁切, 才不會劃過窗框; 只有晚上) */
 .rm-sky { overflow: hidden; }
 .rm-sky i { position: absolute; width: calc(var(--s) * 9px); height: calc(var(--s) * 1px); transform-origin: left center; rotate: -26.6deg;
   background: linear-gradient(90deg, #ece8ff, rgb(236 232 255 / 0)); }
@@ -68,39 +75,30 @@
   border: 3px solid #3b335f; box-shadow: inset -3px -3px 0 #9d95c9, 3px 3px 0 rgb(0 0 0 / .45); padding: 6px 12px; cursor: pointer; }
 .rm-pick-x:hover { background: #e8c94a; }
 
-/* 開場: 走廊上虛掩的門。走廊的圖蓋滿整個畫面 (room.js 會再挪到門跟地上那道光置中), 門口是透明的, 看得到後面的房間 */
-.rm-door { display: none; position: absolute; inset: 0; z-index: 20; overflow: hidden; }
-.rm-intro .rm-door { display: block; }
+/* 開場: 站在一樓的屋頂上看二樓的窗。窗外的圖 480×400 蓋滿整個畫面, 窗在正中間 (room.js 算倍率 --k) */
+.rm-out { display: none; position: absolute; inset: 0; z-index: 20; overflow: hidden; background: #0c1430; }
+.rm-intro .rm-out { display: block; }
 .rm-intro .rm-swipe { display: none; }   /* 進了房間才提示可以滑 */
-.rm-door-stage { position: absolute; left: 50%; top: 50%; width: max(100%, 100svh * 480 / 270); aspect-ratio: 480 / 270; translate: -50% -50%; }
-.rm-door-img, .rm-door-fx { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; user-select: none; -webkit-user-drag: none; pointer-events: none; }
-/* 門縫裡的房間過曝: 亮到糊成一片暖白, 看得出裡面有東西, 看不清是什麼 (--k = 走廊圖的倍率) */
-.rm-intro .rm-stage { filter: brightness(2.1) saturate(.5) contrast(.7) blur(calc(var(--k, 2) * .9px)); }
-.rm-intro .rm-stage::after { content: ''; position: absolute; inset: 0; background: #fff3c4; opacity: .42; pointer-events: none; }
-/* 光從門縫溢出來, 吃掉門的邊緣一點點 */
-.rm-halo { pointer-events: none; mix-blend-mode: screen; box-shadow: 0 0 calc(var(--k, 2) * 7px) calc(var(--k, 2) * 1.5px) rgb(255 222 160 / .36); }
-/* 今天那首歌的歌詞, 沿著地上的光漂過來 */
+:root[data-rm-set="d"] .rm-out { background: #5ca8ff; }   /* 圖還沒出來的那一下, 先是天空的顏色 */
+:root[data-rm-set="k"] .rm-out { background: #142050; }
+.rm-out-stage { position: absolute; left: 0; top: 0; width: calc(480px * var(--k, 2)); height: calc(400px * var(--k, 2)); }
+.rm-ol { position: absolute; inset: 0; width: 100%; height: 100%; background: 0 0 / 100% 100% no-repeat; image-rendering: pixelated; pointer-events: none; }
+.rm-ol-base { background-image: var(--rm-out); }       /* 屋子、窗裡的房間、裡面那扇窗 */
+.rm-ol-sash { background-image: var(--rm-sash); }      /* 外面那扇, 往右拉開 */
+.rm-ol-frame { background-image: var(--rm-frame); }
+.rm-op { position: absolute; left: calc(var(--x) * 100% / 480); top: calc(var(--y) * 100% / 400);
+  width: calc(var(--w) * 100% / 480); height: calc(var(--h) * 100% / 400); }
+.rm-grab { padding: 0; border: 0; background: none; cursor: grab; touch-action: none; outline: none; -webkit-tap-highlight-color: transparent; }
+.rm-grab.drag { cursor: grabbing; }
+/* 今天那首歌的歌詞: 從窗縫飄出來, 沿著牆往上 (晚上飄過屋簷會變成一顆星, 畫在 .rm-ol-fx 上) */
 .rm-lyrics { position: absolute; inset: 0; pointer-events: none; }
-.rm-lyric { position: absolute; text-align: center; white-space: nowrap; opacity: 0; mix-blend-mode: screen; }
+.rm-lyric { position: absolute; text-align: center; white-space: nowrap; opacity: 0; }
 .rm-lyric b { display: block; font: 400 calc(var(--k, 2) * 6px)/1.3 'DotGothic16', 'PX-JA', monospace; color: #fff3c4; letter-spacing: .06em;
-  text-shadow: 0 0 calc(var(--k, 2) * 2px) rgb(255 210 122 / .7); }
-.rm-lyric i { display: block; font: calc(var(--k, 2) * 4px)/1.4 var(--sh-px, monospace); font-style: normal; color: #ffd27a; }
-/* 開門: 光淹滿畫面 */
-.rm-flood { display: none; position: absolute; inset: 0; z-index: 30; background: #fff3c4; opacity: 0; pointer-events: none; }
-.rm-intro .rm-flood { display: block; }
-.rm-dp { position: absolute; left: calc(var(--x) * 100% / 480); top: calc(var(--y) * 100% / 270);
-  width: calc(var(--w) * 100% / 480); height: calc(var(--h) * 100% / 270); }
-/* 門把: 一直有一圈暖光在呼吸, 滑過去更亮; 壓下去那一格由 room.js 換圖 */
-.rm-knob { padding: 0; border: 0; background: none; cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent; }
-.rm-knob::before { content: ''; position: absolute; inset: -70% -40%; border-radius: 50%; pointer-events: none;
-  background: radial-gradient(closest-side, rgb(255 210 122 / .45), rgb(255 210 122 / 0)); animation: rm-glow 2.6s ease-in-out infinite; }
-.rm-knob:is(:hover, :focus-visible)::before { animation: none; opacity: 1; background: radial-gradient(closest-side, rgb(255 210 122 / .7), rgb(255 210 122 / 0)); }
-@keyframes rm-glow { 0%, 100% { opacity: .3; } 50% { opacity: 1; } }
-.rm-glint { pointer-events: none; opacity: 0; animation: rm-glint 3.2s steps(1) infinite;
-  background: linear-gradient(#fff3c4 0 0) center / 100% 34% no-repeat, linear-gradient(#fff3c4 0 0) center / 34% 100% no-repeat; }
-@keyframes rm-glint { 0%, 88% { opacity: 0; } 90%, 96% { opacity: 1; } }
-.rm-door.opening .rm-knob::before, .rm-door.opening :is(.rm-glint, .rm-halo) { display: none; }   /* 門一推開門把就跟著轉走了, 光不能留在原地 */
-/* 聲音開關: 右下角一個小喇叭, 門外跟房間裡都在 */
+  text-shadow: 0 0 calc(var(--k, 2) * 1.5px) rgb(255 210 122 / .3); }
+.rm-lyric i { display: block; font: calc(var(--k, 2) * 4px)/1.4 var(--sh-px, monospace); font-style: normal; color: #cfc2a4; }
+:root[data-rm-set="d"] .rm-lyric b { color: #1f1838; text-shadow: none; }   /* 白天的牆是亮的, 字用深的 */
+:root[data-rm-set="d"] .rm-lyric i { color: #3b335f; }
+/* 聲音開關: 右下角一個小喇叭, 窗外跟房間裡都在 */
 .rm-snd { position: absolute; right: 12px; bottom: 12px; z-index: 25; padding: 6px 8px; line-height: 0; cursor: pointer; color: #9d95c9;
   background: rgb(14 11 29 / .75); border: 2px solid #3b335f; -webkit-tap-highlight-color: transparent; }
 .rm-snd:is(:hover, :focus-visible) { color: #ece8ff; outline: none; }
@@ -115,6 +113,5 @@
   .rm-shippo, .rm-shippo.swing, .rm-led-mail, .rm-led-hdd, .rm-cursor, .rm-scan i { animation: none; }
   .rm-led-hdd, .rm-cursor { opacity: 0; }
   .rm-swipe { animation: none; }
-  .rm-knob::before, .rm-glint { animation: none; }
   .rm-lyrics { display: none; }
 }
