@@ -256,7 +256,7 @@
         "title": "悲しいけれど二人はこれ以上上手くはいかない",
         "url": "https://www.youtube.com/shorts/9JQ5S5tyJ54",
         "thumbnail": "https://i.ytimg.com/vi/9JQ5S5tyJ54/hqdefault.jpg",
-        "viewCount": 4600,
+        "viewCount": 4700,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -930,7 +930,7 @@
         "title": "種のそばが酸っぱいのは私の可愛げ",
         "url": "https://www.youtube.com/shorts/-xjIN_OK23Q",
         "thumbnail": "https://i.ytimg.com/vi/-xjIN_OK23Q/hqdefault.jpg",
-        "viewCount": 5900,
+        "viewCount": 6000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -957,41 +957,6 @@
           {
             "t": 20.31,
             "line": 36
-          }
-        ]
-      },
-      {
-        "videoId": "3bkrDRTUUmg",
-        "title": "I won’t be downgraded to merely a sweet girl",
-        "url": "https://www.youtube.com/shorts/3bkrDRTUUmg",
-        "thumbnail": "https://i.ytimg.com/vi/3bkrDRTUUmg/hqdefault.jpg",
-        "viewCount": 4900,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 27
-          },
-          {
-            "t": 4.16,
-            "line": 28
-          },
-          {
-            "t": 7.24,
-            "line": 29
-          },
-          {
-            "t": 10.19,
-            "line": 30
-          },
-          {
-            "t": 14.69,
-            "line": 31
-          },
-          {
-            "t": 21.02,
-            "line": 32
           }
         ]
       },
@@ -1085,68 +1050,6 @@
           {
             "t": 14.62,
             "line": 4
-          }
-        ]
-      },
-      {
-        "videoId": "TEW28CR9E0E",
-        "title": "Let’s show each other why our hearts race",
-        "url": "https://www.youtube.com/shorts/TEW28CR9E0E",
-        "thumbnail": "https://i.ytimg.com/vi/TEW28CR9E0E/hqdefault.jpg",
-        "viewCount": 4000,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 0
-          },
-          {
-            "t": 4.15,
-            "line": 1
-          },
-          {
-            "t": 7.35,
-            "line": 2
-          },
-          {
-            "t": 10.13,
-            "line": 3
-          },
-          {
-            "t": 14.52,
-            "line": 4
-          }
-        ]
-      },
-      {
-        "videoId": "JU3L4iKjhm4",
-        "title": "The sour piece near the seed is part of my charm",
-        "url": "https://www.youtube.com/shorts/JU3L4iKjhm4",
-        "thumbnail": "https://i.ytimg.com/vi/JU3L4iKjhm4/hqdefault.jpg",
-        "viewCount": 3800,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 27
-          },
-          {
-            "t": 4.04,
-            "line": 28
-          },
-          {
-            "t": 7.12,
-            "line": 29
-          },
-          {
-            "t": 10.07,
-            "line": 30
-          },
-          {
-            "t": 14.57,
-            "line": 31
           }
         ]
       },
@@ -1252,6 +1155,103 @@
         "versionType": "mv",
         "instrumental": true,
         "anchors": []
+      },
+      {
+        "videoId": "3bkrDRTUUmg",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/3bkrDRTUUmg",
+        "thumbnail": "https://i.ytimg.com/vi/3bkrDRTUUmg/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 27
+          },
+          {
+            "t": 4.16,
+            "line": 28
+          },
+          {
+            "t": 7.24,
+            "line": 29
+          },
+          {
+            "t": 10.19,
+            "line": 30
+          },
+          {
+            "t": 14.69,
+            "line": 31
+          },
+          {
+            "t": 21.02,
+            "line": 32
+          }
+        ]
+      },
+      {
+        "videoId": "TEW28CR9E0E",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/TEW28CR9E0E",
+        "thumbnail": "https://i.ytimg.com/vi/TEW28CR9E0E/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 4.15,
+            "line": 1
+          },
+          {
+            "t": 7.35,
+            "line": 2
+          },
+          {
+            "t": 10.13,
+            "line": 3
+          },
+          {
+            "t": 14.52,
+            "line": 4
+          }
+        ]
+      },
+      {
+        "videoId": "JU3L4iKjhm4",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/JU3L4iKjhm4",
+        "thumbnail": "https://i.ytimg.com/vi/JU3L4iKjhm4/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 27
+          },
+          {
+            "t": 4.04,
+            "line": 28
+          },
+          {
+            "t": 7.12,
+            "line": 29
+          },
+          {
+            "t": 10.07,
+            "line": 30
+          },
+          {
+            "t": 14.57,
+            "line": 31
+          }
+        ]
       }
     ],
     "nishina-mashiro": [
@@ -1894,41 +1894,6 @@
         ]
       },
       {
-        "videoId": "7Vwne6riwb0",
-        "title": "Only teaching me what feels good",
-        "url": "https://www.youtube.com/shorts/7Vwne6riwb0",
-        "thumbnail": "https://i.ytimg.com/vi/7Vwne6riwb0/hqdefault.jpg",
-        "viewCount": 8000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 13
-          },
-          {
-            "t": 2.46,
-            "line": 14
-          },
-          {
-            "t": 5.33,
-            "line": 15
-          },
-          {
-            "t": 10.02,
-            "line": 16
-          },
-          {
-            "t": 12.4,
-            "line": 17
-          },
-          {
-            "t": 14.68,
-            "line": 18
-          }
-        ]
-      },
-      {
         "videoId": "9hj9l4uYhg8",
         "title": "言えない忘れたい溶けない夜と",
         "url": "https://www.youtube.com/shorts/9hj9l4uYhg8",
@@ -2134,7 +2099,7 @@
         "title": "君はずるいボーイ",
         "url": "https://www.youtube.com/shorts/zWHTvzqu72E",
         "thumbnail": "https://i.ytimg.com/vi/zWHTvzqu72E/hqdefault.jpg",
-        "viewCount": 5600,
+        "viewCount": 5700,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -2617,6 +2582,41 @@
           {
             "t": 20.44,
             "line": 22
+          }
+        ]
+      },
+      {
+        "videoId": "7Vwne6riwb0",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/7Vwne6riwb0",
+        "thumbnail": "https://i.ytimg.com/vi/7Vwne6riwb0/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 13
+          },
+          {
+            "t": 2.46,
+            "line": 14
+          },
+          {
+            "t": 5.33,
+            "line": 15
+          },
+          {
+            "t": 10.02,
+            "line": 16
+          },
+          {
+            "t": 12.4,
+            "line": 17
+          },
+          {
+            "t": 14.68,
+            "line": 18
           }
         ]
       }
@@ -4017,7 +4017,7 @@
         "title": "Forever, we’ll never grow up",
         "url": "https://www.youtube.com/shorts/U8aIYOOyWC0",
         "thumbnail": "https://i.ytimg.com/vi/U8aIYOOyWC0/hqdefault.jpg",
-        "viewCount": 5900,
+        "viewCount": 6000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -4113,29 +4113,6 @@
           {
             "t": 19.87,
             "line": 23
-          }
-        ]
-      },
-      {
-        "videoId": "-Vh6E39-0sk",
-        "title": "We’re just swimming around desperately",
-        "url": "https://www.youtube.com/shorts/-Vh6E39-0sk",
-        "thumbnail": "https://i.ytimg.com/vi/-Vh6E39-0sk/hqdefault.jpg",
-        "viewCount": 5300,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 22
-          },
-          {
-            "t": 6.34,
-            "line": 23
-          },
-          {
-            "t": 13.22,
-            "line": 24
           }
         ]
       },
@@ -4722,6 +4699,29 @@
             "line": 7
           }
         ]
+      },
+      {
+        "videoId": "-Vh6E39-0sk",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/-Vh6E39-0sk",
+        "thumbnail": "https://i.ytimg.com/vi/-Vh6E39-0sk/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 22
+          },
+          {
+            "t": 6.34,
+            "line": 23
+          },
+          {
+            "t": 13.22,
+            "line": 24
+          }
+        ]
       }
     ],
     "nishina-adaada": [
@@ -4909,6 +4909,33 @@
         ]
       },
       {
+        "videoId": "ePjQGUnwCp0",
+        "title": "身を焦がすほどの恋がまたしたい",
+        "url": "https://www.youtube.com/shorts/ePjQGUnwCp0",
+        "thumbnail": "https://i.ytimg.com/vi/ePjQGUnwCp0/hqdefault.jpg",
+        "viewCount": 5900,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 52
+          },
+          {
+            "t": 4.52,
+            "line": 53
+          },
+          {
+            "t": 10.56,
+            "line": 54
+          },
+          {
+            "t": 14.92,
+            "line": 55
+          }
+        ]
+      },
+      {
         "videoId": "Cus43_ZF12A",
         "title": "御心のままの生き様",
         "url": "https://www.youtube.com/shorts/Cus43_ZF12A",
@@ -4932,33 +4959,6 @@
           {
             "t": 8.91,
             "line": 23
-          }
-        ]
-      },
-      {
-        "videoId": "ePjQGUnwCp0",
-        "title": "身を焦がすほどの恋がまたしたい",
-        "url": "https://www.youtube.com/shorts/ePjQGUnwCp0",
-        "thumbnail": "https://i.ytimg.com/vi/ePjQGUnwCp0/hqdefault.jpg",
-        "viewCount": 5800,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 52
-          },
-          {
-            "t": 4.52,
-            "line": 53
-          },
-          {
-            "t": 10.56,
-            "line": 54
-          },
-          {
-            "t": 14.92,
-            "line": 55
           }
         ]
       },
@@ -5280,7 +5280,7 @@
         "title": "どこに逃げたって行き止まりね",
         "url": "https://www.youtube.com/shorts/HvHzNNEGwpk",
         "thumbnail": "https://i.ytimg.com/vi/HvHzNNEGwpk/hqdefault.jpg",
-        "viewCount": 19000,
+        "viewCount": 20000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -5307,37 +5307,6 @@
           {
             "t": 14,
             "line": 16
-          }
-        ]
-      },
-      {
-        "videoId": "qFEwVT1DIcQ",
-        "title": "But for now, good night dear",
-        "url": "https://www.youtube.com/shorts/qFEwVT1DIcQ",
-        "thumbnail": "https://i.ytimg.com/vi/qFEwVT1DIcQ/hqdefault.jpg",
-        "viewCount": 18000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 41
-          },
-          {
-            "t": 2.43,
-            "line": 42
-          },
-          {
-            "t": 4.81,
-            "line": 43
-          },
-          {
-            "t": 8.97,
-            "line": 44
-          },
-          {
-            "t": 13.77,
-            "line": 45
           }
         ]
       },
@@ -6025,7 +5994,7 @@
         "title": "もうすぐ君の元へ",
         "url": "https://www.youtube.com/shorts/rSZR2WQmgt4",
         "thumbnail": "https://i.ytimg.com/vi/rSZR2WQmgt4/hqdefault.jpg",
-        "viewCount": 7600,
+        "viewCount": 7700,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -6871,6 +6840,37 @@
           {
             "t": 13.94,
             "line": 16
+          }
+        ]
+      },
+      {
+        "videoId": "qFEwVT1DIcQ",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/qFEwVT1DIcQ",
+        "thumbnail": "https://i.ytimg.com/vi/qFEwVT1DIcQ/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 41
+          },
+          {
+            "t": 2.43,
+            "line": 42
+          },
+          {
+            "t": 4.81,
+            "line": 43
+          },
+          {
+            "t": 8.97,
+            "line": 44
+          },
+          {
+            "t": 13.77,
+            "line": 45
           }
         ]
       }
@@ -8392,7 +8392,7 @@
         "title": "誰もが幻を信じてやまない",
         "url": "https://www.youtube.com/shorts/B1Do7lgri3Y",
         "thumbnail": "https://i.ytimg.com/vi/B1Do7lgri3Y/hqdefault.jpg",
-        "viewCount": 7500,
+        "viewCount": 7800,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -12669,7 +12669,7 @@
         "title": "恋を優しく吹き消す夜",
         "url": "https://www.youtube.com/shorts/vhLfBJvDgFc",
         "thumbnail": "https://i.ytimg.com/vi/vhLfBJvDgFc/hqdefault.jpg",
-        "viewCount": 2300,
+        "viewCount": 2400,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -13643,96 +13643,6 @@
     ],
     "nishina-wawon": [
       {
-        "videoId": "bmrJImkLLwc",
-        "title": "「わをん」という曲を作りました。",
-        "url": "https://www.youtube.com/shorts/bmrJImkLLwc",
-        "thumbnail": "https://i.ytimg.com/vi/bmrJImkLLwc/hqdefault.jpg",
-        "viewCount": 32000,
-        "versionType": "other",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 0
-          },
-          {
-            "t": 3.52,
-            "line": 1
-          },
-          {
-            "t": 6.62,
-            "line": 2
-          },
-          {
-            "t": 9.65,
-            "line": 3
-          },
-          {
-            "t": 11.72,
-            "line": 4
-          },
-          {
-            "t": 14.73,
-            "line": 5
-          },
-          {
-            "t": 18.7,
-            "line": 6
-          },
-          {
-            "t": 21.62,
-            "line": 7
-          },
-          {
-            "t": 24.53,
-            "line": 8
-          },
-          {
-            "t": 32.31,
-            "line": 9
-          },
-          {
-            "t": 37.68,
-            "line": 10
-          },
-          {
-            "t": 40.65,
-            "line": 11
-          },
-          {
-            "t": 43.48,
-            "line": 12
-          }
-        ]
-      },
-      {
-        "videoId": "gB4XJgjjLQE",
-        "title": "愛、胸に響き続ける",
-        "url": "https://www.youtube.com/shorts/gB4XJgjjLQE",
-        "thumbnail": "https://i.ytimg.com/vi/gB4XJgjjLQE/hqdefault.jpg",
-        "viewCount": 18000,
-        "versionType": null,
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 47
-          },
-          {
-            "t": 3.6,
-            "line": 48
-          },
-          {
-            "t": 6.24,
-            "line": 49
-          },
-          {
-            "t": 9.16,
-            "line": 50
-          }
-        ]
-      },
-      {
         "videoId": "oBzHEw-UA84",
         "title": "本当は多分誰にも分からない",
         "url": "https://www.youtube.com/shorts/oBzHEw-UA84",
@@ -14014,33 +13924,6 @@
         ]
       },
       {
-        "videoId": "uP2ew_MK7NM",
-        "title": "愛、やがて和音に繋がって",
-        "url": "https://www.youtube.com/shorts/uP2ew_MK7NM",
-        "thumbnail": "https://i.ytimg.com/vi/uP2ew_MK7NM/hqdefault.jpg",
-        "viewCount": 10000,
-        "versionType": "other",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 47
-          },
-          {
-            "t": 3.58,
-            "line": 48
-          },
-          {
-            "t": 6.48,
-            "line": 49
-          },
-          {
-            "t": 9.26,
-            "line": 50
-          }
-        ]
-      },
-      {
         "videoId": "bpoByfow8wU",
         "title": "Because maybe no one truly gets it",
         "url": "https://www.youtube.com/shorts/bpoByfow8wU",
@@ -14252,37 +14135,6 @@
           {
             "t": 20.72,
             "line": 7
-          }
-        ]
-      },
-      {
-        "videoId": "784GdaN19Ok",
-        "title": "Living feels like it has no reason",
-        "url": "https://www.youtube.com/shorts/784GdaN19Ok",
-        "thumbnail": "https://i.ytimg.com/vi/784GdaN19Ok/hqdefault.jpg",
-        "viewCount": 7300,
-        "versionType": "other",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 8
-          },
-          {
-            "t": 6.66,
-            "line": 9
-          },
-          {
-            "t": 11.37,
-            "line": 10
-          },
-          {
-            "t": 14.02,
-            "line": 11
-          },
-          {
-            "t": 17.2,
-            "line": 12
           }
         ]
       },
@@ -14849,33 +14701,6 @@
         ]
       },
       {
-        "videoId": "dhN7fimPUg8",
-        "title": "愛、やがて和音に繋がって",
-        "url": "https://www.youtube.com/shorts/dhN7fimPUg8",
-        "thumbnail": "https://i.ytimg.com/vi/dhN7fimPUg8/hqdefault.jpg",
-        "viewCount": 5600,
-        "versionType": "other",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 47
-          },
-          {
-            "t": 3.38,
-            "line": 48
-          },
-          {
-            "t": 6.52,
-            "line": 49
-          },
-          {
-            "t": 10.08,
-            "line": 50
-          }
-        ]
-      },
-      {
         "videoId": "8_mX10NzV5U",
         "title": "ai,—soon becomes a harmony",
         "url": "https://www.youtube.com/shorts/8_mX10NzV5U",
@@ -14899,33 +14724,6 @@
           {
             "t": 9.16,
             "line": 50
-          }
-        ]
-      },
-      {
-        "videoId": "2257QnSv5nQ",
-        "title": "この世の全て最悪で手放したい時もある",
-        "url": "https://www.youtube.com/shorts/2257QnSv5nQ",
-        "thumbnail": "https://i.ytimg.com/vi/2257QnSv5nQ/hqdefault.jpg",
-        "viewCount": 5100,
-        "versionType": "other",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 40
-          },
-          {
-            "t": 2.36,
-            "line": 41
-          },
-          {
-            "t": 5.44,
-            "line": 42
-          },
-          {
-            "t": 8.48,
-            "line": 43
           }
         ]
       },
@@ -14996,69 +14794,6 @@
           {
             "t": 20.23,
             "line": 7
-          }
-        ]
-      },
-      {
-        "videoId": "jrdyrmuwSgY",
-        "title": "無いものねだりに意味などない",
-        "url": "https://www.youtube.com/shorts/jrdyrmuwSgY",
-        "thumbnail": "https://i.ytimg.com/vi/jrdyrmuwSgY/hqdefault.jpg",
-        "viewCount": 4800,
-        "versionType": "other",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.86,
-            "line": 16
-          },
-          {
-            "t": 2.87,
-            "line": 17
-          },
-          {
-            "t": 6.2,
-            "line": 18
-          },
-          {
-            "t": 8.88,
-            "line": 19
-          },
-          {
-            "t": 10.94,
-            "line": 20
-          },
-          {
-            "t": 14,
-            "line": 21
-          },
-          {
-            "t": 17.34,
-            "line": 22
-          },
-          {
-            "t": 20.22,
-            "line": 23
-          },
-          {
-            "t": 23.62,
-            "line": 24
-          },
-          {
-            "t": 30.82,
-            "line": 25
-          },
-          {
-            "t": 35.14,
-            "line": 26
-          },
-          {
-            "t": 38.28,
-            "line": 27
-          },
-          {
-            "t": 39.76,
-            "line": 28
           }
         ]
       },
@@ -15235,92 +14970,6 @@
         ]
       },
       {
-        "videoId": "5JnguwMf6j0",
-        "title": "この世の全て最悪で手放したい時もある",
-        "url": "https://www.youtube.com/shorts/5JnguwMf6j0",
-        "thumbnail": "https://i.ytimg.com/vi/5JnguwMf6j0/hqdefault.jpg",
-        "viewCount": 4300,
-        "versionType": "other",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.28,
-            "line": 36
-          },
-          {
-            "t": 3.26,
-            "line": 37
-          },
-          {
-            "t": 5.68,
-            "line": 38
-          },
-          {
-            "t": 8.28,
-            "line": 39
-          },
-          {
-            "t": 11.4,
-            "line": 40
-          },
-          {
-            "t": 13.48,
-            "line": 41
-          },
-          {
-            "t": 16.96,
-            "line": 42
-          },
-          {
-            "t": 19.84,
-            "line": 43
-          }
-        ]
-      },
-      {
-        "videoId": "ydhIRHODOoM",
-        "title": "大人になった分、分からなくなったけど",
-        "url": "https://www.youtube.com/shorts/ydhIRHODOoM",
-        "thumbnail": "https://i.ytimg.com/vi/ydhIRHODOoM/hqdefault.jpg",
-        "viewCount": 4100,
-        "versionType": "other",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.16,
-            "line": 0
-          },
-          {
-            "t": 2.96,
-            "line": 1
-          },
-          {
-            "t": 5.78,
-            "line": 2
-          },
-          {
-            "t": 8.95,
-            "line": 3
-          },
-          {
-            "t": 11.39,
-            "line": 4
-          },
-          {
-            "t": 14.14,
-            "line": 5
-          },
-          {
-            "t": 17.24,
-            "line": 6
-          },
-          {
-            "t": 20.06,
-            "line": 7
-          }
-        ]
-      },
-      {
         "videoId": "mlXamoS3RGI",
         "title": "Because maybe no one truly gets it",
         "url": "https://www.youtube.com/shorts/mlXamoS3RGI",
@@ -15477,73 +15126,6 @@
         ]
       },
       {
-        "videoId": "3nBWGzuTqM4",
-        "title": "答えの無い問いの繰り返し",
-        "url": "https://www.youtube.com/shorts/3nBWGzuTqM4",
-        "thumbnail": "https://i.ytimg.com/vi/3nBWGzuTqM4/hqdefault.jpg",
-        "viewCount": 3200,
-        "versionType": null,
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 0
-          },
-          {
-            "t": 3.33,
-            "line": 1
-          },
-          {
-            "t": 6.47,
-            "line": 2
-          },
-          {
-            "t": 9.43,
-            "line": 3
-          },
-          {
-            "t": 12.01,
-            "line": 4
-          },
-          {
-            "t": 15.18,
-            "line": 5
-          },
-          {
-            "t": 18.42,
-            "line": 6
-          },
-          {
-            "t": 21.44,
-            "line": 7
-          },
-          {
-            "t": 25.36,
-            "line": 8
-          },
-          {
-            "t": 32.84,
-            "line": 9
-          },
-          {
-            "t": 38.03,
-            "line": 10
-          },
-          {
-            "t": 40.72,
-            "line": 11
-          },
-          {
-            "t": 43.75,
-            "line": 12
-          },
-          {
-            "t": 48.83,
-            "line": 13
-          }
-        ]
-      },
-      {
         "videoId": "3BHUCypuD_8",
         "title": "本当は多分誰にも分からない",
         "url": "https://www.youtube.com/shorts/3BHUCypuD_8",
@@ -15634,33 +15216,6 @@
         ]
       },
       {
-        "videoId": "pfLxN73ojR8",
-        "title": "誰かの幸せを願う日もある",
-        "url": "https://www.youtube.com/shorts/pfLxN73ojR8",
-        "thumbnail": "https://i.ytimg.com/vi/pfLxN73ojR8/hqdefault.jpg",
-        "viewCount": 3000,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 32
-          },
-          {
-            "t": 5.72,
-            "line": 33
-          },
-          {
-            "t": 10.32,
-            "line": 34
-          },
-          {
-            "t": 16.64,
-            "line": 35
-          }
-        ]
-      },
-      {
         "videoId": "WkKy6HpISik",
         "title": "ai,—love you",
         "url": "https://www.youtube.com/shorts/WkKy6HpISik",
@@ -15688,123 +15243,6 @@
         ]
       },
       {
-        "videoId": "xUdlD49rjxY",
-        "title": "I love you",
-        "url": "https://www.youtube.com/shorts/xUdlD49rjxY",
-        "thumbnail": "https://i.ytimg.com/vi/xUdlD49rjxY/hqdefault.jpg",
-        "viewCount": 2900,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.64,
-            "line": 0
-          },
-          {
-            "t": 2.89,
-            "line": 1
-          },
-          {
-            "t": 5.73,
-            "line": 2
-          },
-          {
-            "t": 8.64,
-            "line": 3
-          },
-          {
-            "t": 11.36,
-            "line": 4
-          },
-          {
-            "t": 14.08,
-            "line": 5
-          },
-          {
-            "t": 17.52,
-            "line": 6
-          },
-          {
-            "t": 19.78,
-            "line": 7
-          }
-        ]
-      },
-      {
-        "videoId": "ZKzMc5pjg7s",
-        "title": "Some days I just can’t forget",
-        "url": "https://www.youtube.com/shorts/ZKzMc5pjg7s",
-        "thumbnail": "https://i.ytimg.com/vi/ZKzMc5pjg7s/hqdefault.jpg",
-        "viewCount": 2800,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 39
-          },
-          {
-            "t": 3.18,
-            "line": 40
-          },
-          {
-            "t": 5.42,
-            "line": 41
-          },
-          {
-            "t": 8.5,
-            "line": 42
-          },
-          {
-            "t": 10.96,
-            "line": 43
-          }
-        ]
-      },
-      {
-        "videoId": "eDOzHPSr5xg",
-        "title": "ai, I’ve learned it’s a part of me",
-        "url": "https://www.youtube.com/shorts/eDOzHPSr5xg",
-        "thumbnail": "https://i.ytimg.com/vi/eDOzHPSr5xg/hqdefault.jpg",
-        "viewCount": 2400,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 0
-          },
-          {
-            "t": 2.98,
-            "line": 1
-          },
-          {
-            "t": 5.76,
-            "line": 2
-          },
-          {
-            "t": 8.69,
-            "line": 3
-          },
-          {
-            "t": 11.05,
-            "line": 4
-          },
-          {
-            "t": 14.12,
-            "line": 5
-          },
-          {
-            "t": 17.31,
-            "line": 6
-          },
-          {
-            "t": 19.94,
-            "line": 7
-          }
-        ]
-      },
-      {
         "videoId": "6Y4H1CEBLno",
         "title": "in loneliness planet",
         "url": "https://www.youtube.com/shorts/6Y4H1CEBLno",
@@ -15827,33 +15265,6 @@
           },
           {
             "t": 8.96,
-            "line": 50
-          }
-        ]
-      },
-      {
-        "videoId": "OPvr3zls_gg",
-        "title": "愛、やがて和音に繋がって",
-        "url": "https://www.youtube.com/shorts/OPvr3zls_gg",
-        "thumbnail": "https://i.ytimg.com/vi/OPvr3zls_gg/hqdefault.jpg",
-        "viewCount": 2200,
-        "versionType": "other",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.16,
-            "line": 47
-          },
-          {
-            "t": 3.94,
-            "line": 48
-          },
-          {
-            "t": 6.3,
-            "line": 49
-          },
-          {
-            "t": 11.56,
             "line": 50
           }
         ]
@@ -15913,41 +15324,6 @@
           {
             "t": 9.21,
             "line": 23
-          }
-        ]
-      },
-      {
-        "videoId": "RCKqDe1oV_U",
-        "title": "謳歌するごとく生きる24/7",
-        "url": "https://www.youtube.com/shorts/RCKqDe1oV_U",
-        "thumbnail": "https://i.ytimg.com/vi/RCKqDe1oV_U/hqdefault.jpg",
-        "viewCount": 1800,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.16,
-            "line": 26
-          },
-          {
-            "t": 3.3,
-            "line": 27
-          },
-          {
-            "t": 4.78,
-            "line": 28
-          },
-          {
-            "t": 10.85,
-            "line": 29
-          },
-          {
-            "t": 21.57,
-            "line": 30
-          },
-          {
-            "t": 27.86,
-            "line": 31
           }
         ]
       },
@@ -16033,49 +15409,6 @@
           {
             "t": 14.26,
             "line": 39
-          }
-        ]
-      },
-      {
-        "videoId": "N6uGeaN5MKU",
-        "title": "あい、五十音はそこから始まって",
-        "url": "https://www.youtube.com/shorts/N6uGeaN5MKU",
-        "thumbnail": "https://i.ytimg.com/vi/N6uGeaN5MKU/hqdefault.jpg",
-        "viewCount": 1700,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.24,
-            "line": 0
-          },
-          {
-            "t": 3.04,
-            "line": 1
-          },
-          {
-            "t": 5.92,
-            "line": 2
-          },
-          {
-            "t": 8.32,
-            "line": 3
-          },
-          {
-            "t": 11.06,
-            "line": 4
-          },
-          {
-            "t": 14.46,
-            "line": 5
-          },
-          {
-            "t": 17.76,
-            "line": 6
-          },
-          {
-            "t": 20.14,
-            "line": 7
           }
         ]
       },
@@ -16196,33 +15529,6 @@
         ]
       },
       {
-        "videoId": "KARbx4yPctQ",
-        "title": "愛、love you",
-        "url": "https://www.youtube.com/shorts/KARbx4yPctQ",
-        "thumbnail": "https://i.ytimg.com/vi/KARbx4yPctQ/hqdefault.jpg",
-        "viewCount": 1400,
-        "versionType": "mv",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.88,
-            "line": 47
-          },
-          {
-            "t": 3.06,
-            "line": 48
-          },
-          {
-            "t": 6.56,
-            "line": 49
-          },
-          {
-            "t": 9.2,
-            "line": 50
-          }
-        ]
-      },
-      {
         "videoId": "rsOdQeVfl-4",
         "title": "The more I grow up, the more I don’t know",
         "url": "https://www.youtube.com/shorts/rsOdQeVfl-4",
@@ -16262,6 +15568,700 @@
           {
             "t": 19.62,
             "line": 7
+          }
+        ]
+      },
+      {
+        "videoId": "eDOzHPSr5xg",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/eDOzHPSr5xg",
+        "thumbnail": "https://i.ytimg.com/vi/eDOzHPSr5xg/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 2.98,
+            "line": 1
+          },
+          {
+            "t": 5.76,
+            "line": 2
+          },
+          {
+            "t": 8.69,
+            "line": 3
+          },
+          {
+            "t": 11.05,
+            "line": 4
+          },
+          {
+            "t": 14.12,
+            "line": 5
+          },
+          {
+            "t": 17.31,
+            "line": 6
+          },
+          {
+            "t": 19.94,
+            "line": 7
+          }
+        ]
+      },
+      {
+        "videoId": "bmrJImkLLwc",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/bmrJImkLLwc",
+        "thumbnail": "https://i.ytimg.com/vi/bmrJImkLLwc/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 3.52,
+            "line": 1
+          },
+          {
+            "t": 6.62,
+            "line": 2
+          },
+          {
+            "t": 9.65,
+            "line": 3
+          },
+          {
+            "t": 11.72,
+            "line": 4
+          },
+          {
+            "t": 14.73,
+            "line": 5
+          },
+          {
+            "t": 18.7,
+            "line": 6
+          },
+          {
+            "t": 21.62,
+            "line": 7
+          },
+          {
+            "t": 24.53,
+            "line": 8
+          },
+          {
+            "t": 32.31,
+            "line": 9
+          },
+          {
+            "t": 37.68,
+            "line": 10
+          },
+          {
+            "t": 40.65,
+            "line": 11
+          },
+          {
+            "t": 43.48,
+            "line": 12
+          }
+        ]
+      },
+      {
+        "videoId": "gB4XJgjjLQE",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/gB4XJgjjLQE",
+        "thumbnail": "https://i.ytimg.com/vi/gB4XJgjjLQE/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 47
+          },
+          {
+            "t": 3.6,
+            "line": 48
+          },
+          {
+            "t": 6.24,
+            "line": 49
+          },
+          {
+            "t": 9.16,
+            "line": 50
+          }
+        ]
+      },
+      {
+        "videoId": "uP2ew_MK7NM",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/uP2ew_MK7NM",
+        "thumbnail": "https://i.ytimg.com/vi/uP2ew_MK7NM/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 47
+          },
+          {
+            "t": 3.58,
+            "line": 48
+          },
+          {
+            "t": 6.48,
+            "line": 49
+          },
+          {
+            "t": 9.26,
+            "line": 50
+          }
+        ]
+      },
+      {
+        "videoId": "784GdaN19Ok",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/784GdaN19Ok",
+        "thumbnail": "https://i.ytimg.com/vi/784GdaN19Ok/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 8
+          },
+          {
+            "t": 6.66,
+            "line": 9
+          },
+          {
+            "t": 11.37,
+            "line": 10
+          },
+          {
+            "t": 14.02,
+            "line": 11
+          },
+          {
+            "t": 17.2,
+            "line": 12
+          }
+        ]
+      },
+      {
+        "videoId": "dhN7fimPUg8",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/dhN7fimPUg8",
+        "thumbnail": "https://i.ytimg.com/vi/dhN7fimPUg8/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 47
+          },
+          {
+            "t": 3.38,
+            "line": 48
+          },
+          {
+            "t": 6.52,
+            "line": 49
+          },
+          {
+            "t": 10.08,
+            "line": 50
+          }
+        ]
+      },
+      {
+        "videoId": "2257QnSv5nQ",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/2257QnSv5nQ",
+        "thumbnail": "https://i.ytimg.com/vi/2257QnSv5nQ/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 40
+          },
+          {
+            "t": 2.36,
+            "line": 41
+          },
+          {
+            "t": 5.44,
+            "line": 42
+          },
+          {
+            "t": 8.48,
+            "line": 43
+          }
+        ]
+      },
+      {
+        "videoId": "jrdyrmuwSgY",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/jrdyrmuwSgY",
+        "thumbnail": "https://i.ytimg.com/vi/jrdyrmuwSgY/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.86,
+            "line": 16
+          },
+          {
+            "t": 2.87,
+            "line": 17
+          },
+          {
+            "t": 6.2,
+            "line": 18
+          },
+          {
+            "t": 8.88,
+            "line": 19
+          },
+          {
+            "t": 10.94,
+            "line": 20
+          },
+          {
+            "t": 14,
+            "line": 21
+          },
+          {
+            "t": 17.34,
+            "line": 22
+          },
+          {
+            "t": 20.22,
+            "line": 23
+          },
+          {
+            "t": 23.62,
+            "line": 24
+          },
+          {
+            "t": 30.82,
+            "line": 25
+          },
+          {
+            "t": 35.14,
+            "line": 26
+          },
+          {
+            "t": 38.28,
+            "line": 27
+          },
+          {
+            "t": 39.76,
+            "line": 28
+          }
+        ]
+      },
+      {
+        "videoId": "5JnguwMf6j0",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/5JnguwMf6j0",
+        "thumbnail": "https://i.ytimg.com/vi/5JnguwMf6j0/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.28,
+            "line": 36
+          },
+          {
+            "t": 3.26,
+            "line": 37
+          },
+          {
+            "t": 5.68,
+            "line": 38
+          },
+          {
+            "t": 8.28,
+            "line": 39
+          },
+          {
+            "t": 11.4,
+            "line": 40
+          },
+          {
+            "t": 13.48,
+            "line": 41
+          },
+          {
+            "t": 16.96,
+            "line": 42
+          },
+          {
+            "t": 19.84,
+            "line": 43
+          }
+        ]
+      },
+      {
+        "videoId": "ydhIRHODOoM",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/ydhIRHODOoM",
+        "thumbnail": "https://i.ytimg.com/vi/ydhIRHODOoM/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.16,
+            "line": 0
+          },
+          {
+            "t": 2.96,
+            "line": 1
+          },
+          {
+            "t": 5.78,
+            "line": 2
+          },
+          {
+            "t": 8.95,
+            "line": 3
+          },
+          {
+            "t": 11.39,
+            "line": 4
+          },
+          {
+            "t": 14.14,
+            "line": 5
+          },
+          {
+            "t": 17.24,
+            "line": 6
+          },
+          {
+            "t": 20.06,
+            "line": 7
+          }
+        ]
+      },
+      {
+        "videoId": "3nBWGzuTqM4",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/3nBWGzuTqM4",
+        "thumbnail": "https://i.ytimg.com/vi/3nBWGzuTqM4/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": null,
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 0
+          },
+          {
+            "t": 3.33,
+            "line": 1
+          },
+          {
+            "t": 6.47,
+            "line": 2
+          },
+          {
+            "t": 9.43,
+            "line": 3
+          },
+          {
+            "t": 12.01,
+            "line": 4
+          },
+          {
+            "t": 15.18,
+            "line": 5
+          },
+          {
+            "t": 18.42,
+            "line": 6
+          },
+          {
+            "t": 21.44,
+            "line": 7
+          },
+          {
+            "t": 25.36,
+            "line": 8
+          },
+          {
+            "t": 32.84,
+            "line": 9
+          },
+          {
+            "t": 38.03,
+            "line": 10
+          },
+          {
+            "t": 40.72,
+            "line": 11
+          },
+          {
+            "t": 43.75,
+            "line": 12
+          },
+          {
+            "t": 48.83,
+            "line": 13
+          }
+        ]
+      },
+      {
+        "videoId": "pfLxN73ojR8",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/pfLxN73ojR8",
+        "thumbnail": "https://i.ytimg.com/vi/pfLxN73ojR8/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 32
+          },
+          {
+            "t": 5.72,
+            "line": 33
+          },
+          {
+            "t": 10.32,
+            "line": 34
+          },
+          {
+            "t": 16.64,
+            "line": 35
+          }
+        ]
+      },
+      {
+        "videoId": "xUdlD49rjxY",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/xUdlD49rjxY",
+        "thumbnail": "https://i.ytimg.com/vi/xUdlD49rjxY/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.64,
+            "line": 0
+          },
+          {
+            "t": 2.89,
+            "line": 1
+          },
+          {
+            "t": 5.73,
+            "line": 2
+          },
+          {
+            "t": 8.64,
+            "line": 3
+          },
+          {
+            "t": 11.36,
+            "line": 4
+          },
+          {
+            "t": 14.08,
+            "line": 5
+          },
+          {
+            "t": 17.52,
+            "line": 6
+          },
+          {
+            "t": 19.78,
+            "line": 7
+          }
+        ]
+      },
+      {
+        "videoId": "ZKzMc5pjg7s",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/ZKzMc5pjg7s",
+        "thumbnail": "https://i.ytimg.com/vi/ZKzMc5pjg7s/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 39
+          },
+          {
+            "t": 3.18,
+            "line": 40
+          },
+          {
+            "t": 5.42,
+            "line": 41
+          },
+          {
+            "t": 8.5,
+            "line": 42
+          },
+          {
+            "t": 10.96,
+            "line": 43
+          }
+        ]
+      },
+      {
+        "videoId": "OPvr3zls_gg",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/OPvr3zls_gg",
+        "thumbnail": "https://i.ytimg.com/vi/OPvr3zls_gg/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "other",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.16,
+            "line": 47
+          },
+          {
+            "t": 3.94,
+            "line": 48
+          },
+          {
+            "t": 6.3,
+            "line": 49
+          },
+          {
+            "t": 11.56,
+            "line": 50
+          }
+        ]
+      },
+      {
+        "videoId": "RCKqDe1oV_U",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/RCKqDe1oV_U",
+        "thumbnail": "https://i.ytimg.com/vi/RCKqDe1oV_U/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.16,
+            "line": 26
+          },
+          {
+            "t": 3.3,
+            "line": 27
+          },
+          {
+            "t": 4.78,
+            "line": 28
+          },
+          {
+            "t": 10.85,
+            "line": 29
+          },
+          {
+            "t": 21.57,
+            "line": 30
+          },
+          {
+            "t": 27.86,
+            "line": 31
+          }
+        ]
+      },
+      {
+        "videoId": "N6uGeaN5MKU",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/N6uGeaN5MKU",
+        "thumbnail": "https://i.ytimg.com/vi/N6uGeaN5MKU/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.24,
+            "line": 0
+          },
+          {
+            "t": 3.04,
+            "line": 1
+          },
+          {
+            "t": 5.92,
+            "line": 2
+          },
+          {
+            "t": 8.32,
+            "line": 3
+          },
+          {
+            "t": 11.06,
+            "line": 4
+          },
+          {
+            "t": 14.46,
+            "line": 5
+          },
+          {
+            "t": 17.76,
+            "line": 6
+          },
+          {
+            "t": 20.14,
+            "line": 7
+          }
+        ]
+      },
+      {
+        "videoId": "KARbx4yPctQ",
+        "title": "YouTube Short",
+        "url": "https://www.youtube.com/shorts/KARbx4yPctQ",
+        "thumbnail": "https://i.ytimg.com/vi/KARbx4yPctQ/hqdefault.jpg",
+        "viewCount": 0,
+        "versionType": "mv",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.88,
+            "line": 47
+          },
+          {
+            "t": 3.06,
+            "line": 48
+          },
+          {
+            "t": 6.56,
+            "line": 49
+          },
+          {
+            "t": 9.2,
+            "line": 50
           }
         ]
       }
@@ -23192,7 +23192,7 @@
         "title": "最後まで、わがままで ごめんねダーリン",
         "url": "https://www.youtube.com/shorts/dFQyp-rBjHc",
         "thumbnail": "https://i.ytimg.com/vi/dFQyp-rBjHc/hqdefault.jpg",
-        "viewCount": 6200,
+        "viewCount": 6300,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -23278,7 +23278,7 @@
         "title": "天邪鬼が傷つける度に 気づかないふりして笑ってくれた",
         "url": "https://www.youtube.com/shorts/EjpXDKBk7-4",
         "thumbnail": "https://i.ytimg.com/vi/EjpXDKBk7-4/hqdefault.jpg",
-        "viewCount": 5700,
+        "viewCount": 5800,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -24970,7 +24970,7 @@
         "title": "音楽なんかなくて生きていけるのに",
         "url": "https://www.youtube.com/shorts/PT6dxvX4eKo",
         "thumbnail": "https://i.ytimg.com/vi/PT6dxvX4eKo/hqdefault.jpg",
-        "viewCount": 7200,
+        "viewCount": 7300,
         "versionType": "acoustic",
         "instrumental": false,
         "anchors": [
