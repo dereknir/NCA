@@ -59,7 +59,8 @@ const palette = PLANETS.mars.palette;
     <div class="lr-tip" hidden></div>
   </div>
   <figcaption>中心＝今天・圈＝7天／1個月／1年<br>方位＝從岐阜看過去・北在上</figcaption>
-  <script type="application/json" data-radar-data set:html={JSON.stringify({ blips, palette })} />
+  <!-- JSON 裡的「<」先換成 unicode 跳脫: 資料裡就算混了結束標籤也跳不出這個 script, JSON.parse 讀回來是一樣的字 -->
+  <script type="application/json" data-radar-data set:html={JSON.stringify({ blips, palette }).replace(/</g, '\\u003c')} />
 </figure>
 
 <style>
@@ -201,7 +202,7 @@ const palette = PLANETS.mars.palette;
     const show = (p: (typeof pts)[number] | null) => {
       cur = p;
       if (!p) { tip.hidden = true; return; }
-      tip.innerHTML = `<b>${p.d.replaceAll('-', '.')}・${fmt(p)}</b>${esc(p.n)}<br><i>${esc(p.v ? p.v + '・' : '')}${esc(p.p)}</i>`;
+      tip.innerHTML = `<b>${esc(p.d.replaceAll('-', '.'))}・${fmt(p)}</b>${esc(p.n)}<br><i>${esc(p.v ? p.v + '・' : '')}${esc(p.p)}</i>`;
       tip.style.left = (p.x + .5) / N * 100 + '%';
       tip.style.top = p.y / N * 100 + '%';
       tip.hidden = false;
