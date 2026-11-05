@@ -4044,7 +4044,7 @@
         "title": "さらば友よ、忘れてしまえよ",
         "url": "https://www.youtube.com/shorts/SCQ3YtiD89M",
         "thumbnail": "https://i.ytimg.com/vi/SCQ3YtiD89M/hqdefault.jpg",
-        "viewCount": 5600,
+        "viewCount": 5700,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -4913,7 +4913,7 @@
         "title": "身を焦がすほどの恋がまたしたい",
         "url": "https://www.youtube.com/shorts/ePjQGUnwCp0",
         "thumbnail": "https://i.ytimg.com/vi/ePjQGUnwCp0/hqdefault.jpg",
-        "viewCount": 6000,
+        "viewCount": 6100,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -4994,7 +4994,7 @@
         "title": "身を焦がすほどの恋がまたしたい",
         "url": "https://www.youtube.com/shorts/UP6KM-5fiYY",
         "thumbnail": "https://i.ytimg.com/vi/UP6KM-5fiYY/hqdefault.jpg",
-        "viewCount": 4800,
+        "viewCount": 4900,
         "versionType": "mv",
         "instrumental": false,
         "anchors": [
@@ -5994,6 +5994,33 @@
         ]
       },
       {
+        "videoId": "7M0C7rqR7-E",
+        "title": "イカれた夜のメランルー",
+        "url": "https://www.youtube.com/shorts/7M0C7rqR7-E",
+        "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
+        "viewCount": 7800,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0.48,
+            "line": 13
+          },
+          {
+            "t": 4.36,
+            "line": 14
+          },
+          {
+            "t": 6.38,
+            "line": 15
+          },
+          {
+            "t": 9.16,
+            "line": 16
+          }
+        ]
+      },
+      {
         "videoId": "rSZR2WQmgt4",
         "title": "もうすぐ君の元へ",
         "url": "https://www.youtube.com/shorts/rSZR2WQmgt4",
@@ -6049,33 +6076,6 @@
           {
             "t": 32.35,
             "line": 45
-          }
-        ]
-      },
-      {
-        "videoId": "7M0C7rqR7-E",
-        "title": "イカれた夜のメランルー",
-        "url": "https://www.youtube.com/shorts/7M0C7rqR7-E",
-        "thumbnail": "https://i.ytimg.com/vi/7M0C7rqR7-E/hqdefault.jpg",
-        "viewCount": 7700,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0.48,
-            "line": 13
-          },
-          {
-            "t": 4.36,
-            "line": 14
-          },
-          {
-            "t": 6.38,
-            "line": 15
-          },
-          {
-            "t": 9.16,
-            "line": 16
           }
         ]
       },
@@ -7248,7 +7248,7 @@
         "title": "🐼ストレスで過食とまんない、ぱくぱく",
         "url": "https://www.youtube.com/shorts/gmz_Ee5aE28",
         "thumbnail": "https://i.ytimg.com/vi/gmz_Ee5aE28/hqdefault.jpg",
-        "viewCount": 8800,
+        "viewCount": 8900,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -8322,6 +8322,45 @@
         ]
       },
       {
+        "videoId": "B1Do7lgri3Y",
+        "title": "誰もが幻を信じてやまない",
+        "url": "https://www.youtube.com/shorts/B1Do7lgri3Y",
+        "thumbnail": "https://i.ytimg.com/vi/B1Do7lgri3Y/hqdefault.jpg",
+        "viewCount": 8200,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 29
+          },
+          {
+            "t": 2.53,
+            "line": 30
+          },
+          {
+            "t": 5.03,
+            "line": 31
+          },
+          {
+            "t": 7.09,
+            "line": 32
+          },
+          {
+            "t": 9.64,
+            "line": 33
+          },
+          {
+            "t": 11.97,
+            "line": 34
+          },
+          {
+            "t": 14.27,
+            "line": 35
+          }
+        ]
+      },
+      {
         "videoId": "TtlDLpDS_VM",
         "title": "Because everyone believes in illusions",
         "url": "https://www.youtube.com/shorts/TtlDLpDS_VM",
@@ -8353,45 +8392,6 @@
           {
             "t": 14.44,
             "line": 11
-          }
-        ]
-      },
-      {
-        "videoId": "B1Do7lgri3Y",
-        "title": "誰もが幻を信じてやまない",
-        "url": "https://www.youtube.com/shorts/B1Do7lgri3Y",
-        "thumbnail": "https://i.ytimg.com/vi/B1Do7lgri3Y/hqdefault.jpg",
-        "viewCount": 8000,
-        "versionType": "live",
-        "instrumental": false,
-        "anchors": [
-          {
-            "t": 0,
-            "line": 29
-          },
-          {
-            "t": 2.53,
-            "line": 30
-          },
-          {
-            "t": 5.03,
-            "line": 31
-          },
-          {
-            "t": 7.09,
-            "line": 32
-          },
-          {
-            "t": 9.64,
-            "line": 33
-          },
-          {
-            "t": 11.97,
-            "line": 34
-          },
-          {
-            "t": 14.27,
-            "line": 35
           }
         ]
       },
@@ -8470,7 +8470,7 @@
         "title": "Because everyone believes in illusions",
         "url": "https://www.youtube.com/shorts/ghRIb7UAlKU",
         "thumbnail": "https://i.ytimg.com/vi/ghRIb7UAlKU/hqdefault.jpg",
-        "viewCount": 6700,
+        "viewCount": 6800,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
@@ -10724,7 +10724,7 @@
         "title": "我愛你",
         "url": "https://www.youtube.com/shorts/385RxA0Oo7g",
         "thumbnail": "https://i.ytimg.com/vi/385RxA0Oo7g/hqdefault.jpg",
-        "viewCount": 5900,
+        "viewCount": 6000,
         "versionType": "live",
         "instrumental": false,
         "anchors": [
