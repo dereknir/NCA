@@ -10,7 +10,7 @@
  * 凌晨 2:47 那一分鐘是原本那片夜空。第一張是 RoomScene 開頭那段 script 決定的, 這裡每 15 秒再看一次。
  * 白天的海報、月曆、鬧鐘跟著房間亮一階, 流星只有晚上才有。
  * 開場: 站在一樓的屋頂上, 二樓我房間的窗開著一條縫, 今天那首歌的歌詞從縫裡飄出來 (晚上飄過屋簷會變成一顆星);
- * 把外面那扇窗往右拉開 (拖、點、Enter), 拉到底停一下就直接切到房間裡。鏡頭不動, 沒有特效; Esc 直接進去。
+ * 把外面那扇窗往右拉開 (拖、甩、點、Enter), 拉到底停一下就直接切到房間裡。鏡頭不動, 沒有特效; Esc 直接進去。
  * 右下角的喇叭: 自己合成的 lo-fi, 隔著玻璃是悶的, 窗拉開一點清楚一點; 外面有風, 偶爾遠遠的平交道跟電車。
  */
 (() => {
@@ -463,24 +463,30 @@
       out.remove(); html.classList.remove('rm-intro'); pan.inert = false;
     }
 
-    // 拖 (往右)、點一下、Enter 都會拉開; Esc 直接進去
+    // 拖 (往右)、往右甩一下、點一下、Enter 都會拉開; Esc 直接進去。
+    // 放開的時候看手指拉到哪、放開前那一下多快, 不看窗 (窗被彈簧拖著走, 會落後手指一段, 甩得快的時候窗才剛起步);
+    // 手指點下去本來就會滑一點點, 觸控的「點」放寬一點
     let drag = null;
     grab.addEventListener('pointerdown', e => {
       if (state !== 'out') return;
-      drag = { x: e.clientX, y: e.clientY, off, moved: 0 };
+      drag = { x: e.clientX, y: e.clientY, off, moved: 0, slop: e.pointerType === 'mouse' ? 6 : 14, pts: [[performance.now(), e.clientX]] };
       grab.setPointerCapture(e.pointerId); grab.classList.add('drag');
     });
     grab.addEventListener('pointermove', e => {
       if (!drag) return;
       drag.moved = Math.max(drag.moved, Math.hypot(e.clientX - drag.x, e.clientY - drag.y));
+      drag.pts.push([performance.now(), e.clientX]);
       let to = drag.off + (e.clientX - drag.x) / k;
       if (stuck) { if (to - 8 < 3) to = 8; else { stuck = false; lofi.seam(1); } }   // 一開始卡卡的, 用點力才動
       offT = to;
     });
-    grab.addEventListener('pointerup', () => {
+    grab.addEventListener('pointerup', e => {
       if (!drag) return;
       const d = drag; drag = null; grab.classList.remove('drag');
-      if (d.moved < 6 || off > 30) openUp(); else { offT = 8; stuck = true; }
+      // 放開前 100ms 內往右多快 (px/ms); 停住一下才放開就是 0
+      const now = performance.now(), [t1, x1] = d.pts.find(([t]) => now - t < 100) || [now, e.clientX];
+      const vx = now - t1 > 8 ? (e.clientX - x1) / (now - t1) : 0;
+      if (d.moved < d.slop || vx > .15 || (vx > -.3 && offT > 30)) openUp(); else { offT = 8; stuck = true; }
     });
     grab.addEventListener('pointercancel', () => { if (drag) { drag = null; grab.classList.remove('drag'); offT = 8; stuck = true; } });
     grab.addEventListener('click', e => { if (e.detail === 0) openUp(); });   // 鍵盤按的
