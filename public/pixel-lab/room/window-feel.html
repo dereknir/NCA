@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="zh-Hant" class="rm-intro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>開窗手感</title>
+<link rel="stylesheet" href="/css/room.css">
+<style>
+/* 開窗手感比較: 首頁開場那扇窗 (同一套圖、同一份 room.css、同樣照東京現在的天色), 只換「窗怎麼被拉開」。
+   現在 = 首頁現在的寫法。其他三種照真的鋁窗算 (查到的數字寫在下面 physical 那段上面):
+   拖的時候窗被手指抓著走 (完全跟手); 放開之後帶著那個速度滑, 被滾輪跟毛刷的摩擦拖慢 — 每秒扣掉一樣多的速度, 最後突然停住, 停在哪就在哪;
+   點一下 = 看不到的那隻手推一把; 撞到窗框是一下子的事, 放開的窗彈回一格就停, 手還在上面的就直接停住。
+   窗一律整格整格移動, 跟房間的像素一樣。?m=push 直接開某一種, ?t=17:20 看某個時刻。 */
+@font-face { font-family: PXZ; src: url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2'); }
+html, body { margin: 0; background: #07060f; }
+body { font: 12px PXZ, monospace; color: #ece8ff; }
+.lab { position: fixed; left: 10px; top: 10px; z-index: 40; display: flex; flex-wrap: wrap; gap: 6px; max-width: calc(100vw - 20px); }
+.lab button { font: inherit; color: #9d95c9; background: rgb(14 11 29 / .82); border: 2px solid #3b335f; padding: 5px 9px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.lab button[aria-pressed="true"] { color: #e8c94a; border-color: #7a4b30; }
+.lab button:is(:hover, :focus-visible) { color: #ece8ff; outline: none; }
+.lab .sep { width: 6px; }
+.lab p { flex-basis: 100%; margin: 0; padding: 4px 8px; max-width: 36em; line-height: 1.6; color: #cfc2a4; background: rgb(14 11 29 / .7); }
+</style>
+</head>
+<body>
+<section class="rm" data-room aria-label="開窗手感比較">
+  <div class="rm-pan"><div class="rm-stage"><div class="rm-bg" role="img" aria-label="房間裡"></div></div></div>
+  <div class="rm-out">
+    <div class="rm-out-stage">
+      <i class="rm-ol rm-ol-base" role="img" aria-label="二樓的窗開著一條縫"></i>
+      <i class="rm-ol rm-ol-sash" aria-hidden="true"></i>
+      <i class="rm-ol rm-ol-frame" aria-hidden="true"></i>
+      <button class="rm-op rm-grab" type="button" style="--x:162;--y:147;--w:157;--h:108" aria-label="把窗拉開"></button>
+    </div>
+  </div>
+</section>
+<div class="lab" role="group" aria-label="手感">
+  <span data-models></span>
+  <span class="sep"></span>
+  <button type="button" data-slow aria-pressed="false">慢動作 ×¼</button>
+  <button type="button" data-snd aria-pressed="false">聲音</button>
+  <button type="button" data-again>再一次</button>
+  <p data-note></p>
+</div>
+
+<!-- 跟 RoomScene 開頭那段一樣: 照東京現在的太陽高度挑白天 / 傍晚 / 晚上那套圖 -->
+<script>
+  (() => {
+    const h = document.documentElement, q = new URLSearchParams(location.search);
+    const speed = +q.get('speed') || 1, t0 = Date.now();
+    let start = t0;
+    if (q.get('t')) {
+      const [hh, mm] = q.get('t').split(':').map(Number), j = new Date(t0 + 9 * 36e5);
+      j.setUTCHours(hh || 0, mm || 0, 0, 0); start = j.getTime() - 9 * 36e5;
+    }
+    const now = () => start + (Date.now() - t0) * speed;
+    function sunAlt(ms) {
+      const rad = Math.PI / 180, n = ms / 864e5 + 2440587.5 - 2451545;
+      const g = (357.528 + .9856003 * n) * rad, lam = (280.46 + .9856474 * n + 1.915 * Math.sin(g) + .02 * Math.sin(2 * g)) * rad;
+      const eps = (23.439 - 4e-7 * n) * rad, ra = Math.atan2(Math.cos(eps) * Math.sin(lam), Math.cos(lam)), dec = Math.asin(Math.sin(eps) * Math.sin(lam));
+      const lst = ((18.697374558 + 24.06570982441908 * n) % 24 + 139.69 / 15) * 15 * rad, lat = 35.68 * rad;
+      return Math.asin(Math.sin(lat) * Math.sin(dec) + Math.cos(lat) * Math.cos(dec) * Math.cos(lst - ra)) / rad;
+    }
+    const ROOM = { d: ['room-d', 'room-d-on'], k: ['room-off', 'room'], n: ['room-off', 'room'] };
+    const t = now(), a = sunAlt(t), s = a > 3 ? 'd' : a > -6 ? 'k' : 'n';
+    let k;
+    const d = (t / 6e4 + 540) % 1440 - 167;
+    if (a < -12 && d >= 0 && d < 1) k = 'a0';
+    else if (a < -12 && Math.abs(d) <= 60) k = 'a' + Math.ceil(Math.abs(d) / 10);
+    else k = (sunAlt(t + 6e4) > a ? 'r' : 's') + (a < -18 ? 'n' : a < -12 ? 2 * Math.floor(a / 2) : a < 12 ? Math.floor(a) : Math.min(36, 12 + 4 * Math.floor((a - 12) / 4)));
+    const lit = s === 'd' ? 'd' : 'n', f = n => `url(/img/room/${n}.png)`;
+    const u = { room: f(ROOM[s][s === 'd' ? 0 : 1]), sky: f('sky/' + k), edge: f(s === 'd' ? 'room-edge-d' : 'room-edge'),
+      out: f('window-' + s), outsky: f(`sky/${k}-out`), sash: f('window-sash-' + lit), frame: f('window-frame-' + lit) };
+    for (const [n, v] of Object.entries(u)) h.style.setProperty('--rm-' + n, v);
+    h.dataset.rmSet = s;
+  })();
+</script>
+
+<script>
+(() => {
+  const html = document.documentElement, root = document.querySelector('[data-room]');
+  const pan = root.querySelector('.rm-pan'), stage = root.querySelector('.rm-stage');
+  const out = root.querySelector('.rm-out'), ostage = out.querySelector('.rm-out-stage'), sash = out.querySelector('.rm-ol-sash'), grab = out.querySelector('.rm-grab');
+  const q = new URLSearchParams(location.search);
+  const OW = 480, OH = 400, X0 = 8, X1 = 72;   // 8 = 原本開著的那條縫, 72 = 全開 (原圖像素)
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+
+  /* ---------- 進房間之後的房間 (倍率跟 room.js 一樣對齊實體像素) ---------- */
+  function fitRoom() {
+    const dpr = devicePixelRatio || 1, cw = pan.clientWidth, ch = pan.clientHeight;
+    let s = cw < ch ? ch / 270 : Math.min(cw / 480, ch / 270);
+    s = Math.max(1, Math.floor(s * dpr)) / dpr; stage.style.setProperty('--s', s);
+  }
+  /* ---------- 窗外的圖蓋滿畫面, 窗在正中間 ---------- */
+  let k = 1;
+  function layout() {
+    const r = root.getBoundingClientRect();
+    k = Math.max(r.width / OW, r.height / OH);
+    const ox = clamp(r.width / 2 - 240 * k, r.width - OW * k, 0), oy = clamp(r.height / 2 - 200 * k, r.height - OH * k, 0);
+    out.style.setProperty('--k', k); ostage.style.translate = `${ox}px ${oy}px`;
+    fitRoom(); draw();
+  }
+
+  /* ---------- 聲音 (只有窗的聲音): 滾輪在軌道上「ゴロゴロ」(越快越大聲, 輪子轉一圈起伏一次)、撞到窗框「コトン」(越快越響) ---------- */
+  // 軌道是一整條鋁擠型, 沒有接縫, 所以不會每走幾格「喀」一聲; 舊窗的粗糙感只放在聲音裡 (輪子起伏大一點)
+  const sfx = (() => {
+    let ac = null, rollG, noise, long, on = false;
+    function build() {
+      ac = new (window.AudioContext || window.webkitAudioContext)();
+      noise = ac.createBuffer(1, ac.sampleRate, ac.sampleRate);
+      const d = noise.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      long = ac.createBuffer(1, ac.sampleRate * 4, ac.sampleRate);
+      const l = long.getChannelData(0); for (let i = 0, b = 0; i < l.length; i++) { b = b * .97 + (Math.random() * 2 - 1) * .3; l[i] = b; }
+      const rs = ac.createBufferSource(), rf = ac.createBiquadFilter();
+      rs.buffer = long; rs.loop = true; rf.type = 'bandpass'; rf.frequency.value = 850; rf.Q.value = 2.2;
+      rollG = ac.createGain(); rollG.gain.value = 0; rs.connect(rf).connect(rollG).connect(ac.destination); rs.start(0, Math.random() * 3);
+    }
+    function hiss(type, f, vol, len) {
+      const t = ac.currentTime, src = ac.createBufferSource(), fl = ac.createBiquadFilter(), g = ac.createGain();
+      src.buffer = noise; fl.type = type; fl.frequency.value = f;
+      g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + len);
+      src.connect(fl).connect(g).connect(ac.destination); src.start(t, Math.random() * .5); src.stop(t + len + .02);
+    }
+    const ok = () => on && ac;
+    return {
+      toggle() { on = !on; if (on) { if (!ac) build(); ac.resume(); } else if (ac) ac.suspend(); return on; },
+      roll(v, x, rough) {   // v: 原圖像素 / 秒; 輪子 (直徑 24mm) 轉一圈走 5.7 格
+        if (!ok()) return;
+        const g = v < 5 ? 0 : Math.min(.1, v * .0008) * (1 + rough * Math.sin(x / 5.7 * Math.PI * 2));
+        rollG.gain.setTargetAtTime(g, ac.currentTime, v < 5 ? .01 : .02);
+      },
+      hit(v, held) {   // 撞到窗框: 越快越響、越高一點; 手還在上面的話手吃掉一些
+        if (!ok()) return;
+        const p = Math.min(1, v / 110) * (held ? .6 : 1);
+        rollG.gain.setTargetAtTime(0, ac.currentTime, .005);
+        hiss('lowpass', 260 + 120 * p, .05 + .16 * p, .09); hiss('bandpass', 900 + 300 * p, .02 + .05 * p, .05);
+        if (p > .35) hiss('bandpass', 3200, .016 * p, .08);   // 玻璃在框裡抖一下 (只有聲音, 畫面上不到一格)
+      },
+    };
+  })();
+
+  /* ---------- 現在: 首頁現在的寫法, 原封不動搬過來 (彈簧 + 速度上限, 單位是每 16ms 幾格) ---------- */
+  const NOW = {
+    name: '現在', note: '首頁現在的寫法: 窗被彈簧拖著、速度有上限 (像馬達), 最後慢慢靠上去 (像緩衝關門); 沒拉過 1/3 就放手會彈回去。',
+    hold: .42, rough: .25,
+    init(x) { return { off: x, offT: x, vel: 0, stuck: true, hits: [] }; },
+    pos: s => s.off, px: (s, kk) => s.off * kk,
+    speed: s => Math.abs(s.vel) / .016,
+    tap(s) { if (!s.opening) { s.stuck = false; s.offT = 72; s.opening = true; } },   // 首頁在拉開的途中不再理手
+    down() {},
+    drag(s, to) { if (s.stuck) { if (to - 8 < 3) to = 8; else s.stuck = false; } s.offT = to; },
+    up(s, i) { if (i.moved < 6 || s.off > 30) NOW.tap(s); else { s.offT = 8; s.stuck = true; } },
+    update(s, t, dt) {
+      const ms = dt * 1000, d = clamp(s.offT, 8, 72) - s.off;
+      if (Math.abs(d) < .05 && Math.abs(s.vel) < .01) { s.vel = 0; return; }
+      s.vel += (d * .018 - s.vel * .22) * ms / 16; s.vel = clamp(s.vel, -1.6, 1.6);
+      s.off = clamp(s.off + s.vel * ms / 16, 8, 72);
+      if ((s.off === 72 && s.vel > 0) || (s.off === 8 && s.vel < 0)) { if (Math.abs(s.vel) > .25) s.hits.push([Math.abs(s.vel) / .016, false]); s.vel = 0; }
+    },
+    open: s => s.off > 71.5,
+  };
+
+  /* ---------- 照物理算的窗 ----------
+     單位: 原圖像素 (px)、秒。64px 的行程大約是一扇窗的寬 (0.85m), 1m ≈ 75px, 1px ≈ 13mm。
+     查到的: 這個大小的鋁窗 13–15kg; 開了縫的窗推著走只要 7–14N (北海道林產試驗場量的, 毛刷的摩擦為主, 跟窗多重沒什麼關係; JIS 要 50N 以內推得開)。
+       → 放手之後是乾摩擦在減速: 每秒扣掉固定的速度 (好窗 55–70 px/s², 卡的老窗 190), 速度直直往下掉, 突然停住, 沒有慢慢靠上去的尾巴, 也不會倒退。
+       人推一把最快大約 1.2 m/s (87 px/s); 窗框沒有緩衝, 撞上去還有 0.5–0.65 m/s, 放開的窗彈回 (速度 ×0.2) 一格左右就停在那, 手還在上面的就直接停住。
+     每一段動作都是時間的公式 (不是一格一格累加), 畫面 30、60、120Hz 走出來都一樣。 */
+  function physical(P) {
+    const run = (s, g, t) => { g.t0 = t; s.seg = g; };
+    // 沒有手: 乾摩擦, 速度直直往下掉; 撞到右邊窗框 → contact; 左邊那頭 (縫的位置) 直接停
+    function free(x0, v0, then) {
+      if (!v0) return { dur: 0, hand: false, x: () => x0, v: () => 0, done(s, t) { then?.(s, t); } };
+      const a = P.af, dir = Math.sign(v0);
+      const edge = dir > 0 ? X1 : X0, disc = v0 * v0 - 2 * a * Math.abs(edge - x0), hit = disc >= 0;
+      const dur = hit ? (Math.abs(v0) - Math.sqrt(disc)) / a : Math.abs(v0) / a;
+      return { dur, hand: false, x: u => x0 + v0 * u - dir * a * u * u / 2, v: u => v0 - dir * a * u,
+        done(s, t) {
+          if (!hit) { s.v = 0; then?.(s, t); return; }
+          s.x = edge; contact(s, Math.abs(v0) - a * dur, false, t, dir);
+        } };
+    }
+    // 撞到窗框: 一下子的事, 沒有變形也不會震; 放開的窗彈回 e 倍的速度 (最多 14 px/s, 也就是最多 1.8 格), 彈不到半格就看起來是直接停
+    function contact(s, vc, hand, t, dir = 1) {
+      s.hits.push([vc, hand]); s.v = 0;
+      if (dir < 0 || hand) return;
+      const vb = Math.min(P.e * vc, 14);
+      if (vb * vb / (2 * P.af) < .5) return;
+      s.recoil = t; run(s, free(X1, -vb), t);
+    }
+    // 手扶著推: 開始有一點力、中間最快、最後讓窗框吃掉剩下的速度 (五次多項式: 頭尾的位置、速度、加速度都對得上)
+    function quintic(x0, a0, x1, v1, a1, T) {
+      const L = x1 - x0, c2 = a0 * T * T / (2 * L), A = 1 - c2, B = v1 * T / L - 2 * c2, C = a1 * T * T / L - 2 * c2;
+      const c3 = 10 * A - 4 * B + C / 2, c4 = -15 * A + 7 * B - C, c5 = 6 * A - 3 * B + C / 2;
+      return { x: u => { const r = u / T; return x0 + L * (c2 * r ** 2 + c3 * r ** 3 + c4 * r ** 4 + c5 * r ** 5); },
+               v: u => { const r = u / T; return L / T * (2 * c2 * r + 3 * c3 * r ** 2 + 4 * c4 * r ** 3 + 5 * c5 * r ** 4); } };
+    }
+    function stroke(x0, T) {   // 一路推到窗框 (手還在上面, 到了就停)
+      const L = X1 - x0, g = Math.min(1, L / 32), qq = quintic(x0, P.a0 * g, X1, P.vArr * Math.sqrt(g), P.aArr * g, T);
+      return { dur: T, hand: true, x: qq.x, v: qq.v, done(s, t) { s.x = X1; contact(s, qq.v(T), true, t); } };
+    }
+    const PATH = {
+      // 推一把: 0.32 秒裡力從 0 長上來再收掉 (0.1 秒最用力), 手放開讓它滑; 推多大力看窗本來開多少, 讓它撞到窗框的時候都是 vHit
+      push(x0) {
+        const T = P.tp, b = .6 * P.af * T, vr = -b + Math.sqrt(b * b + P.vHit ** 2 + 2 * P.af * (X1 - x0));
+        const x = u => { const r = u / T; return x0 + vr * T * (2 * r ** 3 - 2 * r ** 4 + .6 * r ** 5); };
+        const v = u => { const r = u / T; return vr * (6 * r ** 2 - 8 * r ** 3 + 3 * r ** 4); };
+        let dur = T, early = false;
+        if (x(T) > X1) { let lo = 0, hi = T; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (x(m) < X1) lo = m; else hi = m; } dur = hi; early = true; }
+        return { dur, hand: true, x, v, done(s, t) { if (early) { s.x = X1; contact(s, v(dur), true, t); } else run(s, free(x(T), vr), t); } };
+      },
+      // 扶著推到底: 一整段推過去, 過了快一半最快, 碰到窗框還有 35 px/s
+      carry: x0 => stroke(x0, 1.25 * Math.max(.32, Math.sqrt((X1 - x0) / 64))),
+      // 卡卡的老窗: 推不滑, 手伸不到那麼遠 → 推到一半放手 (摩擦一下子就停住), 換手 0.2 秒再推到底
+      twice(x0) {
+        const L = X1 - x0;
+        if (L <= 36) return stroke(x0, .8 * Math.max(.5, Math.sqrt(L / 34.2)));
+        const T1 = .7 * Math.sqrt(L / 64), x1 = x0 + .44 * L, qq = quintic(x0, P.a0, x1, 26, -P.af, T1);
+        return { dur: T1, hand: true, x: qq.x, v: qq.v, done(s, t) {
+          const t2 = t + .2;
+          run(s, free(x1, 26, (s2, ts) => run(s2, { dur: Math.max(0, t2 - ts), hand: true, x: () => s2.x, v: () => 0,
+            done: (s3, tw) => run(s3, stroke(s3.x, .8 * Math.sqrt((X1 - s3.x) / 34.2)), tw) }, ts)), t);
+        } };
+      },
+    };
+    function advance(s, t) {
+      while (s.seg && t >= s.seg.t0 + s.seg.dur) {
+        const g = s.seg, te = g.t0 + g.dur;
+        s.x = g.x(g.dur); s.v = g.v(g.dur); s.seg = null;
+        g.done(s, te);
+      }
+      if (s.seg) { const u = Math.max(0, t - s.seg.t0); s.x = s.seg.x(u); s.v = s.seg.v(u); }
+      s.time = t;
+    }
+    const M = {
+      name: P.name, note: P.note, hold: .3, rough: P.rough,
+      init(x) { return { x, v: 0, time: 0, seg: null, held: false, recoil: null, hits: [] }; },
+      // 整格整格畫: R = 四捨五入; 撞到的那一下先停在 72 (最少 25ms), 之後彈回的那格 (最多回到 71 以內)
+      pos(s) { let R = Math.floor(s.x + .5); if (s.recoil != null) R = s.time < s.recoil + .025 ? X1 : Math.min(X1 - 1, R); return R; },
+      px(s, kk) { const dpr = devicePixelRatio || 1; return Math.round(M.pos(s) * kk * dpr) / dpr; },
+      speed: s => Math.abs(s.v),
+      tap(s, t) {
+        advance(s, t);
+        if (s.held || s.seg?.hand || s.x >= X1 - 2) return;                       // 手正在推 / 已經開了: 不理
+        if (s.seg && s.v > 0 && s.v * s.v / (2 * P.af) >= X1 - s.x) return;      // 還在滑, 自己就會到底
+        s.seg = null; s.v = 0; s.recoil = null;                                     // 手把滑著的窗接住, 從這裡推
+        run(s, PATH[P.path](s.x), t);
+      },
+      down(s, t) { advance(s, t); s.seg = null; s.v = 0; s.recoil = null; s.held = true; },
+      drag(s, x, vNow) {   // 手抓著: 窗就在手指那裡 (碰到兩頭就停在那, 手指可以再往外跑)
+        const nx = clamp(x, X0, X1);
+        if (nx === X1 && s.x < X1 && vNow > 5) s.hits.push([vNow, true]);
+        s.x = nx;
+      },
+      up(s, v, t) {   // 放手: 帶著手指最後的速度滑 (最快 vRel); 停在兩頭的就不動
+        s.held = false; s.time = t;
+        v = clamp(v, -P.vRel, P.vRel);
+        if (s.x >= X1 || s.x <= X0) v = 0;
+        if (v) run(s, free(s.x, v), t);
+      },
+      update(s, t) { if (!s.held) advance(s, t); else s.time = t; },
+      open: s => !s.held && !s.seg && s.x >= X1 - 2,
+    };
+    return M;
+  }
+
+  const MODELS = {
+    now: NOW,
+    push: physical({ name: '推一把滑到底', path: 'push', af: 55, vRel: 130, tp: .32, vHit: 48, e: .2, rough: .2,
+      note: '保養得還不錯的窗。點一下 = 手從縫裡往右推一把 (0.32 秒, 力慢慢加上去) 就放開, 窗自己滑, 速度被摩擦一路扣掉, 約 1 秒「コトン」撞到窗框、彈回 1 格停住。拖的時候窗跟著手指, 放手就帶著速度滑, 停在哪就在哪。' }),
+    carry: physical({ name: '扶著推到底', path: 'carry', af: 70, vRel: 110, a0: 250, vArr: 35, aArr: -40, e: .2, rough: .2,
+      note: '手一直推著窗走, 中間最快、快到的時候放輕, 約 1.25 秒碰到窗框, 手還在上面所以直接停住、不彈。拖、放手的規則跟「推一把」一樣 (摩擦大一點)。' }),
+    old: physical({ name: '卡卡的老窗', path: 'twice', af: 190, vRel: 80, a0: 160, vArr: 35, aArr: -60, e: .2, rough: .6,
+      note: '用了很多年、輪子跟毛刷都硬了 (摩擦是好窗的 3 倍多): 推了不太會滑, 手伸不到那麼遠, 推到一半放手換手, 再推到底, 約 1.7 秒碰到窗框。放手的話幾格內就停。' }),
+  };
+
+  /* ---------- 切換、慢動作、再一次 ---------- */
+  const lab = document.querySelector('.lab'), note = lab.querySelector('[data-note]'), box = lab.querySelector('[data-models]');
+  let id = MODELS[q.get('m')] ? q.get('m') : 'now', M = MODELS[id], st, phase, slow = 1, sim = 0, lastTs = performance.now(), restAt = null, drag = null;
+  for (const [key, m] of Object.entries(MODELS)) {
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = m.name; b.dataset.m = key;
+    b.addEventListener('click', () => { id = key; M = MODELS[key]; reset(); });
+    box.append(b, ' ');
+  }
+  function reset() {
+    drag = null; restAt = null; sim = 0;
+    st = M.init(X0); phase = 'out';
+    html.classList.add('rm-intro'); draw();
+    box.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === id));
+    note.textContent = M.note;
+    const u = new URL(location.href); u.searchParams.set('m', id); history.replaceState(null, '', u);
+    grab.focus({ preventScroll: true });
+  }
+  lab.querySelector('[data-again]').addEventListener('click', reset);
+  const slowB = lab.querySelector('[data-slow]');
+  slowB.addEventListener('click', () => { slow = slow === 1 ? .25 : 1; slowB.setAttribute('aria-pressed', slow !== 1); });
+  const sndB = lab.querySelector('[data-snd]');
+  sndB.addEventListener('click', () => sndB.setAttribute('aria-pressed', sfx.toggle()));
+
+  function draw() { if (st) sash.style.translate = M.px(st, k) + 'px 0'; }
+  function enter() { phase = 'in'; sfx.roll(0, 0, 0); html.classList.remove('rm-intro'); }
+  const simAt = ts => sim + Math.max(0, ts - lastTs) / 1000 * slow;   // 事件發生的那一刻, 換成模擬的時間
+
+  /* ---------- 手: 拖、點、Enter; Esc 直接進去 ---------- */
+  // 放手時的速度: 最近 100ms 的位置用二次曲線最小平方擬合, 取最後一點的斜率 (Android / Flutter 的做法);
+  // 最後一次移動離放手超過 40ms 就當作停了; 點太少、時間太短的不直接除 (剛按下去那一下會算出很誇張的速度)
+  function releaseV(pts, tUp) {
+    const last = pts[pts.length - 1];
+    if (!last || tUp - last[0] > .04) return 0;
+    const p = pts.filter(([t]) => last[0] - t <= .1);
+    if (p.length < 2) return 0;
+    const span = last[0] - p[0][0];
+    if (p.length < 4 || span < .03) return (last[1] - p[0][1]) / Math.max(.04, span);
+    const S = [0, 0, 0, 0, 0], Bv = [0, 0, 0];
+    for (const [t, x] of p) { const u = t - last[0]; let w = 1; for (let i = 0; i < 5; i++) { S[i] += w; if (i < 3) Bv[i] += x * w; w *= u; } }
+    const det = (a, b, c, d, e, f, g, h, i) => a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g);
+    const D = det(S[0], S[1], S[2], S[1], S[2], S[3], S[2], S[3], S[4]);
+    return D ? det(S[0], Bv[0], S[2], S[1], Bv[1], S[3], S[2], Bv[2], S[4]) / D : 0;   // c1: 原圖像素 / 秒
+  }
+  // 只認第一根手指 (第二根手指不接手); 滑鼠只認左鍵
+  grab.addEventListener('pointerdown', e => {
+    if (phase !== 'out' || st.opening || drag || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    restAt = null;
+    const x0 = M === NOW ? st.off : (M.update(st, simAt(e.timeStamp)), st.x);
+    drag = { id: e.pointerId, cx: e.clientX, cy: e.clientY, x0, moved: 0, slop: e.pointerType === 'mouse' ? 6 : e.pointerType === 'pen' ? 10 : 14, pts: [[e.timeStamp / 1000, x0]] };
+    grab.setPointerCapture(e.pointerId); grab.classList.add('drag');
+    M.down(st, simAt(e.timeStamp));
+  });
+  grab.addEventListener('pointermove', e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    for (const ev of e.getCoalescedEvents?.() || [e]) {
+      drag.moved = Math.max(drag.moved, Math.hypot(ev.clientX - drag.cx, ev.clientY - drag.cy));
+      const to = drag.x0 + (ev.clientX - drag.cx) / k, t = ev.timeStamp / 1000, prev = drag.pts[drag.pts.length - 1];
+      if (to !== prev[1]) { drag.pts.push([t, to]); if (drag.pts.length > 60) drag.pts.shift(); }
+      const vNow = prev && t > prev[0] ? (to - prev[1]) / (t - prev[0]) : 0;
+      M.drag(st, to, vNow);
+    }
+    draw();
+  });
+  function lift(e, cancel) {
+    if (!drag || e.pointerId !== drag.id) return;
+    const d = drag; drag = null; grab.classList.remove('drag');
+    if (M === NOW) return M.up(st, { moved: cancel ? 99 : d.moved });
+    const t = simAt(e.timeStamp);
+    if (!cancel && d.moved < d.slop) { M.up(st, 0, t); M.tap(st, t); }   // 沒怎麼動 = 點一下 (按多久都一樣)
+    else M.up(st, cancel ? 0 : releaseV(d.pts.map(([tt, x]) => [tt, clamp(x, X0, X1)]), e.timeStamp / 1000), t);
+  }
+  grab.addEventListener('pointerup', e => lift(e, false));
+  grab.addEventListener('pointercancel', e => lift(e, true));
+  grab.addEventListener('click', e => { if (e.detail === 0 && phase === 'out') M.tap(st, simAt(e.timeStamp)); });   // 鍵盤按的
+  addEventListener('keydown', e => {
+    if (e.target.closest?.('.lab')) return;
+    if ((e.key === 'Enter' || e.key === ' ') && phase === 'out') { e.preventDefault(); M.tap(st, simAt(e.timeStamp)); }
+    else if (e.key === 'Escape' && phase === 'out') { e.preventDefault(); enter(); }
+  });
+
+  /* ---------- 每一格: 模擬的時間往前走 (慢動作就走慢一點), 照時間算出窗在哪 ---------- */
+  function frame(ts) {
+    const dt = Math.min(.1, Math.max(0, ts - lastTs) / 1000) * slow; lastTs = ts; sim += dt;
+    if (phase === 'out' && st) {
+      M.update(st, sim, dt);
+      for (const [v, held] of st.hits.splice(0)) sfx.hit(v, held);
+      sfx.roll(M.speed(st) * slow, M.pos(st), M.rough);
+      draw();
+      // 拉開了、窗停穩了 (手放開、彈完), 停一下就切進房間; 中途又抓窗就重算
+      if (!drag && M.open(st)) { if (restAt == null) restAt = sim; else if (sim - restAt >= M.hold) enter(); }
+      else restAt = null;
+    }
+    requestAnimationFrame(frame);
+  }
+  addEventListener('resize', layout);
+  layout(); reset();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
