@@ -1,10 +1,10 @@
 {
   "meta": {
-    "total": 124,
+    "total": 125,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 47,
+      "promo": 48,
       "live_song": 41,
       "mc": 7,
       "travel": 9,
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 47,
+      "count": 48,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -259,6 +259,16 @@
           "url": "https://www.youtube.com/shorts/jWxn_ZeQRH8",
           "thumbnail": "https://i.ytimg.com/vi/jWxn_ZeQRH8/hqdefault.jpg",
           "viewCount": 7000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "ZhSkT8BFIjE",
+          "title": "nishina new photo📸",
+          "url": "https://www.youtube.com/shorts/ZhSkT8BFIjE",
+          "thumbnail": "https://i.ytimg.com/vi/ZhSkT8BFIjE/hqdefault.jpg",
+          "viewCount": 6800,
           "versionType": null,
           "instrumental": false,
           "anchors": []
