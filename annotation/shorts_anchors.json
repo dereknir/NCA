@@ -6426,7 +6426,7 @@
         "line": 18
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -19574,27 +19574,27 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0,
-        "line": 43
+        "t": 0.16,
+        "line": 14
       },
       {
-        "t": 1.12,
-        "line": 44
+        "t": 1.49,
+        "line": 15
       },
       {
-        "t": 1.92,
-        "line": 45
+        "t": 2.53,
+        "line": 16
       },
       {
-        "t": 4.18,
-        "line": 46
+        "t": 4.75,
+        "line": 17
       },
       {
-        "t": 13.12,
-        "line": 47
+        "t": 7.19,
+        "line": 18
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
