@@ -1,11 +1,11 @@
 {
   "meta": {
-    "total": 128,
+    "total": 129,
     "by_category": {
       "daily": 4,
       "cover": 5,
       "promo": 50,
-      "live_song": 42,
+      "live_song": 43,
       "mc": 7,
       "travel": 9,
       "yearly": 6,
@@ -628,7 +628,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 42,
+      "count": 43,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -850,6 +850,19 @@
           "appearanceName": null,
           "songId": null,
           "songTitle": null
+        },
+        {
+          "videoId": "a_vcG-Pw7Yo",
+          "title": "🐾",
+          "url": "https://www.youtube.com/shorts/a_vcG-Pw7Yo",
+          "thumbnail": "https://i.ytimg.com/vi/a_vcG-Pw7Yo/hqdefault.jpg",
+          "viewCount": 6000,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "ツタロックフェス2025",
+          "songId": "nishina-kedamono-no-friends",
+          "songTitle": "ケダモノのフレンズ"
         },
         {
           "videoId": "AI_kn8opUaE",
