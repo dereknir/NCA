@@ -1,11 +1,11 @@
 {
   "meta": {
-    "total": 125,
+    "total": 128,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 48,
-      "live_song": 41,
+      "promo": 50,
+      "live_song": 42,
       "mc": 7,
       "travel": 9,
       "yearly": 6,
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 48,
+      "count": 50,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -394,6 +394,26 @@
           "anchors": []
         },
         {
+          "videoId": "TSw8JYHxN2w",
+          "title": "Your lucky nishina track next week!?",
+          "url": "https://www.youtube.com/shorts/TSw8JYHxN2w",
+          "thumbnail": "https://i.ytimg.com/vi/TSw8JYHxN2w/hqdefault.jpg",
+          "viewCount": 3800,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "D_JV5XSV6m0",
+          "title": "Your lucky nishina track next week!?",
+          "url": "https://www.youtube.com/shorts/D_JV5XSV6m0",
+          "thumbnail": "https://i.ytimg.com/vi/D_JV5XSV6m0/hqdefault.jpg",
+          "viewCount": 3700,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "iLoKBVKZYgM",
           "title": "bugs - 1.31 release",
           "url": "https://www.youtube.com/shorts/iLoKBVKZYgM",
@@ -608,7 +628,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 41,
+      "count": 42,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -958,6 +978,19 @@
           "instrumental": false,
           "anchors": [],
           "appearanceName": "MERRY ROCK PARADE 2025",
+          "songId": "nishina-wawon",
+          "songTitle": "わをん"
+        },
+        {
+          "videoId": "WguQaKk-5Cw",
+          "title": "SHINJUKU LOFT 50th ANNIVERSARY 「音鳴足知」vol.3",
+          "url": "https://www.youtube.com/shorts/WguQaKk-5Cw",
+          "thumbnail": "https://i.ytimg.com/vi/WguQaKk-5Cw/hqdefault.jpg",
+          "viewCount": 4800,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "SHINJUKU LOFT 50th ANNIVERSARY 「音鳴足知」vol.3 w 奇妙礼太郎BAND",
           "songId": "nishina-wawon",
           "songTitle": "わをん"
         },
