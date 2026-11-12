@@ -1,10 +1,10 @@
 {
   "meta": {
-    "total": 113,
+    "total": 122,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 36,
+      "promo": 45,
       "live_song": 41,
       "mc": 7,
       "travel": 9,
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 36,
+      "count": 45,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -204,6 +204,26 @@
           "anchors": []
         },
         {
+          "videoId": "UJoW9dtNeiQ",
+          "title": "YouTube Short",
+          "url": "https://www.youtube.com/shorts/UJoW9dtNeiQ",
+          "thumbnail": "https://i.ytimg.com/vi/UJoW9dtNeiQ/hqdefault.jpg",
+          "viewCount": 7800,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "iMeyK_VlQv0",
+          "title": "ドレスコード / にしな",
+          "url": "https://www.youtube.com/shorts/iMeyK_VlQv0",
+          "thumbnail": "https://i.ytimg.com/vi/iMeyK_VlQv0/hqdefault.jpg",
+          "viewCount": 7800,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "A0nDnSw6-xk",
           "title": "Your lucky nishina track next week!?",
           "url": "https://www.youtube.com/shorts/A0nDnSw6-xk",
@@ -274,6 +294,16 @@
           "anchors": []
         },
         {
+          "videoId": "KglPSQzuEnU",
+          "title": "osanpo",
+          "url": "https://www.youtube.com/shorts/KglPSQzuEnU",
+          "thumbnail": "https://i.ytimg.com/vi/KglPSQzuEnU/hqdefault.jpg",
+          "viewCount": 5800,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "_4YUnJsWbiA",
           "title": "🙂new goods",
           "url": "https://www.youtube.com/shorts/_4YUnJsWbiA",
@@ -290,6 +320,16 @@
           "thumbnail": "https://i.ytimg.com/vi/ZPNS0tul3eU/hqdefault.jpg",
           "viewCount": 5000,
           "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "5UDURnhrbqk",
+          "title": "💪",
+          "url": "https://www.youtube.com/shorts/5UDURnhrbqk",
+          "thumbnail": "https://i.ytimg.com/vi/5UDURnhrbqk/hqdefault.jpg",
+          "viewCount": 5000,
+          "versionType": "mv",
           "instrumental": false,
           "anchors": []
         },
@@ -349,6 +389,26 @@
           "url": "https://www.youtube.com/shorts/iLoKBVKZYgM",
           "thumbnail": "https://i.ytimg.com/vi/iLoKBVKZYgM/hqdefault.jpg",
           "viewCount": 3600,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "-KKjJ2hvwWs",
+          "title": "nishina × United Athle",
+          "url": "https://www.youtube.com/shorts/-KKjJ2hvwWs",
+          "thumbnail": "https://i.ytimg.com/vi/-KKjJ2hvwWs/hqdefault.jpg",
+          "viewCount": 3500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "jQjmyVFx95M",
+          "title": "osanpo2",
+          "url": "https://www.youtube.com/shorts/jQjmyVFx95M",
+          "thumbnail": "https://i.ytimg.com/vi/jQjmyVFx95M/hqdefault.jpg",
+          "viewCount": 3400,
           "versionType": null,
           "instrumental": false,
           "anchors": []
@@ -454,6 +514,16 @@
           "anchors": []
         },
         {
+          "videoId": "6BIAZ392nHw",
+          "title": "Daily life, go forward",
+          "url": "https://www.youtube.com/shorts/6BIAZ392nHw",
+          "thumbnail": "https://i.ytimg.com/vi/6BIAZ392nHw/hqdefault.jpg",
+          "viewCount": 1800,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "Fq-XuyVqHfo",
           "title": "何度でも巡り会える",
           "url": "https://www.youtube.com/shorts/Fq-XuyVqHfo",
@@ -464,11 +534,31 @@
           "anchors": []
         },
         {
+          "videoId": "wYiaWqKBUD0",
+          "title": "Sunday, stay a bit longer",
+          "url": "https://www.youtube.com/shorts/wYiaWqKBUD0",
+          "thumbnail": "https://i.ytimg.com/vi/wYiaWqKBUD0/hqdefault.jpg",
+          "viewCount": 1700,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "8_UlbWOtQxU",
           "title": "bugs - 1.31 release",
           "url": "https://www.youtube.com/shorts/8_UlbWOtQxU",
           "thumbnail": "https://i.ytimg.com/vi/8_UlbWOtQxU/hqdefault.jpg",
           "viewCount": 1700,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "CoD-BkhEQIU",
+          "title": "new goods🌞",
+          "url": "https://www.youtube.com/shorts/CoD-BkhEQIU",
+          "thumbnail": "https://i.ytimg.com/vi/CoD-BkhEQIU/hqdefault.jpg",
+          "viewCount": 1600,
           "versionType": null,
           "instrumental": false,
           "anchors": []
