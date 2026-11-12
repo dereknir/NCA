@@ -1,10 +1,10 @@
 {
   "meta": {
-    "total": 122,
+    "total": 124,
     "by_category": {
       "daily": 4,
       "cover": 5,
-      "promo": 45,
+      "promo": 47,
       "live_song": 41,
       "mc": 7,
       "travel": 9,
@@ -121,7 +121,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 45,
+      "count": 47,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -394,6 +394,16 @@
           "anchors": []
         },
         {
+          "videoId": "8rJ705owwjY",
+          "title": "Your lucky nishina track next week!?",
+          "url": "https://www.youtube.com/shorts/8rJ705owwjY",
+          "thumbnail": "https://i.ytimg.com/vi/8rJ705owwjY/hqdefault.jpg",
+          "viewCount": 3600,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "-KKjJ2hvwWs",
           "title": "nishina × United Athle",
           "url": "https://www.youtube.com/shorts/-KKjJ2hvwWs",
@@ -440,6 +450,16 @@
           "thumbnail": "https://i.ytimg.com/vi/tePjcZLC8hk/hqdefault.jpg",
           "viewCount": 2900,
           "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "BuYthQSjo4o",
+          "title": "nishina tour \"MUSICK 2\"",
+          "url": "https://www.youtube.com/shorts/BuYthQSjo4o",
+          "thumbnail": "https://i.ytimg.com/vi/BuYthQSjo4o/hqdefault.jpg",
+          "viewCount": 2700,
+          "versionType": "live",
           "instrumental": false,
           "anchors": []
         },
