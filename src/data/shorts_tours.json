@@ -1,6 +1,6 @@
 {
   "meta": {
-    "total": 54,
+    "total": 55,
     "tour_names": [
       "Feeling",
       "MUSICK",
@@ -288,6 +288,17 @@
         "thumbnail": "https://i.ytimg.com/vi/aBvOpamhRaA/hqdefault.jpg",
         "viewCount": 5600,
         "versionType": null,
+        "instrumental": false,
+        "anchors": [],
+        "tourName": "Feeling"
+      },
+      {
+        "videoId": "Jk9bh4ZXiys",
+        "title": "Feeling in Hiroshima🏝️",
+        "url": "https://www.youtube.com/shorts/Jk9bh4ZXiys",
+        "thumbnail": "https://i.ytimg.com/vi/Jk9bh4ZXiys/hqdefault.jpg",
+        "viewCount": 4700,
+        "versionType": "live",
         "instrumental": false,
         "anchors": [],
         "tourName": "Feeling"
