@@ -1,11 +1,11 @@
 {
   "meta": {
-    "total": 129,
+    "total": 130,
     "by_category": {
       "daily": 4,
       "cover": 5,
       "promo": 50,
-      "live_song": 43,
+      "live_song": 44,
       "mc": 7,
       "travel": 9,
       "yearly": 6,
@@ -628,7 +628,7 @@
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 43,
+      "count": 44,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -1149,6 +1149,19 @@
           "appearanceName": "TOKYO ISLAND 2026",
           "songId": null,
           "songTitle": null
+        },
+        {
+          "videoId": "Uc0ODG84SYU",
+          "title": "🍬",
+          "url": "https://www.youtube.com/shorts/Uc0ODG84SYU",
+          "thumbnail": "https://i.ytimg.com/vi/Uc0ODG84SYU/hqdefault.jpg",
+          "viewCount": 3400,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "ツタロックフェス2025",
+          "songId": "nishina-cranberry-jam",
+          "songTitle": "クランベリージャムをかけて"
         },
         {
           "videoId": "YkObokSE9nY",
