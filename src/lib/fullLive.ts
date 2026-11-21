@@ -30,7 +30,8 @@ export interface FLSong { id: string; title: string; lines: { ja: string; zh: st
 export type FLSeg =
   | { gap: true; from: number; to: number; len: number }
   | { gap?: false; v: string; title: string; views: number; live: boolean; kind: string; from: number; to: number;
-      start: number; end: number; safe: number; cues: [number, number][] };   // safe = 下一段還沒好時, 這段最多能多播到哪 (不會播到下一句)
+      start: number; end: number; safe: number; sung?: number; cues: [number, number][] };
+      // safe = 下一段還沒好時, 這段最多能多播到哪 (不會播到下一句); sung = 只有整首最後一段: 人聲唱完的時間 (結尾淡出只淡這之後)
 
 export const NON_LIVE_MAX = 0.3;
 const PRE = 0.2;                        // 沒量到起音: 從錨點前多少秒切入 (實測三成錨點比起音晚, 最多約 0.3 秒)
@@ -60,6 +61,8 @@ function onsetOf(s: Prepared, l: number): [number, number, number] | null {
   const o = s.on.get(l);
   const ref = s.at.get(l) ?? (s.long && l === s.last + 1 ? s.end : undefined);
   if (!o || ref == null) return null;
+  const prev = s.at.get(l - 1);
+  if (prev != null && o[0] < prev + 0.25) return null;        // 比上一句的錨點還早: 量到的是上一句 (上一句很短又連唱時會這樣)
   return o[0] - ref >= ON_OK[0] && o[0] - ref <= ON_OK[1] ? o : null;
 }
 
@@ -114,6 +117,16 @@ function endOf(s: Prepared, l: number, L: number[], n: number): number | null {
 function safeOf(s: Prepared, l: number, end: number, n: number): number {
   if (l === n - 1 || (l === s.last && !s.long && s.vt && s.vt[0] === l && s.vt[2] == null)) return Math.max(end, s.dur ?? end);
   return end;
+}
+
+/** 整首最後一句唱完的時間 (播放器結尾的淡出只放在這之後, 不把最後一個字淡掉); undefined = 不知道, 照舊淡出 */
+function sungOf(s: Prepared, l: number, end: number, L: number[]): number | undefined {
+  const t = s.at.get(l)!;
+  if (s.cout.has(l) || s.long) return undefined;                          // 人工切點 / 長片: 不知道唱到哪
+  if (l === s.last && s.end != null && s.end > t) return Math.min(end, s.end);   // 人工確認過唱完的時間
+  if (l === s.last && s.vt && s.vt[0] === l)                              // 最後一句的 vt 會把唱完後的觀眾聲 / MC 也算進去 → 用句長封頂
+    return Math.min(end, s.vt[1], (onsetOf(s, l)?.[0] ?? t) + 2.5 * L[l]);
+  return Math.min(end, t + L[l]);                                          // 沒量過: 句長估
 }
 
 /* 排段的成本: 每段 1, 加上「切點不乾淨」的罰分 — 寧可多換一段, 也不要結尾切在沒把握的地方 */
@@ -178,7 +191,7 @@ export function plan(song: FLSong, bad: Set<string> = new Set(), from = 0): FLSe
     const end = E(s, j)!;
     segs.push({
       v: s.v, title: s.title, views: s.views, live: s.live, kind: KIND[s.type] || '其他版本', from: i, to: j,
-      start: startOf(s, i), end, safe: safeOf(s, j, end, n),
+      start: startOf(s, i), end, safe: safeOf(s, j, end, n), ...(j === n - 1 ? { sung: sungOf(s, j, end, L) } : {}),
       // 歌詞亮起的時間: 量到起音就用起音, 沒有就用錨點
       cues: Array.from({ length: j - i + 1 }, (_, d) => [i + d, onsetOf(s, i + d)?.[0] ?? s.at.get(i + d)!] as [number, number]),
     });
