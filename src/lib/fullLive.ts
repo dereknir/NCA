@@ -3,13 +3,15 @@
  *
  * 一句要算「有唱到」, 得知道它從哪一秒唱到哪一秒:
  *   結束 = 同一支 short 下一句的開始; 那支只拍到這句為止, 就用 live 量到的這句長度估, 而且影片要夠長。
+ *   (人工確認過「最後一句唱到幾秒」的 short 會帶 end, 那句就直接用 end; 見 data/full_live_overrides.json)
  * 排段: 每一句優先用 live, 一支能撐越多句越好 (一樣長挑觀看數高的);
  *       沒有 live 拍到的句子才用 MV 等其他版本補, 而且一接得回 live 就換回去。
- * 能不能上架: 每句都有人唱到, 而且非 live 的段數不超過總段數 30%。
+ * 能不能上架: 每句都有人唱到, 而且非 live 的段數不超過總段數 30% 或非 live 的句數不超過總句數 30% (任一成立)。
+ *   (只看段數的話, live 段越長、總段數越少, 一兩段 MV 就超標)
  * 素材由 scripts/build_full_live.py 產生 (src/data/full_live.json)。
  */
 
-export interface FLShort { v: string; title: string; views: number; dur: number | null; live: boolean; type: string; am: [number, number][] }
+export interface FLShort { v: string; title: string; views: number; dur: number | null; live: boolean; type: string; am: [number, number][]; end?: number }
 export interface FLSong { id: string; title: string; lines: { ja: string; zh: string }[]; L: number[]; shorts: FLShort[] }
 export type FLSeg =
   | { gap: true; from: number; to: number; len: number }
@@ -20,11 +22,11 @@ export const NON_LIVE_MAX = 0.3;
 const PRE = 0.15;                       // 每段從那句開始前多少秒切入 (留一點換氣)
 export const KIND: Record<string, string> = { mv: 'MV', other: '其他版本', tft: 'THE FIRST TAKE', acoustic: '不插電版' };
 
-type Prepared = FLShort & { at: Map<number, number> };
+type Prepared = FLShort & { at: Map<number, number>; last: number };
 const prepared = new WeakMap<FLShort, Prepared>();
 const prep = (s: FLShort): Prepared => {
   let p = prepared.get(s);
-  if (!p) prepared.set(s, p = { ...s, at: new Map(s.am) });
+  if (!p) prepared.set(s, p = { ...s, at: new Map(s.am), last: s.am.length ? s.am[s.am.length - 1][0] : -1 });
   return p;
 };
 
@@ -33,6 +35,7 @@ function endOf(s: Prepared, l: number, L: number[]): number | null {
   if (t == null) return null;
   const nx = s.at.get(l + 1);
   if (nx != null && nx > t) return nx;
+  if (l === s.last && s.end != null && s.end > t) return s.end;
   const e = t + L[l];
   return s.dur && s.dur >= e - 0.3 ? e : null;
 }
@@ -72,13 +75,15 @@ export function summary(song: FLSong) {
   const real = segs.filter((s): s is Extract<FLSeg, { v: string }> => !s.gap);
   const nonLive = real.filter(s => !s.live);
   const missing = segs.filter(s => s.gap).map(s => s.from);
+  const nonLiveLines = nonLive.reduce((a, s) => a + s.to - s.from + 1, 0);
   return {
     segs: real.length,
     nonLive: nonLive.length,
-    nonLiveLines: nonLive.reduce((a, s) => a + s.to - s.from + 1, 0),
+    nonLiveLines,
     liveShorts: song.shorts.filter(s => s.live).length,
     missing,
     duration: segs.reduce((a, s) => a + (s.gap ? s.len : s.end - s.start), 0),
-    complete: missing.length === 0 && real.length > 0 && nonLive.length <= real.length * NON_LIVE_MAX,
+    complete: missing.length === 0 && real.length > 0
+      && (nonLive.length <= real.length * NON_LIVE_MAX || nonLiveLines <= song.lines.length * NON_LIVE_MAX),
   };
 }

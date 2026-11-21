@@ -9,11 +9,13 @@ build_full_live.py — 完整 Live 的素材 → src/data/full_live.json
   src/data/shorts_by_song.json   審完 (status=done) 的 shorts, import_anchors.py 產出
   data/lyrics.json               每首歌的歌詞句子
   data/short_durations.json      影片長度 (fetch_short_durations.py), 判斷最後一句有沒有唱完要用
+  data/full_live_overrides.json  人工例外: ends = 某支 short 最後一句確認唱完的秒數 (句長估太保守時用)
 寫:
   src/data/full_live.json        { songs: [{ id, title, lines, L, shorts }] }
     L       每句大概多長 (秒): 只用 live 量 (同一支 short 相鄰兩句的時間差取中位數),
             錄音室版速度不同不拿來算; 量不到的句子用整首的中位數
     shorts  live 和其他版本 (MV 等) 都放, 純演奏的不放; am = [[句, 秒], …]
+            end = 最後一句唱完的秒數 (只有 overrides 有填的才有)
 
     python scripts/build_full_live.py
 """
@@ -27,6 +29,7 @@ ROOT = Path(__file__).parent.parent
 BY_SONG = ROOT / "src" / "data" / "shorts_by_song.json"
 LYRICS = ROOT / "data" / "lyrics.json"
 DURS = ROOT / "data" / "short_durations.json"
+OVERRIDES = ROOT / "data" / "full_live_overrides.json"
 OUT = ROOT / "src" / "data" / "full_live.json"
 
 
@@ -50,6 +53,8 @@ def main():
     by_song = json.loads(BY_SONG.read_text(encoding="utf-8"))["by_song"]
     lyrics = {s["id"]: s for s in json.loads(LYRICS.read_text(encoding="utf-8"))["songs"]}
     durs = json.loads(DURS.read_text(encoding="utf-8")) if DURS.exists() else {}
+    ends = json.loads(OVERRIDES.read_text(encoding="utf-8")).get("ends", {}) if OVERRIDES.exists() else {}
+    used = set()
 
     songs = []
     for sid, shorts in by_song.items():
@@ -70,13 +75,29 @@ def main():
         if not live:
             continue
         n = song["lyric_line_count"]
+        shorts_out = []
+        for s in pool:
+            am = sorted([l, round(t, 2)] for l, t in s["am"].items() if 0 <= l < n)
+            out = {**s, "am": am}
+            e = ends.get(s["v"])
+            if e and am:
+                last_l, last_t = am[-1]
+                # 對不上 (歌改了 / 最後一句換了 / 秒數不合理) 就不用, 免得把沒唱完的句子放進去
+                if e.get("song", sid) != sid or e.get("line", last_l) != last_l or not last_t < e["t"] <= (s["dur"] or e["t"]) + 0.05:
+                    print(f"⚠ overrides 的 {s['v']} 對不上現在的標記 (最後一句 [{last_l}]@{last_t}, dur={s['dur']}), 略過")
+                else:
+                    out["end"] = e["t"]
+                    used.add(s["v"])
+            shorts_out.append(out)
         songs.append({
             "id": sid,
             "title": song["title"],
             "lines": [{"ja": l.get("ja") or "", "zh": l.get("zh") or ""} for l in song["lyric_lines"]],
             "L": line_lengths(n, live),
-            "shorts": [{**s, "am": sorted([l, round(t, 2)] for l, t in s["am"].items() if 0 <= l < n)} for s in pool],
+            "shorts": shorts_out,
         })
+    for v in sorted(set(ends) - used):
+        print(f"⚠ overrides 的 {v} 沒有用到 (不在素材裡或對不上)")
 
     songs.sort(key=lambda s: s["id"])
     OUT.write_text(json.dumps({"meta": {"songs": len(songs)}, "songs": songs}, ensure_ascii=False) + "\n", encoding="utf-8")

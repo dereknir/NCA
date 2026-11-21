@@ -17,6 +17,7 @@ on:
       - develop
     paths:
       - 'annotation/shorts_anchors.json'
+      - 'data/full_live_overrides.json'   # 完整 Live 的人工例外 (本 workflow 不 push 它, 不會自我觸發)
   workflow_dispatch: {}
 
 # 併發控制: 同一時間只跑一個, 後來的排隊 (避免 annotator 連續 push 造成疊車)

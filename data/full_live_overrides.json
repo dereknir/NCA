@@ -1,0 +1,7 @@
+{
+  "_doc": "完整 Live 的人工例外, scripts/build_full_live.py 讀。ends: 某支 short 拍到的最後一句「唱完」的秒數 (確認過才填)。沒填的照 src/lib/fullLive.ts 用句長估, 估不夠就不拿那句來排。",
+  "ends": {
+    "AOo5HT9AiaA": { "t": 13.3, "song": "nishina-darling", "line": 17, "note": "「貴方のことだもの」唱到 13.28s, 影片 13.4s (ASR 逐字確認 2026-11-21)" },
+    "tAK48pB_8c4": { "t": 33.9, "song": "nishina-plum", "line": 26, "note": "「腐る寸前が1番の甘美」唱到 33.9s, 影片 34.0s (ASR 逐字確認 2026-11-21)" }
+  }
+}
