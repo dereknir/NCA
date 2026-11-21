@@ -1,23 +1,23 @@
 {
   "meta": {
-    "total": 130,
+    "total": 153,
     "by_category": {
-      "daily": 4,
+      "daily": 5,
       "cover": 5,
-      "promo": 50,
-      "live_song": 44,
-      "mc": 7,
+      "promo": 56,
+      "live_song": 51,
+      "mc": 10,
       "travel": 9,
       "yearly": 6,
-      "ad": 2,
-      "tv": 3
+      "ad": 6,
+      "tv": 5
     }
   },
   "categories": {
     "daily": {
       "displayName": "日常",
       "emoji": "☕",
-      "count": 4,
+      "count": 5,
       "shorts": [
         {
           "videoId": "34kKI4hhjTo",
@@ -56,6 +56,16 @@
           "thumbnail": "https://i.ytimg.com/vi/24LL1kmYAek/hqdefault.jpg",
           "viewCount": 4300,
           "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "4LqdiGWZh-c",
+          "title": "3",
+          "url": "https://www.youtube.com/shorts/4LqdiGWZh-c",
+          "thumbnail": "https://i.ytimg.com/vi/4LqdiGWZh-c/hqdefault.jpg",
+          "viewCount": 2500,
+          "versionType": "other",
           "instrumental": false,
           "anchors": []
         }
@@ -121,7 +131,7 @@
     "promo": {
       "displayName": "宣傳",
       "emoji": "📣",
-      "count": 50,
+      "count": 56,
       "shorts": [
         {
           "videoId": "N-bB7X18OYM",
@@ -190,6 +200,16 @@
           "thumbnail": "https://i.ytimg.com/vi/1nBPDVncspo/hqdefault.jpg",
           "viewCount": 10000,
           "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "QrOg_eDfKFE",
+          "title": "nishina - It’s a piece of cake teaser",
+          "url": "https://www.youtube.com/shorts/QrOg_eDfKFE",
+          "thumbnail": "https://i.ytimg.com/vi/QrOg_eDfKFE/hqdefault.jpg",
+          "viewCount": 9000,
+          "versionType": "other",
           "instrumental": false,
           "anchors": []
         },
@@ -324,6 +344,16 @@
           "anchors": []
         },
         {
+          "videoId": "3A8cOTVy-a8",
+          "title": "New goods!!",
+          "url": "https://www.youtube.com/shorts/3A8cOTVy-a8",
+          "thumbnail": "https://i.ytimg.com/vi/3A8cOTVy-a8/hqdefault.jpg",
+          "viewCount": 5700,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "ZPNS0tul3eU",
           "title": "nishina Zepp Tour 2024",
           "url": "https://www.youtube.com/shorts/ZPNS0tul3eU",
@@ -349,6 +379,16 @@
           "url": "https://www.youtube.com/shorts/EFg_17psRcU",
           "thumbnail": "https://i.ytimg.com/vi/EFg_17psRcU/hqdefault.jpg",
           "viewCount": 4900,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "a8vlS_1HjO4",
+          "title": "nishina - rinne",
+          "url": "https://www.youtube.com/shorts/a8vlS_1HjO4",
+          "thumbnail": "https://i.ytimg.com/vi/a8vlS_1HjO4/hqdefault.jpg",
+          "viewCount": 4300,
           "versionType": null,
           "instrumental": false,
           "anchors": []
@@ -388,6 +428,16 @@
           "title": "Your lucky nishina track next week!?",
           "url": "https://www.youtube.com/shorts/7oT4bzFmuuQ",
           "thumbnail": "https://i.ytimg.com/vi/7oT4bzFmuuQ/hqdefault.jpg",
+          "viewCount": 4100,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "XhtyS0I9Ky4",
+          "title": "Your lucky nishina track next week!?",
+          "url": "https://www.youtube.com/shorts/XhtyS0I9Ky4",
+          "thumbnail": "https://i.ytimg.com/vi/XhtyS0I9Ky4/hqdefault.jpg",
           "viewCount": 4100,
           "versionType": null,
           "instrumental": false,
@@ -534,6 +584,16 @@
           "anchors": []
         },
         {
+          "videoId": "s51HpglkuEI",
+          "title": "Your lucky nishina track next week!?",
+          "url": "https://www.youtube.com/shorts/s51HpglkuEI",
+          "thumbnail": "https://i.ytimg.com/vi/s51HpglkuEI/hqdefault.jpg",
+          "viewCount": 2200,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
           "videoId": "3CMOfOHiF7Q",
           "title": "nishina plum",
           "url": "https://www.youtube.com/shorts/3CMOfOHiF7Q",
@@ -622,13 +682,23 @@
           "versionType": null,
           "instrumental": false,
           "anchors": []
+        },
+        {
+          "videoId": "qxP3byiXSMc",
+          "title": "Your lucky nishina track next week!?",
+          "url": "https://www.youtube.com/shorts/qxP3byiXSMc",
+          "thumbnail": "https://i.ytimg.com/vi/qxP3byiXSMc/hqdefault.jpg",
+          "viewCount": 1500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
         }
       ]
     },
     "live_song": {
       "displayName": "出演演唱",
       "emoji": "🎸",
-      "count": 44,
+      "count": 51,
       "shorts": [
         {
           "videoId": "w4JjAipFj1k",
@@ -813,6 +883,32 @@
           "songTitle": "1999"
         },
         {
+          "videoId": "blSVwgXAqSM",
+          "title": "ROCK IN JAPAN FES.2024",
+          "url": "https://www.youtube.com/shorts/blSVwgXAqSM",
+          "thumbnail": "https://i.ytimg.com/vi/blSVwgXAqSM/hqdefault.jpg",
+          "viewCount": 6900,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "ROCK IN JAPAN FES.2024",
+          "songId": "nishina-heavy-smoke",
+          "songTitle": "ヘビースモーク"
+        },
+        {
+          "videoId": "5-ct3TmcyBA",
+          "title": "Surprise graduation live!!",
+          "url": "https://www.youtube.com/shorts/5-ct3TmcyBA",
+          "thumbnail": "https://i.ytimg.com/vi/5-ct3TmcyBA/hqdefault.jpg",
+          "viewCount": 6900,
+          "versionType": "other",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": null,
+          "songId": null,
+          "songTitle": null
+        },
+        {
           "videoId": "-VKLl_ZFTkM",
           "title": "🪐COUNTDOWN JAPAN 2526🚀",
           "url": "https://www.youtube.com/shorts/-VKLl_ZFTkM",
@@ -850,6 +946,19 @@
           "appearanceName": null,
           "songId": null,
           "songTitle": null
+        },
+        {
+          "videoId": "keQuvB8ekpQ",
+          "title": "JOIN ALIVE stage view",
+          "url": "https://www.youtube.com/shorts/keQuvB8ekpQ",
+          "thumbnail": "https://i.ytimg.com/vi/keQuvB8ekpQ/hqdefault.jpg",
+          "viewCount": 6000,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "JOIN ALIVE 2024",
+          "songId": "nishina-kedamono-no-friends",
+          "songTitle": "ケダモノのフレンズ"
         },
         {
           "videoId": "a_vcG-Pw7Yo",
@@ -1047,6 +1156,19 @@
           "songTitle": "わをん"
         },
         {
+          "videoId": "ROj_oeprwl0",
+          "title": "poplar fes",
+          "url": "https://www.youtube.com/shorts/ROj_oeprwl0",
+          "thumbnail": "https://i.ytimg.com/vi/ROj_oeprwl0/hqdefault.jpg",
+          "viewCount": 4200,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "周南公立大学学園祭「ポプラ祭」",
+          "songId": "nishina-its-a-piece-of-cake",
+          "songTitle": "It's a piece of cake"
+        },
+        {
           "videoId": "2-dSPN4afKc",
           "title": "🐤SUMMER SONIC 2026 TOKYO",
           "url": "https://www.youtube.com/shorts/2-dSPN4afKc",
@@ -1138,6 +1260,19 @@
           "songTitle": "わをん"
         },
         {
+          "videoId": "wWpSfV44LBE",
+          "title": "TOKYO ISLAND 2025🪩",
+          "url": "https://www.youtube.com/shorts/wWpSfV44LBE",
+          "thumbnail": "https://i.ytimg.com/vi/wWpSfV44LBE/hqdefault.jpg",
+          "viewCount": 3500,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "TOKYO ISLAND 2025",
+          "songId": "nishina-u-plus",
+          "songTitle": "U+"
+        },
+        {
           "videoId": "BRPBTmYE4Hg",
           "title": "🌳TOKYO ISLAND2026☀️",
           "url": "https://www.youtube.com/shorts/BRPBTmYE4Hg",
@@ -1190,6 +1325,19 @@
           "songTitle": "アイニコイ"
         },
         {
+          "videoId": "qvInlIZcYtY",
+          "title": "Thank you for GLICO LIVE “NEXT” SPECIAL🐙",
+          "url": "https://www.youtube.com/shorts/qvInlIZcYtY",
+          "thumbnail": "https://i.ytimg.com/vi/qvInlIZcYtY/hqdefault.jpg",
+          "viewCount": 2800,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": null,
+          "songId": "nishina-cranberry-jam",
+          "songTitle": "クランベリージャムをかけて"
+        },
+        {
           "videoId": "RLDY4ngOZZs",
           "title": "🇰🇷WONDERLIVET 2026",
           "url": "https://www.youtube.com/shorts/RLDY4ngOZZs",
@@ -1201,14 +1349,37 @@
           "appearanceName": null,
           "songId": "nishina-slow-motion",
           "songTitle": "スローモーション"
+        },
+        {
+          "videoId": "bR536axI1xM",
+          "title": "YouTube Short",
+          "url": "https://www.youtube.com/shorts/bR536axI1xM",
+          "thumbnail": "https://i.ytimg.com/vi/bR536axI1xM/hqdefault.jpg",
+          "viewCount": 2600,
+          "versionType": "live",
+          "instrumental": false,
+          "anchors": [],
+          "appearanceName": "BEAT PHOENIX 2023",
+          "songId": "nishina-cranberry-jam",
+          "songTitle": "クランベリージャムをかけて"
         }
       ]
     },
     "mc": {
       "displayName": "MC / 演唱會講話",
       "emoji": "🎤",
-      "count": 7,
+      "count": 10,
       "shorts": [
+        {
+          "videoId": "uvjiFDq0uTk",
+          "title": "どっちが多いですかね？",
+          "url": "https://www.youtube.com/shorts/uvjiFDq0uTk",
+          "thumbnail": "https://i.ytimg.com/vi/uvjiFDq0uTk/hqdefault.jpg",
+          "viewCount": 104000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
         {
           "videoId": "JVi6D1nCdP0",
           "title": "あそびにきてねー",
@@ -1226,6 +1397,16 @@
           "thumbnail": "https://i.ytimg.com/vi/KLPVGh7YxEg/hqdefault.jpg",
           "viewCount": 13000,
           "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "FfExgzQ5qc8",
+          "title": "1999",
+          "url": "https://www.youtube.com/shorts/FfExgzQ5qc8",
+          "thumbnail": "https://i.ytimg.com/vi/FfExgzQ5qc8/hqdefault.jpg",
+          "viewCount": 13000,
+          "versionType": "other",
           "instrumental": false,
           "anchors": []
         },
@@ -1266,6 +1447,16 @@
           "thumbnail": "https://i.ytimg.com/vi/1bu6B8m6Xyk/hqdefault.jpg",
           "viewCount": 4200,
           "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "OZ6RxpkCJAY",
+          "title": "1999",
+          "url": "https://www.youtube.com/shorts/OZ6RxpkCJAY",
+          "thumbnail": "https://i.ytimg.com/vi/OZ6RxpkCJAY/hqdefault.jpg",
+          "viewCount": 3600,
+          "versionType": "other",
           "instrumental": false,
           "anchors": []
         },
@@ -1448,8 +1639,18 @@
     "ad": {
       "displayName": "廣告",
       "emoji": "📢",
-      "count": 2,
+      "count": 6,
       "shorts": [
+        {
+          "videoId": "nnX2o4lgxog",
+          "title": "装苑90周年おめでとうございます📕",
+          "url": "https://www.youtube.com/shorts/nnX2o4lgxog",
+          "thumbnail": "https://i.ytimg.com/vi/nnX2o4lgxog/hqdefault.jpg",
+          "viewCount": 6000,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
         {
           "videoId": "BKPcV0HU_Pc",
           "title": "👟converse × nishina",
@@ -1469,14 +1670,64 @@
           "versionType": null,
           "instrumental": false,
           "anchors": []
+        },
+        {
+          "videoId": "A1rBYHeaMrc",
+          "title": "📕 装苑12月号「永遠の女の子」📸 by 今城純",
+          "url": "https://www.youtube.com/shorts/A1rBYHeaMrc",
+          "thumbnail": "https://i.ytimg.com/vi/A1rBYHeaMrc/hqdefault.jpg",
+          "viewCount": 3400,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "ikpr0FH4R_U",
+          "title": "📸装苑offshot",
+          "url": "https://www.youtube.com/shorts/ikpr0FH4R_U",
+          "thumbnail": "https://i.ytimg.com/vi/ikpr0FH4R_U/hqdefault.jpg",
+          "viewCount": 3200,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "jph3x85pOK4",
+          "title": "🇰🇷Promotion day",
+          "url": "https://www.youtube.com/shorts/jph3x85pOK4",
+          "thumbnail": "https://i.ytimg.com/vi/jph3x85pOK4/hqdefault.jpg",
+          "viewCount": 2500,
+          "versionType": null,
+          "instrumental": false,
+          "anchors": []
         }
       ]
     },
     "tv": {
       "displayName": "節目切片",
       "emoji": "📺",
-      "count": 3,
+      "count": 5,
       "shorts": [
+        {
+          "videoId": "vqXZr5Fxd4U",
+          "title": "そして僕は途方に暮れる covered by にしな",
+          "url": "https://www.youtube.com/shorts/vqXZr5Fxd4U",
+          "thumbnail": "https://i.ytimg.com/vi/vqXZr5Fxd4U/hqdefault.jpg",
+          "viewCount": 5300,
+          "versionType": "other",
+          "instrumental": false,
+          "anchors": []
+        },
+        {
+          "videoId": "Sje_u7aMBms",
+          "title": "BLUE? It’s Okay?",
+          "url": "https://www.youtube.com/shorts/Sje_u7aMBms",
+          "thumbnail": "https://i.ytimg.com/vi/Sje_u7aMBms/hqdefault.jpg",
+          "viewCount": 5100,
+          "versionType": "other",
+          "instrumental": false,
+          "anchors": []
+        },
         {
           "videoId": "I9M2vdzryfs",
           "title": "📺にしなのよりみち〜井の頭線篇〜",
