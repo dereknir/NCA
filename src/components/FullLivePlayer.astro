@@ -35,7 +35,7 @@ const { song } = Astro.props;
     <div class="flp-lyr" data-lyr><div class="flp-lyr-in" data-lyr-in></div></div>
     <div class="flp-list" data-list></div>
   </div>
-  <div class="flp-track-h"><span>每一格是一支 short，標 MV 的是官方 MV</span><span><b data-now>0:00</b> / <span data-all>0:00</span></span></div>
+  <div class="flp-track-h"><span><b data-now>0:00</b> / <span data-all>0:00</span></span></div>
   <div class="flp-track" data-track></div>
   <p class="flp-legend">點格子、片段或歌詞都可以直接跳過去</p>
 </div>
@@ -65,7 +65,6 @@ const { song } = Astro.props;
   .flp-osd-big.on { opacity: 1; }
   .flp-cap { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; padding: 32px 14px 12px; color: var(--sh-ink);
     background: linear-gradient(transparent, rgb(0 0 0 / .85)); font: 12px/1.6 var(--sh-pxja); pointer-events: none; }
-  .flp-cap .v { color: var(--sh-ink3); font-family: var(--sh-px); }
   .flp-nosig { position: absolute; inset: 0; z-index: 2; display: none; place-items: center; text-align: center;
     font: 12px/1.6 var(--sh-px); color: var(--sh-ink2); background: #050509; }
   .flp-nosig.on { display: grid; }
@@ -109,7 +108,7 @@ const { song } = Astro.props;
   .flp-it.cur { border-color: var(--c); background: rgb(25 25 45 / .9); }
   .flp-it.done { opacity: .5; }
 
-  .flp-track-h { display: flex; justify-content: space-between; margin: 32px 0 8px; font: 12px var(--sh-px); color: var(--sh-ink2); }
+  .flp-track-h { display: flex; justify-content: flex-end; margin: 32px 0 8px; font: 12px var(--sh-px); color: var(--sh-ink2); }
   .flp-track-h b { color: var(--sh-gold); font-weight: 400; }
   .flp-track { position: relative; display: flex; gap: 3px; height: 48px; }
   .flp-seg { position: relative; flex: var(--w) 1 0; min-width: 18px; background: #111 center / cover no-repeat; cursor: pointer; overflow: hidden; border: 0; padding: 0; }
@@ -329,7 +328,7 @@ const { song } = Astro.props;
         if (nextAct !== prevAct) players[prevAct].pauseVideo();
         act = nextAct; pre = null;
         plEls.forEach((e, i) => e.classList.toggle('on', i === act));
-        cap.innerHTML = `<div>${esc(s.title)}</div><div class="v">第 ${n + 1} 段・${s.live ? '' : s.kind + '・這幾句沒人在現場拍到・'}${views(s.views)}・第 ${s.from + 1}–${s.to + 1} 句</div>`;
+        cap.innerHTML = `<div>${esc(s.title)}</div>`;      // 只放影片名稱; 第幾段 / 觀看數 / 第幾句右邊清單有
       }
       mark(n);
     }
