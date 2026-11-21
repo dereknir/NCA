@@ -64,12 +64,32 @@ print(f'✓ {ev_out.relative_to(HERE.parent)}({len(pool)} 筆事件池)')
 ev_obj = json.load(open(D / 'nishina_live_events.json', encoding='utf-8'))
 apps = sorted(ev_obj['appearance'],
               key=lambda x: x.get('event_date') or x.get('date_text') or '', reverse=True)
+ann_list = [{'name': a['name'],
+             'date': a.get('event_date') or a.get('date_text') or '',
+             'news_url': a.get('news_url', '')} for a in apps]
+# news 哨兵已收進來、但結構化層還沒登記的出演 (照約定 events 檔等人工解析才動) → 只補進 annotator 選單,
+# 不然新公布的場次要等登記完才標得到。名稱/日期取自官方標題「【カテゴリ】 名稱 – YYYY.M.D」, 解析不了的跳過。
+_known = {(a.get('news_url') or '').rstrip('/') for a in ev_obj['appearance']} - {''}
+_known_nd = {(a['name'], a.get('event_date')) for a in ev_obj['appearance']}
+_TITLE = re.compile(r'^【([^】]+)】\s*(.+?)\s*[–—-]\s*(\d{4})\.(\d{1,2})\.(\d{1,2})\s*$')
+n_news = 0
+for x in json.load(open(D / 'nishina_news_classified.json', encoding='utf-8')):
+    if x.get('class') != 'LIVE' or x.get('live_type') != 'APPEARANCE' or x['url'].rstrip('/') in _known:
+        continue
+    m = _TITLE.match(x['title'].strip())
+    if not m:
+        continue
+    name, date = m.group(2), f'{m.group(3)}-{int(m.group(4)):02d}-{int(m.group(5)):02d}'
+    if (name, date) in _known_nd:
+        continue
+    ann_list.append({'name': name, 'date': date, 'news_url': x['url'], 'unregistered': True})
+    n_news += 1
+ann_list.sort(key=lambda a: a['date'], reverse=True)
 ann_apps = {
-    'meta': {'total': len(apps), 'source': 'live/data/nishina_live_events.json appearance'},
-    'appearances': [{'name': a['name'],
-                     'date': a.get('event_date') or a.get('date_text') or '',
-                     'news_url': a.get('news_url', '')} for a in apps],
+    'meta': {'total': len(ann_list), 'unregistered': n_news,
+             'source': 'live/data/nishina_live_events.json appearance + news 未登記的出演'},
+    'appearances': ann_list,
 }
 ann_out = HERE.parent / 'public' / 'annotate' / 'appearances.json'
 ann_out.write_text(json.dumps(ann_apps, ensure_ascii=False, indent=2), encoding='utf-8')
-print(f'✓ {ann_out.relative_to(HERE.parent)}({len(apps)} 場)')
+print(f'✓ {ann_out.relative_to(HERE.parent)}({len(ann_list)} 場, 其中 news 未登記 {n_news} 場)')

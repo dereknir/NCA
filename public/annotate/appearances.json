@@ -1,9 +1,40 @@
 {
   "meta": {
-    "total": 67,
-    "source": "live/data/nishina_live_events.json appearance"
+    "total": 72,
+    "unregistered": 5,
+    "source": "live/data/nishina_live_events.json appearance + news 未登記的出演"
   },
   "appearances": [
+    {
+      "name": "COUNTDOWN JAPAN 26/27",
+      "date": "2026-12-30",
+      "news_url": "https://nishina247.jp/news/2118/",
+      "unregistered": true
+    },
+    {
+      "name": "FM802 RADIO CRAZY 2026",
+      "date": "2026-12-27",
+      "news_url": "https://nishina247.jp/news/2111/",
+      "unregistered": true
+    },
+    {
+      "name": "MERRY ROCK PARADE",
+      "date": "2026-12-19",
+      "news_url": "https://nishina247.jp/news/2124/",
+      "unregistered": true
+    },
+    {
+      "name": "WONDERLIVET2026（韓国）",
+      "date": "2026-11-20",
+      "news_url": "https://nishina247.jp/news/2095/",
+      "unregistered": true
+    },
+    {
+      "name": "GLICO LIVE “NEXT” SPECIAL",
+      "date": "2026-11-11",
+      "news_url": "https://nishina247.jp/news/2102/",
+      "unregistered": true
+    },
     {
       "name": "TOKYO ISLAND 2026",
       "date": "2026-10-10",
