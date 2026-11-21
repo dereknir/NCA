@@ -10,6 +10,7 @@ const ROOT = path.join(process.cwd(), 'public/covers');
 
 export function getStaticPaths() {
   const files = readdirSync(ROOT, { recursive: true, encoding: 'utf-8' })
+    .map(f => f.split(path.sep).join('/'))                 // Windows 上是反斜線, 網址要斜線
     .filter(f => /\.(jpe?g|png)$/i.test(f) && !/^w\d+\//.test(f));
   return COVER_WIDTHS.flatMap(w => files.map(f => ({
     params: { w: `w${w}`, file: f.replace(/\.(jpe?g|png)$/i, '.webp') },
