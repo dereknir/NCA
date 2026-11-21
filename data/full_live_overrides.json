@@ -1,7 +1,11 @@
 {
-  "_doc": "完整 Live 的人工例外, scripts/build_full_live.py 讀。ends: 某支 short 拍到的最後一句「唱完」的秒數 (確認過才填)。沒填的照 src/lib/fullLive.ts 用句長估, 估不夠就不拿那句來排。",
+  "_doc": "完整 Live 的人工例外, scripts/build_full_live.py 讀。ends: 某支 short 拍到的最後一句「唱完」的秒數 (確認過才填)。沒填的照 src/lib/fullLive.ts 用句長估, 估不夠就不拿那句來排。skip: 確認沒有任何 short 拍到、可以直接跳過的句子 (之後有人拍到還是會用)。",
   "ends": {
     "AOo5HT9AiaA": { "t": 13.3, "song": "nishina-darling", "line": 17, "note": "「貴方のことだもの」唱到 13.28s, 影片 13.4s (ASR 逐字確認 2026-11-21)" },
-    "tAK48pB_8c4": { "t": 33.9, "song": "nishina-plum", "line": 26, "note": "「腐る寸前が1番の甘美」唱到 33.9s, 影片 34.0s (ASR 逐字確認 2026-11-21)" }
+    "tAK48pB_8c4": { "t": 33.9, "song": "nishina-plum", "line": 26, "note": "「腐る寸前が1番の甘美」唱到 33.9s, 影片 34.0s (ASR 逐字確認 2026-11-21)" },
+    "pgDkCw7b57c": { "t": 52.8, "song": "nishina-mashiro", "line": 25, "note": "「返してよ私のはじめてを」長音唱到約 52.8s, 影片 53.0s; 句長估只到 50.7s 會吃掉句尾 (ASR + 音量確認 2026-11-22)" }
+  },
+  "skip": {
+    "nishina-mashiro": { "lines": [26], "note": "「Oh oh」: 56 支 live + MV 都剛好切在第 25 句唱完 / 第 27 句開頭, 沒有任何一支拍到 (2026-11-22 確認)" }
   }
 }

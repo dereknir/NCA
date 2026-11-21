@@ -28,7 +28,7 @@ const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).p
         {meta?.coverImage ? <img src={coverAt(meta.coverImage, 80)} alt="" width="64" height="64" loading="lazy" /> : <span class="flx-ph"></span>}
         <span class="flx-t" lang="ja">{song.title}</span>
         <span class="flx-m">{meta?.album ?? ''}</span>
-        <span class="flx-m">{sum.segs} 段・{fmt(sum.duration)}{sum.nonLive > 0 && <em>含 MV {sum.nonLiveLines} 句</em>}</span>
+        <span class="flx-m">{sum.segs} 段・{fmt(sum.duration)}{sum.nonLive > 0 && <em>含 MV {sum.nonLiveLines} 句</em>}{sum.skipped.length > 0 && <em>略過 {sum.skipped.length} 句</em>}</span>
         <span class="flx-go">▶</span>
       </a>
     ))}

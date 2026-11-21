@@ -6,13 +6,14 @@
  *   (人工確認過「最後一句唱到幾秒」的 short 會帶 end, 那句就直接用 end; 見 data/full_live_overrides.json)
  * 排段: 每一句優先用 live, 一支能撐越多句越好 (一樣長挑觀看數高的);
  *       沒有 live 拍到的句子才用 MV 等其他版本補, 而且一接得回 live 就換回去。
+ *   song.skip 裡的句子 (確認沒有任何 short 拍到, 見 overrides) 沒人唱到就直接跳過, 不算缺; 有人拍到還是照排。
  * 能不能上架: 每句都有人唱到, 而且非 live 的段數不超過總段數 30% 或非 live 的句數不超過總句數 30% (任一成立)。
  *   (只看段數的話, live 段越長、總段數越少, 一兩段 MV 就超標)
  * 素材由 scripts/build_full_live.py 產生 (src/data/full_live.json)。
  */
 
 export interface FLShort { v: string; title: string; views: number; dur: number | null; live: boolean; type: string; am: [number, number][]; end?: number }
-export interface FLSong { id: string; title: string; lines: { ja: string; zh: string }[]; L: number[]; shorts: FLShort[] }
+export interface FLSong { id: string; title: string; lines: { ja: string; zh: string }[]; L: number[]; shorts: FLShort[]; skip?: number[] }
 export type FLSeg =
   | { gap: true; from: number; to: number; len: number }
   | { gap?: false; v: string; title: string; views: number; live: boolean; kind: string; from: number; to: number;
@@ -42,7 +43,7 @@ function endOf(s: Prepared, l: number, L: number[]): number | null {
 
 /** 從第 from 句排到最後; bad = 播不了要跳過的 videoId */
 export function plan(song: FLSong, bad: Set<string> = new Set(), from = 0): FLSeg[] {
-  const n = song.lines.length, L = song.L, segs: FLSeg[] = [];
+  const n = song.lines.length, L = song.L, segs: FLSeg[] = [], skip = new Set(song.skip ?? []);
   const pool = song.shorts.filter(s => !bad.has(s.v)).map(prep);
   const live = pool.filter(s => s.live), other = pool.filter(s => !s.live);
   const hasLive = (l: number) => live.some(s => endOf(s, l, L) != null);
@@ -58,7 +59,7 @@ export function plan(song: FLSong, bad: Set<string> = new Set(), from = 0): FLSe
   };
   for (let i = from; i < n;) {
     const best = pick(live, i, false) || pick(other, i, true);
-    if (!best) { segs.push({ gap: true, from: i, to: i, len: L[i] }); i++; continue; }
+    if (!best) { if (!skip.has(i)) segs.push({ gap: true, from: i, to: i, len: L[i] }); i++; continue; }
     const { s, j } = best;
     segs.push({
       v: s.v, title: s.title, views: s.views, live: s.live, kind: KIND[s.type] || '其他版本', from: i, to: j,
@@ -76,7 +77,9 @@ export function summary(song: FLSong) {
   const nonLive = real.filter(s => !s.live);
   const missing = segs.filter(s => s.gap).map(s => s.from);
   const nonLiveLines = nonLive.reduce((a, s) => a + s.to - s.from + 1, 0);
+  const sung = new Set(real.flatMap(s => Array.from({ length: s.to - s.from + 1 }, (_, d) => s.from + d)));
   return {
+    skipped: (song.skip ?? []).filter(l => !sung.has(l)),
     segs: real.length,
     nonLive: nonLive.length,
     nonLiveLines,

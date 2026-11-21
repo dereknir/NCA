@@ -91,6 +91,8 @@ const { song } = Astro.props;
   .flp-ln.cur .zh { color: var(--sh-ink2); }
   .flp-ln.cur::before { opacity: 1; box-shadow: 0 0 14px var(--c); }
   .flp-ln.gap .ja::after { content: ' ── 還沒有人拍到'; font: 12px var(--sh-px); color: var(--sh-ink3); }
+  .flp-ln.skip { cursor: default; opacity: .45; }
+  .flp-ln.skip .ja::after { content: ' ── 沒有 short 拍到，跳過'; font: 12px var(--sh-px); color: var(--sh-ink3); }
   .flp-part { margin: 22px 0 2px 22px; font: 12px var(--sh-px); color: var(--c); letter-spacing: .06em; }
   .flp-part i { font-style: normal; color: var(--sh-ink3); }
   .flp-kind { font-style: normal; color: #0a0a15; background: var(--sh-ink2); padding: 0 6px; letter-spacing: .04em; }
@@ -257,6 +259,8 @@ const { song } = Astro.props;
       segs.forEach((s, n) => { for (let l = s.from; l <= s.to; l++) lineSeg[l] = n; });
       lyrIn.innerHTML = song.lines.map((ln, l) => {
         const n = lineSeg[l], s = segs[n];
+        // song.skip 裡沒人拍到的句子: 不屬於任何一段, 照樣列出來 (setLine 靠 .flp-ln 的順序對句號), 但不能點
+        if (!s) return `<div class="flp-ln skip" data-l="${l}"><span class="ja" lang="ja">${esc(ln.ja)}</span><span class="zh">${esc(ln.zh)}</span></div>`;
         const part = s.from === l && !s.gap
           ? `<div class="flp-part" style="--c:${s.color}">第 ${n + 1} 段・${s.live ? '' : `<em class="flp-kind">${s.kind}</em> `}${esc(s.title)} <i>${views(s.views)}</i></div>` : '';
         return part + `<div class="flp-ln${s.gap ? ' gap' : ''}" data-l="${l}" data-n="${n}" style="--c:${s.gap ? '#243154' : s.color}">`
@@ -407,7 +411,7 @@ const { song } = Astro.props;
     q('[data-next]').addEventListener('click', () => { if (k >= 0) jump(k + 1); });
     track.addEventListener('click', e => { const b = (e.target as Element).closest<HTMLElement>('.flp-seg'); if (b) jump(+b.dataset.i!); });
     list.addEventListener('click', e => { const b = (e.target as Element).closest<HTMLElement>('.flp-it'); if (b) jump(+b.dataset.i!); });
-    lyrIn.addEventListener('click', e => { const l = (e.target as Element).closest<HTMLElement>('.flp-ln'); if (l) jump(+l.dataset.n!); });
+    lyrIn.addEventListener('click', e => { const l = (e.target as Element).closest<HTMLElement>('.flp-ln'); if (l?.dataset.n) jump(+l.dataset.n); });
 
     build(plan(song, bad));
     osdR.textContent = `— / ${segs.length}`;

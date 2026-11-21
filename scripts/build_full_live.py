@@ -10,6 +10,7 @@ build_full_live.py — 完整 Live 的素材 → src/data/full_live.json
   data/lyrics.json               每首歌的歌詞句子
   data/short_durations.json      影片長度 (fetch_short_durations.py), 判斷最後一句有沒有唱完要用
   data/full_live_overrides.json  人工例外: ends = 某支 short 最後一句確認唱完的秒數 (句長估太保守時用)
+                                           skip = 確認沒人拍到、可以跳過的句子 (→ songs[].skip)
 寫:
   src/data/full_live.json        { songs: [{ id, title, lines, L, shorts }] }
     L       每句大概多長 (秒): 只用 live 量 (同一支 short 相鄰兩句的時間差取中位數),
@@ -53,7 +54,8 @@ def main():
     by_song = json.loads(BY_SONG.read_text(encoding="utf-8"))["by_song"]
     lyrics = {s["id"]: s for s in json.loads(LYRICS.read_text(encoding="utf-8"))["songs"]}
     durs = json.loads(DURS.read_text(encoding="utf-8")) if DURS.exists() else {}
-    ends = json.loads(OVERRIDES.read_text(encoding="utf-8")).get("ends", {}) if OVERRIDES.exists() else {}
+    overrides = json.loads(OVERRIDES.read_text(encoding="utf-8")) if OVERRIDES.exists() else {}
+    ends, skips = overrides.get("ends", {}), overrides.get("skip", {})
     used = set()
 
     songs = []
@@ -89,13 +91,17 @@ def main():
                     out["end"] = e["t"]
                     used.add(s["v"])
             shorts_out.append(out)
-        songs.append({
+        entry = {
             "id": sid,
             "title": song["title"],
             "lines": [{"ja": l.get("ja") or "", "zh": l.get("zh") or ""} for l in song["lyric_lines"]],
             "L": line_lengths(n, live),
             "shorts": shorts_out,
-        })
+        }
+        skip = sorted(l for l in skips.get(sid, {}).get("lines", []) if 0 <= l < n)
+        if skip:
+            entry["skip"] = skip
+        songs.append(entry)
     for v in sorted(set(ends) - used):
         print(f"⚠ overrides 的 {v} 沒有用到 (不在素材裡或對不上)")
 
