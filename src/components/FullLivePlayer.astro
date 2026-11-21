@@ -92,8 +92,12 @@ const { song } = Astro.props;
   .flp-ln.gap .ja::after { content: ' ── 還沒有人拍到'; font: 12px var(--sh-px); color: var(--sh-ink3); }
   .flp-ln.skip { cursor: default; opacity: .45; }
   .flp-ln.skip .ja::after { content: ' ── 沒有 short 拍到，跳過'; font: 12px var(--sh-px); color: var(--sh-ink3); }
-  .flp-part { margin: 22px 0 2px 22px; font: 12px var(--sh-px); color: var(--c); letter-spacing: .06em; }
-  .flp-part i { font-style: normal; color: var(--sh-ink3); }
+  /* 換段記號: 色條上一個發光的方塊 (剪接點), 往右一條淡出的虛線 — 鏡頭換了, 不用文字講 */
+  .flp-seam { position: relative; height: 26px; margin-top: 6px; }
+  .flp-seam::before { content: ''; position: absolute; left: -2px; top: 9px; width: 8px; height: 8px; background: var(--c); box-shadow: 0 0 10px var(--c); }
+  .flp-seam::after { content: ''; position: absolute; left: 16px; right: 35%; top: 12px; height: 2px; opacity: .55;
+    background: repeating-linear-gradient(90deg, var(--c) 0 6px, transparent 6px 12px);
+    -webkit-mask-image: linear-gradient(90deg, #000, transparent); mask-image: linear-gradient(90deg, #000, transparent); }
   .flp-kind { font-style: normal; color: #0a0a15; background: var(--sh-ink2); padding: 0 6px; letter-spacing: .04em; }
 
   .flp-list { height: var(--flp-h); overflow: auto; display: flex; flex-direction: column; gap: 8px; padding-left: 2px; }
@@ -159,6 +163,7 @@ const { song } = Astro.props;
 
   declare const YT: any;
   type Seg = FLSeg & { color: string };
+  type RealSeg = Extract<Seg, { v: string }>;            // 不是「還沒有人拍到」的空白段
   type Player = {
     loadVideoById(o: { videoId: string; startSeconds: number }): void; playVideo(): void; pauseVideo(): void;
     seekTo(s: number, a?: boolean): void; getCurrentTime(): number; getPlayerState(): number;
@@ -167,7 +172,8 @@ const { song } = Astro.props;
 
   const Q = new URLSearchParams(location.search), MOCK = Q.has('mock'), SPEED = MOCK ? +(Q.get('speed') || 1) : 1;
   const COLORS = ['#ff8c69', '#5ca8ff', '#e8c94a', '#46be6e', '#c86ef0', '#60e0d2', '#f064a0', '#ffb347'];
-  const LEAD = 2.5;       // 下一段提早幾秒在背景靜音開播, 切過去時已經在跑
+  const LEAD = 2.5;       // 下一段提早幾秒在背景載入, 載好後停在切入點等
+  const XF = 0.12;        // 換段時兩段重疊交叉淡化幾秒 (都落在換氣處, 聽起來是同一場在換鏡頭)
   const HOLD = 1.2;       // 時間到了下一段還沒開始播: 目前這段最多再多播幾秒等它 (只在 seg.safe 以內, 不會播到下一句)
   const FADE = 0.12;      // 換段時前一段淡出 / 下一段淡入幾秒 (切點都在換氣處, 淡入淡出只修掉喀一聲)
   const FADE_END = 2;     // 整首最後一段淡出幾秒
@@ -205,7 +211,11 @@ const { song } = Astro.props;
     const osdL = q('[data-osd-l]'), osdR = q('[data-osd-r]'), osdBig = q('[data-osd-big]'), nosig = q('[data-nosig]');
     const plEls = [...root.querySelectorAll<HTMLElement>('[data-pl]')];
 
-    let segs: Seg[] = [], bad = new Set<string>(), k = -1, act = 0, pre: { n: number; p: number; v: string } | null = null;
+    // pre = 背景預載的下一段: parked = 已經緩衝好、停在切入點; fired = 按下播放的時間 (0 = 還沒)
+    let segs: Seg[] = [], bad = new Set<string>(), k = -1, act = 0;
+    let pre: { n: number; p: number; v: string; parked: boolean; fired: number } | null = null;
+    let out: { p: number; end: number } | null = null;    // 交叉淡化中、正在淡出的上一段
+    let lat = 0.12, fireTimer = 0;                         // lat = 按播放到真的出聲的延遲 (每次換段實測, 決定要提早多少按)
     let paused = false, gapT0 = 0, gapAt = 0, durs: number[] = [], curLine = -2, vol = -1;
     let players: Player[] = [], ready: Promise<void> = Promise.resolve();
     const segDur = (s: FLSeg) => s.gap ? s.len : s.end - s.start;
@@ -247,8 +257,8 @@ const { song } = Astro.props;
           nimg.data[i] = band ? 255 : v; nimg.data[i + 1] = band ? 140 : v; nimg.data[i + 2] = band ? 105 : v; nimg.data[i + 3] = 255;
         }
         ng.putImageData(nimg, 0, 0);
-        if (t - t0 < 420) requestAnimationFrame(f);
-        else { nz.classList.remove('on'); setTimeout(() => osdBig.classList.remove('on'), 500); }
+        if (t - t0 < 300) requestAnimationFrame(f);
+        else { nz.classList.remove('on'); setTimeout(() => osdBig.classList.remove('on'), 450); }
       })(t0);
     }
 
@@ -262,8 +272,8 @@ const { song } = Astro.props;
         const n = lineSeg[l], s = segs[n];
         // song.skip 裡沒人拍到的句子: 不屬於任何一段, 照樣列出來 (setLine 靠 .flp-ln 的順序對句號), 但不能點
         if (!s) return `<div class="flp-ln skip" data-l="${l}"><span class="ja" lang="ja">${esc(ln.ja)}</span><span class="zh">${esc(ln.zh)}</span></div>`;
-        const part = s.from === l && !s.gap
-          ? `<div class="flp-part" style="--c:${s.color}">第 ${n + 1} 段・${s.live ? '' : `<em class="flp-kind">${s.kind}</em> `}${esc(s.title)} <i>${views(s.views)}</i></div>` : '';
+        // 換段記號: 純視覺 (色條換色處的剪接點 + 淡出的虛線), 第幾段 / 名稱 / 觀看數右邊清單有, 這裡不重複
+        const part = s.from === l && !s.gap && n > 0 ? `<div class="flp-seam" style="--c:${s.color}" aria-hidden="true"></div>` : '';
         return part + `<div class="flp-ln${s.gap ? ' gap' : ''}" data-l="${l}" data-n="${n}" style="--c:${s.gap ? '#243154' : s.color}">`
           + `<span class="ja" lang="ja">${esc(ln.ja)}</span><span class="zh">${esc(ln.zh)}</span></div>`;
       }).join('');
@@ -296,15 +306,25 @@ const { song } = Astro.props;
       });
     }
 
-    /* ---------- 播放流程 ---------- */
+    /* ---------- 播放流程 ----------
+     * 換段 (像現場切鏡頭, 聲音不能斷):
+     *   1. 這段結束前 LEAD 秒, 下一段在另一個播放器背景靜音載入; 播起來就暫停、倒回切入點等 (parked)
+     *   2. 這段播到 end - XF - lat 時按下一段的播放 (lat = 實測的延遲), 它的聲音剛好在這段結束時進來
+     *   3. 下一段真的開始動 (commit): 畫面 / 雜訊轉場 / 清單一起切過去; 上一段在最後 XF 秒淡出後停掉
+     *   下一段來不及準備好: 這段最多多播到 safe (不會播到下一句), 再不行就停在 end 等它 (寧可空一下也不重疊)
+     */
+    function stopFade() {
+      if (out) { try { players[out.p].pauseVideo(); players[out.p].mute(); } catch (e) {} out = null; }
+    }
     function stopAll() {
+      clearTimeout(fireTimer); fireTimer = 0; stopFade();
       players.forEach(p => { try { p.pauseVideo(); } catch (e) {} });
       pre = null; plEls.forEach(e => e.classList.remove('on')); nosig.classList.remove('on');
     }
 
-    function go(n: number) {
-      if (n < 0 || n >= segs.length) return finish();
-      const s = segs[n], prevAct = act;
+    /** 畫面 / 狀態切到第 n 段 (聲音由呼叫的地方負責) */
+    function show(n: number) {
+      const s = segs[n];
       k = n; vol = -1;
       root.style.setProperty('--glow', hex2rgb(s.gap ? '#6f7a99' : s.color));
       glitch(s.gap ? 'NO SIGNAL' : s.live ? `CAM ${String(n + 1).padStart(2, '0')}` : s.kind);
@@ -313,24 +333,54 @@ const { song } = Astro.props;
       osdL.classList.toggle('rec', !s.gap && s.live);
       stage.classList.toggle('alt', !s.gap && !s.live);
       if (s.gap) {
-        players[prevAct].pauseVideo(); plEls.forEach(e => e.classList.remove('on'));
+        plEls.forEach(e => e.classList.remove('on'));
         nosig.classList.add('on'); gapT0 = performance.now(); gapAt = 0; cap.innerHTML = '';
       } else {
         nosig.classList.remove('on');
-        const usePre = pre && pre.n === n && pre.v === s.v;
-        const nextAct = usePre ? pre!.p : (prevAct + 1) % 2, p = players[nextAct];
-        if (usePre) {
-          // 預載的那支要剛好在切入點: 超前會吃掉第一句的頭, 落後會多播到上一句的尾巴
-          const t = p.getCurrentTime();
-          if (t < s.start - .25 || t > s.start + .15) p.seekTo(s.start, true);
-        } else p.loadVideoById({ videoId: s.v, startSeconds: s.start });
-        p.setVolume(0); p.unMute(); p.playVideo();          // 音量由計時器淡入
-        if (nextAct !== prevAct) players[prevAct].pauseVideo();
-        act = nextAct; pre = null;
         plEls.forEach((e, i) => e.classList.toggle('on', i === act));
         cap.innerHTML = `<div>${esc(s.title)}</div>`;      // 只放影片名稱; 第幾段 / 觀看數 / 第幾句右邊清單有
       }
       mark(n);
+    }
+
+    /** 直接跳到第 n 段 (開始播放 / 手動跳段 / 下一段來不及準備時的退路) */
+    function go(n: number) {
+      if (n < 0 || n >= segs.length) return finish();
+      clearTimeout(fireTimer); fireTimer = 0; stopFade();
+      const s = segs[n], prevAct = act;
+      if (s.gap) {
+        players[prevAct].pauseVideo();
+        return show(n);
+      }
+      const usePre = !!pre && pre.n === n && pre.v === s.v;
+      const nextAct = usePre ? pre!.p : (prevAct + 1) % 2, p = players[nextAct];
+      if (usePre) {
+        // 已經停在切入點就直接播; 還在載入的話位置偏太多才拉回 (seek 會重新緩衝, 能不拉就不拉)
+        const t = p.getCurrentTime();
+        if (!pre!.parked && (t > s.start + .15 || t < s.start - .6)) p.seekTo(s.start, true);
+        if (pre!.fired) lat = Math.min(0.6, lat + 0.05);    // 按了播放卻沒趕上: 下次早一點按
+      } else p.loadVideoById({ videoId: s.v, startSeconds: s.start });
+      p.setVolume(0); p.unMute(); p.playVideo();            // 音量由計時器淡入
+      if (nextAct !== prevAct) players[prevAct].pauseVideo();
+      act = nextAct; pre = null;
+      show(n);
+    }
+
+    /** 下一段真的開始出聲了: 畫面切過去, 上一段交給 out 淡出 */
+    function commit() {
+      const n = pre!.n, np = players[pre!.p];
+      const took = (performance.now() - pre!.fired) / 1000 * SPEED - Math.max(0, np.getCurrentTime() - (segs[n] as RealSeg).start);
+      lat = Math.min(0.6, Math.max(0.02, lat * 0.6 + took * 0.4));
+      out = { p: act, end: (segs[k] as RealSeg).end };
+      act = pre!.p; pre = null;
+      show(n);
+    }
+
+    function fire() {
+      if (!pre || pre.fired || !pre.parked) return;
+      const p = players[pre.p];
+      p.setVolume(0); p.unMute(); p.playVideo();
+      pre.fired = performance.now();
     }
 
     // 正在播的那支播不了: 排除它, 從當下這句重新挑, 不整段跳過
@@ -347,10 +397,11 @@ const { song } = Astro.props;
 
     function preroll(n: number) {
       const s = segs[n];
-      if (!s || s.gap || (pre && pre.n === n)) return;
+      if (!s || s.gap || (pre && pre.n === n) || out) return;   // 上一段還在淡出時先別動那個播放器
       const pi = (act + 1) % 2, p = players[pi];
-      p.mute(); p.loadVideoById({ videoId: s.v, startSeconds: Math.max(0, s.start - LEAD) });
-      pre = { n, p: pi, v: s.v };
+      p.mute(); p.setVolume(0);
+      p.loadVideoById({ videoId: s.v, startSeconds: Math.max(0, s.start - 0.3) });
+      pre = { n, p: pi, v: s.v, parked: false, fired: 0 };
     }
 
     function finish() {
@@ -364,6 +415,18 @@ const { song } = Astro.props;
     const timer = setInterval(() => {
       if (!root.isConnected) return clearInterval(timer);
       if (k < 0 || paused) return;
+      // 上一段在交叉淡化: 最後 XF 秒淡出, 到它的 end 就停
+      if (out) {
+        const op = players[out.p], ot = op.getCurrentTime();
+        const ov = Math.round(100 * Math.max(0, Math.min(1, (out.end - ot) / XF)));
+        op.setVolume(ov);
+        if (ov === 0 || ot >= out.end || op.getPlayerState() === 0) stopFade();
+      }
+      // 預載的下一段播起來了 → 暫停、倒回切入點等
+      if (pre && !pre.parked && !pre.fired && players[pre.p].getPlayerState() === 1) {
+        const pp = players[pre.p];
+        pp.pauseVideo(); pp.seekTo((segs[pre.n] as RealSeg).start, true); pre.parked = true;
+      }
       const s = segs[k];
       let into: number;
       if (s.gap) {
@@ -380,9 +443,20 @@ const { song } = Astro.props;
         setLine(l);
         root.dispatchEvent(new CustomEvent('flp:line', { detail: l }));
         if (t >= s.end - LEAD) preroll(k + 1);
-        // 該切的時間: 下一段已經在跑就切在 end; 還在緩衝就多播一下等它 — 但只能播到 safe (之後就是下一句了)
-        const nx = segs[k + 1], np = pre && pre.n === k + 1 ? players[pre.p] : null;
-        const waiting = !!nx && !nx.gap && !!np && np.getPlayerState() !== 1;
+        const nx = segs[k + 1], mine = !!pre && pre.n === k + 1 && !!nx && !nx.gap;
+        // 提早 XF + lat 按下一段的播放; 快到了就用 setTimeout 對準, 不等下一次計時器
+        if (mine && pre!.parked && !pre!.fired) {
+          const fireAt = s.end - XF - lat;
+          if (t >= fireAt) fire();
+          else if (!fireTimer && fireAt - t < 0.08) fireTimer = window.setTimeout(() => { fireTimer = 0; if (pre && pre.n === k + 1) fire(); }, (fireAt - t) / SPEED * 1000);
+        }
+        // 下一段真的開始動了 → 切過去
+        if (mine && pre!.fired && players[pre!.p].getPlayerState() === 1 && players[pre!.p].getCurrentTime() > (nx as RealSeg).start + 0.005) {
+          root.dispatchEvent(new CustomEvent('flp:cut', { detail: { seg: k, at: t, end: s.end } }));
+          return commit();
+        }
+        // 下一段還沒出聲: 這段最多多播到 safe (之後就是下一句了); 都沒有下一段準備中就照 end
+        const waiting = !!nx && !nx.gap;
         const limit = waiting ? Math.min(s.safe, s.end + HOLD) : s.end;
         const last = k === segs.length - 1;
         // 淡入: 切入點離第一句起音太近 (影片一開頭就唱) 就幾乎不淡入, 免得把第一個子音淡掉
@@ -398,7 +472,7 @@ const { song } = Astro.props;
       const seg = root.querySelectorAll<HTMLElement>('.flp-seg')[k];
       seg.querySelector<HTMLElement>('.fill')!.style.width = Math.min(100, into / durs[k] * 100) + '%';
       q('[data-head]').style.left = (seg.offsetLeft + seg.offsetWidth * Math.min(1, into / durs[k])) + 'px';
-    }, 50);
+    }, 25);
 
     /* ---------- 操作 ---------- */
     const jump = async (n: number) => {
@@ -411,6 +485,10 @@ const { song } = Astro.props;
       if (k < 0) return;
       paused = !paused;
       const s = segs[k];
+      if (paused) {
+        clearTimeout(fireTimer); fireTimer = 0; stopFade();
+        if (pre && pre.fired) { const pp = players[pre.p]; pp.pauseVideo(); pp.mute(); pp.seekTo((segs[pre.n] as RealSeg).start, true); pre.fired = 0; }
+      }
       if (s.gap) { if (paused) gapAt += (performance.now() - gapT0) / 1000 * SPEED; else gapT0 = performance.now(); }
       else if (paused) players[act].pauseVideo(); else players[act].playVideo();
       playBtn.textContent = paused ? '▶ 繼續' : '⏸ 暫停';
