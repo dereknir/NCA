@@ -129,8 +129,12 @@ def get_qwen():
 
 def load_16k(path: Path):
     """任何格式 (m4a/webm…) → 16kHz mono float32; qwen-asr 自己的讀檔器 (soundfile) 吃不了 m4a"""
-    import subprocess
+    import shutil, subprocess
     import numpy as np
+    if not shutil.which('ffmpeg'):
+        # 沒裝系統 ffmpeg (例如 Windows): 用 faster-whisper 自帶的 PyAV 解碼, 結果一樣是 16k mono float32
+        from faster_whisper.audio import decode_audio
+        return decode_audio(str(path), sampling_rate=16000).astype(np.float32), 16000
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(path), '-ac', '1', '-ar', '16000', '-f', 'f32le', '-'],
                          check=True, capture_output=True).stdout
     return np.frombuffer(raw, dtype=np.float32).copy(), 16000
@@ -580,7 +584,7 @@ def write_out(out_path, data, indent=1):
 
 
 # ---------- 合併: A/B 級寫進 shorts_anchors.json (status=auto) ----------
-def merge(out_path):
+def merge(out_path, include_c=False):
     auto = json.loads(out_path.read_text(encoding='utf-8'))['items']
     anchors = json.loads(ANCHORS_F.read_text(encoding='utf-8'))
     n = skipped = dropped = 0
@@ -592,23 +596,31 @@ def merge(out_path):
         if cur and cur.get('status') in ('done', 'skip'):
             continue
         if cur and cur.get('songConfirmed') and r.get('songId') != cur.get('songId'):
-            mismatch.append(vid); continue               # 人工確認的歌名優先; 這份結果是別首歌 → 不套用
+            if not include_c:
+                mismatch.append(vid); continue           # 人工確認的歌名優先; 這份結果是別首歌 → 不套用
+            r = dict(r, songId=cur['songId'], anchors=[], grade='C')   # --include-c: 歌名照人工, anchors 交給人工
         if cur and cur.get('status') == 'pending' and cur.get('anchors'):
             skipped += 1; continue                       # 人工已開始打, 不覆蓋
-        if not r.get('songId') or not r.get('anchors') or r.get('grade') == 'C':
+        if (not r.get('songId') or not r.get('anchors') or r.get('grade') == 'C') and not include_c:
             if cur and cur.get('status') == 'auto':
                 # 舊引擎的建議, 新結果卻沒把握 (C / 認不出歌) → 退回手動, 不讓過時的 anchors 留在待審清單
                 cur.update(anchors=[], status='pending', source='manual')
                 cur.pop('autoGrade', None)
                 dropped += 1
             continue
-        new = {'songId': r['songId'], 'anchors': [{'t': a['t'], 'line': a['line']} for a in enforce_gap(r['anchors'])],
+        sid = r.get('songId')
+        if not sid:
+            # --include-c 且機器認不出歌: 只沿用人工確認 / 高信心上游的歌名, 否則留空讓人選 (面板有候選歌與逐字稿)
+            sid = (cur.get('songId') if cur and cur.get('songConfirmed') else
+                   r.get('queueSongId') if r.get('matchMethod') in TRUSTED_METHODS else None)
+        new = {'songId': sid,
+               'anchors': [{'t': a['t'], 'line': a['line']} for a in enforce_gap(r.get('anchors') or [])] if r.get('songId') else [],
                'status': 'auto', 'versionType': r.get('versionType'), 'instrumental': False,
-               'source': 'auto', 'autoGrade': r['grade']}
+               'source': 'auto', 'autoGrade': r.get('grade') or 'C'}
         if cur:
             # 人工填過的欄位 (版本 / 巡演 / 場次…) 不要被機器的空值洗掉 (之前整筆覆蓋, 洗掉過 5 支的 mv/acoustic)
             for k, val in cur.items():
-                if k not in ('anchors', 'status', 'source', 'autoGrade') and val not in (None, '', False) and new.get(k) in (None, '', False):
+                if k not in ('songId', 'anchors', 'status', 'source', 'autoGrade') and val not in (None, '', False) and new.get(k) in (None, '', False):
                     new[k] = val
         anchors[vid] = new
         n += 1
@@ -640,6 +652,7 @@ def main():
     ap.add_argument('--combine', nargs='*', help='把多個 shard 的 out 檔合併進 --out 後結束')
     ap.add_argument('--peer', action='store_true', help='只重算「同錄音照抄」(scripts/peer_anchors.py), 不跑 ASR; 審了一批之後重跑會更準')
     ap.add_argument('--no-peer', action='store_true', help='ASR 跑完後不做同錄音照抄')
+    ap.add_argument('--include-c', action='store_true', help='--merge 時連 C 級 / 認不出歌的也放進 🤖 待審 (徽章顯示 C; 認不出歌的歌名留空)')
     args = ap.parse_args()
     global CPU_THREADS, VAD, ENGINE
     ENGINE = args.engine
@@ -656,7 +669,7 @@ def main():
         print(f'[combine] 合併 {len(args.combine)} 份 → {out_path.name} 共 {len(base["items"])} 支')
         return
     if args.merge:
-        return merge(out_path)
+        return merge(out_path, include_c=args.include_c)
     if args.peer:
         import peer_anchors
         return peer_anchors.apply(out_path)

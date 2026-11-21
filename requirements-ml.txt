@@ -10,3 +10,4 @@ scikit-learn
 faster-whisper
 av<17                 # PyAV 17+ 移除了 faster-whisper 1.2.x 仍在用的 av.open(metadata_errors=...) → 每支 ASR 都會 TypeError
 pykakasi
+librosa               # scripts/peer_anchors.py 同錄音比對 (auto_annotate 跑完自動呼叫)

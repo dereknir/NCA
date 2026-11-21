@@ -1,12 +1,12 @@
 {
  "meta": {
   "model": "small",
-  "updated": "2026-10-29 11:59",
-  "count": 977,
+  "updated": "2026-11-21 18:13",
+  "count": 1002,
   "peer": {
-   "updated": "2026-10-29 12:10",
-   "count": 189,
-   "done_refs": 488
+   "updated": "2026-11-21 18:19",
+   "count": 32,
+   "done_refs": 863
   }
  },
  "items": {
@@ -1418,9 +1418,14 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 0.0,
-     "line": 39,
-     "score": 100.0
+     "t": 4.45,
+     "line": 22,
+     "peer": true
+    },
+    {
+     "t": 7.32,
+     "line": 23,
+     "peer": true
     }
    ],
    "confidence": 100.0,
@@ -1429,7 +1434,7 @@
     "low_song_score",
     "ambiguous_start"
    ],
-   "grade": "C",
+   "grade": "B",
    "asr": {
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
@@ -1452,6 +1457,24 @@
      "t": 0.0,
      "line": 39,
      "score": 100.0
+    },
+    {
+     "t": 4.83,
+     "line": 40,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 6.7,
+     "line": 41,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 8.99,
+     "line": 42,
+     "score": 50,
+     "est": true
     }
    ],
    "pairs": [
@@ -1469,7 +1492,18 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "w3bMLCS3S3Q",
+      "offset": -2.46,
+      "sim": 0.997
+     }
+    ],
+    "coverage": 0.8,
+    "songChanged": false
+   }
   },
   "g9Fz_mtFtJA": {
    "videoId": "g9Fz_mtFtJA",
@@ -7358,17 +7392,24 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 0.48,
+     "t": 0.0,
+     "line": 27,
+     "peer": true
+    },
+    {
+     "t": 4.03,
      "line": 28,
-     "score": 100.0
+     "peer": true
+    },
+    {
+     "t": 7.91,
+     "line": 29,
+     "peer": true
     }
    ],
    "confidence": 100.0,
-   "needsReview": [
-    "anchors<2",
-    "ambiguous_start"
-   ],
-   "grade": "C",
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": "nishina-glory",
     "anchors": [
@@ -7390,6 +7431,12 @@
      "t": 0.48,
      "line": 28,
      "score": 100.0
+    },
+    {
+     "t": 4.36,
+     "line": 29,
+     "score": 50,
+     "est": true
     }
    ],
    "pairs": [
@@ -7407,7 +7454,18 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "FIqlco7mHN8",
+      "offset": 0.1,
+      "sim": 0.952
+     }
+    ],
+    "coverage": 0.99,
+    "songChanged": false
+   }
   },
   "W_UDbng2XQI": {
    "videoId": "W_UDbng2XQI",
@@ -8431,25 +8489,25 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 0.0,
+     "t": 0.71,
      "line": 32,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 2.0,
+     "t": 2.18,
      "line": 33,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 8.8,
+     "t": 8.4,
      "line": 35,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 10.4,
+     "t": 10.71,
      "line": 36,
      "score": 50.0,
      "est": true
@@ -8460,15 +8518,9 @@
      "score": 72.7
     },
     {
-     "t": 19.12,
+     "t": 23.24,
      "line": 38,
      "score": 50.0,
-     "est": true
-    },
-    {
-     "t": 22.11,
-     "line": 39,
-     "score": 88.9,
      "est": true
     }
    ],
@@ -8532,25 +8584,25 @@
    },
    "base": [
     {
-     "t": 0.0,
+     "t": 0.71,
      "line": 32,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 2.0,
+     "t": 2.18,
      "line": 33,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 8.8,
+     "t": 8.4,
      "line": 35,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 10.4,
+     "t": 10.71,
      "line": 36,
      "score": 50.0,
      "est": true
@@ -8561,15 +8613,9 @@
      "score": 72.7
     },
     {
-     "t": 19.12,
+     "t": 23.24,
      "line": 38,
      "score": 50.0,
-     "est": true
-    },
-    {
-     "t": 22.11,
-     "line": 39,
-     "score": 88.9,
      "est": true
     }
    ]
@@ -9379,7 +9425,7 @@
      "score": 60.0
     },
     {
-     "t": 16.55,
+     "t": 16.7,
      "line": 35,
      "score": 50.0,
      "est": true
@@ -9464,7 +9510,7 @@
      "score": 60.0
     },
     {
-     "t": 16.55,
+     "t": 16.7,
      "line": 35,
      "score": 50.0,
      "est": true
@@ -9668,7 +9714,7 @@
      "est": true
     },
     {
-     "t": 13.93,
+     "t": 13.84,
      "line": 27,
      "score": 50.0,
      "est": true
@@ -9722,7 +9768,7 @@
      "est": true
     },
     {
-     "t": 13.93,
+     "t": 13.84,
      "line": 27,
      "score": 50.0,
      "est": true
@@ -9903,6 +9949,18 @@
      "t": 20.08,
      "line": 30,
      "score": 60.0
+    },
+    {
+     "t": 24.99,
+     "line": 31,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 29.57,
+     "line": 32,
+     "score": 50,
+     "est": true
     }
    ],
    "confidence": 60.0,
@@ -9936,6 +9994,18 @@
      "t": 20.08,
      "line": 30,
      "score": 60.0
+    },
+    {
+     "t": 24.99,
+     "line": 31,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 29.57,
+     "line": 32,
+     "score": 50,
+     "est": true
     }
    ]
   },
@@ -11003,27 +11073,38 @@
    "anchors": [
     {
      "t": 0.0,
+     "line": 27,
+     "peer": true
+    },
+    {
+     "t": 1.81,
+     "line": 28,
+     "peer": true
+    },
+    {
+     "t": 6.85,
+     "line": 29,
+     "peer": true
+    },
+    {
+     "t": 13.44,
      "line": 30,
-     "score": 71.4
+     "peer": true
     },
     {
-     "t": 7.3,
+     "t": 15.41,
      "line": 31,
-     "score": 50.0,
-     "est": true
+     "peer": true
     },
     {
-     "t": 22.24,
+     "t": 19.42,
      "line": 32,
-     "score": 58.3
+     "peer": true
     }
    ],
    "confidence": 64.8,
-   "needsReview": [
-    "low_align",
-    "ambiguous_start"
-   ],
-   "grade": "C",
+   "needsReview": [],
+   "grade": "A",
    "fallback": "whisper",
    "asr": {
     "songId": "nishina-heavy-smoke",
@@ -11059,7 +11140,7 @@
      "score": 71.4
     },
     {
-     "t": 7.3,
+     "t": 6.35,
      "line": 31,
      "score": 50.0,
      "est": true
@@ -11085,7 +11166,18 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "6Dy3Am3oRy0",
+      "offset": 0.38,
+      "sim": 0.999
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": false
+   }
   },
   "ZUnMKNwJAaU": {
    "videoId": "ZUnMKNwJAaU",
@@ -14874,29 +14966,28 @@
    "anchors": [
     {
      "t": 0.0,
-     "line": 36,
-     "score": 50.0,
-     "est": true
+     "line": 20,
+     "peer": true
     },
     {
-     "t": 2.0,
-     "line": 37,
-     "score": 75.0
+     "t": 5.7,
+     "line": 21,
+     "peer": true
     },
     {
-     "t": 10.0,
-     "line": 38,
-     "score": 50.0,
-     "est": true
+     "t": 7.38,
+     "line": 22,
+     "peer": true
+    },
+    {
+     "t": 10.16,
+     "line": 23,
+     "peer": true
     }
    ],
    "confidence": 75.0,
-   "needsReview": [
-    "anchors<2",
-    "low_song_score",
-    "ambiguous_start"
-   ],
-   "grade": "C",
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
@@ -14939,27 +15030,31 @@
      "score": 75.0
     },
     {
-     "t": 10.0,
+     "t": 3.66,
      "line": 38,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 6.54,
+     "line": 39,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 11.37,
+     "line": 40,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 13.24,
+     "line": 41,
+     "score": 50,
      "est": true
     }
    ],
    "pairs": [
-    {
-     "v": "RLfYcMx4vK4",
-     "off": 18.336,
-     "sim": 0.998,
-     "n": 468,
-     "lo": 0.0,
-     "hi": 14.976,
-     "ok": [
-      [
-       0,
-       467
-      ]
-     ]
-    },
     {
      "v": "p7E7fhZ4Ueo",
      "off": -5.024,
@@ -14973,8 +15068,38 @@
        467
       ]
      ]
+    },
+    {
+     "v": "RLfYcMx4vK4",
+     "off": 18.336,
+     "sim": 0.998,
+     "n": 468,
+     "lo": 0.0,
+     "hi": 14.976,
+     "ok": [
+      [
+       0,
+       467
+      ]
+     ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "p7E7fhZ4Ueo",
+      "offset": -5.02,
+      "sim": 0.996
+     },
+     {
+      "videoId": "RLfYcMx4vK4",
+      "offset": 18.34,
+      "sim": 0.998
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": false
+   }
   },
   "Qpke2JSeLLA": {
    "videoId": "Qpke2JSeLLA",
@@ -16945,25 +17070,25 @@
      "score": 83.3
     },
     {
-     "t": 2.28,
+     "t": 2.26,
      "line": 26,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 5.13,
+     "t": 5.11,
      "line": 27,
      "score": 50,
      "est": true
     },
     {
-     "t": 7.05,
+     "t": 7.36,
      "line": 28,
      "score": 50,
      "est": true
     },
     {
-     "t": 11.96,
+     "t": 12.14,
      "line": 29,
      "score": 50,
      "est": true
@@ -17004,25 +17129,25 @@
      "score": 83.3
     },
     {
-     "t": 2.28,
+     "t": 2.26,
      "line": 26,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 5.13,
+     "t": 5.11,
      "line": 27,
      "score": 50,
      "est": true
     },
     {
-     "t": 7.05,
+     "t": 7.36,
      "line": 28,
      "score": 50,
      "est": true
     },
     {
-     "t": 11.96,
+     "t": 12.14,
      "line": 29,
      "score": 50,
      "est": true
@@ -17284,6 +17409,66 @@
      "t": 12.64,
      "line": 12,
      "score": 61.5
+    },
+    {
+     "t": 15.76,
+     "line": 13,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 19.15,
+     "line": 14,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 25.96,
+     "line": 15,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 28.69,
+     "line": 16,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 32.36,
+     "line": 17,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 36.45,
+     "line": 18,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 39.19,
+     "line": 19,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 42.83,
+     "line": 20,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 46.49,
+     "line": 21,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 47.69,
+     "line": 22,
+     "score": 50,
+     "est": true
     }
    ],
    "confidence": 61.5,
@@ -17313,6 +17498,66 @@
      "t": 12.64,
      "line": 12,
      "score": 61.5
+    },
+    {
+     "t": 15.76,
+     "line": 13,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 19.15,
+     "line": 14,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 25.96,
+     "line": 15,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 28.69,
+     "line": 16,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 32.36,
+     "line": 17,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 36.45,
+     "line": 18,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 39.19,
+     "line": 19,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 42.83,
+     "line": 20,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 46.49,
+     "line": 21,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 47.69,
+     "line": 22,
+     "score": 50,
+     "est": true
     }
    ],
    "pairs": [
@@ -29137,7 +29382,7 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 0.0,
+     "t": 1.01,
      "line": 43,
      "score": 50.0,
      "est": true
@@ -29148,9 +29393,15 @@
      "score": 60.0
     },
     {
-     "t": 3.68,
+     "t": 3.54,
      "line": 45,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 5.68,
+     "line": 46,
+     "score": 50,
      "est": true
     }
    ],
@@ -29194,7 +29445,7 @@
    },
    "base": [
     {
-     "t": 0.0,
+     "t": 1.01,
      "line": 43,
      "score": 50.0,
      "est": true
@@ -29205,9 +29456,15 @@
      "score": 60.0
     },
     {
-     "t": 3.68,
+     "t": 3.54,
      "line": 45,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 5.68,
+     "line": 46,
+     "score": 50,
      "est": true
     }
    ],
@@ -29782,14 +30039,41 @@
    ],
    "versionType": null,
    "conflict": false,
-   "anchors": [],
-   "confidence": 0,
-   "needsReview": [
-    "anchors<2",
-    "low_align",
-    "low_song_score"
+   "anchors": [
+    {
+     "t": 2.17,
+     "line": 37,
+     "peer": true
+    },
+    {
+     "t": 3.83,
+     "line": 38,
+     "peer": true
+    },
+    {
+     "t": 6.59,
+     "line": 39,
+     "peer": true
+    },
+    {
+     "t": 11.39,
+     "line": 40,
+     "peer": true
+    },
+    {
+     "t": 13.31,
+     "line": 41,
+     "peer": true
+    },
+    {
+     "t": 15.45,
+     "line": 42,
+     "peer": true
+    }
    ],
-   "grade": "C",
+   "confidence": 0,
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": "nishina-friday-kids-china-town",
     "anchors": [],
@@ -29817,7 +30101,18 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "YxpWqnlt2Ao",
+      "offset": 0.32,
+      "sim": 0.999
+     }
+    ],
+    "coverage": 0.95,
+    "songChanged": false
+   }
   },
   "XRkaZcYKkQk": {
    "videoId": "XRkaZcYKkQk",
@@ -32940,35 +33235,34 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 0.56,
+     "t": 0.14,
+     "line": 38,
+     "peer": true
+    },
+    {
+     "t": 1.3,
      "line": 39,
-     "score": 60.0
+     "peer": true
     },
     {
-     "t": 2.0,
+     "t": 2.46,
      "line": 40,
-     "score": 63.2
+     "peer": true
     },
     {
-     "t": 4.8,
+     "t": 5.28,
      "line": 41,
-     "score": 50.0,
-     "est": true
+     "peer": true
     },
     {
-     "t": 6.96,
+     "t": 7.36,
      "line": 42,
-     "score": 50.0,
-     "est": true
+     "peer": true
     }
    ],
    "confidence": 61.6,
-   "needsReview": [
-    "low_align",
-    "low_song_score",
-    "ambiguous_start"
-   ],
-   "grade": "C",
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": "nishina-cranberry-jam",
     "anchors": [
@@ -33015,13 +33309,13 @@
      "score": 63.2
     },
     {
-     "t": 4.8,
+     "t": 4.15,
      "line": 41,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 6.96,
+     "t": 6.52,
      "line": 42,
      "score": 50.0,
      "est": true
@@ -33056,7 +33350,23 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "2UStYeMRK00",
+      "offset": 0.48,
+      "sim": 0.991
+     },
+     {
+      "videoId": "m_mdQwqyx4A",
+      "offset": 0.54,
+      "sim": 0.992
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": false
+   }
   },
   "RNH9YTBhiAY": {
    "videoId": "RNH9YTBhiAY",
@@ -34912,19 +35222,19 @@
      "est": true
     },
     {
-     "t": 12.82,
+     "t": 12.58,
      "line": 10,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 15.51,
+     "t": 15.25,
      "line": 11,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 18.54,
+     "t": 18.36,
      "line": 12,
      "score": 50.0,
      "est": true
@@ -34993,19 +35303,19 @@
      "est": true
     },
     {
-     "t": 12.82,
+     "t": 12.58,
      "line": 10,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 15.51,
+     "t": 15.25,
      "line": 11,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 18.54,
+     "t": 18.36,
      "line": 12,
      "score": 50.0,
      "est": true
@@ -36149,7 +36459,7 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 51.93,
+     "t": 51.82,
      "line": 25,
      "score": 50.0,
      "est": true
@@ -36194,7 +36504,7 @@
    },
    "base": [
     {
-     "t": 51.93,
+     "t": 51.82,
      "line": 25,
      "score": 50.0,
      "est": true
@@ -40637,19 +40947,19 @@
      "score": 81.5
     },
     {
-     "t": 6.62,
+     "t": 6.69,
      "line": 34,
      "score": 50,
      "est": true
     },
     {
-     "t": 9.02,
+     "t": 9.09,
      "line": 35,
      "score": 50,
      "est": true
     },
     {
-     "t": 14.02,
+     "t": 14.09,
      "line": 36,
      "score": 50,
      "est": true
@@ -40684,19 +40994,19 @@
      "score": 81.5
     },
     {
-     "t": 6.62,
+     "t": 6.69,
      "line": 34,
      "score": 50,
      "est": true
     },
     {
-     "t": 9.02,
+     "t": 9.09,
      "line": 35,
      "score": 50,
      "est": true
     },
     {
-     "t": 14.02,
+     "t": 14.09,
      "line": 36,
      "score": 50,
      "est": true
@@ -46743,7 +47053,7 @@
      "est": true
     },
     {
-     "t": 10.42,
+     "t": 10.25,
      "line": 29,
      "score": 50.0,
      "est": true
@@ -46796,7 +47106,7 @@
      "est": true
     },
     {
-     "t": 10.42,
+     "t": 10.25,
      "line": 29,
      "score": 50.0,
      "est": true
@@ -48729,7 +49039,7 @@
      "score": 37.8
     }
    ],
-   "songId": null,
+   "songId": "nishina-u-plus",
    "duration": 21.2,
    "transcript": [
     {
@@ -48739,12 +49049,31 @@
    ],
    "versionType": "live",
    "conflict": false,
-   "anchors": [],
-   "confidence": 0,
-   "needsReview": [
-    "no_song"
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 6,
+     "peer": true
+    },
+    {
+     "t": 2.28,
+     "line": 7,
+     "peer": true
+    },
+    {
+     "t": 11.93,
+     "line": 10,
+     "peer": true
+    },
+    {
+     "t": 14.13,
+     "line": 11,
+     "peer": true
+    }
    ],
-   "grade": "C",
+   "confidence": 0,
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": null,
     "anchors": [],
@@ -48756,6 +49085,20 @@
    },
    "base": [],
    "pairs": [
+    {
+     "v": "wLWMBDKJ4Qk",
+     "off": 0.064,
+     "sim": 0.996,
+     "n": 664,
+     "lo": 0.0,
+     "hi": 21.248,
+     "ok": [
+      [
+       0,
+       663
+      ]
+     ]
+    },
     {
      "v": "aHvslMI9Ois",
      "off": 0.032,
@@ -48783,22 +49126,19 @@
        663
       ]
      ]
-    },
-    {
-     "v": "wLWMBDKJ4Qk",
-     "off": 0.064,
-     "sim": 0.996,
-     "n": 664,
-     "lo": 0.0,
-     "hi": 21.248,
-     "ok": [
-      [
-       0,
-       663
-      ]
-     ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "wLWMBDKJ4Qk",
+      "offset": 0.06,
+      "sim": 0.996
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": true
+   }
   },
   "_j3hf3qqvvk": {
    "videoId": "_j3hf3qqvvk",
@@ -49754,39 +50094,49 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 14.24,
-     "line": 38,
-     "score": 50.0,
-     "est": true
+     "t": 8.27,
+     "line": 10,
+     "peer": true
     },
     {
-     "t": 15.78,
-     "line": 40,
-     "score": 70.0
+     "t": 9.21,
+     "line": 11,
+     "peer": true
     },
     {
-     "t": 17.04,
-     "line": 42,
-     "score": 50.0,
-     "est": true
+     "t": 11.44,
+     "line": 12,
+     "peer": true
     },
     {
-     "t": 18.0,
-     "line": 44,
-     "score": 50.0,
-     "est": true
+     "t": 13.83,
+     "line": 13,
+     "peer": true
     },
     {
-     "t": 18.83,
-     "line": 45,
-     "score": 50.0,
-     "est": true
+     "t": 16.15,
+     "line": 14,
+     "peer": true
     },
     {
-     "t": 20.48,
-     "line": 46,
-     "score": 50.0,
-     "est": true
+     "t": 17.65,
+     "line": 15,
+     "peer": true
+    },
+    {
+     "t": 18.56,
+     "line": 16,
+     "peer": true
+    },
+    {
+     "t": 20.77,
+     "line": 17,
+     "peer": true
+    },
+    {
+     "t": 23.2,
+     "line": 18,
+     "peer": true
     }
    ],
    "confidence": 70.0,
@@ -49795,7 +50145,7 @@
     "low_song_score",
     "ambiguous_start"
    ],
-   "grade": "C",
+   "grade": "B",
    "asr": {
     "songId": "nishina-cranberry-jam",
     "anchors": [
@@ -49845,7 +50195,7 @@
    },
    "base": [
     {
-     "t": 14.24,
+     "t": 13.58,
      "line": 38,
      "score": 50.0,
      "est": true
@@ -49856,26 +50206,14 @@
      "score": 70.0
     },
     {
-     "t": 17.04,
+     "t": 20.3,
      "line": 42,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 18.0,
+     "t": 24.12,
      "line": 44,
-     "score": 50.0,
-     "est": true
-    },
-    {
-     "t": 18.83,
-     "line": 45,
-     "score": 50.0,
-     "est": true
-    },
-    {
-     "t": 20.48,
-     "line": 46,
      "score": 50.0,
      "est": true
     }
@@ -49909,7 +50247,23 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "1fM-9IHFofg",
+      "offset": -6.59,
+      "sim": 0.996
+     },
+     {
+      "videoId": "h0Fws-6l-f4",
+      "offset": -6.53,
+      "sim": 0.997
+     }
+    ],
+    "coverage": 0.75,
+    "songChanged": false
+   }
   },
   "Qmrp0AnqIoc": {
    "videoId": "Qmrp0AnqIoc",
@@ -50864,7 +51218,7 @@
      "score": 35.6
     }
    ],
-   "songId": null,
+   "songId": "nishina-u-plus",
    "duration": 18.7,
    "transcript": [
     {
@@ -50890,12 +51244,31 @@
    ],
    "versionType": "live",
    "conflict": false,
-   "anchors": [],
-   "confidence": 0,
-   "needsReview": [
-    "no_song"
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 6,
+     "peer": true
+    },
+    {
+     "t": 2.31,
+     "line": 7,
+     "peer": true
+    },
+    {
+     "t": 11.96,
+     "line": 10,
+     "peer": true
+    },
+    {
+     "t": 14.16,
+     "line": 11,
+     "peer": true
+    }
    ],
-   "grade": "C",
+   "confidence": 0,
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": null,
     "anchors": [],
@@ -50907,6 +51280,20 @@
    },
    "base": [],
    "pairs": [
+    {
+     "v": "wLWMBDKJ4Qk",
+     "off": 0.032,
+     "sim": 0.999,
+     "n": 585,
+     "lo": 0.0,
+     "hi": 18.72,
+     "ok": [
+      [
+       0,
+       584
+      ]
+     ]
+    },
     {
      "v": "P_cVm6ej29g",
      "off": -0.032,
@@ -50934,22 +51321,19 @@
        584
       ]
      ]
-    },
-    {
-     "v": "wLWMBDKJ4Qk",
-     "off": 0.032,
-     "sim": 0.999,
-     "n": 585,
-     "lo": 0.0,
-     "hi": 18.72,
-     "ok": [
-      [
-       0,
-       584
-      ]
-     ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "wLWMBDKJ4Qk",
+      "offset": 0.03,
+      "sim": 0.999
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": true
+   }
   },
   "QTcDnD2zScc": {
    "videoId": "QTcDnD2zScc",
@@ -51013,15 +51397,21 @@
      "score": 73.3
     },
     {
-     "t": 2.74,
+     "t": 1.86,
      "line": 5,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 4.44,
+     "t": 4.13,
      "line": 6,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 8.31,
+     "line": 7,
+     "score": 50,
      "est": true
     }
    ],
@@ -51067,15 +51457,21 @@
      "score": 73.3
     },
     {
-     "t": 2.74,
+     "t": 1.86,
      "line": 5,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 4.44,
+     "t": 4.13,
      "line": 6,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 8.31,
+     "line": 7,
+     "score": 50,
      "est": true
     }
    ],
@@ -52677,62 +53073,54 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 1.54,
-     "line": 53,
-     "score": 50.0,
-     "est": true
+     "t": 2.54,
+     "line": 14,
+     "peer": true
     },
     {
-     "t": 3.2,
-     "line": 54,
-     "score": 57.1
+     "t": 6.33,
+     "line": 15,
+     "peer": true
     },
     {
-     "t": 6.4,
-     "line": 55,
-     "score": 58.8
+     "t": 11.61,
+     "line": 16,
+     "peer": true
     },
     {
-     "t": 11.76,
-     "line": 56,
-     "score": 65.0
+     "t": 16.42,
+     "line": 17,
+     "peer": true
     },
     {
-     "t": 16.48,
-     "line": 57,
-     "score": 56.0
+     "t": 18.96,
+     "line": 18,
+     "peer": true
     },
     {
-     "t": 19.16,
-     "line": 58,
-     "score": 50.0,
-     "est": true
+     "t": 21.23,
+     "line": 19,
+     "peer": true
     },
     {
-     "t": 21.38,
-     "line": 59,
-     "score": 50,
-     "est": true
+     "t": 23.6,
+     "line": 20,
+     "peer": true
     },
     {
-     "t": 23.31,
-     "line": 60,
-     "score": 50,
-     "est": true
+     "t": 26.04,
+     "line": 21,
+     "peer": true
     },
     {
-     "t": 26.51,
-     "line": 61,
-     "score": 50,
-     "est": true
+     "t": 27.81,
+     "line": 22,
+     "peer": true
     }
    ],
    "confidence": 59.2,
-   "needsReview": [
-    "low_align",
-    "ambiguous_start"
-   ],
-   "grade": "C",
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": "nishina-sugar-spot",
     "anchors": [
@@ -52778,7 +53166,7 @@
    },
    "base": [
     {
-     "t": 1.54,
+     "t": 1.78,
      "line": 53,
      "score": 50.0,
      "est": true
@@ -52804,25 +53192,25 @@
      "score": 56.0
     },
     {
-     "t": 19.16,
+     "t": 18.97,
      "line": 58,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 21.38,
+     "t": 21.36,
      "line": 59,
      "score": 50,
      "est": true
     },
     {
-     "t": 23.31,
+     "t": 23.67,
      "line": 60,
      "score": 50,
      "est": true
     },
     {
-     "t": 26.51,
+     "t": 26.07,
      "line": 61,
      "score": 50,
      "est": true
@@ -52843,7 +53231,18 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "Gt1qWXNVjZs",
+      "offset": -0.54,
+      "sim": 0.999
+     }
+    ],
+    "coverage": 0.97,
+    "songChanged": false
+   }
   },
   "7U4aD7BiYMA": {
    "videoId": "7U4aD7BiYMA",
@@ -55181,65 +55580,64 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 0.0,
-     "line": 37,
-     "score": 50.0,
-     "est": true
+     "t": 0.19,
+     "line": 8,
+     "peer": true
     },
     {
-     "t": 2.08,
-     "line": 38,
-     "score": 50.0,
-     "est": true
+     "t": 3.04,
+     "line": 9,
+     "peer": true
     },
     {
-     "t": 4.48,
-     "line": 39,
-     "score": 50.0,
-     "est": true
+     "t": 4.36,
+     "line": 10,
+     "peer": true
     },
     {
-     "t": 6.24,
-     "line": 40,
-     "score": 70.0,
-     "est": true
+     "t": 5.43,
+     "line": 11,
+     "peer": true
     },
     {
-     "t": 8.0,
-     "line": 41,
-     "score": 69.6
+     "t": 7.7,
+     "line": 12,
+     "peer": true
     },
     {
-     "t": 12.16,
-     "line": 42,
-     "score": 50.0,
-     "est": true
+     "t": 9.98,
+     "line": 13,
+     "peer": true
     },
     {
-     "t": 13.94,
-     "line": 44,
-     "score": 60.0
+     "t": 12.43,
+     "line": 14,
+     "peer": true
     },
     {
-     "t": 15.04,
-     "line": 45,
-     "score": 50.0,
-     "est": true
+     "t": 13.87,
+     "line": 15,
+     "peer": true
     },
     {
-     "t": 16.65,
-     "line": 46,
-     "score": 50.0,
-     "est": true
+     "t": 14.87,
+     "line": 16,
+     "peer": true
+    },
+    {
+     "t": 16.99,
+     "line": 17,
+     "peer": true
+    },
+    {
+     "t": 19.38,
+     "line": 18,
+     "peer": true
     }
    ],
    "confidence": 64.8,
-   "needsReview": [
-    "low_align",
-    "low_song_score",
-    "ambiguous_start"
-   ],
-   "grade": "C",
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": "nishina-cranberry-jam",
     "anchors": [
@@ -55312,19 +55710,19 @@
      "est": true
     },
     {
-     "t": 2.08,
+     "t": 3.65,
      "line": 38,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 4.48,
+     "t": 4.81,
      "line": 39,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 6.24,
+     "t": 5.85,
      "line": 40,
      "score": 70.0,
      "est": true
@@ -55335,7 +55733,7 @@
      "score": 69.6
     },
     {
-     "t": 12.16,
+     "t": 10.27,
      "line": 42,
      "score": 50.0,
      "est": true
@@ -55346,15 +55744,21 @@
      "score": 60.0
     },
     {
-     "t": 15.04,
+     "t": 15.02,
      "line": 45,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 16.65,
+     "t": 17.16,
      "line": 46,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 19.64,
+     "line": 47,
+     "score": 50,
      "est": true
     }
    ],
@@ -55387,7 +55791,23 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "_j3hf3qqvvk",
+      "offset": -3.07,
+      "sim": 0.999
+     },
+     {
+      "videoId": "6vOdfoT6TZE",
+      "offset": 3.65,
+      "sim": 0.999
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": false
+   }
   },
   "jRImYxf6xRc": {
    "videoId": "jRImYxf6xRc",
@@ -58890,7 +59310,7 @@
      "score": 66.7
     },
     {
-     "t": 10.62,
+     "t": 10.45,
      "line": 29,
      "score": 50.0,
      "est": true
@@ -58943,7 +59363,7 @@
      "score": 66.7
     },
     {
-     "t": 10.62,
+     "t": 10.45,
      "line": 29,
      "score": 50.0,
      "est": true
@@ -59500,7 +59920,7 @@
      "score": 57.1
     },
     {
-     "t": 4.94,
+     "t": 5.01,
      "line": 21,
      "score": 50.0,
      "est": true
@@ -59549,7 +59969,7 @@
      "score": 57.1
     },
     {
-     "t": 4.94,
+     "t": 5.01,
      "line": 21,
      "score": 50.0,
      "est": true
@@ -60859,56 +61279,49 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 0.0,
-     "line": 38,
-     "score": 63.6
+     "t": 0.05,
+     "line": 9,
+     "peer": true
     },
     {
-     "t": 1.36,
-     "line": 39,
-     "score": 60.0
+     "t": 1.68,
+     "line": 10,
+     "peer": true
     },
     {
-     "t": 3.05,
-     "line": 40,
-     "score": 50.0,
-     "est": true
+     "t": 2.58,
+     "line": 11,
+     "peer": true
     },
     {
-     "t": 4.74,
-     "line": 41,
-     "score": 75.0
+     "t": 4.81,
+     "line": 12,
+     "peer": true
     },
     {
-     "t": 6.89,
-     "line": 42,
-     "score": 50.0,
-     "est": true
+     "t": 7.13,
+     "line": 13,
+     "peer": true
     },
     {
-     "t": 9.04,
-     "line": 43,
-     "score": 58.3
+     "t": 9.55,
+     "line": 14,
+     "peer": true
     },
     {
-     "t": 10.86,
-     "line": 44,
-     "score": 50.0,
-     "est": true
+     "t": 10.9,
+     "line": 15,
+     "peer": true
     },
     {
-     "t": 12.04,
-     "line": 45,
-     "score": 50.0,
-     "est": true
+     "t": 11.91,
+     "line": 16,
+     "peer": true
     }
    ],
    "confidence": 64.2,
-   "needsReview": [
-    "low_align",
-    "ambiguous_start"
-   ],
-   "grade": "C",
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": "nishina-cranberry-jam",
     "anchors": [
@@ -60976,7 +61389,7 @@
      "score": 60.0
     },
     {
-     "t": 3.05,
+     "t": 2.46,
      "line": 40,
      "score": 50.0,
      "est": true
@@ -60998,19 +61411,33 @@
      "score": 58.3
     },
     {
-     "t": 10.86,
+     "t": 10.49,
      "line": 44,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 12.04,
+     "t": 11.57,
      "line": 45,
      "score": 50.0,
      "est": true
     }
    ],
    "pairs": [
+    {
+     "v": "O-gVI6uTFDw",
+     "off": 0.384,
+     "sim": 0.993,
+     "n": 471,
+     "lo": 0.0,
+     "hi": 15.072,
+     "ok": [
+      [
+       0,
+       470
+      ]
+     ]
+    },
     {
      "v": "OyGwsW6tgnM",
      "off": 3.36,
@@ -61066,36 +61493,39 @@
        470
       ]
      ]
-    },
-    {
-     "v": "-KKjJ2hvwWs",
-     "off": 2.912,
-     "sim": 0.999,
-     "n": 471,
-     "lo": 0.0,
-     "hi": 15.072,
-     "ok": [
-      [
-       0,
-       470
-      ]
-     ]
-    },
-    {
-     "v": "O-gVI6uTFDw",
-     "off": 0.384,
-     "sim": 0.993,
-     "n": 471,
-     "lo": 0.0,
-     "hi": 15.072,
-     "ok": [
-      [
-       0,
-       470
-      ]
-     ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "O-gVI6uTFDw",
+      "offset": 0.38,
+      "sim": 0.993
+     },
+     {
+      "videoId": "OyGwsW6tgnM",
+      "offset": 3.36,
+      "sim": 0.999
+     },
+     {
+      "videoId": "odLx3yeDsMg",
+      "offset": 0.38,
+      "sim": 0.993
+     },
+     {
+      "videoId": "z4VmWt0zTj0",
+      "offset": -9.47,
+      "sim": 0.992
+     },
+     {
+      "videoId": "HFOitfWWtBU",
+      "offset": 0.26,
+      "sim": 0.997
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": false
+   }
   },
   "l52g_aVS2H4": {
    "videoId": "l52g_aVS2H4",
@@ -61322,25 +61752,25 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 0.0,
+     "t": 0.56,
      "line": 36,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 4.64,
+     "t": 6.36,
      "line": 37,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 8.8,
+     "t": 11.52,
      "line": 38,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 14.12,
+     "t": 13.87,
      "line": 39,
      "score": 50.0,
      "est": true
@@ -61401,25 +61831,25 @@
    },
    "base": [
     {
-     "t": 0.0,
+     "t": 0.56,
      "line": 36,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 4.64,
+     "t": 6.36,
      "line": 37,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 8.8,
+     "t": 11.52,
      "line": 38,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 14.12,
+     "t": 13.87,
      "line": 39,
      "score": 50.0,
      "est": true
@@ -63213,19 +63643,19 @@
      "score": 100.0
     },
     {
-     "t": 1.89,
+     "t": 1.77,
      "line": 37,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 5.1,
+     "t": 5.51,
      "line": 38,
      "score": 50,
      "est": true
     },
     {
-     "t": 13.4,
+     "t": 13.69,
      "line": 39,
      "score": 50,
      "est": true
@@ -63267,19 +63697,19 @@
      "score": 100.0
     },
     {
-     "t": 1.89,
+     "t": 1.77,
      "line": 37,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 5.1,
+     "t": 5.51,
      "line": 38,
      "score": 50,
      "est": true
     },
     {
-     "t": 13.4,
+     "t": 13.69,
      "line": 39,
      "score": 50,
      "est": true
@@ -67299,7 +67729,7 @@
      "score": 30.2
     }
    ],
-   "songId": null,
+   "songId": "nishina-friday-kids-china-town",
    "duration": 19.0,
    "transcript": [
     {
@@ -67321,12 +67751,41 @@
    ],
    "versionType": "live",
    "conflict": false,
-   "anchors": [],
-   "confidence": 0,
-   "needsReview": [
-    "no_song"
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 37,
+     "peer": true
+    },
+    {
+     "t": 2.03,
+     "line": 38,
+     "peer": true
+    },
+    {
+     "t": 4.74,
+     "line": 39,
+     "peer": true
+    },
+    {
+     "t": 9.68,
+     "line": 40,
+     "peer": true
+    },
+    {
+     "t": 11.75,
+     "line": 41,
+     "peer": true
+    },
+    {
+     "t": 13.8,
+     "line": 42,
+     "peer": true
+    }
    ],
-   "grade": "C",
+   "confidence": 0,
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": null,
     "anchors": [],
@@ -67352,7 +67811,18 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "HsDAu1MSPzU",
+      "offset": 0.03,
+      "sim": 0.996
+     }
+    ],
+    "coverage": 0.98,
+    "songChanged": true
+   }
   },
   "8PwgecqmEpw": {
    "videoId": "8PwgecqmEpw",
@@ -67402,9 +67872,39 @@
      "score": 68.8
     },
     {
-     "t": 4.08,
+     "t": 3.98,
      "line": 2,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 7.86,
+     "line": 3,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 8.64,
+     "line": 4,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 10.5,
+     "line": 5,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 12.77,
+     "line": 6,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 16.95,
+     "line": 7,
+     "score": 50,
      "est": true
     }
    ],
@@ -67455,9 +67955,39 @@
      "score": 68.8
     },
     {
-     "t": 4.08,
+     "t": 3.98,
      "line": 2,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 7.86,
+     "line": 3,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 8.64,
+     "line": 4,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 10.5,
+     "line": 5,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 12.77,
+     "line": 6,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 16.95,
+     "line": 7,
+     "score": 50,
      "est": true
     }
    ]
@@ -68120,19 +68650,19 @@
      "score": 100.0
     },
     {
-     "t": 1.89,
+     "t": 1.77,
      "line": 37,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 5.1,
+     "t": 5.51,
      "line": 38,
      "score": 50,
      "est": true
     },
     {
-     "t": 13.4,
+     "t": 13.69,
      "line": 39,
      "score": 50,
      "est": true
@@ -68174,19 +68704,19 @@
      "score": 100.0
     },
     {
-     "t": 1.89,
+     "t": 1.77,
      "line": 37,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 5.1,
+     "t": 5.51,
      "line": 38,
      "score": 50,
      "est": true
     },
     {
-     "t": 13.4,
+     "t": 13.69,
      "line": 39,
      "score": 50,
      "est": true
@@ -77087,7 +77617,7 @@
      "score": 35.9
     }
    ],
-   "songId": null,
+   "songId": "nishina-adaada",
    "duration": 19.6,
    "transcript": [
     {
@@ -77117,12 +77647,26 @@
    ],
    "versionType": null,
    "conflict": false,
-   "anchors": [],
-   "confidence": 0,
-   "needsReview": [
-    "no_song"
+   "anchors": [
+    {
+     "t": 0.33,
+     "line": 9,
+     "peer": true
+    },
+    {
+     "t": 9.7,
+     "line": 10,
+     "peer": true
+    },
+    {
+     "t": 16.85,
+     "line": 11,
+     "peer": true
+    }
    ],
-   "grade": "C",
+   "confidence": 0,
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": null,
     "anchors": [],
@@ -77176,7 +77720,23 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "WiqBNW_qCpM",
+      "offset": 38.91,
+      "sim": 0.992
+     },
+     {
+      "videoId": "OKo2A5Dt3JI",
+      "offset": 0.13,
+      "sim": 0.998
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": true
+   }
   },
   "Gt1qWXNVjZs": {
    "videoId": "Gt1qWXNVjZs",
@@ -78658,60 +79218,58 @@
    "anchors": [
     {
      "t": 0.0,
+     "line": 34,
+     "peer": true
+    },
+    {
+     "t": 3.62,
      "line": 35,
-     "score": 50.0,
-     "est": true
+     "peer": true
     },
     {
-     "t": 5.16,
+     "t": 5.42,
      "line": 36,
-     "score": 50.0,
-     "est": true
+     "peer": true
     },
     {
-     "t": 10.32,
+     "t": 8.62,
      "line": 37,
-     "score": 50.0,
-     "est": true
+     "peer": true
     },
     {
-     "t": 15.48,
+     "t": 22.3,
      "line": 38,
-     "score": 50.0,
-     "est": true
+     "peer": true
     },
     {
-     "t": 20.64,
+     "t": 23.43,
      "line": 39,
-     "score": 50.0,
-     "est": true
+     "peer": true
     },
     {
-     "t": 23.04,
+     "t": 24.47,
      "line": 40,
-     "score": 60.0
+     "peer": true
     },
     {
-     "t": 27.04,
+     "t": 26.62,
      "line": 41,
-     "score": 50.0,
-     "est": true
+     "peer": true
     },
     {
-     "t": 31.92,
+     "t": 28.99,
      "line": 42,
-     "score": 50.0,
-     "est": true
+     "peer": true
+    },
+    {
+     "t": 31.36,
+     "line": 43,
+     "peer": true
     }
    ],
    "confidence": 60.0,
-   "needsReview": [
-    "anchors<2",
-    "low_align",
-    "low_song_score",
-    "ambiguous_start"
-   ],
-   "grade": "C",
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": "nishina-cranberry-jam",
     "anchors": [
@@ -78774,31 +79332,31 @@
    },
    "base": [
     {
-     "t": 0.0,
+     "t": 2.41,
      "line": 35,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 5.16,
+     "t": 4.68,
      "line": 36,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 10.32,
+     "t": 7.15,
      "line": 37,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 15.48,
+     "t": 20.84,
      "line": 38,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 20.64,
+     "t": 22.0,
      "line": 39,
      "score": 50.0,
      "est": true
@@ -78809,19 +79367,73 @@
      "score": 60.0
     },
     {
-     "t": 27.04,
+     "t": 25.19,
      "line": 41,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 31.92,
+     "t": 27.56,
      "line": 42,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 29.93,
+     "line": 43,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 31.38,
+     "line": 44,
+     "score": 50,
      "est": true
     }
    ],
    "pairs": [
+    {
+     "v": "dgtjQoHl3O8",
+     "off": -21.312,
+     "sim": 0.993,
+     "n": 1046,
+     "lo": 21.312,
+     "hi": 33.472,
+     "ok": [
+      [
+       643,
+       1045
+      ]
+     ]
+    },
+    {
+     "v": "2xgSxP36BJM",
+     "off": -19.552,
+     "sim": 0.996,
+     "n": 1046,
+     "lo": 19.552,
+     "hi": 33.472,
+     "ok": [
+      [
+       588,
+       1045
+      ]
+     ]
+    },
+    {
+     "v": "OdLEfG1YCWg",
+     "off": 25.024,
+     "sim": 0.999,
+     "n": 1046,
+     "lo": 0.0,
+     "hi": 22.240000000000002,
+     "ok": [
+      [
+       0,
+       717
+      ]
+     ]
+    },
     {
      "v": "BdHJViSNHLc",
      "off": -3.424,
@@ -78893,48 +79505,61 @@
      ]
     },
     {
-     "v": "dgtjQoHl3O8",
-     "off": -21.312,
-     "sim": 0.993,
-     "n": 1046,
-     "lo": 21.312,
-     "hi": 33.472,
-     "ok": [
-      [
-       643,
-       1045
-      ]
-     ]
-    },
-    {
-     "v": "2xgSxP36BJM",
-     "off": -19.552,
+     "v": "qvInlIZcYtY",
+     "off": 27.232,
      "sim": 0.996,
      "n": 1046,
-     "lo": 19.552,
-     "hi": 33.472,
-     "ok": [
-      [
-       588,
-       1045
-      ]
-     ]
-    },
-    {
-     "v": "OdLEfG1YCWg",
-     "off": 25.024,
-     "sim": 0.999,
-     "n": 1046,
      "lo": 0.0,
-     "hi": 22.240000000000002,
+     "hi": 17.631999999999998,
      "ok": [
       [
        0,
-       717
+       573
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "dgtjQoHl3O8",
+      "offset": -21.31,
+      "sim": 0.993
+     },
+     {
+      "videoId": "2xgSxP36BJM",
+      "offset": -19.55,
+      "sim": 0.996
+     },
+     {
+      "videoId": "OdLEfG1YCWg",
+      "offset": 25.02,
+      "sim": 0.999
+     },
+     {
+      "videoId": "BdHJViSNHLc",
+      "offset": -3.42,
+      "sim": 0.997
+     },
+     {
+      "videoId": "9DQDTEcMd1c",
+      "offset": -22.24,
+      "sim": 0.997
+     },
+     {
+      "videoId": "7mqTI0gntLs",
+      "offset": -22.24,
+      "sim": 0.996
+     },
+     {
+      "videoId": "h5WHuNkTAAI",
+      "offset": -19.49,
+      "sim": 0.994
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": false
+   }
   },
   "i2sESz_j4gY": {
    "videoId": "i2sESz_j4gY",
@@ -79793,7 +80418,7 @@
      "score": 38.6
     }
    ],
-   "songId": null,
+   "songId": "nishina-u-plus",
    "duration": 22.4,
    "transcript": [
     {
@@ -79819,12 +80444,26 @@
    ],
    "versionType": "live",
    "conflict": false,
-   "anchors": [],
-   "confidence": 0,
-   "needsReview": [
-    "no_song"
+   "anchors": [
+    {
+     "t": 2.47,
+     "line": 7,
+     "peer": true
+    },
+    {
+     "t": 12.12,
+     "line": 10,
+     "peer": true
+    },
+    {
+     "t": 14.32,
+     "line": 11,
+     "peer": true
+    }
    ],
-   "grade": "C",
+   "confidence": 0,
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": null,
     "anchors": [],
@@ -79836,6 +80475,20 @@
    },
    "base": [],
    "pairs": [
+    {
+     "v": "wLWMBDKJ4Qk",
+     "off": -0.128,
+     "sim": 0.998,
+     "n": 700,
+     "lo": 0.128,
+     "hi": 22.4,
+     "ok": [
+      [
+       0,
+       699
+      ]
+     ]
+    },
     {
      "v": "P_cVm6ej29g",
      "off": -0.16,
@@ -79863,22 +80516,19 @@
        612
       ]
      ]
-    },
-    {
-     "v": "wLWMBDKJ4Qk",
-     "off": -0.128,
-     "sim": 0.998,
-     "n": 700,
-     "lo": 0.128,
-     "hi": 22.4,
-     "ok": [
-      [
-       0,
-       699
-      ]
-     ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "wLWMBDKJ4Qk",
+      "offset": -0.13,
+      "sim": 0.998
+     }
+    ],
+    "coverage": 0.99,
+    "songChanged": true
+   }
   },
   "-ITNZfv7GYs": {
    "videoId": "-ITNZfv7GYs",
@@ -80816,30 +81466,64 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 9.7,
+     "t": 0.0,
+     "line": 37,
+     "peer": true
+    },
+    {
+     "t": 7.72,
+     "line": 38,
+     "peer": true
+    },
+    {
+     "t": 8.84,
+     "line": 39,
+     "peer": true
+    },
+    {
+     "t": 9.88,
      "line": 40,
-     "score": 50.0,
-     "est": true
+     "peer": true
     },
     {
-     "t": 12.0,
+     "t": 12.03,
      "line": 41,
-     "score": 75.0
+     "peer": true
     },
     {
-     "t": 14.5,
+     "t": 14.4,
      "line": 42,
-     "score": 50.0,
-     "est": true
+     "peer": true
+    },
+    {
+     "t": 16.77,
+     "line": 43,
+     "peer": true
+    },
+    {
+     "t": 18.22,
+     "line": 44,
+     "peer": true
+    },
+    {
+     "t": 19.3,
+     "line": 45,
+     "peer": true
+    },
+    {
+     "t": 21.44,
+     "line": 46,
+     "peer": true
+    },
+    {
+     "t": 23.92,
+     "line": 47,
+     "peer": true
     }
    ],
    "confidence": 75.0,
-   "needsReview": [
-    "anchors<2",
-    "low_song_score",
-    "ambiguous_start"
-   ],
-   "grade": "C",
+   "needsReview": [],
+   "grade": "A",
    "fallback": "whisper",
    "asr": {
     "songId": "nishina-cranberry-jam",
@@ -80872,7 +81556,7 @@
    },
    "base": [
     {
-     "t": 9.7,
+     "t": 9.85,
      "line": 40,
      "score": 50.0,
      "est": true
@@ -80883,13 +81567,99 @@
      "score": 75.0
     },
     {
-     "t": 14.5,
+     "t": 14.37,
      "line": 42,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 16.74,
+     "line": 43,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 18.19,
+     "line": 44,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 19.27,
+     "line": 45,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 21.41,
+     "line": 46,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 23.89,
+     "line": 47,
+     "score": 50,
      "est": true
     }
    ],
    "pairs": [
+    {
+     "v": "dgtjQoHl3O8",
+     "off": -6.72,
+     "sim": 0.996,
+     "n": 898,
+     "lo": 6.72,
+     "hi": 26.88,
+     "ok": [
+      [
+       187,
+       862
+      ]
+     ]
+    },
+    {
+     "v": "2xgSxP36BJM",
+     "off": -4.992,
+     "sim": 0.993,
+     "n": 898,
+     "lo": 4.992,
+     "hi": 28.736,
+     "ok": [
+      [
+       133,
+       897
+      ]
+     ]
+    },
+    {
+     "v": "OdLEfG1YCWg",
+     "off": 39.584,
+     "sim": 0.996,
+     "n": 898,
+     "lo": 0.0,
+     "hi": 7.68,
+     "ok": [
+      [
+       0,
+       262
+      ]
+     ]
+    },
+    {
+     "v": "s--_1ErqS4M",
+     "off": -16.992,
+     "sim": 0.997,
+     "n": 898,
+     "lo": 16.992,
+     "hi": 28.736,
+     "ok": [
+      [
+       508,
+       897
+      ]
+     ]
+    },
     {
      "v": "BdHJViSNHLc",
      "off": 11.136,
@@ -80973,64 +81743,59 @@
        613
       ]
      ]
-    },
-    {
-     "v": "dgtjQoHl3O8",
-     "off": -6.72,
-     "sim": 0.996,
-     "n": 898,
-     "lo": 6.72,
-     "hi": 26.88,
-     "ok": [
-      [
-       187,
-       862
-      ]
-     ]
-    },
-    {
-     "v": "2xgSxP36BJM",
-     "off": -4.992,
-     "sim": 0.993,
-     "n": 898,
-     "lo": 4.992,
-     "hi": 28.736,
-     "ok": [
-      [
-       133,
-       897
-      ]
-     ]
-    },
-    {
-     "v": "OdLEfG1YCWg",
-     "off": 39.584,
-     "sim": 0.996,
-     "n": 898,
-     "lo": 0.0,
-     "hi": 7.68,
-     "ok": [
-      [
-       0,
-       262
-      ]
-     ]
-    },
-    {
-     "v": "s--_1ErqS4M",
-     "off": -16.992,
-     "sim": 0.997,
-     "n": 898,
-     "lo": 16.992,
-     "hi": 28.736,
-     "ok": [
-      [
-       508,
-       897
-      ]
-     ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "dgtjQoHl3O8",
+      "offset": -6.72,
+      "sim": 0.996
+     },
+     {
+      "videoId": "2xgSxP36BJM",
+      "offset": -4.99,
+      "sim": 0.993
+     },
+     {
+      "videoId": "OdLEfG1YCWg",
+      "offset": 39.58,
+      "sim": 0.996
+     },
+     {
+      "videoId": "s--_1ErqS4M",
+      "offset": -16.99,
+      "sim": 0.997
+     },
+     {
+      "videoId": "BdHJViSNHLc",
+      "offset": 11.14,
+      "sim": 0.997
+     },
+     {
+      "videoId": "9DQDTEcMd1c",
+      "offset": -7.68,
+      "sim": 0.999
+     },
+     {
+      "videoId": "7mqTI0gntLs",
+      "offset": -7.68,
+      "sim": 0.999
+     },
+     {
+      "videoId": "cQ0LtJIOGA4",
+      "offset": -17.09,
+      "sim": 0.997
+     },
+     {
+      "videoId": "h5WHuNkTAAI",
+      "offset": -4.9,
+      "sim": 0.996
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": false
+   }
   },
   "aObvFxsTuvw": {
    "videoId": "aObvFxsTuvw",
@@ -84388,7 +85153,7 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 17.46,
+     "t": 17.47,
      "line": 32,
      "score": 50.0,
      "est": true
@@ -84427,7 +85192,7 @@
    },
    "base": [
     {
-     "t": 17.46,
+     "t": 17.47,
      "line": 32,
      "score": 50.0,
      "est": true
@@ -96158,72 +96923,64 @@
     {
      "t": 0.0,
      "line": 27,
-     "score": 55.6
+     "peer": true
     },
     {
-     "t": 3.38,
+     "t": 3.37,
      "line": 28,
-     "score": 81.2
+     "peer": true
     },
     {
-     "t": 6.3,
+     "t": 6.84,
      "line": 29,
-     "score": 55.8
+     "peer": true
     },
     {
-     "t": 12.58,
+     "t": 13.44,
      "line": 30,
-     "score": 50.0,
-     "est": true
+     "peer": true
     },
     {
-     "t": 16.25,
+     "t": 16.65,
      "line": 31,
-     "score": 50.0,
-     "est": true
+     "peer": true
     },
     {
-     "t": 19.12,
+     "t": 20.05,
      "line": 32,
-     "score": 50,
-     "est": true
+     "peer": true
     },
     {
-     "t": 23.39,
+     "t": 24.38,
      "line": 33,
-     "score": 50,
-     "est": true
+     "peer": true
     },
     {
-     "t": 26.3,
+     "t": 27.21,
      "line": 34,
-     "score": 50,
-     "est": true
+     "peer": true
     },
     {
-     "t": 29.75,
+     "t": 30.66,
      "line": 35,
-     "score": 50,
-     "est": true
+     "peer": true
     },
     {
-     "t": 33.41,
+     "t": 34.08,
      "line": 36,
-     "score": 50,
-     "est": true
+     "peer": true
     },
     {
-     "t": 35.53,
+     "t": 36.22,
      "line": 37,
-     "score": 50,
-     "est": true
+     "peer": true
     }
    ],
    "confidence": 64.2,
    "needsReview": [
     "low_align"
    ],
-   "grade": "C",
+   "grade": "B",
    "fallback": "whisper",
    "asr": {
     "songId": "nishina-its-a-piece-of-cake",
@@ -96279,49 +97036,49 @@
      "score": 55.8
     },
     {
-     "t": 12.58,
+     "t": 12.18,
      "line": 30,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 16.25,
+     "t": 15.59,
      "line": 31,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 19.12,
+     "t": 18.25,
      "line": 32,
      "score": 50,
      "est": true
     },
     {
-     "t": 23.39,
+     "t": 22.34,
      "line": 33,
      "score": 50,
      "est": true
     },
     {
-     "t": 26.3,
+     "t": 25.26,
      "line": 34,
      "score": 50,
      "est": true
     },
     {
-     "t": 29.75,
+     "t": 28.54,
      "line": 35,
      "score": 50,
      "est": true
     },
     {
-     "t": 33.41,
+     "t": 31.95,
      "line": 36,
      "score": 50,
      "est": true
     },
     {
-     "t": 35.53,
+     "t": 33.94,
      "line": 37,
      "score": 50,
      "est": true
@@ -96342,7 +97099,18 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "rDLM-8FYP1I",
+      "offset": 13.79,
+      "sim": 0.998
+     }
+    ],
+    "coverage": 0.8,
+    "songChanged": false
+   }
   },
   "GlvsnECD22A": {
    "videoId": "GlvsnECD22A",
@@ -96651,6 +97419,12 @@
      "line": 38,
      "score": 50.0,
      "est": true
+    },
+    {
+     "t": 14.4,
+     "line": 39,
+     "score": 50,
+     "est": true
     }
    ],
    "confidence": 85.7,
@@ -96693,6 +97467,12 @@
      "t": 11.52,
      "line": 38,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 14.4,
+     "line": 39,
+     "score": 50,
      "est": true
     }
    ]
@@ -112375,28 +113155,34 @@
      "est": true
     },
     {
-     "t": 19.74,
-     "line": 35,
-     "score": 75.0,
-     "est": true
-    },
-    {
-     "t": 23.38,
-     "line": 36,
-     "score": 50.0,
-     "est": true
-    },
-    {
-     "t": 27.02,
+     "t": 20.2,
      "line": 37,
-     "score": 75.0,
-     "est": true
+     "peer": true
     },
     {
-     "t": 49.34,
+     "t": 21.88,
      "line": 38,
-     "score": 50.0,
-     "est": true
+     "peer": true
+    },
+    {
+     "t": 24.76,
+     "line": 39,
+     "peer": true
+    },
+    {
+     "t": 29.59,
+     "line": 40,
+     "peer": true
+    },
+    {
+     "t": 31.46,
+     "line": 41,
+     "peer": true
+    },
+    {
+     "t": 33.75,
+     "line": 42,
+     "peer": true
     }
    ],
    "confidence": 85.7,
@@ -112404,7 +113190,7 @@
     "anchors<2",
     "low_song_score"
    ],
-   "grade": "C",
+   "grade": "B",
    "asr": {
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
@@ -112486,23 +113272,21 @@
      "line": 38,
      "score": 50.0,
      "est": true
+    },
+    {
+     "t": 52.22,
+     "line": 39,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 57.05,
+     "line": 40,
+     "score": 50,
+     "est": true
     }
    ],
    "pairs": [
-    {
-     "v": "-PXZwwa3VCg",
-     "off": -19.552,
-     "sim": 0.997,
-     "n": 1851,
-     "lo": 19.552,
-     "hi": 39.168,
-     "ok": [
-      [
-       588,
-       1246
-      ]
-     ]
-    },
     {
      "v": "4R3tVhr9eA8",
      "off": -20.064,
@@ -112518,9 +113302,23 @@
      ]
     },
     {
+     "v": "-PXZwwa3VCg",
+     "off": -19.552,
+     "sim": 0.997,
+     "n": 1851,
+     "lo": 19.552,
+     "hi": 39.168,
+     "ok": [
+      [
+       588,
+       1246
+      ]
+     ]
+    },
+    {
      "v": "B77vWlCESJs",
      "off": -19.744,
-     "sim": 0.995,
+     "sim": 0.996,
      "n": 1851,
      "lo": 19.744,
      "hi": 59.232,
@@ -112531,7 +113329,23 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "4R3tVhr9eA8",
+      "offset": -20.06,
+      "sim": 0.996
+     },
+     {
+      "videoId": "-PXZwwa3VCg",
+      "offset": -19.55,
+      "sim": 0.997
+     }
+    ],
+    "coverage": 0.33,
+    "songChanged": false
+   }
   },
   "J5nN1JPy3wM": {
    "videoId": "J5nN1JPy3wM",
@@ -112873,37 +113687,37 @@
      "score": 100.0
     },
     {
-     "t": 1.82,
+     "t": 1.48,
      "line": 33,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 4.58,
+     "t": 4.55,
      "line": 34,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 7.34,
+     "t": 7.7,
      "line": 35,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 10.02,
+     "t": 10.0,
      "line": 36,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 14.48,
+     "t": 14.97,
      "line": 37,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 18.24,
+     "t": 22.54,
      "line": 38,
      "score": 50.0,
      "est": true
@@ -112975,37 +113789,37 @@
      "score": 100.0
     },
     {
-     "t": 1.82,
+     "t": 1.48,
      "line": 33,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 4.58,
+     "t": 4.55,
      "line": 34,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 7.34,
+     "t": 7.7,
      "line": 35,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 10.02,
+     "t": 10.0,
      "line": 36,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 14.48,
+     "t": 14.97,
      "line": 37,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 18.24,
+     "t": 22.54,
      "line": 38,
      "score": 50.0,
      "est": true
@@ -114984,7 +115798,7 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 1.04,
+     "t": 0.0,
      "line": 38,
      "score": 50.0,
      "est": true
@@ -114995,9 +115809,21 @@
      "score": 60.9
     },
     {
-     "t": 9.38,
+     "t": 7.29,
      "line": 40,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 9.16,
+     "line": 41,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 11.45,
+     "line": 42,
+     "score": 50,
      "est": true
     }
    ],
@@ -115042,7 +115868,7 @@
    },
    "base": [
     {
-     "t": 1.04,
+     "t": 0.0,
      "line": 38,
      "score": 50.0,
      "est": true
@@ -115053,9 +115879,21 @@
      "score": 60.9
     },
     {
-     "t": 9.38,
+     "t": 7.29,
      "line": 40,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 9.16,
+     "line": 41,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 11.45,
+     "line": 42,
+     "score": 50,
      "est": true
     }
    ]
@@ -124053,6 +124891,12 @@
      "line": 38,
      "score": 50.0,
      "est": true
+    },
+    {
+     "t": 17.6,
+     "line": 39,
+     "score": 50,
+     "est": true
     }
    ],
    "confidence": 85.7,
@@ -124095,6 +124939,12 @@
      "t": 14.72,
      "line": 38,
      "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 17.6,
+     "line": 39,
+     "score": 50,
      "est": true
     }
    ]
@@ -124526,7 +125376,7 @@
      "score": 60.0
     },
     {
-     "t": 8.96,
+     "t": 7.78,
      "line": 15,
      "score": 50.0,
      "est": true
@@ -124542,13 +125392,13 @@
      "score": 73.7
     },
     {
-     "t": 15.52,
+     "t": 15.91,
      "line": 18,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 17.6,
+     "t": 17.88,
      "line": 19,
      "score": 50.0,
      "est": true
@@ -124631,7 +125481,7 @@
      "score": 60.0
     },
     {
-     "t": 8.96,
+     "t": 7.78,
      "line": 15,
      "score": 50.0,
      "est": true
@@ -124647,13 +125497,13 @@
      "score": 73.7
     },
     {
-     "t": 15.52,
+     "t": 15.91,
      "line": 18,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 17.6,
+     "t": 17.88,
      "line": 19,
      "score": 50.0,
      "est": true
@@ -134592,7 +135442,7 @@
      "score": 37.5
     }
    ],
-   "songId": null,
+   "songId": "nishina-adaada",
    "duration": 19.8,
    "transcript": [
     {
@@ -134634,12 +135484,26 @@
    ],
    "versionType": null,
    "conflict": false,
-   "anchors": [],
-   "confidence": 0,
-   "needsReview": [
-    "no_song"
+   "anchors": [
+    {
+     "t": 0.36,
+     "line": 9,
+     "peer": true
+    },
+    {
+     "t": 9.73,
+     "line": 10,
+     "peer": true
+    },
+    {
+     "t": 16.88,
+     "line": 11,
+     "peer": true
+    }
    ],
-   "grade": "C",
+   "confidence": 0,
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": null,
     "anchors": [],
@@ -134666,20 +135530,6 @@
      ]
     },
     {
-     "v": "zRhbQlp0jhI",
-     "off": -0.064,
-     "sim": 0.994,
-     "n": 620,
-     "lo": 0.064,
-     "hi": 19.712,
-     "ok": [
-      [
-       0,
-       619
-      ]
-     ]
-    },
-    {
      "v": "OKo2A5Dt3JI",
      "off": 0.096,
      "sim": 0.995,
@@ -134692,8 +135542,38 @@
        619
       ]
      ]
+    },
+    {
+     "v": "zRhbQlp0jhI",
+     "off": -0.064,
+     "sim": 0.994,
+     "n": 620,
+     "lo": 0.064,
+     "hi": 19.712,
+     "ok": [
+      [
+       0,
+       619
+      ]
+     ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "WiqBNW_qCpM",
+      "offset": 38.88,
+      "sim": 0.993
+     },
+     {
+      "videoId": "OKo2A5Dt3JI",
+      "offset": 0.1,
+      "sim": 0.995
+     }
+    ],
+    "coverage": 0.99,
+    "songChanged": true
+   }
   },
   "ha6ROGnEBFM": {
    "videoId": "ha6ROGnEBFM",
@@ -136058,7 +136938,7 @@
      "score": 29.8
     }
    ],
-   "songId": null,
+   "songId": "nishina-friday-kids-china-town",
    "duration": 40.1,
    "transcript": [
     {
@@ -136080,12 +136960,43 @@
    ],
    "versionType": null,
    "conflict": false,
-   "anchors": [],
+   "anchors": [
+    {
+     "t": 0.49,
+     "line": 37,
+     "peer": true
+    },
+    {
+     "t": 2.15,
+     "line": 38,
+     "peer": true
+    },
+    {
+     "t": 5.03,
+     "line": 39,
+     "peer": true
+    },
+    {
+     "t": 9.86,
+     "line": 40,
+     "peer": true
+    },
+    {
+     "t": 11.73,
+     "line": 41,
+     "peer": true
+    },
+    {
+     "t": 14.02,
+     "line": 42,
+     "peer": true
+    }
+   ],
    "confidence": 0,
    "needsReview": [
     "no_song"
    ],
-   "grade": "C",
+   "grade": "B",
    "asr": {
     "songId": null,
     "anchors": [],
@@ -136097,20 +137008,6 @@
    },
    "base": [],
    "pairs": [
-    {
-     "v": "-PXZwwa3VCg",
-     "off": 0.16,
-     "sim": 0.996,
-     "n": 1254,
-     "lo": 0.0,
-     "hi": 19.456,
-     "ok": [
-      [
-       0,
-       630
-      ]
-     ]
-    },
     {
      "v": "4R3tVhr9eA8",
      "off": -0.32,
@@ -136126,9 +137023,23 @@
      ]
     },
     {
+     "v": "-PXZwwa3VCg",
+     "off": 0.16,
+     "sim": 0.996,
+     "n": 1254,
+     "lo": 0.0,
+     "hi": 19.456,
+     "ok": [
+      [
+       0,
+       630
+      ]
+     ]
+    },
+    {
      "v": "yWM44zmUd_w",
      "off": 19.744,
-     "sim": 0.995,
+     "sim": 0.996,
      "n": 1254,
      "lo": 0.0,
      "hi": 39.488,
@@ -136139,7 +137050,23 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "4R3tVhr9eA8",
+      "offset": -0.32,
+      "sim": 1.0
+     },
+     {
+      "videoId": "-PXZwwa3VCg",
+      "offset": 0.16,
+      "sim": 0.996
+     }
+    ],
+    "coverage": 0.48,
+    "songChanged": true
+   }
   },
   "eelRr_Y_7AM": {
    "videoId": "eelRr_Y_7AM",
@@ -142733,25 +143660,25 @@
      "score": 63.6
     },
     {
-     "t": 7.59,
+     "t": 7.68,
      "line": 14,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 10.39,
+     "t": 10.48,
      "line": 15,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 13.42,
+     "t": 13.21,
      "line": 16,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 17.42,
+     "t": 17.51,
      "line": 17,
      "score": 50,
      "est": true
@@ -142812,25 +143739,25 @@
      "score": 63.6
     },
     {
-     "t": 7.59,
+     "t": 7.68,
      "line": 14,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 10.39,
+     "t": 10.48,
      "line": 15,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 13.42,
+     "t": 13.21,
      "line": 16,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 17.42,
+     "t": 17.51,
      "line": 17,
      "score": 50,
      "est": true
@@ -162644,7 +163571,7 @@
      "score": 50.0
     }
    ],
-   "songId": null,
+   "songId": "nishina-plum",
    "duration": 16.1,
    "transcript": [
     {
@@ -162658,12 +163585,18 @@
    ],
    "versionType": null,
    "conflict": false,
-   "anchors": [],
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 36,
+     "peer": true
+    }
+   ],
    "confidence": 0,
    "needsReview": [
     "no_song"
    ],
-   "grade": "C",
+   "grade": "B",
    "asr": {
     "songId": null,
     "anchors": [],
@@ -162703,7 +163636,23 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "ZTcB7mQel5s",
+      "offset": 45.44,
+      "sim": 0.997
+     },
+     {
+      "videoId": "cwQTqCCo4pw",
+      "offset": 48.45,
+      "sim": 0.994
+     }
+    ],
+    "coverage": 0.72,
+    "songChanged": true
+   }
   },
   "jSjG_UCdRDE": {
    "videoId": "jSjG_UCdRDE",
@@ -164912,13 +165861,13 @@
    "conflict": false,
    "anchors": [
     {
-     "t": 0.0,
+     "t": 6.52,
      "line": 18,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 10.48,
+     "t": 18.8,
      "line": 19,
      "score": 90.9,
      "est": true
@@ -164934,7 +165883,7 @@
      "score": 60.0
     },
     {
-     "t": 28.14,
+     "t": 27.85,
      "line": 22,
      "score": 50.0,
      "est": true
@@ -164961,37 +165910,37 @@
      "score": 66.7
     },
     {
-     "t": 37.28,
+     "t": 37.17,
      "line": 27,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 39.51,
+     "t": 39.4,
      "line": 28,
      "score": 50,
      "est": true
     },
     {
-     "t": 41.76,
+     "t": 41.78,
      "line": 29,
      "score": 50,
      "est": true
     },
     {
-     "t": 44.28,
+     "t": 44.24,
      "line": 30,
      "score": 50,
      "est": true
     },
     {
-     "t": 45.54,
+     "t": 45.51,
      "line": 31,
      "score": 50,
      "est": true
     },
     {
-     "t": 46.65,
+     "t": 46.46,
      "line": 32,
      "score": 50,
      "est": true
@@ -165069,13 +166018,13 @@
    },
    "base": [
     {
-     "t": 0.0,
+     "t": 6.52,
      "line": 18,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 10.48,
+     "t": 18.8,
      "line": 19,
      "score": 90.9,
      "est": true
@@ -165091,7 +166040,7 @@
      "score": 60.0
     },
     {
-     "t": 28.14,
+     "t": 27.85,
      "line": 22,
      "score": 50.0,
      "est": true
@@ -165118,37 +166067,37 @@
      "score": 66.7
     },
     {
-     "t": 37.28,
+     "t": 37.17,
      "line": 27,
      "score": 50.0,
      "est": true
     },
     {
-     "t": 39.51,
+     "t": 39.4,
      "line": 28,
      "score": 50,
      "est": true
     },
     {
-     "t": 41.76,
+     "t": 41.78,
      "line": 29,
      "score": 50,
      "est": true
     },
     {
-     "t": 44.28,
+     "t": 44.24,
      "line": 30,
      "score": 50,
      "est": true
     },
     {
-     "t": 45.54,
+     "t": 45.51,
      "line": 31,
      "score": 50,
      "est": true
     },
     {
-     "t": 46.65,
+     "t": 46.46,
      "line": 32,
      "score": 50,
      "est": true
@@ -166617,7 +167566,7 @@
      "score": 44.4
     }
    ],
-   "songId": "nishina-rinne",
+   "songId": "nishina-wawon",
    "duration": 23.0,
    "transcript": [
     {
@@ -166631,13 +167580,26 @@
    ],
    "versionType": null,
    "conflict": false,
-   "anchors": [],
-   "confidence": 0,
-   "needsReview": [
-    "anchors<2",
-    "low_align"
+   "anchors": [
+    {
+     "t": 0.31,
+     "line": 44,
+     "peer": true
+    },
+    {
+     "t": 10.85,
+     "line": 45,
+     "peer": true
+    },
+    {
+     "t": 16.49,
+     "line": 46,
+     "peer": true
+    }
    ],
-   "grade": "C",
+   "confidence": 0,
+   "needsReview": [],
+   "grade": "A",
    "asr": {
     "songId": "nishina-rinne",
     "anchors": [],
@@ -166664,7 +167626,18 @@
       ]
      ]
     }
-   ]
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "RaA3mR-iBtk",
+      "offset": 6.05,
+      "sim": 0.987
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": true
+   }
   },
   "tLbOhOsJb7U": {
    "videoId": "tLbOhOsJb7U",
@@ -167716,6 +168689,4563 @@
     "confidence": 84.3,
     "needsReview": []
    }
+  },
+  "IDdBzBLOHoI": {
+   "videoId": "IDdBzBLOHoI",
+   "title": "チューイングガムの味も無くなる今日この頃 #にしな #nishina #weekly #ライブ #shorts",
+   "queueSongId": "nishina-weekly",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-weekly",
+     "score": 49.6
+    },
+    {
+     "songId": "nishina-yoru-ni-natte",
+     "score": 24.5
+    },
+    {
+     "songId": "nishina-rendezvous",
+     "score": 24.5
+    }
+   ],
+   "songId": "nishina-weekly",
+   "duration": 29.6,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "運んでからドキスで"
+    },
+    {
+     "t": 2.42,
+     "text": "Just stay 気分は最大"
+    },
+    {
+     "t": 4.82,
+     "text": "Wednesday 少し乗れて"
+    },
+    {
+     "t": 7.04,
+     "text": "気づくなり スムーラウダー"
+    },
+    {
+     "t": 9.98,
+     "text": "South Day 無駄に長くて"
+    },
+    {
+     "t": 11.94,
+     "text": "Clyde 頑張れちゃって"
+    },
+    {
+     "t": 14.44,
+     "text": "Saturday どこに向いかない"
+    },
+    {
+     "t": 16.8,
+     "text": "ドキス的なるグリズム"
+    },
+    {
+     "t": 20.66,
+     "text": "We leave"
+    },
+    {
+     "t": 23.12,
+     "text": "チューニングの味"
+    },
+    {
+     "t": 25.3,
+     "text": "無くなるこの頃"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.36,
+     "line": 0,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 2.67,
+     "line": 1,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 5.14,
+     "line": 2,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 7.23,
+     "line": 3,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 9.92,
+     "line": 4,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 12.23,
+     "line": 5,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 14.65,
+     "line": 6,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 16.8,
+     "line": 7,
+     "score": 66.7
+    },
+    {
+     "t": 21.14,
+     "line": 9,
+     "score": 66.7
+    },
+    {
+     "t": 26.34,
+     "line": 10,
+     "score": 80.0
+    }
+   ],
+   "confidence": 71.1,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-weekly",
+    "anchors": [
+     {
+      "t": 0.88,
+      "line": 0,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 3.6,
+      "line": 1,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 5.32,
+      "line": 2,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 6.66,
+      "line": 3,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 10.84,
+      "line": 4,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 13.22,
+      "line": 5,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 15.28,
+      "line": 6,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 16.8,
+      "line": 7,
+      "score": 66.7
+     },
+     {
+      "t": 21.14,
+      "line": 9,
+      "score": 66.7
+     },
+     {
+      "t": 26.34,
+      "line": 10,
+      "score": 80.0
+     }
+    ],
+    "grade": "A",
+    "confidence": 71.1,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.36,
+     "line": 0,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 2.67,
+     "line": 1,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 5.14,
+     "line": 2,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 7.23,
+     "line": 3,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 9.92,
+     "line": 4,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 12.23,
+     "line": 5,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 14.65,
+     "line": 6,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 16.8,
+     "line": 7,
+     "score": 66.7
+    },
+    {
+     "t": 21.14,
+     "line": 9,
+     "score": 66.7
+    },
+    {
+     "t": 26.34,
+     "line": 10,
+     "score": 80.0
+    }
+   ]
+  },
+  "8jEe_3ahge8": {
+   "videoId": "8jEe_3ahge8",
+   "title": "まるで僕らは夜を泳ぐメロとリズム #にしな #nishina #音になっていくよ #ライブ #shorts",
+   "queueSongId": "nishina-oto-ni-natteiku-yo",
+   "matchMethod": "hashtag",
+   "model": "medium",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-oto-ni-natteiku-yo",
+     "score": 47.1
+    },
+    {
+     "songId": "nishina-ainikoi",
+     "score": 30.4
+    },
+    {
+     "songId": "nishina-twinkle-little-star",
+     "score": 29.0
+    }
+   ],
+   "songId": "nishina-oto-ni-natteiku-yo",
+   "duration": 22.5,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "シングル シングル まるで僕らは"
+    },
+    {
+     "t": 6.12,
+     "text": "シュルルルルル ゆぐめるプレス"
+    },
+    {
+     "t": 9.9,
+     "text": "んー ヘアー ルー ヘアー"
+    },
+    {
+     "t": 14.46,
+     "text": "繋いでどこまでもいい"
+    },
+    {
+     "t": 16.82,
+     "text": "んー ルールを成しできままに"
+    },
+    {
+     "t": 20.9,
+     "text": "ルーイーム"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.62,
+     "line": 0,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 3.64,
+     "line": 1,
+     "score": 100.0
+    },
+    {
+     "t": 6.12,
+     "line": 2,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 10.29,
+     "line": 3,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 14.46,
+     "line": 4,
+     "score": 58.3
+    },
+    {
+     "t": 18.7,
+     "line": 5,
+     "score": 64.3
+    }
+   ],
+   "confidence": 74.2,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-oto-ni-natteiku-yo",
+    "anchors": [
+     {
+      "t": 0.62,
+      "line": 0,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 3.64,
+      "line": 1,
+      "score": 100.0
+     },
+     {
+      "t": 6.12,
+      "line": 2,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 10.29,
+      "line": 3,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 14.46,
+      "line": 4,
+      "score": 58.3
+     },
+     {
+      "t": 18.7,
+      "line": 5,
+      "score": 64.3
+     }
+    ],
+    "grade": "A",
+    "confidence": 74.2,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.62,
+     "line": 0,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 3.64,
+     "line": 1,
+     "score": 100.0
+    },
+    {
+     "t": 6.12,
+     "line": 2,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 10.29,
+     "line": 3,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 14.46,
+     "line": 4,
+     "score": 58.3
+    },
+    {
+     "t": 18.7,
+     "line": 5,
+     "score": 64.3
+    }
+   ]
+  },
+  "v6mb-SV_crM": {
+   "videoId": "v6mb-SV_crM",
+   "title": "お願いどうかこのまま #にしな #nishina #inyoureyes #ライブ #shorts",
+   "queueSongId": "nishina-in-your-eyes",
+   "matchMethod": "hashtag",
+   "model": "medium",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-in-your-eyes",
+     "score": 47.7
+    },
+    {
+     "songId": "nishina-yonagi",
+     "score": 32.3
+    },
+    {
+     "songId": "nishina-1999",
+     "score": 32.3
+    }
+   ],
+   "songId": "nishina-in-your-eyes",
+   "duration": 22.3,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "インガンアイセビレブラリグラシテ"
+    },
+    {
+     "t": 5.86,
+     "text": "帰りない角度がステスルピーダース"
+    },
+    {
+     "t": 12.12,
+     "text": "重ねた唇吹けない"
+    },
+    {
+     "t": 15.2,
+     "text": "月輪目覚めない"
+    },
+    {
+     "t": 18.38,
+     "text": "お願いとたうまい"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 29,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 2.3,
+     "line": 30,
+     "score": 80.0
+    },
+    {
+     "t": 5.86,
+     "line": 31,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 12.8,
+     "line": 32,
+     "score": 75.0
+    },
+    {
+     "t": 15.2,
+     "line": 33,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 18.38,
+     "line": 34,
+     "score": 60.0
+    }
+   ],
+   "confidence": 71.7,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-in-your-eyes",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 29,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 2.3,
+      "line": 30,
+      "score": 80.0
+     },
+     {
+      "t": 5.86,
+      "line": 31,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 12.8,
+      "line": 32,
+      "score": 75.0
+     },
+     {
+      "t": 15.2,
+      "line": 33,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 18.38,
+      "line": 34,
+      "score": 60.0
+     }
+    ],
+    "grade": "A",
+    "confidence": 71.7,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 29,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 2.3,
+     "line": 30,
+     "score": 80.0
+    },
+    {
+     "t": 5.86,
+     "line": 31,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 12.8,
+     "line": 32,
+     "score": 75.0
+    },
+    {
+     "t": 15.2,
+     "line": 33,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 18.38,
+     "line": 34,
+     "score": 60.0
+    }
+   ]
+  },
+  "Nt28QTHWVXo": {
+   "videoId": "Nt28QTHWVXo",
+   "title": "本当は分かってる #にしな #nishina #ヘビースモーク #ライブ #shorts",
+   "queueSongId": "nishina-heavy-smoke",
+   "matchMethod": "hashtag",
+   "model": "medium",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-heavy-smoke",
+     "score": 54.9
+    },
+    {
+     "songId": "nishina-dress-code",
+     "score": 35.3
+    },
+    {
+     "songId": "nishina-seiran-yuuei",
+     "score": 33.3
+    }
+   ],
+   "songId": "nishina-heavy-smoke",
+   "duration": 26.7,
+   "transcript": [
+    {
+     "t": 1.26,
+     "text": "本当を抱き寄せる"
+    },
+    {
+     "t": 6.8,
+     "text": "掴もうとしたら 消えちゃうくらい"
+    },
+    {
+     "t": 14.58,
+     "text": "眠りきっていない"
+    },
+    {
+     "t": 19.66,
+     "text": "いまにあなたを愛させる"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 1.26,
+     "line": 24,
+     "score": 57.1
+    },
+    {
+     "t": 7.38,
+     "line": 25,
+     "score": 76.5
+    },
+    {
+     "t": 15.19,
+     "line": 26,
+     "score": 50.0,
+     "est": true
+    }
+   ],
+   "confidence": 66.8,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-heavy-smoke",
+    "anchors": [
+     {
+      "t": 1.26,
+      "line": 24,
+      "score": 57.1
+     },
+     {
+      "t": 7.38,
+      "line": 25,
+      "score": 76.5
+     },
+     {
+      "t": 14.58,
+      "line": 26,
+      "score": 50.0,
+      "est": true
+     }
+    ],
+    "grade": "A",
+    "confidence": 66.8,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 1.26,
+     "line": 24,
+     "score": 57.1
+    },
+    {
+     "t": 7.38,
+     "line": 25,
+     "score": 76.5
+    },
+    {
+     "t": 15.19,
+     "line": 26,
+     "score": 50.0,
+     "est": true
+    }
+   ]
+  },
+  "aW_B248Dj58": {
+   "videoId": "aW_B248Dj58",
+   "title": "欲望がいつも愛のリズム #にしな #nishina #ライブ #東京マーブル #shorts",
+   "queueSongId": "nishina-tokyo-marble",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-tokyo-marble",
+     "score": 51.4
+    },
+    {
+     "songId": "nishina-plum",
+     "score": 28.4
+    },
+    {
+     "songId": "nishina-yoru-ni-natte",
+     "score": 27.0
+    }
+   ],
+   "songId": "nishina-tokyo-marble",
+   "duration": 22.2,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "なみしんぎは果て"
+    },
+    {
+     "t": 4.4,
+     "text": "砂の魔法がかき消されてゆく"
+    },
+    {
+     "t": 10.04,
+     "text": "行きます!"
+    },
+    {
+     "t": 11.52,
+     "text": "ジャンジャンジャン"
+    },
+    {
+     "t": 13.3,
+     "text": "つぼみをいっすみ込む"
+    },
+    {
+     "t": 15.36,
+     "text": "かたえるたまらぬ"
+    },
+    {
+     "t": 17.62,
+     "text": "びょくぼうかいつも"
+    },
+    {
+     "t": 20.28,
+     "text": "アイルミズム"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.49,
+     "line": 21,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 5.04,
+     "line": 22,
+     "score": 80.0
+    },
+    {
+     "t": 12.88,
+     "line": 23,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 15.5,
+     "line": 24,
+     "peer": true
+    },
+    {
+     "t": 18.4,
+     "line": 25,
+     "peer": true
+    }
+   ],
+   "confidence": 71.4,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-tokyo-marble",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 21,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 5.04,
+      "line": 22,
+      "score": 80.0
+     },
+     {
+      "t": 10.04,
+      "line": 23,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 14.88,
+      "line": 24,
+      "score": 60.0
+     },
+     {
+      "t": 18.42,
+      "line": 25,
+      "score": 74.1
+     }
+    ],
+    "grade": "A",
+    "confidence": 71.4,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.49,
+     "line": 21,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 5.04,
+     "line": 22,
+     "score": 80.0
+    },
+    {
+     "t": 12.88,
+     "line": 23,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 14.88,
+     "line": 24,
+     "score": 60.0
+    },
+    {
+     "t": 18.42,
+     "line": 25,
+     "score": 74.1
+    }
+   ],
+   "pairs": [
+    {
+     "v": "hQ7t27wdWyI",
+     "off": -12.992,
+     "sim": 0.998,
+     "n": 694,
+     "lo": 12.992,
+     "hi": 22.208,
+     "ok": [
+      [
+       383,
+       693
+      ]
+     ]
+    }
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "hQ7t27wdWyI",
+      "offset": -12.99,
+      "sim": 0.998
+     }
+    ],
+    "coverage": 0.41,
+    "songChanged": false
+   }
+  },
+  "r41AJBUnNbE": {
+   "videoId": "r41AJBUnNbE",
+   "title": "誰にでも解る言葉で愛なんか歌えなかった #にしな #nishina #グローリー #ライブ #shorts",
+   "queueSongId": "nishina-glory",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-glory",
+     "score": 68.9
+    },
+    {
+     "songId": "nishina-twinkle-little-star",
+     "score": 34.7
+    },
+    {
+     "songId": "nishina-its-a-piece-of-cake",
+     "score": 34.7
+    }
+   ],
+   "songId": "nishina-glory",
+   "duration": 15.6,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "誰にでもわかる言葉で 愛なんか歌えなかった"
+    },
+    {
+     "t": 7.68,
+     "text": "今のシャクマンクルリは 出来ない言葉が数えてる"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 0,
+     "score": 80.0
+    },
+    {
+     "t": 3.2,
+     "line": 1,
+     "peer": true
+    },
+    {
+     "t": 7.76,
+     "line": 2,
+     "peer": true
+    },
+    {
+     "t": 11.12,
+     "line": 3,
+     "peer": true
+    }
+   ],
+   "confidence": 79.8,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-glory",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 0,
+      "score": 80.0
+     },
+     {
+      "t": 3.54,
+      "line": 1,
+      "score": 100.0
+     },
+     {
+      "t": 7.68,
+      "line": 2,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 11.28,
+      "line": 3,
+      "score": 59.3
+     }
+    ],
+    "grade": "A",
+    "confidence": 79.8,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 0,
+     "score": 80.0
+    },
+    {
+     "t": 3.54,
+     "line": 1,
+     "score": 100.0
+    },
+    {
+     "t": 8.38,
+     "line": 2,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 11.28,
+     "line": 3,
+     "score": 59.3
+    }
+   ],
+   "pairs": [
+    {
+     "v": "Y_L34RSYDFs",
+     "off": -0.224,
+     "sim": 0.991,
+     "n": 487,
+     "lo": 0.224,
+     "hi": 15.584,
+     "ok": [
+      [
+       0,
+       486
+      ]
+     ]
+    }
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "Y_L34RSYDFs",
+      "offset": -0.22,
+      "sim": 0.991
+     }
+    ],
+    "coverage": 0.99,
+    "songChanged": false
+   }
+  },
+  "d0nV5jY68v0": {
+   "videoId": "d0nV5jY68v0",
+   "title": "誰もが幻を信じてやまない #にしな #nishina #U+ #ライブ #shorts",
+   "queueSongId": "nishina-u-plus",
+   "matchMethod": "hashtag",
+   "model": "medium",
+   "algo": 3,
+   "songCandidates": [],
+   "songId": "nishina-u-plus",
+   "duration": 18.9,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "音楽"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 15,
+     "score": 66.7
+    },
+    {
+     "t": 2.72,
+     "line": 16,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 7.02,
+     "line": 17,
+     "score": 50,
+     "est": true
+    }
+   ],
+   "confidence": 66.7,
+   "needsReview": [
+    "anchors<2",
+    "low_song_score"
+   ],
+   "grade": "C",
+   "asr": {
+    "songId": "nishina-u-plus",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 15,
+      "score": 66.7
+     }
+    ],
+    "grade": "C",
+    "confidence": 66.7,
+    "needsReview": [
+     "anchors<2",
+     "low_song_score"
+    ]
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 15,
+     "score": 66.7
+    },
+    {
+     "t": 2.72,
+     "line": 16,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 7.02,
+     "line": 17,
+     "score": 50,
+     "est": true
+    }
+   ]
+  },
+  "txcotHI6Lrc": {
+   "videoId": "txcotHI6Lrc",
+   "title": "愛をくれた貴方が全部いけない #にしな #nishina #スローモーション #ライブ #shorts",
+   "queueSongId": "nishina-slow-motion",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-slow-motion",
+     "score": 61.7
+    },
+    {
+     "songId": "nishina-suisen",
+     "score": 30.9
+    },
+    {
+     "songId": "nishina-adaada",
+     "score": 29.6
+    }
+   ],
+   "songId": "nishina-slow-motion",
+   "duration": 22.3,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "I'm singing love for you"
+    },
+    {
+     "t": 2.92,
+     "text": "もう愛にくちづけて"
+    },
+    {
+     "t": 6.02,
+     "text": "踊れぬよ"
+    },
+    {
+     "t": 9.08,
+     "text": "テランチャンピャー"
+    },
+    {
+     "t": 11.36,
+     "text": "カタシュサラ"
+    },
+    {
+     "t": 12.96,
+     "text": "グイマーサーライン"
+    },
+    {
+     "t": 15.12,
+     "text": "ナサナイン"
+    },
+    {
+     "t": 17.46,
+     "text": "愛憎れさ"
+    },
+    {
+     "t": 19.08,
+     "text": "この肩を全部見える"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 18,
+     "score": 100.0
+    },
+    {
+     "t": 2.8,
+     "line": 19,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 4.24,
+     "line": 20,
+     "score": 100.0
+    },
+    {
+     "t": 6.6,
+     "line": 21,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 11.48,
+     "line": 22,
+     "score": 64.7
+    },
+    {
+     "t": 16.58,
+     "line": 23,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 20.94,
+     "line": 24,
+     "score": 50.0,
+     "est": true
+    }
+   ],
+   "confidence": 88.2,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-slow-motion",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 18,
+      "score": 100.0
+     },
+     {
+      "t": 2.92,
+      "line": 19,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 4.24,
+      "line": 20,
+      "score": 100.0
+     },
+     {
+      "t": 6.02,
+      "line": 21,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 11.48,
+      "line": 22,
+      "score": 64.7
+     },
+     {
+      "t": 16.5,
+      "line": 23,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 20.94,
+      "line": 24,
+      "score": 50.0,
+      "est": true
+     }
+    ],
+    "grade": "A",
+    "confidence": 88.2,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 18,
+     "score": 100.0
+    },
+    {
+     "t": 2.8,
+     "line": 19,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 4.24,
+     "line": 20,
+     "score": 100.0
+    },
+    {
+     "t": 6.6,
+     "line": 21,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 11.48,
+     "line": 22,
+     "score": 64.7
+    },
+    {
+     "t": 16.58,
+     "line": 23,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 20.94,
+     "line": 24,
+     "score": 50.0,
+     "est": true
+    }
+   ]
+  },
+  "yT2xhU-l5w8": {
+   "videoId": "yT2xhU-l5w8",
+   "title": "飽き飽きするのが幸せ #にしな #nishina #クランベリージャムをかけて #ライブ #shorts",
+   "queueSongId": "nishina-cranberry-jam",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-cranberry-jam",
+     "score": 40.0
+    },
+    {
+     "songId": "nishina-u-plus",
+     "score": 28.6
+    },
+    {
+     "songId": "nishina-seiran-yuuei",
+     "score": 27.6
+    }
+   ],
+   "songId": "nishina-cranberry-jam",
+   "duration": 21.5,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "クランベリシャムフロファラテ"
+    },
+    {
+     "t": 2.0,
+     "text": "一発も引き進んでく"
+    },
+    {
+     "t": 4.52,
+     "text": "共にボリングルホッキー"
+    },
+    {
+     "t": 7.16,
+     "text": "クランベリシャムフロファラテ"
+    },
+    {
+     "t": 9.12,
+     "text": "クランベリシャムチャンスやらない"
+    },
+    {
+     "t": 11.26,
+     "text": "テーマキエキするのが幸せ"
+    },
+    {
+     "t": 13.74,
+     "text": "同じ味じゃつないな"
+    },
+    {
+     "t": 16.2,
+     "text": "誰とままにもしてくれ"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 30,
+     "score": 70.0
+    },
+    {
+     "t": 6.54,
+     "line": 31,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 11.44,
+     "line": 32,
+     "score": 58.3
+    },
+    {
+     "t": 13.74,
+     "line": 33,
+     "score": 72.7
+    },
+    {
+     "t": 16.15,
+     "line": 34,
+     "score": 50.0,
+     "est": true
+    }
+   ],
+   "confidence": 67.0,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-cranberry-jam",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 30,
+      "score": 70.0
+     },
+     {
+      "t": 1.0,
+      "line": 31,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 11.44,
+      "line": 32,
+      "score": 58.3
+     },
+     {
+      "t": 13.74,
+      "line": 33,
+      "score": 72.7
+     },
+     {
+      "t": 16.2,
+      "line": 34,
+      "score": 50.0,
+      "est": true
+     }
+    ],
+    "grade": "A",
+    "confidence": 67.0,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 30,
+     "score": 70.0
+    },
+    {
+     "t": 6.54,
+     "line": 31,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 11.44,
+     "line": 32,
+     "score": 58.3
+    },
+    {
+     "t": 13.74,
+     "line": 33,
+     "score": 72.7
+    },
+    {
+     "t": 16.15,
+     "line": 34,
+     "score": 50.0,
+     "est": true
+    }
+   ]
+  },
+  "TiUwlgHDh9A": {
+   "videoId": "TiUwlgHDh9A",
+   "title": "最後に優しくしないでよ #にしな #nishina #真白 #ライブ #shorts",
+   "queueSongId": "nishina-mashiro",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-mashiro",
+     "score": 59.5
+    },
+    {
+     "songId": "nishina-panda-girl",
+     "score": 35.7
+    },
+    {
+     "songId": "nishina-kedamono-no-friends",
+     "score": 35.7
+    }
+   ],
+   "songId": "nishina-mashiro",
+   "duration": 19.4,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "最後に優しくしないでるよ"
+    },
+    {
+     "t": 8.7,
+     "text": "見えないまさかい 溶けないゆっくり"
+    },
+    {
+     "t": 13.86,
+     "text": "マシールランシェリー"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 6,
+     "score": 80.0
+    },
+    {
+     "t": 9.02,
+     "line": 7,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 13.86,
+     "line": 8,
+     "score": 66.7
+    }
+   ],
+   "confidence": 73.3,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-mashiro",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 6,
+      "score": 80.0
+     },
+     {
+      "t": 5.3,
+      "line": 7,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 13.86,
+      "line": 8,
+      "score": 66.7
+     }
+    ],
+    "grade": "A",
+    "confidence": 73.3,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 6,
+     "score": 80.0
+    },
+    {
+     "t": 9.02,
+     "line": 7,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 13.86,
+     "line": 8,
+     "score": 66.7
+    }
+   ]
+  },
+  "C29ytIk_uVs": {
+   "videoId": "C29ytIk_uVs",
+   "title": "永遠に僕は大人になれずに #にしな #nishina #青藍遊泳 #ライブ #shorts",
+   "queueSongId": "nishina-seiran-yuuei",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-seiran-yuuei",
+     "score": 62.7
+    },
+    {
+     "songId": "nishina-oto-ni-natteiku-yo",
+     "score": 32.5
+    },
+    {
+     "songId": "nishina-wawon",
+     "score": 31.1
+    }
+   ],
+   "songId": "nishina-seiran-yuuei",
+   "duration": 36.3,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "永遠に僕は 隣なれずに 空の本質 結むことばかりか ふらんでる"
+    },
+    {
+     "t": 13.64,
+     "text": "さらばこも 連れてしまえる"
+    },
+    {
+     "t": 19.48,
+     "text": "ああ 悲しいなって言ってく"
+    },
+    {
+     "t": 26.02,
+     "text": "ああ 悲しいなって言ってく"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 20,
+     "peer": true
+    },
+    {
+     "t": 5.83,
+     "line": 21,
+     "peer": true
+    },
+    {
+     "t": 13.74,
+     "line": 22,
+     "peer": true
+    },
+    {
+     "t": 19.38,
+     "line": 23,
+     "peer": true
+    }
+   ],
+   "confidence": 73.8,
+   "needsReview": [
+    "ambiguous_start"
+   ],
+   "grade": "B",
+   "asr": {
+    "songId": "nishina-seiran-yuuei",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 20,
+      "score": 90.3
+     },
+     {
+      "t": 6.08,
+      "line": 21,
+      "score": 61.9
+     },
+     {
+      "t": 13.64,
+      "line": 22,
+      "score": 69.2
+     },
+     {
+      "t": 28.58,
+      "line": 23,
+      "score": 50.0,
+      "est": true
+     }
+    ],
+    "grade": "B",
+    "confidence": 73.8,
+    "needsReview": [
+     "ambiguous_start"
+    ]
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 20,
+     "score": 90.3
+    },
+    {
+     "t": 6.08,
+     "line": 21,
+     "score": 61.9
+    },
+    {
+     "t": 13.64,
+     "line": 22,
+     "score": 69.2
+    },
+    {
+     "t": 19.64,
+     "line": 23,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 26.52,
+     "line": 24,
+     "score": 50,
+     "est": true
+    }
+   ],
+   "pairs": [
+    {
+     "v": "i4AEtaCMIa8",
+     "off": 0.128,
+     "sim": 0.999,
+     "n": 1134,
+     "lo": 0.0,
+     "hi": 26.624,
+     "ok": [
+      [
+       0,
+       854
+      ]
+     ]
+    }
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "i4AEtaCMIa8",
+      "offset": 0.13,
+      "sim": 0.999
+     }
+    ],
+    "coverage": 0.73,
+    "songChanged": false
+   }
+  },
+  "phzWcPIFTe8": {
+   "videoId": "phzWcPIFTe8",
+   "title": "上手に眠れない夜の隅 #にしな #nishina #ホットミルク #ライブ #shorts",
+   "queueSongId": "nishina-hot-milk",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-hot-milk",
+     "score": 55.2
+    },
+    {
+     "songId": "nishina-tokyo-marble",
+     "score": 31.3
+    },
+    {
+     "songId": "nishina-in-your-eyes",
+     "score": 31.3
+    }
+   ],
+   "songId": "nishina-hot-milk",
+   "duration": 31.5,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "ジョースに溢れない夜の空に 飲み出すフォッドミュー"
+    },
+    {
+     "t": 12.16,
+     "text": "吐き混ぜたすっぷり残る熱が 浮くり溶けてく"
+    },
+    {
+     "t": 23.3,
+     "text": "もう一人でも平気よ"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 28,
+     "score": 64.3
+    },
+    {
+     "t": 7.01,
+     "line": 29,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 12.72,
+     "line": 30,
+     "score": 62.5
+    },
+    {
+     "t": 19.82,
+     "line": 31,
+     "score": 66.7
+    },
+    {
+     "t": 25.58,
+     "line": 32,
+     "score": 70.0
+    }
+   ],
+   "confidence": 65.9,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-hot-milk",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 28,
+      "score": 64.3
+     },
+     {
+      "t": 4.74,
+      "line": 29,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 12.72,
+      "line": 30,
+      "score": 62.5
+     },
+     {
+      "t": 19.82,
+      "line": 31,
+      "score": 66.7
+     },
+     {
+      "t": 25.58,
+      "line": 32,
+      "score": 70.0
+     }
+    ],
+    "grade": "A",
+    "confidence": 65.9,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 28,
+     "score": 64.3
+    },
+    {
+     "t": 7.01,
+     "line": 29,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 12.72,
+     "line": 30,
+     "score": 62.5
+    },
+    {
+     "t": 19.82,
+     "line": 31,
+     "score": 66.7
+    },
+    {
+     "t": 25.58,
+     "line": 32,
+     "score": 70.0
+    }
+   ]
+  },
+  "HFL_gcSgRhE": {
+   "videoId": "HFL_gcSgRhE",
+   "title": "君のこと愛しているってささやくのさ #にしな #nishina #グローリー #ライブ #shorts",
+   "queueSongId": "nishina-glory",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-glory",
+     "score": 60.9
+    },
+    {
+     "songId": "nishina-rinne",
+     "score": 32.8
+    },
+    {
+     "songId": "nishina-uruwashikihito",
+     "score": 31.2
+    }
+   ],
+   "songId": "nishina-glory",
+   "duration": 23.3,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "ここから今 衆生が 収集愛の手をなしてく"
+    },
+    {
+     "t": 7.76,
+     "text": "そしたんだ 生きてるのはうれく僕のこと愛してるって"
+    },
+    {
+     "t": 15.0,
+     "text": "ささやなさ"
+    },
+    {
+     "t": 18.72,
+     "text": "ささやなさ"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 23,
+     "score": 58.3
+    },
+    {
+     "t": 4.14,
+     "line": 24,
+     "score": 60.0
+    },
+    {
+     "t": 8.51,
+     "line": 25,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 12.0,
+     "line": 26,
+     "score": 91.7
+    },
+    {
+     "t": 15.0,
+     "line": 27,
+     "score": 72.7
+    },
+    {
+     "t": 18.72,
+     "line": 28,
+     "score": 75.0
+    }
+   ],
+   "confidence": 71.5,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-glory",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 23,
+      "score": 58.3
+     },
+     {
+      "t": 4.14,
+      "line": 24,
+      "score": 60.0
+     },
+     {
+      "t": 7.76,
+      "line": 25,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 12.0,
+      "line": 26,
+      "score": 91.7
+     },
+     {
+      "t": 15.0,
+      "line": 27,
+      "score": 72.7
+     },
+     {
+      "t": 18.72,
+      "line": 28,
+      "score": 75.0
+     }
+    ],
+    "grade": "A",
+    "confidence": 71.5,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 23,
+     "score": 58.3
+    },
+    {
+     "t": 4.14,
+     "line": 24,
+     "score": 60.0
+    },
+    {
+     "t": 8.51,
+     "line": 25,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 12.0,
+     "line": 26,
+     "score": 91.7
+    },
+    {
+     "t": 15.0,
+     "line": 27,
+     "score": 72.7
+    },
+    {
+     "t": 18.72,
+     "line": 28,
+     "score": 75.0
+    }
+   ]
+  },
+  "Ek8EhJd5P9o": {
+   "videoId": "Ek8EhJd5P9o",
+   "title": "貴方は私で君は僕 #にしな #nishina #ランデブー #ライブ #shorts",
+   "queueSongId": "nishina-rendezvous",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-rendezvous",
+     "score": 80.9
+    },
+    {
+     "songId": "nishina-sugar-spot",
+     "score": 34.0
+    },
+    {
+     "songId": "nishina-eden",
+     "score": 34.0
+    }
+   ],
+   "songId": "nishina-rendezvous",
+   "duration": 23.1,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "あなたは私で君は僕あとはもう どれもいい"
+    },
+    {
+     "t": 15.3,
+     "text": "? 宇宙みたいで Take my breath away"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 35,
+     "score": 100.0
+    },
+    {
+     "t": 11.02,
+     "line": 36,
+     "score": 63.6
+    },
+    {
+     "t": 15.3,
+     "line": 37,
+     "score": 83.3
+    }
+   ],
+   "confidence": 82.3,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-rendezvous",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 35,
+      "score": 100.0
+     },
+     {
+      "t": 11.02,
+      "line": 36,
+      "score": 63.6
+     },
+     {
+      "t": 15.3,
+      "line": 37,
+      "score": 83.3
+     }
+    ],
+    "grade": "A",
+    "confidence": 82.3,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 35,
+     "score": 100.0
+    },
+    {
+     "t": 11.02,
+     "line": 36,
+     "score": 63.6
+    },
+    {
+     "t": 15.3,
+     "line": 37,
+     "score": 83.3
+    }
+   ]
+  },
+  "Mj-IWhM73As": {
+   "videoId": "Mj-IWhM73As",
+   "title": "あのよの続きをしようよ #にしな #nishina #1999 #ライブ #shorts",
+   "queueSongId": "nishina-1999",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-1999",
+     "score": 67.6
+    },
+    {
+     "songId": "nishina-santa-girl",
+     "score": 29.7
+    },
+    {
+     "songId": "nishina-glory",
+     "score": 29.7
+    }
+   ],
+   "songId": "nishina-1999",
+   "duration": 23.4,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "だって飛び散って壊れていく"
+    },
+    {
+     "t": 5.6,
+     "text": "地球が滅亡する素敵な夜のこと"
+    },
+    {
+     "t": 10.96,
+     "text": "小さな街でも二人は終わり変わる"
+    },
+    {
+     "t": 17.58,
+     "text": "あの夜の続きをしようよ"
+    },
+    {
+     "t": 19.92,
+     "text": "1999"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.08,
+     "line": 7,
+     "peer": true
+    },
+    {
+     "t": 5.64,
+     "line": 8,
+     "peer": true
+    },
+    {
+     "t": 11.52,
+     "line": 9,
+     "peer": true
+    },
+    {
+     "t": 17.6,
+     "line": 10,
+     "peer": true
+    }
+   ],
+   "confidence": 69.8,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-1999",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 7,
+      "score": 60.0
+     },
+     {
+      "t": 5.3,
+      "line": 8,
+      "score": 80.0
+     },
+     {
+      "t": 11.5,
+      "line": 9,
+      "score": 57.9
+     },
+     {
+      "t": 17.58,
+      "line": 10,
+      "score": 81.2
+     }
+    ],
+    "grade": "A",
+    "confidence": 69.8,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 7,
+     "score": 60.0
+    },
+    {
+     "t": 5.3,
+     "line": 8,
+     "score": 80.0
+    },
+    {
+     "t": 11.5,
+     "line": 9,
+     "score": 57.9
+    },
+    {
+     "t": 17.58,
+     "line": 10,
+     "score": 81.2
+    }
+   ],
+   "pairs": [
+    {
+     "v": "y7zEghc7Ezk",
+     "off": 5.92,
+     "sim": 0.999,
+     "n": 731,
+     "lo": 0.0,
+     "hi": 23.392,
+     "ok": [
+      [
+       0,
+       730
+      ]
+     ]
+    }
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "y7zEghc7Ezk",
+      "offset": 5.92,
+      "sim": 0.999
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": false
+   }
+  },
+  "_SmT-IOmWpE": {
+   "videoId": "_SmT-IOmWpE",
+   "title": "この世の全て最悪で手放したい時もある #にしな #nishina #わをん #ライブ #shorts",
+   "queueSongId": "nishina-wawon",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-wawon",
+     "score": 65.4
+    },
+    {
+     "songId": "nishina-kyou-mo-kyou-tote-remix",
+     "score": 31.1
+    },
+    {
+     "songId": "nishina-u-plus",
+     "score": 30.8
+    }
+   ],
+   "songId": "nishina-wawon",
+   "duration": 22.8,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "明日がどうなろうと構わない"
+    },
+    {
+     "t": 2.92,
+     "text": "本気で何気付く日もある"
+    },
+    {
+     "t": 5.78,
+     "text": "馬鹿みたいに笑い狂げる"
+    },
+    {
+     "t": 8.58,
+     "text": "なぜか忘れられる日もある"
+    },
+    {
+     "t": 11.48,
+     "text": "この世も全て最悪で"
+    },
+    {
+     "t": 13.64,
+     "text": "奪らしたい日もある"
+    },
+    {
+     "t": 16.84,
+     "text": "俺たちの幸せ"
+    },
+    {
+     "t": 19.58,
+     "text": "出会う日もある"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.37,
+     "line": 36,
+     "peer": true
+    },
+    {
+     "t": 3.13,
+     "line": 37,
+     "peer": true
+    },
+    {
+     "t": 6.11,
+     "line": 38,
+     "peer": true
+    },
+    {
+     "t": 8.67,
+     "line": 39,
+     "peer": true
+    },
+    {
+     "t": 11.47,
+     "line": 40,
+     "peer": true
+    },
+    {
+     "t": 13.79,
+     "line": 41,
+     "peer": true
+    },
+    {
+     "t": 16.91,
+     "line": 42,
+     "peer": true
+    },
+    {
+     "t": 19.77,
+     "line": 43,
+     "peer": true
+    }
+   ],
+   "confidence": 73.1,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-wawon",
+    "anchors": [
+     {
+      "t": 0.38,
+      "line": 36,
+      "score": 66.7
+     },
+     {
+      "t": 2.92,
+      "line": 37,
+      "score": 75.9
+     },
+     {
+      "t": 6.12,
+      "line": 38,
+      "score": 69.2
+     },
+     {
+      "t": 8.58,
+      "line": 39,
+      "score": 78.6
+     },
+     {
+      "t": 11.48,
+      "line": 40,
+      "score": 75.0
+     },
+     {
+      "t": 13.64,
+      "line": 41,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 16.84,
+      "line": 42,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 20.32,
+      "line": 43,
+      "score": 50.0,
+      "est": true
+     }
+    ],
+    "grade": "A",
+    "confidence": 73.1,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.38,
+     "line": 36,
+     "score": 66.7
+    },
+    {
+     "t": 2.92,
+     "line": 37,
+     "score": 75.9
+    },
+    {
+     "t": 6.12,
+     "line": 38,
+     "score": 69.2
+    },
+    {
+     "t": 8.58,
+     "line": 39,
+     "score": 78.6
+    },
+    {
+     "t": 11.48,
+     "line": 40,
+     "score": 75.0
+    },
+    {
+     "t": 13.72,
+     "line": 41,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 16.92,
+     "line": 42,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 19.62,
+     "line": 43,
+     "score": 50.0,
+     "est": true
+    }
+   ],
+   "pairs": [
+    {
+     "v": "i2sESz_j4gY",
+     "off": -0.064,
+     "sim": 0.999,
+     "n": 712,
+     "lo": 0.064,
+     "hi": 22.656,
+     "ok": [
+      [
+       0,
+       711
+      ]
+     ]
+    },
+    {
+     "v": "ZjJ9iue_Ljc",
+     "off": -0.16,
+     "sim": 0.999,
+     "n": 712,
+     "lo": 0.16,
+     "hi": 22.784,
+     "ok": [
+      [
+       0,
+       711
+      ]
+     ]
+    },
+    {
+     "v": "Yz_Z2hBNY7Y",
+     "off": -0.032,
+     "sim": 0.998,
+     "n": 712,
+     "lo": 0.032,
+     "hi": 22.72,
+     "ok": [
+      [
+       0,
+       711
+      ]
+     ]
+    }
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "i2sESz_j4gY",
+      "offset": -0.06,
+      "sim": 0.999
+     },
+     {
+      "videoId": "ZjJ9iue_Ljc",
+      "offset": -0.16,
+      "sim": 0.999
+     },
+     {
+      "videoId": "Yz_Z2hBNY7Y",
+      "offset": -0.03,
+      "sim": 0.998
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": false
+   }
+  },
+  "fTqOzhiUQ9A": {
+   "videoId": "fTqOzhiUQ9A",
+   "title": "その口に私がちゅってして拘束する #にしな #nishina #ヘビースモーク #ライブ #shorts",
+   "queueSongId": "nishina-heavy-smoke",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-heavy-smoke",
+     "score": 62.2
+    },
+    {
+     "songId": "nishina-are-ga-koi",
+     "score": 31.1
+    },
+    {
+     "songId": "nishina-nekoze",
+     "score": 30.0
+    }
+   ],
+   "songId": "nishina-heavy-smoke",
+   "duration": 41.0,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "大人だったうちにうるいて"
+    },
+    {
+     "t": 6.72,
+     "text": "私を見られて笑ってみせて"
+    },
+    {
+     "t": 14.0,
+     "text": "子供は邪魔だった"
+    },
+    {
+     "t": 19.8,
+     "text": "その優しさがいっぱい"
+    },
+    {
+     "t": 27.14,
+     "text": "レディースも吹く口 寂しみならば"
+    },
+    {
+     "t": 34.1,
+     "text": "その口に私が注目してこそすぐ"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 14,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 6.72,
+     "line": 15,
+     "score": 64.7
+    },
+    {
+     "t": 13.5,
+     "line": 16,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 16.5,
+     "line": 17,
+     "score": 60.0
+    },
+    {
+     "t": 28.08,
+     "line": 33,
+     "peer": true
+    },
+    {
+     "t": 29.26,
+     "line": 34,
+     "peer": true
+    },
+    {
+     "t": 34.08,
+     "line": 35,
+     "peer": true
+    }
+   ],
+   "confidence": 63.5,
+   "needsReview": [
+    "low_align"
+   ],
+   "grade": "B",
+   "asr": {
+    "songId": "nishina-heavy-smoke",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 14,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 6.72,
+      "line": 15,
+      "score": 64.7
+     },
+     {
+      "t": 13.5,
+      "line": 16,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 16.5,
+      "line": 17,
+      "score": 60.0
+     },
+     {
+      "t": 28.1,
+      "line": 18,
+      "score": 57.1
+     },
+     {
+      "t": 29.6,
+      "line": 19,
+      "score": 55.6
+     },
+     {
+      "t": 32.02,
+      "line": 20,
+      "score": 80.0
+     }
+    ],
+    "grade": "C",
+    "confidence": 63.5,
+    "needsReview": [
+     "low_align"
+    ]
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 14,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 6.72,
+     "line": 15,
+     "score": 64.7
+    },
+    {
+     "t": 13.5,
+     "line": 16,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 16.5,
+     "line": 17,
+     "score": 60.0
+    },
+    {
+     "t": 28.1,
+     "line": 18,
+     "score": 57.1
+    },
+    {
+     "t": 29.6,
+     "line": 19,
+     "score": 55.6
+    },
+    {
+     "t": 32.02,
+     "line": 20,
+     "score": 80.0
+    },
+    {
+     "t": 39.14,
+     "line": 21,
+     "score": 50,
+     "est": true
+    }
+   ],
+   "pairs": [
+    {
+     "v": "vK__Re-wGCM",
+     "off": -27.104,
+     "sim": 0.998,
+     "n": 1282,
+     "lo": 27.104,
+     "hi": 41.024,
+     "ok": [
+      [
+       824,
+       1281
+      ]
+     ]
+    }
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "vK__Re-wGCM",
+      "offset": -27.1,
+      "sim": 0.998
+     }
+    ],
+    "coverage": 0.34,
+    "songChanged": false
+   }
+  },
+  "nnX2o4lgxog": {
+   "videoId": "nnX2o4lgxog",
+   "title": "装苑90周年おめでとうございます📕 #にしな #nishina #装苑 #shorts",
+   "queueSongId": null,
+   "matchMethod": "out_of_catalog",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-dress-code",
+     "score": 28.6
+    },
+    {
+     "songId": "nishina-its-a-piece-of-cake",
+     "score": 28.2
+    },
+    {
+     "songId": "nishina-heavy-smoke",
+     "score": 28.1
+    }
+   ],
+   "songId": null,
+   "duration": 28.4,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "えざって100年"
+    },
+    {
+     "t": 1.82,
+     "text": "草園をご覧の皆さんこんにちは"
+    },
+    {
+     "t": 3.9,
+     "text": "歌を作って歌っています"
+    },
+    {
+     "t": 5.98,
+     "text": "西奈です"
+    },
+    {
+     "t": 7.52,
+     "text": "カメラマンのイマジオさんに呼んでいただいて"
+    },
+    {
+     "t": 10.16,
+     "text": "初めて草園にしてさせていただいたんですけど"
+    },
+    {
+     "t": 13.0,
+     "text": "本当に会話に応援して"
+    },
+    {
+     "t": 14.86,
+     "text": "素敵なメイクをしてもらえて"
+    },
+    {
+     "t": 17.72,
+     "text": "仕上がりがすごく楽しみです"
+    },
+    {
+     "t": 19.78,
+     "text": "草園90周年"
+    },
+    {
+     "t": 21.22,
+     "text": "おめでとうございます"
+    },
+    {
+     "t": 22.5,
+     "text": "記念のタイミングでご一緒できて"
+    },
+    {
+     "t": 24.76,
+     "text": "本当に公園です"
+    },
+    {
+     "t": 25.98,
+     "text": "えざって100年"
+    }
+   ],
+   "versionType": null,
+   "conflict": false,
+   "anchors": [],
+   "confidence": 0,
+   "needsReview": [
+    "no_song"
+   ],
+   "grade": "C",
+   "asr": {
+    "songId": null,
+    "anchors": [],
+    "grade": "C",
+    "confidence": 0,
+    "needsReview": [
+     "no_song"
+    ]
+   },
+   "base": []
+  },
+  "XhtyS0I9Ky4": {
+   "videoId": "XhtyS0I9Ky4",
+   "title": "Your lucky nishina track next week!? #にしな #nishina #shorts",
+   "queueSongId": "nishina-weekly",
+   "matchMethod": "review",
+   "model": "medium",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-kyou-mo-kyou-tote-remix",
+     "score": 56.8
+    },
+    {
+     "songId": "nishina-panda-girl",
+     "score": 45.2
+    },
+    {
+     "songId": "nishina-yonagi",
+     "score": 27.6
+    }
+   ],
+   "songId": "nishina-kyou-mo-kyou-tote-remix",
+   "duration": 35.7,
+   "transcript": [
+    {
+     "t": 0.56,
+     "text": "今日も今日とてっさん"
+    },
+    {
+     "t": 2.84,
+     "text": "恋と愛の仕掛けた 嫌いな奴の話とか"
+    },
+    {
+     "t": 4.84,
+     "text": "本気アニメはどうとかしてるが"
+    },
+    {
+     "t": 6.12,
+     "text": "滅ぼむアラとか 悪のせず"
+    },
+    {
+     "t": 7.4,
+     "text": "ゾウマゾウとプチルワ"
+    },
+    {
+     "t": 8.08,
+     "text": "醍醐騒しの堂々"
+    },
+    {
+     "t": 9.28,
+     "text": "でもEveryday"
+    },
+    {
+     "t": 10.02,
+     "text": "Everyday"
+    },
+    {
+     "t": 10.64,
+     "text": "おかちゅう"
+    },
+    {
+     "t": 12.04,
+     "text": "ホッペリチュー"
+    },
+    {
+     "t": 13.22,
+     "text": "したくなるわけなんて"
+    },
+    {
+     "t": 18.18,
+     "text": "ないないないないないない"
+    },
+    {
+     "t": 19.76,
+     "text": "ディッシュグラフ"
+    },
+    {
+     "t": 21.7,
+     "text": "吹き違え"
+    },
+    {
+     "t": 23.12,
+     "text": "右も左も中下も"
+    },
+    {
+     "t": 25.78,
+     "text": "逆にがいて"
+    },
+    {
+     "t": 27.48,
+     "text": "逆さのハート待って"
+    },
+    {
+     "t": 29.1,
+     "text": "てんつきささくまづぴ みつばしブルーだって"
+    },
+    {
+     "t": 33.04,
+     "text": "教えてあげないとね"
+    }
+   ],
+   "versionType": null,
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 2.84,
+     "line": 0,
+     "score": 63.6
+    },
+    {
+     "t": 3.92,
+     "line": 1,
+     "score": 83.3
+    },
+    {
+     "t": 4.84,
+     "line": 2,
+     "score": 95.2
+    },
+    {
+     "t": 5.76,
+     "line": 3,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 6.7,
+     "line": 4,
+     "score": 63.6
+    },
+    {
+     "t": 7.7,
+     "line": 5,
+     "score": 60.9
+    },
+    {
+     "t": 8.56,
+     "line": 6,
+     "score": 58.8
+    },
+    {
+     "t": 10.11,
+     "line": 7,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 10.84,
+     "line": 9,
+     "score": 50,
+     "est": true
+    }
+   ],
+   "confidence": 70.9,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-kyou-mo-kyou-tote-remix",
+    "anchors": [
+     {
+      "t": 2.84,
+      "line": 0,
+      "score": 63.6
+     },
+     {
+      "t": 3.92,
+      "line": 1,
+      "score": 83.3
+     },
+     {
+      "t": 4.84,
+      "line": 2,
+      "score": 95.2
+     },
+     {
+      "t": 5.8,
+      "line": 3,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 6.7,
+      "line": 4,
+      "score": 63.6
+     },
+     {
+      "t": 7.7,
+      "line": 5,
+      "score": 60.9
+     },
+     {
+      "t": 8.56,
+      "line": 6,
+      "score": 58.8
+     },
+     {
+      "t": 9.5,
+      "line": 7,
+      "score": 50.0,
+      "est": true
+     }
+    ],
+    "grade": "A",
+    "confidence": 70.9,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 2.84,
+     "line": 0,
+     "score": 63.6
+    },
+    {
+     "t": 3.92,
+     "line": 1,
+     "score": 83.3
+    },
+    {
+     "t": 4.84,
+     "line": 2,
+     "score": 95.2
+    },
+    {
+     "t": 5.76,
+     "line": 3,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 6.7,
+     "line": 4,
+     "score": 63.6
+    },
+    {
+     "t": 7.7,
+     "line": 5,
+     "score": 60.9
+    },
+    {
+     "t": 8.56,
+     "line": 6,
+     "score": 58.8
+    },
+    {
+     "t": 10.11,
+     "line": 7,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 10.84,
+     "line": 9,
+     "score": 50,
+     "est": true
+    }
+   ]
+  },
+  "A1rBYHeaMrc": {
+   "videoId": "A1rBYHeaMrc",
+   "title": "📕 装苑12月号「永遠の女の子」📸 by 今城純 #にしな #nishina #装苑 #shorts",
+   "queueSongId": null,
+   "matchMethod": "out_of_catalog",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [],
+   "songId": null,
+   "duration": 25.1,
+   "transcript": [
+    {
+     "t": 20.52,
+     "text": "エンディング"
+    }
+   ],
+   "versionType": null,
+   "conflict": false,
+   "anchors": [],
+   "confidence": 0,
+   "needsReview": [
+    "no_song"
+   ],
+   "grade": "C",
+   "asr": {
+    "songId": null,
+    "anchors": [],
+    "grade": "C",
+    "confidence": 0,
+    "needsReview": [
+     "no_song"
+    ]
+   },
+   "base": []
+  },
+  "ikpr0FH4R_U": {
+   "videoId": "ikpr0FH4R_U",
+   "title": "📸装苑offshot #にしな #nishina #装苑 #shorts",
+   "queueSongId": null,
+   "matchMethod": "out_of_catalog",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-its-a-piece-of-cake",
+     "score": 61.9
+    },
+    {
+     "songId": "nishina-1999",
+     "score": 32.4
+    },
+    {
+     "songId": "nishina-himitsu-kichi",
+     "score": 31.5
+    }
+   ],
+   "songId": "nishina-its-a-piece-of-cake",
+   "duration": 24.3,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "昨年は消えて 途切れそうな"
+    },
+    {
+     "t": 2.58,
+     "text": "ボロケスキの上流れ込むため息"
+    },
+    {
+     "t": 5.6,
+     "text": "明日のことをもって それぞれ抱えて"
+    },
+    {
+     "t": 9.02,
+     "text": "永久は輪にしられる 桜木の夜"
+    },
+    {
+     "t": 12.0,
+     "text": "音楽なんかなくて 生きて生きるのに"
+    },
+    {
+     "t": 15.16,
+     "text": "どうして僕らは また求めるんだよ"
+    },
+    {
+     "t": 18.28,
+     "text": "そんなクラランコと 出逢えて本当に良かった"
+    }
+   ],
+   "versionType": null,
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.22,
+     "line": 23,
+     "peer": true
+    },
+    {
+     "t": 2.9,
+     "line": 24,
+     "peer": true
+    },
+    {
+     "t": 6.18,
+     "line": 25,
+     "peer": true
+    },
+    {
+     "t": 9.82,
+     "line": 26,
+     "peer": true
+    },
+    {
+     "t": 12.11,
+     "line": 27,
+     "peer": true
+    },
+    {
+     "t": 14.92,
+     "line": 28,
+     "peer": true
+    },
+    {
+     "t": 18.08,
+     "line": 29,
+     "peer": true
+    }
+   ],
+   "confidence": 67.1,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-its-a-piece-of-cake",
+    "anchors": [
+     {
+      "t": 0.22,
+      "line": 23,
+      "score": 60.0
+     },
+     {
+      "t": 2.92,
+      "line": 24,
+      "score": 61.1
+     },
+     {
+      "t": 6.0,
+      "line": 25,
+      "score": 66.7
+     },
+     {
+      "t": 9.02,
+      "line": 26,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 12.38,
+      "line": 27,
+      "score": 66.7
+     },
+     {
+      "t": 15.16,
+      "line": 28,
+      "score": 80.0
+     },
+     {
+      "t": 18.08,
+      "line": 29,
+      "score": 68.2
+     },
+     {
+      "t": 21.96,
+      "line": 30,
+      "score": 50.0,
+      "est": true
+     }
+    ],
+    "grade": "A",
+    "confidence": 67.1,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.22,
+     "line": 23,
+     "score": 60.0
+    },
+    {
+     "t": 2.92,
+     "line": 24,
+     "score": 61.1
+    },
+    {
+     "t": 6.0,
+     "line": 25,
+     "score": 66.7
+    },
+    {
+     "t": 10.14,
+     "line": 26,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 12.38,
+     "line": 27,
+     "score": 66.7
+    },
+    {
+     "t": 15.16,
+     "line": 28,
+     "score": 80.0
+    },
+    {
+     "t": 18.08,
+     "line": 29,
+     "score": 68.2
+    }
+   ],
+   "pairs": [
+    {
+     "v": "puO2jEWh4Cw",
+     "off": -11.936,
+     "sim": 0.986,
+     "n": 759,
+     "lo": 11.936,
+     "hi": 24.288,
+     "ok": [
+      [
+       350,
+       758
+      ]
+     ]
+    },
+    {
+     "v": "W_hQKTZjwaM",
+     "off": -12.096,
+     "sim": 0.999,
+     "n": 759,
+     "lo": 12.096,
+     "hi": 24.288,
+     "ok": [
+      [
+       355,
+       758
+      ]
+     ]
+    },
+    {
+     "v": "CjVtTUO1b1E",
+     "off": 0.896,
+     "sim": 0.997,
+     "n": 759,
+     "lo": 0.0,
+     "hi": 24.096,
+     "ok": [
+      [
+       0,
+       758
+      ]
+     ]
+    }
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "puO2jEWh4Cw",
+      "offset": -11.94,
+      "sim": 0.986
+     },
+     {
+      "videoId": "W_hQKTZjwaM",
+      "offset": -12.1,
+      "sim": 0.999
+     },
+     {
+      "videoId": "CjVtTUO1b1E",
+      "offset": 0.9,
+      "sim": 0.997
+     }
+    ],
+    "coverage": 1.0,
+    "songChanged": false
+   }
+  },
+  "qvInlIZcYtY": {
+   "videoId": "qvInlIZcYtY",
+   "title": "Thank you for GLICO LIVE “NEXT” SPECIAL🐙 #にしな #nishina #ライブ #グリコ #shorts",
+   "queueSongId": null,
+   "matchMethod": "out_of_catalog",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-cranberry-jam",
+     "score": 42.1
+    },
+    {
+     "songId": "nishina-u-plus",
+     "score": 28.3
+    },
+    {
+     "songId": "nishina-sugar-spot",
+     "score": 27.7
+    }
+   ],
+   "songId": "nishina-cranberry-jam",
+   "duration": 44.8,
+   "transcript": [
+    {
+     "t": 2.16,
+     "text": "クランベルジャンの炎笑って 効き圧も引きずって"
+    },
+    {
+     "t": 6.7,
+     "text": "グッとモリンボーリングローキー 恋とパーミンはどろもスタートハーチ"
+    },
+    {
+     "t": 11.52,
+     "text": "クランベルジャンジャンすんじゃないって 飽き飽きするのだ幸せ"
+    },
+    {
+     "t": 16.18,
+     "text": "同じ味がつまんの 僕はの間にも教えてくれ"
+    },
+    {
+     "t": 30.6,
+     "text": "誰か悪いから誰か悪いとか"
+    },
+    {
+     "t": 32.88,
+     "text": "君が悪いと悪いとかって"
+    },
+    {
+     "t": 35.6,
+     "text": "あなたのフラーちゃん"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 3.69,
+     "line": 26,
+     "peer": true
+    },
+    {
+     "t": 4.78,
+     "line": 27,
+     "peer": true
+    },
+    {
+     "t": 6.91,
+     "line": 28,
+     "peer": true
+    },
+    {
+     "t": 9.44,
+     "line": 29,
+     "peer": true
+    },
+    {
+     "t": 11.91,
+     "line": 30,
+     "peer": true
+    },
+    {
+     "t": 13.16,
+     "line": 31,
+     "peer": true
+    },
+    {
+     "t": 14.23,
+     "line": 32,
+     "peer": true
+    },
+    {
+     "t": 16.27,
+     "line": 33,
+     "peer": true
+    },
+    {
+     "t": 18.83,
+     "line": 34,
+     "peer": true
+    },
+    {
+     "t": 30.85,
+     "line": 35,
+     "peer": true
+    },
+    {
+     "t": 32.66,
+     "line": 36,
+     "peer": true
+    },
+    {
+     "t": 35.86,
+     "line": 37,
+     "peer": true
+    }
+   ],
+   "confidence": 69.5,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-cranberry-jam",
+    "anchors": [
+     {
+      "t": 2.16,
+      "line": 25,
+      "score": 75.0
+     },
+     {
+      "t": 3.56,
+      "line": 26,
+      "score": 66.7
+     },
+     {
+      "t": 4.64,
+      "line": 27,
+      "score": 66.7
+     },
+     {
+      "t": 6.7,
+      "line": 28,
+      "score": 50.0,
+      "est": true
+     }
+    ],
+    "grade": "A",
+    "confidence": 69.5,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 2.16,
+     "line": 25,
+     "score": 75.0
+    },
+    {
+     "t": 3.56,
+     "line": 26,
+     "score": 66.7
+    },
+    {
+     "t": 4.64,
+     "line": 27,
+     "score": 66.7
+    },
+    {
+     "t": 6.87,
+     "line": 28,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 9.25,
+     "line": 29,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 11.71,
+     "line": 30,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 12.98,
+     "line": 31,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 13.93,
+     "line": 32,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 16.23,
+     "line": 33,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 18.64,
+     "line": 34,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 30.64,
+     "line": 35,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 32.91,
+     "line": 36,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 35.38,
+     "line": 37,
+     "score": 50,
+     "est": true
+    }
+   ],
+   "pairs": [
+    {
+     "v": "0kizzU1MkQY",
+     "off": -2.24,
+     "sim": 0.997,
+     "n": 1402,
+     "lo": 2.24,
+     "hi": 11.808,
+     "ok": [
+      [
+       47,
+       391
+      ]
+     ]
+    },
+    {
+     "v": "OdLEfG1YCWg",
+     "off": -2.208,
+     "sim": 0.995,
+     "n": 1402,
+     "lo": 2.208,
+     "hi": 44.864,
+     "ok": [
+      [
+       46,
+       1401
+      ]
+     ]
+    },
+    {
+     "v": "IW2QkIv8xhI",
+     "off": -2.272,
+     "sim": 0.999,
+     "n": 1402,
+     "lo": 2.272,
+     "hi": 12.256,
+     "ok": [
+      [
+       48,
+       405
+      ]
+     ]
+    },
+    {
+     "v": "BdHJViSNHLc",
+     "off": -30.656,
+     "sim": 0.998,
+     "n": 1402,
+     "lo": 30.656,
+     "hi": 44.864,
+     "ok": [
+      [
+       935,
+       1401
+      ]
+     ]
+    },
+    {
+     "v": "kr2K4jh5NKg",
+     "off": -2.144,
+     "sim": 0.994,
+     "n": 1402,
+     "lo": 2.144,
+     "hi": 11.904,
+     "ok": [
+      [
+       44,
+       394
+      ]
+     ]
+    },
+    {
+     "v": "lsNONedWSi8",
+     "off": -11.872,
+     "sim": 0.998,
+     "n": 1402,
+     "lo": 11.872,
+     "hi": 23.936,
+     "ok": [
+      [
+       348,
+       770
+      ]
+     ]
+    },
+    {
+     "v": "2w2DdetN3Ew",
+     "off": -27.232,
+     "sim": 0.996,
+     "n": 1402,
+     "lo": 27.232,
+     "hi": 44.864,
+     "ok": [
+      [
+       828,
+       1401
+      ]
+     ]
+    }
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "0kizzU1MkQY",
+      "offset": -2.24,
+      "sim": 0.997
+     },
+     {
+      "videoId": "OdLEfG1YCWg",
+      "offset": -2.21,
+      "sim": 0.995
+     },
+     {
+      "videoId": "IW2QkIv8xhI",
+      "offset": -2.27,
+      "sim": 0.999
+     },
+     {
+      "videoId": "BdHJViSNHLc",
+      "offset": -30.66,
+      "sim": 0.998
+     },
+     {
+      "videoId": "kr2K4jh5NKg",
+      "offset": -2.14,
+      "sim": 0.994
+     },
+     {
+      "videoId": "lsNONedWSi8",
+      "offset": -11.87,
+      "sim": 0.998
+     }
+    ],
+    "coverage": 0.95,
+    "songChanged": false
+   }
+  },
+  "jph3x85pOK4": {
+   "videoId": "jph3x85pOK4",
+   "title": "🇰🇷Promotion day #にしな #nishina #韓国 #korea #shorts",
+   "queueSongId": "nishina-weekly",
+   "matchMethod": "review",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-weekly",
+     "score": 47.1
+    },
+    {
+     "songId": "nishina-kedamono-no-friends",
+     "score": 27.1
+    },
+    {
+     "songId": "nishina-yoru-ni-natte",
+     "score": 25.3
+    }
+   ],
+   "songId": "nishina-weekly",
+   "duration": 39.0,
+   "transcript": [
+    {
+     "t": 0.58,
+     "text": "んでからで引き捨て"
+    },
+    {
+     "t": 2.74,
+     "text": "just stay 気分を咲いて"
+    },
+    {
+     "t": 4.96,
+     "text": "I would stay 少し慣れて"
+    },
+    {
+     "t": 7.36,
+     "text": "気づくなり 過ごれた"
+    },
+    {
+     "t": 9.94,
+     "text": "さすがに胸に長くて"
+    },
+    {
+     "t": 12.36,
+     "text": "来年頑張れちゃって"
+    },
+    {
+     "t": 14.8,
+     "text": "さすがにどこに向いかないで"
+    },
+    {
+     "t": 17.34,
+     "text": "気づくて 諦めるグリス"
+    },
+    {
+     "t": 20.88,
+     "text": "Waiting here"
+    },
+    {
+     "t": 23.42,
+     "text": "銃銀河も濡らしもなくなる"
+    },
+    {
+     "t": 27.18,
+     "text": "きゅうこの頃"
+    },
+    {
+     "t": 29.74,
+     "text": "Feel me here"
+    },
+    {
+     "t": 33.06,
+     "text": "はくらんではじけ"
+    },
+    {
+     "t": 35.54,
+     "text": "それすら楽しいんだろう"
+    }
+   ],
+   "versionType": null,
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.99,
+     "line": 0,
+     "peer": true
+    },
+    {
+     "t": 2.86,
+     "line": 1,
+     "peer": true
+    },
+    {
+     "t": 5.49,
+     "line": 2,
+     "peer": true
+    },
+    {
+     "t": 7.58,
+     "line": 3,
+     "peer": true
+    },
+    {
+     "t": 10.39,
+     "line": 4,
+     "peer": true
+    },
+    {
+     "t": 12.74,
+     "line": 5,
+     "peer": true
+    },
+    {
+     "t": 15.16,
+     "line": 6,
+     "peer": true
+    },
+    {
+     "t": 17.26,
+     "line": 7,
+     "peer": true
+    },
+    {
+     "t": 21.03,
+     "line": 8,
+     "peer": true
+    },
+    {
+     "t": 23.38,
+     "line": 9,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 25.94,
+     "line": 10,
+     "score": 90.9
+    },
+    {
+     "t": 30.77,
+     "line": 11,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 33.58,
+     "line": 12,
+     "score": 71.4
+    },
+    {
+     "t": 35.54,
+     "line": 13,
+     "score": 63.2
+    }
+   ],
+   "confidence": 75.2,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-weekly",
+    "anchors": [
+     {
+      "t": 4.76,
+      "line": 1,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 6.3,
+      "line": 2,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 7.36,
+      "line": 3,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 9.94,
+      "line": 4,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 12.36,
+      "line": 5,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 15.9,
+      "line": 6,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 16.8,
+      "line": 7,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 21.96,
+      "line": 8,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 23.42,
+      "line": 9,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 25.94,
+      "line": 10,
+      "score": 90.9
+     },
+     {
+      "t": 29.74,
+      "line": 11,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 33.58,
+      "line": 12,
+      "score": 71.4
+     },
+     {
+      "t": 35.54,
+      "line": 13,
+      "score": 63.2
+     }
+    ],
+    "grade": "A",
+    "confidence": 75.2,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 4.76,
+     "line": 1,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 6.3,
+     "line": 2,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 7.36,
+     "line": 3,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 9.94,
+     "line": 4,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 12.36,
+     "line": 5,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 15.9,
+     "line": 6,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 16.8,
+     "line": 7,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 21.96,
+     "line": 8,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 23.38,
+     "line": 9,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 25.94,
+     "line": 10,
+     "score": 90.9
+    },
+    {
+     "t": 30.77,
+     "line": 11,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 33.58,
+     "line": 12,
+     "score": 71.4
+    },
+    {
+     "t": 35.54,
+     "line": 13,
+     "score": 63.2
+    }
+   ],
+   "pairs": [
+    {
+     "v": "rk95ny-PzqU",
+     "off": 0.0,
+     "sim": 0.998,
+     "n": 1218,
+     "lo": 0.0,
+     "hi": 22.528,
+     "ok": [
+      [
+       0,
+       726
+      ]
+     ]
+    }
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "rk95ny-PzqU",
+      "offset": 0.0,
+      "sim": 0.998
+     }
+    ],
+    "coverage": 0.58,
+    "songChanged": false
+   }
+  },
+  "s51HpglkuEI": {
+   "videoId": "s51HpglkuEI",
+   "title": "Your lucky nishina track next week!? #にしな #nishina #shorts",
+   "queueSongId": "nishina-weekly",
+   "matchMethod": "review",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-kyou-mo-kyou-tote-remix",
+     "score": 55.7
+    },
+    {
+     "songId": "nishina-mashiro",
+     "score": 38.4
+    },
+    {
+     "songId": "nishina-uruwashikihito",
+     "score": 29.5
+    }
+   ],
+   "songId": "nishina-kyou-mo-kyou-tote-remix",
+   "duration": 29.7,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "ガーマンカーッとって"
+    },
+    {
+     "t": 2.34,
+     "text": "サンハイ"
+    },
+    {
+     "t": 3.0,
+     "text": "恋と愛のしかいった嫌いな奴"
+    },
+    {
+     "t": 4.32,
+     "text": "話した本気アニメはどう使ってよダメ"
+    },
+    {
+     "t": 6.12,
+     "text": "ツボムラとか"
+    },
+    {
+     "t": 6.76,
+     "text": "悪魔せず"
+    },
+    {
+     "t": 7.32,
+     "text": "ゾウムゾッと散る話"
+    },
+    {
+     "t": 8.06,
+     "text": "そうしようどうどう"
+    },
+    {
+     "t": 9.24,
+     "text": "でもいっぱいリデイ"
+    },
+    {
+     "t": 10.0,
+     "text": "いっぱいリデイ"
+    },
+    {
+     "t": 10.6,
+     "text": "オーカッチュー"
+    },
+    {
+     "t": 12.18,
+     "text": "消えない取れない"
+    },
+    {
+     "t": 14.34,
+     "text": "飛べないように"
+    },
+    {
+     "t": 17.86,
+     "text": "深く傷をつけた"
+    },
+    {
+     "t": 22.98,
+     "text": "返してよ"
+    },
+    {
+     "t": 24.46,
+     "text": "あたしの始まって"
+    }
+   ],
+   "versionType": null,
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 2.62,
+     "line": 0,
+     "score": 63.6
+    },
+    {
+     "t": 3.7,
+     "line": 1,
+     "score": 60.9
+    },
+    {
+     "t": 4.6,
+     "line": 2,
+     "score": 72.7
+    },
+    {
+     "t": 5.6,
+     "line": 3,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 6.62,
+     "line": 4,
+     "score": 63.6
+    },
+    {
+     "t": 7.63,
+     "line": 5,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 8.72,
+     "line": 6,
+     "score": 70.0
+    },
+    {
+     "t": 9.7,
+     "line": 7,
+     "score": 66.7
+    },
+    {
+     "t": 10.43,
+     "line": 9,
+     "score": 50.0,
+     "est": true
+    }
+   ],
+   "confidence": 66.2,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-kyou-mo-kyou-tote-remix",
+    "anchors": [
+     {
+      "t": 2.62,
+      "line": 0,
+      "score": 63.6
+     },
+     {
+      "t": 3.7,
+      "line": 1,
+      "score": 60.9
+     },
+     {
+      "t": 4.6,
+      "line": 2,
+      "score": 72.7
+     },
+     {
+      "t": 5.6,
+      "line": 3,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 6.62,
+      "line": 4,
+      "score": 63.6
+     },
+     {
+      "t": 7.72,
+      "line": 5,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 8.72,
+      "line": 6,
+      "score": 70.0
+     },
+     {
+      "t": 9.7,
+      "line": 7,
+      "score": 66.7
+     },
+     {
+      "t": 10.6,
+      "line": 9,
+      "score": 50.0,
+      "est": true
+     }
+    ],
+    "grade": "A",
+    "confidence": 66.2,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 2.62,
+     "line": 0,
+     "score": 63.6
+    },
+    {
+     "t": 3.7,
+     "line": 1,
+     "score": 60.9
+    },
+    {
+     "t": 4.6,
+     "line": 2,
+     "score": 72.7
+    },
+    {
+     "t": 5.6,
+     "line": 3,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 6.62,
+     "line": 4,
+     "score": 63.6
+    },
+    {
+     "t": 7.63,
+     "line": 5,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 8.72,
+     "line": 6,
+     "score": 70.0
+    },
+    {
+     "t": 9.7,
+     "line": 7,
+     "score": 66.7
+    },
+    {
+     "t": 10.43,
+     "line": 9,
+     "score": 50.0,
+     "est": true
+    }
+   ]
+  },
+  "qxP3byiXSMc": {
+   "videoId": "qxP3byiXSMc",
+   "title": "Your lucky nishina track next week!? #にしな #nishina",
+   "queueSongId": "nishina-weekly",
+   "matchMethod": "review",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-kyou-mo-kyou-tote-remix",
+     "score": 50.5
+    },
+    {
+     "songId": "nishina-debbie",
+     "score": 41.6
+    },
+    {
+     "songId": "nishina-eden",
+     "score": 28.3
+    }
+   ],
+   "songId": "nishina-kyou-mo-kyou-tote-remix",
+   "duration": 31.5,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "カモンカットでサンハイ"
+    },
+    {
+     "t": 3.0,
+     "text": "恋と愛の仕掛けた嫌いな奴"
+    },
+    {
+     "t": 4.34,
+     "text": "話した本気アニメはどう使ってよダメ"
+    },
+    {
+     "t": 6.12,
+     "text": "つぼもらうとか"
+    },
+    {
+     "t": 6.76,
+     "text": "悪魔せずそもそこ散るはダイオ"
+    },
+    {
+     "t": 8.34,
+     "text": "そうしもどうどうでもいっぱいリデイ"
+    },
+    {
+     "t": 10.0,
+     "text": "Everyday OK CHU"
+    },
+    {
+     "t": 12.32,
+     "text": "Baby 儚く枯れを散る"
+    },
+    {
+     "t": 15.6,
+     "text": "時のある花より実装やったり"
+    },
+    {
+     "t": 20.72,
+     "text": "僕にまみれた"
+    },
+    {
+     "t": 22.88,
+     "text": "春になりたい"
+    }
+   ],
+   "versionType": null,
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 2.64,
+     "line": 0,
+     "score": 63.6
+    },
+    {
+     "t": 3.68,
+     "line": 1,
+     "score": 58.3
+    },
+    {
+     "t": 4.74,
+     "line": 2,
+     "score": 80.0
+    },
+    {
+     "t": 6.12,
+     "line": 3,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 7.52,
+     "line": 4,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 8.7,
+     "line": 5,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 9.97,
+     "line": 6,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 11.52,
+     "line": 7,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 12.25,
+     "line": 9,
+     "score": 50,
+     "est": true
+    }
+   ],
+   "confidence": 67.3,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-kyou-mo-kyou-tote-remix",
+    "anchors": [
+     {
+      "t": 2.64,
+      "line": 0,
+      "score": 63.6
+     },
+     {
+      "t": 3.68,
+      "line": 1,
+      "score": 58.3
+     },
+     {
+      "t": 4.74,
+      "line": 2,
+      "score": 80.0
+     },
+     {
+      "t": 5.68,
+      "line": 3,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 6.76,
+      "line": 4,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 7.82,
+      "line": 5,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 8.52,
+      "line": 6,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 9.58,
+      "line": 7,
+      "score": 50.0,
+      "est": true
+     }
+    ],
+    "grade": "A",
+    "confidence": 67.3,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 2.64,
+     "line": 0,
+     "score": 63.6
+    },
+    {
+     "t": 3.68,
+     "line": 1,
+     "score": 58.3
+    },
+    {
+     "t": 4.74,
+     "line": 2,
+     "score": 80.0
+    },
+    {
+     "t": 6.12,
+     "line": 3,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 7.52,
+     "line": 4,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 8.7,
+     "line": 5,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 9.97,
+     "line": 6,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 11.52,
+     "line": 7,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 12.25,
+     "line": 9,
+     "score": 50,
+     "est": true
+    }
+   ]
   }
  }
 }
