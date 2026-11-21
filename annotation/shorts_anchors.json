@@ -3190,15 +3190,27 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 8.82,
-        "line": 36
+        "t": 0,
+        "line": 5
       },
       {
-        "t": 13.16,
-        "line": 37
+        "t": 2.36,
+        "line": 6
+      },
+      {
+        "t": 6.59,
+        "line": 7
+      },
+      {
+        "t": 12.03,
+        "line": 8
+      },
+      {
+        "t": 13.79,
+        "line": 9
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -3234,19 +3246,19 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
-        "t": 4.6,
+        "t": 5.27,
         "line": 28
       },
       {
-        "t": 10.25,
+        "t": 10.98,
         "line": 29
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -3604,11 +3616,7 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
-        "line": 37
-      },
-      {
-        "t": 7.72,
+        "t": 7.74,
         "line": 38
       },
       {
@@ -3648,7 +3656,7 @@
         "line": 47
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -3966,12 +3974,20 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
         "t": 2.28,
         "line": 7
+      },
+      {
+        "t": 4.48,
+        "line": 8
+      },
+      {
+        "t": 9.24,
+        "line": 9
       },
       {
         "t": 11.93,
@@ -3982,7 +3998,7 @@
         "line": 11
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -4133,6 +4149,10 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
+        "t": 6.97,
+        "line": 9
+      },
+      {
         "t": 8.27,
         "line": 10
       },
@@ -4169,7 +4189,7 @@
         "line": 18
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -4471,9 +4491,9 @@
     "autoGrade": "A"
   },
   "3A8cOTVy-a8": {
-    "songId": null,
+    "songId": "__promo",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
@@ -4646,11 +4666,27 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
+        "t": 0,
+        "line": 14
+      },
+      {
+        "t": 1.18,
+        "line": 15
+      },
+      {
+        "t": 2.14,
+        "line": 16
+      },
+      {
+        "t": 4.47,
+        "line": 17
+      },
+      {
         "t": 6.52,
         "line": 18
       },
       {
-        "t": 18.8,
+        "t": 19.05,
         "line": 19
       },
       {
@@ -4674,39 +4710,27 @@
         "line": 24
       },
       {
-        "t": 34.56,
+        "t": 39.91,
         "line": 25
       },
       {
-        "t": 36.08,
+        "t": 41.28,
         "line": 26
       },
       {
-        "t": 37.17,
+        "t": 42.16,
         "line": 27
       },
       {
-        "t": 39.4,
+        "t": 44.6,
         "line": 28
       },
       {
-        "t": 41.78,
+        "t": 46.81,
         "line": 29
-      },
-      {
-        "t": 44.24,
-        "line": 30
-      },
-      {
-        "t": 45.51,
-        "line": 31
-      },
-      {
-        "t": 46.46,
-        "line": 32
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -5067,12 +5091,20 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
         "t": 2.31,
         "line": 7
+      },
+      {
+        "t": 4.51,
+        "line": 8
+      },
+      {
+        "t": 9.27,
+        "line": 9
       },
       {
         "t": 11.96,
@@ -5083,7 +5115,7 @@
         "line": 11
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -5093,7 +5125,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 4
       },
       {
@@ -5101,19 +5133,19 @@
         "line": 5
       },
       {
-        "t": 4.13,
+        "t": 4.73,
         "line": 6
       },
       {
-        "t": 8.31,
+        "t": 8.96,
         "line": 7
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "B"
   },
   "6vOdfoT6TZE": {
     "songId": "nishina-cranberry-jam",
@@ -5520,6 +5552,10 @@
     "songId": "nishina-sugar-spot",
     "anchors": [
       {
+        "t": 0.62,
+        "line": 13
+      },
+      {
         "t": 2.54,
         "line": 14
       },
@@ -5556,7 +5592,7 @@
         "line": 22
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -6101,7 +6137,7 @@
         "line": 18
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -7114,7 +7150,7 @@
         "line": 29
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -7223,11 +7259,11 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 20
       },
       {
-        "t": 5.01,
+        "t": 5.8,
         "line": 21
       },
       {
@@ -7235,7 +7271,7 @@
         "line": 22
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -7378,13 +7414,35 @@
     "autoGrade": "A"
   },
   "Cr71z5Vjen4": {
-    "songId": null,
-    "anchors": [],
-    "status": "auto",
+    "songId": "nishina-u-plus",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 18
+      },
+      {
+        "t": 4.57,
+        "line": 19
+      },
+      {
+        "t": 9.59,
+        "line": 20
+      },
+      {
+        "t": 14.46,
+        "line": 21
+      },
+      {
+        "t": 21.36,
+        "line": 22
+      }
+    ],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "CH604YzkBQw": {
     "songId": "nishina-yonagi",
@@ -7564,8 +7622,8 @@
         "line": 16
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -7957,7 +8015,7 @@
         "line": 40
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -8087,27 +8145,35 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
-        "line": 36
+        "t": 0.17,
+        "line": 27
       },
       {
-        "t": 1.77,
-        "line": 37
+        "t": 1.94,
+        "line": 28
       },
       {
-        "t": 5.51,
-        "line": 38
+        "t": 6.97,
+        "line": 29
       },
       {
-        "t": 13.69,
-        "line": 39
+        "t": 13.95,
+        "line": 30
+      },
+      {
+        "t": 15.63,
+        "line": 31
+      },
+      {
+        "t": 19.46,
+        "line": 32
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "A"
   },
   "2UStYeMRK00": {
     "songId": "nishina-cranberry-jam",
@@ -8492,13 +8558,31 @@
     "autoGrade": "A"
   },
   "3MBACt0-RaM": {
-    "songId": null,
-    "anchors": [],
-    "status": "auto",
+    "songId": "nishina-u-plus",
+    "anchors": [
+      {
+        "t": 0.33,
+        "line": 18
+      },
+      {
+        "t": 4.84,
+        "line": 19
+      },
+      {
+        "t": 9.79,
+        "line": 20
+      },
+      {
+        "t": 14.68,
+        "line": 21
+      }
+    ],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "LGcFwJweiQE": {
     "songId": "__live_song",
@@ -9035,13 +9119,26 @@
     "instrumental": false
   },
   "qMKbXvCPKZI": {
-    "songId": null,
-    "anchors": [],
-    "status": "auto",
+    "songId": "nishina-mashiro",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 27
+      },
+      {
+        "t": 4.8,
+        "line": 28
+      },
+      {
+        "t": 10.45,
+        "line": 29
+      }
+    ],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "A"
   },
   "weQwfeErYiA": {
     "songId": "nishina-seiran-yuuei",
@@ -9078,7 +9175,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 37
       },
       {
@@ -9102,7 +9199,7 @@
         "line": 42
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -9340,23 +9437,31 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
-        "line": 36
+        "t": 0.94,
+        "line": 27
       },
       {
-        "t": 1.77,
-        "line": 37
+        "t": 2.71,
+        "line": 28
       },
       {
-        "t": 5.51,
-        "line": 38
+        "t": 7.74,
+        "line": 29
       },
       {
-        "t": 13.69,
-        "line": 39
+        "t": 14.72,
+        "line": 30
+      },
+      {
+        "t": 16.4,
+        "line": 31
+      },
+      {
+        "t": 20.23,
+        "line": 32
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -9446,39 +9551,39 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.56,
+        "t": 0,
         "line": 0
       },
       {
-        "t": 1.6,
+        "t": 2.25,
         "line": 1
       },
       {
-        "t": 3.98,
+        "t": 4.56,
         "line": 2
       },
       {
-        "t": 7.86,
+        "t": 8.71,
         "line": 3
       },
       {
-        "t": 8.64,
+        "t": 9.6,
         "line": 4
       },
       {
-        "t": 10.5,
+        "t": 11.6,
         "line": 5
       },
       {
-        "t": 12.77,
+        "t": 13.79,
         "line": 6
       },
       {
-        "t": 16.95,
+        "t": 18.24,
         "line": 7
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -10833,8 +10938,8 @@
         "line": 11
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -11264,10 +11369,6 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
-        "line": 34
-      },
-      {
         "t": 3.62,
         "line": 35
       },
@@ -11304,7 +11405,7 @@
         "line": 43
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -11343,13 +11444,39 @@
     "instrumental": false
   },
   "KEaeYWNB8FE": {
-    "songId": null,
-    "anchors": [],
-    "status": "auto",
+    "songId": "nishina-bugs",
+    "anchors": [
+      {
+        "t": 0.29,
+        "line": 27
+      },
+      {
+        "t": 4.01,
+        "line": 28
+      },
+      {
+        "t": 9.2,
+        "line": 29
+      },
+      {
+        "t": 12.94,
+        "line": 30
+      },
+      {
+        "t": 16.87,
+        "line": 31
+      },
+      {
+        "t": 19.47,
+        "line": 32
+      }
+    ],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "alSL9J5Bl_Y": {
     "songId": "nishina-weekly",
@@ -11540,13 +11667,15 @@
     "autoGrade": "A"
   },
   "blSVwgXAqSM": {
-    "songId": null,
+    "songId": "__live_song",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "appearanceName": "ROCK IN JAPAN FES.2024",
+    "liveSongId": "nishina-heavy-smoke"
   },
   "X4guu-Llz2Y": {
     "songId": "nishina-bugs",
@@ -11657,13 +11786,14 @@
     "autoGrade": "A"
   },
   "5-ct3TmcyBA": {
-    "songId": null,
+    "songId": "__live_song",
     "anchors": [],
-    "status": "auto",
-    "versionType": "live",
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "appearanceName": null
   },
   "E5bGnsg6Bi0": {
     "songId": "__promo",
@@ -11800,10 +11930,6 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
-        "line": 19
-      },
-      {
         "t": 1.24,
         "line": 20
       },
@@ -11816,7 +11942,7 @@
         "line": 22
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -12501,15 +12627,39 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 17.47,
+        "t": 0,
+        "line": 29
+      },
+      {
+        "t": 2.59,
+        "line": 30
+      },
+      {
+        "t": 5.19,
+        "line": 31
+      },
+      {
+        "t": 7.35,
         "line": 32
       },
       {
-        "t": 19.9,
+        "t": 9.79,
         "line": 33
+      },
+      {
+        "t": 12.14,
+        "line": 34
+      },
+      {
+        "t": 14.61,
+        "line": 35
+      },
+      {
+        "t": 19.21,
+        "line": 36
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -12846,8 +12996,20 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
+        "t": 0,
+        "line": 6
+      },
+      {
         "t": 2.47,
         "line": 7
+      },
+      {
+        "t": 4.66,
+        "line": 8
+      },
+      {
+        "t": 9.41,
+        "line": 9
       },
       {
         "t": 12.12,
@@ -12858,7 +13020,7 @@
         "line": 11
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -12965,30 +13127,14 @@
     "songConfirmed": true
   },
   "T14iT0lhfUw": {
-    "songId": "nishina-friday-kids-china-town",
-    "anchors": [
-      {
-        "t": 46.34,
-        "line": 32
-      },
-      {
-        "t": 47.16,
-        "line": 35
-      },
-      {
-        "t": 49.2,
-        "line": 36
-      },
-      {
-        "t": 52.44,
-        "line": 37
-      }
-    ],
-    "status": "auto",
+    "songId": "nishina-its-a-piece-of-cake",
+    "anchors": [],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "G-Mvq33CKzk": {
     "songId": "nishina-glory",
@@ -13044,18 +13190,14 @@
     "songConfirmed": true
   },
   "N3BBfl2heFM": {
-    "songId": "nishina-friday-kids-china-town",
-    "anchors": [
-      {
-        "t": 21.28,
-        "line": 35
-      }
-    ],
-    "status": "auto",
+    "songId": "nishina-its-a-piece-of-cake",
+    "anchors": [],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "fJ-rRLXTGUA": {
     "songId": "nishina-kedamono-no-friends",
@@ -13096,13 +13238,38 @@
     "autoGrade": "B"
   },
   "bSamfX3zqjU": {
-    "songId": null,
-    "anchors": [],
-    "status": "auto",
+    "songId": "nishina-bugs",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 27
+      },
+      {
+        "t": 3.88,
+        "line": 28
+      },
+      {
+        "t": 9.07,
+        "line": 29
+      },
+      {
+        "t": 12.81,
+        "line": 30
+      },
+      {
+        "t": 16.74,
+        "line": 31
+      },
+      {
+        "t": 19.34,
+        "line": 32
+      }
+    ],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "A"
   },
   "X1HcFMRKx9Y": {
     "songId": "nishina-its-a-piece-of-cake",
@@ -13590,13 +13757,15 @@
     "autoGrade": "A"
   },
   "keQuvB8ekpQ": {
-    "songId": null,
+    "songId": "__live_song",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "appearanceName": "JOIN ALIVE 2024",
+    "liveSongId": "nishina-kedamono-no-friends"
   },
   "k4a2zg4nvzM": {
     "songId": "__live_song",
@@ -14207,13 +14376,14 @@
     "autoGrade": "A"
   },
   "WAQgCqXTOvQ": {
-    "songId": null,
+    "songId": "nishina-its-a-piece-of-cake",
     "anchors": [],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "xd7hYERo-To": {
     "songId": "nishina-friday-kids-china-town",
@@ -14617,13 +14787,31 @@
     "instrumental": false
   },
   "Li9JH0GCLOc": {
-    "songId": "nishina-yakan-hikou",
-    "anchors": [],
-    "status": "auto",
+    "songId": "nishina-kedamono-no-friends",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 25
+      },
+      {
+        "t": 3.03,
+        "line": 26
+      },
+      {
+        "t": 5.72,
+        "line": 27
+      },
+      {
+        "t": 8.07,
+        "line": 28
+      }
+    ],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "7DUGYcUOPBs": {
     "songId": "__travel",
@@ -14864,7 +15052,7 @@
     "songId": "nishina-its-a-piece-of-cake",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -14908,8 +15096,8 @@
         "line": 37
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "acoustic",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -15122,19 +15310,31 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
-        "line": 35
+        "t": 0,
+        "line": 8
       },
       {
-        "t": 11.52,
-        "line": 38
+        "t": 1.82,
+        "line": 9
       },
       {
-        "t": 14.4,
-        "line": 39
+        "t": 4.71,
+        "line": 10
+      },
+      {
+        "t": 9.51,
+        "line": 11
+      },
+      {
+        "t": 11.33,
+        "line": 12
+      },
+      {
+        "t": 13.64,
+        "line": 13
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -15979,13 +16179,30 @@
     "autoGrade": "A"
   },
   "K0Xgo2xsCpA": {
-    "songId": null,
-    "anchors": [],
-    "status": "auto",
-    "versionType": null,
+    "songId": "nishina-u-plus",
+    "anchors": [
+      {
+        "t": 0.07,
+        "line": 18
+      },
+      {
+        "t": 4.58,
+        "line": 19
+      },
+      {
+        "t": 9.53,
+        "line": 20
+      },
+      {
+        "t": 14.42,
+        "line": 21
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "A"
   },
   "148NBvzv7Jg": {
     "songId": "nishina-panda-girl",
@@ -17454,13 +17671,31 @@
     "instrumental": false
   },
   "hk6_UgpH1Mw": {
-    "songId": null,
-    "anchors": [],
-    "status": "auto",
-    "versionType": null,
+    "songId": "nishina-bugs",
+    "anchors": [
+      {
+        "t": 1.18,
+        "line": 7
+      },
+      {
+        "t": 2.74,
+        "line": 8
+      },
+      {
+        "t": 8.66,
+        "line": 9
+      },
+      {
+        "t": 12.44,
+        "line": 10
+      }
+    ],
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "juj5EzxeNBo": {
     "songId": "nishina-glory",
@@ -17946,18 +18181,23 @@
     "songConfirmed": true
   },
   "zTFFRK-bSvw": {
-    "songId": "nishina-dress-code",
+    "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
-        "line": 36
+        "t": 0,
+        "line": 33
+      },
+      {
+        "t": 5.9,
+        "line": 34
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "pVIzcE3r6LU": {
     "songId": "__tour_recap",
@@ -18091,13 +18331,43 @@
     "songConfirmed": true
   },
   "NafuNc5URI4": {
-    "songId": null,
-    "anchors": [],
-    "status": "auto",
+    "songId": "nishina-toumei-na-kuro",
+    "anchors": [
+      {
+        "t": 0.58,
+        "line": 14
+      },
+      {
+        "t": 2.19,
+        "line": 15
+      },
+      {
+        "t": 5.2,
+        "line": 16
+      },
+      {
+        "t": 8.19,
+        "line": 17
+      },
+      {
+        "t": 10.69,
+        "line": 18
+      },
+      {
+        "t": 15.57,
+        "line": 19
+      },
+      {
+        "t": 22.47,
+        "line": 20
+      }
+    ],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "SxoGpYjHGms": {
     "songId": "__live_song",
@@ -18245,46 +18515,14 @@
     "autoGrade": "A"
   },
   "yWM44zmUd_w": {
-    "songId": "nishina-friday-kids-china-town",
-    "anchors": [
-      {
-        "t": 0.0,
-        "line": 33
-      },
-      {
-        "t": 9.87,
-        "line": 34
-      },
-      {
-        "t": 20.2,
-        "line": 37
-      },
-      {
-        "t": 21.88,
-        "line": 38
-      },
-      {
-        "t": 24.76,
-        "line": 39
-      },
-      {
-        "t": 29.59,
-        "line": 40
-      },
-      {
-        "t": 31.46,
-        "line": 41
-      },
-      {
-        "t": 33.75,
-        "line": 42
-      }
-    ],
-    "status": "auto",
+    "songId": "__tour_recap",
+    "anchors": [],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "B"
+    "autoGrade": "B",
+    "tourName": "Feeling"
   },
   "rTJWxnOiHOo": {
     "songId": "__yearly",
@@ -18319,36 +18557,36 @@
     "songId": "nishina-toumei-na-kuro",
     "anchors": [
       {
-        "t": 0.0,
-        "line": 32
+        "t": 0,
+        "line": 14
       },
       {
         "t": 1.48,
-        "line": 33
+        "line": 15
       },
       {
         "t": 4.55,
-        "line": 34
+        "line": 16
       },
       {
         "t": 7.7,
-        "line": 35
+        "line": 17
       },
       {
-        "t": 10.0,
-        "line": 36
+        "t": 10,
+        "line": 18
       },
       {
         "t": 14.97,
-        "line": 37
+        "line": 19
       },
       {
-        "t": 22.54,
-        "line": 38
+        "t": 22,
+        "line": 20
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
@@ -18725,28 +18963,32 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
-        "line": 38
+        "t": 0,
+        "line": 8
       },
       {
-        "t": 2.46,
-        "line": 39
+        "t": 1.97,
+        "line": 9
       },
       {
-        "t": 7.29,
-        "line": 40
+        "t": 4.76,
+        "line": 10
       },
       {
-        "t": 9.16,
-        "line": 41
+        "t": 9.62,
+        "line": 11
       },
       {
-        "t": 11.45,
-        "line": 42
+        "t": 11.26,
+        "line": 12
+      },
+      {
+        "t": 13.67,
+        "line": 13
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
@@ -18935,9 +19177,9 @@
     "autoGrade": "A"
   },
   "a8vlS_1HjO4": {
-    "songId": null,
+    "songId": "__promo",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
@@ -19426,13 +19668,15 @@
     "tourName": "SUPER COMPLEX"
   },
   "ROj_oeprwl0": {
-    "songId": null,
+    "songId": "__live_song",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "appearanceName": "周南公立大学学園祭「ポプラ祭」",
+    "liveSongId": "nishina-its-a-piece-of-cake"
   },
   "2xgSxP36BJM": {
     "songId": "nishina-cranberry-jam",
@@ -20010,13 +20254,14 @@
     "instrumental": false
   },
   "viN4NGAs9Fc": {
-    "songId": "nishina-sugar-spot",
+    "songId": "nishina-clover",
     "anchors": [],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "z5yDVHqFgX0": {
     "songId": "nishina-adaada",
@@ -20450,20 +20695,32 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.16,
-        "line": 35
+        "t": 0.65,
+        "line": 37
       },
       {
-        "t": 14.72,
+        "t": 2.39,
         "line": 38
       },
       {
-        "t": 17.6,
+        "t": 5.31,
         "line": 39
+      },
+      {
+        "t": 10.1,
+        "line": 40
+      },
+      {
+        "t": 11.94,
+        "line": 41
+      },
+      {
+        "t": 14.27,
+        "line": 42
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
@@ -20561,28 +20818,28 @@
         "line": 14
       },
       {
-        "t": 7.78,
+        "t": 7.59,
         "line": 15
       },
       {
-        "t": 11.28,
+        "t": 10.12,
         "line": 16
       },
       {
-        "t": 12.64,
+        "t": 12.39,
         "line": 17
       },
       {
-        "t": 15.91,
+        "t": 15.51,
         "line": 18
       },
       {
-        "t": 17.88,
+        "t": 17.4,
         "line": 19
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
@@ -21308,13 +21565,39 @@
     "autoGrade": "A"
   },
   "X5zHYg5YtyM": {
-    "songId": null,
-    "anchors": [],
-    "status": "auto",
+    "songId": "nishina-heavy-smoke",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 34
+      },
+      {
+        "t": 5.27,
+        "line": 35
+      },
+      {
+        "t": 11.57,
+        "line": 36
+      },
+      {
+        "t": 13.33,
+        "line": 37
+      },
+      {
+        "t": 17.26,
+        "line": 38
+      },
+      {
+        "t": 24.52,
+        "line": 39
+      }
+    ],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "ldVg7kkDsGw": {
     "songId": "nishina-kedamono-no-friends",
@@ -22540,13 +22823,15 @@
     "autoGrade": "A"
   },
   "wWpSfV44LBE": {
-    "songId": null,
+    "songId": "__live_song",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "appearanceName": "TOKYO ISLAND 2025",
+    "liveSongId": "nishina-u-plus"
   },
   "Uc0ODG84SYU": {
     "songId": "__live_song",
@@ -22765,8 +23050,8 @@
         "line": 42
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -22942,8 +23227,8 @@
         "line": 11
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -23053,13 +23338,14 @@
     "instrumental": false
   },
   "5Lmo7PW0n2M": {
-    "songId": null,
+    "songId": "nishina-its-a-piece-of-cake",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "acLUD0jNQYo": {
     "songId": "nishina-tokyo-marble",
@@ -23916,28 +24202,28 @@
         "line": 12
       },
       {
-        "t": 3.28,
+        "t": 2.68,
         "line": 13
       },
       {
-        "t": 7.68,
+        "t": 7.03,
         "line": 14
       },
       {
-        "t": 10.48,
+        "t": 9.68,
         "line": 15
       },
       {
-        "t": 13.21,
+        "t": 12.09,
         "line": 16
       },
       {
-        "t": 17.51,
+        "t": 16.65,
         "line": 17
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
@@ -24844,13 +25130,27 @@
     "autoGrade": "A"
   },
   "j-0txXv3MSw": {
-    "songId": null,
-    "anchors": [],
-    "status": "auto",
-    "versionType": null,
+    "songId": "nishina-sugar-spot",
+    "anchors": [
+      {
+        "t": 1.71,
+        "line": 47
+      },
+      {
+        "t": 5.13,
+        "line": 48
+      },
+      {
+        "t": 10.36,
+        "line": 49
+      }
+    ],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "fgwUSHF6bXc": {
     "songId": "nishina-sugar-spot",
@@ -25560,13 +25860,15 @@
     "autoGrade": "A"
   },
   "bR536axI1xM": {
-    "songId": null,
+    "songId": "__live_song",
     "anchors": [],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "appearanceName": "BEAT PHOENIX 2023",
+    "liveSongId": "nishina-cranberry-jam"
   },
   "8HJF7P0p46k": {
     "songId": "__tv",
@@ -25760,13 +26062,14 @@
     "instrumental": false
   },
   "k7KUnOQ2yZo": {
-    "songId": null,
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": true,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "tourName": "SUPER COMPLEX"
   },
   "eDOzHPSr5xg": {
     "songId": "nishina-wawon",
@@ -25838,13 +26141,31 @@
     "autoGrade": "A"
   },
   "URqTUc3KR40": {
-    "songId": null,
-    "anchors": [],
-    "status": "auto",
+    "songId": "nishina-one-room",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 26
+      },
+      {
+        "t": 13.71,
+        "line": 27
+      },
+      {
+        "t": 19.93,
+        "line": 28
+      },
+      {
+        "t": 55.98,
+        "line": 29
+      }
+    ],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "iit8mpEtdo0": {
     "songId": "nishina-yakan-hikou",
@@ -27617,14 +27938,9 @@
   },
   "lpUfp8O260o": {
     "songId": "nishina-plum",
-    "anchors": [
-      {
-        "t": 0.0,
-        "line": 36
-      }
-    ],
-    "status": "auto",
-    "versionType": null,
+    "anchors": [],
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -27999,8 +28315,8 @@
         "line": 46
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -30509,6 +30825,10 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
+        "t": 2.61,
+        "line": 21
+      },
+      {
         "t": 4.45,
         "line": 22
       },
@@ -30517,8 +30837,8 @@
         "line": 23
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
@@ -30699,7 +31019,7 @@
         "line": 21
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -31403,23 +31723,31 @@
     "songId": "nishina-in-your-eyes",
     "anchors": [
       {
-        "t": 2.9,
+        "t": 0.4,
+        "line": 53
+      },
+      {
+        "t": 2.26,
+        "line": 54
+      },
+      {
+        "t": 6.01,
         "line": 55
       },
       {
-        "t": 12.8,
+        "t": 12.6,
         "line": 56
       },
       {
-        "t": 15.7,
+        "t": 15.16,
         "line": 57
       },
       {
-        "t": 18.04,
+        "t": 18.63,
         "line": 58
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -31701,35 +32029,39 @@
     "songId": "nishina-oto-ni-natteiku-yo",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
+        "line": 10
+      },
+      {
+        "t": 2.38,
         "line": 11
       },
       {
-        "t": 3.68,
+        "t": 5.11,
         "line": 12
       },
       {
-        "t": 6.72,
+        "t": 8.61,
         "line": 13
       },
       {
-        "t": 9.52,
+        "t": 11.21,
         "line": 14
       },
       {
-        "t": 13.12,
+        "t": 13.45,
         "line": 15
       },
       {
-        "t": 16.64,
+        "t": 16.15,
         "line": 16
       },
       {
-        "t": 20.08,
+        "t": 19.84,
         "line": 17
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -32237,7 +32569,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -32249,8 +32581,8 @@
         "line": 29
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -32439,31 +32771,35 @@
     "songId": "nishina-toumei-na-kuro",
     "anchors": [
       {
-        "t": 0.71,
+        "t": 1.43,
         "line": 32
       },
       {
-        "t": 2.18,
+        "t": 2.93,
         "line": 33
       },
       {
-        "t": 8.4,
+        "t": 5.96,
+        "line": 34
+      },
+      {
+        "t": 9.01,
         "line": 35
       },
       {
-        "t": 10.71,
+        "t": 11.29,
         "line": 36
       },
       {
-        "t": 15.68,
+        "t": 16.29,
         "line": 37
       },
       {
-        "t": 23.24,
-        "line": 38
+        "t": 23.08,
+        "line": 39
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -32765,27 +33101,31 @@
         "line": 32
       },
       {
-        "t": 4.24,
+        "t": 5.89,
         "line": 33
       },
       {
-        "t": 10.64,
+        "t": 12.08,
         "line": 34
       },
       {
-        "t": 16.7,
+        "t": 17.91,
         "line": 35
       },
       {
-        "t": 22.31,
+        "t": 20.85,
+        "line": 36
+      },
+      {
+        "t": 24.14,
         "line": 37
       },
       {
-        "t": 31.52,
+        "t": 30.04,
         "line": 38
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -32821,7 +33161,7 @@
     "songId": "nishina-one-room",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 26
       },
       {
@@ -32833,7 +33173,7 @@
         "line": 28
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -32893,6 +33233,18 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
+        "t": 0,
+        "line": 27
+      },
+      {
+        "t": 5.25,
+        "line": 28
+      },
+      {
+        "t": 10.99,
+        "line": 29
+      },
+      {
         "t": 20.08,
         "line": 30
       },
@@ -32905,7 +33257,7 @@
         "line": 32
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -33057,51 +33409,63 @@
     "songId": "nishina-weekly",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 44
       },
       {
-        "t": 3.72,
+        "t": 2.42,
+        "line": 45
+      },
+      {
+        "t": 5.09,
         "line": 46
       },
       {
-        "t": 8.16,
+        "t": 9.62,
         "line": 47
       },
       {
-        "t": 12.6,
+        "t": 12.03,
         "line": 48
       },
       {
-        "t": 14.34,
+        "t": 14.63,
         "line": 49
       },
       {
-        "t": 17.5,
+        "t": 17.62,
         "line": 50
       },
       {
-        "t": 18.5,
+        "t": 18.64,
         "line": 51
       },
       {
-        "t": 20.46,
+        "t": 22.28,
         "line": 52
       },
       {
-        "t": 23.18,
+        "t": 23.43,
         "line": 53
       },
       {
-        "t": 31.32,
+        "t": 27.25,
         "line": 54
       },
       {
-        "t": 34.74,
+        "t": 28.2,
         "line": 55
+      },
+      {
+        "t": 31.86,
+        "line": 56
+      },
+      {
+        "t": 32.97,
+        "line": 57
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -33111,7 +33475,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 27
       },
       {
@@ -33135,7 +33499,7 @@
         "line": 32
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -34079,7 +34443,7 @@
     "songId": "nishina-friday-kids-china-town",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 20
       },
       {
@@ -34095,8 +34459,8 @@
         "line": 23
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -36191,7 +36555,7 @@
         "line": 22
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -36578,7 +36942,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 40
       },
       {
@@ -36586,16 +36950,16 @@
         "line": 41
       },
       {
-        "t": 5.94,
+        "t": 8.23,
         "line": 42
       },
       {
-        "t": 7.78,
+        "t": 15.96,
         "line": 43
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "mv",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
@@ -37658,8 +38022,8 @@
         "line": 42
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -38314,8 +38678,8 @@
         "line": 42
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
@@ -38721,7 +39085,7 @@
     "songId": "nishina-wawon",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 8
       },
       {
@@ -38729,19 +39093,19 @@
         "line": 9
       },
       {
-        "t": 12.58,
+        "t": 11.93,
         "line": 10
       },
       {
-        "t": 15.25,
+        "t": 14.73,
         "line": 11
       },
       {
-        "t": 18.36,
+        "t": 17.62,
         "line": 12
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -38826,13 +39190,14 @@
     "autoGrade": "A"
   },
   "AVOo3ZVbfk8": {
-    "songId": "nishina-cranberry-jam",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "tourName": "クランベリージャムをかけて"
   },
   "roy07FQH82Y": {
     "songId": "nishina-ainikoi",
@@ -39968,24 +40333,32 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
+        "t": 0,
+        "line": 31
+      },
+      {
+        "t": 1.33,
+        "line": 32
+      },
+      {
         "t": 3.98,
         "line": 33
       },
       {
-        "t": 6.69,
+        "t": 6.06,
         "line": 34
       },
       {
-        "t": 9.09,
+        "t": 8.5,
         "line": 35
       },
       {
-        "t": 14.09,
+        "t": 13.18,
         "line": 36
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
@@ -40210,10 +40583,10 @@
     "autoGrade": "A"
   },
   "4LqdiGWZh-c": {
-    "songId": "nishina-ainikoi",
+    "songId": "__daily",
     "anchors": [],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
@@ -40780,13 +41153,47 @@
     "autoGrade": "A"
   },
   "0QqeBqjKH9g": {
-    "songId": null,
-    "anchors": [],
-    "status": "auto",
+    "songId": "nishina-u-plus",
+    "anchors": [
+      {
+        "t": 0,
+        "line": 29
+      },
+      {
+        "t": 2.31,
+        "line": 30
+      },
+      {
+        "t": 4.62,
+        "line": 31
+      },
+      {
+        "t": 6.78,
+        "line": 32
+      },
+      {
+        "t": 9.45,
+        "line": 33
+      },
+      {
+        "t": 11.72,
+        "line": 34
+      },
+      {
+        "t": 14.04,
+        "line": 35
+      },
+      {
+        "t": 19.05,
+        "line": 36
+      }
+    ],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "songConfirmed": true
   },
   "1nBPDVncspo": {
     "songId": "__promo",
@@ -41288,10 +41695,10 @@
     "liveSongId": "nishina-cranberry-jam"
   },
   "Sje_u7aMBms": {
-    "songId": null,
+    "songId": "__tv",
     "anchors": [],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
@@ -41306,201 +41713,130 @@
     "liveSongId": "nishina-heavy-smoke"
   },
   "uvjiFDq0uTk": {
-    "songId": "nishina-1999",
+    "songId": "__mc",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
   },
   "FfExgzQ5qc8": {
-    "songId": "nishina-1999",
+    "songId": "__mc",
     "anchors": [],
-    "status": "auto",
-    "versionType": "live",
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
   },
   "QrOg_eDfKFE": {
-    "songId": "nishina-its-a-piece-of-cake",
+    "songId": "__promo",
     "anchors": [],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
   },
   "1GwcFzreZ0o": {
-    "songId": "nishina-cranberry-jam",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "liveSongId": "nishina-cranberry-jam",
+    "appearanceName": null,
+    "tourName": "クランベリージャムをかけて"
   },
   "TZUTdkBupZM": {
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
-        "line": 25
+        "t": 0,
+        "line": 18
       },
       {
-        "t": 2.26,
-        "line": 26
+        "t": 4.59,
+        "line": 19
       },
       {
-        "t": 5.11,
-        "line": 27
-      },
-      {
-        "t": 7.36,
-        "line": 28
-      },
-      {
-        "t": 12.14,
-        "line": 29
+        "t": 9.7,
+        "line": 20
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
   },
   "mLqnghKGE3k": {
-    "songId": "nishina-its-a-piece-of-cake",
-    "anchors": [
-      {
-        "t": 12.64,
-        "line": 12
-      },
-      {
-        "t": 15.76,
-        "line": 13
-      },
-      {
-        "t": 19.15,
-        "line": 14
-      },
-      {
-        "t": 25.96,
-        "line": 15
-      },
-      {
-        "t": 28.69,
-        "line": 16
-      },
-      {
-        "t": 32.36,
-        "line": 17
-      },
-      {
-        "t": 36.45,
-        "line": 18
-      },
-      {
-        "t": 39.19,
-        "line": 19
-      },
-      {
-        "t": 42.83,
-        "line": 20
-      },
-      {
-        "t": 46.49,
-        "line": 21
-      },
-      {
-        "t": 47.69,
-        "line": 22
-      }
-    ],
-    "status": "auto",
-    "versionType": "live",
+    "songId": "__tour_recap",
+    "anchors": [],
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "tourName": "Feeling"
   },
   "QVYhe0oWw_g": {
-    "songId": "nishina-its-a-piece-of-cake",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "auto",
-    "versionType": "live",
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "tourName": "MUSICK"
   },
   "qho0j65l4yo": {
-    "songId": "nishina-cranberry-jam",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "tourName": "クランベリージャムをかけて"
   },
   "vqXZr5Fxd4U": {
-    "songId": "nishina-weekly",
+    "songId": "__tv",
     "anchors": [],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
   },
   "tREHUceu594": {
-    "songId": "nishina-cranberry-jam",
-    "anchors": [
-      {
-        "t": 1.01,
-        "line": 43
-      },
-      {
-        "t": 2.46,
-        "line": 44
-      },
-      {
-        "t": 3.54,
-        "line": 45
-      },
-      {
-        "t": 5.68,
-        "line": 46
-      }
-    ],
-    "status": "auto",
-    "versionType": null,
+    "songId": "__tour_recap",
+    "anchors": [],
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "tourName": "クランベリージャムをかけて"
   },
   "PK9FTHIsPqI": {
-    "songId": "nishina-cranberry-jam",
+    "songId": "__tour_recap",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "C"
+    "autoGrade": "C",
+    "tourName": "クランベリージャムをかけて"
   },
   "OZ6RxpkCJAY": {
-    "songId": "nishina-1999",
-    "anchors": [
-      {
-        "t": 51.82,
-        "line": 25
-      },
-      {
-        "t": 57.44,
-        "line": 26
-      }
-    ],
-    "status": "auto",
-    "versionType": "live",
+    "songId": "__mc",
+    "anchors": [],
+    "status": "done",
+    "versionType": "other",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
@@ -41541,15 +41877,19 @@
         "line": 7
       },
       {
-        "t": 21.14,
+        "t": 20.69,
+        "line": 8
+      },
+      {
+        "t": 23.44,
         "line": 9
       },
       {
-        "t": 26.34,
+        "t": 25.87,
         "line": 10
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41559,7 +41899,7 @@
     "songId": "nishina-oto-ni-natteiku-yo",
     "anchors": [
       {
-        "t": 0.62,
+        "t": 0,
         "line": 0
       },
       {
@@ -41571,7 +41911,7 @@
         "line": 2
       },
       {
-        "t": 10.29,
+        "t": 11.03,
         "line": 3
       },
       {
@@ -41579,11 +41919,11 @@
         "line": 4
       },
       {
-        "t": 18.7,
+        "t": 18.43,
         "line": 5
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41593,23 +41933,23 @@
     "songId": "nishina-in-your-eyes",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 29
       },
       {
-        "t": 2.3,
+        "t": 2.22,
         "line": 30
       },
       {
-        "t": 5.86,
+        "t": 5.93,
         "line": 31
       },
       {
-        "t": 12.8,
+        "t": 12.25,
         "line": 32
       },
       {
-        "t": 15.2,
+        "t": 15.1,
         "line": 33
       },
       {
@@ -41617,7 +41957,7 @@
         "line": 34
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41631,15 +41971,15 @@
         "line": 24
       },
       {
-        "t": 7.38,
+        "t": 6.8,
         "line": 25
       },
       {
-        "t": 15.19,
+        "t": 13.94,
         "line": 26
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41653,11 +41993,11 @@
         "line": 21
       },
       {
-        "t": 5.04,
+        "t": 4.62,
         "line": 22
       },
       {
-        "t": 12.88,
+        "t": 13.13,
         "line": 23
       },
       {
@@ -41669,7 +42009,7 @@
         "line": 25
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41679,7 +42019,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 0
       },
       {
@@ -41695,7 +42035,7 @@
         "line": 3
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41705,19 +42045,35 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
-        "line": 15
+        "t": 0,
+        "line": 29
       },
       {
-        "t": 2.72,
-        "line": 16
+        "t": 2.25,
+        "line": 30
       },
       {
-        "t": 7.02,
-        "line": 17
+        "t": 4.52,
+        "line": 31
+      },
+      {
+        "t": 7.06,
+        "line": 32
+      },
+      {
+        "t": 9.51,
+        "line": 33
+      },
+      {
+        "t": 11.62,
+        "line": 34
+      },
+      {
+        "t": 14.21,
+        "line": 35
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41727,7 +42083,7 @@
     "songId": "nishina-slow-motion",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 18
       },
       {
@@ -41749,13 +42105,9 @@
       {
         "t": 16.58,
         "line": 23
-      },
-      {
-        "t": 20.94,
-        "line": 24
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41765,11 +42117,31 @@
     "songId": "nishina-cranberry-jam",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
+        "line": 25
+      },
+      {
+        "t": 1.18,
+        "line": 26
+      },
+      {
+        "t": 2.21,
+        "line": 27
+      },
+      {
+        "t": 4.31,
+        "line": 28
+      },
+      {
+        "t": 6.94,
+        "line": 29
+      },
+      {
+        "t": 9.3,
         "line": 30
       },
       {
-        "t": 6.54,
+        "t": 10.52,
         "line": 31
       },
       {
@@ -41785,7 +42157,7 @@
         "line": 34
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41795,7 +42167,7 @@
     "songId": "nishina-mashiro",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 6
       },
       {
@@ -41807,7 +42179,7 @@
         "line": 8
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41817,7 +42189,7 @@
     "songId": "nishina-seiran-yuuei",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 20
       },
       {
@@ -41831,9 +42203,13 @@
       {
         "t": 19.38,
         "line": 23
+      },
+      {
+        "t": 26.61,
+        "line": 24
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41843,7 +42219,7 @@
     "songId": "nishina-hot-milk",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 28
       },
       {
@@ -41863,7 +42239,7 @@
         "line": 32
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41873,7 +42249,7 @@
     "songId": "nishina-glory",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 23
       },
       {
@@ -41881,15 +42257,15 @@
         "line": 24
       },
       {
-        "t": 8.51,
+        "t": 7.95,
         "line": 25
       },
       {
-        "t": 12.0,
+        "t": 12,
         "line": 26
       },
       {
-        "t": 15.0,
+        "t": 15,
         "line": 27
       },
       {
@@ -41897,7 +42273,7 @@
         "line": 28
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41907,7 +42283,15 @@
     "songId": "nishina-rendezvous",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 2.74,
+        "line": 33
+      },
+      {
+        "t": 5.32,
+        "line": 34
+      },
+      {
+        "t": 8.04,
         "line": 35
       },
       {
@@ -41919,7 +42303,7 @@
         "line": 37
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41945,7 +42329,7 @@
         "line": 10
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41987,7 +42371,7 @@
         "line": 43
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
@@ -41997,7 +42381,7 @@
     "songId": "nishina-heavy-smoke",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 14
       },
       {
@@ -42009,341 +42393,97 @@
         "line": 16
       },
       {
-        "t": 16.5,
+        "t": 20.87,
         "line": 17
       },
       {
-        "t": 28.08,
-        "line": 33
+        "t": 27.7,
+        "line": 18
       },
       {
-        "t": 29.26,
-        "line": 34
+        "t": 29.43,
+        "line": 19
       },
       {
-        "t": 34.08,
-        "line": 35
+        "t": 34.4,
+        "line": 20
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "B"
   },
   "nnX2o4lgxog": {
-    "songId": null,
+    "songId": "__ad",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
   },
   "XhtyS0I9Ky4": {
-    "songId": "nishina-kyou-mo-kyou-tote-remix",
-    "anchors": [
-      {
-        "t": 2.84,
-        "line": 0
-      },
-      {
-        "t": 3.92,
-        "line": 1
-      },
-      {
-        "t": 4.84,
-        "line": 2
-      },
-      {
-        "t": 5.76,
-        "line": 3
-      },
-      {
-        "t": 6.7,
-        "line": 4
-      },
-      {
-        "t": 7.7,
-        "line": 5
-      },
-      {
-        "t": 8.56,
-        "line": 6
-      },
-      {
-        "t": 10.11,
-        "line": 7
-      },
-      {
-        "t": 10.84,
-        "line": 9
-      }
-    ],
-    "status": "auto",
+    "songId": "__promo",
+    "anchors": [],
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
   },
   "A1rBYHeaMrc": {
-    "songId": null,
+    "songId": "__ad",
     "anchors": [],
-    "status": "auto",
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
   },
   "ikpr0FH4R_U": {
-    "songId": "nishina-its-a-piece-of-cake",
-    "anchors": [
-      {
-        "t": 0.22,
-        "line": 23
-      },
-      {
-        "t": 2.9,
-        "line": 24
-      },
-      {
-        "t": 6.18,
-        "line": 25
-      },
-      {
-        "t": 9.82,
-        "line": 26
-      },
-      {
-        "t": 12.11,
-        "line": 27
-      },
-      {
-        "t": 14.92,
-        "line": 28
-      },
-      {
-        "t": 18.08,
-        "line": 29
-      }
-    ],
-    "status": "auto",
+    "songId": "__ad",
+    "anchors": [],
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
   },
   "qvInlIZcYtY": {
-    "songId": "nishina-cranberry-jam",
-    "anchors": [
-      {
-        "t": 3.69,
-        "line": 26
-      },
-      {
-        "t": 4.78,
-        "line": 27
-      },
-      {
-        "t": 6.91,
-        "line": 28
-      },
-      {
-        "t": 9.44,
-        "line": 29
-      },
-      {
-        "t": 11.91,
-        "line": 30
-      },
-      {
-        "t": 13.16,
-        "line": 31
-      },
-      {
-        "t": 14.23,
-        "line": 32
-      },
-      {
-        "t": 16.27,
-        "line": 33
-      },
-      {
-        "t": 18.83,
-        "line": 34
-      },
-      {
-        "t": 30.85,
-        "line": 35
-      },
-      {
-        "t": 32.66,
-        "line": 36
-      },
-      {
-        "t": 35.86,
-        "line": 37
-      }
-    ],
-    "status": "auto",
+    "songId": "__live_song",
+    "anchors": [],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "A"
+    "autoGrade": "A",
+    "liveSongId": "nishina-cranberry-jam",
+    "appearanceName": null
   },
   "jph3x85pOK4": {
-    "songId": "nishina-weekly",
-    "anchors": [
-      {
-        "t": 0.99,
-        "line": 0
-      },
-      {
-        "t": 2.86,
-        "line": 1
-      },
-      {
-        "t": 5.49,
-        "line": 2
-      },
-      {
-        "t": 7.58,
-        "line": 3
-      },
-      {
-        "t": 10.39,
-        "line": 4
-      },
-      {
-        "t": 12.74,
-        "line": 5
-      },
-      {
-        "t": 15.16,
-        "line": 6
-      },
-      {
-        "t": 17.26,
-        "line": 7
-      },
-      {
-        "t": 21.03,
-        "line": 8
-      },
-      {
-        "t": 23.38,
-        "line": 9
-      },
-      {
-        "t": 25.94,
-        "line": 10
-      },
-      {
-        "t": 30.77,
-        "line": 11
-      },
-      {
-        "t": 33.58,
-        "line": 12
-      },
-      {
-        "t": 35.54,
-        "line": 13
-      }
-    ],
-    "status": "auto",
+    "songId": "__ad",
+    "anchors": [],
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
   },
   "s51HpglkuEI": {
-    "songId": "nishina-kyou-mo-kyou-tote-remix",
-    "anchors": [
-      {
-        "t": 2.62,
-        "line": 0
-      },
-      {
-        "t": 3.7,
-        "line": 1
-      },
-      {
-        "t": 4.6,
-        "line": 2
-      },
-      {
-        "t": 5.6,
-        "line": 3
-      },
-      {
-        "t": 6.62,
-        "line": 4
-      },
-      {
-        "t": 7.63,
-        "line": 5
-      },
-      {
-        "t": 8.72,
-        "line": 6
-      },
-      {
-        "t": 9.7,
-        "line": 7
-      },
-      {
-        "t": 10.43,
-        "line": 9
-      }
-    ],
-    "status": "auto",
+    "songId": "__promo",
+    "anchors": [],
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
   },
   "qxP3byiXSMc": {
-    "songId": "nishina-kyou-mo-kyou-tote-remix",
-    "anchors": [
-      {
-        "t": 2.64,
-        "line": 0
-      },
-      {
-        "t": 3.68,
-        "line": 1
-      },
-      {
-        "t": 4.74,
-        "line": 2
-      },
-      {
-        "t": 6.12,
-        "line": 3
-      },
-      {
-        "t": 7.52,
-        "line": 4
-      },
-      {
-        "t": 8.7,
-        "line": 5
-      },
-      {
-        "t": 9.97,
-        "line": 6
-      },
-      {
-        "t": 11.52,
-        "line": 7
-      },
-      {
-        "t": 12.25,
-        "line": 9
-      }
-    ],
-    "status": "auto",
+    "songId": "__promo",
+    "anchors": [],
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
