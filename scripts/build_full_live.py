@@ -12,6 +12,9 @@ build_full_live.py — 完整 Live 的素材 → src/data/full_live.json
   data/full_live_overrides.json  人工例外: ends = 某支 short 最後一句確認唱完的秒數 (句長估太保守時用)
                                            skip = 確認沒人拍到、可以跳過的句子 (→ songs[].skip)
                                            extra = 官方長片補段 (→ shorts[] 裡 long: true 的項目)
+                                           cuts = 人工確認過的切點 {歌: {影片: {in: {句: 秒}, out: {句: 秒}}}} (→ ci / co)
+                                           avoid = 不准用某支影片唱的句子 {歌: {影片: [句]}} (→ no)
+  data/full_live_vocals.json     人聲分離量到的起音 / 唱完時間 (scripts/full_live_vocals.py), 決定切點用
 寫:
   src/data/full_live.json        { songs: [{ id, title, lines, L, shorts }] }
     L       每句大概多長 (秒): 只用 live 量 (同一支 short 相鄰兩句的時間差取中位數),
@@ -19,6 +22,8 @@ build_full_live.py — 完整 Live 的素材 → src/data/full_live.json
     shorts  live 和其他版本 (MV 等) 都放, 純演奏的不放; am = [[句, 秒], …]
             end = 最後一句唱完的秒數 (只有 overrides 有填的才有)
             long = 官方長片補段 (overrides 的 extra), 不算進「幾支 shorts」; 句長 L 也只用 shorts 量
+            vo = [[句, 起音, 前一段人聲結束], …]  vt = [句, 唱完, 下一句起音 | null, 人聲唱到影片結束 0/1]
+                 (full_live_vocals.py 量的, 只有量過的影片才有)
 
     python scripts/build_full_live.py
 """
@@ -33,6 +38,7 @@ BY_SONG = ROOT / "src" / "data" / "shorts_by_song.json"
 LYRICS = ROOT / "data" / "lyrics.json"
 DURS = ROOT / "data" / "short_durations.json"
 OVERRIDES = ROOT / "data" / "full_live_overrides.json"
+VOCALS = ROOT / "data" / "full_live_vocals.json"
 OUT = ROOT / "src" / "data" / "full_live.json"
 
 
@@ -58,6 +64,8 @@ def main():
     durs = json.loads(DURS.read_text(encoding="utf-8")) if DURS.exists() else {}
     overrides = json.loads(OVERRIDES.read_text(encoding="utf-8")) if OVERRIDES.exists() else {}
     ends, skips, extras = overrides.get("ends", {}), overrides.get("skip", {}), overrides.get("extra", {})
+    cuts, avoid = overrides.get("cuts", {}), overrides.get("avoid", {})
+    vocals = json.loads(VOCALS.read_text(encoding="utf-8")) if VOCALS.exists() else {}
     used = set()
 
     songs = []
@@ -102,6 +110,24 @@ def main():
                 continue
             shorts_out.append({"v": b["v"], "title": b["title"], "views": b.get("views", 0), "dur": b.get("dur"),
                                "live": b["type"] == "live", "type": b["type"], "am": am, "end": b["end"], "long": True})
+        for x in shorts_out:
+            # 人工確認過的切點 (cuts) / 不准拿來唱的句子 (avoid)
+            c = cuts.get(sid, {}).get(x["v"], {})
+            if c.get("in"):
+                x["ci"] = sorted([int(l), t] for l, t in c["in"].items())
+            if c.get("out"):
+                x["co"] = sorted([int(l), t] for l, t in c["out"].items())
+            if avoid.get(sid, {}).get(x["v"]):
+                x["no"] = sorted(avoid[sid][x["v"]])
+            vx = vocals.get(sid, {}).get(x["v"])
+            if not vx:
+                continue
+            lines_here = {l for l, _ in x["am"]} | ({max(l for l, _ in x["am"]) + 1} if x.get("long") else set())
+            vo = [o for o in vx.get("on", []) if o[0] in lines_here]
+            if vo:
+                x["vo"] = vo
+            if vx.get("tail") and not x.get("long") and vx["tail"][0] == x["am"][-1][0]:
+                x["vt"] = vx["tail"]
         entry = {
             "id": sid,
             "title": song["title"],

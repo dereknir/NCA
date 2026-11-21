@@ -8,6 +8,33 @@
   "skip": {
     "nishina-mashiro": { "lines": [26], "note": "「Oh oh」: 56 支 live + MV 都剛好切在第 25 句唱完 / 第 27 句開頭, 沒有任何一支拍到 (2026-11-22 確認)。現在由 hatsu 補, 這裡留著當 hatsu 播不了時的退路" }
   },
+  "_cuts_doc": "cuts: 人工確認過的切點, 優先於 full_live_vocals.py 的自動判斷。{歌: {影片: {in: {句: 從幾秒切入}, out: {句: 切在幾秒}}}}。2026-11-22 依 scripts/full_live_audit.py 標出的段落逐一確認 (人聲軌音量 + MMS 對齊 + 錨點 + whisper)。",
+  "cuts": {
+    "nishina-bugs": {
+      "m8pxw2GNhoo": { "out": { "35": 17.45 }, "note": "第 35 句唱到 17.32s; 之後一路有人聲到影片結束, 分不出是即興還是沒錨點的第 36 句 → 切在唱完, 不冒重疊的險" },
+      "FFkHaIUKK1I": { "in": { "36": 0.0 }, "out": { "39": 18.55 }, "note": "第 36 句 0.14s 就開唱 (錨點 0.56 標晚, 原本從 0.30 切入會吃掉「他人」); 第 40 句 18.7–18.9s 開始, 原本切在 19.07 會播到它的頭" },
+      "mHCLUW4lEHs": { "out": { "42": 15.45 }, "note": "第 42 句唱到 15.27s; 之後的人聲一路到片尾, 下一段從第 43 句開始 → 切在唱完" }
+    },
+    "nishina-cranberry-jam": {
+      "y9NCx6yz45k": { "out": { "47": 28.68 }, "note": "第 47 句尾音拖到影片快結束 (28.6s), 原本 28.54 切在尾音中間 → 播到片尾" }
+    },
+    "nishina-plum": {
+      "6Kd781e8scA": { "out": { "16": 40.88 }, "note": "第 16→17 句連唱, MMS 換句在 40.93/40.97s、錨點 40.8 → 切在 40.88 (原本 40.62 會切掉第 16 句句尾)" }
+    },
+    "nishina-tokyo-marble": {
+      "lzkyL0FN6l8": { "out": { "3": 15.85 }, "note": "「二人きりの密かな」12.95–15.6s、「ボーイミーツガール」15.95s 起 (跟 Official Audio 的句長 2.7s / 1.7s 吻合; MMS 把下一句的頭算進這句)" },
+      "ywQUAzp4ikQ": { "in": { "4": 35.3 }, "note": "錄音室版第 3→4 句連唱 (第 3 句唱到 35.25s), 從 35.30 切入留一點空間" }
+    },
+    "nishina-kedamono-no-friends": {
+      "hjaFq_wu3Is": { "in": { "28": 2.5 }, "note": "第 27 句唱到 2.05s、第 28 句 2.69s 起, 原本從 2.70 切入沒有前置空間" }
+    },
+    "nishina-mashiro": {
+      "LJD5uIE8ZVw": { "out": { "26": 232.9 }, "note": "hatsu: 「Oh oh」後的間奏到第 27 句 (233.1–233.3s 起音) 前切掉" }
+    },
+    "nishina-yakan-hikou": {
+      "LJD5uIE8ZVw": { "out": { "3": 332.5 }, "note": "hatsu: 第 3 句唱到 331.2s, 第 4 句起音 332.7–334.1s (whisper / MMS 不一致) → 切在兩者之前" }
+    }
+  },
   "extra": {
     "nishina-tokyo-marble": [
       { "v": "ywQUAzp4ikQ", "type": "audio", "title": "東京マーブル【Official Audio】", "views": 940852, "dur": 242,

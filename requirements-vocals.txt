@@ -1,0 +1,12 @@
+# 完整 Live 切點量測 (scripts/full_live_vocals.py) / 驗收 (scripts/full_live_audit.py) 用, 跟網站本身無關
+# torch 先另外裝 CPU 版 (不然會抓到很大的 CUDA 版):
+#   python -m venv .venv-vocals
+#   .venv-vocals/Scripts/python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   .venv-vocals/Scripts/python -m pip install -r requirements-vocals.txt
+demucs                # 人聲分離 (htdemucs)
+soundfile
+faster-whisper        # 解碼音訊 (PyAV) + 驗收時查「有沒有播到下一句」
+pykakasi              # auto_annotate.to_hira
+rapidfuzz
+yt-dlp                # 快取裡沒有的影片才下載
+numpy
