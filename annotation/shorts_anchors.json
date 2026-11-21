@@ -41774,14 +41774,15 @@
     "autoGrade": "C"
   },
   "mLqnghKGE3k": {
-    "songId": "__tour_recap",
+    "songId": "nishina-its-a-piece-of-cake",
     "anchors": [],
-    "status": "done",
-    "versionType": "other",
+    "status": "pending",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C",
-    "tourName": "Feeling"
+    "tourName": "Feeling",
+    "songConfirmed": true
   },
   "QVYhe0oWw_g": {
     "songId": "__tour_recap",
