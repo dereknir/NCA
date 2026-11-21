@@ -1,11 +1,57 @@
 {
-  "_doc": "完整 Live 的人工例外, scripts/build_full_live.py 讀。ends: 某支 short 拍到的最後一句「唱完」的秒數 (確認過才填)。沒填的照 src/lib/fullLive.ts 用句長估, 估不夠就不拿那句來排。skip: 確認沒有任何 short 拍到、可以直接跳過的句子 (之後有人拍到還是會用)。",
+  "_doc": "完整 Live 的人工例外, scripts/build_full_live.py 讀。ends: 某支 short 拍到的最後一句「唱完」的秒數 (確認過才填)。沒填的照 src/lib/fullLive.ts 用句長估, 估不夠就不拿那句來排。skip: 確認沒有任何素材拍到、可以直接跳過的句子 (之後有人拍到還是會用; 長片播不了時也靠它不留空)。extra: 官方頻道長片補 shorts 沒拍到的句子, 每塊只標要補的句子 (am = [[句, 開始秒數]]) + 最後一句唱完 / 下一句開始的 end; 時間用 faster-whisper medium 逐字 + 整首歌詞序列比對對出, 再逐句看過。",
   "ends": {
     "AOo5HT9AiaA": { "t": 13.3, "song": "nishina-darling", "line": 17, "note": "「貴方のことだもの」唱到 13.28s, 影片 13.4s (ASR 逐字確認 2026-11-21)" },
     "tAK48pB_8c4": { "t": 33.9, "song": "nishina-plum", "line": 26, "note": "「腐る寸前が1番の甘美」唱到 33.9s, 影片 34.0s (ASR 逐字確認 2026-11-21)" },
     "pgDkCw7b57c": { "t": 52.8, "song": "nishina-mashiro", "line": 25, "note": "「返してよ私のはじめてを」長音唱到約 52.8s, 影片 53.0s; 句長估只到 50.7s 會吃掉句尾 (ASR + 音量確認 2026-11-22)" }
   },
   "skip": {
-    "nishina-mashiro": { "lines": [26], "note": "「Oh oh」: 56 支 live + MV 都剛好切在第 25 句唱完 / 第 27 句開頭, 沒有任何一支拍到 (2026-11-22 確認)" }
+    "nishina-mashiro": { "lines": [26], "note": "「Oh oh」: 56 支 live + MV 都剛好切在第 25 句唱完 / 第 27 句開頭, 沒有任何一支拍到 (2026-11-22 確認)。現在由 hatsu 補, 這裡留著當 hatsu 播不了時的退路" }
+  },
+  "extra": {
+    "nishina-tokyo-marble": [
+      { "v": "ywQUAzp4ikQ", "type": "audio", "title": "東京マーブル【Official Audio】", "views": 940852, "dur": 242,
+        "am": [[4, 35.4], [5, 37.1], [6, 42.06], [7, 46.14], [8, 50.1]], "end": 59.5,
+        "note": "第 4–8 句 shorts 都沒拍到 (hatsu / MUSICK 也沒唱這首); 第 9 句 かき混ぜられていく 59.5s 開始" }
+    ],
+    "nishina-its-a-piece-of-cake": [
+      { "v": "yJQzGwa83Hk", "type": "live", "title": "MUSICK @東京国際フォーラム 2025.4.12", "views": 49701, "dur": 937,
+        "am": [[8, 47.1], [9, 49.52], [10, 53.72], [11, 57.34]], "end": 60.62, "note": "原本用 MV 補的第 8–11 句; 第 12 句 60.6s" },
+      { "v": "yJQzGwa83Hk", "type": "live", "title": "MUSICK @東京国際フォーラム 2025.4.12", "views": 49701, "dur": 937,
+        "am": [[23, 116.56], [24, 119.7], [25, 123.26]], "end": 127.5, "note": "原本用 MV 補的第 23–25 句; 第 26 句 127.5s" }
+    ],
+    "nishina-mashiro": [
+      { "v": "LJD5uIE8ZVw", "type": "live", "title": "hatsu @Zepp Tokyo 2021.6.25", "views": 1009291, "dur": 2870,
+        "am": [[12, 120.3]], "end": 145.74, "note": "原本用 MV 補的第 12 句; 唱到約 127s 後間奏, 第 13 句 145.7s" },
+      { "v": "LJD5uIE8ZVw", "type": "live", "title": "hatsu @Zepp Tokyo 2021.6.25", "views": 1009291, "dur": 2870,
+        "am": [[26, 210.1]], "end": 233.1, "note": "「Oh oh」210.3–217.6s (英文模式 ASR 確認), 之後間奏, 第 27 句 233.1s" }
+    ],
+    "nishina-yakan-hikou": [
+      { "v": "LJD5uIE8ZVw", "type": "live", "title": "hatsu @Zepp Tokyo 2021.6.25", "views": 1009291, "dur": 2870,
+        "am": [[0, 313.82], [1, 319.32], [2, 323.84], [3, 328.28]], "end": 332.72, "note": "第 0–3 句; 第 4 句 332.7s" },
+      { "v": "LJD5uIE8ZVw", "type": "live", "title": "hatsu @Zepp Tokyo 2021.6.25", "views": 1009291, "dur": 2870,
+        "am": [[9, 388.0]], "end": 396.76, "note": "原本用 MV 補的第 9 句; 第 10 句 396.8s" },
+      { "v": "LJD5uIE8ZVw", "type": "live", "title": "hatsu @Zepp Tokyo 2021.6.25", "views": 1009291, "dur": 2870,
+        "am": [[16, 442.14], [17, 449.84]], "end": 458.64, "note": "第 16–17 句; 第 18 句 458.6s" }
+    ],
+    "nishina-yoru-ni-natte": [
+      { "v": "LJD5uIE8ZVw", "type": "live", "title": "hatsu @Zepp Tokyo 2021.6.25", "views": 1009291, "dur": 2870,
+        "am": [[0, 1685.0], [1, 1691.04], [2, 1697.04], [3, 1700.72]], "end": 1708.82, "note": "第 0–3 句; 第 4 句 1708.8s" },
+      { "v": "LJD5uIE8ZVw", "type": "live", "title": "hatsu @Zepp Tokyo 2021.6.25", "views": 1009291, "dur": 2870,
+        "am": [[10, 1742.7], [11, 1757.38], [12, 1763.72], [13, 1769.92], [14, 1775.28]], "end": 1781.4, "note": "第 10–14 句; 第 15 句 1781.4s" }
+    ],
+    "nishina-toumei-na-kuro": [
+      { "v": "LJD5uIE8ZVw", "type": "live", "title": "hatsu @Zepp Tokyo 2021.6.25", "views": 1009291, "dur": 2870,
+        "am": [[0, 1940.9], [1, 1943.6], [2, 1947.38], [3, 1954.1], [4, 1957.26], [5, 1962.4]], "end": 1986.04, "note": "第 0–5 句; 第 6 句 1986.0s" },
+      { "v": "LJD5uIE8ZVw", "type": "live", "title": "hatsu @Zepp Tokyo 2021.6.25", "views": 1009291, "dur": 2870,
+        "am": [[20, 2057.3]], "end": 2072.82, "note": "第 20 句「ダンスフロア」; 間奏後第 21 句 2072.8s" },
+      { "v": "LJD5uIE8ZVw", "type": "live", "title": "hatsu @Zepp Tokyo 2021.6.25", "views": 1009291, "dur": 2870,
+        "am": [[39, 2148.26]], "end": 2169.8, "note": "最後一句「ダンスフロア」+ Oh oh 尾奏, 音樂 2170s 收掉" }
+    ],
+    "nishina-heavy-smoke": [
+      { "v": "LJD5uIE8ZVw", "type": "live", "title": "hatsu @Zepp Tokyo 2021.6.25", "views": 1009291, "dur": 2870,
+        "am": [[3, 2433.12], [4, 2438.88], [5, 2446.44], [6, 2453.38], [7, 2460.5], [8, 2467.12], [9, 2469.0], [10, 2473.44], [11, 2480.74], [12, 2482.8], [13, 2486.62]],
+        "end": 2507.72, "note": "第 3–7 句 (shorts 沒拍到) + 原本用 MV 補的第 8–13 句; 間奏後第 14 句 2507.7s" }
+    ]
   }
 }

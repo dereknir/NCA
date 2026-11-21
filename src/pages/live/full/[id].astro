@@ -21,8 +21,9 @@ const len = `${Math.floor(sum.duration / 60)}:${String(Math.floor(sum.duration %
 <BaseLayout title={`${song.title} 完整 Live`} description={desc} image={`/og/song/${song.id}.png`} width="stage">
   <PageHero slot="hero" planet="deimos" width="stage" title={song.title} titleLang="ja"
     cmd={`./play --full "${song.title}"`} desc={desc}
-    chips={[[String(sum.segs), '段'], [len, '長'], ...(sum.nonLive ? [[String(sum.nonLiveLines), '句用 MV 補'] as [string, string]] : []),
-      ...(sum.skipped.length ? [[String(sum.skipped.length), '句沒人拍到・跳過'] as [string, string]] : [])]}
+    chips={[[String(sum.segs), '段'], [len, '長'], ...(sum.nonLive ? [[String(sum.nonLiveLines), '句用非 live 版本補'] as [string, string]] : []),
+      ...(sum.skipped.length ? [[String(sum.skipped.length), '句沒人拍到・跳過'] as [string, string]] : []),
+      ...(sum.longSegs ? [[String(sum.longSegs), '段用官方長片補'] as [string, string]] : [])]}
     actions={[{ label: '‹ 完整 Live', href: '/live/full/' }, { label: '歌詞翻譯', href: `/translations/${song.id}/` }]} />
   <!-- ?embed=1: N247i 的ワンセグ用 iframe 開這頁, 只留舞台和歌詞; 單鍵跳頁也關掉 (不然在 iframe 裡按 L 會整個跳走) -->
   <script is:inline>if (new URLSearchParams(location.search).has('embed')) { document.documentElement.classList.add('flp-embed'); window.__scrollLockCount = 1; }</script>

@@ -11,12 +11,14 @@ build_full_live.py — 完整 Live 的素材 → src/data/full_live.json
   data/short_durations.json      影片長度 (fetch_short_durations.py), 判斷最後一句有沒有唱完要用
   data/full_live_overrides.json  人工例外: ends = 某支 short 最後一句確認唱完的秒數 (句長估太保守時用)
                                            skip = 確認沒人拍到、可以跳過的句子 (→ songs[].skip)
+                                           extra = 官方長片補段 (→ shorts[] 裡 long: true 的項目)
 寫:
   src/data/full_live.json        { songs: [{ id, title, lines, L, shorts }] }
     L       每句大概多長 (秒): 只用 live 量 (同一支 short 相鄰兩句的時間差取中位數),
             錄音室版速度不同不拿來算; 量不到的句子用整首的中位數
     shorts  live 和其他版本 (MV 等) 都放, 純演奏的不放; am = [[句, 秒], …]
             end = 最後一句唱完的秒數 (只有 overrides 有填的才有)
+            long = 官方長片補段 (overrides 的 extra), 不算進「幾支 shorts」; 句長 L 也只用 shorts 量
 
     python scripts/build_full_live.py
 """
@@ -55,7 +57,7 @@ def main():
     lyrics = {s["id"]: s for s in json.loads(LYRICS.read_text(encoding="utf-8"))["songs"]}
     durs = json.loads(DURS.read_text(encoding="utf-8")) if DURS.exists() else {}
     overrides = json.loads(OVERRIDES.read_text(encoding="utf-8")) if OVERRIDES.exists() else {}
-    ends, skips = overrides.get("ends", {}), overrides.get("skip", {})
+    ends, skips, extras = overrides.get("ends", {}), overrides.get("skip", {}), overrides.get("extra", {})
     used = set()
 
     songs = []
@@ -91,6 +93,15 @@ def main():
                     out["end"] = e["t"]
                     used.add(s["v"])
             shorts_out.append(out)
+        # 官方長片 (完整 live 影片 / Official Audio) 補 shorts 沒拍到的句子: 每塊只標要補的那幾句 + 最後一句唱完的 end,
+        # 免得一支長片把整首都包走 (排段是「一支撐越多句越好」)
+        for b in extras.get(sid, []):
+            am = sorted([l, round(t, 2)] for l, t in b["am"] if 0 <= l < n)
+            if not am or not am[-1][1] < b["end"] or any(am[k][1] >= am[k + 1][1] for k in range(len(am) - 1)):
+                print(f"⚠ overrides extra {sid} {b['v']} 的時間對不上, 略過")
+                continue
+            shorts_out.append({"v": b["v"], "title": b["title"], "views": b.get("views", 0), "dur": b.get("dur"),
+                               "live": b["type"] == "live", "type": b["type"], "am": am, "end": b["end"], "long": True})
         entry = {
             "id": sid,
             "title": song["title"],

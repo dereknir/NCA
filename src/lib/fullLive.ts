@@ -7,12 +7,13 @@
  * 排段: 每一句優先用 live, 一支能撐越多句越好 (一樣長挑觀看數高的);
  *       沒有 live 拍到的句子才用 MV 等其他版本補, 而且一接得回 live 就換回去。
  *   song.skip 裡的句子 (確認沒有任何 short 拍到, 見 overrides) 沒人唱到就直接跳過, 不算缺; 有人拍到還是照排。
+ *   long: true 的是官方長片補段 (shorts 沒拍到的句子才標), 排段時跟 shorts 一樣看待, 只是不算進「幾支 shorts」。
  * 能不能上架: 每句都有人唱到, 而且非 live 的段數不超過總段數 30% 或非 live 的句數不超過總句數 30% (任一成立)。
  *   (只看段數的話, live 段越長、總段數越少, 一兩段 MV 就超標)
  * 素材由 scripts/build_full_live.py 產生 (src/data/full_live.json)。
  */
 
-export interface FLShort { v: string; title: string; views: number; dur: number | null; live: boolean; type: string; am: [number, number][]; end?: number }
+export interface FLShort { v: string; title: string; views: number; dur: number | null; live: boolean; type: string; am: [number, number][]; end?: number; long?: boolean }
 export interface FLSong { id: string; title: string; lines: { ja: string; zh: string }[]; L: number[]; shorts: FLShort[]; skip?: number[] }
 export type FLSeg =
   | { gap: true; from: number; to: number; len: number }
@@ -21,7 +22,7 @@ export type FLSeg =
 
 export const NON_LIVE_MAX = 0.3;
 const PRE = 0.15;                       // 每段從那句開始前多少秒切入 (留一點換氣)
-export const KIND: Record<string, string> = { mv: 'MV', other: '其他版本', tft: 'THE FIRST TAKE', acoustic: '不插電版' };
+export const KIND: Record<string, string> = { mv: 'MV', other: '其他版本', tft: 'THE FIRST TAKE', acoustic: '不插電版', audio: '錄音室版' };
 
 type Prepared = FLShort & { at: Map<number, number>; last: number };
 const prepared = new WeakMap<FLShort, Prepared>();
@@ -83,7 +84,8 @@ export function summary(song: FLSong) {
     segs: real.length,
     nonLive: nonLive.length,
     nonLiveLines,
-    liveShorts: song.shorts.filter(s => s.live).length,
+    liveShorts: song.shorts.filter(s => s.live && !s.long).length,
+    longSegs: real.filter(s => song.shorts.some(x => x.long && x.v === s.v)).length,
     missing,
     duration: segs.reduce((a, s) => a + (s.gap ? s.len : s.end - s.start), 0),
     complete: missing.length === 0 && real.length > 0
