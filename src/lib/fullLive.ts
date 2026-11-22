@@ -113,9 +113,11 @@ function endOf(s: Prepared, l: number, L: number[], n: number): number | null {
   return final ? Math.min(dur, t + L[l] * 1.5 + 2) : t + L[l];   // 沒量過: 最後一句多留一點 (後面沒有別句, 不怕重疊)
 }
 
-/** 下一段還沒開始播時, 這段最多能多播到哪: 只有「影片裡後面沒有下一句」才能多播 */
+/** 下一段還沒開始播時, 這段最多能多播到哪: 只有「影片裡後面沒有下一句」才能多播
+ *  (人工切點 / 人聲一路唱到影片結束的不准: 切點後面可能還有人聲) */
 function safeOf(s: Prepared, l: number, end: number, n: number): number {
-  if (l === n - 1 || (l === s.last && !s.long && s.vt && s.vt[0] === l && s.vt[2] == null)) return Math.max(end, s.dur ?? end);
+  if (l === n - 1 || (l === s.last && !s.long && s.vt && s.vt[0] === l && s.vt[2] == null && !s.cout.has(l) && !s.vt[3]))
+    return Math.max(end, s.dur ?? end);
   return end;
 }
 
@@ -124,8 +126,8 @@ function sungOf(s: Prepared, l: number, end: number, L: number[]): number | unde
   const t = s.at.get(l)!;
   if (s.cout.has(l) || s.long) return undefined;                          // 人工切點 / 長片: 不知道唱到哪
   if (l === s.last && s.end != null && s.end > t) return Math.min(end, s.end);   // 人工確認過唱完的時間
-  if (l === s.last && s.vt && s.vt[0] === l)                              // 最後一句的 vt 會把唱完後的觀眾聲 / MC 也算進去 → 用句長封頂
-    return Math.min(end, s.vt[1], (onsetOf(s, l)?.[0] ?? t) + 2.5 * L[l]);
+  if (l === s.last && s.vt && s.vt[0] === l)                              // live 最後一句的 vt 會把唱完後的觀眾聲 / MC 也算進去 → 用句長封頂
+    return Math.min(end, s.vt[1], s.live ? (onsetOf(s, l)?.[0] ?? t) + 2.5 * L[l] : Infinity);
   return Math.min(end, t + L[l]);                                          // 沒量過: 句長估
 }
 

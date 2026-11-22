@@ -100,8 +100,9 @@ const { song } = Astro.props;
   .flp-seam::after { content: ''; position: absolute; left: 16px; right: 35%; top: 12px; height: 2px; opacity: .55;
     background: repeating-linear-gradient(90deg, var(--c) 0 6px, transparent 6px 12px);
     -webkit-mask-image: linear-gradient(90deg, #000, transparent); mask-image: linear-gradient(90deg, #000, transparent); }
-  .flp-seam > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .flp-seam.first { display: none; }
+  .flp-seam > span, .flp-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .flp-seam.first { height: 0; margin: 0; }              /* 第 1 段: 寬版不畫記號, 文字留給螢幕閱讀器 */
+  .flp-seam.first::before, .flp-seam.first::after { display: none; }
   .flp-kind { font-style: normal; color: #0a0a15; background: var(--sh-ink2); padding: 0 6px; letter-spacing: .04em; }
 
   .flp-list { height: var(--flp-h); overflow: auto; display: flex; flex-direction: column; gap: 8px; padding-left: 2px; }
@@ -142,6 +143,7 @@ const { song } = Astro.props;
   .flp-embed .flp-lyr { display: block !important; height: calc(var(--flp-h) + 48px) !important; }
   .flp-embed .flp-lyr-in { padding: 40vh 0 !important; }
   .flp-embed .flp-seam { display: flex; align-items: center; gap: 10px; height: auto; min-height: 26px; padding-left: 16px; }
+  .flp-embed .flp-seam.first::before, .flp-embed .flp-seam.first::after { display: block; }
   .flp-embed .flp-seam::after { position: static; flex: 1 1 24px; min-width: 24px; }
   .flp-embed .flp-seam > span { position: static; width: auto; height: auto; clip-path: none; text-overflow: ellipsis; max-width: 80%;
     font: 12px var(--sh-px); color: var(--c); letter-spacing: .04em; }
@@ -159,6 +161,7 @@ const { song } = Astro.props;
     .flp-list { display: none; }
     /* 右邊清單藏起來了: 換段記號旁顯示這段的影片名稱 / 觀看數 */
     .flp-seam, .flp-seam.first { display: flex; align-items: center; gap: 10px; height: auto; min-height: 26px; padding-left: 16px; }
+    .flp-seam.first::before, .flp-seam.first::after { display: block; }
     .flp-seam::after { position: static; flex: 1 1 24px; min-width: 24px; }
     .flp-seam > span { position: static; width: auto; height: auto; clip-path: none; text-overflow: ellipsis; max-width: 80%;
       font: 12px var(--sh-px); color: var(--c); letter-spacing: .04em; }
@@ -184,7 +187,7 @@ const { song } = Astro.props;
   type Player = {
     loadVideoById(o: { videoId: string; startSeconds: number }): void; playVideo(): void; pauseVideo(): void;
     seekTo(s: number, a?: boolean): void; getCurrentTime(): number | undefined; getPlayerState(): number | undefined;
-    mute(): void; unMute(): void; setVolume(v: number): void;
+    getDuration(): number | undefined; mute(): void; unMute(): void; setVolume(v: number): void;
   };
 
   const Q = new URLSearchParams(location.search), MOCK = Q.has('mock'), SPEED = MOCK ? +(Q.get('speed') || 1) : 1;
@@ -209,7 +212,9 @@ const { song } = Astro.props;
    *   load* 一呼叫, getCurrentTime() / getPlayerState() 先變 undefined (widget 清空快取), 0.4 秒後才開播; 剛載入時下的暫停壓不住
    *   從暫停 playVideo(): 聲音 10 ms 就出來, 但 0.27 秒後才回報 1 (Chrome 等第一個 timeupdate), 這段 getCurrentTime() 停住
    *   unMute() 會把音量拉到至少 5
-   * &speed=N 快轉 / &fail=<videoId> 載入 0.3 秒後 onError / &fastresume 恢復播放馬上回報 1 (Firefox)
+   * &speed=N 快轉 / &fail=<videoId> 載入 0.3 秒後 onError / &fastresume 恢復播放馬上回報 1 (Firefox) / &load=<ms> 載入多久
+   * &short=<秒> 影片實際比資料的 dur 短 / &loopend 片尾自己跳回開頭 (嵌入的 Shorts, 不報 ENDED) / &nodur getDuration() 讀不到
+   * &stuck=<videoId> 載入後一直停在 -1、也不報錯
    * &ios 音量鎖住 + 同時只准一支有聲音 (iPhone) / &block 沒在點擊裡碰過的播放器不准有聲播放 (Safari)
    * window.__flpMock.probe() 讀得到每支「真正」播到哪、實際音量多少 */
   type Mock = Player & { probe(): { v: string; t: number; on: boolean; vol: number } };
@@ -228,9 +233,12 @@ const { song } = Astro.props;
     const locked = () => BLOCK && !unlocked && !gesture;
     const halt = () => { pos = cur(); on = false; hush(); tell(2, 5); };
     const solo = () => { if (IOS && on && !muted) peers.forEach(o => { const x = o.probe(); if (o !== api && x.on && x.vol > 0) o.pauseVideo(); }); };
+    const len = () => durOf(vid) - +(Q.get('short') || 0);
     setInterval(() => {                                   // 播到片尾 / 每 250 ms 回報一次時間 (timeupdate)
-      if (on && cur() >= durOf(vid)) { pos = durOf(vid); on = false; hush(); info = { st: 0, ct: pos, at: now() }; }
-      else if (on && info.st === 1 && now() - (info.at ?? 0) >= 250 / SPEED) info = { st: 1, ct: cur(), at: now() };
+      if (on && cur() >= len()) {
+        if (Q.has('loopend')) { pos = 0; at = now(); }
+        else { pos = len(); on = false; hush(); info = { st: 0, ct: pos, at: now() }; }
+      } else if (on && info.st === 1 && now() - (info.at ?? 0) >= 250 / SPEED) info = { st: 1, ct: cur(), at: now() };
     }, 20);
     const api: Mock = {
       loadVideoById({ videoId, startSeconds }) {
@@ -238,11 +246,12 @@ const { song } = Astro.props;
         vid = videoId; pos = startSeconds || 0; on = false; info = {};
         el.style.backgroundImage = `url(https://i.ytimg.com/vi/${vid}/hqdefault.jpg)`;
         tell(-1, 30);
+        if (Q.get('stuck') === videoId) { loading = -1; return; }   // 一直卡在 -1, 也不報錯
         loading = wait(() => {
           loading = 0;
           if (!muted && locked()) return ev.blocked(api);
           on = true; at = now(); info = { st: 1, ct: pos, at: now() }; solo();
-        }, 400);
+        }, +(Q.get('load') || 400));
         if (Q.get('fail') === videoId) wait(() => ev.error(api), 300);
       },
       playVideo() {
@@ -256,6 +265,7 @@ const { song } = Astro.props;
       seekTo(s) { touch(); pos = s; at = now() + (on ? 10 / SPEED : 0); tell(on ? 1 : info.st == null || info.st === -1 ? -1 : 2, 10); },
       getCurrentTime: () => info.ct == null ? undefined : info.ct + (info.st === 1 ? Math.min(1, (now() - info.at!) / 1000 * SPEED) : 0),
       getPlayerState: () => info.st,
+      getDuration: () => vid && !Q.has('nodur') ? len() : undefined,
       mute() { touch(); muted = true; },
       unMute() {
         touch(); muted = false; vol = Math.max(5, vol);
@@ -275,15 +285,16 @@ const { song } = Astro.props;
     const osdL = q('[data-osd-l]'), osdR = q('[data-osd-r]'), osdBig = q('[data-osd-big]'), nosig = q('[data-nosig]');
     const plEls = [...root.querySelectorAll<HTMLElement>('[data-pl]')];
 
-    // pre = 背景預載的下一段: parked = 已經緩衝好、停在切入點; fired = 按下播放的時間 (0 = 還沒);
+    // pre = 背景預載的下一段: parked = 已經緩衝好、停在切入點 (parkedAt = 停好的時間); fired = 按下播放的時間 (0 = 還沒);
     //       vol = 它現在的音量; oe = 按了之後上一段淡完的時間 (上一段的時間軸)
     let segs: Seg[] = [], bad = new Set<string>(), k = -1, act = 0;
-    let pre: { n: number; p: number; v: string; parked: boolean; fired: number; vol?: number; oe?: number } | null = null;
+    let pre: { n: number; p: number; v: string; parked: boolean; parkedAt?: number; fired: number; vol?: number; oe?: number } | null = null;
     let out: { p: number; end: number; v: number } | null = null;    // 交叉淡化中、正在淡出的上一段 (v = 交棒時的音量, 淡出不會回升)
     // kick[i] = 剛對停住的第 i 支按了播放 (見 pos()): st0 = 按的當下回報的狀態, ack = 之後狀態變過 (播放器收到了), m = 拿來量 lat
     const kick: ({ at: number; from: number; m: boolean; st0?: number; ack: boolean } | null)[] = [null, null];
+    const lastT = [NaN, NaN];                              // 每支上一拍的時間 (抓影片自己跳回開頭)
     let lat = 0.06, fireTimer = 0;                         // lat = 按播放到真的出聲的延遲 (實測, 決定要提早多少按)
-    let paused = false, lost = false, gate = 0, seen = { t: NaN, at: 0 };
+    let paused = false, lost = false, tapped = false, gate: number | null = null, seen = { t: NaN, at: 0 };
     let gapT0 = 0, gapAt = 0, durs: number[] = [], curLine = -2, vol = -1;
     let players: Player[] = [], ready: Promise<void> = Promise.resolve(), isReady = MOCK;
     const segDur = (s: FLSeg) => s.gap ? s.len : s.end - s.start;
@@ -293,7 +304,19 @@ const { song } = Astro.props;
     const fadeIn = (s: RealSeg, t: number) => { const f = finOf(s); return f <= 0.03 ? (t >= s.start - 0.02 ? 1 : 0) : (t - s.start) / f; };
     const overlapOf = (s: RealSeg) => volLocked ? 0 : Math.min(XF, Math.max(0, s.cues[0][1] - s.start - 0.03));
     const level = (x: number) => Math.round(100 * Math.max(0, Math.min(1, x)));
-    const AHEAD = 0.025 * SPEED;   // 音量每 25 ms (計時器一拍) 才調一次: 照下一拍的位置算, 淡出才會在切點前真的到 0
+    let ahead = 0.025 * SPEED;     // 音量一拍 (~25 ms) 才調一次: 照下一拍的位置算, 淡出才會在切點前真的到 0 (拍子變粗就看更遠)
+
+    // 影片實際長度常比資料的 dur 短 0.02–0.5 秒 (嵌入的 Shorts 還會在片尾前自己跳回開頭, 不報 ENDED): 用播放器回報的長度封頂
+    function clip(i: number, s: RealSeg) {
+      const D = players[i].getDuration?.(), M = D && D > s.start + 1 ? D - 0.1 : Infinity;
+      return { end: Math.min(s.end, M), safe: Math.min(s.safe, M) };
+    }
+    /** 丟掉預載 (已經按了播放的那支還在出聲, 要先停) */
+    function dropPre() {
+      if (!pre) return;
+      try { players[pre.p].pauseVideo(); players[pre.p].mute(); } catch (e) {}
+      kick[pre.p] = null; pre = null;
+    }
 
     /* ---------- 播放器 ---------- */
     function onPlayerError(p: Player) {
@@ -304,7 +327,7 @@ const { song } = Astro.props;
       }
       // 背景預載的下一段出錯: 現在就換人, 不要等切過去才卡住
       if (pre && players[pre.p] === p) {
-        bad.add(pre.v); pre = null;
+        bad.add(pre.v); dropPre();
         build([...segs.slice(0, k + 1), ...plan(song, bad, segs[k].to + 1)]);
         mark(k);
       }
@@ -315,8 +338,9 @@ const { song } = Astro.props;
     if (MOCK) {
       const mocks: Mock[] = [], durOf = (v: string) => song.shorts.find(x => x.v === v)?.dur ?? 1e9;
       players = plEls.map(el => { const m = mockPlayer(el.firstElementChild as HTMLElement, mocks, durOf, { error: onPlayerError, blocked: onBlocked }); mocks.push(m); return m; });
-      (window as any).__flpMock = { probe: () => mocks.map(m => m.probe()), segs: () => segs, state: () => ({ k, act, lat, paused }),
-        sysPause: () => mocks[act].pauseVideo() };          // 模擬系統 / 瀏覽器在背後把播放器暫停 (看門狗測試)
+      (window as any).__flpMock = { probe: () => mocks.map(m => m.probe()), segs: () => segs,
+        state: () => ({ k, act, lat, paused, worker: !!tw, pre: pre && { n: pre.n, parked: pre.parked, fired: !!pre.fired } }),
+        sysPause: () => mocks[act].pauseVideo(), sysPlay: () => mocks[act].playVideo() };   // 模擬系統 / 媒體鍵在背後暫停 / 播放
     } else ready = new Promise(res => {
       const make = () => {
         let n = 0;
@@ -341,7 +365,8 @@ const { song } = Astro.props;
       if (st !== r.st0) r.ack = true;                      // 按之前的舊狀態 (例如還沒送到的回報) 不算數
       if (!r.ack || (st !== 1 && st !== 3)) return t;      // 還沒回應 / 被擋住: 不推算
       if (st === 1 && t > r.from + 0.005) {
-        if (r.m) lat = Math.min(0.6, Math.max(0.02, lat * 0.6 + Math.min(d - (t - r.from), lat + XF) * 0.4));   // 單次慢啟動最多拉高 XF
+        // 量 lat: 太早回報 1 的 (影片開頭附近常見, API 時間跑在聲音前面) 不準, 不取樣; 單次慢啟動最多拉高 XF
+        if (r.m && d >= 0.15) lat = Math.min(0.6, Math.max(0.02, lat * 0.6 + Math.max(0.02, Math.min(d - (t - r.from), lat + XF)) * 0.4));
         kick[i] = null;
         return t;
       }
@@ -369,15 +394,23 @@ const { song } = Astro.props;
     // 播不出聲 (Safari 擋下不是點擊開始的有聲播放 / 被系統暫停): 停下來請使用者點一下, 點擊裡的播放會解鎖
     function needTap() {
       if (paused || k < 0) return;
-      setPaused(true);
+      setPaused(true); tapped = true;
       startLabel('▶ 點一下繼續', ''); startBtn.dataset.resume = '1'; startBtn.hidden = false;
     }
-    // 看門狗: 這段一直沒往前走 — 被暫停 (2) / 一直沒開始 (-1 / 5 / 讀不到) 就請使用者點一下; 緩衝中 (3) 就等
-    function watchdog(st: number | undefined, t: number) {
+    // 看門狗被觸發後, 使用者用媒體鍵 / 耳機 / 系統控制在外面恢復了播放: 跟著繼續 (不要再把它停掉)
+    function externalResume() {
+      delete startBtn.dataset.resume; startBtn.hidden = true;
+      paused = false; playBtn.textContent = '⏸ 暫停'; seen = { t: NaN, at: performance.now() };
+    }
+    // 看門狗: 這段一直沒往前走 — 被暫停 (2) 1.5 秒就請使用者點一下; 一直沒開始 (-1 / 5 / 讀不到) 等 12 秒
+    // (真的 YouTube 慢網路冷載入會停在 -1 五到八秒; 被擋主要靠 onAutoplayBlocked), 點過還是不動就當成這支壞了, 換別支; 緩衝中 (3) 就等
+    function watchdog(st: number | undefined, t: number): boolean {   // true = 動了狀態 (這一拍別再往下做)
       const now = performance.now();
-      if (t !== seen.t) { seen = { t, at: now }; return; }
+      if (t !== seen.t) { if (Number.isFinite(seen.t)) tapped = false; seen = { t, at: now }; return false; }
       const idle = (now - seen.at) / 1000 * SPEED;
-      if ((st === 2 && idle > 1.5) || ((st === -1 || st === 5 || st == null) && idle > 4)) needTap();
+      if (st === 2 && idle > 1.5) { needTap(); return true; }
+      if ((st === -1 || st === 5 || st == null) && idle > 12) { if (tapped) recover(); else needTap(); return true; }
+      return false;
     }
     function startLabel(big: string, small: string) { startBtn.firstElementChild!.innerHTML = `<span>${big}</span>${small}`; }
 
@@ -409,8 +442,8 @@ const { song } = Astro.props;
         if (!s) return `<div class="flp-ln skip" data-l="${l}"><span class="ja" lang="ja">${esc(ln.ja)}</span><span class="zh">${esc(ln.zh)}</span></div>`;
         // 換段記號: 剪接點 (純視覺); 名稱 / 觀看數寬版只給螢幕閱讀器 (右邊清單有), 清單看不到的版面才顯示 (見 CSS)
         const part = s.from === l && !s.gap
-          ? `<div class="flp-seam${n ? '' : ' first'}" style="--c:${s.color}"><span>${s.live ? '' : `<em class="flp-kind">${s.kind}</em> `}`
-            + `<span lang="ja">${esc(s.title)}</span> <i>${views(s.views)}</i></span></div>` : '';
+          ? `<div class="flp-seam${n ? '' : ' first'}" style="--c:${s.color}"><span><b class="flp-sr">第 ${n + 1} 段・</b>`
+            + `${s.live ? '' : `<em class="flp-kind">${s.kind}</em> `}<span lang="ja">${esc(s.title)}</span> <i>${views(s.views)}</i></span></div>` : '';
         return part + `<div class="flp-ln${s.gap ? ' gap' : ''}" data-l="${l}" data-n="${n}" style="--c:${s.gap ? '#243154' : s.color}">`
           + `<span class="ja" lang="ja">${esc(ln.ja)}</span><span class="zh">${esc(ln.zh)}</span></div>`;
       }).join('');
@@ -455,7 +488,7 @@ const { song } = Astro.props;
       if (out) { try { players[out.p].pauseVideo(); players[out.p].mute(); } catch (e) {} kick[out.p] = null; out = null; }
     }
     function stopAll() {
-      clearTimeout(fireTimer); fireTimer = 0; stopFade(); gate = 0;
+      clearTimeout(fireTimer); fireTimer = 0; stopFade(); gate = null;
       players.forEach((p, i) => { try { p.pauseVideo(); } catch (e) {} kick[i] = null; });
       pre = null; plEls.forEach(e => e.classList.remove('on')); nosig.classList.remove('on');
     }
@@ -463,7 +496,7 @@ const { song } = Astro.props;
     /** 畫面 / 狀態切到第 n 段 (聲音由呼叫的地方負責) */
     function show(n: number) {
       const s = segs[n];
-      k = n; seen = { t: NaN, at: performance.now() };
+      k = n; seen = { t: NaN, at: performance.now() }; tapped = false;
       root.style.setProperty('--glow', hex2rgb(s.gap ? '#6f7a99' : s.color));
       glitch(s.gap ? 'NO SIGNAL' : s.live ? `CAM ${String(n + 1).padStart(2, '0')}` : s.kind);
       osdR.textContent = `${n + 1} / ${segs.length}`;
@@ -484,18 +517,16 @@ const { song } = Astro.props;
     /** 直接跳到第 n 段 (開始播放 / 手動跳段 / 下一段來不及接上時的退路) */
     function go(n: number) {
       if (n < 0 || n >= segs.length) return finish();
-      clearTimeout(fireTimer); fireTimer = 0; stopFade(); lost = false; gate = 0;
+      clearTimeout(fireTimer); fireTimer = 0; stopFade(); lost = false; gate = null;
       const s = segs[n], prevAct = act;
-      if (pre && (s.gap || pre.n !== n || pre.v !== s.v)) {    // 用不到的預載 (手動跳段): 停掉, 按了播放的那支還在出聲
-        try { players[pre.p].pauseVideo(); players[pre.p].mute(); } catch (e) {}
-        kick[pre.p] = null; pre = null;
-      }
+      if (pre && (s.gap || pre.n !== n || pre.v !== s.v)) dropPre();   // 用不到的預載 (手動跳段): 停掉, 按了播放的那支還在出聲
       if (s.gap) {
         players[prevAct].pauseVideo(); kick[prevAct] = null;
         return show(n);
       }
       const usePre = !!pre && pre.n === n && pre.v === s.v;
       const nextAct = usePre ? pre!.p : (prevAct + 1) % 2, p = players[nextAct];
+      lastT[nextAct] = NaN;
       if (!usePre) {
         kick[nextAct] = null;
         p.loadVideoById({ videoId: s.v, startSeconds: s.start });
@@ -503,7 +534,7 @@ const { song } = Astro.props;
       } else if (pre!.fired) {
         vol = -1;                                          // 已經按了播放 (正在 / 馬上出聲): 不再動它, 下一拍照它的時間設音量
       } else if (pre!.parked) {
-        vol = play(nextAct, s, true);
+        vol = play(nextAct, s, performance.now() - (pre!.parkedAt ?? 0) > 300);   // 剛停好 (seek 還沒完) 的不拿來量 lat
       } else {
         // 還在載入 (靜音、從 start−0.3 附近開播): 位置偏太多才拉回 (seek 會重新緩衝); 到切入點才取消靜音 (iPhone 不能用音量壓)
         const t = p.getCurrentTime();
@@ -518,22 +549,33 @@ const { song } = Astro.props;
     /** 下一段出聲了: 畫面切過去, 上一段交給 out 照原本的斜線淡完 */
     function commit() {
       const n = pre!.n, np = pre!.p, ns = segs[n] as RealSeg, pre0vol = pre!.vol ?? 0;
-      out = { p: act, end: pre!.oe ?? (segs[k] as RealSeg).end, v: vol < 0 ? 100 : vol };
+      out = { p: act, end: pre!.oe ?? clip(act, segs[k] as RealSeg).end, v: vol < 0 ? 100 : vol };
       act = np; pre = null;
-      players[np].setVolume(vol = Math.max(pre0vol, level(fadeIn(ns, (pos(np) ?? ns.start) + AHEAD))));
+      players[np].setVolume(vol = Math.max(pre0vol, level(fadeIn(ns, (pos(np) ?? ns.start) + ahead))));
+      fadeOut();                                           // 上一段這一拍也要照斜線降, 不要停一拍
       show(n);
+    }
+    /** 上一段 (out) 的淡出: 照 out.end 淡完 (不比交棒時大聲) 就停; 它已經沒在播 (iPhone 同時只准一支出聲, 系統會暫停它)、
+     *  或自己跳回開頭 (嵌入的 Shorts 片尾循環) 也停 */
+    function fadeOut() {
+      if (!out) return;
+      const op = players[out.p], ot = pos(out.p) ?? out.end, ost = op.getPlayerState(), lt = lastT[out.p];
+      lastT[out.p] = ot;
+      const ov = Math.min(out.v, level((out.end - ot - ahead) / XF));
+      op.setVolume(ov);
+      if (ov === 0 || ot >= out.end || (ost !== 1 && ost !== 3) || ot < lt - 1) stopFade();
     }
 
     /** 按下一段的播放; t = 這段現在的時間 */
     function fire(t: number) {
       if (!pre || pre.fired || !pre.parked) return;
-      const s = segs[k] as RealSeg, ns = segs[pre.n] as RealSeg;
-      pre.vol = play(pre.p, ns, true);
+      const s = clip(act, segs[k] as RealSeg), ns = segs[pre.n] as RealSeg;
+      pre.vol = play(pre.p, ns, performance.now() - (pre.parkedAt ?? 0) > 300);   // 剛停好 (seek 還沒完) 的不拿來量 lat
       pre.fired = performance.now();
-      // 這段淡完的時間 (它自己的時間軸): 準時按就是 end; 晚按 (預載太慢, 已經在 HOLD 裡) 等新段出聲、
-      // 至少再淡 FADE 秒, 但不超過 safe / end + HOLD (不會播到下一句)
+      // 這段淡完的時間 (它自己的時間軸): 準時按、或已經在淡了 → 照原來的斜線淡到 end;
+      // 還在全音量的晚按 (預載太慢, 已經在 HOLD 裡) → 等新段出聲、至少再淡 FADE 秒, 但不超過 safe / end + HOLD (不會播到下一句)
       const due = t + lat + overlapOf(ns);
-      pre.oe = Math.min(s.safe, s.end + HOLD, due <= s.end + 0.01 ? s.end : Math.max(due, t + FADE));
+      pre.oe = Math.min(s.safe, s.end + HOLD, (vol >= 0 && vol < 100) || due <= s.end + 0.01 ? s.end : Math.max(due, t + FADE));
     }
 
     // 正在播的那支播不了: 排除它, 從當下這句重新挑, 不整段跳過
@@ -545,14 +587,14 @@ const { song } = Astro.props;
       const head: FLSeg[] = segs.slice(0, k);
       if (line > s.from) { const e = s.cues.find(c => c[0] === line)![1] - .05; head.push({ ...s, to: line - 1, end: e, safe: e, sung: undefined }); }
       build([...head, ...plan(song, bad, line)]);
-      pre = null; go(head.length);
+      dropPre(); go(head.length);
     }
 
     function preroll(n: number) {
       const s = segs[n];
       if (!s || s.gap || (pre && pre.n === n) || out) return;   // 上一段還在淡出時先別動那個播放器
       const pi = (act + 1) % 2, p = players[pi];
-      p.mute(); p.setVolume(0); kick[pi] = null;
+      p.mute(); p.setVolume(0); kick[pi] = null; lastT[pi] = NaN;
       p.loadVideoById({ videoId: s.v, startSeconds: Math.max(0, s.start - 0.3) });
       pre = { n, p: pi, v: s.v, parked: false, fired: 0 };
     }
@@ -590,34 +632,39 @@ const { song } = Astro.props;
       else {
         const t = pos(act) ?? s.start;
         // 離切點不到 0.4 秒就不恢復這段 (Chrome 恢復後 ~0.27 秒時間不動, 會播過頭到下一句), 直接接下一段
-        if (segs[k + 1] && s.end - t < 0.4) go(k + 1);
+        if (segs[k + 1] && clip(act, s).end - t < 0.4) go(k + 1);
         else kickOff(act, t, false);
       }
       unlock(act);
     }
 
-    const timer = setInterval(() => {
-      if (!root.isConnected) return clearInterval(timer);
-      // 沒在用的播放器自己播起來了 (剛載入時下的暫停常常壓不住): 停掉
+    /* 計時器 (~25 ms 一拍): 拍子由 Worker 打 — macOS Safari 的分頁在背景 / 視窗被遮住時, 主執行緒的計時器
+     * 會被對齊到 1 秒一拍 (有聲也一樣), 換段就會亂掉; Worker 的計時器和它傳回來的訊息不受影響。
+     * Worker 起不來 (或被擋) 才由主執行緒的計時器補 */
+    let lastTick = 0;
+    function tick() {
+      const now = performance.now();
+      ahead = Math.min(1, Math.max(0.025, lastTick ? (now - lastTick) / 1000 : 0.025)) * SPEED;
+      lastTick = now;
+      if (!isReady) return;                                 // YouTube 播放器還沒準備好 (方法還沒掛上)
+      // 沒在用的播放器自己播起來了 (剛載入時下的暫停常常壓不住): 停掉 —
+      // 但看門狗停下來 (點一下繼續) 之後, 使用者用媒體鍵 / 耳機 / 系統控制在外面恢復的, 就跟著繼續
       players.forEach((pl, i) => {
-        const used = k >= 0 && ((i === act && !paused && !segs[k].gap) || pre?.p === i || out?.p === i);
-        if (!used && pl.getPlayerState() === 1) pl.pauseVideo();
+        if (pl.getPlayerState() !== 1) return;
+        if (k >= 0 && ((i === act && !paused && !segs[k].gap) || pre?.p === i || out?.p === i)) return;
+        if (k >= 0 && paused && i === act && !segs[k].gap && startBtn.dataset.resume) return externalResume();
+        pl.pauseVideo();
       });
       if (k < 0) return;
       // 預載的下一段播起來了 → 暫停、倒回切入點等 (暫停中也要做, 不然它會在背景一路播到片尾)
       let parkedNow = false;
       if (pre && !pre.parked && !pre.fired && players[pre.p].getPlayerState() === 1) {
         const pp = players[pre.p];
-        pp.pauseVideo(); pp.seekTo((segs[pre.n] as RealSeg).start, true); pre.parked = parkedNow = true;
+        pp.pauseVideo(); pp.seekTo((segs[pre.n] as RealSeg).start, true);
+        pre.parked = parkedNow = true; pre.parkedAt = now; lastT[pre.p] = NaN;
       }
       if (paused) return;
-      // 上一段在交叉淡化: 照 out.end 淡完 (不比交棒時大聲) 就停; 它已經沒在播 (iPhone 同時只准一支出聲, 系統會暫停它) 也停
-      if (out) {
-        const op = players[out.p], ot = pos(out.p) ?? out.end, ost = op.getPlayerState();
-        const ov = Math.min(out.v, level((out.end - ot - AHEAD) / XF));
-        op.setVolume(ov);
-        if (ov === 0 || ot >= out.end || (ost !== 1 && ost !== 3)) stopFade();
-      }
+      fadeOut();                                            // 上一段在交叉淡化
       const s = segs[k];
       let into: number;
       if (s.gap) {
@@ -629,19 +676,24 @@ const { song } = Astro.props;
       } else {
         const p = players[act], t = pos(act), st = p.getPlayerState();
         if (t == null || !Number.isFinite(t)) return;     // 剛 loadVideoById: widget 先把狀態清空, iframe 回報前讀不到時間
-        watchdog(st, t);
-        if (paused) return;
+        const lt = lastT[act]; lastT[act] = t;
+        if (t < lt - 1) {                                 // 影片自己跳回開頭 (嵌入的 Shorts 片尾會循環, 不報 ENDED): 當成播完
+          root.dispatchEvent(new CustomEvent('flp:cut', { detail: { seg: k, at: lt, end: s.end } }));
+          return go(k + 1);
+        }
+        if (watchdog(st, t) || paused) return;
         into = Math.max(0, t - s.start);
-        if (gate && t >= gate - 0.01) { p.unMute(); gate = 0; vol = -1; }   // 還在載入時接手的: 到切入點才出聲
+        if (gate !== null && t >= gate - 0.01) { p.unMute(); gate = null; vol = -1; }   // 還在載入時接手的: 到切入點才出聲
         let l = s.from;
         for (const [line, ct] of s.cues) if (t >= ct - .1) l = line;
         setLine(l);
         root.dispatchEvent(new CustomEvent('flp:line', { detail: l }));
-        if (t >= s.end - LEAD) preroll(k + 1);
+        const c = clip(act, s);                            // 切點用影片實際長度封頂
+        if (t >= c.end - LEAD) preroll(k + 1);
         const nx = segs[k + 1], mine = !!pre && pre.n === k + 1 && !!nx && !nx.gap;
         // 提早 lat + 重疊 按下一段的播放; 快到了就用 setTimeout 對準, 不等下一次計時器
         if (mine && pre!.parked && !pre!.fired && !parkedNow) {
-          const fireAt = s.end - lat - overlapOf(nx as RealSeg);
+          const fireAt = c.end - lat - overlapOf(nx as RealSeg);
           if (t >= fireAt) fire(t);
           else if (!fireTimer && fireAt - t < 0.08) fireTimer = window.setTimeout(() => {
             fireTimer = 0; if (pre && pre.n === k + 1 && !paused) fire(pos(act) ?? fireAt);
@@ -656,14 +708,18 @@ const { song } = Astro.props;
             return commit();
           }
           // 還沒交棒前就照它自己的時間淡入 (起音前的換氣)
-          const nv = level(fadeIn(ns, npos + AHEAD));
+          const nv = level(fadeIn(ns, npos + ahead));
           if (nv > (pre!.vol ?? 0)) { pre!.vol = nv; np.setVolume(nv); }
         }
-        // 下一段已經按了播放: 這段淡到 oe; 還沒準備好: 最多多播到 safe / end + HOLD (之後就是下一句了); 沒有下一段要接: 照 end
-        const limit = mine && pre!.fired ? pre!.oe! : nx && !nx.gap ? Math.min(s.safe, s.end + HOLD) : s.end;
+        // 這段淡到哪: 下一段已經按了播放 → oe; 已經停好等著 → 照一般換段在 end 前淡完 (換過去不會讓音量突然掉一截才換);
+        // 還沒準備好 → 最多多播到 safe / end + HOLD (之後就是下一句了); 沒有下一段要接 → end
+        const fired = mine && !!pre!.fired;
+        const ready2 = mine && pre!.parked && !parkedNow && ((vol >= 0 && vol < 100) || c.end - t - ahead >= FADE);
+        const limit = fired ? pre!.oe! : ready2 ? c.end : nx && !nx.gap ? Math.min(c.safe, c.end + HOLD) : c.end;
         // 最後一段只淡人聲唱完後的尾巴 (影片唱完就結束的只留 FADE 防喀聲)
-        const fo = k === segs.length - 1 ? Math.min(FADE_END, Math.max(FADE, s.end - (s.sung ?? s.end - FADE_END))) : FADE;
-        const v = level(Math.min(fadeIn(s, t + AHEAD), (limit - t - AHEAD) / fo));
+        const fo = k === segs.length - 1 ? Math.min(FADE_END, Math.max(FADE, c.end - Math.min(s.sung ?? c.end - FADE_END, c.end))) : FADE;
+        let v = level(Math.min(fadeIn(s, t + ahead), (limit - t - ahead) / fo));
+        if (fired && vol >= 0) v = Math.min(v, vol);       // 下一段按了播放之後, 這段只會越來越小聲
         if (v !== vol) { vol = v; p.setVolume(v); }
         if (t >= limit || st === 0) {
           root.dispatchEvent(new CustomEvent('flp:cut', { detail: { seg: k, at: t, end: s.end } }));
@@ -674,6 +730,16 @@ const { song } = Astro.props;
       const seg = root.querySelectorAll<HTMLElement>('.flp-seg')[k];
       seg.querySelector<HTMLElement>('.fill')!.style.width = Math.min(100, into / durs[k] * 100) + '%';
       q('[data-head]').style.left = (seg.offsetLeft + seg.offsetWidth * Math.min(1, into / durs[k])) + 'px';
+    }
+    let tw: Worker | null = null, lastWorker = 0;
+    try {
+      tw = new Worker(URL.createObjectURL(new Blob(['setInterval(() => postMessage(0), 25)'], { type: 'text/javascript' })));
+      tw.onmessage = () => { if (!root.isConnected) { tw?.terminate(); tw = null; return; } lastWorker = performance.now(); tick(); };
+      tw.onerror = () => { tw?.terminate(); tw = null; };
+    } catch (e) { tw = null; }
+    const timer = setInterval(() => {
+      if (!root.isConnected) { clearInterval(timer); tw?.terminate(); return; }
+      if (performance.now() - lastWorker > 60) tick();     // Worker 沒在打拍子才由這裡補
     }, 25);
 
     /* ---------- 操作 (都在點擊的同步流程裡做, Safari 才會把播放器解鎖) ---------- */
