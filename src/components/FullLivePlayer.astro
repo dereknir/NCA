@@ -286,15 +286,18 @@ const { song } = Astro.props;
     const plEls = [...root.querySelectorAll<HTMLElement>('[data-pl]')];
 
     // pre = 背景預載的下一段: parked = 已經緩衝好、停在切入點 (parkedAt = 停好的時間); fired = 按下播放的時間 (0 = 還沒);
-    //       vol = 它現在的音量; oe = 按了之後上一段淡完的時間 (上一段的時間軸)
+    //       vol = 它現在的音量; oe = 按了之後上一段淡完的時間 (上一段的時間軸);
+    //       r2 = 停好時離切點還夠完整淡出 (之後這段照一般換段在 end 前淡完, 不再多播到 safe)
     let segs: Seg[] = [], bad = new Set<string>(), k = -1, act = 0;
-    let pre: { n: number; p: number; v: string; parked: boolean; parkedAt?: number; fired: number; vol?: number; oe?: number } | null = null;
-    let out: { p: number; end: number; v: number } | null = null;    // 交叉淡化中、正在淡出的上一段 (v = 交棒時的音量, 淡出不會回升)
+    let pre: { n: number; p: number; v: string; parked: boolean; parkedAt?: number; fired: number; vol?: number; oe?: number; r2?: boolean } | null = null;
+    let out: { p: number; end: number; v: number } | null = null;    // 交叉淡化中、正在淡出的上一段 (v = 目前音量上限, 淡出不會回升)
     // kick[i] = 剛對停住的第 i 支按了播放 (見 pos()): st0 = 按的當下回報的狀態, ack = 之後狀態變過 (播放器收到了), m = 拿來量 lat
     const kick: ({ at: number; from: number; m: boolean; st0?: number; ack: boolean } | null)[] = [null, null];
-    const lastT = [NaN, NaN];                              // 每支上一拍的時間 (抓影片自己跳回開頭)
+    const lastT = [NaN, NaN];                              // 每支上一拍 (播放中) 的時間 (抓影片自己跳回開頭)
+    const movedAt = [0, 0];                                // 上次對第 i 支 load / seek 的時間: 之後一陣子回報的時間可能還是舊的
     let lat = 0.06, fireTimer = 0;                         // lat = 按播放到真的出聲的延遲 (實測, 決定要提早多少按)
-    let paused = false, lost = false, tapped = false, gate: number | null = null, seen = { t: NaN, at: 0 };
+    let curLim = Infinity;                                 // 這段已經開始淡出時, 對準的淡完時間 (上一拍算的; 還沒在淡 = Infinity)
+    let paused = false, lost = false, tapped = false, gate: number | null = null, gateFix = false, seen = { t: NaN, at: 0 };
     let gapT0 = 0, gapAt = 0, durs: number[] = [], curLine = -2, vol = -1;
     let players: Player[] = [], ready: Promise<void> = Promise.resolve(), isReady = MOCK;
     const segDur = (s: FLSeg) => s.gap ? s.len : s.end - s.start;
@@ -306,11 +309,14 @@ const { song } = Astro.props;
     const level = (x: number) => Math.round(100 * Math.max(0, Math.min(1, x)));
     let ahead = 0.025 * SPEED;     // 音量一拍 (~25 ms) 才調一次: 照下一拍的位置算, 淡出才會在切點前真的到 0 (拍子變粗就看更遠)
 
-    // 影片實際長度常比資料的 dur 短 0.02–0.5 秒 (嵌入的 Shorts 還會在片尾前自己跳回開頭, 不報 ENDED): 用播放器回報的長度封頂
+    // 影片實際長度常比資料的 dur 短 0.02–0.5 秒 (嵌入的 Shorts 還會在片尾前自己跳回開頭, 不報 ENDED): 用播放器回報的長度封頂。
+    // 要接下一段的留 0.1 秒 (下一段要在片尾前起播); 最後一段只留一拍 (只要在片尾前淡完, 留多了會淡到最後一個字)
     function clip(i: number, s: RealSeg) {
-      const D = players[i].getDuration?.(), M = D && D > s.start + 1 ? D - 0.1 : Infinity;
+      const D = players[i].getDuration?.(), m = s === segs[segs.length - 1] ? 0.03 : 0.1, M = D && D > s.start + 1 ? D - m : Infinity;
       return { end: Math.min(s.end, M), safe: Math.min(s.safe, M) };
     }
+    function load(i: number, v: string, at: number) { movedAt[i] = performance.now(); players[i].loadVideoById({ videoId: v, startSeconds: at }); }
+    function seek(i: number, at: number) { movedAt[i] = performance.now(); players[i].seekTo(at, true); }
     /** 丟掉預載 (已經按了播放的那支還在出聲, 要先停) */
     function dropPre() {
       if (!pre) return;
@@ -496,7 +502,7 @@ const { song } = Astro.props;
     /** 畫面 / 狀態切到第 n 段 (聲音由呼叫的地方負責) */
     function show(n: number) {
       const s = segs[n];
-      k = n; seen = { t: NaN, at: performance.now() }; tapped = false;
+      k = n; seen = { t: NaN, at: performance.now() }; tapped = false; curLim = Infinity;
       root.style.setProperty('--glow', hex2rgb(s.gap ? '#6f7a99' : s.color));
       glitch(s.gap ? 'NO SIGNAL' : s.live ? `CAM ${String(n + 1).padStart(2, '0')}` : s.kind);
       osdR.textContent = `${n + 1} / ${segs.length}`;
@@ -529,17 +535,18 @@ const { song } = Astro.props;
       lastT[nextAct] = NaN;
       if (!usePre) {
         kick[nextAct] = null;
-        p.loadVideoById({ videoId: s.v, startSeconds: s.start });
+        load(nextAct, s.v, s.start);
         p.unMute(); p.setVolume(vol = 0);                 // 由計時器淡入 (unMute 會把音量拉到至少 5, 所以後設)
       } else if (pre!.fired) {
         vol = -1;                                          // 已經按了播放 (正在 / 馬上出聲): 不再動它, 下一拍照它的時間設音量
       } else if (pre!.parked) {
         vol = play(nextAct, s, performance.now() - (pre!.parkedAt ?? 0) > 300);   // 剛停好 (seek 還沒完) 的不拿來量 lat
       } else {
-        // 還在載入 (靜音、從 start−0.3 附近開播): 位置偏太多才拉回 (seek 會重新緩衝); 到切入點才取消靜音 (iPhone 不能用音量壓)
+        // 還在載入 (靜音、從 start−0.3 附近開播): 到切入點才取消靜音 (iPhone 不能用音量壓)。位置偏太多才拉回 (seek 會重新緩衝),
+        // 但影片資訊還沒回來 (長度 0、時間是佔位的 0) 時不能 seek: 會被吃掉、還蓋掉 startSeconds, 變成從 0 靜音播 start 秒
         const t = p.getCurrentTime();
-        if (t != null && (t > s.start + .15 || t < s.start - .6)) p.seekTo(s.start, true);
-        p.setVolume(vol = 0); p.playVideo(); gate = s.start; kick[nextAct] = null;
+        if (t != null && (p.getDuration?.() || 0) > 0 && (t > s.start + .15 || t < s.start - .6)) seek(nextAct, s.start);
+        p.setVolume(vol = 0); p.playVideo(); gate = s.start; gateFix = false; kick[nextAct] = null;
       }
       if (nextAct !== prevAct) { players[prevAct].pauseVideo(); kick[prevAct] = null; }
       act = nextAct; pre = null;
@@ -561,7 +568,7 @@ const { song } = Astro.props;
       if (!out) return;
       const op = players[out.p], ot = pos(out.p) ?? out.end, ost = op.getPlayerState(), lt = lastT[out.p];
       lastT[out.p] = ot;
-      const ov = Math.min(out.v, level((out.end - ot - ahead) / XF));
+      const ov = out.v = Math.min(out.v, level((out.end - ot - ahead) / XF));   // 只降不升
       op.setVolume(ov);
       if (ov === 0 || ot >= out.end || (ost !== 1 && ost !== 3) || ot < lt - 1) stopFade();
     }
@@ -572,10 +579,10 @@ const { song } = Astro.props;
       const s = clip(act, segs[k] as RealSeg), ns = segs[pre.n] as RealSeg;
       pre.vol = play(pre.p, ns, performance.now() - (pre.parkedAt ?? 0) > 300);   // 剛停好 (seek 還沒完) 的不拿來量 lat
       pre.fired = performance.now();
-      // 這段淡完的時間 (它自己的時間軸): 準時按、或已經在淡了 → 照原來的斜線淡到 end;
-      // 還在全音量的晚按 (預載太慢, 已經在 HOLD 裡) → 等新段出聲、至少再淡 FADE 秒, 但不超過 safe / end + HOLD (不會播到下一句)
+      // 這段淡完的時間 (它自己的時間軸): 已經在淡了 → 照原來那條斜線淡完 (curLim); 準時按 → end;
+      // 還在全音量的晚按 (預載太慢, 已經在 HOLD 裡) → 等新段出聲、至少再淡 FADE 秒; 都不超過 safe / end + HOLD (不會播到下一句)
       const due = t + lat + overlapOf(ns);
-      pre.oe = Math.min(s.safe, s.end + HOLD, (vol >= 0 && vol < 100) || due <= s.end + 0.01 ? s.end : Math.max(due, t + FADE));
+      pre.oe = Math.min(s.safe, s.end + HOLD, curLim < Infinity ? curLim : due <= s.end + 0.01 ? s.end : Math.max(due, t + FADE));
     }
 
     // 正在播的那支播不了: 排除它, 從當下這句重新挑, 不整段跳過
@@ -595,7 +602,7 @@ const { song } = Astro.props;
       if (!s || s.gap || (pre && pre.n === n) || out) return;   // 上一段還在淡出時先別動那個播放器
       const pi = (act + 1) % 2, p = players[pi];
       p.mute(); p.setVolume(0); kick[pi] = null; lastT[pi] = NaN;
-      p.loadVideoById({ videoId: s.v, startSeconds: Math.max(0, s.start - 0.3) });
+      load(pi, s.v, Math.max(0, s.start - 0.3));
       pre = { n, p: pi, v: s.v, parked: false, fired: 0 };
     }
 
@@ -618,7 +625,7 @@ const { song } = Astro.props;
         clearTimeout(fireTimer); fireTimer = 0; stopFade();
         if (pre && pre.fired) {                            // 已經按了播放的下一段: 停回切入點, 繼續後重新對時
           const pp = players[pre.p];
-          pp.pauseVideo(); pp.mute(); pp.seekTo((segs[pre.n] as RealSeg).start, true);
+          pp.pauseVideo(); pp.mute(); seek(pre.p, (segs[pre.n] as RealSeg).start);
           pre.fired = 0; kick[pre.p] = null;
         }
         if (s.gap) gapAt += (performance.now() - gapT0) / 1000 * SPEED;
@@ -641,11 +648,12 @@ const { song } = Astro.props;
     /* 計時器 (~25 ms 一拍): 拍子由 Worker 打 — macOS Safari 的分頁在背景 / 視窗被遮住時, 主執行緒的計時器
      * 會被對齊到 1 秒一拍 (有聲也一樣), 換段就會亂掉; Worker 的計時器和它傳回來的訊息不受影響。
      * Worker 起不來 (或被擋) 才由主執行緒的計時器補 */
-    let lastTick = 0;
+    let lastTick = 0, prevDt = 0.025;
     function tick() {
-      const now = performance.now();
-      ahead = Math.min(1, Math.max(0.025, lastTick ? (now - lastTick) / 1000 : 0.025)) * SPEED;
-      lastTick = now;
+      const now = performance.now(), dt = lastTick ? (now - lastTick) / 1000 : 0.025;
+      // 連兩拍都長才算拍子變粗 (只有一拍長 = 主執行緒剛卡了一下, 排隊的拍子馬上補上; 照它往前看會一下子把音量算成 0)
+      ahead = Math.min(1, Math.max(0.025, Math.min(dt, prevDt))) * SPEED;
+      prevDt = dt; lastTick = now;
       if (!isReady) return;                                 // YouTube 播放器還沒準備好 (方法還沒掛上)
       // 沒在用的播放器自己播起來了 (剛載入時下的暫停常常壓不住): 停掉 —
       // 但看門狗停下來 (點一下繼續) 之後, 使用者用媒體鍵 / 耳機 / 系統控制在外面恢復的, 就跟著繼續
@@ -660,7 +668,7 @@ const { song } = Astro.props;
       let parkedNow = false;
       if (pre && !pre.parked && !pre.fired && players[pre.p].getPlayerState() === 1) {
         const pp = players[pre.p];
-        pp.pauseVideo(); pp.seekTo((segs[pre.n] as RealSeg).start, true);
+        pp.pauseVideo(); seek(pre.p, (segs[pre.n] as RealSeg).start);
         pre.parked = parkedNow = true; pre.parkedAt = now; lastT[pre.p] = NaN;
       }
       if (paused) return;
@@ -676,14 +684,20 @@ const { song } = Astro.props;
       } else {
         const p = players[act], t = pos(act), st = p.getPlayerState();
         if (t == null || !Number.isFinite(t)) return;     // 剛 loadVideoById: widget 先把狀態清空, iframe 回報前讀不到時間
-        const lt = lastT[act]; lastT[act] = t;
-        if (t < lt - 1) {                                 // 影片自己跳回開頭 (嵌入的 Shorts 片尾會循環, 不報 ENDED): 當成播完
+        // 影片自己跳回開頭 (嵌入的 Shorts 片尾會循環, 不報 ENDED): 當成播完。只看播放中的時間, 剛 load / seek 完的不算
+        // (Firefox 會先讀到上一支的舊時間, 再掉回真的位置)
+        const lt = lastT[act];
+        if (st === 1) lastT[act] = t;
+        if (st === 1 && t < lt - 1 && (now - movedAt[act]) * SPEED > 1000) {
           root.dispatchEvent(new CustomEvent('flp:cut', { detail: { seg: k, at: lt, end: s.end } }));
           return go(k + 1);
         }
         if (watchdog(st, t) || paused) return;
         into = Math.max(0, t - s.start);
-        if (gate !== null && t >= gate - 0.01) { p.unMute(); gate = null; vol = -1; }   // 還在載入時接手的: 到切入點才出聲
+        if (gate !== null) {                              // 還在載入時接手的: 到切入點才出聲
+          if (t >= gate - 0.01) { p.unMute(); gate = null; vol = -1; }
+          else if (st === 1 && t < gate - 1 && !gateFix) { gateFix = true; seek(act, gate); }   // 還是從 0 播起了: 拉回切入點一次
+        }
         let l = s.from;
         for (const [line, ct] of s.cues) if (t >= ct - .1) l = line;
         setLine(l);
@@ -711,14 +725,16 @@ const { song } = Astro.props;
           const nv = level(fadeIn(ns, npos + ahead));
           if (nv > (pre!.vol ?? 0)) { pre!.vol = nv; np.setVolume(nv); }
         }
-        // 這段淡到哪: 下一段已經按了播放 → oe; 已經停好等著 → 照一般換段在 end 前淡完 (換過去不會讓音量突然掉一截才換);
-        // 還沒準備好 → 最多多播到 safe / end + HOLD (之後就是下一句了); 沒有下一段要接 → end
+        // 這段淡到哪: 下一段已經按了播放 → oe; 停好時還來得及完整淡出 (r2, 記住不變) → 照一般換段在 end 前淡完
+        // (換過去不會讓音量突然掉一截才換); 還沒準備好 → 最多多播到 safe / end + HOLD (之後就是下一句了); 沒有下一段要接 → end
         const fired = mine && !!pre!.fired;
-        const ready2 = mine && pre!.parked && !parkedNow && ((vol >= 0 && vol < 100) || c.end - t - ahead >= FADE);
+        if (mine && pre!.parked && !parkedNow && c.end - t - ahead >= FADE) pre!.r2 = true;
+        const ready2 = mine && !!pre!.r2;
         const limit = fired ? pre!.oe! : ready2 ? c.end : nx && !nx.gap ? Math.min(c.safe, c.end + HOLD) : c.end;
-        // 最後一段只淡人聲唱完後的尾巴 (影片唱完就結束的只留 FADE 防喀聲)
-        const fo = k === segs.length - 1 ? Math.min(FADE_END, Math.max(FADE, c.end - Math.min(s.sung ?? c.end - FADE_END, c.end))) : FADE;
+        // 最後一段只淡人聲唱完後的尾巴 (影片唱完就結束的只留一點防喀聲, 不提早淡到最後一個字)
+        const fo = k === segs.length - 1 ? Math.min(FADE_END, Math.max(0.05, c.end - Math.min(s.sung ?? c.end - FADE_END, c.end))) : FADE;
         let v = level(Math.min(fadeIn(s, t + ahead), (limit - t - ahead) / fo));
+        curLim = (limit - t - ahead) / fo < 1 ? limit : Infinity;
         if (fired && vol >= 0) v = Math.min(v, vol);       // 下一段按了播放之後, 這段只會越來越小聲
         if (v !== vol) { vol = v; p.setVolume(v); }
         if (t >= limit || st === 0) {
