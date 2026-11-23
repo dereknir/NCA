@@ -4,9 +4,9 @@ import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
-// 正式網域還沒定: 買好之後填在這裡 (例 'https://example.com'),
-// sitemap、canonical、og:image 絕對網址會一起打開。留空時這些都不輸出。
-const SITE = undefined;
+// 正式網域還沒定: 買好之後填在這裡 (例 'https://example.com'), 或在 Vercel 設環境變數 SITE_URL,
+// sitemap、canonical、og:image 絕對網址、RSS 會一起打開。留空時這些都不輸出。
+const SITE = process.env.SITE_URL || undefined;
 
 // public/ 下不經 Astro 路由的靜態子站, sitemap 掃不到, 手動列 (與 NAVIGATION 對齊)
 const STATIC_PAGES = ['/lyric-universe/', '/kwic/', '/star-map/', '/live/timeline/', '/live/concerts/',

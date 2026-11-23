@@ -1,7 +1,7 @@
 ---
 /**
  * SiteFooter — 內頁最下面 (首頁是房間, 沒有頁尾)
- * 平常只有一條像終端機最下面的狀態列: 中間版權, 右邊快捷鍵說明 (?)、信箱、GitHub、展開鈕; 左下角的指令列膠囊疊在這條上面, 太窄的手機上版權字讓開它。
+ * 平常只有一條像終端機最下面的狀態列: 中間版權, 右邊快捷鍵說明 (?)、RSS (有網域才有)、信箱、GitHub、展開鈕; 左下角的指令列膠囊疊在這條上面, 太窄的手機上版權字讓開它。
  * 展開才看得到連結 (跟頁首選單同樣分 4 組) 跟左邊的「derekkk」+ 小行星; 頁首本來就有全部連結, 所以預設收著, 展開過就記住 (localStorage sh-foot)。
  * 圖示都是像素畫 (用 # 畫的格子轉成 SVG 方塊), 顏色跟著文字。
  */
@@ -39,6 +39,15 @@ const ICON = {
     '..#######..',
     '#..#####...',
     '.##.#.#....',
+  ]),
+  rss: px([
+    '##.....',
+    '..##...',
+    '....#..',
+    '##...#.',
+    '..#...#',
+    '...#..#',
+    '##.#..#',
   ]),
   help: px([
     '.###.',
@@ -82,6 +91,11 @@ const year = new Date().getFullYear();
       <button type="button" class="sf-help" title="鍵盤快捷鍵 (?)" aria-label="鍵盤快捷鍵" onclick="window.__shellHelp?.open()">
         <svg viewBox={`0 0 ${ICON.help.w} ${ICON.help.h}`} width={ICON.help.w * 2} height={ICON.help.h * 2} shape-rendering="crispEdges" aria-hidden="true"><path d={ICON.help.d} fill="currentColor" /></svg>
       </button>
+      {Astro.site && (
+        <a href="/rss.xml" title="RSS 訂閱" aria-label="RSS 訂閱">
+          <svg viewBox={`0 0 ${ICON.rss.w} ${ICON.rss.h}`} width={ICON.rss.w * 2} height={ICON.rss.h * 2} shape-rendering="crispEdges" aria-hidden="true"><path d={ICON.rss.d} fill="currentColor" /></svg>
+        </a>
+      )}
       <a href={`mailto:${SITE_CONFIG.social.email}`} title="寄信給我" aria-label="寄信給我">
         <svg viewBox={`0 0 ${ICON.mail.w} ${ICON.mail.h}`} width={ICON.mail.w * 2} height={ICON.mail.h * 2} shape-rendering="crispEdges" aria-hidden="true"><path d={ICON.mail.d} fill="currentColor" /></svg>
       </a>
