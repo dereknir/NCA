@@ -2,7 +2,9 @@
 /**
  * PageHero — 全站統一的頁頂 (樣式 /css/site-shell.css, 星空 / 行星由 /js/site-shell.js 畫)
  *
- * 骨架固定: shell 提示 (路徑) / 標題 / 一句說明 / 數字 chip / 動作 / 右側像素行星。
+ * 骨架固定: shell 提示 (路徑) / 標題 / 一句說明 / 一行資訊 / 動作 / 右側像素行星。
+ * 提示列的路徑就是麵包屑: 有對應頁面的那一段可以點 (~ 是首頁), 這一頁自己、星球名不能點; 所以動作那排不放「‹ 列表」這種回上一層的。
+ * 資訊 (chips) 不加框, 排成一行淡色字, 才看得出跟按鈕不一樣; 動作那排只放要去別頁的, 主按鈕永遠排第一個。
  * 用法: <PageHero slot="hero" planet="earth" title="日文歌翻譯" desc="…" chips={[['51/51', '已翻譯']]} />
  * variant: page (預設) / tool (收成一條, 工具頁) / song (封面 + 資訊, 背景是封面馬賽克)
  * width 要跟 BaseLayout 的 width 一樣, 左緣才會對齊內文。
@@ -18,7 +20,7 @@ interface Props {
   desc?: string;
   path?: string;                       // shell 提示裡的路徑, 預設取選單設定
   cmd?: string;
-  chips?: Array<[string, string?, string?]>;     // [數字, 說明, 連結]
+  chips?: Array<[string, string?, string?]>;     // 資訊: [數字, 說明, 連結]
   actions?: Array<{ label: string; href: string; primary?: boolean; external?: boolean }>;
   variant?: 'page' | 'tool' | 'song';
   width?: 'wide' | 'read' | 'stage';
@@ -36,6 +38,17 @@ const p = PLANETS[planet];
 const navPath = NAV_GROUPS.flatMap(g => g.items).find(it => it.planet === planet)?.path;
 const path = Astro.props.path ?? navPath ?? '~';
 const isSong = variant === 'song';
+
+// 路徑一段一段: 選單裡有這個路徑的就連過去; 手機只留最後兩段, 前面收成「…/」
+const here = Astro.url.pathname.replace(/\/$/, '') || '/';
+const HREF = new Map(NAV_GROUPS.flatMap(g => g.items).map(it => [it.path, it.href]));
+const parts = path.split('/');
+const segs = parts.map((name, i) => {
+  const href = i === 0 && name === '~' ? '/' : HREF.get(parts.slice(0, i + 1).join('/'));
+  return { name, href: href && (href.replace(/\/$/, '') || '/') !== here ? href : undefined };
+});
+const far = (i: number) => segs.length > 2 && i < segs.length - 2;
+const acts = [...actions].sort((a, b) => Number(!!b.primary) - Number(!!a.primary));
 ---
 
 <section
@@ -55,16 +68,16 @@ const isSong = variant === 'song';
            style={coverTransition ? `view-transition-name:${coverTransition}` : undefined} />
     )}
     <div class="sh-hero-text">
-      <div class="sh-prompt"><span class="u">derek@nishina</span>:<span class="pa">{path}</span> $ <span class="cmd">{cmd}</span></div>
+      <div class="sh-prompt"><span class="u">derek@nishina</span>:<span class="pa">{segs.map((g, i) => <>{i === segs.length - 2 && segs.length > 2 && <span class="sh-more" aria-hidden="true">…/</span>}<span class={far(i) ? 'sh-far' : undefined}>{g.href ? <a class="sh-seg" href={g.href}>{g.name}</a> : g.name}{i < segs.length - 1 ? '/' : ''}</span></>)}</span> $ <span class="cmd">{cmd}</span></div>
       <h1 class="sh-title" lang={titleLang} id={isSong ? 'songTitle' : undefined}>{title}</h1>
       {desc && <p class="sh-desc">{desc}</p>}
       <slot />
-      {(chips.length > 0 || actions.length > 0) && (
+      {chips.length > 0 && (
+        <p class="sh-facts">{chips.map(([num, label, href], i) => <>{i > 0 && <i aria-hidden="true">·</i>}{href ? <a href={href}><b>{num}</b>{label}</a> : <span>{label ? <><b>{num}</b>{label}</> : num}</span>}</>)}</p>
+      )}
+      {acts.length > 0 && (
         <div class="sh-row">
-          {chips.map(([num, label, href]) => href
-            ? <a class="sh-chip" href={href}><b>{num}</b>{label}</a>
-            : <span class="sh-chip">{label ? <><b>{num}</b>{label}</> : num}</span>)}
-          {actions.map(a => (
+          {acts.map(a => (
             <a class={`sh-btn${a.primary ? ' sh-btn--pri' : ''}`} href={a.href}
                {...(a.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{a.label}</a>
           ))}

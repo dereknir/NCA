@@ -31,8 +31,7 @@ const description = `${new Date(date).toLocaleDateString('zh-TW')} 的日記${mo
     chips={[
       [new Date(date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })],
       ...(mood || weather ? [[[mood, weather].filter(Boolean).join(' ')] as [string]] : []),
-    ]}
-    actions={[{ label: '‹ 日記', href: '/diary' }]} />
+    ]} />
   <article>
 
     <div class="prose max-w-none">

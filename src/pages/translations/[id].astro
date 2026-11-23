@@ -76,12 +76,12 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
     path={`~/earth/translations/${translation.id.replace(/^nishina-/, '')}`} cmd="cat lyrics.txt"
     cover={coverImage} coverAlt={`${title} 封面`} coverTransition={`cover-${translation.id}`}
     chips={[
-      ...(album ? [[album, albumYear ? ` ${albumYear}${trackNumber ? ` · Track ${trackNumber}` : ''}` : (trackNumber ? ` · Track ${trackNumber}` : '')] as [string, string]] : []),
+      ...(album ? [[album, albumYear ? `· ${albumYear}${trackNumber ? ` · Track ${trackNumber}` : ''}` : (trackNumber ? `· Track ${trackNumber}` : '')] as [string, string]] : []),
       ...tags.map(tag => [tag] as [string]),
       ...(instrumental ? [['Instrumental'] as [string]] : []),
       ...(!isTranslated ? [['翻譯中'] as [string]] : []),
     ]}
-    actions={[{ label: '‹ 列表', href: '/translations' }, ...(hasFullLive ? [{ label: '▶ 完整 Live', href: `/live/full/${translation.id}/`, primary: true }] : [])]}>
+    actions={[...(hasFullLive ? [{ label: '▶ 完整 Live', href: `/live/full/${translation.id}/`, primary: true }] : [])]}>
     <dl class="sh-meta">
       {credits.map(c => (<><dt>{c.label}</dt><dd>{c.value}</dd></>))}
       <dt>發行</dt><dd>{new Date(publishDate).toLocaleDateString('zh-TW')}</dd>
