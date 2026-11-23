@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 import { SITE_CONFIG, NAVIGATION, NAV_GROUPS, PLANETS } from '../config';
+import SiteFooter from '../components/SiteFooter.astro';
 
 interface Props {
   title: string;
@@ -153,87 +154,9 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
     <slot />
   </main>
 
-  <!-- Footer (structure/CSS 1:1 replicated from nlpfin.github.io reference) -->
-  <footer class="site-footer">
-    <div class="site-footer-container">
-      <div class="site-footer-grid">
-        <div class="site-footer-section">
-          <h3>探索</h3>
-          <ul class="site-footer-links">
-            {NAVIGATION.map(item => (
-              <li><a href={item.href}>{item.name}</a></li>
-            ))}
-          </ul>
-        </div>
-        <div class="site-footer-section">
-          <h3>Connect</h3>
-          <ul class="site-footer-links">
-            <li><a href={`mailto:${SITE_CONFIG.social.email}`}>{SITE_CONFIG.social.email}</a></li>
-            <li><a href={SITE_CONFIG.social.github} target="_blank" rel="noopener noreferrer">GitHub</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="site-footer-bottom">
-        <p>© {new Date().getFullYear()} {SITE_CONFIG.author}. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
+  <!-- 頁尾: 平常只有一條狀態列, 展開才有連結 (src/components/SiteFooter.astro) -->
+  <SiteFooter />
   </>}
-
-  <style is:global>
-    .site-footer {
-      background: #0f0f1d;
-      color: rgb(156 163 175);
-      padding: 3.5rem 0 1.5rem;
-      margin-top: 6rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .site-footer-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
-    .site-footer-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      margin-bottom: 2.5rem;
-    }
-    .site-footer-section h3 {
-      font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: .1em;
-      color: #fff;
-      margin: 0 0 0.9rem;
-    }
-    .site-footer-links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .site-footer-links li { margin-bottom: 0.45rem; }
-    .site-footer-links a {
-      color: rgb(156 163 175);
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-    .site-footer-links a:hover { color: rgb(96 165 250); }
-
-    .site-footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 1.4rem;
-      text-align: center;
-      font-size: 0.85rem;
-      color: rgb(107 114 128);
-    }
-    .site-footer-bottom p { margin: 0; }
-
-    @media (max-width: 580px) {
-      .site-footer-grid { grid-template-columns: 1fr; }
-    }
-  </style>
 
 </body>
 </html>
