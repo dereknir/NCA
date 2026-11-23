@@ -243,15 +243,38 @@
     transition: opacity 0.12s ease;
   }
 
-  /* 手機小螢幕優化 */
-  @media (max-width: 640px) {
-    .toc-btn {
-      top: 4.5rem;
-      padding: 6px 12px 6px 10px;
+  /* 窄螢幕 (頁首收成「選單」那顆的時候): 目錄鈕收進頁首, 排在「選單」左邊, 樣子跟它一樣;
+     浮在左上角會在捲動時蓋到標題、歌詞。位置由下面那段 script 對齊「選單」鈕 */
+  @media (max-width: 860px) {
+    .toc-btn, .dark .toc-btn {
+      top: var(--toc-top, 12px); left: auto; right: var(--toc-right, 72px); z-index: 51;
+      gap: 6px; padding: 6px 10px; border: 2px solid var(--sh-line); border-radius: 0;
+      background: none; backdrop-filter: none; box-shadow: none; color: var(--sh-ink);
+      font: 12px var(--sh-px); transition: none;
     }
-    .toc-btn-label { display: none; }
+    .toc-btn:hover { transform: none; box-shadow: none; border-color: var(--sh-gold); }
+    .toc-btn-icon { width: 14px; height: 14px; }
+    .toc-btn-label { font-weight: 400; }
   }
 </style>
+
+<script is:inline>
+  /* 窄螢幕: 把目錄鈕對齊頁首的「選單」鈕 (同高、排在它左邊) */
+  (function () {
+    if (window.__tocDock) return;
+    window.__tocDock = true;
+    function dock() {
+      var btn = document.getElementById('toc-btn'), menu = document.querySelector('.sh-burger');
+      if (!btn || !menu) return;
+      var r = menu.getBoundingClientRect();
+      if (!r.width) { btn.style.removeProperty('--toc-top'); btn.style.removeProperty('--toc-right'); return; }
+      btn.style.setProperty('--toc-top', Math.round(r.top + (r.height - btn.offsetHeight) / 2) + 'px');
+      btn.style.setProperty('--toc-right', Math.round(innerWidth - r.left + 8) + 'px');
+    }
+    document.addEventListener('astro:page-load', function () { dock(); setTimeout(dock, 300); });
+    addEventListener('resize', dock);
+  })();
+</script>
 
 <script>
   /* ---- Esc 全域 stack (Drawer 與 Live Stage 共用) ---- */
