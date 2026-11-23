@@ -119,6 +119,13 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
   width: 192px; height: 192px; image-rendering: pixelated; filter: drop-shadow(0 0 40px rgb(var(--sh-accent) / .35));
   view-transition-name: sh-orb; pointer-events: none; }
 .sh-hero--tool .sh-orb { width: 120px; height: 120px; }
+/* 矮版: 內容才是主角的頁, 標題區只留一小條 (路徑、標題、說明、按鈕都在, 字小一點、行星小一顆) */
+.sh-hero--compact { height: auto; }
+.sh-hero--compact .sh-hero-inner { padding-top: 36px; padding-bottom: 22px; }
+.sh-hero--compact .sh-title { font-size: 28px; margin: 8px 0 4px; }
+.sh-hero--compact .sh-desc { font-size: 16px; }
+.sh-hero--compact .sh-facts, .sh-hero--compact .sh-row { margin-top: 10px; }
+.sh-hero--compact .sh-orb { width: 96px; height: 96px; }
 @media (max-width: 760px) {
   .sh-hero { height: auto; min-height: 240px; }
   .sh-hero-inner { padding-top: 72px; }
@@ -130,6 +137,11 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
   .sh-hero--tool .sh-orb { width: 64px; height: 64px; }
   .sh-title { font-size: 24px; }
   .sh-desc { font-size: 16px; }
+  .sh-hero--compact { min-height: 0; }
+  .sh-hero--compact .sh-hero-inner { padding-top: 24px; padding-bottom: 18px; }
+  .sh-hero--compact .sh-title { font-size: 22px; }
+  .sh-hero--compact .sh-orb { width: 48px; height: 48px; top: 14px; }
+  .sh-hero--compact .sh-prompt { padding-right: 60px; }
 }
 
 /* 歌曲內頁: 封面 + 資訊, 背景是封面縮成 24×24 的馬賽克 */
@@ -146,8 +158,18 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
 .sh-meta dt { color: var(--sh-ink3); }
 .sh-meta dd { margin: 0; }
 @media (max-width: 640px) {
-  .sh-hero--song .sh-hero-inner { flex-direction: column; align-items: flex-start; padding-top: 72px; }   /* 讓開左上角的目錄鈕 */
-  .sh-cover { width: 140px; }
+  /* 手機: 封面縮小放左邊、歌名跟作詞作曲在右邊, 不要上下疊 (疊起來標題區佔掉三分之二的畫面);
+     路徑、資訊、按鈕橫跨整行, 不擠在右邊那欄裡 */
+  .sh-hero--song { min-height: 0; }
+  .sh-hero--song .sh-hero-inner { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 0 14px; align-items: start; align-content: start;
+    padding-top: 64px; padding-bottom: 22px; }   /* 讓開左上角的目錄鈕 */
+  .sh-hero--song .sh-hero-text { display: contents; }
+  .sh-hero--song .sh-prompt { grid-column: 1 / -1; grid-row: 1; margin-bottom: 12px; }
+  .sh-hero--song .sh-cover { grid-column: 1; grid-row: 2 / span 2; width: 88px; }
+  .sh-hero--song .sh-title { grid-column: 2; grid-row: 2; margin-top: 0; }
+  .sh-hero--song .sh-meta { grid-column: 2; grid-row: 3; margin-top: 4px; }
+  .sh-hero--song .sh-facts { grid-column: 1 / -1; grid-row: 4; }
+  .sh-hero--song .sh-row { grid-column: 1 / -1; grid-row: 5; }
 }
 
 /* 底線分頁 (> ALL  1999  …) + 對齊表格清單 */

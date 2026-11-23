@@ -81,7 +81,8 @@ const palette = PLANETS.mars.palette;
   :global(.sh-hero:has(.lr) .sh-hero-text) { max-width: calc(100% - 290px); }
   @media (max-width: 760px) {
     :global(.sh-hero:has(.lr) .sh-hero-text) { max-width: none; }
-    .lr { position: relative; right: auto; top: auto; translate: none; margin: 0 auto 28px; }
+    .lr { position: relative; right: auto; top: auto; translate: none; margin: 0 auto 20px; width: 168px; }   /* 手機: 雷達縮小, 標題區不要佔掉整個畫面 */
+    .lr-box { width: 168px; height: 168px; }
   }
 </style>
 

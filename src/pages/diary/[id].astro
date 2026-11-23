@@ -26,7 +26,7 @@ const description = `${new Date(date).toLocaleDateString('zh-TW')} 的日記${mo
   publishDate={new Date(date)}
   width="read"
 >
-  <PageHero slot="hero" planet="moon" width="read" title={title} cmd="cat entry.md"
+  <PageHero slot="hero" planet="moon" width="read" compact title={title} cmd="cat entry.md"
     path={`~/moon/diary/${entry.id}`}
     chips={[
       [new Date(date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })],
