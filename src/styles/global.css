@@ -125,13 +125,16 @@
 }
 
 /* Lyrics section */
+/* 歌詞區: 比頁面亮一點點的深藍底, 字不用純白 — 讀久了不刺眼, 中文對比 ~9:1 (原本紫色漸層上只有 2~3.6:1) */
 .lyrics-section {
   padding: 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 1rem;
+  background: #15142c;
+  border: 1px solid rgb(255 255 255 / .06);
+  border-radius: 8px;
   margin: 2rem 0;
-  color: white;
+  color: #dde2f0;
 }
+@media (max-width: 640px) { .lyrics-section { padding: 1.25rem 1rem; } }   /* 手機: 內距小一點, 句子少折一行 */
 .lyrics-section h2 {
   color: white;
   margin-top: 0;
@@ -141,7 +144,7 @@
 .lyrics-line {
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgb(255 255 255 / .07);
 }
 .lyrics-line:last-child {
   border-bottom: none;
@@ -195,8 +198,9 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   padding: 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 1rem;
+  background: #15142c;
+  border: 1px solid rgb(255 255 255 / .06);
+  border-radius: 8px;
   margin: 2rem 0;
   color: white;
 }
@@ -438,7 +442,7 @@ body {
   font-size: 20px;
   line-height: 2.05;
   letter-spacing: .02em;
-  color: #b6c2e0;
+  color: #a9b4d2;
 }
 .lyrics-line .romaji {
   /* 跟日文行同家 DotGothic16 (拉丁字型有, 輪廓字不吃網格紀律);
