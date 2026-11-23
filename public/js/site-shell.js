@@ -258,12 +258,14 @@
     const row = (keys, what) => `<div class="row"><dt>${keys}</dt><dd>${what}</dd></div>`;
     const groups = idx.groups.map(g => `<section><h3>${esc(g.name)}</h3><dl>${g.items.map(it =>
       row(k(it.key), esc(it.name) + (norm(it.href) === here ? ' <i>這頁</i>' : ''))).join('')}</dl></section>`).join('');
+    // 這一頁自己的鍵 (例如翻譯頁的 B / R / H), 頁面放在 window.__shellPageKeys, 打開的時候才讀
+    const pageKeys = () => { const pk = window.__shellPageKeys; return pk ? `<section class="pg"><h3>${esc(pk.name)}</h3><dl>${pk.rows.map(([key, what]) => row(k(key), esc(what))).join('')}</dl></section>` : ''; };
     const d = document.createElement('dialog');
     d.className = 'sh-help';
     d.setAttribute('aria-label', '鍵盤快捷鍵');
     d.innerHTML = `<div class="sh-help-hd"><span><span class="u">guest@nishina</span>:<span class="pa">~</span> $ man keys</span>
         <button type="button" class="x" aria-label="關閉">esc</button></div>
-      <div class="sh-help-grid">${groups}
+      <div class="sh-help-grid">${groups}<!--page-->
         <section><h3>指令列</h3><dl>${row(k('/'), '打開, 搜歌名、跳頁')}${row(k('↑') + k('↓'), '選')}${row(k('Enter'), '前往')}${row(k('Esc'), '關掉')}</dl></section>
         <section><h3>其他</h3><dl>${row(k('?'), '這份說明')}${row(k('Esc'), '關掉跳出來的東西')}</dl></section>
       </div>
@@ -271,7 +273,8 @@
     document.body.append(d);
     d.querySelector('.x').addEventListener('click', () => d.close());
     d.addEventListener('click', e => { if (e.target === d) d.close(); });   // 點旁邊的暗處關掉
-    window.__shellHelp = { open: () => { if (!d.open) d.showModal(); } };
+    const grid = d.querySelector('.sh-help-grid'), base = grid.innerHTML;
+    window.__shellHelp = { open: () => { if (d.open) return; grid.innerHTML = base.replace('<!--page-->', pageKeys()); d.showModal(); } };
   }
 
   // 單鍵: / 開指令列, 字母換頁。輸入中 / 修飾鍵 / overlay (LiveStage、目錄抽屜) 開著時不動

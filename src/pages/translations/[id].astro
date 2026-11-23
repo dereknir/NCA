@@ -4,6 +4,7 @@ import PageHero from '../../components/PageHero.astro';
 import ShortsShelf from '../../components/ShortsShelf.astro';
 import TocDrawer from '../../components/TocDrawer.astro';
 import LiveStage from '../../components/LiveStage.astro';
+import LyricsModes from '../../components/LyricsModes.astro';
 import shortsData from '../../data/shorts_by_song.json';
 import { getCollection, render } from 'astro:content';
 import { existsSync } from 'node:fs';
@@ -126,6 +127,7 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
         <div class="prose max-w-none" data-song-content>
           <Content />
         </div>
+        <LyricsModes />
       </>
     ) : (
       <div class="my-12 p-8 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/50 text-center">

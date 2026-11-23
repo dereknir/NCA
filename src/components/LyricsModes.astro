@@ -1,0 +1,97 @@
+---
+/**
+ * LyricsModes — 翻譯頁「歌詞 / 翻譯」標題底下的一排開關 (只在翻好的歌出現)
+ * - 左右對照: 日文一欄、中文一欄, 同一句對齊 (窄螢幕放不下, 照舊上下排, 這顆也藏起來)
+ * - 拼音: 羅馬拼音開 / 關
+ * - 只看歌詞: 歌曲介紹、shorts、翻譯筆記、創作背景都收起來, 只剩歌詞 (再按一次回來)
+ * 前兩個記在瀏覽器裡 (lyr-layout / lyr-romaji), 下一首歌照樣; 只看歌詞不記, 換頁就回原樣。
+ * 鍵盤: B 左右對照、R 拼音、H 只看歌詞 (按 ? 的說明裡會多一組「這首歌」)
+ * 翻譯頁換頁不重新載入 (ClientRouter), 所以掛 astro:page-load, 每次都重找一次歌詞標題。
+ */
+---
+
+<script is:inline>
+  (function () {
+    if (window.__lyrModes) return;
+    window.__lyrModes = true;
+    var html = document.documentElement;
+    var KEYS = [['B', '左右對照', 'layout'], ['R', '羅馬拼音', 'romaji'], ['H', '只看歌詞', 'focus']];
+    function get(k, d) { try { return localStorage.getItem(k) || d; } catch (e) { return d; } }
+    function put(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    function state() {
+      return { layout: get('lyr-layout', 'stack') === 'side', romaji: get('lyr-romaji', 'on') === 'on', focus: html.classList.contains('lyr-focus') };
+    }
+    function paint() {
+      var s = state();
+      html.dataset.lyrLayout = s.layout ? 'side' : 'stack';
+      html.dataset.lyrRomaji = s.romaji ? 'on' : 'off';
+      document.querySelectorAll('.lyr-modes button').forEach(function (b) { b.setAttribute('aria-pressed', String(s[b.dataset.k])); });
+    }
+    function toggle(k) {
+      var s = state();
+      if (k === 'layout') put('lyr-layout', s.layout ? 'stack' : 'side');
+      else if (k === 'romaji') put('lyr-romaji', s.romaji ? 'off' : 'on');
+      else {
+        html.classList.toggle('lyr-focus');
+        var h = document.querySelector('[data-lyr-h2]');
+        if (h) h.scrollIntoView({ block: 'start' });
+      }
+      paint();
+    }
+    function mount() {
+      html.classList.remove('lyr-focus');
+      var prose = document.querySelector('[data-song-content]');
+      var sec = prose && prose.querySelector('.lyrics-section');
+      if (!sec) { window.__shellPageKeys = null; return; }
+      var h2 = Array.from(prose.querySelectorAll('h2')).find(function (h) { return (h.textContent || '').indexOf('歌詞') >= 0; });
+      if (!h2 || prose.querySelector('.lyr-modes')) { paint(); return; }
+      h2.setAttribute('data-lyr-h2', '');
+      // 只看歌詞要藏起來的: 文章裡除了歌詞標題、這排開關、歌詞本身以外的全部
+      Array.from(prose.children).forEach(function (el) { if (el !== h2 && el !== sec) el.setAttribute('data-lyr-other', ''); });
+      var bar = document.createElement('div');
+      bar.className = 'lyr-modes';
+      bar.setAttribute('role', 'group');
+      bar.setAttribute('aria-label', '歌詞怎麼顯示');
+      bar.innerHTML = KEYS.map(function (k) {
+        return '<button type="button" data-k="' + k[2] + '" aria-pressed="false" title="' + k[1] + ' (' + k[0] + ')"><kbd>' + k[0] + '</kbd>' + k[1] + '</button>';
+      }).join('');
+      h2.after(bar);
+      bar.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) toggle(b.dataset.k); });
+      window.__shellPageKeys = { name: '這首歌', rows: KEYS.map(function (k) { return [k[0], k[1]]; }) };
+      paint();
+    }
+    document.addEventListener('astro:page-load', mount);
+    document.addEventListener('keydown', function (e) {
+      if (!window.__shellPageKeys || e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
+      if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable=""], [contenteditable="true"], dialog[open]')) return;
+      if ((window.__scrollLockCount || 0) > 0 || !document.querySelector('.lyr-modes')) return;
+      var k = KEYS.find(function (x) { return x[0] === e.key.toUpperCase() && !e.shiftKey; });
+      if (k) { e.preventDefault(); toggle(k[2]); }
+    });
+  })();
+</script>
+
+<style is:global>
+  .lyr-modes { display: flex; flex-wrap: wrap; gap: 8px; margin: -4px 0 18px; }
+  .lyr-modes button { display: inline-flex; align-items: center; gap: 8px; font: 12px var(--sh-px); letter-spacing: .06em; color: var(--sh-ink2);
+    background: rgb(10 10 21 / .6); border: 2px solid var(--sh-line, #2b2249); padding: 6px 10px; cursor: pointer; }
+  .lyr-modes button:hover { border-color: var(--sh-gold); }
+  .lyr-modes button[aria-pressed="true"] { color: #0a0a15; background: rgb(var(--sh-accent)); border-color: rgb(var(--sh-accent)); }
+  .lyr-modes kbd { font: 11px var(--sh-px); min-width: 16px; text-align: center; padding: 0 3px; border: 1px solid currentColor; opacity: .7; }
+
+  /* 拼音關掉 */
+  :root[data-lyr-romaji="off"] .lyrics-line .romaji { display: none; }
+
+  /* 左右對照: 拼音在日文上面, 中文在右邊跟日文對齊 */
+  @media (min-width: 761px) {
+    :root[data-lyr-layout="side"] .lyrics-line { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "ro zh" "ja zh"; column-gap: 32px; align-items: center; }
+    :root[data-lyr-layout="side"] .lyrics-line .romaji { grid-area: ro; margin: 0; }
+    :root[data-lyr-layout="side"] .lyrics-line .ja { grid-area: ja; margin: 0; }
+    :root[data-lyr-layout="side"] .lyrics-line .zh { grid-area: zh; }
+    :root[data-lyr-layout="side"][data-lyr-romaji="off"] .lyrics-line { grid-template-areas: "ja zh"; }
+  }
+  @media (max-width: 760px) { .lyr-modes button[data-k="layout"] { display: none; } }   /* 手機放不下兩欄 */
+
+  /* 只看歌詞: 文章裡其他段落、上面的影片都收起來 */
+  .lyr-focus [data-lyr-other], .lyr-focus article > .aspect-video { display: none !important; }
+</style>
