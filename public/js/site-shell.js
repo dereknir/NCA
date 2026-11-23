@@ -3,6 +3,7 @@
    - hero: 星空 + 右側像素行星 (data-planet), 歌曲頁改畫封面馬賽克 (data-cover)
    - 指令列: 按 / 叫出, 搜歌名 / 頁面 / 日記 / 作品 / 指令
    - 單鍵換頁: 選單上的 [T] [K] …, 輸入框裡、按著修飾鍵、或有 overlay 開著時不觸發
+   - 按 ? (或頁尾狀態列的 ?): 鍵盤快捷鍵說明, 從選單設定自己長出來, 不用另外維護
    冪等: DOMContentLoaded 跟 astro:page-load (翻譯頁圈內的 ClientRouter 換頁) 都會呼叫 init */
 (() => {
   if (window.__shell) return;
@@ -192,6 +193,7 @@
       { k: '/home', t: '首頁', href: '/' },
       { k: '/top', t: '回到頁首', run: () => { close(); scrollTo({ top: 0, behavior: still ? 'auto' : 'smooth' }); } },
       { k: '/help', t: '列出所有指令', run: () => { input.value = '/'; render(); } },
+      { k: '/keys', t: '鍵盤快捷鍵 (也可以直接按 ?)', run: () => { close(); window.__shellHelp?.open(); } },
     ];
     const search = q => {
       if (q.startsWith('/')) {
@@ -247,6 +249,31 @@
     window.__shellCli = { open };
   }
 
+  /* ---------- 快捷鍵說明 (按 ?) ---------- */
+  // 跳頁那幾組直接從選單來 (跟頁首同一份); 這一頁自己標出來。用 <dialog>: Esc 關、焦點留在裡面都是瀏覽器做的
+  function buildHelp(idx) {
+    if (document.querySelector('.sh-help')) return;
+    const here = norm(location.pathname);
+    const k = s => `<kbd>${esc(s)}</kbd>`;
+    const row = (keys, what) => `<div class="row"><dt>${keys}</dt><dd>${what}</dd></div>`;
+    const groups = idx.groups.map(g => `<section><h3>${esc(g.name)}</h3><dl>${g.items.map(it =>
+      row(k(it.key), esc(it.name) + (norm(it.href) === here ? ' <i>這頁</i>' : ''))).join('')}</dl></section>`).join('');
+    const d = document.createElement('dialog');
+    d.className = 'sh-help';
+    d.setAttribute('aria-label', '鍵盤快捷鍵');
+    d.innerHTML = `<div class="sh-help-hd"><span><span class="u">guest@nishina</span>:<span class="pa">~</span> $ man keys</span>
+        <button type="button" class="x" aria-label="關閉">esc</button></div>
+      <div class="sh-help-grid">${groups}
+        <section><h3>指令列</h3><dl>${row(k('/'), '打開, 搜歌名、跳頁')}${row(k('↑') + k('↓'), '選')}${row(k('Enter'), '前往')}${row(k('Esc'), '關掉')}</dl></section>
+        <section><h3>其他</h3><dl>${row(k('?'), '這份說明')}${row(k('Esc'), '關掉跳出來的東西')}</dl></section>
+      </div>
+      <p class="sh-help-ft">在輸入框裡打字、或按著 ⌘ / Ctrl 的時候不會觸發</p>`;
+    document.body.append(d);
+    d.querySelector('.x').addEventListener('click', () => d.close());
+    d.addEventListener('click', e => { if (e.target === d) d.close(); });   // 點旁邊的暗處關掉
+    window.__shellHelp = { open: () => { if (!d.open) d.showModal(); } };
+  }
+
   // 單鍵: / 開指令列, 字母換頁。輸入中 / 修飾鍵 / overlay (LiveStage、目錄抽屜) 開著時不動
   function wireKeys(idx) {
     const byKey = Object.fromEntries(allItems(idx).map(it => [it.key.toLowerCase(), it.href]));
@@ -256,6 +283,7 @@
       if (t.closest && t.closest('input, textarea, select, [contenteditable=""], [contenteditable="true"]')) return;
       if ((window.__scrollLockCount || 0) > 0) return;
       if (e.key === '/') { e.preventDefault(); window.__shellCli?.open(); return; }
+      if (e.key === '?') { e.preventDefault(); window.__shellHelp?.open(); return; }
       const href = !e.shiftKey && byKey[e.key.toLowerCase()];
       if (href && norm(href) !== norm(location.pathname)) location.href = href;
     });
@@ -289,7 +317,7 @@
         if (planet && hero.dataset.orb !== 'off') orb(hero, planet);
       }
     }
-    if (idx) buildCli(idx);   // ClientRouter 換頁會換掉 body, 指令列要重建 (buildCli 自己防重複)
+    if (idx) { buildCli(idx); buildHelp(idx); }   // ClientRouter 換頁會換掉 body, 指令列、說明要重建 (自己防重複)
     if (idx && !window.__shellKeys) {
       window.__shellKeys = true;
       wireKeys(idx);

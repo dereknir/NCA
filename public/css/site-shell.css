@@ -275,3 +275,25 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
 .sh-wrap--full { max-width: none; }
 /* 滿版工具頁 (星圖) 左下角有圖例: 提示鈕收起來, 按 / 一樣叫得出指令列 */
 [data-sh-pill="off"] .sh-cli:not(.open) { display: none; }
+
+/* 快捷鍵說明 (按 ?): 像終端機裡 man 出來的一頁 */
+.sh-help { position: fixed; inset: 0; margin: auto; height: fit-content; width: min(820px, calc(100vw - 32px)); max-height: calc(100svh - 64px); padding: 0; color: var(--sh-ink); background: #0b0b16;
+  border: 2px solid #3b335f; box-shadow: 6px 6px 0 rgb(0 0 0 / .5); font-family: var(--sh-px); }
+.sh-help::backdrop { background: rgb(7 6 15 / .72); }
+.sh-help-hd { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 16px; font-size: 12px; letter-spacing: .04em;
+  color: var(--sh-ink2); border-bottom: 2px solid #1f1838; }
+.sh-help-hd .u { color: rgb(var(--sh-accent)); }
+.sh-help-hd .pa { color: var(--sh-gold); }
+.sh-help .x { font: 12px var(--sh-px); color: var(--sh-ink3); background: none; border: 2px solid #3b335f; padding: 4px 8px; cursor: pointer; }
+.sh-help .x:is(:hover, :focus-visible) { color: var(--sh-gold); outline: none; }
+.sh-help-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 28px; padding: 18px 16px 6px; }
+.sh-help h3 { margin: 0 0 8px; font-size: 12px; font-weight: 400; letter-spacing: .14em; color: var(--sh-gold); }
+.sh-help dl { margin: 0; display: grid; gap: 6px; }
+.sh-help .row { display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 10px; font-size: 13px; }
+.sh-help dt { display: flex; gap: 4px; }
+.sh-help dd { margin: 0; color: var(--sh-ink2); }
+.sh-help dd i { font-style: normal; font-size: 11px; color: #0a0a15; background: rgb(var(--sh-accent)); padding: 0 4px; margin-left: 4px; }
+.sh-help kbd { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 5px; font: 12px var(--sh-px); color: var(--sh-ink);
+  background: #161229; border: 2px solid #3b335f; box-shadow: 0 2px 0 #3b335f; }
+.sh-help-ft { margin: 0; padding: 10px 16px 14px; font-size: 11px; color: var(--sh-ink3); }
+@media (max-width: 640px) { .sh-help-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
