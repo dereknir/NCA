@@ -80,6 +80,8 @@ const { song } = Astro.props;
   .flp-ctl button:hover { border-color: var(--sh-gold); }
 
   .flp-lyr { height: var(--flp-h); overflow: hidden; position: relative; mask-image: linear-gradient(transparent, #000 16%, #000 82%, transparent); }
+  .flp-lyr.idle { mask-image: linear-gradient(#000 82%, transparent); }   /* 還沒播: 第一句在最上面, 上緣不淡出 */
+  @media (min-width: 761px) { .flp-lyr { margin-left: 28px; } }          /* 歌詞跟舞台拉開一點, 不要貼著 */
   .flp-lyr-in { transition: transform .5s cubic-bezier(.2,.7,.2,1); padding: 300px 0; }
   .flp-ln { position: relative; padding: 8px 0 8px 22px; color: var(--sh-ink3); transition: color .3s; cursor: pointer; }
   .flp-ln::before { content: ''; position: absolute; left: 0; top: 10px; bottom: 10px; width: 4px; background: var(--c, var(--sh-line)); opacity: .4; }
@@ -477,8 +479,10 @@ const { song } = Astro.props;
       const lines = root.querySelectorAll<HTMLElement>('.flp-ln');
       lines.forEach(e => { const x = +e.dataset.l!; e.classList.toggle('cur', x === l); e.classList.toggle('past', l >= 0 && x < l); });
       const el = lines[l];
+      // 還沒開始播 (沒有正在唱的那句): 第一句貼齊上緣, 跟舞台齊頭; 播了才讓唱到的那句停在中間
       requestAnimationFrame(() => {
-        lyrIn.style.transform = el ? `translateY(${-(el.offsetTop - lyr.clientHeight / 2 + el.offsetHeight / 2)}px)` : 'translateY(0)';
+        lyr.classList.toggle('idle', !el);
+        lyrIn.style.transform = `translateY(${el ? -(el.offsetTop - lyr.clientHeight / 2 + el.offsetHeight / 2) : -parseFloat(getComputedStyle(lyrIn).paddingTop)}px)`;
       });
     }
 
@@ -775,6 +779,7 @@ const { song } = Astro.props;
     lyrIn.addEventListener('click', e => { const l = (e.target as Element).closest<HTMLElement>('.flp-ln'); if (l?.dataset.n) jump(+l.dataset.n); });
 
     build(plan(song, bad));
+    setLine(-1);
     osdR.textContent = `— / ${segs.length}`;
     setLine(-1);
     // YouTube 播放器準備好之前不能按播放 (點擊要直接開播, Safari 才放行)

@@ -15,13 +15,12 @@ export function getStaticPaths() {
 const { song } = Astro.props as { song: FLSong };
 const sum = summary(song);
 const desc = `帶你聽完一整首 Live：從 ${sum.liveShorts} 支演唱會 shorts 挑出 ${sum.segs} 段，一句接一句唱到最後。`;
-const len = `${Math.floor(sum.duration / 60)}:${String(Math.floor(sum.duration % 60)).padStart(2, '0')}`;
 ---
 
 <BaseLayout title={`${song.title} 完整 Live`} description={desc} image={`/og/song/${song.id}.png`} width="stage">
   <PageHero slot="hero" planet="deimos" width="stage" title={song.title} titleLang="ja"
     cmd={`./play --full "${song.title}"`} desc={desc}
-    chips={[[String(sum.segs), '段'], [len, '長'], ...(sum.nonLive ? [[String(sum.nonLiveLines), '句用非 live 版本補'] as [string, string]] : []),
+    chips={[...(sum.nonLive ? [[String(sum.nonLiveLines), '句用非 live 版本補'] as [string, string]] : []),
       ...(sum.skipped.length ? [[String(sum.skipped.length), '句沒人拍到・跳過'] as [string, string]] : []),
       ...(sum.longSegs ? [[String(sum.longSegs), '段用官方長片補'] as [string, string]] : [])]}
     actions={[{ label: '歌詞翻譯', href: `/translations/${song.id}/` }]} />
