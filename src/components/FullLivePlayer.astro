@@ -33,7 +33,7 @@ const { song } = Astro.props;
       </div>
     </div>
     <div class="flp-lyr" data-lyr><div class="flp-lyr-in" data-lyr-in></div></div>
-    <div class="flp-list" data-list></div>
+    <div class="flp-list" data-list role="group" aria-label="這首歌的片段"></div>
   </div>
   <div class="flp-track-h"><span><b data-now>0:00</b> / <span data-all>0:00</span></span></div>
   <div class="flp-track" data-track></div>
@@ -110,7 +110,6 @@ const { song } = Astro.props;
   .flp-kind { font-style: normal; color: #0a0a15; background: var(--sh-ink2); padding: 0 6px; letter-spacing: .04em; }
 
   .flp-list { height: var(--flp-h); overflow: auto; display: flex; flex-direction: column; gap: 8px; padding-left: 2px; }
-  .flp-list h3 { font: 12px var(--sh-px); color: var(--sh-ink3); margin: 0 0 4px; letter-spacing: .1em; font-weight: 400; }
   .flp-it { display: grid; grid-template-columns: 54px 1fr; gap: 10px; padding: 8px; border: 2px solid transparent; background: rgb(15 15 29 / .7);
     cursor: pointer; text-align: left; color: var(--sh-ink2); font: 12px/1.5 var(--sh-px); position: relative; }
   .flp-it::before { content: ''; position: absolute; left: -2px; top: -2px; bottom: -2px; width: 4px; background: var(--c); }
@@ -457,7 +456,7 @@ const { song } = Astro.props;
         return part + `<div class="flp-ln${s.gap ? ' gap' : ''}" data-l="${l}" data-n="${n}" style="--c:${s.gap ? '#243154' : s.color}">`
           + `<span class="ja" lang="ja">${esc(ln.ja)}</span><span class="zh">${esc(ln.zh)}</span></div>`;
       }).join('');
-      list.innerHTML = '<h3>這首歌由這幾段組成</h3>' + segs.map((s, n) => s.gap
+      list.innerHTML = segs.map((s, n) => s.gap
         ? `<button class="flp-it" type="button" data-i="${n}" style="--c:#243154"><img alt=""><div><b>第 ${n + 1} 段</b><div class="t">還沒有人拍到</div><div class="m">第 ${s.from + 1} 句</div></div></button>`
         : `<button class="flp-it" type="button" data-i="${n}" style="--c:${s.color}"><img src="https://i.ytimg.com/vi/${s.v}/hqdefault.jpg" alt="" loading="lazy">`
           + `<div><b>第 ${n + 1} 段${s.live ? '' : ` <em class="flp-kind">${s.kind}</em>`}</b><div class="t" lang="ja">${esc(s.title)}</div>`
