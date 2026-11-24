@@ -174,9 +174,10 @@ const componentId = `shelf-${Math.random().toString(36).slice(2, 9)}`;
     background: rgb(55 65 81);
     border-color: rgb(107 114 128);
   }
+  /* 選中: 紅色壓深一階, 白字對比 3.8 → 5.6 */
   .shelf-chip.active {
-    background: rgb(239 68 68);
-    border-color: rgb(239 68 68);
+    background: rgb(198 47 47);
+    border-color: rgb(198 47 47);
     color: #fff;
   }
   .shelf-chip-count {
@@ -189,6 +190,7 @@ const componentId = `shelf-${Math.random().toString(36).slice(2, 9)}`;
   }
   .shelf-chip.active .shelf-chip-count {
     background: rgba(0, 0, 0, 0.2);
+    opacity: 1;
   }
 
   .shelf-row-wrap {

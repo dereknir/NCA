@@ -16,7 +16,7 @@
 <style>
   :root{--bg:#0a0a15;--panel:#141d31;--panel-2:#1a2440;--line:#243154;
         --text:#e8ecf6;--dim:#8b97b8;--accent:#3d63ff;--gold:#e8c94a;
-        --artist-accent:#3d63ff;--font:"Noto Sans TC","Hiragino Sans",system-ui,sans-serif}
+        --artist-accent:#6d8bff;--font:"Noto Sans TC","Hiragino Sans",system-ui,sans-serif}
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;
        display:flex;flex-direction:column;align-items:center;padding:0 14px 60px}
@@ -60,7 +60,7 @@
         padding:16px;display:flex;flex-direction:column;align-items:center;
         position:relative;min-height:560px}
   #stageTitle{font-size:15px;letter-spacing:.12em}
-  #stageTitle b{color:var(--artist-accent)}
+  #stageTitle b{color:color-mix(in srgb,var(--artist-accent) 55%,#fff)}   /* 歌手色是程式設的, 深底上直接用常常太暗: 混白提亮 */
   #machine{margin-top:10px;image-rendering:pixelated;cursor:default;max-width:100%;
            width:min(520px,100%);height:auto;transition:filter .15s}
   #machine.knob-hover{cursor:pointer;filter:brightness(1.06)}
@@ -113,7 +113,7 @@
   #modalMeta a{color:var(--text);text-decoration:none}
   #modalMeta a:hover{color:var(--artist-accent)}
 
-  footer{margin-top:36px;color:#5a6784;font-size:11.5px;text-align:center;line-height:1.8}
+  footer{margin-top:36px;color:#7d89a8;font-size:11.5px;text-align:center;line-height:1.8}
 
   @media(max-width:820px){
     #app{grid-template-columns:1fr;gap:16px}
@@ -130,13 +130,13 @@
 <script src="/js/site-shell.js" defer></script>
 </head>
 <body>
-<div class="sh-hd" data-sh-header></div>
-<div class="sh-hero sh-hero--tool" data-sh-hero data-planet="jupiter">
+<header class="sh-hd" data-sh-header></header>
+<div role="region" class="sh-hero sh-hero--tool" data-sh-hero data-planet="jupiter" aria-labelledby="sh-title">
   <div class="sh-hero-bg" aria-hidden="true"></div>
   <div class="sh-wrap sh-hero-inner">
     <div class="sh-hero-text">
       <div class="sh-prompt"><span class="u">derek@nishina</span>:<span class="pa">~/jupiter/gacha</span> $ <span class="cmd">./gacha --spin</span></div>
-      <h1 class="sh-title">歌詞卡ガチャ</h1>
+      <h1 class="sh-title" id="sh-title">歌詞卡ガチャ</h1>
       <p class="sh-desc">點扭蛋機抽一張獨一無二的歌詞卡・演出中再點一下可跳過。</p>
       <div class="sh-row"><span class="sh-chip"><b>β</b>測試中</span></div>
     </div>
@@ -144,7 +144,7 @@
 </div>
 <div style="height:24px"></div>
 
-<div id="app">
+<main id="app">
   <nav id="rail"></nav>
 
   <section id="stagePanel">
@@ -166,7 +166,7 @@
     <div id="bookHead"><span class="t">圖鑑</span><span class="n" id="bookCount">—</span></div>
     <div id="backpack"></div>
   </aside>
-</div>
+</main>
 
 <canvas id="flyer" width="168" height="126"></canvas>
 <div id="modal"><div id="modalBox">

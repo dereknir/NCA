@@ -100,7 +100,7 @@
         color:var(--dim);cursor:pointer;padding:1px 7px;margin-left:6px;font-family:inherit}
   .icsb:hover{border-color:var(--accent);color:var(--accent)}
   @media(max-width:760px){#wrap{grid-template-columns:1fr}}
-  footer{margin-top:60px;color:#5a6784;font-size:11.5px;text-align:center}
+  footer{margin-top:60px;color:#7d89a8;font-size:11.5px;text-align:center}
 
   /* ---- planet hero ---- */
   .ph-canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
@@ -135,13 +135,13 @@
 <script src="/js/site-shell.js" defer></script>
 </head>
 <body>
-<div class="sh-hd" data-sh-header></div>
-<div class="sh-hero sh-hero--page" data-sh-hero data-planet="mars">
+<header class="sh-hd" data-sh-header></header>
+<div role="region" class="sh-hero sh-hero--page" data-sh-hero data-planet="mars" aria-labelledby="sh-title">
   <div class="sh-hero-bg" aria-hidden="true"></div>
   <div class="sh-wrap sh-hero-inner">
     <div class="sh-hero-text">
       <div class="sh-prompt"><span class="u">derek@nishina</span>:<span class="pa">~/mars/live/footprint</span> $ <span class="cmd">map --japan</span></div>
-      <h1 class="sh-title">出演足跡</h1>
+      <h1 class="sh-title" id="sh-title">出演足跡</h1>
       <p class="sh-desc">67 場音樂祭/活動出演,按都道府縣落點・點色塊看場次・按 ⭘ 蓋參戰章</p>
       <div class="sh-row"><a class="sh-btn" href="/live/">‹ Live 演出</a></div>
     </div>

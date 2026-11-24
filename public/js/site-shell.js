@@ -205,6 +205,8 @@
     if (document.querySelector('.sh-cli')) return;
     const box = document.createElement('div');
     box.className = 'sh-cli';
+    box.setAttribute('role', 'search');   // 指令列就是全站搜尋: 給它一個 search 區塊
+    box.setAttribute('aria-label', '指令列');
     // 觸控裝置沒有實體鍵盤, 指令列按鈕換成像素ガラケー N247i (打開直接是 MENU, 左鍵「検索」再回到指令列)
     const coarse = matchMedia('(pointer: coarse)').matches;
     const pillHTML = coarse

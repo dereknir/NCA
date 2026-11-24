@@ -78,7 +78,7 @@ if (!shorts || shorts.length === 0) return null;
         </div>
       </div>
       <div class="stage-lyrics-wrap">
-        <div class="stage-lyrics" id="stage-lyrics"></div>
+        <div class="stage-lyrics" id="stage-lyrics" tabindex="0" role="region" aria-label="歌詞 (方向鍵捲動)"></div>
         <button type="button" class="stage-followback" hidden>
           <span class="stage-followback-arrow" aria-hidden="true">↓</span>
           回到目前句
@@ -394,6 +394,7 @@ if (!shorts || shorts.length === 0) return null;
     opacity: 1;
   }
 
+  .stage-lyrics:focus-visible { outline: 2px solid #e8c94a; outline-offset: -2px; }
   .stage-lyrics {
     flex: 1;
     overflow-y: auto;

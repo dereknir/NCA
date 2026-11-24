@@ -272,6 +272,7 @@ a.sh-card:hover, a.sh-card:focus-visible { border-color: var(--sh-gold); transla
   font: 20px var(--sh-px10); color: var(--sh-ink); text-decoration: none; }
 .sh-cli-out a span + span, .sh-cli-out .row span + span { font: 12px var(--sh-px); color: var(--sh-ink3); white-space: nowrap; }
 .sh-cli-out a.sel { background: rgb(var(--sh-accent) / .16); }
+.sh-cli-out a.sel span + span { color: var(--sh-ink2); }   /* 選中那行的底比較亮, 旁邊的小字跟著亮一階 */
 .sh-cli-out a.sel span:first-child::before { content: '> '; color: rgb(var(--sh-accent)); }
 .sh-cli-out .none { font: 12px var(--sh-px); color: var(--sh-ink3); padding: 6px 8px; }
 .sh-cli-line { display: flex; align-items: center; gap: 8px; height: 52px; font-size: 12px; white-space: nowrap;

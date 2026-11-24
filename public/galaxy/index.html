@@ -95,6 +95,8 @@
 <link rel="stylesheet" href="/css/scrollbar.css">
 </head>
 <body>
+<!-- 整頁就是這個太陽系: 包成 main, 讀螢幕知道內容從哪開始 (圖層都是 position:fixed, 版面不受影響) -->
+<main id="galaxy">
 <canvas id="space" class="layer"></canvas>
 <canvas id="fx" class="layer" style="z-index:2;pointer-events:none"></canvas>
 <div id="title"><h1>にしなの宇宙</h1><div class="s">NISHINA SOLAR SYSTEM — β2</div>
@@ -121,6 +123,7 @@
 <div id="warp"></div>
 <canvas id="landing" style="position:fixed;inset:0;z-index:14;display:none"></canvas>
 
+</main>
 <script>
 /* ===== 站長策展區 ===== */
 const ROUTES = {
@@ -629,10 +632,10 @@ for (const b of BODIES) {
   b.ctx = b.el.getContext('2d');
   b.el.style.width = (b.base * b.scale) + 'px';
   b.el.title = b.nameJa + '・' + b.page;
-  document.body.appendChild(b.el);
+  document.getElementById("galaxy").appendChild(b.el);   // 放進 main (圖層是 fixed, 位置不變)
   b.lbl = document.createElement('div');
   b.lbl.className = 'plabel';
-  document.body.appendChild(b.lbl);
+  document.getElementById("galaxy").appendChild(b.lbl);
   if (b.id !== 'sun') b.el.addEventListener('click', () => travel(b));
   b.el.addEventListener('mouseenter', () => { b._hover = true; b.lbl.classList.add('full'); });
   b.el.addEventListener('mouseleave', () => { b._hover = false; b.lbl.classList.remove('full'); });

@@ -59,13 +59,13 @@
 <script src="/js/site-shell.js" defer></script>
 </head>
 <body>
-<div class="sh-hd" data-sh-header></div>
-<div class="sh-hero sh-hero--tool" data-sh-hero data-planet="orbit">
+<header class="sh-hd" data-sh-header></header>
+<div role="region" class="sh-hero sh-hero--tool" data-sh-hero data-planet="orbit" aria-labelledby="sh-title">
   <div class="sh-hero-bg" aria-hidden="true"></div>
   <div class="sh-wrap sh-hero-inner">
     <div class="sh-hero-text">
       <div class="sh-prompt"><span class="u">derek@nishina</span>:<span class="pa">~/earth/orbit/kwic</span> $ <span class="cmd">grep -w</span></div>
-      <h1 class="sh-title">歌詞索引</h1>
+      <h1 class="sh-title" id="sh-title">歌詞索引</h1>
       <p class="sh-desc">Key Word In Context — 以原形檢索，活用形一網打盡。點曲名到歌曲頁。</p>
     </div>
   </div>
@@ -75,7 +75,7 @@
   <div class="bar">
     <input type="search" id="q" list="sugg" placeholder="輸入詞的原形,例:溶ける、夜、愛しい" autocomplete="off">
     <datalist id="sugg"></datalist>
-    <select id="sort">
+    <select id="sort" aria-label="排序">
       <option value="song">曲順</option>
       <option value="right">後文排序(概覽用法)</option>
       <option value="left">前文排序</option>

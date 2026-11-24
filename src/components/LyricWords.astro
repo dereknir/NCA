@@ -50,7 +50,7 @@ const data = lyricWordsFor(Astro.props.songId);
       if (!card || !card.isConnected) {
         card = document.createElement('div');
         card.className = 'wcard'; card.setAttribute('role', 'dialog');
-        document.body.append(card);
+        (document.querySelector('main') || document.body).append(card);   // 放在主要內容裡
       }
       if (cur) cur.setAttribute('aria-expanded', 'false');
       cur = btn; btn.setAttribute('aria-expanded', 'true');
