@@ -274,6 +274,10 @@ a.sh-card:hover, a.sh-card:focus-visible { border-color: var(--sh-gold); transla
 .sh-cli-out a.sel { background: rgb(var(--sh-accent) / .16); }
 .sh-cli-out a.sel span + span { color: var(--sh-ink2); }   /* 選中那行的底比較亮, 旁邊的小字跟著亮一階 */
 .sh-cli-out a.sel span:first-child::before { content: '> '; color: rgb(var(--sh-accent)); }
+/* 歌詞結果: 符合的字金色; 句子用日文 / 粉圓字 (像素字的 20px 放一整句太擠) */
+.sh-cli-out mark { background: none; color: var(--sh-gold); }
+.sh-cli-out a.lyr span:first-child { font: 16px/1.6 'DotGothic16', var(--sh-pxja); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sh-cli-out a.lyr span:first-child:not([lang]) { font-family: var(--sh-read); }
 .sh-cli-out .none { font: 12px var(--sh-px); color: var(--sh-ink3); padding: 6px 8px; }
 .sh-cli-line { display: flex; align-items: center; gap: 8px; height: 52px; font-size: 12px; white-space: nowrap;
   border-top: 1px dashed rgb(255 255 255 / .1); }

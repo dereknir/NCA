@@ -19,6 +19,40 @@
   let indexP = null;
   const loadIndex = () => indexP ||= fetch('/site-index.json').then(r => r.json()).catch(() => null);
 
+  // 歌詞全文 (/lyrics-index.json): 指令列真的開始搜的時候才抓, 抓到之前照樣先列歌名、頁面
+  let lyrP = null, LYR = null;
+  const loadLyrics = () => lyrP ||= fetch('/lyrics-index.json').then(r => r.json()).then(d => {
+    const fold = x => x.normalize('NFKC').toLowerCase().replace(/\s+/g, '');
+    LYR = { songs: d.songs, lines: d.lines.map(([si, li, ja, zh, ro]) => ({ si, li, ja, zh, ro, f: [fold(ja), fold(zh), fold(ro)] })), fold };
+    return LYR;
+  }).catch(() => null);
+  // 一句歌詞裡符合的那段前後各留一點, 太長就截; 符合的字用 <mark>
+  const snippet = (text, q) => {
+    const i = text.normalize('NFKC').toLowerCase().indexOf(q);
+    if (i < 0) return esc(text);
+    const a = Math.max(0, i - 14), b = Math.min(text.length, i + q.length + 14);
+    return (a ? '…' : '') + esc(text.slice(a, i)) + '<mark>' + esc(text.slice(i, i + q.length)) + '</mark>' + esc(text.slice(i + q.length, b)) + (b < text.length ? '…' : '');
+  };
+  function lyricHits(raw) {
+    if (!LYR) return [];
+    const q = LYR.fold(raw);
+    const latin = /^[a-z0-9 '-]+$/.test(q);
+    if (!q || (latin && q.length < 3)) return [];   // 羅馬拼音少於 3 個字母太多雜訊
+    const out = [], perSong = new Map();
+    for (const L of LYR.lines) {
+      const hit = L.f[0].includes(q) ? 0 : L.f[1].includes(q) ? 1 : latin && L.f[2].includes(q) ? 2 : -1;
+      if (hit < 0) continue;
+      const text = [L.ja, L.zh, L.ro][hit];
+      const done = perSong.get(L.si) || new Set();
+      if (done.size >= 2 || done.has(text)) continue;   // 一首歌最多兩句、副歌重複的同一句只列一次
+      done.add(text); perSong.set(L.si, done);
+      const [id, title] = LYR.songs[L.si];
+      out.push({ html: snippet(text, q), ja: hit !== 1, t: title, href: `/translations/${id}/#L${L.li + 1}`, lyric: true });
+      if (out.length >= 8) break;
+    }
+    return out;
+  }
+
   const allItems = idx => idx.groups.flatMap(g => g.items.map(it => ({ ...it, group: g.name })));
   // 目前頁面屬於哪個選單項: 路徑前綴最長者 (/live/timeline 算 Live)
   const currentItem = idx => {
@@ -211,7 +245,7 @@
     const coarse = matchMedia('(pointer: coarse)').matches;
     const pillHTML = coarse
       ? `<button type="button" class="sh-cli-pill sh-cli-pill--phone" aria-label="打開 N247i 選單">${PHONE_ICON}<span>N247i</span><span class="hint">MENU</span></button>`
-      : `<button type="button" class="sh-cli-pill" aria-label="打開指令列"><span>guest@nishina</span><span class="gt">&gt;</span><span class="hint">按 / 搜尋歌名、跳頁</span></button>`;
+      : `<button type="button" class="sh-cli-pill" aria-label="打開指令列"><span>guest@nishina</span><span class="gt">&gt;</span><span class="hint">按 / 搜歌名、歌詞、跳頁</span></button>`;
     // 輸入框是 combobox: 下面的結果是它的 listbox, 方向鍵選到哪一個由 aria-activedescendant 告訴讀螢幕
     box.innerHTML = `${pillHTML}
       <div class="sh-cli-panel"><div class="sh-wrap"><div class="sh-cli-out" id="sh-cli-out" role="listbox" aria-label="搜尋結果"></div>
@@ -242,12 +276,15 @@
       const pages = items.filter(it => it.name.toLowerCase().includes(w)).map(it => ({ k: it.name, t: '頁面', href: it.href }));
       const find = (list, t) => list.filter(p => p.title.toLowerCase().includes(w)).slice(0, 4).map(p => ({ k: p.title, t, href: p.href }));
       const diary = find(idx.diary, '日記'), projects = find(idx.projects, '作品');
-      // 先列這一區的: 在日記頁搜, 日記排最前面; 作品集、翻譯頁同理。其他頁照原本: 頁面 → 歌 → 日記 / 作品
+      // 歌詞全文: 歌名之後列「唱到它的句子」(第一次搜的時候去抓索引, 抓到再重畫一次)
+      if (!LYR) loadLyrics().then(d => { if (d && box.classList.contains('open')) render(); });
+      const lyr = lyricHits(q);
+      // 先列這一區的: 在日記頁搜, 日記排最前面; 作品集、翻譯頁同理。其他頁照原本: 頁面 → 歌 → 歌詞 → 日記 / 作品
       const here = norm(location.pathname);
-      if (here.startsWith('/diary')) return [...diary, ...pages, ...songs, ...projects];
-      if (here.startsWith('/projects')) return [...projects, ...pages, ...songs, ...diary];
-      if (here.startsWith('/translations')) return [...songs, ...pages, ...diary, ...projects];
-      return [...pages, ...songs, ...diary, ...projects];
+      if (here.startsWith('/diary')) return [...diary, ...pages, ...songs, ...lyr, ...projects];
+      if (here.startsWith('/projects')) return [...projects, ...pages, ...songs, ...lyr, ...diary];
+      if (here.startsWith('/translations')) return [...songs, ...lyr, ...pages, ...diary, ...projects];
+      return [...pages, ...songs, ...lyr, ...diary, ...projects];
     };
     function render() {
       const q = input.value.trim();
@@ -255,7 +292,7 @@
       hits = search(q);
       sel = Math.min(sel, Math.max(0, hits.length - 1));
       out.innerHTML = hits.length
-        ? hits.map((h, i) => `<a href="${h.href || '#'}" id="sh-cli-o${i}" data-i="${i}" role="option" aria-selected="${i === sel}"${i === sel ? ' class="sel"' : ''}><span${h.ja ? ' lang="ja"' : ''}>${esc(h.k)}</span><span>${esc(h.t)}</span></a>`).join('')
+        ? hits.map((h, i) => `<a href="${h.href || '#'}" id="sh-cli-o${i}" data-i="${i}" role="option" aria-selected="${i === sel}" class="${[i === sel ? 'sel' : '', h.lyric ? 'lyr' : ''].join(' ').trim()}"><span${h.ja ? ' lang="ja"' : ''}>${h.html ?? esc(h.k)}</span><span>${h.lyric ? '♪ ' : ''}${esc(h.t)}</span></a>`).join('')
         : `<div class="none" role="status">command not found: ${esc(q)}　試試 /help</div>`;
       input.setAttribute('aria-expanded', String(hits.length > 0));
       if (hits.length) input.setAttribute('aria-activedescendant', 'sh-cli-o' + sel); else input.removeAttribute('aria-activedescendant');
