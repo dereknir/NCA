@@ -79,6 +79,7 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
   publishDate={new Date(publishDate)}
   viewTransitions={true}
   width="read"
+  jaTitle
 >
   <PageHero slot="hero" variant="song" width="read" planet="earth" title={title} titleLang="ja"
     path={`~/earth/translations/${translation.id.replace(/^nishina-/, '')}`} cmd="cat lyrics.txt"

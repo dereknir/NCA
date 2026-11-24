@@ -3,17 +3,20 @@
 build_pixel_fonts.py — 站台像素字型子集管線
 
 data/site_charset.txt (build_site_charset.py 產出)
-  → public/fonts/pixel/fp{12,10,8}-site-{zh_hant,ja}.woff2  (+ openhuninn-site.woff2)
+  → public/fonts/pixel/fp{12,10,8}-site-{zh_hant,ja}.woff2
+  → public/fonts/openhuninn/oh-NN.woff2 (粉圓切片) + public/css/site-shell.css 裡的 @font-face
 
 來源字型 fusion-pixel 12px proportional (OFL-1.1), 版本 pin 在下方 RELEASE。
 完整 TTF (~7MB×2) 不進 repo — 本腳本第一次跑會下載到 fonts_src/ (gitignored),
 之後重跑直接用快取。字集有變 (新歌名/新頁面) 才需要重跑:
 
     python scripts/build_site_charset.py && python scripts/build_pixel_fonts.py
+    python scripts/build_pixel_fonts.py openhuninn     # 只重切粉圓 (像素字不動)
 
 依賴: pip install fonttools brotli
 """
 import io
+import re
 import sys
 import urllib.request
 import zipfile
@@ -95,23 +98,104 @@ def verify_coverage():
 OPENHUNINN_URL = "https://cdn.jsdelivr.net/gh/justfont/open-huninn-font@master/font/jf-openhuninn-2.1.ttf"
 
 
+# 粉圓切片 (2026-11): 整份 ~590KB, 可是大部分頁面只有標題區那一句說明用粉圓 —
+# 切成好幾片、每片標 unicode-range, 瀏覽器只抓這頁用得到的那幾片:
+#   第 0 片 = 英數標點 + 全站標題區說明的字 + 很多首歌都用到的字 (一般頁面只要這片, 換頁吃快取)
+#   中間    = 罕見字, 按「第一個用到它的那篇」分群 (同一首歌的罕見字擠在同幾片)
+#   最後    = 剩下的 (頁面自己的文案等)
+OH_DIR = ROOT / "public" / "fonts" / "openhuninn"
+OH_CSS = ROOT / "public" / "css" / "site-shell.css"
+OH_MARK = ("/* openhuninn 切片: scripts/build_pixel_fonts.py 產生, 別手改 */", "/* openhuninn 切片結束 */")
+OH_COMMON = 15      # 至少幾篇內容用到 → 放第 0 片
+OH_RARE = 5        # 少於幾篇用到 = 罕見字, 按篇分群; 介於中間的照常見程度排
+OH_STEP = 150      # 之後每片幾個字
+
+
+def _plain(text: str) -> str:
+    text = re.sub(r"<(script|style)\b[\s\S]*?</\1>", " ", text, flags=re.I)
+    return re.sub(r"<[^>]+>", " ", text)
+
+
+def _ranges(cps: list[int]) -> str:
+    cps = sorted(set(cps))
+    out, start, prev = [], cps[0], cps[0]
+    for cp in cps[1:] + [None]:
+        if cp is not None and cp == prev + 1:
+            prev = cp
+            continue
+        out.append(f"U+{start:X}" if start == prev else f"U+{start:X}-{prev:X}")
+        if cp is not None:
+            start = prev = cp
+    return ", ".join(out)
+
+
 def subset_openhuninn():
-    """jf 粉圓 (H 拍板 2026-08): 中文閱讀區內文字 → public/fonts/openhuninn-site.woff2"""
+    """jf 粉圓 (H 拍板 2026-08): 中文閱讀區內文字 → public/fonts/openhuninn/oh-NN.woff2 + site-shell.css 的 @font-face"""
     from fontTools import subset as fts
+    from fontTools.ttLib import TTFont
     src = SRC_DIR / "jf-openhuninn-2.1.ttf"
     if not src.exists():
         SRC_DIR.mkdir(exist_ok=True)
         print("↓ 下載 jf-openhuninn 2.1 (~4.7MB, 只需一次) …")
         urllib.request.urlretrieve(OPENHUNINN_URL, src)
-    out = ROOT / "public" / "fonts" / "openhuninn-site.woff2"
-    fts.main([str(src), f"--text-file={CHARSET}", "--flavor=woff2", f"--output-file={out}"])
-    print(f"✓ {out.relative_to(ROOT)} ({out.stat().st_size // 1024}KB)")
+    have = set(TTFont(src)["cmap"].getBestCmap())
+    charset = sorted({c for c in CHARSET.read_text(encoding="utf-8") if ord(c) in have and c.isprintable()})
+
+    # 每篇內容一份; 數每個字被幾篇用到。日記、作品排前面: 它們的罕見字集中在自己那幾片,
+    # 不會散進各首歌的片裡 (不然看一篇日記要把每一片都抓下來)
+    docs = []
+    for coll in ["diary", "projects", "translations"]:
+        for p in sorted((ROOT / "src" / "content" / coll).glob("*.md")):
+            docs.append(set(_plain(p.read_text(encoding="utf-8"))))
+    df = {c: sum(c in d for d in docs) for c in charset}
+    # 標題區的一句說明: PageHero 的 desc="…"、靜態頁的 <p class="sh-desc">
+    hero = set()
+    for p in ROOT.glob("src/pages/**/*.astro"):
+        for m in re.finditer(r'desc=(?:"([^"]*)"|\{`([^`]*)`\})', p.read_text(encoding="utf-8")):
+            hero |= set(m.group(1) or m.group(2) or "")
+    for p in list(ROOT.glob("public/*/index.html")) + list(ROOT.glob("public/live/*/index.html")):
+        for m in re.finditer(r'class="sh-desc"[^>]*>([\s\S]*?)</p>', p.read_text(encoding="utf-8")):
+            hero |= set(_plain(m.group(1)))
+
+    head = [c for c in charset if ord(c) < 0x3000 or c in hero or df[c] >= OH_COMMON or 0xFF00 <= ord(c) <= 0xFF65]
+    head_set = set(head)
+    # 中間層: 好幾篇都會用到的字, 照常見程度排 (一首歌會用到的大多集中在前幾片)
+    mid = sorted((c for c in charset if c not in head_set and df[c] >= OH_RARE), key=lambda c: (-df[c], ord(c)))
+    # 罕見字: 按「第一個用到它的那篇」分群, 同一篇的擠在同幾片
+    first_doc = lambda c: next((i for i, d in enumerate(docs) if c in d), len(docs))
+    rare = sorted((c for c in charset if c not in head_set and df[c] < OH_RARE), key=lambda c: (first_doc(c), ord(c)))
+    chunk = lambda xs: [xs[i:i + OH_STEP] for i in range(0, len(xs), OH_STEP)]
+    slices = [head] + chunk(mid) + chunk(rare)
+
+    OH_DIR.mkdir(parents=True, exist_ok=True)
+    for old in OH_DIR.glob("oh-*.woff2"):
+        old.unlink()
+    faces, total = [], 0
+    for i, chars in enumerate(slices):
+        out = OH_DIR / f"oh-{i:02d}.woff2"
+        txt = OH_DIR / ".slice.txt"
+        txt.write_text("".join(chars), encoding="utf-8")
+        fts.main([str(src), f"--text-file={txt}", "--flavor=woff2", f"--output-file={out}"])
+        txt.unlink()
+        total += out.stat().st_size
+        faces.append(f"@font-face {{ font-family: 'openhuninn'; src: url('/fonts/openhuninn/oh-{i:02d}.woff2') format('woff2'); "
+                     f"font-display: swap; unicode-range: {_ranges([ord(c) for c in chars])}; }}")
+    print(f"✓ public/fonts/openhuninn/ {len(slices)} 片, 第 0 片 {len(head)} 字 "
+          f"{(OH_DIR / 'oh-00.woff2').stat().st_size // 1024}KB, 全部 {total // 1024}KB")
+
+    css = OH_CSS.read_text(encoding="utf-8")
+    a, b = css.index(OH_MARK[0]), css.index(OH_MARK[1])
+    OH_CSS.write_text(css[:a] + OH_MARK[0] + "\n" + "\n".join(faces) + "\n" + css[b:], encoding="utf-8")
+    print(f"✓ {OH_CSS.relative_to(ROOT)} 的 @font-face 已更新")
 
 
 def main():
     if not CHARSET.exists():
         print("先跑 scripts/build_site_charset.py", file=sys.stderr)
         sys.exit(1)
+    if sys.argv[1:] == ["openhuninn"]:
+        subset_openhuninn()
+        return
     for size in SIZES:
         ensure_sources(size)
         for lang in LANGS:

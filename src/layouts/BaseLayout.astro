@@ -20,6 +20,8 @@ interface Props {
   /** 沉浸模式 (首頁的房間): 整頁只剩 hero, 沒有頁首、內文、頁尾;
    *  左下的指令列按鈕也收起來 (房間裡的電腦就是指令列, 手機就是 N247i), 按 / 照樣叫得出來。 */
   immersive?: boolean;
+  /** 標題是日文的頁 (歌曲頁、完整 Live): 日文像素字也先抓, 不然標題先用備用字型畫、字型到了再換, 整塊會跳一下 */
+  jaTitle?: boolean;
 }
 
 const {
@@ -30,7 +32,8 @@ const {
   publishDate,
   viewTransitions = false,
   width = 'legacy',
-  immersive = false
+  immersive = false,
+  jaTitle = false
 } = Astro.props;
 
 // 目前頁面屬於哪個選單項 (路徑前綴最長者); site-shell.js 對靜態頁用同一套規則
@@ -93,6 +96,7 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
        只先抓中文兩份: 日文那兩份各 100KB 上下, 大部分頁面第一眼用不到, 用到再抓 -->
   <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp12-site-zh_hant.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp10-site-zh_hant.woff2">
+  {jaTitle && <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp12-site-ja.woff2">}
 
   <link rel="stylesheet" href="/css/scrollbar.css">
 

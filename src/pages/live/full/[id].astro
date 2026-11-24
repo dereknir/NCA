@@ -17,7 +17,7 @@ const sum = summary(song);
 const desc = `帶你聽完一整首 Live：從 ${sum.liveShorts} 支演唱會 shorts 挑出 ${sum.segs} 段，一句接一句唱到最後。`;
 ---
 
-<BaseLayout title={`${song.title} 完整 Live`} description={desc} image={`/og/song/${song.id}.png`} width="stage">
+<BaseLayout title={`${song.title} 完整 Live`} description={desc} image={`/og/song/${song.id}.png`} width="stage" jaTitle>
   <PageHero slot="hero" planet="deimos" width="stage" compact title={song.title} titleLang="ja"
     cmd={`./play --full "${song.title}"`} desc={desc}
     chips={[...(sum.nonLive ? [[String(sum.nonLiveLines), '句用非 live 版本補'] as [string, string]] : []),
