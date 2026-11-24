@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
+import ArticleEnd from '../../components/ArticleEnd.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -59,5 +60,6 @@ const description = `${new Date(date).toLocaleDateString('zh-TW', { timeZone: 'U
         ← 返回日記列表
       </a>
     </div>
+    <ArticleEnd shareText={`derekkk 的日記「${title}」`} />
   </article>
 </BaseLayout>

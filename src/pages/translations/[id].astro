@@ -5,6 +5,7 @@ import ShortsShelf from '../../components/ShortsShelf.astro';
 import TocDrawer from '../../components/TocDrawer.astro';
 import LiveStage from '../../components/LiveStage.astro';
 import LyricsModes from '../../components/LyricsModes.astro';
+import ArticleEnd from '../../components/ArticleEnd.astro';
 import shortsData from '../../data/shorts_by_song.json';
 import { getCollection, render } from 'astro:content';
 import { existsSync } from 'node:fs';
@@ -36,7 +37,8 @@ const credits: Array<{ label: string; value?: string }> = [
 const rawBody = translation.body ?? '';
 const isTranslated = instrumental === true || !rawBody.includes('翻譯準備中');
 // 標題區的資訊: 翻好那天 (scripts/build_translation_dates.py 從 git 算的, 以台灣時間的日期為準)、歌詞幾行
-const translatedAt = isTranslated ? (translationDates as Record<string, { translated: string | null }>)[translation.id]?.translated : null;
+const songDates = (translationDates as Record<string, { translated: string | null; updated: string | null }>)[translation.id];
+const translatedAt = isTranslated ? songDates?.translated : null;
 const translatedOn = translatedAt ? new Date(translatedAt).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }) : null;
 const lyricLines = isTranslated && !instrumental ? rawBody.split('class="lyrics-line"').length - 1 : 0;
 
@@ -152,6 +154,9 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
         )}
       </div>
     )}
+
+    <ArticleEnd shareText={`${artist}「${title}」中文歌詞翻譯`} translated={translatedAt} updated={songDates?.updated}
+      source={`src/content/translations/${translation.id}.md`} />
 
     {(prevSong || nextSong) && (
       <nav class="mt-12 grid grid-cols-2 gap-4">

@@ -1,0 +1,97 @@
+---
+/**
+ * ArticleEnd — 文章最後一塊: 最後修改 + 修訂紀錄 (翻譯頁才有), 分享
+ * - 修訂紀錄連到 GitHub 上這個檔案的每一次 commit (repo 是公開的)
+ * - 分享: X / Threads / LINE / 複製連結; 手機有系統分享的話多一顆「分享…」(叫出手機自己的分享選單)
+ *   網址在瀏覽器裡用當下的網址組 (網域還沒定, 預覽、正式都對)
+ * 翻譯頁圈內是 ClientRouter 換頁, script 掛 astro:page-load, 每個區塊只綁一次 (data-wired)
+ */
+import { SITE_CONFIG } from '../config';
+
+interface Props {
+  shareText: string;            // 分享出去的那一句, 例「にしな「青藍遊泳」中文歌詞翻譯」
+  updated?: string | null;      // 最後修改 (ISO), 有才顯示
+  translated?: string | null;   // 翻好那天 (ISO); 跟最後修改同一天就不另外寫修改
+  source?: string;              // repo 裡的檔案路徑, 有才給「修訂紀錄」連結
+}
+const { shareText, updated, translated, source } = Astro.props;
+const day = (iso: string) => new Date(iso).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
+const showUpdated = updated && (!translated || day(updated) !== day(translated));
+const history = source ? `${SITE_CONFIG.social.github}/NCA/commits/develop/${source}` : null;
+---
+
+<section class="ae" data-article-end data-share-text={shareText} aria-label="修訂與分享">
+  {(showUpdated || history) && (
+    <p class="ae-rev">
+      {showUpdated && <>最後修改 <time datetime={updated!}>{day(updated!)}</time></>}
+      {showUpdated && history && <i aria-hidden="true">·</i>}
+      {history && <a href={history} target="_blank" rel="noopener noreferrer">修訂紀錄<span class="sr-only"> (GitHub, 開新分頁)</span> ↗</a>}
+    </p>
+  )}
+  <div class="ae-share" role="group" aria-label="分享">
+    <span class="ae-k" aria-hidden="true">分享</span>
+    <button type="button" class="ae-native" data-s="native" hidden>
+      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M3 0h1v1h1v1H4v3H3V2H2V1h1zM0 3h1v3h5V3h1v4H0z"/></svg>分享…</button>
+    <button type="button" data-s="x">
+      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M0 0h2v1h1v1h1V1h1V0h2v1H6v1H5v1H4v1h1v1h1v1h1v1H5V6H4V5H3v1H2v1H0V6h1V5h1V4h1V3H2V2H1V1H0z"/></svg>X</button>
+    <button type="button" data-s="threads">
+      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M2 0h3v1h1v1h1v3H5V2H4V1H3v1H2v3h2V4h1v2H4v1H2V6H1V5H0V2h1V1h1z"/></svg>Threads</button>
+    <button type="button" data-s="line">
+      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M1 0h5v1h1v3H6v1H3v1H2v1H1V5H0V1h1z"/></svg>LINE</button>
+    <button type="button" data-s="copy">
+      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M0 1h1v4h3v1H0zM2 0h5v5H2zM3 1v3h3V1z"/></svg>複製連結</button>
+    <span class="ae-said" role="status"></span>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    if (window.__articleEnd) return;
+    window.__articleEnd = true;
+    function wire() {
+      document.querySelectorAll('[data-article-end]:not([data-wired])').forEach(function (box) {
+        box.dataset.wired = '1';
+        var text = box.dataset.shareText || document.title, said = box.querySelector('.ae-said'), t = 0;
+        var url = function () { return location.origin + location.pathname; };   // 不帶 #小節, 分享整篇
+        var say = function (m) { said.textContent = m; clearTimeout(t); t = setTimeout(function () { said.textContent = ''; }, 2000); };
+        var nat = box.querySelector('[data-s="native"]');
+        if (navigator.share && matchMedia('(pointer: coarse)').matches) nat.hidden = false;   // 手機才放, 桌機的系統分享很少人用
+        var open = function (href) { window.open(href, '_blank', 'noopener,noreferrer'); };
+        var ACT = {
+          native: function () { navigator.share({ title: text, url: url() }).catch(function () {}); },
+          x: function () { open('https://x.com/intent/post?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url())); },
+          threads: function () { open('https://www.threads.net/intent/post?text=' + encodeURIComponent(text + ' ' + url())); },
+          line: function () { open('https://social-plugins.line.me/lineit/share?url=' + encodeURIComponent(url())); },
+          copy: function () {
+            if (!navigator.clipboard) { say('複製不了, 請直接複製網址列'); return; }
+            navigator.clipboard.writeText(url()).then(function () { say('已複製連結'); }, function () { say('複製不了, 請直接複製網址列'); });
+          },
+        };
+        box.querySelector('.ae-share').addEventListener('click', function (e) {
+          var b = e.target.closest('button[data-s]');
+          if (b && ACT[b.dataset.s]) ACT[b.dataset.s]();
+        });
+      });
+    }
+    wire();
+    document.addEventListener('astro:page-load', wire);
+  })();
+</script>
+
+<style is:global>
+  .ae { margin: 48px 0 0; padding: 16px 0 0; border-top: 1px dashed var(--sh-line); }
+  .ae-rev { margin: 0 0 12px; font: 12px/1.9 var(--sh-px); letter-spacing: .06em; color: var(--sh-ink3); }
+  .ae-rev time { color: var(--sh-ink2); }
+  .ae-rev i { font-style: normal; margin: 0 .6em; }
+  .ae-rev a { color: var(--sh-ink2); text-decoration: underline dotted; text-underline-offset: 4px; }
+  .ae-rev a:hover, .ae-rev a:focus-visible { color: var(--sh-gold); text-decoration-style: solid; }
+  .ae-share { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .ae-k { font: 12px var(--sh-px); color: var(--sh-ink3); letter-spacing: .08em; margin-right: 4px; }
+  .ae-share button { display: inline-flex; align-items: center; gap: 7px; font: 12px var(--sh-px); letter-spacing: .06em; color: var(--sh-ink2);
+    background: rgb(10 10 21 / .6); border: 2px solid var(--sh-line); padding: 6px 10px; cursor: pointer; }
+  .ae-share button:hover { border-color: var(--sh-gold); color: var(--sh-gold); }
+  .ae-share button:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 2px; }
+  .ae-share button[hidden] { display: none; }
+  .ae-share svg { width: 14px; height: 14px; fill: currentColor; shape-rendering: crispEdges; flex: none; }
+  .ae-said { font: 12px var(--sh-px); color: var(--sh-gold); }
+</style>
