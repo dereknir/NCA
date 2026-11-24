@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { SITE_CONFIG } from '../config';
+import BrandPlanet from '../components/BrandPlanet.astro';
 import { getCollection } from 'astro:content';
 import translationDates from '../data/translation_dates.json';
 import fullLive from '../data/full_live.json';
@@ -40,46 +41,32 @@ const STATS: Array<{ n: string; u: string; links: Array<[string, string]>; note:
   <PageHero slot="hero" planet="neptune" width="read" title="關於我" cmd="whoami" />
   <div>
 
-    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
-      <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
-        <!-- Avatar placeholder -->
-        <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-4xl font-bold shrink-0">
-          D
-        </div>
+    <div class="ab">
+      <div class="ab-me">
+        <!-- 頭像: 頁尾那顆「derekkk」帶環小行星放大 -->
+        <BrandPlanet size={128} class="ab-planet" />
 
         <div>
-          <h2 class="text-2xl font-bold mb-4">Derek Ni</h2>
-          <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+          <h2 class="px-h2" style="margin: 0 0 12px">Derek Ni</h2>
+          <p class="ab-p">
             嗨！我是 Derek，一個喜歡日文歌、程式設計和寫日記的人。
           </p>
-          <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+          <p class="ab-p">
             這個網站是我的個人空間，用來記錄我翻譯的日文歌曲、分享程式作品，以及記錄日常生活的點滴。
           </p>
         </div>
       </div>
 
-      <hr class="my-8 border-gray-200 dark:border-gray-700">
+      <hr class="ab-hr">
 
-      <!-- Interests -->
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="text-center p-4">
-          <div class="text-3xl mb-2">🎵</div>
-          <h3 class="font-semibold mb-2">日文歌翻譯</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">喜歡日文歌，享受翻譯歌詞的過程</p>
-        </div>
-        <div class="text-center p-4">
-          <div class="text-3xl mb-2">💻</div>
-          <h3 class="font-semibold mb-2">程式開發</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">熱愛寫程式，持續學習新技術</p>
-        </div>
-        <div class="text-center p-4">
-          <div class="text-3xl mb-2">📝</div>
-          <h3 class="font-semibold mb-2">寫日記</h3>
-          <p class="text-sm text-gray-600 dark:text-gray-400">用文字記錄生活中的美好時刻</p>
-        </div>
+      <!-- 喜歡的事: 三格像素卡, 編號 + 名稱 + 一句話 -->
+      <div class="ab-likes">
+        <div class="sh-card ab-like"><span class="sh-label">01</span><h3>日文歌翻譯</h3><p>喜歡日文歌，享受翻譯歌詞的過程</p></div>
+        <div class="sh-card ab-like"><span class="sh-label">02</span><h3>程式開發</h3><p>熱愛寫程式，持續學習新技術</p></div>
+        <div class="sh-card ab-like"><span class="sh-label">03</span><h3>寫日記</h3><p>用文字記錄生活中的美好時刻</p></div>
       </div>
 
-      <hr class="my-8 border-gray-200 dark:border-gray-700">
+      <hr class="ab-hr">
 
       <!-- 這個站現在有: 跟標題區的提示列同一個語言, 打一個指令吐出一張對齊的表 -->
       <section class="ab-term" aria-labelledby="ab-term-h">
@@ -97,29 +84,24 @@ const STATS: Array<{ n: string; u: string; links: Array<[string, string]>; note:
         <div class="sh-prompt" aria-hidden="true"><span class="u">derek@nishina</span>:<span class="pa">~</span> $ <span class="cmd"></span></div>
       </section>
 
-      <hr class="my-8 border-gray-200 dark:border-gray-700">
+      <hr class="ab-hr">
 
       <!-- Contact -->
       <div>
-        <h3 class="text-xl font-bold mb-4">聯絡我</h3>
-        <div class="flex flex-wrap gap-4">
-          <a href={SITE_CONFIG.social.github} target="_blank" rel="noopener noreferrer"
-             class="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition">
-            GitHub
-          </a>
-          <a href={`mailto:${SITE_CONFIG.social.email}`}
-             class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-            Email
-          </a>
+        <h3 class="px-h2" style="margin: 0 0 14px">聯絡我</h3>
+        <div class="flex flex-wrap gap-3">
+          <a href={SITE_CONFIG.social.github} target="_blank" rel="noopener noreferrer" class="sh-btn">GitHub</a>
+          <a href={`mailto:${SITE_CONFIG.social.email}`} class="sh-btn sh-btn--pri">Email</a>
         </div>
       </div>
 
-      <div class="mt-14 pt-8 border-t border-gray-700/60">
-        <h3 class="px text-xl mb-4">素材與致謝</h3>
-        <ul class="text-sm text-gray-400 space-y-2 leading-relaxed">
-          <li>行星 shader — 改編自 <a href="https://github.com/Deep-Fold/PixelPlanets" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">Deep-Fold「PixelPlanets」</a>(Godot, MIT)之 Unity 移植版 <a href="https://github.com/hmcGit/UniPixelPlanet" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">hmcGit/UniPixelPlanet</a>(MIT, © Harry Kilian);WebGL 移植為本站自製。</li>
-          <li>像素字型 — <a href="https://github.com/TakWolf/fusion-pixel-font" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">fusion-pixel-font</a>(OFL-1.1,含俐方體11號/Ark Pixel/Galmuri 字形)。</li>
-          <li>內文字型 — <a href="https://github.com/justfont/open-huninn-font" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">jf open 粉圓</a>(justfont, OFL-1.1)、<a href="https://fonts.google.com/specimen/DotGothic16" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">DotGothic16</a>(Fontworks, OFL-1.1)。</li>
+      <hr class="ab-hr">
+      <div>
+        <h3 class="sh-label" style="margin-bottom: 12px">素材與致謝</h3>
+        <ul class="ab-credits">
+          <li>行星 shader — 改編自 <a href="https://github.com/Deep-Fold/PixelPlanets" target="_blank" rel="noopener noreferrer" class="sh-link">Deep-Fold「PixelPlanets」</a>(Godot, MIT)之 Unity 移植版 <a href="https://github.com/hmcGit/UniPixelPlanet" target="_blank" rel="noopener noreferrer" class="sh-link">hmcGit/UniPixelPlanet</a>(MIT, © Harry Kilian);WebGL 移植為本站自製。</li>
+          <li>像素字型 — <a href="https://github.com/TakWolf/fusion-pixel-font" target="_blank" rel="noopener noreferrer" class="sh-link">fusion-pixel-font</a>(OFL-1.1,含俐方體11號/Ark Pixel/Galmuri 字形)。</li>
+          <li>內文字型 — <a href="https://github.com/justfont/open-huninn-font" target="_blank" rel="noopener noreferrer" class="sh-link">jf open 粉圓</a>(justfont, OFL-1.1)、<a href="https://fonts.google.com/specimen/DotGothic16" target="_blank" rel="noopener noreferrer" class="sh-link">DotGothic16</a>(Fontworks, OFL-1.1)。</li>
           <li>日本地圖 — dataofjapan/land(Natural Earth, 公有領域)。</li>
         </ul>
       </div>
@@ -128,6 +110,20 @@ const STATS: Array<{ n: string; u: string; links: Array<[string, string]>; note:
 </BaseLayout>
 
 <style>
+  .ab-me { display: flex; align-items: flex-start; gap: 32px; }
+  .ab-planet { flex: none; image-rendering: pixelated; filter: drop-shadow(0 0 24px rgb(232 201 74 / .25)); }
+  .ab-p { margin: 0 0 12px; font: 1.125rem/1.9 var(--sh-read); color: var(--sh-ink2); }
+  .ab-hr { margin: 32px 0; border: 0; border-top: 1px dashed var(--sh-line); }
+  .ab-likes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .ab-like { padding: 14px 16px; }
+  .ab-like h3 { margin: 4px 0 6px; font: 400 24px var(--sh-px); letter-spacing: .05em; color: #fff; }
+  .ab-like p { margin: 0; font: 1rem/1.7 var(--sh-read); color: var(--sh-ink2); }
+  .ab-credits { list-style: none; margin: 0; padding: 0; font: 12px/2 var(--sh-px); color: var(--sh-ink3); }
+  @media (max-width: 640px) {
+    .ab-me { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+    .ab-planet { width: 96px; height: 96px; }
+    .ab-likes { grid-template-columns: 1fr; }
+  }
   .ab-term { background: #07060f; border: 2px solid #2b2249; padding: 16px 18px; }
   /* 整張表共用一個格線 (li 是 display: contents), 每一欄上下對齊: 數字 (靠右) / 單位 / 連到哪 / # 說明; 手機說明換到下一行 */
   .ab-term ul { list-style: none; margin: 6px 0 8px; padding: 0; display: grid; grid-template-columns: auto auto auto minmax(0, 1fr);

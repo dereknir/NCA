@@ -54,71 +54,51 @@ function formatViews(n: number): string {
     desc="にしな 歷年巡演的完整曲目清單。"
     chips={[[String(meta.tour_count), '場巡演']]} />
   <div>
-    <p class="text-xs text-gray-500 dark:text-gray-500 mb-8">
+    <p class="sh-label mb-8">
       資料源：
-      <a href="https://nishina.lnk.to/live_setlist" target="_blank" rel="noopener noreferrer"
-         class="text-blue-500 hover:underline">nishina.lnk.to/live_setlist</a>
+      <a href="https://nishina.lnk.to/live_setlist" target="_blank" rel="noopener noreferrer" class="sh-link">nishina.lnk.to/live_setlist</a>
       · 更新於 {meta.generated?.slice(0, 10) ?? '—'}
       · {meta.tour_count} 場
     </p>
 
-    <div class="grid gap-6">
+    <div class="grid gap-8">
       {tours.map(tour => (
-        <article class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 overflow-hidden">
-          {/* header: cover on left + title/date/stats on right */}
-          <header class="p-5 border-b border-gray-200 dark:border-gray-700 flex gap-5">
+        <article class="sh-card sl-tour">
+          {/* 上面: 封面 + 巡演名、日期、開歌單的按鈕 */}
+          <header class="sl-hd">
             {tour.cover && (
-              <img src={tour.cover} alt={`${tour.title} 巡演封面`}
-                   width="120" height="120" loading="lazy"
-                   class="w-24 h-24 md:w-28 md:h-28 rounded-lg object-cover flex-shrink-0
-                          border border-gray-200 dark:border-gray-700 shadow-sm" />
+              <img src={tour.cover} alt={`${tour.title} 巡演封面`} width="112" height="112" loading="lazy" class="sh-img sl-cover" />
             )}
-            <div class="flex-1 min-w-0 flex flex-col justify-center gap-1">
-              <h2 class="text-2xl font-bold leading-tight">{tour.title}</h2>
-              <span class="text-sm text-gray-500 dark:text-gray-400 font-mono">{tour.date}</span>
+            <div class="sl-hd-t">
+              <h2 lang="ja">{tour.title}</h2>
+              <span class="sh-label" style="margin: 0">{tour.date}</span>
+              {(tour.spotify || tour.applemusic) && (
+                <div class="sl-acts">
+                  {tour.spotify && (
+                    <a href={tour.spotify} target="_blank" rel="noopener noreferrer" class="sh-btn sl-spotify">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.301.42-1.02.599-1.56.3z"/>
+                      </svg>
+                      在 Spotify 開啟
+                    </a>
+                  )}
+                  {tour.applemusic && (
+                    <a href={tour.applemusic} target="_blank" rel="noopener noreferrer" class="sh-btn">在 Apple Music 開啟</a>
+                  )}
+                </div>
+              )}
             </div>
           </header>
 
-          {/* action buttons */}
-          <div class="px-5 pt-4 flex flex-wrap gap-2">
-            {tour.spotify && (
-              <a href={tour.spotify} target="_blank" rel="noopener noreferrer"
-                 class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold
-                        bg-green-600 hover:bg-green-700 text-white transition">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.301.42-1.02.599-1.56.3z"/>
-                </svg>
-                在 Spotify 開啟
-              </a>
-            )}
-            {tour.applemusic && (
-              <a href={tour.applemusic} target="_blank" rel="noopener noreferrer"
-                 class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold
-                        bg-gray-900 hover:bg-black text-white transition
-                        border border-gray-700">
-                在 Apple Music 開啟
-              </a>
-            )}
-          </div>
-
-          {/* tracklist */}
-          <ol class="p-5 grid gap-1.5 md:grid-cols-2">
+          {/* 曲目: 有翻譯的連到翻譯頁, 還沒翻的灰字 + 「未翻」 */}
+          <ol class="sl-trk">
             {tour.tracks.map(tr => (
-              <li class="flex items-baseline gap-3 text-sm">
-                <span class="text-xs text-gray-400 dark:text-gray-500 font-mono w-6 flex-shrink-0 text-right">
-                  {String(tr.index).padStart(2, '0')}
-                </span>
+              <li>
+                <span class="n">{String(tr.index).padStart(2, '0')}</span>
                 {tr.matched_song_id ? (
-                  <a href={`/translations/${tr.matched_song_id}`}
-                     class="text-gray-800 dark:text-gray-100 hover:text-blue-500 dark:hover:text-blue-400
-                            hover:underline decoration-1 underline-offset-2 transition min-w-0 flex-1">
-                    {tr.title}
-                  </a>
+                  <a href={`/translations/${tr.matched_song_id}`} lang="ja">{tr.title}</a>
                 ) : (
-                  <span class="text-gray-400 dark:text-gray-500 min-w-0 flex-1 italic">
-                    {tr.title}
-                    <span class="text-xs ml-1.5 not-italic">(尚未翻譯)</span>
-                  </span>
+                  <span class="wip"><span lang="ja">{tr.title}</span> <small>(尚未翻譯)</small></span>
                 )}
               </li>
             ))}
@@ -126,25 +106,16 @@ function formatViews(n: number): string {
 
           {/* 當日花絮 (若有 tour_recap shorts 被 tag 到這個 tour.title) */}
           {recapsByTour[tour.title]?.length > 0 && (
-            <div class="border-t border-gray-200 dark:border-gray-700 p-5">
-              <h3 class="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-3">
-                📹 當日花絮 · {recapsByTour[tour.title].length} 支
-              </h3>
+            <div class="sl-recap">
+              <h3 class="sh-label">當日花絮 · {recapsByTour[tour.title].length} 支</h3>
               <div class="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
                 {recapsByTour[tour.title].map(s => (
-                  <a href={s.url} target="_blank" rel="noopener noreferrer"
-                     class="group block rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700
-                            bg-gray-50 dark:bg-gray-900/40 hover:shadow-lg hover:-translate-y-0.5 transition">
-                    <div class="aspect-[9/16] overflow-hidden bg-gray-100 dark:bg-gray-900 relative">
-                      <img src={s.thumbnail} alt={s.title} loading="lazy"
-                           class="w-full h-full object-cover group-hover:scale-105 transition" />
-                      <div class="absolute bottom-1 right-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-mono">
-                        ▶ {formatViews(s.viewCount)}
-                      </div>
+                  <a href={s.url} target="_blank" rel="noopener noreferrer" class="sh-card sl-short">
+                    <div class="aspect-[9/16] overflow-hidden relative" style="background: #05050b">
+                      <img src={s.thumbnail} alt={s.title} loading="lazy" class="w-full h-full object-cover" />
+                      <span class="sl-views">▶ {formatViews(s.viewCount)}</span>
                     </div>
-                    <div class="p-2 text-xs text-gray-700 dark:text-gray-200 line-clamp-2 leading-snug">
-                      {s.title}
-                    </div>
+                    <div class="sl-short-t">{s.title}</div>
                   </a>
                 ))}
               </div>
@@ -154,9 +125,37 @@ function formatViews(n: number): string {
       ))}
     </div>
 
-    <p class="text-xs text-gray-500 dark:text-gray-500 mt-10 leading-relaxed">
+    <p class="sh-label mt-10" style="line-height: 2">
       曲目清單為公開事實資料,順序依 にしな 官方公開的 Spotify 播放列表為準。<br>
-      每首歌連結至本站的中文翻譯頁; 尚未翻譯的曲目以斜體標示。
+      每首歌連結至本站的中文翻譯頁; 尚未翻譯的曲目以灰字標示。
     </p>
   </div>
 </BaseLayout>
+
+<style is:global>
+  .sl-tour { overflow: hidden; }
+  .sl-hd { display: flex; gap: 20px; padding: 18px 20px; border-bottom: 1px dashed var(--sh-line); }
+  .sl-cover { width: 112px; height: 112px; object-fit: cover; flex: none; }
+  .sl-hd-t { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+  .sl-hd-t h2 { margin: 0; font: 400 24px/32px var(--sh-pxja); letter-spacing: .04em; color: #fff; }
+  .sl-acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+  .sl-acts .sh-btn { display: inline-flex; align-items: center; gap: 6px; }
+  .sl-spotify:hover { color: #1ed760; }
+  .sl-trk { list-style: none; margin: 0; padding: 16px 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 28px; }
+  .sl-trk li { display: flex; align-items: baseline; gap: 12px; min-width: 0; }
+  .sl-trk .n { font: 12px var(--sh-px); color: var(--sh-ink3); width: 22px; flex: none; text-align: right; }
+  .sl-trk a { font: 16px/1.7 'PX10-JA', var(--sh-px10); color: var(--sh-ink); text-decoration: none; min-width: 0; }
+  .sl-trk a:hover, .sl-trk a:focus-visible { color: var(--sh-gold); text-decoration: underline dotted; text-underline-offset: 4px; }
+  .sl-trk .wip { font: 16px/1.7 'PX10-JA', var(--sh-px10); color: var(--sh-ink3); min-width: 0; }
+  .sl-trk .wip small { font: 12px var(--sh-px); }
+  .sl-recap { padding: 16px 20px 20px; border-top: 1px dashed var(--sh-line); }
+  .sl-short { overflow: hidden; }
+  .sl-views { position: absolute; right: 4px; bottom: 4px; font: 12px var(--sh-px); color: #fff; background: rgb(5 5 12 / .75); padding: 1px 5px; }
+  .sl-short-t { padding: 6px 8px; font: 12px/1.6 var(--sh-px); color: var(--sh-ink2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  @media (max-width: 640px) {
+    .sl-hd { gap: 14px; padding: 14px; }
+    .sl-cover { width: 80px; height: 80px; }
+    .sl-hd-t h2 { font-size: 18px; line-height: 24px; }
+    .sl-trk { grid-template-columns: 1fr; padding: 12px 14px; }
+  }
+</style>

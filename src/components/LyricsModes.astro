@@ -147,9 +147,11 @@
   :root[data-paper="on"] main article .ae-share button { color: var(--ink2); background: var(--pp2); border-color: var(--rule); }
   :root[data-paper="on"] main article .ae-share button:hover { color: var(--shu); border-color: var(--shu); }
   :root[data-paper="on"] main article .h-anchor { color: var(--ink3); }
-  :root[data-paper="on"] main article nav a { background: var(--pp2) !important; color: var(--ink); box-shadow: none; border: 1px solid var(--rule); }
-  :root[data-paper="on"] main article nav a div:first-child { color: var(--ink3) !important; }
-  :root[data-paper="on"] main article > div:last-child a { color: var(--shu) !important; }
+  :root[data-paper="on"] main article .sh-card { background: var(--pp2); color: var(--ink); border-color: var(--rule); filter: drop-shadow(3px 3px 0 rgb(80 60 30 / .18)); }
+  :root[data-paper="on"] main article :is(.sh-label, .sh-tag) { color: var(--ink3); }
+  :root[data-paper="on"] main article a.sh-card:hover { border-color: var(--shu); }
+  :root[data-paper="on"] main article a.sh-card:hover .t { color: var(--shu); }
+  :root[data-paper="on"] main article .sh-back { color: var(--shu); }
   /* 影片書架: 像貼在紙上的一排相片, 保持深色 */
   :root[data-paper="on"] main article .shelf { background: #14131f; padding: 14px; box-shadow: 4px 4px 0 rgb(0 0 0 / .25); }
   @media print { :root[data-paper="on"] main article { box-shadow: none; border: 0; background: none; } }

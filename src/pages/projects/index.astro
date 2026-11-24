@@ -13,29 +13,24 @@ const allProjects = (await getCollection('projects'))
   <div>
 
     {allProjects.length === 0 && (
-      <p class="text-gray-500 text-center py-12">還沒有作品，敬請期待！</p>
+      <p class="sh-label text-center py-12">還沒有作品，敬請期待！</p>
     )}
 
     <div class="grid md:grid-cols-2 gap-8">
       {allProjects.map(project => (
-        <a href={`/projects/${project.id}`}
-           class="block bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition overflow-hidden">
+        <a href={`/projects/${project.id}`} class="sh-card overflow-hidden">
           {project.data.coverImage && (
-            <img src={project.data.coverImage} alt={project.data.title} class="w-full h-48 object-cover" />
+            <img src={project.data.coverImage} alt="" class="w-full h-48 object-cover" style="border-bottom: 2px solid var(--sh-line)" />
           )}
           <div class="p-6">
             <div class="flex items-center gap-2 mb-2">
-              <h2 class="text-xl font-semibold">{project.data.title}</h2>
-              {project.data.featured && (
-                <span class="px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs rounded-full">精選</span>
-              )}
+              <h2 class="px-h2" style="font-size: 24px; margin: 0">{project.data.title}</h2>
+              {project.data.featured && <span class="sh-tag sh-tag--gold">精選</span>}
             </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{project.data.description}</p>
+            <p class="mb-4" style="font: 1rem/1.8 var(--sh-read); color: var(--sh-ink2)">{project.data.description}</p>
             <div class="flex flex-wrap gap-2">
               {project.data.techStack.map(tech => (
-                <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-sm rounded">
-                  {tech}
-                </span>
+                <span class="sh-tag">{tech}</span>
               ))}
             </div>
           </div>

@@ -120,11 +120,12 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
-          class="rounded-lg"
+          class="sh-img"
         ></iframe>
       </div>
     )}
 
+    {/* 還沒翻好的歌: 下面那個金色虛線框 (像施工中的告示) */}
     {isTranslated ? (
       <>
         {/* ShortsShelf 由下方 inline script 移到 <h2>歌詞 / 翻譯</h2> 之前;
@@ -141,16 +142,14 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
         <LyricsModes />
       </>
     ) : (
-      <div class="my-12 p-8 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-2xl border border-amber-200 dark:border-amber-800/50 text-center">
-        <div class="text-5xl mb-4">🚧</div>
-        <h2 class="text-2xl font-bold mb-3 text-amber-900 dark:text-amber-200">
-          翻譯準備中
-        </h2>
-        <p class="text-amber-800 dark:text-amber-300 mb-2">
+      <div class="sh-card my-12 p-8 text-center" style="border: 2px dashed var(--sh-gold)">
+        <p class="sh-label" style="color: var(--sh-gold)">WIP</p>
+        <h2 class="px-h2" style="margin: 0 0 12px">翻譯準備中</h2>
+        <p style="font: 1.125rem/1.8 var(--sh-read); color: var(--sh-ink2); margin: 0 0 6px">
           這首歌的中文翻譯正在整理中，敬請期待！
         </p>
         {album && (
-          <p class="text-sm text-amber-700 dark:text-amber-400">
+          <p class="sh-label" style="margin: 0">
             來自 {artist} 的專輯《{album}》{albumYear && `(${albumYear})`}
           </p>
         )}
@@ -163,34 +162,22 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
     {(prevSong || nextSong) && (
       <nav class="mt-12 grid grid-cols-2 gap-4">
         {prevSong ? (
-          <a
-            href={`/translations/${prevSong.id}`}
-            class="group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition"
-          >
-            <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">← 上一首</div>
-            <div class="font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
-              {prevSong.data.title}
-            </div>
+          <a href={`/translations/${prevSong.id}`} class="sh-card tr-adj">
+            <span class="sh-label">← 上一首</span>
+            <span class="t" lang="ja">{prevSong.data.title}</span>
           </a>
         ) : <div />}
         {nextSong ? (
-          <a
-            href={`/translations/${nextSong.id}`}
-            class="group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition text-right"
-          >
-            <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">下一首 →</div>
-            <div class="font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
-              {nextSong.data.title}
-            </div>
+          <a href={`/translations/${nextSong.id}`} class="sh-card tr-adj" style="text-align: right">
+            <span class="sh-label">下一首 →</span>
+            <span class="t" lang="ja">{nextSong.data.title}</span>
           </a>
         ) : <div />}
       </nav>
     )}
 
     <div class="mt-8">
-      <a href="/translations" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm">
-        ← 返回翻譯列表
-      </a>
+      <a href="/translations" class="sh-back">← 返回翻譯列表</a>
     </div>
   </article>
 
@@ -542,3 +529,11 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
     })();
   </script>
 </BaseLayout>
+
+<style is:global>
+  /* 上一首 / 下一首 */
+  .tr-adj { padding: 14px 16px; min-width: 0; }
+  .tr-adj .sh-label { display: block; margin-bottom: 6px; }
+  .tr-adj .t { display: block; font: 20px/1.4 'PX10-JA', var(--sh-px10); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  a.tr-adj:hover .t { color: var(--sh-gold); }
+</style>

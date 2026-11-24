@@ -14,32 +14,29 @@ const allDiary = (await getCollection('diary'))
   <div>
 
     {allDiary.length === 0 && (
-      <p class="text-gray-500 text-center py-12">還沒有日記，敬請期待！</p>
+      <p class="sh-label text-center py-12">還沒有日記，敬請期待！</p>
     )}
 
     <div class="space-y-6">
       {allDiary.map(entry => (
-        <a href={`/diary/${entry.id}`}
-           class="block p-6 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition">
+        <a href={`/diary/${entry.id}`} class="sh-card p-6">
           <div class="flex items-center gap-3 mb-3">
             {entry.data.mood && <span class="text-3xl">{entry.data.mood}</span>}
             <div>
-              <time class="text-sm text-gray-500">
+              <time class="sh-label" style="margin: 0">
                 {new Date(entry.data.date).toLocaleDateString('zh-TW', { timeZone: 'UTC',
                   year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
                 })}
               </time>
               {entry.data.weather && (
-                <span class="ml-2 text-sm text-gray-400">{entry.data.weather}</span>
+                <span class="sh-label ml-2" style="margin: 0 0 0 8px">{entry.data.weather}</span>
               )}
             </div>
           </div>
-          <h2 class="text-xl font-semibold mb-2">{entry.data.title}</h2>
+          <h2 class="px-h2 mb-3" style="font-size: 24px">{entry.data.title}</h2>
           <div class="flex flex-wrap gap-2">
             {entry.data.tags.map(tag => (
-              <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs rounded">
-                #{tag}
-              </span>
+              <span class="sh-tag">#{tag}</span>
             ))}
           </div>
         </a>

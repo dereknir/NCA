@@ -53,75 +53,53 @@ function formatViews(n: number): string {
     desc="にしな 的 YouTube shorts 裡，歌曲以外的現場片段、MC、廣告、節目和翻唱。"
     chips={[[String(meta.total), '支'], [String(orderedCategories.length), '類']]} />
   <div>
-    <p class="text-xs text-gray-500 dark:text-gray-500 mb-8">
+    <p class="sh-label mb-8">
       共 {meta.total} 支 · 分為 {orderedCategories.length} 類 · 資料來源:手動分類 annotator + YouTube shorts
     </p>
 
     {meta.total === 0 ? (
-      <div class="rounded-xl border border-dashed border-gray-300 dark:border-gray-700 p-10 text-center text-gray-500 dark:text-gray-400 text-sm">
+      <div class="sh-card p-10 text-center sh-label" style="border-style: dashed">
         還沒有 shorts 被分到這些類別。<br>
-        <span class="text-xs">在 <a href="/annotate/" class="text-blue-500 hover:underline">/annotate/</a> 挑一支未匹配的 short,選擇底部的「非歌曲類別」就會在這裡出現。</span>
+        在 <a href="/annotate/" class="sh-link">/annotate/</a> 挑一支未匹配的 short,選擇底部的「非歌曲類別」就會在這裡出現。
       </div>
     ) : (
       <div class="extras-container">
-        {/* tab 列 */}
-        <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-200 dark:border-gray-700 pb-3" id="extraTabs">
+        {/* 分類: 單選開關 (aria-pressed), 一次顯示一類 */}
+        <div class="ex-tabs" id="extraTabs" role="group" aria-label="花絮分類">
           {orderedCategories.map((cat, i) => (
-            <button
-              class={`tab-btn px-btn px-4 py-2 rounded-lg text-sm font-medium transition ${
-                i === activeIdx
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-              }`}
-              data-tab={cat.key}>
-              {cat.emoji} {cat.displayName}
-              <span class="ml-1.5 text-xs opacity-80 font-mono">{cat.count}</span>
+            <button type="button" class="tab-btn" aria-pressed={String(i === activeIdx)} data-tab={cat.key}>
+              {cat.emoji} {cat.displayName}<small>{cat.count}</small>
             </button>
           ))}
         </div>
 
-        {/* 各 tab 的 grid panel */}
+        {/* 各分類的格子 */}
         {orderedCategories.map((cat, i) => (
           <section
             class={`extras-panel grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ${i === activeIdx ? '' : 'hidden'}`}
             data-panel={cat.key}>
             {cat.shorts.length === 0 && (
-              <div class="col-span-full text-center py-10 text-sm text-gray-500 dark:text-gray-500 italic">
-                目前這個類別還沒有 short。
-              </div>
+              <div class="col-span-full text-center py-10 sh-label">目前這個類別還沒有 short。</div>
             )}
             {cat.shorts.map(s => (
-              <div class="group block rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700
-                          bg-white dark:bg-gray-800/50 hover:shadow-lg transition">
-                <div class="thumb-wrap aspect-[9/16] overflow-hidden bg-gray-100 dark:bg-gray-900 relative cursor-pointer"
-                     data-vid={s.videoId}>
-                  <img src={s.thumbnail} alt={s.title} loading="lazy"
-                       class="thumb-img w-full h-full object-cover group-hover:scale-105 transition" />
-                  <div class="play-ov absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div class="w-12 h-12 rounded-full bg-black/55 group-hover:bg-red-600/90 transition flex items-center justify-center">
-                      <svg class="w-5 h-5" style="margin-left:2px" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-                    </div>
-                  </div>
-                  <div class="views-badge absolute bottom-1 right-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded font-mono pointer-events-none">
-                    ▶ {formatViews(s.viewCount)}
-                  </div>
-                  <a href={s.url} target="_blank" rel="noopener noreferrer" title="在 YouTube 開啟"
-                     class="yt-link absolute top-1 right-1 bg-black/60 hover:bg-red-600 text-white text-sm w-6 h-6 rounded flex items-center justify-center opacity-0 group-hover:opacity-100 transition">↗</a>
+              <div class="sh-card ex-card">
+                <div class="thumb-wrap aspect-[9/16] overflow-hidden relative" data-vid={s.videoId}>
+                  <img src={s.thumbnail} alt="" loading="lazy" class="thumb-img w-full h-full object-cover" />
+                  {/* 整張縮圖就是播放鈕 (鍵盤也按得到); 就地內嵌播放 */}
+                  <button type="button" class="play-ov" aria-label={`播放「${s.title}」`}>
+                    <span aria-hidden="true"><svg viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" fill="currentColor"><path d="M1 0h1v1h1v1h1v1h1v1H4v1H3v1H2v1H1z"/></svg></span>
+                  </button>
+                  <span class="views-badge">▶ {formatViews(s.viewCount)}</span>
+                  <a href={s.url} target="_blank" rel="noopener noreferrer" title="在 YouTube 開啟" aria-label={`在 YouTube 開啟「${s.title}」`} class="yt-link">↗</a>
                 </div>
-                <div class="p-2.5">
+                <div class="ex-t">
                   {(s.appearanceName || s.songTitle) ? (
                     <div>
-                      <div class="text-xs font-medium text-gray-800 dark:text-gray-100 line-clamp-1 leading-snug">
-                        {s.appearanceName ?? '(未指定場次)'}
-                      </div>
-                      <div class="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-1 mt-0.5">
-                        · {s.songTitle ?? '未指定歌曲'}
-                      </div>
+                      <div class="a">{s.appearanceName ?? '(未指定場次)'}</div>
+                      <div class="b">· {s.songTitle ?? '未指定歌曲'}</div>
                     </div>
                   ) : (
-                    <div class="text-xs text-gray-700 dark:text-gray-200 line-clamp-2 leading-snug">
-                      {s.title}
-                    </div>
+                    <div class="c">{s.title}</div>
                   )}
                 </div>
               </div>
@@ -133,27 +111,19 @@ function formatViews(n: number): string {
   </div>
 
   <script is:inline>
-    // Tab 切換: click .tab-btn → 顯示對應 .extras-panel
+    // 分類切換: 按下的那顆 aria-pressed, 顯示對應的格子
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const key = btn.dataset.tab;
-        document.querySelectorAll('.tab-btn').forEach(b => {
-          const active = b.dataset.tab === key;
-          b.classList.toggle('bg-blue-500', active);
-          b.classList.toggle('text-white', active);
-          b.classList.toggle('bg-gray-100', !active);
-          b.classList.toggle('dark:bg-gray-800', !active);
-          b.classList.toggle('text-gray-700', !active);
-          b.classList.toggle('dark:text-gray-300', !active);
-        });
+        document.querySelectorAll('.tab-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tab === key)));
         document.querySelectorAll('.extras-panel').forEach(p => {
           p.classList.toggle('hidden', p.dataset.panel !== key);
         });
-        stopAllPlaying();   // 切 tab 時停掉正在播的 short
+        stopAllPlaying();   // 切分類時停掉正在播的 short
       });
     });
 
-    // 花絮卡片: 點縮圖 → 就地內嵌 YouTube 播放 (不跳頁、不彈窗; 一次只播一個)
+    // 花絮卡片: 按縮圖上的播放 → 就地內嵌 YouTube 播放 (不跳頁、不彈窗; 一次只播一個)
     function stopAllPlaying(except){
       document.querySelectorAll('.thumb-wrap.playing').forEach(w => {
         if (w === except) return;
@@ -162,25 +132,49 @@ function formatViews(n: number): string {
         if (f) f.remove();
       });
     }
-    document.querySelectorAll('.thumb-wrap').forEach(w => {
-      w.addEventListener('click', () => {
-        if (w.classList.contains('playing')) return;   // 已在播, 忽略
+    document.querySelectorAll('.thumb-wrap .play-ov').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const w = btn.closest('.thumb-wrap');
+        if (w.classList.contains('playing')) return;
         stopAllPlaying(w);
         const ifr = document.createElement('iframe');
         ifr.src = `https://www.youtube.com/embed/${w.dataset.vid}?autoplay=1&playsinline=1&rel=0`;
+        ifr.title = btn.getAttribute('aria-label').replace(/^播放/, '');
         ifr.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
         ifr.setAttribute('allowfullscreen', '');
         ifr.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0';
         w.appendChild(ifr);
         w.classList.add('playing');
+        ifr.focus();
       });
     });
-    // 右上角 ↗ 只去 YouTube 原頁, 不觸發就地播放
-    document.querySelectorAll('.yt-link').forEach(a =>
-      a.addEventListener('click', e => e.stopPropagation()));
   </script>
 
   <style>
+    .ex-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; padding-bottom: 14px; border-bottom: 1px dashed var(--sh-line); }
+    .ex-tabs button { display: inline-flex; align-items: center; gap: 6px; font: 12px var(--sh-px); letter-spacing: .06em; color: var(--sh-ink2);
+      background: rgb(10 10 21 / .6); border: 2px solid var(--sh-line); padding: 7px 12px; cursor: pointer; }
+    .ex-tabs button small { font-size: 12px; color: var(--sh-ink3); }
+    .ex-tabs button:hover { border-color: var(--sh-gold); color: var(--sh-gold); }
+    .ex-tabs button[aria-pressed="true"] { background: rgb(var(--sh-accent)); border-color: rgb(var(--sh-accent)); color: #0a0a15; }
+    .ex-tabs button[aria-pressed="true"] small { color: #0a0a15; }
+    .ex-tabs button:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 2px; }
+    .ex-card { overflow: hidden; }
+    .thumb-wrap { background: #05050b; }
+    .play-ov { position: absolute; inset: 0; display: grid; place-items: center; background: none; border: 0; padding: 0; cursor: pointer; }
+    .play-ov span { display: grid; place-items: center; width: 40px; height: 40px; color: #fff; background: rgb(5 5 12 / .65); border: 2px solid rgb(255 255 255 / .5); }
+    .play-ov:hover span, .play-ov:focus-visible span { background: #e2603a; border-color: #fff; }
+    .play-ov:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: -4px; }
+    .views-badge { position: absolute; right: 4px; bottom: 4px; font: 12px var(--sh-px); color: #fff; background: rgb(5 5 12 / .75); padding: 1px 5px; pointer-events: none; }
+    .yt-link { position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; display: grid; place-items: center; font: 12px var(--sh-px);
+      color: #fff; background: rgb(5 5 12 / .75); text-decoration: none; opacity: 0; }
+    .ex-card:hover .yt-link, .yt-link:focus-visible { opacity: 1; }
+    .yt-link:hover, .yt-link:focus-visible { background: #e2603a; outline: none; }
+    @media (hover: none) { .yt-link { opacity: 1; } }
+    .ex-t { padding: 8px 10px; }
+    .ex-t .a { font: 12px/1.6 var(--sh-px); color: var(--sh-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .ex-t .b { font: 12px/1.6 var(--sh-px); color: var(--sh-ink3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .ex-t .c { font: 12px/1.6 var(--sh-px); color: var(--sh-ink2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     /* 就地播放時, 蓋掉縮圖/播放鈕/角標 (iframe 已定位在 .thumb-wrap 內填滿) */
     .thumb-wrap.playing .thumb-img,
     .thumb-wrap.playing .play-ov,
