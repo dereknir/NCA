@@ -7,6 +7,7 @@ import LiveStage from '../../components/LiveStage.astro';
 import LyricsModes from '../../components/LyricsModes.astro';
 import ArticleEnd from '../../components/ArticleEnd.astro';
 import LyricWords from '../../components/LyricWords.astro';
+import CopyLyrics from '../../components/CopyLyrics.astro';
 import shortsData from '../../data/shorts_by_song.json';
 import { getCollection, render } from 'astro:content';
 import { existsSync } from 'node:fs';
@@ -143,6 +144,7 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
         </div>
         <LyricsModes />
         {!instrumental && <LyricWords songId={translation.id} />}
+        {!instrumental && <CopyLyrics songId={translation.id} title={title} artist={artist} cover={coverImage} />}
       </>
     ) : (
       <div class="sh-card my-12 p-8 text-center" style="border: 2px dashed var(--sh-gold)">
@@ -213,19 +215,36 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
         document.querySelectorAll('[data-song-content] :is(.ja, .lyrics-ja):not([lang])').forEach(function (el) { el.lang = 'ja'; });
         document.querySelectorAll('[data-song-content] .romaji:not([lang])').forEach(function (el) { el.lang = 'ja-Latn'; });
       }
-      // 每一句歌詞一個錨點 (#L1、#L2 …, 跟指令列搜歌詞、分享一句用的同一套); 網址帶 #L12 就捲到第 12 句並標亮
+      // 每一句歌詞一個錨點 (#L1、#L2 …, 跟指令列搜歌詞、抄歌詞用的同一套); 網址帶 #L12 就捲到第 12 句並標亮,
+      // #L8-10 (抄歌詞複製的連結) 整段標亮。從站外點進來 (別人傳的連結) 上面再掛一張「有人抄了這幾句給你」
       function markLines() {
         document.querySelectorAll('[data-song-content] .lyrics-line').forEach(function (el, i) { el.id = 'L' + (i + 1); el.tabIndex = -1; });
       }
+      var firstLoad = true;
       function jumpToLine() {
-        var m = location.hash.match(/^#L(\d+)$/);
-        if (!m) return;
-        var el = document.getElementById('L' + m[1]);
-        if (!el) return;
+        var fromOutside = firstLoad && !(document.referrer && new URL(document.referrer).origin === location.origin);
+        firstLoad = false;
         document.querySelectorAll('.lyrics-line.is-hit').forEach(function (x) { x.classList.remove('is-hit'); });
-        el.classList.add('is-hit');
-        el.scrollIntoView({ block: 'center', behavior: 'instant' });
-        el.focus({ preventScroll: true });
+        document.querySelectorAll('.ln-tag').forEach(function (x) { x.remove(); });
+        var m = location.hash.match(/^#L(\d+)(?:-(\d+))?$/);
+        if (!m) return;
+        var a = +m[1], b = Math.min(Math.max(a, +(m[2] || a)), a + 9), els = [];
+        for (var n = a; n <= b; n++) { var x = document.getElementById('L' + n); if (x) els.push(x); }
+        if (!els.length) return;
+        els.forEach(function (x) { x.classList.add('is-hit'); });
+        var at = els[0];
+        if (fromOutside) {
+          var tag = document.createElement('div');
+          tag.className = 'ln-tag'; tag.setAttribute('role', 'note');
+          tag.innerHTML = '<span>✎ 有人抄了' + (els.length > 1 ? '這 ' + els.length + ' 句' : '這一句') + '給你</span><button type="button" aria-label="收起標示">×</button>';
+          tag.querySelector('button').addEventListener('click', function () {
+            tag.remove(); els.forEach(function (x) { x.classList.remove('is-hit'); }); els[0].focus({ preventScroll: true });
+          });
+          els[0].before(tag); at = tag;
+        }
+        at.scrollIntoView({ block: els.length > 2 ? 'start' : 'center', behavior: 'instant' });
+        if (els.length > 2) scrollBy(0, -120);   // 一大段的話從頂端往下留一點, 不要貼著上緣
+        els[0].focus({ preventScroll: true });
       }
       document.addEventListener('astro:page-load', function () { moveShelf(); markLang(); markLines(); jumpToLine(); });
       addEventListener('hashchange', jumpToLine);
@@ -554,8 +573,16 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
   .tr-adj .sh-label { display: block; margin-bottom: 6px; }
   .tr-adj .t { display: block; font: 20px/1.4 'PX10-JA', var(--sh-px10); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   a.tr-adj:hover .t { color: var(--sh-gold); }
-  /* 從搜尋 / 分享的連結跳過來的那一句: 左邊一條金線 + 淡金底 (不閃不動) */
+  /* 從搜尋 / 抄歌詞的連結跳過來的那一句 (一段): 左邊一條金線 + 淡金底 (不閃不動), 幾句連成一整塊 */
   .lyrics-line.is-hit { margin-inline: -14px; padding-inline: 14px; box-shadow: inset 3px 0 0 var(--sh-gold); background: rgb(232 201 74 / .08); outline: none; }
-  :root[data-paper="on"] .lyrics-line.is-hit { background: rgb(255 208 80 / .25); }
+  .lyrics-line.is-hit:has(+ .lyrics-line.is-hit) { margin-bottom: 0; padding-bottom: 3rem; border-bottom-color: rgb(232 201 74 / .15); }
+  .lyrics-line.is-hit:has(+ .lyrics-break + .lyrics-line.is-hit) { margin-bottom: 0; padding-bottom: 1.5rem; border-bottom-color: rgb(232 201 74 / .15); }
+  .lyrics-line.is-hit + .lyrics-break:has(+ .lyrics-line.is-hit) { margin-inline: -14px; background: rgb(232 201 74 / .08); box-shadow: inset 3px 0 0 var(--sh-gold); }
+  :root[data-paper="on"] .lyrics-line.is-hit, :root[data-paper="on"] .lyrics-line.is-hit + .lyrics-break:has(+ .lyrics-line.is-hit) { background: rgb(255 208 80 / .25); }
+  /* 別人傳來的連結: 那一段上面掛一張金色標籤 */
+  .ln-tag { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 -14px; padding: 6px 10px 6px 14px;
+    font: 12px var(--sh-px); color: #0a0a15; background: var(--sh-gold); }
+  .ln-tag button { font: 12px var(--sh-px); background: none; border: 0; color: #0a0a15; cursor: pointer; min-width: 24px; min-height: 24px; padding: 0 4px; }
+  .ln-tag button:focus-visible { outline: 2px solid #0a0a15; outline-offset: -2px; }
   .lyrics-line:focus { outline: none; }
 </style>

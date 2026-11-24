@@ -1,0 +1,235 @@
+---
+/**
+ * CopyLyrics — 抄歌詞: 每句左邊一支小鉛筆, 點了從這句開始抄, 再點上下相鄰的句子加進來 (最多 4 句)
+ * - 下面浮出工具列: 複製連結 (#L8 / #L8-10, 對方打開會捲到那一段、整段標亮, 見 [id].astro 的 jumpToLine) / 抄到紙上 / 取消
+ * - 抄到紙上 = 一張白色橫線筆記紙的圖 (src/lib/lyricCard.ts 畫), 可以下載, 手機可以直接分享
+ * - 鍵盤: Tab 停到鉛筆 (整首只佔一個 Tab 位置), 上下鍵換句, Enter 抄 / 加 / 拿掉; 工具列跟在選到的最後一句後面, 再按 Tab 就到; Esc 取消
+ * - 卡片的程式、BudouX、手寫字型都是打開卡片才載入, 平常看歌詞不多抓東西
+ * 翻譯頁圈內是 ClientRouter 換頁: 事件只綁一次 (document 上), 每頁 astro:page-load 重新插鉛筆
+ */
+import { coverAt } from '../lib/covers';
+
+interface Props { songId: string; title: string; artist: string; cover?: string }
+const { songId, title, artist, cover } = Astro.props;
+---
+
+<div class="cp-bar" data-cp-bar role="toolbar" aria-label="抄歌詞" hidden>
+  <span class="cnt" aria-live="polite"></span>
+  <button type="button" data-a="link">複製連結</button>
+  <button type="button" data-a="card" class="pri">抄到紙上</button>
+  <button type="button" data-a="cancel" class="x">取消</button>
+</div>
+
+<dialog class="cp-card" data-cp-card aria-labelledby="cpCardTitle"
+  data-song={songId} data-title={title} data-artist={artist} data-cover={coverAt(cover, 320) ?? ''}>
+  <div class="cp-hd"><span id="cpCardTitle">抄到紙上</span><button type="button" class="x" data-a="close" aria-label="關閉">esc</button></div>
+  <div class="cp-opts">
+    <label><input type="checkbox" data-o="ro"> 拼音</label>
+    {cover && <label><input type="checkbox" data-o="photo" checked> 貼上封面</label>}
+  </div>
+  <div class="cp-paper">
+    <canvas width="1080" height="1350" role="img" aria-label="抄好的歌詞"></canvas>
+    <p class="cp-wait" aria-live="polite">拿紙筆中…</p>
+  </div>
+  <div class="cp-ft">
+    <button type="button" class="sh-btn" data-a="share" hidden>分享</button>
+    <a class="sh-btn sh-btn--pri" data-a="save" download>下載圖片</a>
+  </div>
+</dialog>
+
+<script>
+  const MAX = 4;
+  const PEN = '<svg viewBox="0 0 8 8" aria-hidden="true"><path d="M6 0h1v1h1v1H7v1H6v1H5v1H4v1H3v1H1V6h1V5h1V4h1V3h1V2h1z M0 7h2v1H0z"/></svg>';
+  let lines: HTMLElement[] = [];
+  let sel: { a: number; b: number } | null = null;   // 1 起算, 含頭尾
+  const bar = () => document.querySelector<HTMLElement>('[data-cp-bar]');
+  const dlg = () => document.querySelector<HTMLDialogElement>('[data-cp-card]');
+  const txt = (el: Element, c: string) => el.querySelector(c)?.textContent?.replace(/\s+/g, ' ').trim() || '';
+  const range = () => sel!.a === sel!.b ? `L${sel!.a}` : `L${sel!.a}-${sel!.b}`;
+
+  function mount() {
+    sel = null;
+    lines = Array.from(document.querySelectorAll<HTMLElement>('[data-song-content] .lyrics-line'));
+    lines.forEach((el, i) => {
+      if (el.querySelector(':scope > .ln-pen')) return;
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'ln-pen'; b.tabIndex = i ? -1 : 0;
+      b.setAttribute('aria-label', `抄第 ${i + 1} 句`); b.setAttribute('aria-pressed', 'false');
+      b.innerHTML = PEN;
+      el.prepend(b);
+    });
+    // 從連結跳到某一句的話, Tab 進來先停在那一句的鉛筆
+    const hit = document.querySelector('.lyrics-line.is-hit > .ln-pen') as HTMLElement | null;
+    if (hit) rove(hit);
+  }
+  const pens = () => lines.map(el => el.querySelector<HTMLElement>(':scope > .ln-pen')!).filter(Boolean);
+  function rove(to: HTMLElement) { pens().forEach(p => { p.tabIndex = p === to ? 0 : -1; }); }
+
+  function paint(at?: number) {
+    const b = bar(); if (!b) return;
+    lines.forEach((el, i) => {
+      const n = i + 1, on = !!sel && n >= sel.a && n <= sel.b;
+      el.classList.toggle('cp-picked', on);
+      el.classList.toggle('cp-pickable', !!sel && !on && (n === sel.a - 1 || n === sel.b + 1) && sel.b - sel.a + 1 < MAX);
+      el.querySelector(':scope > .ln-pen')?.setAttribute('aria-pressed', String(on));
+    });
+    document.documentElement.classList.toggle('cp-picking', !!sel);
+    b.hidden = !sel;
+    if (!sel) { document.body.append(b); return; }
+    // 工具列 (畫面上固定在底部) 在 DOM 裡緊跟著剛剛按的那支鉛筆: 鍵盤按完 Enter 再按 Tab 下一站就是它
+    const n = at && at >= sel.a && at <= sel.b ? at : sel.b;
+    lines[n - 1].querySelector(':scope > .ln-pen')!.after(b);
+    const k = sel.b - sel.a + 1;
+    b.querySelector('.cnt')!.textContent = `抄了 ${k} 句` + (k < MAX ? `・點上下相鄰的句子再加 (最多 ${MAX} 句)` : `・最多 ${MAX} 句`);
+  }
+  function pick(n: number) {
+    if (!sel) sel = { a: n, b: n };
+    else if (n === sel.a - 1 && sel.b - sel.a + 1 < MAX) sel.a = n;
+    else if (n === sel.b + 1 && sel.b - sel.a + 1 < MAX) sel.b = n;
+    else if (n === sel.a && sel.a < sel.b) sel.a++;              // 點頭尾那句 = 拿掉
+    else if (n === sel.b && sel.a < sel.b) sel.b--;
+    else if (n === sel.a && sel.a === sel.b) sel = null;          // 只剩一句再點一次 = 不抄了
+    else if (n < sel.a - 1 || n > sel.b + 1) sel = { a: n, b: n };   // 不相鄰 = 從這句重新開始
+    paint(n);
+  }
+  function cancel() { const had = sel; sel = null; paint(); if (had) pens()[had.a - 1]?.focus({ preventScroll: true }); }
+
+  document.addEventListener('click', e => {
+    const t = e.target as HTMLElement;
+    if (t.closest('[data-cp-bar]')) {
+      const a = t.closest('button')?.dataset.a;
+      if (a === 'cancel') cancel();
+      if (a === 'link') copyLink();
+      if (a === 'card') openCard();
+      return;
+    }
+    const pen = t.closest<HTMLElement>('.ln-pen');
+    if (pen) { const n = lines.indexOf(pen.parentElement!) + 1; if (n) { rove(pen); pick(n); } return; }
+    if (!sel) return;
+    // 選句中: 點相鄰的句子也算 (詞卡的詞、連結、編輯中的字、正在反白文字的時候不算)
+    const line = t.closest<HTMLElement>('[data-song-content] .lyrics-line');
+    if (!line || t.closest('.w, a, [contenteditable]') || String(getSelection() || '')) return;
+    pick(lines.indexOf(line) + 1);
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && sel && !dlg()?.open && !document.querySelector('.wcard:not([hidden])')) { cancel(); return; }
+    const pen = (e.target as HTMLElement).closest?.('.ln-pen') as HTMLElement | null;
+    if (!pen || !['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) return;
+    const ps = pens(), i = ps.indexOf(pen);
+    const j = e.key === 'Home' ? 0 : e.key === 'End' ? ps.length - 1 : i + (e.key === 'ArrowDown' ? 1 : -1);
+    if (j < 0 || j >= ps.length) return;
+    e.preventDefault(); rove(ps[j]); ps[j].focus();
+  });
+
+  async function copyLink() {
+    const url = location.origin + location.pathname + '#' + range();
+    const c = bar()!.querySelector('.cnt')!;
+    try { await navigator.clipboard.writeText(url); c.textContent = '已複製連結・對方打開會直接看到這一段'; }
+    catch { c.textContent = url; }   // 沒有剪貼簿權限: 直接把網址秀出來讓人自己複製
+    setTimeout(() => sel && paint(), 2600);
+  }
+
+  // ---- 卡片 ----
+  let cover: HTMLImageElement | null = null, coverFor = '';
+  let lib: Promise<typeof import('../lib/lyricCard')> | null = null;
+  async function openCard() {
+    const d = dlg(); if (!d || !sel) return;
+    d.querySelector<HTMLElement>('.cp-wait')!.hidden = false;
+    const cv = d.querySelector('canvas')!; cv.getContext('2d')!.clearRect(0, 0, cv.width, cv.height);   // 上一張先擦掉
+    d.showModal();
+    await draw();
+  }
+  async function draw() {
+    const d = dlg(); if (!d || !sel) return;
+    lib ??= import('../lib/lyricCard');
+    const src = d.dataset.cover || '', want = (d.querySelector('[data-o=photo]') as HTMLInputElement | null)?.checked;
+    if (want && src && coverFor !== src) {
+      coverFor = src; cover = new Image(); cover.src = src;
+      await cover.decode().catch(() => { cover = null; });
+    }
+    const picked = lines.slice(sel.a - 1, sel.b).map(el => ({ ja: txt(el, '.ja'), zh: txt(el, '.zh'), ro: txt(el, '.romaji') }));
+    const cv = d.querySelector('canvas')!;
+    const { drawCard } = await lib;
+    await drawCard(cv, {
+      lines: picked, withRo: (d.querySelector('[data-o=ro]') as HTMLInputElement).checked,
+      photo: want ? cover : null, title: d.dataset.title || '', artist: d.dataset.artist || '',
+    });
+    cv.setAttribute('aria-label', '抄好的歌詞: ' + picked.map(p => p.ja + ' ' + p.zh).join(' / '));
+    d.querySelector<HTMLElement>('.cp-wait')!.hidden = true;
+    const name = `${d.dataset.song}-${range()}.png`;
+    const save = d.querySelector<HTMLAnchorElement>('[data-a=save]')!;
+    save.href = cv.toDataURL('image/png'); save.download = name;
+    // 手機: 可以直接丟到 IG / LINE (支援分享檔案的瀏覽器才出現)
+    const share = d.querySelector<HTMLButtonElement>('[data-a=share]')!;
+    cv.toBlob(blob => {
+      const file = blob && new File([blob], name, { type: 'image/png' });
+      share.hidden = !(file && navigator.canShare?.({ files: [file] }));
+      share.onclick = () => { if (file) navigator.share({ files: [file] }).catch(() => {}); };
+    }, 'image/png');
+  }
+  document.addEventListener('change', e => { if ((e.target as HTMLElement).closest('[data-cp-card] .cp-opts')) draw(); });
+  document.addEventListener('click', e => {
+    const d = dlg(); if (!d?.open) return;
+    if (e.target === d || (e.target as HTMLElement).closest('[data-cp-card] [data-a=close]')) d.close();
+  });
+
+  document.addEventListener('astro:before-swap', () => { sel = null; document.documentElement.classList.remove('cp-picking'); });
+  document.addEventListener('astro:page-load', mount);
+</script>
+
+<style is:global>
+  /* 每句左邊的小鉛筆: 在歌詞的左邊距裡, 桌機滑過那句才亮, 手機淡淡的一直在 */
+  .lyrics-line { position: relative; }
+  .ln-pen { position: absolute; left: -30px; top: 50%; translate: 0 -50%; width: 26px; height: 26px; display: grid; place-items: center; padding: 0;
+    color: var(--sh-ink3); background: none; border: 0; cursor: pointer; opacity: 0; }
+  .ln-pen svg { width: 14px; height: 14px; fill: currentColor; shape-rendering: crispEdges; }
+  .lyrics-line:hover > .ln-pen, .ln-pen:focus-visible { opacity: 1; color: var(--sh-gold); outline: none; }
+  .ln-pen:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: -2px; }
+  @media (hover: none) { .ln-pen { opacity: .5; } }
+  @media (max-width: 640px) { .ln-pen { left: -24px; } }
+  /* 選到 / 標亮的句子會往左撐開 14px, 鉛筆反方向補回來, 才不會跳 */
+  .lyrics-line:is(.cp-picked, .cp-pickable, .is-hit) > .ln-pen { left: -16px; }
+  @media (max-width: 640px) { .lyrics-line:is(.cp-picked, .cp-pickable, .is-hit) > .ln-pen { left: -10px; } }
+  :root[data-paper="on"] .ln-pen { color: #a8987e; }
+  :root[data-paper="on"] .lyrics-line:hover > .ln-pen, :root[data-paper="on"] .ln-pen:focus-visible { color: #8e2c18; }
+
+  /* 選句中: 選到的金色底 + 左線, 幾句連成一整塊; 可以加的相鄰句子虛線框 */
+  .cp-picking .lyrics-line { cursor: pointer; }
+  .lyrics-line.cp-picked { margin-inline: -14px; padding-inline: 14px; background: rgb(232 201 74 / .1); box-shadow: inset 3px 0 0 var(--sh-gold); }
+  .lyrics-line.cp-picked > .ln-pen { opacity: 1; color: var(--sh-gold); }
+  .lyrics-line.cp-picked:has(+ .lyrics-line.cp-picked) { margin-bottom: 0; padding-bottom: 3rem; border-bottom-color: rgb(232 201 74 / .15); }
+  .lyrics-line.cp-picked:has(+ .lyrics-break + .lyrics-line.cp-picked) { margin-bottom: 0; padding-bottom: 1.5rem; border-bottom-color: rgb(232 201 74 / .15); }
+  .lyrics-line.cp-picked + .lyrics-break:has(+ .lyrics-line.cp-picked) { margin-inline: -14px; background: rgb(232 201 74 / .1); box-shadow: inset 3px 0 0 var(--sh-gold); }
+  .lyrics-line.cp-pickable { margin-inline: -14px; padding-inline: 14px; outline: 1px dashed rgb(232 201 74 / .35); outline-offset: -4px; }
+  :root[data-paper="on"] .lyrics-line.cp-picked, :root[data-paper="on"] .lyrics-line.cp-picked + .lyrics-break:has(+ .lyrics-line.cp-picked) { background: rgb(255 208 80 / .25); box-shadow: inset 3px 0 0 #c9a227; }
+  :root[data-paper="on"] .lyrics-line.cp-pickable { outline-color: rgb(142 44 24 / .35); }
+
+  /* 工具列: 固定在畫面底部 */
+  .cp-bar { position: fixed; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); translate: -50% 0; z-index: 70; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    justify-content: center; width: max-content; max-width: calc(100vw - 24px); padding: 10px 12px; background: #0b0b16; border: 2px solid var(--sh-gold);
+    box-shadow: 5px 5px 0 rgb(0 0 0 / .55); font: 12px/1.6 var(--sh-px); color: var(--sh-ink); cursor: default; }
+  .cp-bar[hidden] { display: none; }
+  .cp-picking .sh-cli { visibility: hidden; }   /* 抄的時候先把左下角的指令列收起來, 不跟工具列疊在一起 */
+  .cp-bar .cnt { color: var(--sh-ink2); margin-right: 6px; overflow-wrap: anywhere; }
+  .cp-bar button { font: 12px var(--sh-px); color: var(--sh-ink); background: rgb(10 10 21 / .6); border: 2px solid var(--sh-line); padding: 6px 10px; cursor: pointer; }
+  .cp-bar button.pri { background: var(--sh-gold); border-color: var(--sh-gold); color: #0a0a15; }
+  .cp-bar button.x { color: var(--sh-ink3); }
+  .cp-bar button:hover, .cp-bar button:focus-visible { border-color: var(--sh-gold); outline: none; }
+  .cp-bar button.pri:focus-visible { outline: 2px solid #0a0a15; outline-offset: -5px; }
+
+  /* 卡片對話框 */
+  .cp-card { width: min(460px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); padding: 0; color: var(--sh-ink); background: #0b0b16; border: 2px solid #3b335f; box-shadow: 6px 6px 0 rgb(0 0 0 / .5); }
+  .cp-card::backdrop { background: rgb(7 6 15 / .78); }
+  .cp-hd { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; font: 12px var(--sh-px); color: var(--sh-ink2); border-bottom: 2px solid #1f1838; }
+  .cp-hd .x { font: 12px var(--sh-px); color: var(--sh-ink3); background: none; border: 2px solid #3b335f; padding: 2px 6px; cursor: pointer; }
+  .cp-hd .x:hover, .cp-hd .x:focus-visible { color: var(--sh-gold); border-color: var(--sh-gold); outline: none; }
+  .cp-opts { display: flex; gap: 16px; padding: 10px 14px 0; font: 12px var(--sh-px); color: var(--sh-ink2); }
+  .cp-opts label { display: inline-flex; align-items: center; gap: 6px; min-height: 24px; cursor: pointer; }
+  .cp-opts input { accent-color: #e8c94a; width: 16px; height: 16px; margin: 0; }
+  .cp-paper { position: relative; margin: 12px 14px; }
+  .cp-paper canvas { display: block; width: 100%; height: auto; aspect-ratio: 1080 / 1350; border: 2px solid #1f1838; background: #fbfaf6; }
+  .cp-wait { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; font: 12px var(--sh-px); color: #7a7468; }
+  .cp-wait[hidden] { display: none; }
+  .cp-ft { display: flex; justify-content: flex-end; gap: 8px; padding: 0 14px 14px; }
+  .cp-ft [hidden] { display: none; }
+</style>

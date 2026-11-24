@@ -815,6 +815,9 @@ if (!shorts || shorts.length === 0) return null;
     // 翻譯頁歌詞裡的詞是按鈕 (LyricWords), 播放這邊只要純文字
     clone.querySelectorAll('.ja .w').forEach(b => b.replaceWith(b.textContent || ''));
     clone.querySelectorAll('.ja').forEach(el => el.normalize());
+    // 抄歌詞的鉛筆、工具列、標籤、選取 / 標亮的樣式, 播放這邊都不要
+    clone.querySelectorAll('.ln-pen, .cp-bar, .ln-tag').forEach(el => el.remove());
+    clone.querySelectorAll('.lyrics-line').forEach(el => el.classList.remove('cp-picked', 'cp-pickable', 'is-hit'));
     // 清空並重建 stage-lyrics 內容
     lyricsEl.replaceChildren();
     lyricsEl.appendChild(clone);
