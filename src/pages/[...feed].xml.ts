@@ -27,7 +27,7 @@ async function translations(site: URL): Promise<Item[]> {
 async function diary(site: URL): Promise<Item[]> {
   const all = await getCollection('diary', ({ data }) => !data.isPrivate);
   return all.map(e => ({ title: e.data.title, link: new URL(`/diary/${e.id}/`, site).href, date: new Date(e.data.date),
-    desc: `${new Date(e.data.date).toLocaleDateString('zh-TW')} 的日記${e.data.mood ? ' ' + e.data.mood : ''}。`, cat: '日記' }));
+    desc: `${new Date(e.data.date).toLocaleDateString('zh-TW', { timeZone: 'UTC' })} 的日記${e.data.mood ? ' ' + e.data.mood : ''}。`, cat: '日記' }));
 }
 
 const FEEDS: Record<string, { title: string; desc: string; page: string; get: (site: URL) => Promise<Item[]> }> = {

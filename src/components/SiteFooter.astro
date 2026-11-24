@@ -148,7 +148,8 @@ const year = new Date().getFullYear();
   .sf-copy { position: absolute; left: 50%; translate: -50% 0; margin: 0; font-size: 12px; letter-spacing: .08em; white-space: nowrap; }
   .sf-ico { margin-left: auto; display: flex; align-items: center; gap: 6px; }
   .sf-ico a, .sf-toggle, .sf-help { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; color: var(--sh-ink3); background: none; border: 2px solid transparent; cursor: pointer; }
-  .sf-ico a:is(:hover, :focus-visible), .sf-toggle:is(:hover, :focus-visible), .sf-help:is(:hover, :focus-visible) { color: var(--sh-gold); border-color: #3b335f; outline: none; }
+  .sf-ico a:is(:hover, :focus-visible), .sf-toggle:is(:hover, :focus-visible), .sf-help:is(:hover, :focus-visible) { color: var(--sh-gold); border-color: #3b335f; }
+  .sf-ico a:focus-visible, .sf-toggle:focus-visible, .sf-help:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 2px; }
   .sf-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
   @media (hover: none) { .sf-help { display: none; } }   /* 手機沒有鍵盤, 快捷鍵說明用不到 */
   @media (max-width: 760px) {

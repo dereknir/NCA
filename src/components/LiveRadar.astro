@@ -77,7 +77,7 @@ const palette = PLANETS.mars.palette;
   .lr-tip :global(b) { display: block; font-weight: 400; color: rgb(var(--sh-accent)); }
   .lr-tip :global(i) { font-style: normal; color: var(--sh-ink3); }
   /* 雷達比行星寬, hero 文字讓出位置; 雷達 + 說明約 290px 高 */
-  :global(.sh-hero:has(.lr)) { min-height: 330px; }
+  :global(.sh-hero:has(.lr)) { min-height: clamp(330px, 38vh, 360px); }
   :global(.sh-hero:has(.lr) .sh-hero-text) { max-width: calc(100% - 290px); }
   @media (max-width: 760px) {
     :global(.sh-hero:has(.lr) .sh-hero-text) { max-width: none; }

@@ -22,7 +22,7 @@ const formatOptions: Record<string, Intl.DateTimeFormatOptions> = {
   full: { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' },
 };
 
-const formattedDate = dateObj.toLocaleDateString('zh-TW', formatOptions[format]);
+const formattedDate = dateObj.toLocaleDateString('zh-TW', { ...formatOptions[format], timeZone: 'UTC' });
 ---
 
 <time datetime={dateObj.toISOString()} class={`inline-flex items-center gap-2 ${className}`}>

@@ -99,6 +99,14 @@ const pos = (o: { x: number; y: number; w: number; h: number }) => `--x:${o.x};-
     const { s, k } = room.now();
     room.paint(s, room.lamp(s), k);
     try { if (!sessionStorage.getItem('rm-intro') && !q.has('n2')) h.classList.add('rm-intro'); } catch (e) {}
+    // 第一眼看到的那兩張先抓 (CSS 背景圖要等樣式算完瀏覽器才知道要載, 這裡先講):
+    // 開場是窗外 + 窗外的天, 不然是房間 + 天空
+    const u = room.urls(s, room.lamp(s), k);
+    for (const src of h.classList.contains('rm-intro') ? [u.out, u.outsky] : [u.room, u.sky]) {
+      const l = document.createElement('link');
+      l.rel = 'preload'; l.as = 'image'; l.href = src; l.fetchPriority = 'high';
+      document.head.append(l);
+    }
   })();
 </script>
 

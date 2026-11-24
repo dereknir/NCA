@@ -220,7 +220,7 @@
       btn.addEventListener('click', function () { open(true); });
       drawer.querySelector('.toc-close').addEventListener('click', function () { drawer.close(); });
       // closedby="any" 不支援的瀏覽器 (Safari): 點抽屜外的暗處自己關
-      drawer.addEventListener('click', function (e) { if (e.target === drawer) drawer.close(); });
+      if (!('closedBy' in HTMLDialogElement.prototype)) drawer.addEventListener('click', function (e) { if (e.target === drawer) drawer.close(); });
       drawer.addEventListener('close', function () {
         btn.setAttribute('aria-expanded', 'false');
         try { localStorage.setItem('nca-toc-open', '0'); } catch (e) {}

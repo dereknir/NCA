@@ -77,8 +77,9 @@
   const bg = stage.querySelector('.rm-bg'), lampSpot = stage.querySelector('[data-k="lamp"]');
   const WHEN = { d: ['白天', '藍天和城市'], k: ['傍晚', '傍晚的天和月亮'], n: ['夜裡', '月亮和城市'] };
   let set = html.dataset.rmSet || 'n', lampOn = html.dataset.rmLamp !== 'off', want = { s: set, on: lampOn, k: html.dataset.rmSky || 'a0' };
-  const load = src => new Promise(ok => { const i = new Image(); i.onload = i.onerror = ok; i.src = src; });
-  const ready = (st, on, k) => Promise.all(Object.values(sun.urls(st, on, k)).map(load));
+  // low = 先備著的 (另一盞燈), 不跟眼前要的圖搶頻寬
+  const load = (src, pri) => new Promise(ok => { const i = new Image(); if (pri) i.fetchPriority = pri; i.onload = i.onerror = ok; i.src = src; });
+  const ready = (st, on, k, pri) => Promise.all(Object.values(sun.urls(st, on, k)).map(u => load(u, pri)));
   function go(st, on, k) {
     if (st === want.s && on === want.on && k === want.k) return;
     const w = want = { s: st, on, k };
@@ -95,7 +96,7 @@
     const [when, out] = WHEN[set];
     bg.setAttribute('aria-label', `${when}的房間: 書桌上有${lampOn ? '亮著的' : ''}檯燈、插在充電座上的折疊手機、CRT 電腦和收音機, 窗開著, 外面是${out}`);
     paintPoster(); drawCal(); tickClock();
-    ready(set, !lampOn, want.k);   // 另一盞燈的圖先載好, 開關的時候馬上換
+    ready(set, !lampOn, want.k, 'low');   // 另一盞燈的圖先載好, 開關的時候馬上換
   }
   // 每 15 秒看一次天色 (天亮天黑的時候天空幾分鐘就換一套)
   setInterval(() => { const n = sun.now(); go(n.s, sun.lamp(n.s), n.k); }, sun.speed > 1 ? 250 : 15000);

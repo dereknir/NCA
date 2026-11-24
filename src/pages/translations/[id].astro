@@ -85,7 +85,7 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
     actions={[...(hasFullLive ? [{ label: '▶ 完整 Live', href: `/live/full/${translation.id}/`, primary: true }] : [])]}>
     <dl class="sh-meta">
       {credits.map(c => (<><dt>{c.label}</dt><dd>{c.value}</dd></>))}
-      <dt>發行</dt><dd>{new Date(publishDate).toLocaleDateString('zh-TW')}</dd>
+      <dt>發行</dt><dd>{new Date(publishDate).toLocaleDateString('zh-TW', { timeZone: 'UTC' })}</dd>
     </dl>
   </PageHero>
   {isTranslated && <TocDrawer />}
@@ -106,6 +106,7 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
           height="100%"
           src={`https://www.youtube.com/embed/${youtubeId}`}
           title="YouTube video player"
+          loading="lazy"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
@@ -203,7 +204,13 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
         }
         mount.remove();
       }
-      document.addEventListener('astro:page-load', moveShelf);
+      // 歌詞的日文行、拼音在 md 裡沒寫 lang (頁面是 zh-TW): 補上, 讀螢幕才會用日文念、瀏覽器才挑日文字形。
+      // md 原檔不動, 匯出腳本靠原本的 <div class="ja"> 寫法比對
+      function markLang() {
+        document.querySelectorAll('[data-song-content] :is(.ja, .lyrics-ja):not([lang])').forEach(function (el) { el.lang = 'ja'; });
+        document.querySelectorAll('[data-song-content] .romaji:not([lang])').forEach(function (el) { el.lang = 'ja-Latn'; });
+      }
+      document.addEventListener('astro:page-load', function () { moveShelf(); markLang(); });
     })();
   </script>
 

@@ -174,8 +174,9 @@ if args.emit_vectors or args.encoder == 'e5':
 if TEMPLATE_PATH.exists():
     tpl = open(TEMPLATE_PATH, encoding='utf-8').read()
     OUT_HTML.parent.mkdir(parents=True, exist_ok=True)
+    # 資料裡有 </script> 也不會提早把 script 關掉
     open(OUT_HTML, 'w', encoding='utf-8').write(
-        tpl.replace('/*__DATA__*/null', json.dumps(out, ensure_ascii=False)))
+        tpl.replace('/*__DATA__*/null', json.dumps(out, ensure_ascii=False).replace('</', '<\\/')))
     print(f"✓ {OUT_HTML.relative_to(ROOT)}(資料已內嵌)", file=sys.stderr)
 else:
     print(f"(無模板 {TEMPLATE_PATH},略過 HTML 注入)", file=sys.stderr)

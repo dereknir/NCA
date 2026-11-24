@@ -91,6 +91,8 @@
   width: calc(var(--w) * 100% / 480); height: calc(var(--h) * 100% / 400); }
 .rm-grab { padding: 0; border: 0; background: none; cursor: grab; touch-action: none; outline: none; -webkit-tap-highlight-color: transparent; }
 .rm-grab.drag { cursor: grabbing; }
+/* 高對比模式會把背景拿掉, 四個角框就不見了: 改畫系統色的外框 */
+@media (forced-colors: active) { .rm-hs:focus-visible, .rm-grab:focus-visible { outline: 2px solid CanvasText; } }
 /* 今天那首歌的歌詞: 從窗縫飄出來, 沿著牆往上 (晚上飄過屋簷會變成一顆星, 畫在 .rm-ol-fx 上) */
 .rm-lyrics { position: absolute; inset: 0; pointer-events: none; }
 .rm-lyric { position: absolute; text-align: center; white-space: nowrap; opacity: 0; }
@@ -102,7 +104,8 @@
 /* 聲音開關: 右下角一個小喇叭, 窗外跟房間裡都在 */
 .rm-snd { position: absolute; right: 12px; bottom: 12px; z-index: 25; padding: 6px 8px; line-height: 0; cursor: pointer; color: #9d95c9;
   background: rgb(14 11 29 / .75); border: 2px solid #3b335f; -webkit-tap-highlight-color: transparent; }
-.rm-snd:is(:hover, :focus-visible) { color: #ece8ff; outline: none; }
+.rm-snd:hover { color: #ece8ff; }
+.rm-snd:focus-visible { color: #ece8ff; outline: 2px solid #e8c94a; outline-offset: 2px; }
 .rm-snd[aria-pressed="true"] { color: #e8c94a; border-color: #7a4b30; }
 .rm-snd .rm-snd-on, .rm-snd[aria-pressed="true"] .rm-snd-off { display: none; }
 .rm-snd[aria-pressed="true"] .rm-snd-on { display: inline; }

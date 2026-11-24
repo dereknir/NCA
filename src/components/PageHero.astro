@@ -50,7 +50,7 @@ const segs = parts.map((name, i) => {
   return { name, href: href && (href.replace(/\/$/, '') || '/') !== here ? href : undefined };
 });
 const far = (i: number) => segs.length > 2 && i < segs.length - 2;
-const acts = [...actions].sort((a, b) => Number(!!b.primary) - Number(!!a.primary));
+const acts = actions.toSorted((a, b) => Number(!!b.primary) - Number(!!a.primary));
 ---
 
 <section
@@ -66,7 +66,7 @@ const acts = [...actions].sort((a, b) => Number(!!b.primary) - Number(!!a.primar
   <div class="sh-hero-bg" aria-hidden="true"></div>
   <div class={`sh-wrap sh-hero-inner${width === 'read' ? ' sh-wrap--read' : width === 'stage' ? ' sh-wrap--stage' : ''}`}>
     {isSong && cover && (
-      <img class="sh-cover" src={coverAt(cover, 448)} alt={coverAlt} width="224" height="224" loading="eager"
+      <img class="sh-cover" src={coverAt(cover, 448)} alt={coverAlt} width="224" height="224" fetchpriority="high"
            style={coverTransition ? `view-transition-name:${coverTransition}` : undefined} />
     )}
     <div class="sh-hero-text">

@@ -25,7 +25,7 @@ const allDiary = (await getCollection('diary'))
             {entry.data.mood && <span class="text-3xl">{entry.data.mood}</span>}
             <div>
               <time class="text-sm text-gray-500">
-                {new Date(entry.data.date).toLocaleDateString('zh-TW', {
+                {new Date(entry.data.date).toLocaleDateString('zh-TW', { timeZone: 'UTC',
                   year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
                 })}
               </time>

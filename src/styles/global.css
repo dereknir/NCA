@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Dark mode support */
+/* Dark mode support (站上只有深色, <html class="dark"> 一直都在; 留著給還有寫 dark: 的 utility) */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* Custom fonts */
@@ -22,11 +22,8 @@
   margin-top: 2.75rem;
   margin-bottom: 1rem;
   padding-top: 1.25rem;
-  border-top: 1px solid rgb(229 231 235);
+  border-top: 1px solid rgb(55 65 81);
   position: relative;
-}
-.dark .prose h3 {
-  border-top-color: rgb(55 65 81);
 }
 /* 首個 H3 不用上分隔線 (通常緊跟在 H2 下面) */
 .prose h2 + h3 {
@@ -37,22 +34,23 @@
 .prose p {
   margin-bottom: 1rem;
   line-height: 1.75;
+  text-wrap: pretty;   /* 段落最後一行不要只剩一個字 */
 }
+.prose :is(h2, h3) { text-wrap: balance; }
+/* 連結用這頁的行星色 (原本的藍在深底上對比只有 3.8:1, 不夠) */
 .prose a {
-  color: #2563eb;
+  color: rgb(var(--sh-accent));
   text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .prose a:hover {
-  color: #1e40af;
+  color: var(--sh-gold);
 }
 .prose code {
-  background: #f3f4f6;
+  background: #1f2937;
   padding: 0.125rem 0.25rem;
   border-radius: 0.25rem;
   font-size: 0.875rem;
-}
-.dark .prose code {
-  background: #1f2937;
 }
 .prose pre {
   background: #111827;
@@ -75,9 +73,9 @@
   margin-bottom: 0.25rem;
 }
 .prose blockquote {
-  border-left: 4px solid #d1d5db;
+  border-left: 4px solid #374151;
   padding-left: 1rem;
-  color: #6b7280;
+  color: #9ca3af;
   font-style: italic;
   margin: 1rem 0;
 }
@@ -92,32 +90,21 @@
   display: table;
 }
 .prose thead {
-  background: #f3f4f6;
-  border-bottom: 2px solid #d1d5db;
-}
-.dark .prose thead {
   background: #1f2937;
-  border-bottom-color: #374151;
+  border-bottom: 2px solid #374151;
 }
 .prose th,
 .prose td {
   padding: 0.6rem 1rem;
   text-align: left;
   vertical-align: top;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #374151;
   line-height: 1.6;
-}
-.dark .prose th,
-.dark .prose td {
-  border-bottom-color: #374151;
 }
 .prose th {
   font-weight: 700;
 }
 .prose tbody tr:hover {
-  background: rgba(0, 0, 0, 0.02);
-}
-.dark .prose tbody tr:hover {
   background: rgba(255, 255, 255, 0.03);
 }
 .prose table strong {
@@ -228,8 +215,8 @@
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.fade-in {
-  animation: fadeIn 0.5s ease-out;
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in { animation: fadeIn 0.5s ease-out; }
 }
 
 /* ================================================================
@@ -241,16 +228,7 @@
          C 簽名   = 翻譯內頁標題等 (.px 局部套用)
    字型子集: scripts/build_site_charset.py → build_pixel_fonts.py
    ================================================================ */
-@font-face {
-  font-family: 'PX-ZH';
-  src: url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2');
-  font-display: swap;
-}
-@font-face {
-  font-family: 'PX-JA';
-  src: url('/fonts/pixel/fp12-site-ja.woff2') format('woff2');
-  font-display: swap;
-}
+/* 字型 (@font-face) 寫在 /css/site-shell.css, 全站只登記一次 */
 
 /* 字型工具類 (中文優先 / 日文優先兩檔) */
 .px-font  { font-family: 'PX-ZH', 'PX-JA', var(--font-sans); font-weight: 400; }
@@ -289,6 +267,8 @@ h2.px, .px-h2 {
   border-color: rgb(61 99 255);
 }
 .px-card img { border-radius: 0 !important; }
+/* 缺角是 clip-path 剪的, 框外的 outline 會被剪掉, 鍵盤焦點的框畫在框裡面 */
+.px-card:focus-visible, .px-btn:focus-visible { outline: 2px solid rgb(232 201 74); outline-offset: -6px; }
 
 /* 像素按鈕 — 缺角 + 硬影(drop-shadow) + 按壓位移吃影
    !important: 按壓位移不能被任何頁面自帶的 hover transform/transition 蓋掉 */
@@ -366,23 +346,9 @@ h2.px, .px-h2 {
    Noto 留在 fallback 鏈 (emoji/罕字 per-glyph 補位), 字集由
    build_site_charset.py 掃全站內容全文保證覆蓋。
    ================================================================ */
-@font-face {
-  font-family: 'PX10-ZH';
-  src: url('/fonts/pixel/fp10-site-zh_hant.woff2') format('woff2');
-  font-display: swap;
-}
 /* jf 粉圓 (H 拍板 2026-08): 中文閱讀區的「人的聲音」— 歌曲介紹/歌詞 zh/翻譯筆記
-   568KB subset, 不 preload (內文字型 lazy + swap 即可) */
-@font-face {
-  font-family: 'openhuninn';
-  src: url('/fonts/openhuninn-site.woff2') format('woff2');
-  font-display: swap;
-}
-@font-face {
-  font-family: 'PX10-JA';
-  src: url('/fonts/pixel/fp10-site-ja.woff2') format('woff2');
-  font-display: swap;
-}
+   568KB subset, 不 preload (內文字型 lazy + swap 即可)
+   粉圓不是像素字, 用 rem: 瀏覽器字級調大的人跟著變大 (像素字留 px, 才會落在網格上) */
 
 /* 內文預設: 全站文字底色換像素 (Noto 墊後) */
 body {
@@ -394,7 +360,7 @@ body {
    (20px×.05em=1px, 正好一格) / 行寬限 36em / 對比降半階 */
 .prose p, .prose li, .prose blockquote {
   font-family: 'openhuninn', 'Noto Sans TC', 'Noto Sans JP', sans-serif;   /* H 粉圓 */
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 2.1;
   letter-spacing: .02em;
   max-width: 36em;
@@ -404,7 +370,7 @@ body {
 /* 表格: td 內容跟內文同聲 (粉圓); th 表頭維持像素 = 「標題是機器的聲音」規則 */
 .prose td {
   font-family: 'openhuninn', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
-  font-size: 18px;   /* 表格較密, 比內文 20px 收一級 */
+  font-size: 1.125rem;   /* 表格較密, 比內文收一級 */
   line-height: 1.9;
   color: #d4dcf0;
 }
@@ -431,6 +397,7 @@ body {
    J — 日文行 = DotGothic16 (為可讀性設計的點陣字, 歌詞閱讀主力)
    T — 中文行 = PX10 + 行高 2.15 / 字距 1px / 對比降半階
    繁中沒有 DotGothic16 等級的字型 (cubic-11 已是天花板且已內建於 PX), 故不對稱 */
+.lyrics-line :is(.ja, .zh) { text-wrap: balance; }   /* 一句歌詞折兩行時, 兩行差不多長 */
 .lyrics-line .ja, .lyrics-ja {
   font-family: 'DotGothic16', 'PX10-JA', 'PX10-ZH', var(--font-jp);
   font-size: 20px;
@@ -439,7 +406,7 @@ body {
 }
 .lyrics-line .zh, .lyrics-zh {
   font-family: 'openhuninn', 'Noto Sans TC', var(--font-sans);   /* H 粉圓 */
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 2.05;
   letter-spacing: .02em;
   color: #a9b4d2;

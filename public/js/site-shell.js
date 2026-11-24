@@ -9,6 +9,9 @@
   if (window.__shell) return;
   window.__shell = true;
 
+  // 不擋畫面的外部 CSS (Google Fonts): 先用 media="print" 下載, 這裡換回 all 套用
+  document.querySelectorAll('link[data-async-css]').forEach(l => { l.media = 'all'; });
+
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
   const norm = p => (p.replace(/\/index\.html$/, '').replace(/\/+$/, '') || '/');

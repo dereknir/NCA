@@ -519,7 +519,7 @@ const { song } = Astro.props;
       stage.classList.toggle('alt', !s.gap && !s.live);
       if (s.gap) {
         plEls.forEach(e => e.classList.remove('on'));
-        nosig.classList.add('on'); gapT0 = performance.now(); gapAt = 0; cap.innerHTML = '';
+        nosig.classList.add('on'); gapT0 = performance.now(); gapAt = 0; cap.replaceChildren();
       } else {
         nosig.classList.remove('on');
         plEls.forEach((e, i) => e.classList.toggle('on', i === act));
@@ -618,7 +618,7 @@ const { song } = Astro.props;
       stopAll(); k = -1; setLine(-1); paused = false; lost = false;
       osdL.textContent = 'END'; osdL.classList.remove('rec'); osdR.textContent = `${segs.length} / ${segs.length}`;
       delete startBtn.dataset.resume; startLabel('↺ 再聽一次', '從第一句聽到最後一句'); startBtn.hidden = false;
-      cap.innerHTML = '';
+      cap.replaceChildren();
       root.dispatchEvent(new CustomEvent('flp:end'));
     }
 

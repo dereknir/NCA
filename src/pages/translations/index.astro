@@ -73,7 +73,7 @@ const albumCount = tabs.filter(t => t.year > 0).length;
             ? <img src={coverAt(t.data.coverImage, 80)} alt="" width="40" height="40" loading="lazy" decoding="async"
                    style={`view-transition-name:cover-${t.id}`} />
             : <span></span>}
-          <span class="c-t" lang="ja">{t.data.title}</span>
+          <span class="c-t" lang="ja" title={t.data.title}>{t.data.title}</span>
           <span class="c-a">{t.data.artist === MAIN_ARTIST ? (t.data.album ?? '單曲') : `${t.data.artist} · ${t.data.album ?? ''}`}</span>
           <span class={`c-s${done ? '' : ' wip'}`}>{status}</span>
         </a>

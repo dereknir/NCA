@@ -3,6 +3,7 @@
 
 .n2 { --n2-body: #c9c3e6; --n2-body2: #9d95c9; --n2-dark: #3b335f; --n2-hi: #ece8ff; --n2-gold: #e8c94a; --n2-acc: #ff8c69;
   width: 268px; position: relative; font: 12px/1.6 var(--sh-px); color: #e8ecf6; user-select: none; -webkit-user-select: none; }
+.n2-song { user-select: text; -webkit-user-select: text; }   /* 歌詞可以選起來複製 */
 .n2 * { box-sizing: border-box; }
 .n2 canvas { image-rendering: pixelated; display: block; }
 .n2-shell { background: var(--n2-body); border: 4px solid var(--n2-dark); position: relative;

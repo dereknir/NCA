@@ -3,15 +3,15 @@
    規則跟 global.css 一致: 像素字只用 12 / 24 / 36px, 內文 PX10 20px。
    每頁的行星主色由 hero 上的 --sh-accent 帶進來 (JS 依 data-planet 設定)。 */
 
-@import url('/css/scrollbar.css');   /* 全站像素捲軸 */
-
 @font-face { font-family: 'PX-ZH'; src: url('/fonts/pixel/fp12-site-zh_hant.woff2') format('woff2'); font-display: swap; }
 @font-face { font-family: 'PX-JA'; src: url('/fonts/pixel/fp12-site-ja.woff2') format('woff2'); font-display: swap; }
 @font-face { font-family: 'PX10-ZH'; src: url('/fonts/pixel/fp10-site-zh_hant.woff2') format('woff2'); font-display: swap; }
 @font-face { font-family: 'PX10-JA'; src: url('/fonts/pixel/fp10-site-ja.woff2') format('woff2'); font-display: swap; }
 @font-face { font-family: 'openhuninn'; src: url('/fonts/openhuninn-site.woff2') format('woff2'); font-display: swap; }
 
+/* 只有深色: 表單、捲軸、預設底色也跟著深色走, 不會先閃白 */
 :root {
+  color-scheme: dark;
   --sh-bg: #0a0a15; --sh-bg2: #0f0f1d; --sh-card: #131a2e; --sh-line: #243154;
   --sh-ink: #e8ecf6; --sh-ink2: #b6c2e0; --sh-ink3: #7d89a8;
   --sh-gold: #e8c94a;
@@ -28,6 +28,12 @@
 .sh-wrap--read { --sh-w: 896px; }
 .sh-wrap--stage { --sh-w: 1280px; }   /* 播放器頁 (完整 Live): 舞台 + 歌詞 + 片段三欄 */
 @media (max-width: 640px) { .sh-wrap { padding: 0 16px; } }
+
+/* 跳到主要內容: 平常藏起來, 按 Tab 才出現在左上角 */
+.sh-skip { position: fixed; left: 12px; top: 8px; z-index: 200; padding: 8px 12px; font: 12px var(--sh-px); color: #0a0a15;
+  background: var(--sh-gold); text-decoration: none; translate: 0 -200%; }
+.sh-skip:focus-visible { translate: 0 0; outline: 2px solid #fff; outline-offset: 2px; }
+main:focus { outline: none; }   /* 跳過來的時候焦點在 main 上, 不用框整塊 */
 
 /* ---------- 頁首 ---------- */
 .sh-hd { position: sticky; top: 0; z-index: 50; height: 56px; box-sizing: border-box;
@@ -66,7 +72,7 @@
   .sh-burger { display: block; }
   .sh-dock { display: none; }
   .sh-nav.open { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px; position: absolute; top: 56px; left: 0; right: 0;
-    padding: 14px 16px 22px; background: var(--sh-bg2); border-bottom: 2px solid var(--sh-line); max-height: calc(100vh - 56px); overflow: auto; }
+    padding: 14px 16px 22px; background: var(--sh-bg2); border-bottom: 2px solid var(--sh-line); max-height: calc(100dvh - 56px); overflow: auto; }
   .sh-nav.open .sh-menu { display: block; position: static; border: 0; filter: none; padding: 0; background: none; min-width: 0; }
   .sh-nav.open .sh-grp > button { padding: 4px 10px; color: var(--sh-ink3); cursor: default; }
   .sh-nav.open .sh-grp > button::after, .sh-nav.open .sh-grp > button::before { display: none; }
@@ -76,12 +82,13 @@
 /* ---------- hero ----------
    骨架固定: shell 提示 (路徑) / 標題 / 一句說明 / 數字 chip / 動作。右邊一顆像素行星 */
 .sh-hero { position: relative; overflow: hidden; isolation: isolate; color: var(--sh-ink);
-  height: clamp(260px, 38vh, 360px);
+  display: flex; flex-direction: column;
+  min-height: clamp(260px, 38vh, 360px);   /* 最小高度, 字放大或說明比較長的時候往下長, 不會被切掉 */
   background: radial-gradient(110% 90% at 85% 40%, rgb(var(--sh-accent) / .16), transparent 62%); }
-.sh-hero--tool { height: 220px; }
+.sh-hero--tool { min-height: 220px; }
 .sh-hero-bg { position: absolute; inset: 0; z-index: -1; view-transition-name: sh-hero-bg; }
 .sh-hero-bg canvas { width: 100%; height: 100%; image-rendering: pixelated; display: block; }
-.sh-hero-inner { position: relative; height: 100%; display: flex; flex-direction: column; justify-content: flex-end;
+.sh-hero-inner { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
   padding-bottom: 32px; }
 .sh-hero-text { max-width: calc(100% - 220px); }
 .sh-prompt { font: 12px var(--sh-px); letter-spacing: .04em; color: var(--sh-ink2); white-space: pre-wrap; word-break: break-all; }
@@ -93,7 +100,7 @@
 .sh-title { font: 400 36px/1.25 var(--sh-px); letter-spacing: .1em; margin: 12px 0 8px; color: #fff;
   text-shadow: 0 2px 0 rgb(0 0 0 / .55); view-transition-name: sh-title; text-wrap: balance; }
 .sh-title:lang(ja) { font-family: var(--sh-pxja); letter-spacing: .04em; }
-.sh-desc { font: 20px/1.7 var(--sh-read); color: var(--sh-ink2); max-width: 34em; margin: 0; text-wrap: pretty; }
+.sh-desc { font: 1.25rem/1.7 var(--sh-read); color: var(--sh-ink2); max-width: 34em; margin: 0; text-wrap: pretty; }
 .sh-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; align-items: center; }
 /* 一行資訊: 不加框, 跟按鈕分開; 可以點的 (Live 頁的年表、公演、足跡) 跟路徑一樣畫點狀底線 */
 .sh-facts { margin: 14px 0 0; font: 12px/1.9 var(--sh-px); letter-spacing: .06em; color: var(--sh-ink2); }
@@ -114,20 +121,23 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
   clip-path: polygon(0 4px,4px 4px,4px 0,calc(100% - 4px) 0,calc(100% - 4px) 4px,100% 4px,100% calc(100% - 4px),calc(100% - 4px) calc(100% - 4px),calc(100% - 4px) 100%,4px 100%,4px calc(100% - 4px),0 calc(100% - 4px)); }
 .sh-btn--pri { background: rgb(var(--sh-accent)); border-color: rgb(var(--sh-accent)); color: #0a0a15; }
 .sh-btn:hover { border-color: var(--sh-gold); }
+/* 缺角是 clip-path 剪的, 框外的 outline 會被剪掉, 鍵盤焦點的框畫在框裡面 */
+.sh-btn:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: -6px; }
 .sh-btn:active { transform: translate(3px, 3px); filter: none; }
 .sh-orb { position: absolute; right: max(24px, calc((100vw - 1072px) / 2 + 24px)); top: 50%; translate: 0 -50%;
   width: 192px; height: 192px; image-rendering: pixelated; filter: drop-shadow(0 0 40px rgb(var(--sh-accent) / .35));
   view-transition-name: sh-orb; pointer-events: none; }
 .sh-hero--tool .sh-orb { width: 120px; height: 120px; }
 /* 矮版: 內容才是主角的頁, 標題區只留一小條 (路徑、標題、說明、按鈕都在, 字小一點、行星小一顆) */
-.sh-hero--compact { height: auto; }
+.sh-hero--compact { min-height: 0; }
 .sh-hero--compact .sh-hero-inner { padding-top: 36px; padding-bottom: 22px; }
 .sh-hero--compact .sh-title { font-size: 28px; margin: 8px 0 4px; }
-.sh-hero--compact .sh-desc { font-size: 16px; }
+.sh-hero--compact .sh-desc { font-size: 1rem; }
 .sh-hero--compact .sh-facts, .sh-hero--compact .sh-row { margin-top: 10px; }
 .sh-hero--compact .sh-orb { width: 96px; height: 96px; }
 @media (max-width: 760px) {
-  .sh-hero { height: auto; min-height: 240px; }
+  .sh-hero { min-height: 240px; }
+  .sh-hero-inner { flex: none; }   /* 手機: 內容從上面排下來, 多的高度留在下面 */
   .sh-hero-inner { padding-top: 72px; }
   .sh-hero-text { max-width: none; }
   .sh-orb { width: 72px; height: 72px; top: 20px; translate: 0 0; right: 16px; }
@@ -136,7 +146,7 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
   .sh-prompt .sh-more { display: inline; }
   .sh-hero--tool .sh-orb { width: 64px; height: 64px; }
   .sh-title { font-size: 24px; }
-  .sh-desc { font-size: 16px; }
+  .sh-desc { font-size: 1rem; }
   .sh-hero--compact { min-height: 0; }
   .sh-hero--compact .sh-hero-inner { padding-top: 24px; padding-bottom: 18px; }
   .sh-hero--compact .sh-title { font-size: 22px; }
@@ -145,7 +155,7 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
 }
 
 /* 歌曲內頁: 封面 + 資訊, 背景是封面縮成 24×24 的馬賽克 */
-.sh-hero--song { height: auto; min-height: 300px; }
+.sh-hero--song { min-height: 300px; }
 .sh-hero--song .sh-hero-bg canvas { opacity: .55; }
 .sh-hero--song .sh-hero-bg::after { content: ''; position: absolute; inset: 0;
   background: linear-gradient(90deg, var(--sh-bg) 0%, rgb(10 10 21 / .75) 45%, rgb(10 10 21 / .35)),
@@ -179,8 +189,9 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
 .sh-tabs button { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left;
   font: 12px var(--sh-px); background: none; border: 0; padding: 4px 0 4px 14px; cursor: pointer; position: relative; }
 .sh-tabs .t { display: block; font: 24px/32px var(--sh-pxja); letter-spacing: .04em; color: var(--sh-ink3); }
-.sh-tabs small { font-size: 12px; letter-spacing: .06em; color: rgb(125 137 168 / .7); }
+.sh-tabs small { font-size: 12px; letter-spacing: .06em; color: var(--sh-ink3); }
 .sh-tabs button:hover .t { color: var(--sh-ink); }
+.sh-tabs button:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 2px; }
 .sh-tabs button[aria-selected="true"] .t { color: #fff; }
 .sh-tabs button[aria-selected="true"] small { color: rgb(var(--sh-accent)); }
 .sh-tabs button[aria-selected="true"]::before { content: '>'; position: absolute; left: 0; top: 14px;
@@ -253,6 +264,8 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
 
 /* ---------- 跨頁轉場: 瀏覽器原生 (MPA), 靜態頁也吃得到 ---------- */
 @view-transition { navigation: auto; }
+/* 不要動畫的人: 換頁直接換, 不淡入淡出 */
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
 @media (prefers-reduced-motion: no-preference) {
   ::view-transition-group(sh-title), ::view-transition-group(sh-orb) {
     animation-duration: 420ms; animation-timing-function: cubic-bezier(.2, .8, .2, 1); }
@@ -268,7 +281,7 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
 .sh-tbl a[hidden] { display: none; }
 /* 靜態頁: body 可能是置中的 flex 欄 (ガチャ) 或滿版工具 (星圖) */
 .sh-hd, .sh-hero { flex-shrink: 0; align-self: stretch; }
-.sh-hero--slim { height: 150px; }
+.sh-hero--slim { min-height: 150px; }
 .sh-hero--slim .sh-hero-inner { padding-bottom: 18px; }
 .sh-hero--slim .sh-title { font-size: 24px; margin: 8px 0 0; }
 .sh-hero--slim .sh-orb { width: 96px; height: 96px; }
@@ -285,7 +298,8 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
 .sh-help-hd .u { color: rgb(var(--sh-accent)); }
 .sh-help-hd .pa { color: var(--sh-gold); }
 .sh-help .x { font: 12px var(--sh-px); color: var(--sh-ink3); background: none; border: 2px solid #3b335f; padding: 4px 8px; cursor: pointer; }
-.sh-help .x:is(:hover, :focus-visible) { color: var(--sh-gold); outline: none; }
+.sh-help .x:hover { color: var(--sh-gold); }
+.sh-help .x:focus-visible { color: var(--sh-gold); outline: 2px solid var(--sh-gold); outline-offset: 2px; }
 .sh-help-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 28px; padding: 18px 16px 6px; }
 .sh-help h3 { margin: 0 0 8px; font-size: 12px; font-weight: 400; letter-spacing: .14em; color: var(--sh-gold); }
 .sh-help dl { margin: 0; display: grid; gap: 6px; }

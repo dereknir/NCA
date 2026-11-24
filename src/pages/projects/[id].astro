@@ -30,7 +30,7 @@ const fullDescription = `${description} 使用技術：${techStack?.slice(0, 4).
 >
   <PageHero slot="hero" planet="belt" compact title={title} desc={description} cmd="cat README.md"
     path={`~/belt/projects/${project.id}`}
-    chips={[[new Date(publishDate).toLocaleDateString('zh-TW'), ' 發布']]}
+    chips={[[new Date(publishDate).toLocaleDateString('zh-TW', { timeZone: 'UTC' }), ' 發布']]}
     actions={[
       ...(demoUrl ? [{ label: '查看 Demo', href: demoUrl, primary: true, external: true }] : []),
       ...(githubUrl ? [{ label: 'GitHub 原始碼', href: githubUrl, external: true }] : []),

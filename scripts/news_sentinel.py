@@ -108,7 +108,7 @@ def main():
         if e["class"] == "LIVE":
             n_live += 1
     if n_live:
-        report.append(f"  ⚠ 內含 {n_live} 條 LIVE 類 — events/tours 尚未登記, 場地/日期請人工補 (貼內文給 Claude Code 即可)")
+        report.append(f"  ⚠ 內含 {n_live} 條 LIVE 類 — events/tours 尚未登記, 場地/日期請人工補")
     if any(e["class"] == "OTHER" for e in fresh):
         report.append("  ⚠ 有 OTHER 類 (機器分不出) — 有空時人工校正 class")
     emit(report)

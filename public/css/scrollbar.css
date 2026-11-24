@@ -1,6 +1,5 @@
 /* scrollbar.css — 全站像素捲軸 (不要瀏覽器預設的那種)
-   site-shell.css 開頭 @import 這份, 所以 Astro 頁和吃外殼的靜態頁都有;
-   審片工具 / にしなの宇宙 / pixel-lab 沒吃外殼, 各自 <link> 這份。
+   每一頁都直接 <link> 這份 (放在 site-shell.css 前面, 兩份同時下載, 不用 @import 等第一份下載完才開始抓第二份)。
    長相: 暗色棋盤格軌道 + 該頁行星色的滑塊 (亮邊 / 暗邊 / 深色外框 / 中間止滑紋) + 深藍按鈕配金色像素箭頭。
    注意: 元素上只要設了 scrollbar-width / scrollbar-color, Chrome 就不吃下面這些 ::-webkit-scrollbar,
    要捲軸長這樣就別在個別元素設那兩個屬性 (要藏捲軸用 scrollbar-width: none 沒關係)。 */
@@ -65,6 +64,7 @@ html::-webkit-scrollbar-button, body::-webkit-scrollbar-button { width: 16px; he
 }
 
 /* Firefox 不支援上面那套, 只能換顏色 */
+/* 設在 :root 就好, 會一路繼承下去, 不用每個元素都配一次 */
 @supports not selector(::-webkit-scrollbar) {
-  * { scrollbar-color: var(--sb-thumb) var(--sb-bg); }
+  :root { scrollbar-color: var(--sb-thumb) var(--sb-bg); }
 }

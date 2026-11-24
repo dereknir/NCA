@@ -54,6 +54,9 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 只有深色: 瀏覽器自己畫的東西 (捲軸、表單、載入前的底色) 也用深色; 手機網址列配站的底色 -->
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0a0a15">
 
   <!-- 基本 SEO -->
   <title>{fullTitle}</title>
@@ -86,11 +89,12 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <!-- Pixel 主視覺字型 (全站統一: PX12=UI/標題, PX10=內文; 首屏防閃字) -->
+  <!-- Pixel 主視覺字型 (全站統一: PX12=UI/標題, PX10=內文; 首屏防閃字)
+       只先抓中文兩份: 日文那兩份各 100KB 上下, 大部分頁面第一眼用不到, 用到再抓 -->
   <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp12-site-zh_hant.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp12-site-ja.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp10-site-zh_hant.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/pixel/fp10-site-ja.woff2">
+
+  <link rel="stylesheet" href="/css/scrollbar.css">
 
   <link rel="stylesheet" href="/css/site-shell.css">
   <script is:inline src="/js/site-shell.js" defer></script>
@@ -100,12 +104,12 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   <!-- 字體預連接與預載入（性能優化） -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- 使用 font-display: swap 避免字體加載阻塞渲染 -->
+  <!-- 先用 media="print" 載 (不擋畫面), site-shell.js 再換回 all; 不寫 onload, 之後開 CSP 也不會被擋 -->
   <link
     href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap"
     rel="stylesheet"
     media="print"
-    onload="this.media='all'"
+    data-async-css
   >
   <!-- Fallback for browsers that don't support media attribute manipulation -->
   <noscript>
@@ -120,6 +124,8 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
 
 <body class="min-h-screen bg-[#0a0a15] text-gray-100 font-sans" data-sh-pill={immersive ? 'off' : undefined}>
   {!immersive && <>
+  <!-- 鍵盤使用者按 Tab 第一個到這裡, 直接跳過頁首選單 -->
+  <a class="sh-skip" href="#main">跳到主要內容</a>
   <!-- 頁首: 4 組下拉 + 單鍵 [X]; 捲動後標題縮進 .sh-dock (樣式/行為在 site-shell) -->
   <header class="sh-hd">
     <div class="sh-wrap">
@@ -151,7 +157,7 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
 
   {!immersive && <>
   <!-- Main Content -->
-  <main class={mainClass}>
+  <main id="main" tabindex="-1" class={mainClass}>
     <slot />
   </main>
 

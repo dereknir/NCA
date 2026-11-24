@@ -106,7 +106,7 @@ print(f"✓ {OUT_JSON.relative_to(ROOT)}  行 {len(lines)}(收合重複 {dup}) /
 
 if TEMPLATE_PATH.exists():
     tpl = open(TEMPLATE_PATH, encoding='utf-8').read()
-    html = tpl.replace('/*__DATA__*/null', json.dumps(out, ensure_ascii=False))
+    html = tpl.replace('/*__DATA__*/null', json.dumps(out, ensure_ascii=False).replace('</', '<\\/'))  # 資料裡有 </script> 也不會提早把 script 關掉
     OUT_HTML.parent.mkdir(parents=True, exist_ok=True)
     open(OUT_HTML, 'w', encoding='utf-8').write(html)
     print(f"✓ {OUT_HTML.relative_to(ROOT)} (索引已內嵌)", file=sys.stderr)

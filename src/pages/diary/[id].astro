@@ -16,7 +16,7 @@ const { Content } = await render(entry);
 const { title, date, mood, weather, tags } = entry.data;
 
 // 使用可選鏈確保類型安全
-const description = `${new Date(date).toLocaleDateString('zh-TW')} 的日記${mood ? ' ' + mood : ''}。${tags?.slice(0, 3).map(t => '#' + t).join(' ') ?? ''}`;
+const description = `${new Date(date).toLocaleDateString('zh-TW', { timeZone: 'UTC' })} 的日記${mood ? ' ' + mood : ''}。${tags?.slice(0, 3).map(t => '#' + t).join(' ') ?? ''}`;
 ---
 
 <BaseLayout
@@ -29,7 +29,7 @@ const description = `${new Date(date).toLocaleDateString('zh-TW')} 的日記${mo
   <PageHero slot="hero" planet="moon" width="read" compact title={title} cmd="cat entry.md"
     path={`~/moon/diary/${entry.id}`}
     chips={[
-      [new Date(date).toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })],
+      [new Date(date).toLocaleDateString('zh-TW', { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })],
       ...(mood || weather ? [[[mood, weather].filter(Boolean).join(' ')] as [string]] : []),
     ]} />
   <article>

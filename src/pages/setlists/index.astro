@@ -38,7 +38,7 @@ interface RecapShort {
   tourName: string | null;
 }
 
-const tours = (setlists.tours as Tour[]).slice().reverse();  // 最新在上
+const tours = (setlists.tours as Tour[]).toReversed();  // 最新在上
 const meta = setlists.meta;
 const recapsByTour = (tourRecaps.by_tour ?? {}) as Record<string, RecapShort[]>;
 
