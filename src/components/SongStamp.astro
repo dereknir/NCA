@@ -1,0 +1,20 @@
+---
+/**
+ * SongStamp — 歌曲清單上的狀態章: 譯 = 翻好了、♪ = 純音樂 (沒有歌詞要翻)、… = 還在翻
+ * 一個字蓋一個章, 比「已翻譯」三個字安靜; 滑上去 (title) 跟讀螢幕 (aria-label) 都是全名
+ */
+interface Props { t: { data: { instrumental?: boolean }; body?: string } }
+const { t } = Astro.props;
+const inst = t.data.instrumental === true;
+const done = inst || (!!t.body && !t.body.includes('翻譯準備中'));
+const [ch, label, kind] = inst ? ['♪', '純音樂', 'inst'] : done ? ['譯', '已翻譯', 'done'] : ['…', '翻譯中', 'wip'];
+---
+<span class={`stamp stamp--${kind}`} role="img" title={label} aria-label={label}>{ch}</span>
+
+<style is:global>
+  /* 印章: 朱色方框 + 一個像素字。純音樂淡一點, 還在翻的用金色 */
+  .stamp { display: inline-grid; place-items: center; width: 20px; height: 20px; box-sizing: border-box; flex: none;
+    font: 12px/1 var(--sh-px); color: #e2603a; border: 2px solid currentColor; background: rgb(226 96 58 / .08); }
+  .stamp--inst { color: var(--sh-ink3); background: none; }
+  .stamp--wip { color: var(--sh-gold); background: none; border-style: dashed; }
+</style>
