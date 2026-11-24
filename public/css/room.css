@@ -71,7 +71,11 @@
 @media (orientation: portrait) { .rm-swipe { display: block; } }
 
 /* 拿起手機: 疊一層, 裡面是網頁版 N247i */
-.rm-pick { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; background: rgb(7 6 15 / .78); }
+/* 是 <dialog>: 瀏覽器預設的框、邊距、最大尺寸拿掉, 整個畫面都是它 */
+.rm-pick { position: fixed; inset: 0; z-index: 90; place-items: center; background: rgb(7 6 15 / .78);
+  width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; color: inherit; outline: none; }
+.rm-pick[open] { display: grid; }
+.rm-pick::backdrop { background: transparent; }
 .rm-pick-x { position: absolute; top: 14px; right: 14px; font: 12px var(--sh-px, monospace); color: #3b335f; background: #ece8ff;
   border: 3px solid #3b335f; box-shadow: inset -3px -3px 0 #9d95c9, 3px 3px 0 rgb(0 0 0 / .45); padding: 6px 12px; cursor: pointer; }
 .rm-pick-x:hover { background: #e8c94a; }

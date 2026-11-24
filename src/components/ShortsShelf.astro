@@ -60,14 +60,15 @@ const componentId = `shelf-${Math.random().toString(36).slice(2, 9)}`;
     </h3>
   </div>
 
-  <div class="shelf-filters" role="tablist">
-    <button class="shelf-chip active" data-filter="all" role="tab">
+  <!-- 篩下面那排影片的單選開關 (不是分頁, 所以用 aria-pressed) -->
+  <div class="shelf-filters" role="group" aria-label="版本">
+    <button type="button" class="shelf-chip active" data-filter="all" aria-pressed="true">
       全部 <span class="shelf-chip-count">{counts.all}</span>
     </button>
     {(['live','mv','acoustic','tft','other'] as const)
       .filter(k => counts[k])
       .map(k => (
-        <button class="shelf-chip" data-filter={k} role="tab">
+        <button type="button" class="shelf-chip" data-filter={k} aria-pressed="false">
           {VERSION_META[k].icon} {VERSION_META[k].label}
           <span class="shelf-chip-count">{counts[k]}</span>
         </button>
@@ -349,7 +350,7 @@ const componentId = `shelf-${Math.random().toString(36).slice(2, 9)}`;
     // Filter chips
     chips.forEach(chip => {
       chip.addEventListener('click', () => {
-        chips.forEach(c => c.classList.toggle('active', c === chip));
+        chips.forEach(c => { c.classList.toggle('active', c === chip); c.setAttribute('aria-pressed', String(c === chip)); });
         const filter = chip.dataset.filter;
         cards.forEach(card => {
           const vt = card.dataset.versionType || 'other';

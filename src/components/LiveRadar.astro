@@ -6,6 +6,7 @@
  * 方位 = 場地所在縣從岐阜 (日本的正中間) 看過去的方向, 北在上。
  * 過去的場次是暗紅點, 掃描線掃過時亮一下再慢慢暗掉; 還沒到的場次是亮點, 一直在閃。
  * 點過去的場次 → 年表搜尋那一場; 點未來的場次 → e+ 售票頁。
+ * 鍵盤: Tab 到雷達上, ← → 照日期一場一場看 (Home / End 跳頭尾), Enter 前往; 選到的那場讀螢幕會念出來。
  *
  * 資料: tour_stops (巡演各站, 有縣名) + nishina_live_events.appearance (出演, 縣名用 footprint 的 GEO 規則推)
  *       + live/upcoming.json (e+ 每日抓的未來場次)。日期換算在瀏覽器做, 所以「今天」永遠是真的今天。
@@ -53,10 +54,10 @@ const palette = PLANETS.mars.palette;
 ---
 
 <figure class="lr" data-radar>
-  <div class="lr-box">
-    <canvas width="120" height="120" role="img"
-      aria-label={`演出雷達: ${blips.length} 個場次, 中心是今天, 越外圈越久以前, 方位是場地從岐阜看過去的方向`}></canvas>
-    <div class="lr-tip" hidden></div>
+  <div class="lr-box" tabindex="0" role="group"
+    aria-label={`演出雷達: ${blips.length} 個場次, 中心是今天, 越外圈越久以前, 方位是場地從岐阜看過去的方向。用左右方向鍵一場一場看, Enter 前往`}>
+    <canvas width="120" height="120" aria-hidden="true"></canvas>
+    <div class="lr-tip" role="status" hidden></div>
   </div>
   <figcaption>中心＝今天・圈＝7天／1個月／1年<br>方位＝從岐阜看過去・北在上</figcaption>
   <!-- JSON 裡的「<」先換成 unicode 跳脫: 資料裡就算混了結束標籤也跳不出這個 script, JSON.parse 讀回來是一樣的字 -->
@@ -67,6 +68,7 @@ const palette = PLANETS.mars.palette;
   .lr { position: absolute; right: max(24px, calc((100vw - 1072px) / 2 + 24px)); top: 50%; translate: 0 -50%;
     margin: 0; width: 240px; z-index: 1; }
   .lr-box { position: relative; width: 240px; height: 240px; }
+  .lr-box:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 4px; }
   .lr canvas { width: 100%; height: 100%; image-rendering: pixelated; display: block; cursor: crosshair;
     filter: drop-shadow(0 0 32px rgb(var(--sh-accent) / .25)); }
   .lr figcaption { font: 12px/18px var(--sh-px); color: var(--sh-ink3); text-align: center; margin-top: 6px; letter-spacing: .04em; }
@@ -210,14 +212,36 @@ const palette = PLANETS.mars.palette;
     };
     cv.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') show(pick(e)); });
     cv.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') show(null); });
+    const visit = (p: (typeof pts)[number]) => {
+      if (p.u) window.open(p.u, '_blank', 'noopener');
+      else location.href = '/live/timeline/?q=' + encodeURIComponent(p.n);
+    };
     cv.addEventListener('click', e => {
       const p = pick(e as PointerEvent);
       if (!p) { show(null); return; }
       // 觸控: 第一下只顯示資訊, 同一點再點一次才前往
       if ((e as PointerEvent).pointerType !== 'mouse' && cur !== p) { show(p); return; }
-      if (p.u) window.open(p.u, '_blank', 'noopener');
-      else location.href = '/live/timeline/?q=' + encodeURIComponent(p.n);
+      visit(p);
     });
+    // 鍵盤: pts 已照日期排好; 第一次按方向鍵從離今天最近的那場開始
+    const box = fig.querySelector<HTMLElement>('.lr-box')!;
+    box.addEventListener('keydown', e => {
+      const last = pts.length - 1;
+      if (last < 0) return;
+      const now = cur ? pts.indexOf(cur) : -1;
+      const nf = pts.findIndex(p => p.future), start = nf < 0 ? last : nf;   // 下一場; 沒有未來場次就從最近一場
+      let i: number;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') i = now < 0 ? start : Math.min(last, now + 1);
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') i = now < 0 ? start : Math.max(0, now - 1);
+      else if (e.key === 'Home') i = 0;
+      else if (e.key === 'End') i = last;
+      else if (e.key === 'Enter' && cur) { e.preventDefault(); visit(cur); return; }
+      else if (e.key === 'Escape' && cur) { show(null); return; }
+      else return;
+      e.preventDefault();
+      show(pts[i]);
+    });
+    box.addEventListener('blur', () => show(null));
   }
 
   // hero 裡「下一場」的倒數 (Live 頁標 data-next-date), 一樣用瀏覽器的今天算

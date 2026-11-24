@@ -100,6 +100,15 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   <script is:inline src="/js/site-shell.js" defer></script>
 
   {viewTransitions && <ClientRouter />}
+  {/* 滑鼠停在站內連結上 (手機是手指按下去) 就先把那頁抓好, 點下去幾乎是瞬間打開。
+      翻譯頁圈內是 ClientRouter 自己換頁 (用 fetch, 吃不到這種預抓), 所以只在其他頁放。
+      後台、標注工具、資料檔不抓 */}
+  {!viewTransitions && <script is:inline type="speculationrules" set:html={JSON.stringify({
+    prefetch: [{
+      where: { and: [{ href_matches: '/*' }, { not: { href_matches: ['/admin/*', '/annotate/*', '/*.xml', '/*.json'] } }] },
+      eagerness: 'moderate',
+    }],
+  })} />}
 
   <!-- 字體預連接與預載入（性能優化） -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -131,12 +140,12 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
     <div class="sh-wrap">
       <a class="sh-logo" href="/">{SITE_CONFIG.title}</a>
       <span class="sh-dock"></span>
-      <button class="sh-burger" type="button" aria-expanded="false">選單</button>
-      <nav class="sh-nav">
-        {NAV_GROUPS.map(g => (
+      <button class="sh-burger" type="button" aria-expanded="false" aria-controls="sh-nav">選單</button>
+      <nav class="sh-nav" id="sh-nav" aria-label="全站">
+        {NAV_GROUPS.map((g, gi) => (
           <div class={`sh-grp${current?.group === g.name ? ' on' : ''}`}>
-            <button type="button" aria-haspopup="true">{g.name}</button>
-            <div class="sh-menu">
+            <button type="button" aria-expanded="false" aria-controls={`sh-menu-${gi}`}>{g.name}</button>
+            <div class="sh-menu" id={`sh-menu-${gi}`}>
               {g.items.map(it => (
                 <a href={it.href} class={current?.href === it.href ? 'cur' : undefined}
                    aria-current={current?.href === it.href ? 'page' : undefined}>

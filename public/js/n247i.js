@@ -394,12 +394,15 @@
   let tv = null;
   function openSeg(id, title) {
     closeSeg();
-    tv = document.createElement('div'); tv.className = 'n2-tv';
+    // <dialog> (showModal): 背後的頁面點不到、Tab 不會跑出去, 關掉時焦點回到按下ワンセグ的那顆鍵
+    tv = document.createElement('dialog'); tv.className = 'n2-tv'; tv.setAttribute('aria-label', 'ワンセグ 完整 Live');
     tv.innerHTML = `<div class="n2-tv-set"><div class="n2-tv-bar"><span>📺 ワンセグ ・ 完整 Live「${esc(title)}」</span>
         <button type="button" class="n2-tv-x">◀ 戻る</button></div>
       <div class="n2-tv-screen"><iframe title="完整 Live「${esc(title)}」" src="/live/full/${encodeURIComponent(id)}/?embed=1" allow="autoplay; encrypted-media"></iframe></div></div>`;
     document.body.append(tv);
-    window.__scrollLockCount = (window.__scrollLockCount || 0) + 1;
+    tv.tabIndex = -1; tv.autofocus = true;   // 打開時焦點放在電視本身 (不是「戻る」上, 不會一打開就框一圈); Tab 再到按鈕
+    tv.showModal();
+    tv.addEventListener('cancel', e => { e.preventDefault(); closeSeg(); });   // Esc
     const fr = tv.querySelector('iframe');
     fr.addEventListener('load', () => fr.classList.add('on'));
     tv.querySelector('.n2-tv-x').addEventListener('click', closeSeg);
@@ -410,21 +413,19 @@
   }
   function closeSeg() {
     if (!tv) return;
-    tv.remove(); tv = null;
-    window.__scrollLockCount = Math.max(0, (window.__scrollLockCount || 1) - 1);
+    tv.close(); tv.remove(); tv = null;
     const u = new URL(location.href);
     if (u.searchParams.get('n2')?.startsWith('seg/')) { u.searchParams.delete('n2'); history.replaceState(history.state, '', u); }
   }
 
   addEventListener('keydown', e => {
-    if (tv && e.key === 'Escape') { e.preventDefault(); closeSeg(); return; }
-    if (tv) return;
+    if (tv) return;   // 電視開著: Esc 由它自己的 <dialog> 處理, 手機不搶鍵
     if (!active || !active.isOpen() || !active.root.isConnected) return;
     if (e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
     const t = e.target;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
-    // 焦點在頁面其他地方 (例如某個連結) 時不搶按鍵, 不然 Enter 會被吃掉
-    if (t && t !== document.body && !active.root.contains(t)) return;
+    // 焦點在頁面其他地方 (例如某個連結) 時不搶按鍵, 不然 Enter 會被吃掉; 焦點在手機外面那層 <dialog> 上算手機的
+    if (t && t !== document.body && !active.root.contains(t) && t !== active.root.closest('dialog')) return;
     active.key(e);
   });
 
@@ -432,21 +433,25 @@
     mount(el) { return build(el); },
     // 手機上的導航: 疊一層, 直接開在 MENU; 關掉時把畫面還回去
     overlay() {
-      const wrap = document.createElement('div'); wrap.className = 'n2-overlay';
+      // <dialog> (showModal): 背後的頁面點不到、Tab 不會跑出去, 關掉時焦點回到打開它的按鈕
+      const wrap = document.createElement('dialog'); wrap.className = 'n2-overlay';
+      wrap.setAttribute('aria-label', 'N247i 選單'); wrap.tabIndex = -1;
       const host = document.createElement('div'); wrap.append(host);
       document.body.append(wrap);
-      window.__scrollLockCount = (window.__scrollLockCount || 0) + 1;
       const prevOverflow = document.documentElement.style.overflow;
       document.documentElement.style.overflow = 'hidden';
       let close = () => {
-        wrap.remove();
-        window.__scrollLockCount = Math.max(0, (window.__scrollLockCount || 1) - 1);
+        if (!wrap.isConnected) return;
+        wrap.close(); wrap.remove();
         document.documentElement.style.overflow = prevOverflow;
         if (active === phone) active = null;
       };
       const phone = build(host, { overlay: true, onClose: () => close() });
       wrap.addEventListener('click', e => { if (e.target === wrap) close(); });   // close 下面會換成連 resize 一起拆的版本
+      wrap.addEventListener('cancel', e => { e.preventDefault(); close(); });   // 手機沒接走的 Esc (例如焦點在別的地方)
+      wrap.showModal();
       phone.open();
+      wrap.focus();   // 焦點放在這層上, 方向鍵、數字鍵直接給手機
       // 手機螢幕放不下整支 (掀開約 640px 高) 就整支縮小, 鍵盤不會被切掉
       const fit = () => { host.style.zoom = ''; const k = Math.min(1, (innerHeight - 24) / host.offsetHeight, (innerWidth - 24) / host.offsetWidth); if (k < 1) host.style.zoom = k.toFixed(3); };
       fit(); addEventListener('resize', fit);

@@ -70,7 +70,8 @@ const acts = actions.toSorted((a, b) => Number(!!b.primary) - Number(!!a.primary
            style={coverTransition ? `view-transition-name:${coverTransition}` : undefined} />
     )}
     <div class="sh-hero-text">
-      <div class="sh-prompt"><span class="u">derek@nishina</span>:<span class="pa">{segs.map((g, i) => <>{i === segs.length - 2 && segs.length > 2 && <span class="sh-more" aria-hidden="true">…/</span>}<span class={far(i) ? 'sh-far' : undefined}>{g.href ? <a class="sh-seg" href={g.href}>{g.name}</a> : g.name}{i < segs.length - 1 ? '/' : ''}</span></>)}</span> $ <span class="cmd">{cmd}</span></div>
+      {/* 終端機提示列 = 麵包屑: 路徑是一個 <nav> 裡的 <ol>, 讀螢幕只念路徑 (使用者名稱、斜線、指令是裝飾); 一定要寫成一行, 換行會多出空白 */}
+      <div class="sh-prompt"><span class="u" aria-hidden="true">derek@nishina</span><span aria-hidden="true">:</span><nav class="pa" aria-label="目前位置"><ol>{segs.map((g, i) => <li class={far(i) ? 'sh-far' : undefined}>{i === segs.length - 2 && segs.length > 2 && <span class="sh-more" aria-hidden="true">…/</span>}{g.href ? <a class="sh-seg" href={g.href}>{g.name}</a> : <span aria-current={i === segs.length - 1 ? 'page' : undefined}>{g.name}</span>}{i < segs.length - 1 && <span aria-hidden="true">/</span>}</li>)}</ol></nav><span aria-hidden="true"> $ <span class="cmd">{cmd}</span></span></div>
       <h1 class="sh-title" lang={titleLang} id={isSong ? 'songTitle' : undefined}>{title}</h1>
       {desc && <p class="sh-desc">{desc}</p>}
       <slot />

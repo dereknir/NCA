@@ -25,6 +25,6 @@ const desc = `帶你聽完一整首 Live：從 ${sum.liveShorts} 支演唱會 sh
       ...(sum.longSegs ? [[String(sum.longSegs), '段用官方長片補'] as [string, string]] : [])]}
     actions={[{ label: '歌詞翻譯', href: `/translations/${song.id}/` }]} />
   <!-- ?embed=1: N247i 的ワンセグ用 iframe 開這頁, 只留舞台和歌詞; 單鍵跳頁也關掉 (不然在 iframe 裡按 L 會整個跳走) -->
-  <script is:inline>if (new URLSearchParams(location.search).has('embed')) { document.documentElement.classList.add('flp-embed'); window.__scrollLockCount = 1; }</script>
+  <script is:inline>if (new URLSearchParams(location.search).has('embed')) { document.documentElement.classList.add('flp-embed'); window.__shellNoKeys = true; }</script>
   <FullLivePlayer song={song} />
 </BaseLayout>

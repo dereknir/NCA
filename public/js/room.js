@@ -217,15 +217,29 @@
   pan.addEventListener('scroll', () => root.querySelector('.rm-swipe')?.remove(), { once: true, passive: true });
 
   /* ---------- 拿起手機 ---------- */
+  // N247i 的程式跟樣式第一眼用不到: 滑到手機上、或真的拿起來的時候才載
+  let phoneP = null;
+  function loadPhone() {
+    if (window.N247i) return Promise.resolve();
+    if (!document.querySelector('link[href="/css/n247i.css"]')) {
+      const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/css/n247i.css'; document.head.append(l);
+    }
+    return phoneP || (phoneP = new Promise((ok, no) => {
+      const sc = document.createElement('script'); sc.src = '/js/n247i.js'; sc.onload = ok; sc.onerror = () => { phoneP = null; no(); }; document.head.append(sc);
+    }));
+  }
+  stage.querySelector('[data-k="phone"]')?.addEventListener('pointerenter', () => loadPhone().catch(() => {}), { once: true });
   function pickUp() {
-    if (!window.N247i || document.querySelector('.rm-pick')) return;
+    if (document.querySelector('.rm-pick')) return;
+    if (!window.N247i) { loadPhone().then(pickUp, () => {}); return; }
     hideTip();
-    document.activeElement?.blur();   // 焦點留在房間的熱區上, 手機不會搶按鍵 (Esc 放不下)
-    const wrap = document.createElement('div'); wrap.className = 'rm-pick';
+    // <dialog> (showModal): 背後的房間點不到、Tab 不會跑出去, 放下手機時焦點回到書桌上的手機
+    const wrap = document.createElement('dialog'); wrap.className = 'rm-pick';
+    wrap.setAttribute('aria-label', '拿起來的 N247i'); wrap.tabIndex = -1;
     const host = document.createElement('div');
     const put = document.createElement('button'); put.type = 'button'; put.className = 'rm-pick-x'; put.textContent = '放下';
     wrap.append(host, put); document.body.append(wrap);
-    window.__scrollLockCount = (window.__scrollLockCount || 0) + 1;
+    wrap.showModal();
     const prevOverflow = document.documentElement.style.overflow;
     document.documentElement.style.overflow = 'hidden';
 
@@ -236,8 +250,7 @@
     const close = () => {
       if (done) return; done = true;
       watch.disconnect(); removeEventListener('resize', fitPhone);
-      wrap.remove();
-      window.__scrollLockCount = Math.max(0, (window.__scrollLockCount || 1) - 1);
+      wrap.close(); wrap.remove();
       document.documentElement.style.overflow = prevOverflow;
       const u = new URL(location.href);
       if (u.searchParams.has('n2')) { u.searchParams.delete('n2'); history.replaceState(history.state, '', u); }
@@ -247,7 +260,9 @@
     watch.observe(phone.root, { attributes: true, attributeFilter: ['class'] });
     wrap.addEventListener('click', e => { if (e.target === wrap) close(); });
     put.addEventListener('click', close);
+    wrap.addEventListener('cancel', e => { e.preventDefault(); close(); });   // 手機沒接走的 Esc (例如焦點在「放下」上)
     if (!phone.isOpen()) phone.open();
+    wrap.focus();   // 焦點放在這層上, 按鍵直接給手機
     fitPhone(); addEventListener('resize', fitPhone);
   }
   // 分享出去的 ?n2=uta/<id> 這種連結: 直接拿起手機, 讓手機自己開到那一頁

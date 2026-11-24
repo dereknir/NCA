@@ -28,44 +28,72 @@
   };
 
   function headerHTML(idx, cur) {
-    const groups = idx.groups.map(g => `<div class="sh-grp${cur && cur.group === g.name ? ' on' : ''}">
-      <button type="button" aria-haspopup="true">${esc(g.name)}</button><div class="sh-menu">${g.items.map(it =>
+    const groups = idx.groups.map((g, gi) => `<div class="sh-grp${cur && cur.group === g.name ? ' on' : ''}">
+      <button type="button" aria-expanded="false" aria-controls="sh-menu-${gi}">${esc(g.name)}</button><div class="sh-menu" id="sh-menu-${gi}">${g.items.map(it =>
         `<a href="${it.href}"${cur && cur.href === it.href ? ' class="cur" aria-current="page"' : ''}><kbd>[${it.key}]</kbd>${esc(it.name)}<span>${esc((idx.planets[it.planet] || {}).ja || '')}</span></a>`).join('')}</div></div>`).join('');
     return `<div class="sh-wrap"><a class="sh-logo" href="/">Derek's Site</a><span class="sh-dock"></span>
-      <button class="sh-burger" type="button" aria-expanded="false">選單</button><nav class="sh-nav">${groups}</nav></div><div class="sh-prog"></div>`;
+      <button class="sh-burger" type="button" aria-expanded="false" aria-controls="sh-nav">選單</button><nav class="sh-nav" id="sh-nav" aria-label="全站">${groups}</nav></div><div class="sh-prog"></div>`;
   }
 
+  // 掛在 document / window 上的監聽: ClientRouter 換頁會換掉頁首、指令列, 舊的那批跟著拆掉, 不會越疊越多
+  const scope = {};
+  const fresh = k => { scope[k]?.abort(); return (scope[k] = new AbortController()).signal; };
+
+  // 頁首: 每組是一顆展開按鈕 (aria-expanded) + 一串連結。滑鼠滑過去照樣會開 (CSS :hover);
+  // 鍵盤是按 Enter / 空白鍵開, Esc 關回按鈕上, Tab 離開那組就收起來
   function wireHeader(hd) {
     if (hd.dataset.wired) return;
     hd.dataset.wired = '1';
+    const signal = fresh('header');
     const nav = hd.querySelector('.sh-nav'), burger = hd.querySelector('.sh-burger');
-    burger?.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      burger.setAttribute('aria-expanded', open);
-    });
-    // 觸控裝置沒有 hover: 點組名開關; 點外面關掉
+    const setGrp = (g, open) => { g.classList.toggle('open', open); g.querySelector(':scope > button').setAttribute('aria-expanded', open); };
+    const closeGrps = except => hd.querySelectorAll('.sh-grp.open').forEach(g => { if (g !== except) setGrp(g, false); });
+    const setNav = open => { nav.classList.toggle('open', open); burger.setAttribute('aria-expanded', open); };
+    burger?.addEventListener('click', () => setNav(!nav.classList.contains('open')));
     hd.querySelectorAll('.sh-grp > button').forEach(b => b.addEventListener('click', () => {
-      const g = b.parentElement, was = g.classList.contains('open');
-      hd.querySelectorAll('.sh-grp.open').forEach(x => x.classList.remove('open'));
-      if (!was) g.classList.add('open');
+      if (nav.classList.contains('open')) return;   // 手機選單攤開的時候每組都是展開的, 組名只是標題
+      const g = b.parentElement;
+      closeGrps(g);
+      setGrp(g, !g.classList.contains('open'));
     }));
-    document.addEventListener('click', e => {
-      if (!hd.contains(e.target)) hd.querySelectorAll('.sh-grp.open').forEach(x => x.classList.remove('open'));
+    hd.addEventListener('focusout', e => {
+      const g = e.target.closest('.sh-grp');
+      if (g && !g.contains(e.relatedTarget)) setGrp(g, false);
     });
+    hd.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      const g = e.target.closest('.sh-grp.open');
+      if (g) { e.stopPropagation(); setGrp(g, false); g.querySelector(':scope > button').focus(); }
+      else if (nav.classList.contains('open')) { e.stopPropagation(); setNav(false); burger.focus(); }
+    });
+    // 點頁首外面: 開著的組、手機選單都收起來
+    document.addEventListener('click', e => {
+      if (hd.contains(e.target)) return;
+      closeGrps();
+      if (nav.classList.contains('open')) setNav(false);
+    }, { signal });
   }
 
   /* ---------- 畫圖 ---------- */
-  // rAF 迴圈: 元素離開 DOM (換頁) 就停, 滾出畫面就暫停
-  function loop(el, frame) {
-    let vis = true;
-    if ('IntersectionObserver' in window) new IntersectionObserver(es => { vis = es[0].isIntersecting; }).observe(el);
+  // rAF 迴圈: 滾出畫面、切到別的分頁就整個停掉 (不是空轉), 回來再接著跑; 元素離開 DOM (換頁) 就收工。
+  // fps: 像素畫一秒十幾格就夠了, 不用每一幀都重畫
+  function loop(el, frame, fps = 60) {
     frame(0);
     if (still) return;
-    (function f(t) {
-      if (!el.isConnected) return;
-      if (vis && !document.hidden) frame(t);
-      requestAnimationFrame(f);
-    })(0);
+    const gap = 1000 / fps, ac = new AbortController();
+    let raf = 0, last = -1e9, vis = true;
+    const stop = () => { if (raf) cancelAnimationFrame(raf); raf = 0; };
+    const f = t => {
+      raf = 0;
+      if (!el.isConnected) { ac.abort(); io.disconnect(); return; }
+      if (t - last >= gap) { last = t; frame(t); }
+      raf = requestAnimationFrame(f);
+    };
+    const run = () => { if (!raf && vis && !document.hidden && el.isConnected) raf = requestAnimationFrame(f); };
+    const io = new IntersectionObserver(es => { vis = es[0].isIntersecting; vis ? run() : stop(); });
+    io.observe(el);
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : run(), { signal: ac.signal });
+    run();
   }
 
   function starfield(bg, seed) {
@@ -84,7 +112,7 @@
         g.fillStyle = p.b ? `rgba(232,201,74,${a})` : `rgba(205,214,238,${a})`;
         g.fillRect(p.x, p.y, 1, 1);
       }
-    });
+    }, 20);
   }
 
   function mosaic(bg, src) {
@@ -150,7 +178,7 @@
         if (front) put(x, y, pal[(BAYER[(y % 4) * 4 + x % 4] > 8 ? 1 : 2) + (e > 21.5 ? 1 : 0)]);
       }
       g.putImageData(img, 0, 0);
-    });
+    }, 15);
   }
 
   /* ---------- N247i (觸控裝置的指令列按鈕) ---------- */
@@ -180,14 +208,16 @@
     // 觸控裝置沒有實體鍵盤, 指令列按鈕換成像素ガラケー N247i (打開直接是 MENU, 左鍵「検索」再回到指令列)
     const coarse = matchMedia('(pointer: coarse)').matches;
     const pillHTML = coarse
-      ? `<div class="sh-cli-pill sh-cli-pill--phone" role="button" tabindex="0" aria-label="打開 N247i 選單">${PHONE_ICON}<span>N247i</span><span class="hint">MENU</span></div>`
-      : `<div class="sh-cli-pill" role="button" tabindex="0" aria-label="打開指令列"><span>guest@nishina</span><span class="gt">&gt;</span><span class="hint">按 / 搜尋歌名、跳頁</span></div>`;
+      ? `<button type="button" class="sh-cli-pill sh-cli-pill--phone" aria-label="打開 N247i 選單">${PHONE_ICON}<span>N247i</span><span class="hint">MENU</span></button>`
+      : `<button type="button" class="sh-cli-pill" aria-label="打開指令列"><span>guest@nishina</span><span class="gt">&gt;</span><span class="hint">按 / 搜尋歌名、跳頁</span></button>`;
+    // 輸入框是 combobox: 下面的結果是它的 listbox, 方向鍵選到哪一個由 aria-activedescendant 告訴讀螢幕
     box.innerHTML = `${pillHTML}
-      <div class="sh-cli-panel"><div class="sh-wrap"><div class="sh-cli-out" role="listbox"></div>
-      <label class="sh-cli-line"><span class="u">guest@nishina</span><span class="gt">&gt;</span><input type="text" autocomplete="off" spellcheck="false" placeholder="/help" aria-label="指令列"><button class="esc" type="button">esc</button></label></div></div>`;
+      <div class="sh-cli-panel"><div class="sh-wrap"><div class="sh-cli-out" id="sh-cli-out" role="listbox" aria-label="搜尋結果"></div>
+      <label class="sh-cli-line"><span class="u">guest@nishina</span><span class="gt">&gt;</span><input type="text" role="combobox" aria-expanded="false" aria-controls="sh-cli-out" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="/help" aria-label="指令列"><button class="esc" type="button">esc</button></label></div></div>`;
     document.body.append(box);
     const pill = box.querySelector('.sh-cli-pill'), out = box.querySelector('.sh-cli-out'), input = box.querySelector('input');
-    let hits = [], sel = 0;
+    let hits = [], sel = 0, back = null;
+    const signal = fresh('cli');
 
     const items = allItems(idx);
     const cmds = [
@@ -214,27 +244,35 @@
     };
     function render() {
       const q = input.value.trim();
-      if (!q) { out.innerHTML = ''; hits = []; return; }
+      if (!q) { out.replaceChildren(); hits = []; input.setAttribute('aria-expanded', 'false'); input.removeAttribute('aria-activedescendant'); return; }
       hits = search(q);
       sel = Math.min(sel, Math.max(0, hits.length - 1));
       out.innerHTML = hits.length
-        ? hits.map((h, i) => `<a href="${h.href || '#'}" data-i="${i}" role="option"${i === sel ? ' class="sel" aria-selected="true"' : ''}><span${h.ja ? ' lang="ja"' : ''}>${esc(h.k)}</span><span>${esc(h.t)}</span></a>`).join('')
-        : `<div class="none">command not found: ${esc(q)}　試試 /help</div>`;
+        ? hits.map((h, i) => `<a href="${h.href || '#'}" id="sh-cli-o${i}" data-i="${i}" role="option" aria-selected="${i === sel}"${i === sel ? ' class="sel"' : ''}><span${h.ja ? ' lang="ja"' : ''}>${esc(h.k)}</span><span>${esc(h.t)}</span></a>`).join('')
+        : `<div class="none" role="status">command not found: ${esc(q)}　試試 /help</div>`;
+      input.setAttribute('aria-expanded', String(hits.length > 0));
+      if (hits.length) input.setAttribute('aria-activedescendant', 'sh-cli-o' + sel); else input.removeAttribute('aria-activedescendant');
       out.querySelector('.sel')?.scrollIntoView({ block: 'nearest' });
     }
     const go = h => { if (!h) return; if (h.run) h.run(); else location.href = h.href; };
     function open(seed = '') {
+      // 關掉的時候焦點回到打開前的地方 (膠囊按鈕、或按 / 之前停的那個)
+      if (!box.classList.contains('open')) back = document.activeElement !== document.body ? document.activeElement : null;
       box.classList.add('open');
       input.value = seed;
       sel = 0;
       render();
       input.focus();
     }
-    function close() { box.classList.remove('open'); input.value = ''; render(); input.blur(); }
+    function close(restore = true) {
+      if (!box.classList.contains('open')) return;
+      box.classList.remove('open'); input.value = ''; render(); input.blur();
+      if (restore && back?.isConnected) back.focus({ preventScroll: true });
+      back = null;
+    }
     const tap = () => coarse ? loadPhone().then(() => window.N247i.overlay()).catch(() => open()) : open();
     pill.addEventListener('click', tap);
-    pill.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tap(); } });
-    box.querySelector('.esc').addEventListener('click', close);
+    box.querySelector('.esc').addEventListener('click', () => close());
     input.addEventListener('input', () => { sel = 0; render(); });
     input.addEventListener('keydown', e => {
       if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
@@ -248,7 +286,8 @@
       const h = a && hits[+a.dataset.i];
       if (h && h.run) { e.preventDefault(); h.run(); }
     });
-    document.addEventListener('pointerdown', e => { if (box.classList.contains('open') && !box.contains(e.target)) close(); });
+    // 點外面關掉: 焦點留在點下去的地方, 不拉回去
+    document.addEventListener('pointerdown', e => { if (!box.contains(e.target)) close(false); }, { signal });
     window.__shellCli = { open };
   }
 
@@ -280,14 +319,14 @@
     window.__shellHelp = { open: () => { if (d.open) return; grid.innerHTML = base.replace('<!--page-->', pageKeys()); d.showModal(); } };
   }
 
-  // 單鍵: / 開指令列, 字母換頁。輸入中 / 修飾鍵 / overlay (LiveStage、目錄抽屜) 開著時不動
+  // 單鍵: / 開指令列, 字母換頁。輸入中 / 修飾鍵 / 有對話框 (LiveStage、目錄抽屜、N247i) 開著時不動
   function wireKeys(idx) {
     const byKey = Object.fromEntries(allItems(idx).map(it => [it.key.toLowerCase(), it.href]));
     addEventListener('keydown', e => {
       if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
       const t = e.target;
       if (t.isContentEditable || (t.closest && t.closest('input, textarea, select'))) return;
-      if ((window.__scrollLockCount || 0) > 0 || document.querySelector('dialog:modal')) return;
+      if (window.__shellNoKeys || document.querySelector('dialog:modal')) return;   // 嵌在 N247i 電視裡的完整 Live 不吃站上的快捷鍵
       if (e.key === '/') { e.preventDefault(); window.__shellCli?.open(); return; }
       if (e.key === '?') { e.preventDefault(); window.__shellHelp?.open(); return; }
       const href = !e.shiftKey && byKey[e.key.toLowerCase()];

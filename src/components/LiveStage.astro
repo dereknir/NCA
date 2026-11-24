@@ -49,7 +49,7 @@ if (!shorts || shorts.length === 0) return null;
     <header class="stage-header">
       <div class="stage-header-main">
         <h2 class="stage-title">{songTitle}</h2>
-        <div class="stage-tabs" role="tablist"></div>
+        <div class="stage-tabs" role="group" aria-label="版本"></div>
       </div>
       <button
         type="button"
@@ -737,7 +737,7 @@ if (!shorts || shorts.length === 0) return null;
       btn.type = 'button';
       btn.className = 'stage-tab';
       btn.dataset.version = key;
-      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-pressed', 'false');   // 篩下面那排影片的單選開關 (不是分頁)
       btn.innerHTML = `${VERSION_META[key].icon} ${VERSION_META[key].label}
         <span class="stage-tab-count">${list.length}</span>`;
       btn.addEventListener('click', () => selectVersion(key));
@@ -749,6 +749,7 @@ if (!shorts || shorts.length === 0) return null;
     state.activeVersion = key;
     tabsEl.querySelectorAll<HTMLElement>('.stage-tab').forEach(t => {
       t.classList.toggle('active', t.dataset.version === key);
+      t.setAttribute('aria-pressed', String(t.dataset.version === key));
     });
     renderStrip();
   }
@@ -796,6 +797,7 @@ if (!shorts || shorts.length === 0) return null;
       const isActive = t.dataset.videoId === state.activeShort?.videoId;
       t.classList.toggle('playing', isActive);
       t.classList.toggle('active', isActive);
+      if (isActive) t.setAttribute('aria-current', 'true'); else t.removeAttribute('aria-current');   // 正在播的那支
       if (isActive) t.scrollIntoView({ inline: 'nearest', block: 'nearest' });
     });
   }
@@ -889,16 +891,21 @@ if (!shorts || shorts.length === 0) return null;
     if (state.follow && focusLine() >= 0) setFollow(false);
   }
 
+  // 捲動停下來時, 目前句若回到中央附近 → 視為使用者捲回來了, 自動恢復跟隨
+  function onLyricsScrollEnd() {
+    const off = focusOffset();
+    if (!state.follow && off !== null && Math.abs(off) < lyricsEl.clientHeight * 0.15) setFollow(true);
+  }
+  // 瀏覽器有 scrollend 事件就用它 (手指還按著、慣性還在滑都不算停); 沒有的 (舊 Safari) 才自己等 180ms 沒動靜
+  const hasScrollEnd = 'onscrollend' in window;
   function onLyricsScroll() {
     if (state.follow) return;
     updateFollowBackArrow();
-    // 捲動停下來時, 目前句若回到中央附近 → 視為使用者捲回來了, 自動恢復跟隨
+    if (hasScrollEnd) return;
     clearTimeout(state.scrollEndTimer);
-    state.scrollEndTimer = window.setTimeout(() => {
-      const off = focusOffset();
-      if (!state.follow && off !== null && Math.abs(off) < lyricsEl.clientHeight * 0.15) setFollow(true);
-    }, 180);
+    state.scrollEndTimer = window.setTimeout(onLyricsScrollEnd, 180);
   }
+  if (hasScrollEnd) lyricsEl.addEventListener('scrollend', () => { if (!state.follow) onLyricsScrollEnd(); });
 
   lyricsEl.addEventListener('wheel', onUserScrollGesture, { passive: true });
   lyricsEl.addEventListener('touchmove', onUserScrollGesture, { passive: true });

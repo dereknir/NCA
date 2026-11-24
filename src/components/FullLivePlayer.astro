@@ -354,7 +354,7 @@ const { song } = Astro.props;
       const make = () => {
         let n = 0;
         const opts = { width: '100%', height: '100%',
-          playerVars: { controls: 0, playsinline: 1, rel: 0, modestbranding: 1, iv_load_policy: 3, disablekb: 1, fs: 0 },
+          playerVars: { controls: 0, playsinline: 1, rel: 0, modestbranding: 1, iv_load_policy: 3, disablekb: 1, fs: 0, origin: location.origin },
           events: { onReady: () => { if (++n === 2) res(); }, onError: (e: any) => onPlayerError(e.target),
                     onAutoplayBlocked: (e: any) => onBlocked(e.target) } };
         players = plEls.map(el => new YT.Player(el.firstElementChild, opts));
@@ -410,6 +410,7 @@ const { song } = Astro.props;
     function externalResume() {
       delete startBtn.dataset.resume; startBtn.hidden = true;
       paused = false; playBtn.textContent = '⏸ 暫停'; seen = { t: NaN, at: performance.now() };
+      queueMicrotask(pace);
     }
     // 看門狗: 這段一直沒往前走 — 被暫停 (2) 1.5 秒就請使用者點一下; 一直沒開始 (-1 / 5 / 讀不到) 等 12 秒
     // (真的 YouTube 慢網路冷載入會停在 -1 五到八秒; 被擋主要靠 onAutoplayBlocked), 點過還是不動就當成這支壞了, 換別支; 緩衝中 (3) 就等
@@ -531,6 +532,7 @@ const { song } = Astro.props;
     /** 直接跳到第 n 段 (開始播放 / 手動跳段 / 下一段來不及接上時的退路) */
     function go(n: number) {
       if (n < 0 || n >= segs.length) return finish();
+      queueMicrotask(pace);   // 開始播 / 換段: 拍子馬上切回快的, 不等下一個慢拍
       clearTimeout(fireTimer); fireTimer = 0; stopFade(); lost = false; gate = null;
       const s = segs[n], prevAct = act;
       if (pre && (s.gap || pre.n !== n || pre.v !== s.v)) dropPre();   // 用不到的預載 (手動跳段): 停掉, 按了播放的那支還在出聲
@@ -627,6 +629,7 @@ const { song } = Astro.props;
       if (!v) { delete startBtn.dataset.resume; startBtn.hidden = true; }
       if (paused === v) return;
       paused = v;
+      queueMicrotask(pace);
       playBtn.textContent = paused ? '▶ 繼續' : '⏸ 暫停';
       const s = segs[k];
       if (paused) {
@@ -658,6 +661,7 @@ const { song } = Astro.props;
      * Worker 起不來 (或被擋) 才由主執行緒的計時器補 */
     let lastTick = 0, prevDt = 0.025;
     function tick() {
+      pace();
       const now = performance.now(), dt = lastTick ? (now - lastTick) / 1000 : 0.025;
       // 連兩拍都長才算拍子變粗 (只有一拍長 = 主執行緒剛卡了一下, 排隊的拍子馬上補上; 照它往前看會一下子把音量算成 0)
       ahead = Math.min(1, Math.max(0.025, Math.min(dt, prevDt))) * SPEED;
@@ -755,16 +759,29 @@ const { song } = Astro.props;
       seg.querySelector<HTMLElement>('.fill')!.style.width = Math.min(100, into / durs[k] * 100) + '%';
       q('[data-head]').style.left = (seg.offsetLeft + seg.offsetWidth * Math.min(1, into / durs[k])) + 'px';
     }
-    let tw: Worker | null = null, lastWorker = 0;
+    // 拍子快慢: 正在播 (要算淡入淡出、換段) 25 ms 一拍; 還沒開始 / 暫停中 250 ms 一拍就夠
+    // (那時候只剩看門狗: 壓住自己播起來的播放器、跟上從耳機 / 媒體鍵恢復的播放), 不用一秒 40 次空轉
+    const FAST = 25, SLOW = 250;
+    let rate = FAST, lastWorker = 0, timer = 0;
+    let tw: Worker | null = null;
     try {
-      tw = new Worker(URL.createObjectURL(new Blob(['setInterval(() => postMessage(0), 25)'], { type: 'text/javascript' })));
+      tw = new Worker(URL.createObjectURL(new Blob(['let h = setInterval(() => postMessage(0), 25); onmessage = e => { clearInterval(h); h = setInterval(() => postMessage(0), e.data); };'], { type: 'text/javascript' })));
       tw.onmessage = () => { if (!root.isConnected) { tw?.terminate(); tw = null; return; } lastWorker = performance.now(); tick(); };
       tw.onerror = () => { tw?.terminate(); tw = null; };
     } catch (e) { tw = null; }
-    const timer = setInterval(() => {
-      if (!root.isConnected) { clearInterval(timer); tw?.terminate(); return; }
-      if (performance.now() - lastWorker > 60) tick();     // Worker 沒在打拍子才由這裡補
-    }, 25);
+    function beat() {
+      clearInterval(timer);
+      timer = window.setInterval(() => {
+        if (!root.isConnected) { clearInterval(timer); tw?.terminate(); return; }
+        if (performance.now() - lastWorker > rate * 2.4) tick();     // Worker 沒在打拍子才由這裡補
+      }, rate);
+    }
+    function pace() {
+      const want = k >= 0 && !paused ? FAST : SLOW;
+      if (want === rate) return;
+      rate = want; tw?.postMessage(rate); beat();
+    }
+    beat();
 
     /* ---------- 操作 (都在點擊的同步流程裡做, Safari 才會把播放器解鎖) ---------- */
     function jump(n: number) {
