@@ -8,6 +8,7 @@ lyrics.json → kwic_index.json(行表 + lemma 倒排索引含字元偏移)+ 注
 - 行去重:同曲同 ja 行唯一化,重複次數存為 n(前端顯示 ×n 徽章)
 - 偏移:每筆 posting 帶 (lineId, start, end),前端據此切三欄對齊
 - 索引詞性:名詞/動詞/形容詞/副詞/代名詞(助詞助動詞不索引,防膨脹)
+- 每個詞另記讀音 (read, 平假名)、詞性 (pos)、顯示用的字 (head): 翻譯頁點歌詞裡的詞會跳出小卡, 用這幾個欄位
 
 用法: python build_kwic.py [lyrics.json]
 """
@@ -36,8 +37,12 @@ def norm_lemma(w):
     return lem.replace('-代名詞', '').replace('-外国', '')
 
 
+def kata2hira(s):
+    return ''.join(chr(ord(c) - 0x60) if 'ァ' <= c <= 'ヶ' else c for c in (s or ''))
+
+
 def tokenize_with_offsets(ja: str):
-    """回傳 [(surface, lemma, pos1, start, end)];以游標掃描補回偏移"""
+    """回傳 [(surface, lemma, pos1, start, end, 原形讀音)];以游標掃描補回偏移"""
     out, cur = [], 0
     for w in tagger(ja):
         s = w.surface
@@ -45,7 +50,10 @@ def tokenize_with_offsets(ja: str):
         if start < 0:          # 理論上不會,防禦
             continue
         end = start + len(s)
-        out.append((s, norm_lemma(w), w.feature.pos1, start, end))
+        lem = norm_lemma(w)
+        # 讀音: 歌詞裡就寫成原形的, 用它實際的讀法 (私 → わたし); 不然用字典原形的讀音 (lForm)
+        rd = getattr(w.feature, 'kana', None) if s == lem else getattr(w.feature, 'lForm', None)
+        out.append((s, lem, w.feature.pos1, start, end, kata2hira(rd or '')))
         cur = end
     return out
 
@@ -62,6 +70,7 @@ print(f'indexing {len(songs)} songs (filtered artist ∈ {ARTIST_ALLOWLIST}, non
 lines, postings = [], defaultdict(list)
 vocab_lines = Counter()                    # lemma -> 出現行數(unique)
 forms = defaultdict(Counter)               # lemma -> surface 分布
+lemma_read, lemma_pos = {}, {}             # lemma -> 原形讀音 / 詞性 (第一次看到的)
 dup = 0
 
 for s in songs:
@@ -80,17 +89,37 @@ for s in songs:
         lines.append(dict(id=line_id, song=s['id'], title=s['title'],
                           idx=ln['index'], ja=ja, zh=ln.get('zh', ''), n=1))
         hit_lemmas = set()
-        for surf, lem, pos1, st, en in tokenize_with_offsets(ja):
+        for surf, lem, pos1, st, en, rd in tokenize_with_offsets(ja):
             if pos1 not in INDEX_POS:
                 continue
+            if surf == lem or lem not in lemma_read:   # 寫成原形的讀法優先
+                lemma_read[lem] = rd if surf == lem or lem not in lemma_read else lemma_read[lem]
+            lemma_pos.setdefault(lem, pos1)
             postings[lem].append([line_id, st, en])
             forms[lem][surf] += 1
             hit_lemmas.add(lem)
         for lem in hit_lemmas:
             vocab_lines[lem] += 1
 
-vocab = [dict(lemma=l, lines=c, forms=dict(forms[l].most_common(6)))
-         for l, c in vocab_lines.most_common()]
+# 字典 (unidic-lite) 給的讀音跟歌裡唱的不一樣的幾個: 私 → わたくし、言う → ゆう、音 → おん …
+READ_FIX = {'私': 'わたし', '言う': 'いう', '音': 'おと', '体': 'からだ', '明日': 'あした', '何': 'なに'}
+lemma_read.update({k: v for k, v in READ_FIX.items() if k in lemma_read})
+
+
+def head_of(lem):
+    """顯示用的字: 字典的原形有時是很少人寫的漢字 (為る、居る、仕舞う), 歌詞裡從沒寫過那個漢字的話就用讀音"""
+    kanji = [c for c in lem if '\u4e00' <= c <= '\u9fff']
+    rd = lemma_read.get(lem, '')
+    if kanji and rd and not any(k in f for f in forms[lem] for k in kanji):
+        return rd
+    return lem
+
+
+vocab = []
+for l, c in sorted(vocab_lines.items(), key=lambda x: (-x[1], x[0])):   # 同次數照詞排 (集合的順序每次跑都不同)
+    head, rd = head_of(l), lemma_read.get(l, '')
+    vocab.append(dict(lemma=l, lines=c, forms=dict(forms[l].most_common(6)),
+                      head=head, read=rd if rd and rd != head else '', pos=lemma_pos.get(l, '')))
 
 out = dict(
     meta=dict(lines=len(lines), dupCollapsed=dup, lemmas=len(vocab),

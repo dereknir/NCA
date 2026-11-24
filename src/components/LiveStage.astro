@@ -811,6 +811,9 @@ if (!shorts || shorts.length === 0) return null;
       return;
     }
     const clone = source.cloneNode(true) as HTMLElement;
+    // 翻譯頁歌詞裡的詞是按鈕 (LyricWords), 播放這邊只要純文字
+    clone.querySelectorAll('.ja .w').forEach(b => b.replaceWith(b.textContent || ''));
+    clone.querySelectorAll('.ja').forEach(el => el.normalize());
     // 清空並重建 stage-lyrics 內容
     lyricsEl.replaceChildren();
     lyricsEl.appendChild(clone);

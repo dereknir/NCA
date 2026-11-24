@@ -1,0 +1,141 @@
+---
+/**
+ * LyricWords — 翻譯頁歌詞裡的日文詞可以點: 跳出一張小卡, 讀音、詞性、在幾首歌出現、常見的變化形、
+ * 其他歌裡的例句 (附中文、連到那首歌), 最下面連到歌詞索引看全部。
+ * - 資料在 build 時從歌詞索引挑這首歌用到的 (src/lib/lyricWords.ts), 放在頁面裡的 JSON
+ * - 只包名詞 / 動詞 / 形容詞 / 副詞 / 代名詞 (歌詞索引收的那幾種), 助詞不包
+ * - 手機: 小卡從底部滑出; 鍵盤: Tab 到詞上 Enter 打開, Esc 關掉、焦點回到那個詞
+ * - LIVE 播放會複製整段歌詞過去, 那邊把按鈕還原成純文字 (LiveStage.astro 的 cloneLyricsInto)
+ * 翻譯頁圈內是 ClientRouter 換頁, script 掛 astro:page-load, 每頁重新包一次。
+ */
+import { lyricWordsFor } from '../lib/lyricWords';
+
+interface Props { songId: string }
+const data = lyricWordsFor(Astro.props.songId);
+---
+
+{data && <script type="application/json" data-lyric-words set:html={JSON.stringify(data).replace(/</g, '\\u003c')} />}
+
+<script is:inline>
+  (function () {
+    if (window.__lyricWords) return;
+    window.__lyricWords = true;
+    var esc = function (v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+    var D = null, card = null, cur = null;
+
+    function wrap() {
+      var tag = document.querySelector('[data-lyric-words]');
+      D = tag ? JSON.parse(tag.textContent) : null;
+      cur = null;
+      if (!D) return;
+      document.querySelectorAll('[data-song-content] .lyrics-line .ja').forEach(function (el) {
+        if (el.querySelector('.w')) return;
+        var t = el.textContent.trim(), spans = D.toks[t];
+        if (!spans || !spans.length) return;
+        var html = '', at = 0;
+        spans.forEach(function (sp) {
+          var s = sp[0], e = sp[1], lemma = sp[2];
+          if (s < at || !D.words[lemma]) return;
+          html += esc(t.slice(at, s)) + '<button type="button" class="w" data-l="' + esc(lemma) + '" aria-expanded="false" aria-haspopup="dialog">' + esc(t.slice(s, e)) + '</button>';
+          at = e;
+        });
+        el.innerHTML = html + esc(t.slice(at));
+      });
+    }
+
+    var mark = function (ja, s, e) { return esc(ja.slice(0, s)) + '<mark>' + esc(ja.slice(s, e)) + '</mark>' + esc(ja.slice(e)); };
+    function open(btn) {
+      var w = D && D.words[btn.dataset.l];
+      if (!w) return;
+      if (!card || !card.isConnected) {
+        card = document.createElement('div');
+        card.className = 'wcard'; card.setAttribute('role', 'dialog');
+        document.body.append(card);
+      }
+      if (cur) cur.setAttribute('aria-expanded', 'false');
+      cur = btn; btn.setAttribute('aria-expanded', 'true');
+      card.setAttribute('aria-label', w.head + (w.read ? ' ' + w.read : ''));
+      var lemma = btn.dataset.l;
+      card.innerHTML =
+        '<div class="wcard-hd"><b lang="ja">' + esc(w.head) + '</b>' + (w.read ? '<span class="rd" lang="ja">' + esc(w.read) + '</span>' : '') +
+        '<button type="button" class="x" aria-label="關閉">esc</button></div>' +
+        '<div class="wcard-meta">' + (w.pos ? '<span class="tag">' + esc(w.pos) + '</span>' : '') + w.songs + ' 首歌<i>·</i>' + w.lines + ' 句</div>' +
+        (w.forms.length > 1 ? '<div class="wcard-forms">變化: ' + w.forms.map(function (f) { return '<span lang="ja">' + esc(f[0]) + '</span>×' + f[1]; }).join('　') + '</div>' : '') +
+        (w.ex.length
+          ? '<ul class="wcard-ex">' + w.ex.map(function (x) {
+              return '<li><div class="ja" lang="ja">' + mark(x.ja, x.s, x.e) + '</div><div class="zh">' + esc(x.zh) + '</div><a href="/translations/' + esc(x.id) + '/">— ' + esc(x.title) + '</a></li>';
+            }).join('') + '</ul>'
+          : '<div class="wcard-none">只有這首歌用過這個詞</div>') +
+        '<div class="wcard-ft"><span>' + (w.more ? '還有 ' + w.more + ' 首' : '') + '</span><a href="/kwic/?q=' + encodeURIComponent(lemma) + '">在歌詞索引看全部 →</a></div>';
+      card.hidden = false;
+      place();
+      card.querySelector('.x').addEventListener('click', close);
+      card.querySelector('.x').focus({ preventScroll: true });
+    }
+    // 位置: 詞的下面, 放不下就放上面; 手機是底部抽屜 (CSS 蓋掉 left / top)
+    function place() {
+      if (!cur || !card) return;
+      var r = cur.getBoundingClientRect(), cw = card.offsetWidth, ch = card.offsetHeight;
+      var left = Math.min(Math.max(12, r.left + scrollX), scrollX + innerWidth - cw - 12);
+      var top = r.bottom + scrollY + 8;
+      if (r.bottom + ch + 16 > innerHeight && r.top - ch - 8 > 0) top = r.top + scrollY - ch - 8;
+      card.style.left = left + 'px'; card.style.top = top + 'px';
+    }
+    function close(back) {
+      if (!cur) return;
+      card.hidden = true; cur.setAttribute('aria-expanded', 'false');
+      if (back !== false) cur.focus({ preventScroll: true });
+      cur = null;
+    }
+
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('[data-song-content] .lyrics-line .ja .w');
+      if (b) { e.preventDefault(); b === cur ? close() : open(b); return; }
+      if (cur && card && !card.contains(e.target)) close(false);
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && cur) { e.preventDefault(); e.stopPropagation(); close(); } }, true);
+    addEventListener('resize', place);
+    document.addEventListener('astro:before-swap', function () { cur = null; });
+    document.addEventListener('astro:page-load', wrap);
+  })();
+</script>
+
+<style is:global>
+  /* 歌詞裡可以點的詞: 長得跟文字一樣, 只有很淡的點狀底線; 滑過 / 鍵盤停到才亮 */
+  .lyrics-line .ja .w { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; letter-spacing: inherit; cursor: pointer;
+    text-decoration: underline dotted rgb(169 180 210 / .35); text-underline-offset: 6px; }
+  .lyrics-line .ja .w:hover, .lyrics-line .ja .w:focus-visible, .lyrics-line .ja .w[aria-expanded="true"] {
+    color: #fff3c4; text-decoration-color: var(--sh-gold); outline: none; background: rgb(232 201 74 / .12); }
+  :root[data-paper="on"] .lyrics-line .ja .w:hover, :root[data-paper="on"] .lyrics-line .ja .w:focus-visible,
+  :root[data-paper="on"] .lyrics-line .ja .w[aria-expanded="true"] { color: #8e2c18; background: rgb(255 208 80 / .35); }
+
+  /* 小卡: 終端機風的像素卡 */
+  .wcard { position: absolute; z-index: 60; width: min(360px, calc(100vw - 24px)); color: var(--sh-ink); background: #0b0b16;
+    border: 2px solid #3b335f; box-shadow: 6px 6px 0 rgb(0 0 0 / .55); font: 12px/1.7 var(--sh-px); }
+  .wcard[hidden] { display: none; }
+  .wcard-hd { display: flex; align-items: baseline; gap: 10px; padding: 12px 14px 8px; border-bottom: 2px solid #1f1838; }
+  .wcard-hd b { font: 400 24px/1.2 var(--sh-pxja); color: #fff; letter-spacing: .04em; }
+  .wcard-hd .rd { color: var(--sh-gold); }
+  .wcard-hd .x { margin-left: auto; font: 12px var(--sh-px); color: var(--sh-ink3); background: none; border: 2px solid #3b335f; padding: 2px 6px; cursor: pointer; }
+  .wcard-hd .x:hover, .wcard-hd .x:focus-visible { color: var(--sh-gold); outline: none; border-color: var(--sh-gold); }
+  .wcard-meta { padding: 8px 14px 0; color: var(--sh-ink2); }
+  .wcard-meta i { font-style: normal; color: var(--sh-ink3); margin: 0 .5em; }
+  .wcard-meta .tag { color: #0a0a15; background: rgb(var(--sh-accent)); padding: 0 5px; margin-right: 6px; }
+  .wcard-forms { padding: 4px 14px 8px; color: var(--sh-ink3); }
+  .wcard-forms span { color: var(--sh-ink); font-family: var(--sh-pxja); margin-right: 2px; }
+  .wcard-ex { list-style: none; margin: 0; padding: 8px 14px 4px; border-top: 1px dashed #2b2249; }
+  .wcard-ex li { margin: 0 0 10px; }
+  .wcard-ex .ja { font: 16px/1.6 'DotGothic16', var(--sh-pxja); color: var(--sh-ink); }
+  .wcard-ex .ja mark { background: none; color: var(--sh-gold); text-decoration: underline; text-underline-offset: 4px; }
+  .wcard-ex .zh { font: 14px/1.6 var(--sh-read); color: var(--sh-ink3); }
+  .wcard-ex a { color: var(--sh-ink2); text-decoration: underline dotted; text-underline-offset: 3px; }
+  .wcard-ex a:hover, .wcard-ex a:focus-visible { color: var(--sh-gold); }
+  .wcard-none { padding: 8px 14px 10px; color: var(--sh-ink3); border-top: 1px dashed #2b2249; }
+  .wcard-ft { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px 12px; border-top: 1px dashed #2b2249; color: var(--sh-ink3); }
+  .wcard-ft a { color: #0a0a15; background: rgb(var(--sh-accent)); padding: 4px 10px; text-decoration: none; border: 2px solid rgb(var(--sh-accent)); }
+  .wcard-ft a:hover, .wcard-ft a:focus-visible { background: var(--sh-gold); border-color: var(--sh-gold); outline: none; }
+  @media (max-width: 640px) {
+    .wcard { position: fixed; left: 0 !important; right: 0; top: auto !important; bottom: 0; width: auto; max-height: 70dvh; overflow: auto;
+      border-width: 2px 0 0; box-shadow: 0 -6px 0 rgb(0 0 0 / .4); }
+  }
+</style>
