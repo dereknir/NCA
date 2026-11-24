@@ -79,7 +79,8 @@ jobs:
                   public/annotate/lyrics.json \
                   src/data/full_live.json \
                   data/site_charset.txt \
-                  public/fonts/
+                  public/fonts/ \
+                  public/css/site-shell.css   # 粉圓切片的 @font-face (unicode-range) 跟字型檔一起變, 要一起進
           if git diff --staged --quiet; then
             echo "committed=no" >> $GITHUB_OUTPUT
             echo "→ 衍生檔跟目前 md 已同步, 沒東西可 commit"
