@@ -4,8 +4,9 @@
  * - 左右對照: 日文一欄、中文一欄, 同一句對齊 (窄螢幕放不下, 照舊上下排, 這顆也藏起來)
  * - 拼音: 羅馬拼音開 / 關
  * - 只看歌詞: 歌曲介紹、shorts、翻譯筆記、創作背景都收起來, 只剩歌詞 (再按一次回來)
- * 前兩個記在瀏覽器裡 (lyr-layout / lyr-romaji), 下一首歌照樣; 只看歌詞不記, 換頁就回原樣。
- * 鍵盤: B 左右對照、R 拼音、H 只看歌詞 (按 ? 的說明裡會多一組「這首歌」)
+ * - 紙本: 文章那一塊變成一張紙攤在星空上 (米色紙、深色字、黃色螢光筆); 頁首、標題區、目錄、LIVE 播放還是宇宙
+ * 左右對照、拼音、紙本記在瀏覽器裡 (lyr-layout / lyr-romaji / lyr-paper), 下一首歌照樣; 只看歌詞不記, 換頁就回原樣。
+ * 鍵盤: B 左右對照、R 拼音、H 只看歌詞、Z 紙本 (紙 zhǐ; P 是作品集) — 按 ? 的說明裡會多一組「這首歌」
  * 翻譯頁換頁不重新載入 (ClientRouter), 所以掛 astro:page-load, 每次都重找一次歌詞標題。
  */
 ---
@@ -15,22 +16,24 @@
     if (window.__lyrModes) return;
     window.__lyrModes = true;
     var html = document.documentElement;
-    var KEYS = [['B', '左右對照', 'layout'], ['R', '羅馬拼音', 'romaji'], ['H', '只看歌詞', 'focus']];
+    var KEYS = [['B', '左右對照', 'layout'], ['R', '羅馬拼音', 'romaji'], ['H', '只看歌詞', 'focus'], ['Z', '紙本', 'paper']];
     function get(k, d) { try { return localStorage.getItem(k) || d; } catch (e) { return d; } }
     function put(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
     function state() {
-      return { layout: get('lyr-layout', 'stack') === 'side', romaji: get('lyr-romaji', 'on') === 'on', focus: html.classList.contains('lyr-focus') };
+      return { layout: get('lyr-layout', 'stack') === 'side', romaji: get('lyr-romaji', 'on') === 'on', focus: html.classList.contains('lyr-focus'), paper: get('lyr-paper', 'off') === 'on' };
     }
     function paint() {
       var s = state();
       html.dataset.lyrLayout = s.layout ? 'side' : 'stack';
       html.dataset.lyrRomaji = s.romaji ? 'on' : 'off';
+      html.dataset.paper = s.paper ? 'on' : 'off';
       document.querySelectorAll('.lyr-modes button').forEach(function (b) { b.setAttribute('aria-pressed', String(s[b.dataset.k])); });
     }
     function toggle(k) {
       var s = state();
       if (k === 'layout') put('lyr-layout', s.layout ? 'stack' : 'side');
       else if (k === 'romaji') put('lyr-romaji', s.romaji ? 'off' : 'on');
+      else if (k === 'paper') put('lyr-paper', s.paper ? 'off' : 'on');
       else {
         html.classList.toggle('lyr-focus');
         var h = document.querySelector('[data-lyr-h2]');
@@ -42,7 +45,7 @@
       html.classList.remove('lyr-focus');
       var prose = document.querySelector('[data-song-content]');
       var sec = prose && prose.querySelector('.lyrics-section');
-      if (!sec) { window.__shellPageKeys = null; return; }
+      if (!sec) { window.__shellPageKeys = null; delete html.dataset.paper; return; }   // 沒有歌詞的頁 (純音樂、清單) 不套紙本
       var h2 = Array.from(prose.querySelectorAll('h2')).find(function (h) { return (h.textContent || '').indexOf('歌詞') >= 0; });
       if (!h2 || prose.querySelector('.lyr-modes')) { paint(); return; }
       h2.setAttribute('data-lyr-h2', '');
@@ -95,4 +98,59 @@
 
   /* 只看歌詞: 文章裡其他段落、上面的影片都收起來 */
   .lyr-focus [data-lyr-other], .lyr-focus article > .aspect-video { display: none !important; }
+
+  /* ===== 紙本: 文章那一塊像攤開一張紙放在星空上; 頁首、標題區、目錄還是宇宙 ===== */
+  :root[data-paper="on"] main article {
+    --pp: #f3ead6; --pp2: #fbf6ea; --ink: #2b2620; --ink2: #5a4e40; --ink3: #8a7a66; --rule: #ddd0b4; --shu: #c0442a;
+    position: relative; color: var(--ink); padding: 44px 52px 36px;
+    background:
+      repeating-linear-gradient(0deg, rgb(120 96 60 / .035) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgb(120 96 60 / .025) 0 1px, transparent 1px 4px),
+      var(--pp);
+    border: 2px solid #d6c7a6; box-shadow: 8px 8px 0 rgb(0 0 0 / .55);
+  }
+  /* 紙的右上角折一角 */
+  :root[data-paper="on"] main article::before { content: ''; position: absolute; right: -2px; top: -2px; width: 22px; height: 22px;
+    background: linear-gradient(225deg, var(--sh-bg) 50%, #d9cba9 50%); }
+  @media (max-width: 640px) { :root[data-paper="on"] main article { padding: 28px 18px 24px; margin: 0 -8px; } }
+
+  :root[data-paper="on"] main article .prose :is(p, li, blockquote, td) { color: var(--ink2); }
+  :root[data-paper="on"] main article .prose :is(h2, h3, th) { color: var(--ink); }
+  :root[data-paper="on"] main article .prose h3 { border-top-color: var(--rule); }
+  :root[data-paper="on"] main article :is(hr, .prose hr) { border-color: var(--rule); }
+  :root[data-paper="on"] main article [class*="border-"] { border-color: var(--rule) !important; }
+  :root[data-paper="on"] main article .prose blockquote { border-left-color: var(--rule); color: var(--ink2); }
+  :root[data-paper="on"] main article .prose a { color: var(--shu); }
+  :root[data-paper="on"] main article .prose a:hover { color: #8e2c18; }
+  :root[data-paper="on"] main article .prose :is(thead) { background: #eadfc6; border-bottom-color: var(--rule); }
+  :root[data-paper="on"] main article .prose :is(th, td) { border-bottom-color: var(--rule); }
+  :root[data-paper="on"] main article .prose code { background: #eadfc6; color: var(--ink); }
+  /* 重點: 黃色螢光筆 (夜空是淡金色那條) */
+  :root[data-paper="on"] main article .prose :is(p, li, blockquote, td) strong { color: var(--ink);
+    background: linear-gradient(transparent 62%, rgb(255 208 80 / .38) 62%, rgb(255 208 80 / .38) 92%, transparent 92%); }
+
+  /* 歌詞: 比紙再亮一點的一張卡, 日文黑、中文咖啡、拼音淡 */
+  :root[data-paper="on"] main article .lyrics-section { background: var(--pp2); border-color: #e4d8bf; color: var(--ink); box-shadow: inset 0 0 0 1px #fff8; }
+  :root[data-paper="on"] main article .lyrics-section h2 { color: var(--ink); }
+  :root[data-paper="on"] main article .lyrics-line { border-bottom-color: #eadfc6; }
+  :root[data-paper="on"] main article .lyrics-line .ja { color: #1f1a15; }
+  :root[data-paper="on"] main article .lyrics-line .zh { color: #6b5d4d; }
+  :root[data-paper="on"] main article .lyrics-line .romaji { color: var(--ink3); opacity: 1; }
+  :root[data-paper="on"] main article .lyrics-singer { background: #eadfc6; color: var(--ink); border-color: var(--rule); }
+
+  /* 歌詞開關那排、文末、上下首 */
+  :root[data-paper="on"] main article .lyr-modes button { color: var(--ink2); background: var(--pp2); border-color: var(--rule); }
+  :root[data-paper="on"] main article .lyr-modes button[aria-pressed="true"] { color: var(--pp2); background: var(--ink); border-color: var(--ink); }
+  :root[data-paper="on"] main article .ae { border-top-color: var(--rule); }
+  :root[data-paper="on"] main article :is(.ae-rev, .ae-k) { color: var(--ink3); }
+  :root[data-paper="on"] main article :is(.ae-rev time, .ae-rev a) { color: var(--ink2); }
+  :root[data-paper="on"] main article .ae-share button { color: var(--ink2); background: var(--pp2); border-color: var(--rule); }
+  :root[data-paper="on"] main article .ae-share button:hover { color: var(--shu); border-color: var(--shu); }
+  :root[data-paper="on"] main article .h-anchor { color: var(--ink3); }
+  :root[data-paper="on"] main article nav a { background: var(--pp2) !important; color: var(--ink); box-shadow: none; border: 1px solid var(--rule); }
+  :root[data-paper="on"] main article nav a div:first-child { color: var(--ink3) !important; }
+  :root[data-paper="on"] main article > div:last-child a { color: var(--shu) !important; }
+  /* 影片書架: 像貼在紙上的一排相片, 保持深色 */
+  :root[data-paper="on"] main article .shelf { background: #14131f; padding: 14px; box-shadow: 4px 4px 0 rgb(0 0 0 / .25); }
+  @media print { :root[data-paper="on"] main article { box-shadow: none; border: 0; background: none; } }
 </style>

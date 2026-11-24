@@ -105,6 +105,8 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
     />
   )}
 
+  {/* 紙本 (LyricsModes 的 Z): 畫面出來之前先套上, 不會先閃一下夜空 */}
+  {isTranslated && !instrumental && <script is:inline>try { if (localStorage.getItem('lyr-paper') === 'on') document.documentElement.dataset.paper = 'on'; } catch (e) {}</script>}
   <article>
 
     {youtubeId && (
