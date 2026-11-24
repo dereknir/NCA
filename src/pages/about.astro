@@ -2,6 +2,38 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { SITE_CONFIG } from '../config';
+import { getCollection } from 'astro:content';
+import translationDates from '../data/translation_dates.json';
+import fullLive from '../data/full_live.json';
+import shorts from '../data/shorts_by_song.json';
+import liveEvents from '../../live/data/nishina_live_events.json';
+import tourStops from '../../live/data/tour_stops.json';
+
+// 「這個站現在有」: build 的時候算, 新翻好一首、多一篇日記就自己變
+const songs = await getCollection('translations');
+const done = songs.filter(t => t.data.instrumental === true || (!!t.body && !t.body.includes('翻譯準備中')));
+const lines = done.reduce((n, t) => n + (t.data.instrumental ? 0 : (t.body ?? '').split('class="lyrics-line"').length - 1), 0);
+const dates = translationDates as Record<string, { translated: string | null }>;
+// 最近一次翻好的那天 (同一天常常一次翻好好幾首, 不挑其中一首)
+const day = (iso: string) => new Date(iso).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
+const doneDays = done.map(t => dates[t.id]?.translated).filter((d): d is string => !!d).map(day);
+const lastDay = done.map(t => dates[t.id]?.translated ?? '').sort().at(-1);
+const lastCount = lastDay ? doneDays.filter(d => d === day(lastDay)).length : 0;
+const diary = await getCollection('diary', ({ data }) => !data.isPrivate);
+const projects = await getCollection('projects');
+const stops = tourStops.tours.reduce((n, t) => n + t.stops.length, 0);
+const appear = liveEvents.appearance.length;
+const shortCount = Object.values(shorts.by_song as Record<string, unknown[]>).reduce((n, v) => n + v.length, 0);
+const fmt = (n: number) => n.toLocaleString('zh-TW');
+const STATS: Array<{ n: string; u: string; links: Array<[string, string]>; note: string }> = [
+  { n: String(done.length), u: `/ ${songs.length} 首`, links: [['翻好的歌', '/translations/']],
+    note: lastDay ? `最近一次 ${day(lastDay)}, 翻好 ${lastCount} 首` : '' },
+  { n: fmt(lines), u: '句', links: [['翻好的歌詞', '/translations/']], note: '每一句日文都有中文和拼音' },
+  { n: String(fullLive.songs.length), u: '首', links: [['完整 Live', '/live/full/']], note: '每一句都找得到有人在現場唱' },
+  { n: fmt(shortCount), u: '支', links: [['現場影片', '/live/']], note: '按版本分好: Live / MV / THE FIRST TAKE' },
+  { n: fmt(stops + appear), u: '場', links: [['演出紀錄', '/live/timeline/']], note: `${tourStops.tours.length} 次巡演 ${stops} 站 + 出演 ${appear} 場` },
+  { n: `${diary.length} · ${projects.length}`, u: '篇', links: [['日記', '/diary/'], ['作品', '/projects/']], note: '寫網站時的碎碎念、做過的東西' },
+];
 ---
 
 <BaseLayout title="關於我" description="認識 Derek" width="read">
@@ -49,6 +81,24 @@ import { SITE_CONFIG } from '../config';
 
       <hr class="my-8 border-gray-200 dark:border-gray-700">
 
+      <!-- 這個站現在有: 跟標題區的提示列同一個語言, 打一個指令吐出一張對齊的表 -->
+      <section class="ab-term" aria-labelledby="ab-term-h">
+        <h3 id="ab-term-h" class="sr-only">這個站現在有</h3>
+        <div class="sh-prompt" aria-hidden="true"><span class="u">derek@nishina</span>:<span class="pa">~</span> $ du -h --summary ~/*</div>
+        <ul>
+          {STATS.map(r => (
+            <li>
+              <span class="n">{r.n}</span><span class="un">{r.u}</span>
+              <span class="l">{r.links.map(([t, href], i) => <>{i > 0 && <i aria-hidden="true"> · </i>}<a href={href}>{t}</a></>)}</span>
+              {r.note && <span class="c"><span aria-hidden="true"># </span>{r.note}</span>}
+            </li>
+          ))}
+        </ul>
+        <div class="sh-prompt" aria-hidden="true"><span class="u">derek@nishina</span>:<span class="pa">~</span> $ <span class="cmd"></span></div>
+      </section>
+
+      <hr class="my-8 border-gray-200 dark:border-gray-700">
+
       <!-- Contact -->
       <div>
         <h3 class="text-xl font-bold mb-4">聯絡我</h3>
@@ -76,3 +126,24 @@ import { SITE_CONFIG } from '../config';
     </div>
   </div>
 </BaseLayout>
+
+<style>
+  .ab-term { background: #07060f; border: 2px solid #2b2249; padding: 16px 18px; }
+  /* 整張表共用一個格線 (li 是 display: contents), 每一欄上下對齊: 數字 (靠右) / 單位 / 連到哪 / # 說明; 手機說明換到下一行 */
+  .ab-term ul { list-style: none; margin: 6px 0 8px; padding: 0; display: grid; grid-template-columns: auto auto auto minmax(0, 1fr);
+    column-gap: 14px; align-items: baseline; font: 12px/2 var(--sh-px); color: var(--sh-ink2); }
+  .ab-term li { display: contents; }
+  .ab-term .n { justify-self: end; font: 24px/36px var(--sh-px); color: #fff; white-space: nowrap; }
+  .ab-term .l a { color: inherit; text-decoration: underline dotted; text-underline-offset: 4px; }
+  .ab-term .l a:hover, .ab-term .l a:focus-visible { color: var(--sh-gold); text-decoration-style: solid; }
+  .ab-term .l a:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 2px; }
+  .ab-term .l i { font-style: normal; color: var(--sh-ink3); }
+  .ab-term .c { color: var(--sh-ink3); }
+  @media (max-width: 640px) {
+    .ab-term { padding: 12px; }
+    .ab-term ul { grid-template-columns: auto auto minmax(0, 1fr); column-gap: 10px; }
+    .ab-term .c { grid-column: 2 / -1; line-height: 1.6; margin-bottom: 8px; }
+    .ab-term .sh-prompt { word-break: normal; }
+  }
+</style>
+
