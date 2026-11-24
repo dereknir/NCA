@@ -213,7 +213,7 @@
     // 輸入框是 combobox: 下面的結果是它的 listbox, 方向鍵選到哪一個由 aria-activedescendant 告訴讀螢幕
     box.innerHTML = `${pillHTML}
       <div class="sh-cli-panel"><div class="sh-wrap"><div class="sh-cli-out" id="sh-cli-out" role="listbox" aria-label="搜尋結果"></div>
-      <label class="sh-cli-line"><span class="u">guest@nishina</span><span class="gt">&gt;</span><input type="text" role="combobox" aria-expanded="false" aria-controls="sh-cli-out" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="/help" aria-label="指令列"><button class="esc" type="button">esc</button></label></div></div>`;
+      <label class="sh-cli-line"><span class="u">guest@nishina</span><span class="gt">&gt;</span><input type="text" role="combobox" aria-expanded="false" aria-controls="sh-cli-out" aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="/help" aria-label="指令列"><span class="sh-cli-keys" aria-hidden="true"><kbd>↑↓</kbd> 選 <kbd>↵</kbd> 開</span><button class="esc" type="button">esc</button></label></div></div>`;
     document.body.append(box);
     const pill = box.querySelector('.sh-cli-pill'), out = box.querySelector('.sh-cli-out'), input = box.querySelector('input');
     let hits = [], sel = 0, back = null;
@@ -238,9 +238,14 @@
       const songs = idx.songs.filter(s => s.title.toLowerCase().includes(w) || s.id.includes(w))
         .slice(0, 8).map(s => ({ k: s.title, t: s.album, href: '/translations/' + s.id, ja: true }));
       const pages = items.filter(it => it.name.toLowerCase().includes(w)).map(it => ({ k: it.name, t: '頁面', href: it.href }));
-      const posts = [...idx.diary.map(d => ({ ...d, t: '日記' })), ...idx.projects.map(p => ({ ...p, t: '作品' }))]
-        .filter(p => p.title.toLowerCase().includes(w)).slice(0, 4).map(p => ({ k: p.title, t: p.t, href: p.href }));
-      return [...pages, ...songs, ...posts];
+      const find = (list, t) => list.filter(p => p.title.toLowerCase().includes(w)).slice(0, 4).map(p => ({ k: p.title, t, href: p.href }));
+      const diary = find(idx.diary, '日記'), projects = find(idx.projects, '作品');
+      // 先列這一區的: 在日記頁搜, 日記排最前面; 作品集、翻譯頁同理。其他頁照原本: 頁面 → 歌 → 日記 / 作品
+      const here = norm(location.pathname);
+      if (here.startsWith('/diary')) return [...diary, ...pages, ...songs, ...projects];
+      if (here.startsWith('/projects')) return [...projects, ...pages, ...songs, ...diary];
+      if (here.startsWith('/translations')) return [...songs, ...pages, ...diary, ...projects];
+      return [...pages, ...songs, ...diary, ...projects];
     };
     function render() {
       const q = input.value.trim();

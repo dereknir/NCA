@@ -15,6 +15,11 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, date, mood, weather, tags } = entry.data;
 
+// 字數: 中日文一個字算一個, 英數一個詞算一個 (HTML 標籤、連結網址不算); 一分鐘讀 400 字左右
+const plain = (entry.body ?? '').replace(/<[^>]+>/g, ' ').replace(/\]\([^)]*\)/g, ']');
+const words = (plain.match(/[\u3040-\u30ff\u3400-\u9fff\uf900-\ufaff]/g)?.length ?? 0) + (plain.match(/[A-Za-z0-9]+/g)?.length ?? 0);
+const minutes = Math.max(1, Math.round(words / 400));
+
 // 使用可選鏈確保類型安全
 const description = `${new Date(date).toLocaleDateString('zh-TW', { timeZone: 'UTC' })} 的日記${mood ? ' ' + mood : ''}。${tags?.slice(0, 3).map(t => '#' + t).join(' ') ?? ''}`;
 ---
@@ -31,6 +36,7 @@ const description = `${new Date(date).toLocaleDateString('zh-TW', { timeZone: 'U
     chips={[
       [new Date(date).toLocaleDateString('zh-TW', { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })],
       ...(mood || weather ? [[[mood, weather].filter(Boolean).join(' ')] as [string]] : []),
+      ...(words ? [[words.toLocaleString('zh-TW'), ` 字 · 約 ${minutes} 分鐘`] as [string, string]] : []),
     ]} />
   <article>
 

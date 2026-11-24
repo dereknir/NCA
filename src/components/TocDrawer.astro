@@ -39,6 +39,18 @@
 <style is:global>
   /* 章節錨點補償 sticky 頁首的高度, 跳轉時不會被遮 */
   .prose h2, .prose h3, .shelf { scroll-margin-top: 5rem; }
+  /* 目錄、[ ] 跳過去的落點: 焦點移過去是給讀螢幕接著念, 不用框一圈 */
+  :is(.prose h2, .prose h3, .shelf)[tabindex="-1"]:focus { outline: none; }
+  /* 小節標題旁的 #: 平常淡淡的, 滑到標題上 / 鍵盤停到才亮 (手機沒有滑過這回事, 一直淡淡地在) */
+  .h-anchor { margin-left: .4em; font: 400 .75em var(--sh-px); color: var(--sh-ink3); text-decoration: none; opacity: .35; }
+  :is(h2, h3):hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; color: var(--sh-gold); }
+  .h-anchor:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 2px; }
+  @media (hover: hover) { .h-anchor { opacity: 0; } }
+  .h-toast { position: fixed; left: 50%; bottom: 72px; z-index: 70; translate: -50% 8px; padding: 8px 14px; font: 12px var(--sh-px);
+    color: #0a0a15; background: var(--sh-gold); box-shadow: 3px 3px 0 rgb(0 0 0 / .5); opacity: 0; pointer-events: none;
+    transition: opacity .15s steps(2), translate .15s steps(2); }
+  .h-toast.on { opacity: 1; translate: -50% 0; }
+  @media (prefers-reduced-motion: reduce) { .h-toast { transition: none; } }
 
   /* ── 目錄鈕 (左上角) ── */
   .toc-btn {
@@ -166,6 +178,50 @@
     addEventListener('resize', dock);
 
     var spy = null;   // 上一頁的 IntersectionObserver, 換頁時拆掉
+    var heads = [];   // 這一頁的小節 (給 [ ] 跳節用)
+
+    // [ 上一節、] 下一節 (J / K 被選單的單鍵換頁用掉了: K = 歌詞索引)
+    // 判斷「目前在哪一節」用標題離畫面頂端多遠: 跳過去之後標題會停在 80px (scroll-margin-top 5rem)
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== '[' && e.key !== ']') return;
+      if (!heads.length || !heads[0].isConnected || e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
+      var t = e.target;
+      if (t.isContentEditable || (t.closest && t.closest('input, textarea, select'))) return;
+      if (window.__shellNoKeys || document.querySelector('dialog:modal')) return;
+      var tops = heads.map(function (h) { return h.getBoundingClientRect().top; }), target = null, i;
+      if (e.key === ']') { for (i = 0; i < heads.length; i++) if (tops[i] > 90) { target = heads[i]; break; } }
+      else { for (i = heads.length - 1; i >= 0; i--) if (tops[i] < 70) { target = heads[i]; break; } }
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      target.focus({ preventScroll: true });
+    });
+
+    // 小節標題旁的 #: 點了複製這一節的網址 (分享某段翻譯筆記), 網址列也換成這一節
+    var toast = null, toastT = 0;
+    function say(msg) {
+      if (!toast) {
+        toast = document.createElement('div'); toast.className = 'h-toast'; toast.setAttribute('role', 'status');
+      }
+      if (!toast.isConnected) document.body.append(toast);
+      toast.textContent = msg; toast.classList.add('on');
+      clearTimeout(toastT); toastT = setTimeout(function () { toast.classList.remove('on'); }, 1600);
+    }
+    function anchor(h) {
+      if (h.querySelector('.h-anchor')) return;
+      var a = document.createElement('a');
+      a.className = 'h-anchor'; a.href = '#' + h.id; a.textContent = '#';
+      a.setAttribute('aria-label', '複製「' + (h.textContent || '').trim() + '」這一節的連結');
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var url = location.origin + location.pathname + '#' + encodeURIComponent(h.id);
+        history.replaceState(history.state, '', '#' + h.id);
+        var done = function () { say('已複製這一節的連結'); };
+        if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, function () { say('複製不了, 網址列已經是這一節'); });
+        else say('網址列已經是這一節');
+      });
+      h.append(a);
+    }
 
     function slugify(text) {
       return text.toLowerCase().replace(/[\s\/\\.,!?"'`~()\[\]{}<>#*+=;:]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40);
@@ -184,7 +240,7 @@
       var items = [];
       article.querySelectorAll('.prose h2, .prose h3, .shelf').forEach(function (el) {
         var shelf = el.classList.contains('shelf'), text = shelf ? '現場 & 版本' : (el.textContent || '').trim();
-        if (!text) return;
+        if (!text || (!shelf && el.closest('.shelf'))) return;   // 書架自己的「🎬 各版本」標題不算 (書架整塊已經是一項)
         if (!el.id) el.id = 'toc-' + slugify(text) + '-' + items.length;
         el.setAttribute('tabindex', '-1');   // 跳過去的時候焦點也移到這一節
         var level = shelf || el.tagName === 'H2' ? 2 : 3, num = null, label = text;
@@ -192,6 +248,11 @@
         items.push({ el: el, level: level, num: num, label: label });
       });
       if (!items.length) { btn.hidden = true; return; }
+      heads = items.map(function (it) { return it.el; });
+      items.forEach(function (it) { if (/^H[23]$/.test(it.el.tagName)) anchor(it.el); });
+      // ? 說明面板的「這首歌」那組加上跳節 (LyricsModes 先放了 B / R / H)
+      var pk = window.__shellPageKeys || (window.__shellPageKeys = { name: '這首歌', rows: [] });
+      if (!pk.rows.some(function (r) { return r[0] === ']'; })) pk.rows.push([']', '下一節'], ['[', '上一節']);
 
       list.replaceChildren.apply(list, items.map(function (it) {
         var li = document.createElement('li'), a = document.createElement('a');

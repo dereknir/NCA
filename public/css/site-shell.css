@@ -247,6 +247,10 @@ a.sh-chip:hover { border-color: var(--sh-gold); }
 .sh-cli-line input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: var(--sh-ink);
   font: 20px var(--sh-px10); caret-color: var(--sh-gold); }
 .sh-cli-line .esc { font-size: 12px; color: var(--sh-ink3); background: none; border: 0; cursor: pointer; }
+/* 按鍵提示 (Esc 就是旁邊那顆): 有實體鍵盤的才看得到 */
+.sh-cli-keys { font-size: 12px; color: var(--sh-ink3); white-space: nowrap; }
+.sh-cli-keys kbd { font: inherit; color: var(--sh-ink2); padding: 0 4px; border: 1px solid var(--sh-line); }
+@media (pointer: coarse), (max-width: 640px) { .sh-cli-keys { display: none; } }
 @media (max-width: 640px) { .sh-cli { left: 12px; bottom: 12px; } .sh-cli-pill .hint { display: none; } }
 @media print { .sh-cli, .sh-hd { display: none; } }
 

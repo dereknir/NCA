@@ -10,6 +10,7 @@ import { getCollection, render } from 'astro:content';
 import { existsSync } from 'node:fs';
 import fullLive from '../../data/full_live.json';
 import { summary, type FLSong } from '../../lib/fullLive';
+import translationDates from '../../data/translation_dates.json';
 
 export async function getStaticPaths() {
   const translations = await getCollection('translations');
@@ -34,6 +35,10 @@ const credits: Array<{ label: string; value?: string }> = [
 // A track is "translated / has content" if it's instrumental OR body doesn't contain the placeholder.
 const rawBody = translation.body ?? '';
 const isTranslated = instrumental === true || !rawBody.includes('翻譯準備中');
+// 標題區的資訊: 翻好那天 (scripts/build_translation_dates.py 從 git 算的, 以台灣時間的日期為準)、歌詞幾行
+const translatedAt = isTranslated ? (translationDates as Record<string, { translated: string | null }>)[translation.id]?.translated : null;
+const translatedOn = translatedAt ? new Date(translatedAt).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }) : null;
+const lyricLines = isTranslated && !instrumental ? rawBody.split('class="lyrics-line"').length - 1 : 0;
 
 // Find sibling songs in same album for navigation
 const allTranslations = await getCollection('translations');
@@ -86,6 +91,7 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
     <dl class="sh-meta">
       {credits.map(c => (<><dt>{c.label}</dt><dd>{c.value}</dd></>))}
       <dt>發行</dt><dd>{new Date(publishDate).toLocaleDateString('zh-TW', { timeZone: 'UTC' })}</dd>
+      {translatedOn && <><dt>翻好</dt><dd><time datetime={translatedAt}>{translatedOn}</time>{lyricLines > 0 && ` · 歌詞 ${lyricLines} 句`}</dd></>}
     </dl>
   </PageHero>
   {isTranslated && <TocDrawer />}
