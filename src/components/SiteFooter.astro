@@ -88,7 +88,7 @@ const year = new Date().getFullYear();
   <div class="sf-line">
     <p class="sf-copy">© {year} derekkk</p>
     <div class="sf-ico">
-      <button type="button" class="sf-help" title="鍵盤快捷鍵 (?)" aria-label="鍵盤快捷鍵" onclick="window.__shellHelp?.open()">
+      <button type="button" class="sf-help" title="鍵盤快捷鍵 (?)" aria-label="鍵盤快捷鍵">
         <svg viewBox={`0 0 ${ICON.help.w} ${ICON.help.h}`} width={ICON.help.w * 2} height={ICON.help.h * 2} shape-rendering="crispEdges" aria-hidden="true"><path d={ICON.help.d} fill="currentColor" /></svg>
       </button>
       {Astro.site && (
@@ -120,6 +120,8 @@ const year = new Date().getFullYear();
       const t = open ? '收起頁尾連結' : '展開頁尾連結'; btn.title = t; btn.setAttribute('aria-label', t);
     };
     try { set(localStorage.getItem('sh-foot') === 'open'); } catch (e) {}
+    // ? 按鈕: 不寫在 onclick 屬性裡 (之後 CSP 收緊也不會被擋)
+    f.querySelector('.sf-help')?.addEventListener('click', () => window.__shellHelp?.open());
     btn.addEventListener('click', () => {
       const open = more.hidden; set(open);
       try { localStorage.setItem('sh-foot', open ? 'open' : 'closed'); } catch (e) {}
