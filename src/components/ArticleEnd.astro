@@ -30,16 +30,16 @@ const history = source ? `${SITE_CONFIG.social.github}/NCA/commits/develop/${sou
   )}
   <div class="ae-share" role="group" aria-label="分享">
     <span class="ae-k" aria-hidden="true">分享</span>
-    <button type="button" class="ae-native" data-s="native" hidden>
-      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M3 0h1v1h1v1H4v3H3V2H2V1h1zM0 3h1v3h5V3h1v4H0z"/></svg>分享…</button>
-    <button type="button" data-s="x">
-      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M0 0h2v1h1v1h1V1h1V0h2v1H6v1H5v1H4v1h1v1h1v1h1v1H5V6H4V5H3v1H2v1H0V6h1V5h1V4h1V3H2V2H1V1H0z"/></svg>X</button>
-    <button type="button" data-s="threads">
-      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M2 0h3v1h1v1h1v3H5V2H4V1H3v1H2v3h2V4h1v2H4v1H2V6H1V5H0V2h1V1h1z"/></svg>Threads</button>
-    <button type="button" data-s="line">
-      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M1 0h5v1h1v3H6v1H3v1H2v1H1V5H0V1h1z"/></svg>LINE</button>
-    <button type="button" data-s="copy">
-      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M0 1h1v4h3v1H0zM2 0h5v5H2zM3 1v3h3V1z"/></svg>複製連結</button>
+    <button type="button" class="ae-native" data-s="native" title="分享…" hidden>
+      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M3 0h1v1h1v1H4v3H3V2H2V1h1zM0 3h1v3h5V3h1v4H0z"/></svg><span class="ae-t">分享…</span></button>
+    <button type="button" data-s="x" title="X">
+      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M0 0h2v1h1v1h1V1h1V0h2v1H6v1H5v1H4v1h1v1h1v1h1v1H5V6H4V5H3v1H2v1H0V6h1V5h1V4h1V3H2V2H1V1H0z"/></svg><span class="ae-t">X</span></button>
+    <button type="button" data-s="threads" title="Threads">
+      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M2 0h3v1h1v1h1v3H5V2H4V1H3v1H2v3h2V4h1v2H4v1H2V6H1V5H0V2h1V1h1z"/></svg><span class="ae-t">Threads</span></button>
+    <button type="button" data-s="line" title="LINE">
+      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M1 0h5v1h1v3H6v1H3v1H2v1H1V5H0V1h1z"/></svg><span class="ae-t">LINE</span></button>
+    <button type="button" data-s="copy" title="複製連結">
+      <svg viewBox="0 0 7 7" aria-hidden="true"><path d="M0 1h1v4h3v1H0zM2 0h5v5H2zM3 1v3h3V1z"/></svg><span class="ae-t">複製連結</span></button>
     <span class="ae-said" role="status"></span>
   </div>
 </section>
@@ -79,13 +79,15 @@ const history = source ? `${SITE_CONFIG.social.github}/NCA/commits/develop/${sou
 </script>
 
 <style is:global>
-  .ae { margin: 48px 0 0; padding: 16px 0 0; border-top: 1px dashed var(--sh-line); }
-  .ae-rev { margin: 0 0 12px; font: 12px/1.9 var(--sh-px); letter-spacing: .06em; color: var(--sh-ink3); }
+  /* 一行: 左邊最後修改 / 修訂紀錄, 分享按鈕在它的右上角; 放不下一行時分享換到上面 (wrap-reverse), 還是靠右 */
+  .ae { display: flex; flex-wrap: wrap-reverse; justify-content: space-between; align-items: flex-start; gap: 10px 24px;
+    margin: 48px 0 0; padding: 16px 0 0; border-top: 1px dashed var(--sh-line); }
+  .ae-rev { margin: 0; padding-top: 6px; font: 12px/1.9 var(--sh-px); letter-spacing: .06em; color: var(--sh-ink3); }
   .ae-rev time { color: var(--sh-ink2); }
   .ae-rev i { font-style: normal; margin: 0 .6em; }
   .ae-rev a { color: var(--sh-ink2); text-decoration: underline dotted; text-underline-offset: 4px; }
   .ae-rev a:hover, .ae-rev a:focus-visible { color: var(--sh-gold); text-decoration-style: solid; }
-  .ae-share { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .ae-share { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px; margin-left: auto; position: relative; }
   .ae-k { font: 12px var(--sh-px); color: var(--sh-ink3); letter-spacing: .08em; margin-right: 4px; }
   .ae-share button { display: inline-flex; align-items: center; gap: 7px; font: 12px var(--sh-px); letter-spacing: .06em; color: var(--sh-ink2);
     background: rgb(10 10 21 / .6); border: 2px solid var(--sh-line); padding: 6px 10px; cursor: pointer; }
@@ -93,5 +95,12 @@ const history = source ? `${SITE_CONFIG.social.github}/NCA/commits/develop/${sou
   .ae-share button:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 2px; }
   .ae-share button[hidden] { display: none; }
   .ae-share svg { width: 14px; height: 14px; fill: currentColor; shape-rendering: crispEdges; flex: none; }
-  .ae-said { font: 12px var(--sh-px); color: var(--sh-gold); }
+  /* 手機: 只留圖示排成一行 (字還在, 讀螢幕照樣念得到) */
+  @media (max-width: 640px) {
+    .ae-share button { padding: 7px 9px; }
+    .ae-share .ae-t { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .ae-share svg { width: 16px; height: 16px; }
+  }
+  /* 「已複製」浮在按鈕下面, 不把按鈕擠開 */
+  .ae-said { position: absolute; right: 0; top: calc(100% + 6px); font: 12px var(--sh-px); color: var(--sh-gold); white-space: nowrap; }
 </style>
