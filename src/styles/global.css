@@ -5,7 +5,8 @@
 
 /* Custom fonts */
 @theme {
-  --font-sans: 'Noto Sans TC', sans-serif;
+  /* 系統字當備用 (不再向 Google 要 Noto Sans TC: 它很晚才到, 一到就把用到它的符號整段重排, 標題區、內文會跳) */
+  --font-sans: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
   --font-jp: 'Noto Sans JP', sans-serif;
 }
 
@@ -361,14 +362,14 @@ h2.px, .px-h2 {
 
 /* 內文預設: 全站文字底色換像素 (Noto 墊後) */
 body {
-  font-family: 'PX10-ZH', 'PX10-JA', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
+  font-family: 'PX10-ZH', 'PX10-JA', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
 }
 
 /* prose 內文 → 20px (10 網格×2); 標題走 PX12 網格尺寸
    T 調參 (2026-08 拍板): 像素字的疲勞主因是「密」— 行高 2.2 / 字距 +5%
    (20px×.05em=1px, 正好一格) / 行寬限 36em / 對比降半階 */
 .prose p, .prose li, .prose blockquote {
-  font-family: 'openhuninn', 'Noto Sans TC', 'Noto Sans JP', sans-serif;   /* H 粉圓 */
+  font-family: 'openhuninn', 'PingFang TC', 'Microsoft JhengHei', sans-serif;   /* H 粉圓 */
   font-size: 1.25rem;
   line-height: 2.1;
   letter-spacing: .02em;
@@ -378,7 +379,7 @@ body {
 .prose p + p { margin-top: 1.4rem; }
 /* 表格: td 內容跟內文同聲 (粉圓); th 表頭維持像素 = 「標題是機器的聲音」規則 */
 .prose td {
-  font-family: 'openhuninn', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
+  font-family: 'openhuninn', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
   font-size: 1.125rem;   /* 表格較密, 比內文收一級 */
   line-height: 1.9;
   color: #d4dcf0;
@@ -414,7 +415,7 @@ body {
   letter-spacing: .03em;
 }
 .lyrics-line .zh, .lyrics-zh {
-  font-family: 'openhuninn', 'Noto Sans TC', var(--font-sans);   /* H 粉圓 */
+  font-family: 'openhuninn', var(--font-sans);   /* H 粉圓 */
   font-size: 1.25rem;
   line-height: 2.05;
   letter-spacing: .02em;

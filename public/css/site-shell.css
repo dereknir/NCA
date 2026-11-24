@@ -34,10 +34,11 @@
   --sh-ink: #e8ecf6; --sh-ink2: #b6c2e0; --sh-ink3: #7d89a8;
   --sh-gold: #e8c94a;
   --sh-accent: 92 168 255;
-  --sh-px: 'PX-ZH', 'PX-JA', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
-  --sh-pxja: 'PX-JA', 'PX-ZH', 'Noto Sans JP', sans-serif;
-  --sh-px10: 'PX10-ZH', 'PX10-JA', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
-  --sh-read: 'openhuninn', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
+  /* 像素字 / 粉圓沒有的字 (極少數符號) 用系統字補: 系統字一開始就在, 不像網路字型晚到、一到就把整段重排 */
+  --sh-px: 'PX-ZH', 'PX-JA', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  --sh-pxja: 'PX-JA', 'PX-ZH', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  --sh-px10: 'PX10-ZH', 'PX10-JA', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  --sh-read: 'openhuninn', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
   --sh-w: 1024px;
 }
 
