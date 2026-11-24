@@ -110,6 +110,15 @@
 .prose table strong {
   font-weight: 600;
 }
+/* 粗體 = 畫重點: 粉圓只有一種粗細, 瀏覽器硬加粗幾乎看不出來;
+   字變白、底下一道淡金色的螢光筆, 像讀書筆記上畫的線 (換行的時候每一行都有) */
+.prose :is(p, li, blockquote, td) strong {
+  color: #fff;
+  background: linear-gradient(transparent 62%, rgb(232 201 74 / .28) 62%, rgb(232 201 74 / .28) 92%, transparent 92%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0 .08em;
+}
 
 /* Lyrics section */
 /* 歌詞區: 比頁面亮一點點的深藍底, 字不用純白 — 讀久了不刺眼, 中文對比 ~9:1 (原本紫色漸層上只有 2~3.6:1) */
