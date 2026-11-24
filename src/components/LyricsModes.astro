@@ -63,8 +63,9 @@
     document.addEventListener('astro:page-load', mount);
     document.addEventListener('keydown', function (e) {
       if (!window.__shellPageKeys || e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
-      if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable=""], [contenteditable="true"], dialog[open]')) return;
-      if ((window.__scrollLockCount || 0) > 0 || !document.querySelector('.lyr-modes')) return;
+      var t = e.target;
+      if (t.isContentEditable || (t.closest && t.closest('input, textarea, select, dialog[open]'))) return;
+      if ((window.__scrollLockCount || 0) > 0 || document.querySelector('dialog:modal') || !document.querySelector('.lyr-modes')) return;
       var k = KEYS.find(function (x) { return x[0] === e.key.toUpperCase() && !e.shiftKey; });
       if (k) { e.preventDefault(); toggle(k[2]); }
     });

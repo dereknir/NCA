@@ -14,7 +14,7 @@
  *   程式自己捲的不算. 使用者自己捲回目前句附近 → 自動恢復跟隨
  * - 點歌詞行 → seekTo 對應 anchor
  * - onError 禁止嵌入 → fallback UI
- * - 用共享 __escStack / __scrollLockCount (見 TocDrawer)
+ * - 本體是瀏覽器內建的 <dialog> (showModal): Esc、背景 inert、焦點回原處都不用自己寫
  */
 interface Anchor { t: number; line: number }
 interface Short {
@@ -35,17 +35,13 @@ const { shorts, songTitle, coverImage } = Astro.props;
 if (!shorts || shorts.length === 0) return null;
 ---
 
-<div
+<dialog
   id="live-stage"
   class="stage"
-  role="dialog"
-  aria-modal="true"
   aria-label="LIVE 播放模式"
-  aria-hidden="true"
   data-song-title={songTitle}
   data-cover-image={coverImage || ''}
   data-shorts={JSON.stringify(shorts)}
-  hidden
 >
   <div class="stage-backdrop"></div>
 
@@ -99,23 +95,32 @@ if (!shorts || shorts.length === 0) return null;
       <a class="stage-error-link" href="#" target="_blank" rel="noopener">到 YouTube 觀看 →</a>
     </div>
   </div>
-</div>
+</dialog>
 
 <style is:global>
   /* ── Stage overlay (永遠深色, 不跟隨 light mode 影院慣例) ── */
+  /* 瀏覽器內建的 <dialog> (showModal): 背後頁面 inert、Esc 關、焦點回原處、疊在最上層都是瀏覽器做的 */
   .stage {
     position: fixed;
     inset: 0;
-    z-index: 100;
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
     color: #f4f5f7;
     font-family: inherit;
+    overscroll-behavior: contain;
     opacity: 0;
-    transition: opacity 0.24s ease;
-    /* 開啟時 script 加 data-open */
+    transition: opacity 0.24s ease, overlay 0.24s allow-discrete, display 0.24s allow-discrete;
   }
-  .stage[data-open="true"] {
-    opacity: 1;
-  }
+  .stage[open] { opacity: 1; }
+  @starting-style { .stage[open] { opacity: 0; } }
+  .stage::backdrop { background: transparent; overflow: hidden; overscroll-behavior: contain; }
+  @media (prefers-reduced-motion: reduce) { .stage { transition: none; } }
 
   .stage-backdrop {
     position: absolute;
@@ -142,7 +147,7 @@ if (!shorts || shorts.length === 0) return null;
 
   .stage-frame {
     position: relative;
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     padding: 1rem 1.5rem 1.25rem;
@@ -599,24 +604,7 @@ if (!shorts || shorts.length === 0) return null;
         Player: new (el: HTMLElement | string, opts: Record<string, unknown>) => YTPlayerLike;
       };
       onYouTubeIframeAPIReady?: () => void;
-      __escStackApi?: { push: (fn: () => void) => void; pop: (fn: () => void) => void };
-      __scrollLockCount?: number;
     }
-  }
-
-  /* ==== 共享 utils (與 TocDrawer) ==== */
-  const escStack = window.__escStackApi;
-  function lockScroll() {
-    window.__scrollLockCount = (window.__scrollLockCount ?? 0) + 1;
-    if (window.__scrollLockCount === 1) {
-      const w = window.innerWidth - document.documentElement.clientWidth;
-      document.documentElement.style.setProperty('--scrollbar-w', w + 'px');
-      document.body.dataset.scrollLocked = 'true';
-    }
-  }
-  function unlockScroll() {
-    window.__scrollLockCount = Math.max(0, (window.__scrollLockCount ?? 0) - 1);
-    if (window.__scrollLockCount === 0) delete document.body.dataset.scrollLocked;
   }
 
   /* ==== instance API: 持久監聽器 (document/window 級只註冊一次) 轉發給「當前頁」的 stage ====
@@ -633,7 +621,7 @@ if (!shorts || shorts.length === 0) return null;
   const stageEl = document.getElementById('live-stage');
   if (!stageEl) { api = null; return; }
   // 下方的 function declaration 會 hoist, TS 無法沿用上面的 null 判斷 → 用已收窄的 const
-  const stage: HTMLElement = stageEl;
+  const stage = stageEl as HTMLDialogElement;
   if (stage.dataset.vtInit === 'true') return;
   stage.dataset.vtInit = 'true';
   const shortsAll: Short[] = JSON.parse(stage.dataset.shorts || '[]');
@@ -673,7 +661,6 @@ if (!shorts || shorts.length === 0) return null;
     pollTimer: 0 as number,
     scrollEndTimer: 0 as number,
     lyricLineEls: [] as HTMLElement[],
-    lastFocused: null as HTMLElement | null,
   };
 
   /* ==== DOM refs ==== */
@@ -742,7 +729,7 @@ if (!shorts || shorts.length === 0) return null;
 
   /* ==== 版本 tabs & 縮圖 strip ==== */
   function renderTabs() {
-    tabsEl.innerHTML = '';
+    tabsEl.replaceChildren();
     for (const key of VERSION_ORDER) {
       const list = byVersion[key];
       if (list.length === 0) continue;
@@ -767,7 +754,7 @@ if (!shorts || shorts.length === 0) return null;
   }
 
   function renderStrip() {
-    stripEl.innerHTML = '';
+    stripEl.replaceChildren();
     const list = byVersion[state.activeVersion] || [];
     for (const s of list) {
       const btn = document.createElement('button');
@@ -823,7 +810,7 @@ if (!shorts || shorts.length === 0) return null;
     }
     const clone = source.cloneNode(true) as HTMLElement;
     // 清空並重建 stage-lyrics 內容
-    lyricsEl.innerHTML = '';
+    lyricsEl.replaceChildren();
     lyricsEl.appendChild(clone);
     state.lyricLineEls = Array.from(clone.querySelectorAll<HTMLElement>('.lyrics-line'));
     // 每行綁 click → seek
@@ -1034,16 +1021,12 @@ if (!shorts || shorts.length === 0) return null;
       loadShort(videoId);
       return;
     }
-    state.lastFocused = document.activeElement as HTMLElement;
-    stage.hidden = false;
-    stage.setAttribute('aria-hidden', 'false');
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        stage.dataset.open = 'true';
-      });
-    });
-    lockScroll();
-    escStack?.push(closeStage);
+    stage.dataset.open = 'true';
+    stage.showModal();
+    // 先推一筆歷史 (手機返回鍵 = 關掉), 之後 loadShort 只會原地改這筆的 #live=
+    if (opts.pushHistory !== false) {
+      history.pushState({ stage: true }, '', `#live=${videoId}`);
+    }
     // 決定 initial version
     const short = shortsById.get(videoId)!;
     const initialVersion = opts.filter && opts.filter !== 'all' && byVersion[opts.filter]?.length
@@ -1053,9 +1036,6 @@ if (!shorts || shorts.length === 0) return null;
     cloneLyricsInto();
     loadShort(videoId);
     startPoll();
-    if (opts.pushHistory !== false) {
-      history.pushState({ stage: true }, '', `#live=${videoId}`);
-    }
     // Focus 移入
     setTimeout(() => closeBtn.focus(), 100);
   }
@@ -1063,54 +1043,31 @@ if (!shorts || shorts.length === 0) return null;
   function closeStage(opts: { fromPopstate?: boolean } = {}) {
     if (stage.dataset.open !== 'true') return;
     delete stage.dataset.open;
-    stage.setAttribute('aria-hidden', 'true');
+    if (stage.open) stage.close();
     stopPoll();
-    // 等 opacity transition 結束再 hidden
-    setTimeout(() => {
-      if (stage.dataset.open !== 'true') stage.hidden = true;
-    }, 260);
     // 清歌詞 clone 以釋放記憶體
     setTimeout(() => {
       if (stage.dataset.open !== 'true') {
-        lyricsEl.innerHTML = '';
+        lyricsEl.replaceChildren();
         state.lyricLineEls = [];
       }
     }, 300);
     // 暫停播放器
     if (state.player) { try { state.player.pauseVideo(); } catch {} }
-    unlockScroll();
-    escStack?.pop(closeStage);
     // 清 URL hash
     if (!opts.fromPopstate) {
       if (location.hash.startsWith('#live=')) {
         history.replaceState(null, '', location.pathname + location.search);
       }
     }
-    // Focus 還原
-    if (state.lastFocused && document.body.contains(state.lastFocused)) {
-      state.lastFocused.focus();
-    }
-    setFollow(true);
+    setFollow(true);   // 焦點回到打開它的那顆, 是 <dialog> 自己做的
   }
 
   closeBtn.addEventListener('click', () => closeStage());
   backdrop.addEventListener('click', () => closeStage());
 
-  /* ==== Focus trap ==== */
-  stage.addEventListener('keydown', (e) => {
-    if (e.key !== 'Tab' || stage.dataset.open !== 'true') return;
-    const focusables = stage.querySelectorAll<HTMLElement>(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    if (focusables.length === 0) return;
-    const first = focusables[0];
-    const last = focusables[focusables.length - 1];
-    if (e.shiftKey && document.activeElement === first) {
-      e.preventDefault(); last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault(); first.focus();
-    }
-  });
+  // Esc (或手機的返回手勢) 由 <dialog> 自己關掉, 這裡把播放器、網址那些收尾做完
+  stage.addEventListener('close', () => closeStage());
 
   /* ==== 頁面載入時檢查深連結 ==== */
   function handleInitialHash() {

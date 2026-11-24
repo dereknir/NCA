@@ -274,6 +274,9 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
 
     // ---- Mode 1: inline zh edit ----
     let zhSnapshot = null;   // Map<HTMLElement, string> — 打開編輯時的原文
+    // 改到一半還沒存就關分頁 / 重新整理, 先問一聲
+    const zhDirty = () => !!zhSnapshot && Array.from(zhSnapshot).some(([el, v]) => el.isConnected && (el.textContent || '') !== v);
+    addEventListener('beforeunload', e => { if (zhDirty()) e.preventDefault(); });
     function toggleZhMode() {
       const zhs = Array.from(document.querySelectorAll('[data-song-content] .lyrics-line .zh'));
       if (!zhs.length) { alert('這頁沒有 .zh 歌詞行'); return; }

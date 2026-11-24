@@ -283,8 +283,8 @@
     addEventListener('keydown', e => {
       if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey || e.isComposing) return;
       const t = e.target;
-      if (t.closest && t.closest('input, textarea, select, [contenteditable=""], [contenteditable="true"]')) return;
-      if ((window.__scrollLockCount || 0) > 0) return;
+      if (t.isContentEditable || (t.closest && t.closest('input, textarea, select'))) return;
+      if ((window.__scrollLockCount || 0) > 0 || document.querySelector('dialog:modal')) return;
       if (e.key === '/') { e.preventDefault(); window.__shellCli?.open(); return; }
       if (e.key === '?') { e.preventDefault(); window.__shellHelp?.open(); return; }
       const href = !e.shiftKey && byKey[e.key.toLowerCase()];
