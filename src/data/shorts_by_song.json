@@ -1,10 +1,10 @@
 {
   "meta": {
     "song_count": 45,
-    "short_count": 1191,
+    "short_count": 1193,
     "skipped": {
       "pending": 1,
-      "auto": 7,
+      "auto": 2,
       "skip": 0,
       "no_song": 0,
       "no_anchors": 7,
@@ -20794,6 +20794,45 @@
         ]
       },
       {
+        "videoId": "zrB73WDTkFc",
+        "title": "每個人都對幻象深信不疑",
+        "url": "https://www.youtube.com/shorts/zrB73WDTkFc",
+        "thumbnail": "https://i.ytimg.com/vi/zrB73WDTkFc/hqdefault.jpg",
+        "viewCount": 4400,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 29
+          },
+          {
+            "t": 2.58,
+            "line": 30
+          },
+          {
+            "t": 4.59,
+            "line": 31
+          },
+          {
+            "t": 6.9,
+            "line": 32
+          },
+          {
+            "t": 9.43,
+            "line": 33
+          },
+          {
+            "t": 11.9,
+            "line": 34
+          },
+          {
+            "t": 14.18,
+            "line": 35
+          }
+        ]
+      },
+      {
         "videoId": "aGvH89gwKBs",
         "title": "A whimsical melody and the name of God",
         "url": "https://www.youtube.com/shorts/aGvH89gwKBs",
@@ -36000,6 +36039,33 @@
           {
             "t": 18.1,
             "line": 35
+          }
+        ]
+      },
+      {
+        "videoId": "5vOjzq8gGFE",
+        "title": "たとえ巨大な嵐の中も深い海の底も時に1人きりでも歩み続けよ",
+        "url": "https://www.youtube.com/shorts/5vOjzq8gGFE",
+        "thumbnail": "https://i.ytimg.com/vi/5vOjzq8gGFE/hqdefault.jpg",
+        "viewCount": 1600,
+        "versionType": "live",
+        "instrumental": false,
+        "anchors": [
+          {
+            "t": 0,
+            "line": 22
+          },
+          {
+            "t": 5.18,
+            "line": 23
+          },
+          {
+            "t": 11.2,
+            "line": 24
+          },
+          {
+            "t": 14.8,
+            "line": 25
           }
         ]
       }
