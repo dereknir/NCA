@@ -42489,5 +42489,181 @@
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
+  },
+  "zrB73WDTkFc": {
+    "songId": "nishina-u-plus",
+    "anchors": [
+      {
+        "t": 0.0,
+        "line": 29
+      },
+      {
+        "t": 2.43,
+        "line": 30
+      },
+      {
+        "t": 4.93,
+        "line": 31
+      },
+      {
+        "t": 6.99,
+        "line": 32
+      },
+      {
+        "t": 9.54,
+        "line": 33
+      },
+      {
+        "t": 11.87,
+        "line": 34
+      },
+      {
+        "t": 14.17,
+        "line": 35
+      }
+    ],
+    "status": "auto",
+    "versionType": null,
+    "instrumental": false,
+    "source": "auto",
+    "autoGrade": "A"
+  },
+  "5YFa2hUtIoo": {
+    "songId": "nishina-wawon",
+    "anchors": [
+      {
+        "t": 0.91,
+        "line": 0
+      },
+      {
+        "t": 3.09,
+        "line": 1
+      },
+      {
+        "t": 5.9,
+        "line": 2
+      },
+      {
+        "t": 8.83,
+        "line": 3
+      },
+      {
+        "t": 11.19,
+        "line": 4
+      },
+      {
+        "t": 14.26,
+        "line": 5
+      },
+      {
+        "t": 17.1,
+        "line": 6
+      },
+      {
+        "t": 19.86,
+        "line": 7
+      }
+    ],
+    "status": "auto",
+    "versionType": "live",
+    "instrumental": false,
+    "source": "auto",
+    "autoGrade": "B"
+  },
+  "5vOjzq8gGFE": {
+    "songId": "nishina-tsukushi",
+    "anchors": [
+      {
+        "t": 0.0,
+        "line": 22
+      },
+      {
+        "t": 5.18,
+        "line": 23
+      },
+      {
+        "t": 11.2,
+        "line": 24
+      },
+      {
+        "t": 14.8,
+        "line": 25
+      }
+    ],
+    "status": "auto",
+    "versionType": "live",
+    "instrumental": false,
+    "source": "auto",
+    "autoGrade": "C"
+  },
+  "jlTBUZmo-6s": {
+    "songId": "nishina-wawon",
+    "anchors": [
+      {
+        "t": 3.42,
+        "line": 47
+      },
+      {
+        "t": 5.91,
+        "line": 48
+      },
+      {
+        "t": 9.28,
+        "line": 49
+      },
+      {
+        "t": 11.88,
+        "line": 50
+      },
+      {
+        "t": 37.81,
+        "line": 52
+      }
+    ],
+    "status": "auto",
+    "versionType": "live",
+    "instrumental": false,
+    "source": "auto",
+    "autoGrade": "A"
+  },
+  "Kqi_VQv4CY8": {
+    "songId": null,
+    "anchors": [],
+    "status": "auto",
+    "versionType": null,
+    "instrumental": false,
+    "source": "auto",
+    "autoGrade": "C"
+  },
+  "R0Fla0AsOWk": {
+    "songId": "nishina-hot-milk",
+    "anchors": [
+      {
+        "t": 18.41,
+        "line": 25
+      },
+      {
+        "t": 23.8,
+        "line": 26
+      },
+      {
+        "t": 31.42,
+        "line": 27
+      }
+    ],
+    "status": "auto",
+    "versionType": null,
+    "instrumental": false,
+    "source": "auto",
+    "autoGrade": "A"
+  },
+  "qRHJdr9qYDc": {
+    "songId": null,
+    "anchors": [],
+    "status": "auto",
+    "versionType": "acoustic",
+    "instrumental": false,
+    "source": "auto",
+    "autoGrade": "C"
   }
 }

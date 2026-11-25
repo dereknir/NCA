@@ -1,12 +1,12 @@
 {
  "meta": {
   "model": "small",
-  "updated": "2026-11-21 18:13",
-  "count": 1002,
+  "updated": "2026-11-25 12:05",
+  "count": 1009,
   "peer": {
-   "updated": "2026-11-21 18:19",
-   "count": 32,
-   "done_refs": 863
+   "updated": "2026-11-25 12:05",
+   "count": 3,
+   "done_refs": 1173
   }
  },
  "items": {
@@ -17558,22 +17558,6 @@
      "line": 22,
      "score": 50,
      "est": true
-    }
-   ],
-   "pairs": [
-    {
-     "v": "T14iT0lhfUw",
-     "off": -15.968,
-     "sim": 0.997,
-     "n": 1812,
-     "lo": 15.968,
-     "hi": 57.984,
-     "ok": [
-      [
-       476,
-       1811
-      ]
-     ]
     }
    ]
   },
@@ -173244,6 +173228,1280 @@
      "line": 9,
      "score": 50,
      "est": true
+    }
+   ]
+  },
+  "zrB73WDTkFc": {
+   "videoId": "zrB73WDTkFc",
+   "title": "每個人都對幻象深信不疑 #nishina #U+ #中字 #shorts",
+   "queueSongId": "nishina-u-plus",
+   "matchMethod": "hashtag",
+   "model": "medium",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-u-plus",
+     "score": 57.4
+    },
+    {
+     "songId": "nishina-nekoze",
+     "score": 36.2
+    },
+    {
+     "songId": "nishina-plum",
+     "score": 34.0
+    }
+   ],
+   "songId": "nishina-u-plus",
+   "duration": 23.9,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "秘められた真実を 神様の前を"
+    },
+    {
+     "t": 4.74,
+     "text": "地球の祝うを この時代に暴きたい"
+    },
+    {
+     "t": 16.08,
+     "text": "信じてやまない"
+    }
+   ],
+   "versionType": null,
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 29,
+     "peer": true
+    },
+    {
+     "t": 2.43,
+     "line": 30,
+     "peer": true
+    },
+    {
+     "t": 4.93,
+     "line": 31,
+     "peer": true
+    },
+    {
+     "t": 6.99,
+     "line": 32,
+     "peer": true
+    },
+    {
+     "t": 9.54,
+     "line": 33,
+     "peer": true
+    },
+    {
+     "t": 11.87,
+     "line": 34,
+     "peer": true
+    },
+    {
+     "t": 14.17,
+     "line": 35,
+     "peer": true
+    }
+   ],
+   "confidence": 70.9,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-u-plus",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 6,
+      "score": 66.7
+     },
+     {
+      "t": 2.04,
+      "line": 7,
+      "score": 88.9
+     },
+     {
+      "t": 4.74,
+      "line": 8,
+      "score": 57.1
+     },
+     {
+      "t": 16.08,
+      "line": 9,
+      "score": 50.0,
+      "est": true
+     }
+    ],
+    "grade": "A",
+    "confidence": 70.9,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 6,
+     "score": 66.7
+    },
+    {
+     "t": 2.04,
+     "line": 7,
+     "score": 88.9
+    },
+    {
+     "t": 4.74,
+     "line": 8,
+     "score": 57.1
+    },
+    {
+     "t": 9.14,
+     "line": 9,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 11.3,
+     "line": 10,
+     "score": 50,
+     "est": true
+    },
+    {
+     "t": 13.66,
+     "line": 11,
+     "score": 50,
+     "est": true
+    }
+   ],
+   "pairs": [
+    {
+     "v": "B1Do7lgri3Y",
+     "off": 0.096,
+     "sim": 0.999,
+     "n": 747,
+     "lo": 0.0,
+     "hi": 22.592,
+     "ok": [
+      [
+       0,
+       728
+      ]
+     ]
+    }
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "B1Do7lgri3Y",
+      "offset": 0.1,
+      "sim": 0.999
+     }
+    ],
+    "coverage": 0.95,
+    "songChanged": false
+   }
+  },
+  "5YFa2hUtIoo": {
+   "videoId": "5YFa2hUtIoo",
+   "title": "nishina - wawon at WONDERLIVET #nishina #wawon #제이팝　#live #shorts",
+   "queueSongId": "nishina-wawon",
+   "matchMethod": "hashtag",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-wawon",
+     "score": 61.5
+    },
+    {
+     "songId": "nishina-yoru-ni-natte",
+     "score": 32.5
+    },
+    {
+     "songId": "nishina-one-room",
+     "score": 32.5
+    }
+   ],
+   "songId": "nishina-wawon",
+   "duration": 23.5,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "私も息子を照らしまって"
+    },
+    {
+     "t": 2.86,
+     "text": "自分も含むことも知った"
+    },
+    {
+     "t": 6.08,
+     "text": "悲しみも含むことも知った"
+    },
+    {
+     "t": 9.12,
+     "text": "love you"
+    },
+    {
+     "t": 10.9,
+     "text": "失った僕も美しくなって"
+    },
+    {
+     "t": 13.78,
+     "text": "大人になった分からなくなったけど"
+    },
+    {
+     "t": 17.1,
+     "text": "大丈夫かに分かしなくてじゃない"
+    },
+    {
+     "t": 19.86,
+     "text": "本当は多分誰にもわからない"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.91,
+     "line": 0,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 3.09,
+     "line": 1,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 5.9,
+     "line": 2,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 8.83,
+     "line": 3,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 11.19,
+     "line": 4,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 14.26,
+     "line": 5,
+     "score": 78.9
+    },
+    {
+     "t": 17.1,
+     "line": 6,
+     "score": 58.8
+    },
+    {
+     "t": 19.86,
+     "line": 7,
+     "score": 94.1
+    }
+   ],
+   "confidence": 77.3,
+   "needsReview": [
+    "ambiguous_start",
+    "event_title"
+   ],
+   "grade": "B",
+   "asr": {
+    "songId": "nishina-wawon",
+    "anchors": [
+     {
+      "t": 0.82,
+      "line": 0,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 4.16,
+      "line": 1,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 6.5,
+      "line": 2,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 9.12,
+      "line": 3,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 10.9,
+      "line": 4,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 14.26,
+      "line": 5,
+      "score": 78.9
+     },
+     {
+      "t": 17.1,
+      "line": 6,
+      "score": 58.8
+     },
+     {
+      "t": 19.86,
+      "line": 7,
+      "score": 94.1
+     }
+    ],
+    "grade": "B",
+    "confidence": 77.3,
+    "needsReview": [
+     "ambiguous_start"
+    ]
+   },
+   "base": [
+    {
+     "t": 0.91,
+     "line": 0,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 3.09,
+     "line": 1,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 5.9,
+     "line": 2,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 8.83,
+     "line": 3,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 11.19,
+     "line": 4,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 14.26,
+     "line": 5,
+     "score": 78.9
+    },
+    {
+     "t": 17.1,
+     "line": 6,
+     "score": 58.8
+    },
+    {
+     "t": 19.86,
+     "line": 7,
+     "score": 94.1
+    }
+   ]
+  },
+  "5vOjzq8gGFE": {
+   "videoId": "5vOjzq8gGFE",
+   "title": "たとえ巨大な嵐の中も深い海の底も時に1人きりでも歩み続けよ #にしな #nishina #つくし #ライブ #shorts",
+   "queueSongId": "nishina-tsukushi",
+   "matchMethod": "hashtag",
+   "model": "medium",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-tsukushi",
+     "score": 52.4
+    },
+    {
+     "songId": "nishina-friday-kids-china-town",
+     "score": 35.7
+    },
+    {
+     "songId": "nishina-are-ga-koi",
+     "score": 35.7
+    }
+   ],
+   "songId": "nishina-tsukushi",
+   "duration": 28.3,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "たくえかかいな淡雲の中の 深い沖の底の"
+    },
+    {
+     "t": 11.2,
+     "text": "時に一人きりでも 悩み続ける"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 0.0,
+     "line": 22,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 5.18,
+     "line": 23,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 11.2,
+     "line": 24,
+     "score": 80.0
+    },
+    {
+     "t": 14.8,
+     "line": 25,
+     "score": 50.0,
+     "est": true
+    }
+   ],
+   "confidence": 80.0,
+   "needsReview": [
+    "anchors<2"
+   ],
+   "grade": "C",
+   "asr": {
+    "songId": "nishina-tsukushi",
+    "anchors": [
+     {
+      "t": 0.0,
+      "line": 22,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 6.36,
+      "line": 23,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 11.2,
+      "line": 24,
+      "score": 80.0
+     },
+     {
+      "t": 14.98,
+      "line": 25,
+      "score": 50.0,
+      "est": true
+     }
+    ],
+    "grade": "C",
+    "confidence": 80.0,
+    "needsReview": [
+     "anchors<2"
+    ]
+   },
+   "base": [
+    {
+     "t": 0.0,
+     "line": 22,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 5.18,
+     "line": 23,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 11.2,
+     "line": 24,
+     "score": 80.0
+    },
+    {
+     "t": 14.8,
+     "line": 25,
+     "score": 50.0,
+     "est": true
+    }
+   ]
+  },
+  "jlTBUZmo-6s": {
+   "videoId": "jlTBUZmo-6s",
+   "title": "🇰🇷WONDERLIVET #にしな #nishina #live #한국 #shorts",
+   "queueSongId": null,
+   "matchMethod": "out_of_catalog",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-wawon",
+     "score": 57.8
+    },
+    {
+     "songId": "nishina-slow-motion",
+     "score": 35.6
+    },
+    {
+     "songId": "nishina-u-plus",
+     "score": 33.7
+    }
+   ],
+   "songId": "nishina-wawon",
+   "duration": 51.9,
+   "transcript": [
+    {
+     "t": 2.58,
+     "text": "愛しようもしくは始まって"
+    },
+    {
+     "t": 5.78,
+     "text": "やがては僕につながって"
+    },
+    {
+     "t": 8.62,
+     "text": "胸に響き続けない"
+    },
+    {
+     "t": 13.0,
+     "text": "I love you"
+    }
+   ],
+   "versionType": "live",
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 3.42,
+     "line": 47,
+     "peer": true
+    },
+    {
+     "t": 5.91,
+     "line": 48,
+     "peer": true
+    },
+    {
+     "t": 9.28,
+     "line": 49,
+     "peer": true
+    },
+    {
+     "t": 11.88,
+     "line": 50,
+     "peer": true
+    },
+    {
+     "t": 37.81,
+     "line": 52,
+     "peer": true
+    }
+   ],
+   "confidence": 76.6,
+   "needsReview": [
+    "event_title"
+   ],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-wawon",
+    "anchors": [
+     {
+      "t": 2.58,
+      "line": 47,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 5.34,
+      "line": 48,
+      "score": 64.3
+     },
+     {
+      "t": 8.62,
+      "line": 49,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 11.16,
+      "line": 50,
+      "score": 88.9
+     }
+    ],
+    "grade": "A",
+    "confidence": 76.6,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 2.85,
+     "line": 47,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 5.34,
+     "line": 48,
+     "score": 64.3
+    },
+    {
+     "t": 8.29,
+     "line": 49,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 11.16,
+     "line": 50,
+     "score": 88.9
+    }
+   ],
+   "pairs": [
+    {
+     "v": "yEEzRi_AUNw",
+     "off": -2.688,
+     "sim": 0.997,
+     "n": 1621,
+     "lo": 2.688,
+     "hi": 18.24,
+     "ok": [
+      [
+       61,
+       592
+      ]
+     ]
+    },
+    {
+     "v": "gB4XJgjjLQE",
+     "off": -2.72,
+     "sim": 0.995,
+     "n": 1621,
+     "lo": 2.72,
+     "hi": 19.68,
+     "ok": [
+      [
+       62,
+       637
+      ]
+     ]
+    },
+    {
+     "v": "uP2ew_MK7NM",
+     "off": -2.848,
+     "sim": 0.999,
+     "n": 1621,
+     "lo": 2.848,
+     "hi": 19.712,
+     "ok": [
+      [
+       66,
+       638
+      ]
+     ]
+    },
+    {
+     "v": "EZVjBmiG4CI",
+     "off": -26.912,
+     "sim": 0.997,
+     "n": 1621,
+     "lo": 26.912,
+     "hi": 51.872,
+     "ok": [
+      [
+       818,
+       1620
+      ]
+     ]
+    },
+    {
+     "v": "WkKy6HpISik",
+     "off": -2.848,
+     "sim": 0.998,
+     "n": 1621,
+     "lo": 2.848,
+     "hi": 18.592,
+     "ok": [
+      [
+       66,
+       603
+      ]
+     ]
+    },
+    {
+     "v": "6Y4H1CEBLno",
+     "off": -2.24,
+     "sim": 0.999,
+     "n": 1621,
+     "lo": 2.24,
+     "hi": 25.28,
+     "ok": [
+      [
+       47,
+       812
+      ]
+     ]
+    },
+    {
+     "v": "KARbx4yPctQ",
+     "off": -2.72,
+     "sim": 0.995,
+     "n": 1621,
+     "lo": 2.72,
+     "hi": 19.744,
+     "ok": [
+      [
+       62,
+       639
+      ]
+     ]
+    },
+    {
+     "v": "8_mX10NzV5U",
+     "off": -2.72,
+     "sim": 0.995,
+     "n": 1621,
+     "lo": 2.72,
+     "hi": 19.84,
+     "ok": [
+      [
+       62,
+       642
+      ]
+     ]
+    }
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "yEEzRi_AUNw",
+      "offset": -2.69,
+      "sim": 0.997
+     },
+     {
+      "videoId": "gB4XJgjjLQE",
+      "offset": -2.72,
+      "sim": 0.995
+     },
+     {
+      "videoId": "uP2ew_MK7NM",
+      "offset": -2.85,
+      "sim": 0.999
+     },
+     {
+      "videoId": "EZVjBmiG4CI",
+      "offset": -26.91,
+      "sim": 0.997
+     },
+     {
+      "videoId": "WkKy6HpISik",
+      "offset": -2.85,
+      "sim": 0.998
+     },
+     {
+      "videoId": "6Y4H1CEBLno",
+      "offset": -2.24,
+      "sim": 0.999
+     },
+     {
+      "videoId": "KARbx4yPctQ",
+      "offset": -2.72,
+      "sim": 0.995
+     },
+     {
+      "videoId": "8_mX10NzV5U",
+      "offset": -2.72,
+      "sim": 0.995
+     }
+    ],
+    "coverage": 0.93,
+    "songChanged": false
+   }
+  },
+  "Kqi_VQv4CY8": {
+   "videoId": "Kqi_VQv4CY8",
+   "title": "にしな - ただいまそかり #にしな #nishina #ただいまそかり #shorts",
+   "queueSongId": "nishina-weekly",
+   "matchMethod": "review",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-panda-girl",
+     "score": 29.3
+    },
+    {
+     "songId": "nishina-himitsu-kichi",
+     "score": 28.3
+    },
+    {
+     "songId": "nishina-sugar-spot",
+     "score": 28.1
+    }
+   ],
+   "songId": null,
+   "duration": 34.0,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "あの方はどんまん キスしてく リーダムは 影の痛み ポッカーリック 心痛り エンダーリック"
+    },
+    {
+     "t": 7.84,
+     "text": "包まないセクション ムラガルダントするそう"
+    },
+    {
+     "t": 11.16,
+     "text": "わかんない わかんない 見わかんない 優勢 解釈や シーフュース クランブ 引きが スイカム"
+    },
+    {
+     "t": 18.48,
+     "text": "プリンエンしてもらえない"
+    },
+    {
+     "t": 20.56,
+     "text": "もうどこかに消えちゃいたい"
+    },
+    {
+     "t": 22.24,
+     "text": "手末の光"
+    },
+    {
+     "t": 23.72,
+     "text": "星抜けて痛み"
+    },
+    {
+     "t": 26.0,
+     "text": "星だして風に乗る"
+    }
+   ],
+   "versionType": null,
+   "conflict": false,
+   "anchors": [],
+   "confidence": 0,
+   "needsReview": [
+    "no_song"
+   ],
+   "grade": "C",
+   "asr": {
+    "songId": null,
+    "anchors": [],
+    "grade": "C",
+    "confidence": 0,
+    "needsReview": [
+     "no_song"
+    ]
+   },
+   "base": [],
+   "pairs": [
+    {
+     "v": "qRHJdr9qYDc",
+     "off": -0.16,
+     "sim": 0.991,
+     "n": 1064,
+     "lo": 0.16,
+     "hi": 33.855999999999995,
+     "ok": [
+      [
+       0,
+       1063
+      ]
+     ]
+    }
+   ]
+  },
+  "R0Fla0AsOWk": {
+   "videoId": "R0Fla0AsOWk",
+   "title": "Your lucky nishina track next week!? #にしな #nishina",
+   "queueSongId": "nishina-weekly",
+   "matchMethod": "review",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-kyou-mo-kyou-tote-remix",
+     "score": 59.8
+    },
+    {
+     "songId": "nishina-hot-milk",
+     "score": 36.5
+    },
+    {
+     "songId": "nishina-haru-ichiban",
+     "score": 28.9
+    }
+   ],
+   "songId": "nishina-hot-milk",
+   "duration": 35.8,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "カーマーカーとテッサン"
+    },
+    {
+     "t": 2.78,
+     "text": "恋と愛のしかっかっきりなやつ"
+    },
+    {
+     "t": 4.34,
+     "text": "話したい本気アニメはどう使うか"
+    },
+    {
+     "t": 5.84,
+     "text": "仕事が滅亡だとか"
+    },
+    {
+     "t": 6.76,
+     "text": "悪魔せず"
+    },
+    {
+     "t": 7.3,
+     "text": "ゾウムゾッと散る話題を"
+    },
+    {
+     "t": 8.4,
+     "text": "そうしなどどう"
+    },
+    {
+     "t": 9.2,
+     "text": "でも一番リデイ"
+    },
+    {
+     "t": 10.0,
+     "text": "一番リデイ"
+    },
+    {
+     "t": 10.58,
+     "text": "オーカッチュー"
+    },
+    {
+     "t": 11.9,
+     "text": "ベランバーの空には星が一つ"
+    },
+    {
+     "t": 19.22,
+     "text": "こそりこぼえてる"
+    },
+    {
+     "t": 23.08,
+     "text": "おさらに戻り 夢を見続けろ あなたが好きだった"
+    }
+   ],
+   "versionType": null,
+   "conflict": false,
+   "anchors": [
+    {
+     "t": 18.41,
+     "line": 25,
+     "peer": true
+    },
+    {
+     "t": 23.8,
+     "line": 26,
+     "peer": true
+    },
+    {
+     "t": 31.42,
+     "line": 27,
+     "peer": true
+    }
+   ],
+   "confidence": 69.8,
+   "needsReview": [],
+   "grade": "A",
+   "asr": {
+    "songId": "nishina-kyou-mo-kyou-tote-remix",
+    "anchors": [
+     {
+      "t": 2.46,
+      "line": 0,
+      "score": 63.6
+     },
+     {
+      "t": 3.7,
+      "line": 1,
+      "score": 63.6
+     },
+     {
+      "t": 4.82,
+      "line": 2,
+      "score": 81.8
+     },
+     {
+      "t": 5.84,
+      "line": 3,
+      "score": 69.6
+     },
+     {
+      "t": 6.76,
+      "line": 4,
+      "score": 70.0
+     },
+     {
+      "t": 7.66,
+      "line": 5,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 8.4,
+      "line": 6,
+      "score": 70.0
+     },
+     {
+      "t": 9.62,
+      "line": 7,
+      "score": 50.0,
+      "est": true
+     },
+     {
+      "t": 10.86,
+      "line": 9,
+      "score": 50.0,
+      "est": true
+     }
+    ],
+    "grade": "A",
+    "confidence": 69.8,
+    "needsReview": []
+   },
+   "base": [
+    {
+     "t": 2.46,
+     "line": 0,
+     "score": 63.6
+    },
+    {
+     "t": 3.7,
+     "line": 1,
+     "score": 63.6
+    },
+    {
+     "t": 4.82,
+     "line": 2,
+     "score": 81.8
+    },
+    {
+     "t": 5.84,
+     "line": 3,
+     "score": 69.6
+    },
+    {
+     "t": 6.76,
+     "line": 4,
+     "score": 70.0
+    },
+    {
+     "t": 7.55,
+     "line": 5,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 8.4,
+     "line": 6,
+     "score": 70.0
+    },
+    {
+     "t": 9.95,
+     "line": 7,
+     "score": 50.0,
+     "est": true
+    },
+    {
+     "t": 10.68,
+     "line": 9,
+     "score": 50.0,
+     "est": true
+    }
+   ],
+   "pairs": [
+    {
+     "v": "zQve_a0BLoI",
+     "off": -12.064,
+     "sim": 0.995,
+     "n": 1120,
+     "lo": 12.064,
+     "hi": 35.424,
+     "ok": [
+      [
+       354,
+       1119
+      ]
+     ]
+    },
+    {
+     "v": "1B0isQ8eq20",
+     "off": -11.84,
+     "sim": 0.991,
+     "n": 1120,
+     "lo": 11.84,
+     "hi": 35.84,
+     "ok": [
+      [
+       347,
+       1119
+      ]
+     ]
+    },
+    {
+     "v": "sgfLbwbCU8Q",
+     "off": -24.064,
+     "sim": 0.984,
+     "n": 1120,
+     "lo": 24.064,
+     "hi": 35.84,
+     "ok": [
+      [
+       729,
+       1119
+      ]
+     ]
+    },
+    {
+     "v": "Huqc3PZFIsg",
+     "off": -24.064,
+     "sim": 0.984,
+     "n": 1120,
+     "lo": 24.064,
+     "hi": 35.84,
+     "ok": [
+      [
+       729,
+       1119
+      ]
+     ]
+    }
+   ],
+   "peer": {
+    "from": [
+     {
+      "videoId": "zQve_a0BLoI",
+      "offset": -12.06,
+      "sim": 0.995
+     },
+     {
+      "videoId": "1B0isQ8eq20",
+      "offset": -11.84,
+      "sim": 0.991
+     },
+     {
+      "videoId": "sgfLbwbCU8Q",
+      "offset": -24.06,
+      "sim": 0.984
+     },
+     {
+      "videoId": "Huqc3PZFIsg",
+      "offset": -24.06,
+      "sim": 0.984
+     }
+    ],
+    "coverage": 0.67,
+    "songChanged": true
+   }
+  },
+  "qRHJdr9qYDc": {
+   "videoId": "qRHJdr9qYDc",
+   "title": "ただいまそかり #にしな #nishina #ただいまそかり #弾き語り #shorts",
+   "queueSongId": null,
+   "matchMethod": "out_of_catalog",
+   "model": "small",
+   "algo": 3,
+   "songCandidates": [
+    {
+     "songId": "nishina-sugar-spot",
+     "score": 28.3
+    },
+    {
+     "songId": "nishina-oto-ni-natteiku-yo",
+     "score": 27.3
+    },
+    {
+     "songId": "nishina-plum",
+     "score": 27.1
+    }
+   ],
+   "songId": null,
+   "duration": 33.7,
+   "transcript": [
+    {
+     "t": 0.0,
+     "text": "あの言葉どんまん キスしてく リーダムは"
+    },
+    {
+     "t": 3.72,
+     "text": "影抜いたりぽっかり 心痛り エンダリー"
+    },
+    {
+     "t": 7.76,
+     "text": "くすつまんないセクション 浪がるダンジョスレソー"
+    },
+    {
+     "t": 11.26,
+     "text": "わかんないわかんない 見わかんない 優勢解釈やシーフュースクラム"
+    },
+    {
+     "t": 16.22,
+     "text": "無敵ガースイクム 踏み入して"
+    },
+    {
+     "t": 19.3,
+     "text": "ほらよい 胸どっかに消えちゃいたい"
+    },
+    {
+     "t": 22.1,
+     "text": "手末の光 星抜けて痛み"
+    },
+    {
+     "t": 25.96,
+     "text": "シーナーって カゼリーロッド"
+    }
+   ],
+   "versionType": "acoustic",
+   "conflict": false,
+   "anchors": [],
+   "confidence": 0,
+   "needsReview": [
+    "no_song"
+   ],
+   "grade": "C",
+   "asr": {
+    "songId": null,
+    "anchors": [],
+    "grade": "C",
+    "confidence": 0,
+    "needsReview": [
+     "no_song"
+    ]
+   },
+   "base": [],
+   "pairs": [
+    {
+     "v": "Kqi_VQv4CY8",
+     "off": 0.16,
+     "sim": 0.991,
+     "n": 1053,
+     "lo": 0.0,
+     "hi": 33.696,
+     "ok": [
+      [
+       0,
+       1052
+      ]
+     ]
     }
    ]
   }
