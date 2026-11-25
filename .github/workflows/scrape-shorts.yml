@@ -1,10 +1,10 @@
 name: Daily shorts refresh
 
-# 03:00 Taipei = 19:00 UTC (前一天)
-# workflow_dispatch 允許在 Actions 頁手動 (或 gh CLI) 觸發
+# 02:17 Taipei = 18:17 UTC (前一天)。不排整點: GitHub 整點最塞, 排 03:00 時實際常晚 5–9 小時才開始
+# workflow_dispatch 允許在 Actions 頁、gh CLI、或 annotator 的「📥 立刻抓」手動觸發
 on:
   schedule:
-    - cron: '0 19 * * *'
+    - cron: '17 18 * * *'
   workflow_dispatch: {}
 
 # 併發控制: 排程與手動觸發若撞在一起只跑一個, 後來的排隊 (跟其他三支 workflow 一致,

@@ -99,6 +99,16 @@
   button.gh{background:linear-gradient(180deg,#2ea043,#22863a);border-color:#22863a;color:#fff}
   button.gh:hover{background:linear-gradient(180deg,#37b048,#2ea043)}
   button.gh:disabled{opacity:.5;cursor:not-allowed}
+  /* 🧠 本機跑模型 / 📥 今天的 shorts */
+  #runnerBtn.busy{border-color:var(--accent);color:#fff;cursor:progress}
+  #runnerCount{color:var(--warn)}
+  header .runner-msg{max-width:340px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  header .runner-msg[data-tone="ok"]{color:var(--ok)}
+  header .runner-msg[data-tone="warn"]{color:var(--warn)}
+  header .runner-msg[data-tone="err"]{color:var(--danger)}
+  header .scrape{display:flex;align-items:center;gap:8px}
+  header .scrape[hidden], #scrapeBtn[hidden]{display:none}
+  #scrapeMsg{color:var(--warn)}
   #settingsPanel{position:absolute;top:52px;right:18px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;box-shadow:0 8px 24px rgba(0,0,0,.35);z-index:100;width:320px}
   #settingsPanel[hidden]{display:none}
   #settingsPanel label{font-size:12px;color:var(--dim);display:block;margin-bottom:4px}
@@ -190,6 +200,9 @@
   <span class="stats sync" id="syncStatus" data-state="idle">—</span>
   <button class="ghost" id="reviewBtn" title="只顯示機器標好、等你審核的 shorts">🤖 待審 <span id="reviewCount">0</span></button>
   <button class="ghost" id="conflictBtn" title="機器認出的歌跟佇列的 hashtag/歌詞配對不同 — 先確認歌對不對">⚠ 先確認歌 <span id="conflictCount">0</span></button>
+  <button class="ghost" id="runnerBtn" title="在這台電腦跑模型: 還沒跑過的 shorts 跑完直接進 🤖 待審 (需要本機助手, 見 scripts/runner/README.md)">🧠 跑模型 <span id="runnerCount"></span></button>
+  <span class="stats runner-msg" id="runnerMsg" aria-live="polite"></span>
+  <span class="scrape" id="scrapeBox" hidden><span class="stats" id="scrapeMsg"></span><button class="ghost" id="scrapeBtn" hidden>📥 立刻抓</button></span>
   <span class="spacer"></span>
   <button class="ghost" id="settingsBtn" title="設定 GitHub token">⚙</button>
   <button class="ghost" id="importBtn">匯入</button>
@@ -1716,6 +1729,171 @@ document.addEventListener('click', e => {
 });
 
 boot();
+
+/* ---------- 🧠 本機跑模型 (scripts/local_runner.py) ----------
+   按鈕 → 先看這台的本機助手有沒有在跑 (127.0.0.1:8771); 沒有就開 nca-runner:// 叫它起來 (安裝見 scripts/runner/README.md)
+   → 檢查環境 (模型 / ffmpeg / GPU) → 跑還沒跑過的 shorts → 推到 develop → 這裡重新載入: 新的直接出現在 🤖 待審。
+   本機助手只在按下去之後才執行, 跑完閒置 10 分鐘自己結束。 */
+const RUNNER = 'http://127.0.0.1:8771';
+const RUNNER_KNOWN = 'nca-runner-known';            // 這台瀏覽器連上過本機助手 → 載入時順便看它還在不在
+const runnerBtn = document.getElementById('runnerBtn'), runnerMsg = document.getElementById('runnerMsg');
+const runnerCountEl = document.getElementById('runnerCount');
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+let runnerBusy = false;
+async function rcall(path, { method = 'GET', ms = 1500 } = {}){
+  const c = new AbortController(), t = setTimeout(() => c.abort(), ms);
+  try{ const r = await fetch(RUNNER + path, { method, signal: c.signal, cache: 'no-store' }); return r.ok || r.status === 409 ? await r.json() : null; }
+  catch(_){ return null; }
+  finally{ clearTimeout(t); }
+}
+function runnerSay(text, tone = '', title = ''){
+  runnerMsg.textContent = text; runnerMsg.dataset.tone = tone; runnerMsg.title = title || text;
+}
+// 還沒跑過模型的: 沒審完 (done/skip 以外) 而且沒有機器結果
+function runnerTodo(){
+  if(!S.queue) return 0;
+  return Object.values(S.queue).flat().filter(x => !['done', 'skip'].includes(S.ann[x.videoId]?.status) && !S.auto[x.videoId]).length;
+}
+function runnerCount(){ const n = GH.syncedAt ? runnerTodo() : 0; runnerCountEl.textContent = n ? `· ${n} 支未跑` : ''; }   // 還沒從 GitHub 拿到最新狀態前不顯示 (會不準)
+async function runnerConnect(launch){
+  let st = await rcall('/status', { ms: 800 });
+  if(!st && launch){
+    runnerSay('叫醒本機助手…');
+    location.href = 'nca-runner://start';           // 第一次瀏覽器會問要不要開啟, 勾「一律允許」
+    for(let i = 0; i < 35 && !st; i++){ await sleep(700); st = await rcall('/status', { ms: 800 }); }
+  }
+  if(!st){
+    if(launch) runnerSay('這台沒有本機助手 (或沒按允許) — 安裝見 scripts/runner/README.md', 'warn');
+    return null;
+  }
+  try{ localStorage.setItem(RUNNER_KNOWN, '1'); }catch(_){}
+  for(let i = 0; !st.env && i < 200; i++){ runnerSay('檢查這台的環境 (模型 / ffmpeg / GPU)…'); await sleep(800); st = await rcall('/status') || st; }
+  return st;
+}
+function envLine(env){
+  const dev = { mps: 'Apple 晶片', cuda: 'NVIDIA', cpu: 'CPU' }[env.device] || env.device;
+  return `${env.engine === 'hybrid' ? 'Qwen + whisper' : 'whisper'} · ${dev}` + (env.notes?.length ? ' · ' + env.notes.join(' · ') : '');
+}
+async function runnerFollow(){
+  runnerBtn.classList.add('busy');
+  const LABEL = { start: '開始', sync: '抓最新的 develop', todo: '看哪幾支還沒跑', asr: '跑模型', peer: '同錄音照抄', merge: '寫進待審', push: '推上 GitHub' };
+  let st;
+  for(;;){
+    st = await rcall('/status', { ms: 3000 });
+    if(!st){ runnerSay('跟本機助手斷線了', 'err'); break; }
+    const j = st.job;
+    if(j.state === 'running'){
+      const prog = (j.step === 'asr' || j.step === 'peer') && j.n ? ` ${j.i} / ${j.n}` : '';
+      runnerSay(`🧠 ${LABEL[j.step] || j.label || j.step}${prog}…`, '', envLine(st.env || {}));
+      await sleep(1000); continue;
+    }
+    if(j.state === 'done'){
+      const r = j.result || {};
+      if(!r.ran) runnerSay('🧠 都跑過了, 沒有新的', 'ok');
+      else{
+        const g = r.grades || {};
+        runnerSay(`🧠 ${r.ran} 支進待審 (A ${g.A || 0} / B ${g.B || 0} / C ${g.C || 0}${g.err ? ' / 失敗 ' + g.err : ''})` + (r.commit ? '' : ' · 沒有推上去'), 'ok');
+        await runnerReload();
+      }
+    }else if(j.state === 'error'){
+      const lg = await rcall('/log');
+      runnerSay('🧠 失敗: ' + (j.error || ''), 'err', (lg?.log || []).slice(-12).join('\n'));
+    }
+    break;
+  }
+  runnerBtn.classList.remove('busy');
+  runnerCount();
+}
+// 跑完: 佇列 / 歌詞 / 機器建議從本機助手的工作目錄直接拿 (網站重新部署要等幾分鐘), anchors 從 GitHub 重拉 (沒存的不會被蓋掉)
+async function runnerReload(){
+  const [q, l, au] = await Promise.all(['annotation_queue.json', 'lyrics.json', 'auto_anchors.json'].map(f => rcall('/file/' + f, { ms: 20000 })));
+  if(q && l){
+    S.queue = q.queue;
+    for(const s of l.songs) S.songs[s.id] = s;
+    S.songList = l.songs.filter(s => !s.instrumental)
+      .sort((a, b) => (a.album || '').localeCompare(b.album || '') || (a.track_number || 99) - (b.track_number || 99));
+  }
+  if(au){ S.auto = au.items || {}; applyPeerLive(); }
+  if(getToken()){ try{ await fetchBaseline(); }catch(e){ console.warn('[runner] baseline', e); } }
+  renderQueue(); updateProgress(); if(S.cur) renderAutoPanel();
+}
+runnerBtn.onclick = async () => {
+  if(runnerBusy) return;
+  runnerBusy = true; runnerBtn.classList.add('busy');
+  try{
+    const st = await runnerConnect(true);
+    if(!st) return;
+    if(!st.env?.ok){ runnerSay('這台不能跑: 缺 ' + (st.env?.missing || []).join('、'), 'err'); return; }
+    if(st.job.state !== 'running'){
+      const r = await rcall('/run', { method: 'POST', ms: 5000 });
+      if(!r){ runnerSay('本機助手沒有回應', 'err'); return; }
+    }
+    await runnerFollow();
+  }finally{ runnerBusy = false; runnerBtn.classList.remove('busy'); }
+};
+// 載入時: 這台連上過本機助手的話, 安靜地看一下它是不是還在跑 (例如重新整理了頁面)
+(async () => {
+  let known = false; try{ known = localStorage.getItem(RUNNER_KNOWN) === '1'; }catch(_){}
+  if(!known) return;
+  const st = await rcall('/status', { ms: 800 });
+  if(st?.job?.state === 'running'){ runnerBusy = true; try{ await runnerFollow(); }finally{ runnerBusy = false; } }
+})();
+setInterval(runnerCount, 3000);
+
+/* ---------- 📥 今天的 shorts 抓了沒 ----------
+   GitHub 的排程常常晚好幾個小時 (2:17 排的, 有時中午才跑)。今天 (台北) 還沒抓的話顯示「立刻抓」, 用 ⚙ 的 token 觸發 scrape-shorts.yml。 */
+const scrapeBox = document.getElementById('scrapeBox'), scrapeMsg = document.getElementById('scrapeMsg'), scrapeBtn = document.getElementById('scrapeBtn');
+const WF = `https://api.github.com/repos/${GH.owner}/${GH.repo}/actions/workflows/scrape-shorts.yml`;
+const tpeDay = d => new Date(d).toLocaleDateString('sv-SE', { timeZone: 'Asia/Taipei' });
+function ghHeaders(){ const h = { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' }; const t = getToken(); if(t) h.Authorization = `Bearer ${t}`; return h; }
+async function latestScrape(){
+  try{ const r = await fetch(WF + '/runs?per_page=1', { headers: ghHeaders(), cache: 'no-store' }); return r.ok ? (await r.json()).workflow_runs?.[0] || null : null; }
+  catch(_){ return null; }
+}
+function scrapeSay(text, btn){ scrapeBox.hidden = !text; scrapeMsg.textContent = text || ''; scrapeBtn.hidden = !btn; }
+async function scrapeCheck(){
+  const run = await latestScrape();
+  if(!run){ scrapeSay(''); return; }
+  if(run.status !== 'completed'){ scrapeSay('📥 GitHub 正在抓今天的 shorts…'); scrapeWatch(run.id); return; }
+  const now = new Date(), hm = Number(now.toLocaleString('en-GB', { timeZone: 'Asia/Taipei', hour: '2-digit', minute: '2-digit', hour12: false }).replace(':', ''));
+  if(tpeDay(run.created_at) < tpeDay(now) && hm >= 217) scrapeSay('📥 今天的 shorts 還沒抓', true);
+  else scrapeSay('');
+}
+async function scrapeWatch(id){
+  for(let i = 0; i < 80; i++){                     // 最多看 20 分鐘
+    await sleep(15000);
+    try{
+      const r = await fetch(`https://api.github.com/repos/${GH.owner}/${GH.repo}/actions/runs/${id}`, { headers: ghHeaders(), cache: 'no-store' });
+      const run = r.ok ? await r.json() : null;
+      if(run?.status === 'completed'){
+        if(run.conclusion === 'success'){
+          scrapeSay('📥 抓完了 — 網站更新約 2 分鐘; 按 🧠 跑模型就會包含新的');
+          setTimeout(() => scrapeSay(''), 60000);
+        }else scrapeSay('📥 抓 shorts 失敗, 去 GitHub Actions 看紀錄');
+        return;
+      }
+    }catch(_){}
+  }
+}
+scrapeBtn.onclick = async () => {
+  if(!getToken()){ alert('請先在右上 ⚙ 貼上 GitHub token'); return; }
+  scrapeBtn.disabled = true;
+  const since = Date.now();
+  try{
+    const r = await fetch(WF + '/dispatches', { method: 'POST', headers: { ...ghHeaders(), 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: GH.branch }) });
+    if(r.status !== 204){
+      scrapeSay(r.status === 403 || r.status === 404 ? '📥 這把 token 沒有觸發排程的權限 (要 Actions 寫入)' : '📥 觸發失敗 HTTP ' + r.status, true); return;
+    }
+    scrapeSay('📥 已觸發, GitHub 排隊中…');
+    for(let i = 0; i < 20; i++){                     // 等它出現在清單上 (通常幾秒)
+      await sleep(3000);
+      const run = await latestScrape();
+      if(run && new Date(run.created_at).getTime() >= since - 60000 && run.event === 'workflow_dispatch'){ scrapeSay('📥 抓 shorts 中 (約 3 分鐘)…'); return scrapeWatch(run.id); }
+    }
+    scrapeSay('📥 已觸發 (GitHub 還沒開始跑, 晚點再看)');
+  }finally{ scrapeBtn.disabled = false; }
+};
+scrapeCheck();
 </script>
 </body>
 </html>

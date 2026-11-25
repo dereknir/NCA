@@ -595,12 +595,13 @@ def merge(out_path, include_c=False):
         cur = anchors.get(vid)
         if cur and cur.get('status') in ('done', 'skip'):
             continue
+        if cur and cur.get('status') == 'pending' and (cur.get('anchors') or cur.get('songConfirmed') or cur.get('source') in ('auto', 'manual')):
+            # 人工動過的 pending 不覆蓋: 已開始打 anchors / 審核時改了歌 (機器建議作廢) / 按了「建議不對, 退回手動」
+            skipped += 1; continue
         if cur and cur.get('songConfirmed') and r.get('songId') != cur.get('songId'):
             if not include_c:
                 mismatch.append(vid); continue           # 人工確認的歌名優先; 這份結果是別首歌 → 不套用
             r = dict(r, songId=cur['songId'], anchors=[], grade='C')   # --include-c: 歌名照人工, anchors 交給人工
-        if cur and cur.get('status') == 'pending' and cur.get('anchors'):
-            skipped += 1; continue                       # 人工已開始打, 不覆蓋
         if (not r.get('songId') or not r.get('anchors') or r.get('grade') == 'C') and not include_c:
             if cur and cur.get('status') == 'auto':
                 # 舊引擎的建議, 新結果卻沒把握 (C / 認不出歌) → 退回手動, 不讓過時的 anchors 留在待審清單
@@ -626,7 +627,7 @@ def merge(out_path, include_c=False):
         n += 1
     ANCHORS_F.write_text(json.dumps(anchors, ensure_ascii=False, indent=2), encoding='utf-8')
     shutil.copyfile(out_path, PUB_F)                                  # annotator 的 🤖 面板讀這份 (候選歌/逐字稿)
-    print(f'[merge] 寫入 {n} 支 status=auto (跳過 {skipped} 支人工進行中, {dropped} 支舊建議新結果沒把握 → 退回手動) → {ANCHORS_F.name}; 建議檔同步到 {PUB_F.relative_to(ROOT)}')
+    print(f'[merge] 寫入 {n} 支 status=auto (跳過 {skipped} 支人工動過的 pending, {dropped} 支舊建議新結果沒把握 → 退回手動) → {ANCHORS_F.name}; 建議檔同步到 {PUB_F.relative_to(ROOT)}')
     if mismatch:
         print(f'[merge] ⚠ {len(mismatch)} 支歌名已人工確認, 但機器結果是別首歌 → 沒套用。'
               f'再跑一次 --redo (同樣的 engine) 會用確認的歌名重標這幾支, 之後再 --merge: {" ".join(mismatch[:8])}{" …" if len(mismatch) > 8 else ""}')
@@ -635,7 +636,8 @@ def merge(out_path, include_c=False):
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
     ap = argparse.ArgumentParser()
-    ap.add_argument('--todo', action='store_true'); ap.add_argument('--ids', nargs='*')
+    ap.add_argument('--todo', action='store_true', help='只列出這次會跑哪幾支 (JSON) 就結束, 不下載不轉寫 (本機助手 local_runner.py 用)')
+    ap.add_argument('--ids', nargs='*')
     ap.add_argument('--validate', action='store_true'); ap.add_argument('--merge', action='store_true')
     ap.add_argument('--limit', type=int, default=0); ap.add_argument('--model', default='small')
     ap.add_argument('--audio-dir', default=str(DEFAULT_AUDIO)); ap.add_argument('--out', default=str(OUT_F))
@@ -708,6 +710,9 @@ def main():
             ids = ids[i::n]
     if args.limit:
         ids = ids[:args.limit]
+    if args.todo:
+        print(json.dumps({'todo': ids, 'engine': ENGINE, 'model': model_label(args.model)}))
+        return
     print(f'[auto] 待處理 {len(ids)} 支 · engine={ENGINE} · model={model_label(args.model)} · 音訊快取 {audio_dir}', flush=True)
     def save():
         out['meta'] = {'model': args.model, 'updated': time.strftime('%Y-%m-%d %H:%M'), 'count': len(out['items'])}
