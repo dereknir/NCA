@@ -42494,87 +42494,56 @@
     "songId": "nishina-u-plus",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 29
       },
       {
-        "t": 2.43,
+        "t": 2.58,
         "line": 30
       },
       {
-        "t": 4.93,
+        "t": 4.59,
         "line": 31
       },
       {
-        "t": 6.99,
+        "t": 6.9,
         "line": 32
       },
       {
-        "t": 9.54,
+        "t": 9.43,
         "line": 33
       },
       {
-        "t": 11.87,
+        "t": 11.9,
         "line": 34
       },
       {
-        "t": 14.17,
+        "t": 14.18,
         "line": 35
       }
     ],
-    "status": "auto",
-    "versionType": null,
+    "status": "done",
+    "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "A"
   },
   "5YFa2hUtIoo": {
-    "songId": "nishina-wawon",
-    "anchors": [
-      {
-        "t": 0.91,
-        "line": 0
-      },
-      {
-        "t": 3.09,
-        "line": 1
-      },
-      {
-        "t": 5.9,
-        "line": 2
-      },
-      {
-        "t": 8.83,
-        "line": 3
-      },
-      {
-        "t": 11.19,
-        "line": 4
-      },
-      {
-        "t": 14.26,
-        "line": 5
-      },
-      {
-        "t": 17.1,
-        "line": 6
-      },
-      {
-        "t": 19.86,
-        "line": 7
-      }
-    ],
-    "status": "auto",
+    "songId": "__live_song",
+    "anchors": [],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "B"
+    "autoGrade": "B",
+    "liveSongId": "nishina-wawon",
+    "appearanceName": "WONDERLIVET2026（韓国）"
   },
   "5vOjzq8gGFE": {
     "songId": "nishina-tsukushi",
     "anchors": [
       {
-        "t": 0.0,
+        "t": 0,
         "line": 22
       },
       {
@@ -42590,41 +42559,22 @@
         "line": 25
       }
     ],
-    "status": "auto",
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
     "autoGrade": "C"
   },
   "jlTBUZmo-6s": {
-    "songId": "nishina-wawon",
-    "anchors": [
-      {
-        "t": 3.42,
-        "line": 47
-      },
-      {
-        "t": 5.91,
-        "line": 48
-      },
-      {
-        "t": 9.28,
-        "line": 49
-      },
-      {
-        "t": 11.88,
-        "line": 50
-      },
-      {
-        "t": 37.81,
-        "line": 52
-      }
-    ],
-    "status": "auto",
+    "songId": "__live_song",
+    "anchors": [],
+    "status": "done",
     "versionType": "live",
     "instrumental": false,
     "source": "auto",
-    "autoGrade": "A"
+    "autoGrade": "A",
+    "liveSongId": "nishina-wawon",
+    "appearanceName": "WONDERLIVET2026（韓国）"
   },
   "Kqi_VQv4CY8": {
     "songId": null,
@@ -42636,22 +42586,9 @@
     "autoGrade": "C"
   },
   "R0Fla0AsOWk": {
-    "songId": "nishina-hot-milk",
-    "anchors": [
-      {
-        "t": 18.41,
-        "line": 25
-      },
-      {
-        "t": 23.8,
-        "line": 26
-      },
-      {
-        "t": 31.42,
-        "line": 27
-      }
-    ],
-    "status": "auto",
+    "songId": "__promo",
+    "anchors": [],
+    "status": "done",
     "versionType": null,
     "instrumental": false,
     "source": "auto",
