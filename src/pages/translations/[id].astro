@@ -8,6 +8,7 @@ import LyricsModes from '../../components/LyricsModes.astro';
 import ArticleEnd from '../../components/ArticleEnd.astro';
 import LyricWords from '../../components/LyricWords.astro';
 import CopyLyrics from '../../components/CopyLyrics.astro';
+import LineLive from '../../components/LineLive.astro';
 import shortsData from '../../data/shorts_by_song.json';
 import { getCollection, render } from 'astro:content';
 import { existsSync } from 'node:fs';
@@ -145,6 +146,7 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
         <LyricsModes />
         {!instrumental && <LyricWords songId={translation.id} />}
         {!instrumental && <CopyLyrics songId={translation.id} title={title} artist={artist} cover={coverImage} />}
+        {!instrumental && songShorts.length > 0 && <LineLive shorts={songShorts as any} lineCount={lyricLines} />}
       </>
     ) : (
       <div class="sh-card my-12 p-8 text-center" style="border: 2px dashed var(--sh-gold)">

@@ -1,0 +1,398 @@
+---
+/**
+ * LineLive — 這句的現場: 讀到哪一句, 就能聽にしな在 Live 唱那一句
+ * - 每句右邊距一根 5 格的像素音量表: 越多支現場短片唱到越多格亮 (滑過才出現 ♪ 確切數字)
+ * - 點了跳出小卡: 這句被哪幾支唱到 (現場 / THE FIRST TAKE / MV …分頁, 照觀看數排)
+ *   點一支 = 打開 LIVE 播放器從這句開始播; 「連播這句」= 每個版本只播這一句, 播完接下一個
+ * - 整首聲波 (src/lib/lineHeat.ts): ① 歌詞開頭一條, 點一根跳到那句; ② 捲進歌詞後縮成導覽列下面一條細的, ▲ 跟著讀到的那句;
+ *   ③ LIVE 播放器裡那條在 LiveStage.astro
+ * - 短片資料直接讀 LIVE 播放器 (#live-stage) 已經放在頁面上的那份, 這裡只多帶場次名 (annotation/shorts_anchors.json 有填的)
+ * - 鍵盤: 音量表、聲波都只佔一個 Tab 位置 (方向鍵換句), Enter 打開, Esc 關掉、焦點回原處
+ * 翻譯頁圈內是 ClientRouter 換頁: 事件只綁一次, 每頁 astro:page-load 重新掛
+ */
+import annotations from '../../annotation/shorts_anchors.json';
+import { lineHeat, waveHTML, type HeatShort } from '../lib/lineHeat';
+
+interface Props { shorts: (HeatShort & { videoId: string })[]; lineCount: number }
+const { shorts, lineCount } = Astro.props;
+const heat = lineHeat(shorts, lineCount);
+const ann = annotations as Record<string, { appearanceName?: string | null; tourName?: string | null }>;
+const names = Object.fromEntries(shorts.map(s => [s.videoId, (ann[s.videoId]?.appearanceName || ann[s.videoId]?.tourName || '').trim()]).filter(([, n]) => n));
+---
+
+<figure class="wv-head" data-ll-head data-lyr-other>
+  <figcaption><span>現場熱度</span><span class="hint">一句一根・越高 = 越多支現場短片唱到・點一下看那句的現場</span></figcaption>
+  <div class="wv" role="group" aria-label="整首歌每一句的現場熱度 (左右鍵換句)" style="--half: 26px"><Fragment set:html={waveHTML(heat, 26, 'button')} /></div>
+  <div class="wv-key" aria-hidden="true"><span><i class="k1"></i>現場</span><span><i class="k2"></i>THE FIRST TAKE / MV 等</span><span class="me">▲ 讀到這裡</span></div>
+</figure>
+{/* 搬到歌詞的最前面: 放在這裡馬上跑, 畫面出來之前就到位 (換頁也重跑) */}
+<script is:inline data-astro-rerun>(function () { var h = document.querySelector('[data-ll-head]'), s = document.querySelector('[data-song-content] .lyrics-section'); if (h && s && h.nextElementSibling !== s) s.before(h); })();</script>
+
+<div class="wv-stick" data-ll-stick data-lyr-other aria-hidden="true" hidden><div class="wv" style="--half: 8px"><Fragment set:html={waveHTML(heat, 8, 'span')} /></div></div>
+
+<div class="ll-pop" data-ll-pop role="dialog" aria-label="這句的現場" hidden></div>
+
+<dialog class="ll-box" data-ll-box aria-labelledby="llBoxTtl">
+  <div class="ll-hd"><b id="llBoxTtl" class="ttl"></b><button type="button" class="x" data-c="close" aria-label="關閉">esc</button></div>
+  <div class="ll-stage">
+    <div class="ll-vid"><div data-ll-player></div></div>
+    <div class="ll-side">
+      <div class="ll-q"><div lang="ja" class="qja"></div><div class="zh qzh"></div></div>
+      <div class="ll-now" aria-live="polite"></div>
+      <ol class="ll-dots" aria-hidden="true"></ol>
+      <div class="ll-ctl">
+        <button type="button" data-c="prev" aria-label="上一支">⏮</button>
+        <button type="button" data-c="replay">↺ 再一次</button>
+        <button type="button" data-c="next" aria-label="下一支">⏭</button>
+      </div>
+      <button type="button" class="ll-full" data-c="full">看這支的完整片段 →</button>
+    </div>
+  </div>
+</dialog>
+
+<script type="application/json" data-ll-names set:html={JSON.stringify(names).replace(/</g, '\\u003c')} />
+
+<script>
+  import { paintWave } from '../lib/lineHeat';
+
+  type Short = { videoId: string; title?: string; thumbnail?: string; viewCount?: number; versionType?: string | null; anchors: { t: number; line: number }[] };
+  type Hit = { s: Short; t: number; end: number };
+  const VT: Record<string, string> = { live: '現場', tft: 'THE FIRST TAKE', acoustic: '弾き語り', mv: 'MV', other: '其他' };
+  const ORDER = ['live', 'tft', 'acoustic', 'mv', 'other'];
+  const vtOf = (s: Short) => (s.versionType && VT[s.versionType]) ? s.versionType : 'other';
+  const esc = (v: unknown) => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+  const views = (n = 0) => n >= 10000 ? (n / 10000).toFixed(n >= 100000 ? 0 : 1).replace(/\.0$/, '') + ' 萬' : n.toLocaleString();
+  const txt = (el: Element, c: string) => el.querySelector(c)?.textContent?.replace(/\s+/g, ' ').trim() || '';
+  const METER = '<svg viewBox="0 0 7 8" aria-hidden="true"><rect x="4" y="0" width="1" height="6"/><rect x="5" y="1" width="1" height="1"/><rect x="6" y="2" width="1" height="2"/><rect x="1" y="5" width="3" height="3"/><rect x="0" y="6" width="1" height="1"/></svg>';
+
+  let lines: HTMLElement[] = [], byLine: Hit[][] = [], names: Record<string, string> = {};
+  let pop: HTMLElement | null = null, cur: HTMLElement | null = null, curTab = 'live', curLine = -1;
+  const nameOf = (s: Short) => names[s.videoId] || s.title || '';
+  // 這支短片唱了哪幾句; 同一句的不同短片靠這個 + 縮圖 + 觀看數分辨
+  const span = (s: Short) => { const ls = s.anchors.map(a => a.line + 1), a = Math.min(...ls), b = Math.max(...ls); return a === b ? `只唱第 ${a} 句` : `唱第 ${a}–${b} 句`; };
+
+  function mount() {
+    close(false);
+    const stage = document.getElementById('live-stage');
+    const shorts: Short[] = stage ? JSON.parse(stage.dataset.shorts || '[]') : [];
+    try { names = JSON.parse(document.querySelector('[data-ll-names]')?.textContent || '{}'); } catch { names = {}; }
+    lines = Array.from(document.querySelectorAll<HTMLElement>('[data-song-content] .lyrics-line'));
+    if (!lines.length || !shorts.length) return;
+    // 每句: 哪幾支唱到、從第幾秒唱到第幾秒 (下一句開始; 最後一句抓 7 秒)
+    byLine = lines.map(() => []);
+    for (const s of shorts) {
+      const a = [...s.anchors].sort((x, y) => x.t - y.t);
+      a.forEach((x, i) => { if (byLine[x.line] && !byLine[x.line].some(h => h.s === s)) byLine[x.line].push({ s, t: x.t, end: (a[i + 1] ? a[i + 1].t : x.t + 7) + .25 }); });
+    }
+    byLine.forEach(l => l.sort((x, y) => (y.s.viewCount || 0) - (x.s.viewCount || 0)));
+    const liveN = byLine.map(l => l.filter(h => vtOf(h.s) === 'live').length);
+    const max = Math.max(1, ...liveN);
+    let first = true;
+    lines.forEach((el, i) => {
+      if (!byLine[i].length || el.querySelector(':scope > .ll-mark')) return;
+      const lv = liveN[i], ot = byLine[i].length - lv;
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'll-mark'; b.dataset.i = String(i); b.tabIndex = first ? 0 : -1; first = false;
+      b.setAttribute('aria-haspopup', 'dialog'); b.setAttribute('aria-expanded', 'false');
+      b.setAttribute('aria-label', `第 ${i + 1} 句的現場: ${lv} 支現場${ot ? `、${ot} 支其他版本` : ''}`);
+      b.dataset.lv = String(lv ? Math.max(1, Math.ceil(5 * lv / max)) : 0);
+      b.innerHTML = `<i class="vu" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b></i><span class="num" aria-hidden="true">${METER}${lv || '·'}</span>`;
+      el.append(b);
+    });
+    // 小卡、黏頂條移到 body 底下 (用整頁座標 / fixed 定位, 不受文章容器影響)
+    pop = document.querySelector('[data-ll-pop]');
+    const stick = document.querySelector('[data-ll-stick]');
+    if (pop) document.body.append(pop);
+    if (stick) document.body.append(stick);
+    const head = document.querySelector('[data-ll-head]'), sec = document.querySelector('[data-song-content] .lyrics-section');
+    if (head && sec && head.nextElementSibling !== sec) sec.before(head);
+    head?.querySelectorAll<HTMLElement>('.wv-b:not(:disabled)').forEach((b, k) => { b.tabIndex = k ? -1 : 0; });   // 聲波整條只佔一個 Tab 位置
+    onScroll();
+  }
+
+  // ---- 方向鍵在同一組裡換 (音量表: 上下; 聲波: 左右), 整組只佔一個 Tab 位置 ----
+  function rove(list: HTMLElement[], from: HTMLElement, key: string, prev: string, next: string) {
+    const i = list.indexOf(from); if (i < 0) return false;
+    const j = key === 'Home' ? 0 : key === 'End' ? list.length - 1 : key === next ? i + 1 : key === prev ? i - 1 : -1;
+    if (j < 0 || j >= list.length || j === i && key !== 'Home' && key !== 'End') return false;
+    list.forEach(x => { x.tabIndex = x === list[j] ? 0 : -1; }); list[j].focus(); return true;
+  }
+  document.addEventListener('keydown', e => {
+    const t = e.target as HTMLElement;
+    if (e.key === 'Escape' && cur) { e.preventDefault(); close(); return; }
+    if (t.matches?.('.ll-mark')) {
+      if (rove(Array.from(document.querySelectorAll<HTMLElement>('[data-song-content] .ll-mark')), t, e.key, 'ArrowUp', 'ArrowDown')) e.preventDefault();
+    } else if (t.matches?.('[data-ll-head] .wv-b')) {
+      if (rove(Array.from(document.querySelectorAll<HTMLElement>('[data-ll-head] .wv-b:not(:disabled)')), t, e.key, 'ArrowLeft', 'ArrowRight')) e.preventDefault();
+    }
+  });
+
+  // ---- 小卡 ----
+  function render(i: number) {
+    if (!pop) return;
+    const all = byLine[i], tabs = ORDER.filter(k => all.some(h => vtOf(h.s) === k));
+    if (!tabs.includes(curTab)) curTab = tabs[0];
+    const list = all.filter(h => vtOf(h.s) === curTab), el = lines[i];
+    pop.innerHTML = `<div class="ll-hd"><b>♪ ${all.length} 支短片唱到這句</b><button type="button" class="x" data-p="close" aria-label="關閉">esc</button></div>
+      <div class="ll-q"><div lang="ja">${esc(txt(el, '.ja'))}</div><div class="zh">${esc(txt(el, '.zh'))}</div></div>
+      ${tabs.length > 1 ? `<div class="ll-tabs" role="group" aria-label="版本">${tabs.map(k => `<button type="button" data-tab="${k}" aria-pressed="${k === curTab}">${VT[k]} <i>${all.filter(h => vtOf(h.s) === k).length}</i></button>`).join('')}</div>` : ''}
+      ${list.length > 1 ? `<button type="button" class="ll-chain" data-p="chain">▶ 連播這句・${list.length} 支${VT[curTab]}短片</button>` : ''}
+      <ul class="ll-list">${list.map((h, j) => `<li><button type="button" data-j="${j}">
+          <img src="${esc(h.s.thumbnail)}" alt="" loading="lazy" width="36" height="48">
+          <span class="nm">${esc(nameOf(h.s))}</span>
+          <span class="mt">${views(h.s.viewCount)} 次觀看・${span(h.s)}</span>
+        </button></li>`).join('')}</ul>
+      <div class="ll-ft">點一支 = 打開 LIVE 播放器, 從這句開始播</div>`;
+  }
+  function open(b: HTMLElement) {
+    if (!pop) return;
+    if (cur) cur.setAttribute('aria-expanded', 'false');
+    cur = b; curLine = +b.dataset.i!; curTab = 'live';
+    b.setAttribute('aria-expanded', 'true');
+    render(curLine); pop.hidden = false; place();
+    pop.querySelector<HTMLElement>('.ll-chain, .ll-list button')?.focus({ preventScroll: true });
+  }
+  function place() {
+    if (!cur || !pop) return;
+    if (matchMedia('(max-width: 640px)').matches) { pop.style.left = pop.style.top = ''; return; }   // 手機: 底部抽屜 (CSS)
+    const r = cur.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight;
+    let top = r.bottom + scrollY + 6;
+    if (r.bottom + h + 16 > innerHeight && r.top - h - 6 > 0) top = r.top + scrollY - h - 6;
+    pop.style.left = Math.max(12, Math.min(r.right + scrollX - w, scrollX + innerWidth - w - 12)) + 'px';
+    pop.style.top = top + 'px';
+  }
+  function close(back = true) {
+    if (!cur || !pop) { cur = null; return; }
+    pop.hidden = true; cur.setAttribute('aria-expanded', 'false');
+    if (back) cur.focus({ preventScroll: true });
+    cur = null;
+  }
+  document.addEventListener('click', e => {
+    const t = e.target as HTMLElement;
+    const m = t.closest<HTMLElement>('.ll-mark');
+    if (m && m.closest('[data-song-content]')) { m === cur ? close() : open(m); return; }
+    const bar = t.closest<HTMLElement>('[data-ll-head] .wv-b, [data-ll-stick] .wv-b');
+    if (bar) { jump(+bar.dataset.i!); return; }
+    if (pop && !pop.hidden && pop.contains(t)) {
+      const tab = t.closest<HTMLElement>('[data-tab]');
+      if (tab) { curTab = tab.dataset.tab!; render(curLine); place(); pop.querySelector<HTMLElement>(`[data-tab="${curTab}"]`)?.focus(); return; }
+      if (t.closest('[data-p=close]')) { close(); return; }
+      const list = byLine[curLine].filter(h => vtOf(h.s) === curTab);
+      if (t.closest('[data-p=chain]')) { const i = curLine; close(false); chain(i, list); return; }
+      const item = t.closest<HTMLElement>('[data-j]');
+      if (item) { const h = list[+item.dataset.j!]; const i = curLine; close(false); openFull(h.s, i); }
+      return;
+    }
+    if (cur && pop && !pop.contains(t)) close(false);
+  });
+  addEventListener('resize', place);
+
+  // 聲波點一根: 捲到那句, 打開那句的小卡
+  function jump(i: number) {
+    const el = lines[i]; if (!el) return;
+    el.scrollIntoView({ block: 'center' });
+    const m = el.querySelector<HTMLElement>(':scope > .ll-mark');
+    if (m) setTimeout(() => open(m), 60);
+  }
+  // 打開 LIVE 播放器, 從這句開始
+  const openFull = (s: Short, line: number) =>
+    document.dispatchEvent(new CustomEvent('shelf:play', { detail: { videoId: s.videoId, line }, cancelable: true }));
+
+  // ---- 連播這句: 每支只播這一句, 播完接下一支 ----
+  type YTP = { loadVideoById: (o: object) => void; stopVideo: () => void; getIframe: () => HTMLIFrameElement };
+  let Q: Hit[] = [], qi = 0, qLine = 0, player: YTP | null = null;
+  const box = () => document.querySelector<HTMLDialogElement>('[data-ll-box]');
+  const ytReady = () => new Promise<void>((res, rej) => {
+    const w = window as unknown as { YT?: { Player?: unknown } };
+    if (w.YT?.Player) return res();
+    if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+      const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; document.body.append(s);
+    }
+    const t0 = Date.now(), t = setInterval(() => { if (w.YT?.Player) { clearInterval(t); res(); } else if (Date.now() - t0 > 15000) { clearInterval(t); rej(); } }, 100);
+  });
+  async function chain(i: number, list: Hit[]) {
+    const d = box(); if (!d) return;
+    Q = list; qLine = i;
+    d.querySelector('.ttl')!.textContent = `連播第 ${i + 1} 句・${list.length} 支${VT[vtOf(list[0].s)]}短片`;
+    d.querySelector('.qja')!.textContent = txt(lines[i], '.ja');
+    d.querySelector('.qzh')!.textContent = txt(lines[i], '.zh');
+    d.querySelector('.ll-dots')!.innerHTML = list.map(() => '<li></li>').join('');
+    d.querySelector('.ll-now')!.textContent = '載入中…';
+    d.showModal();
+    try { await ytReady(); } catch { d.querySelector('.ll-now')!.textContent = 'YouTube 播放器載入失敗'; return; }
+    if (!player || !document.contains(player.getIframe())) {
+      const YT = (window as unknown as { YT: { Player: new (el: Element, o: object) => YTP } }).YT;
+      player = await new Promise<YTP>(res => {
+        const p: YTP = new YT.Player(d.querySelector('[data-ll-player]')!, {
+          width: '100%', height: '100%', playerVars: { playsinline: 1, rel: 0, modestbranding: 1, controls: 0, origin: location.origin },
+          events: { onReady: () => res(p), onStateChange: (ev: { data: number }) => { if (ev.data === 0 && box()?.open) go(qi + 1); } },
+        });
+      });
+    }
+    go(0);
+  }
+  function go(j: number) {
+    const d = box(); if (!d || !player) return;
+    if (j >= Q.length) { d.querySelector('.ll-now')!.textContent = `${Q.length} 支都聽完了・↺ 再一次 或 ⏮ 回去`; return; }
+    if (j < 0) return;
+    qi = j; const h = Q[j];
+    player.loadVideoById({ videoId: h.s.videoId, startSeconds: Math.max(0, h.t - .15), endSeconds: h.end });
+    d.querySelector('.ll-now')!.innerHTML = `<b>${j + 1}</b> / ${Q.length}　${esc(nameOf(h.s))}<br><span>${views(h.s.viewCount)} 次觀看・${span(h.s)}</span>`;
+    d.querySelectorAll('.ll-dots li').forEach((x, k) => { x.className = k < j ? 'done' : k === j ? 'on' : ''; });
+  }
+  document.addEventListener('click', e => {
+    const d = box(); if (!d?.open) return;
+    const c = (e.target as HTMLElement).closest<HTMLElement>('[data-c]')?.dataset.c;
+    if (e.target === d || c === 'close') d.close();
+    if (c === 'prev') go(qi - 1);
+    if (c === 'next') go(qi + 1);
+    if (c === 'replay') go(qi >= Q.length ? 0 : qi);
+    if (c === 'full') { const h = Q[qi]; d.close(); openFull(h.s, qLine); }
+  });
+  document.addEventListener('close', e => { if ((e.target as HTMLElement).matches?.('[data-ll-box]')) { try { player?.stopVideo(); } catch { /* 播放器還沒好 */ } } }, true);
+
+  // ---- 聲波: 讀到哪 (畫面 45% 高度以上最後一句); ② 捲進歌詞、開頭那條看不到時才出現 ----
+  let raf = 0;
+  function onScroll() {
+    raf = 0;
+    const head = document.querySelector<HTMLElement>('[data-ll-head]'), stick = document.querySelector<HTMLElement>('[data-ll-stick]');
+    if (!head || !stick || !lines.length) return;
+    const y = innerHeight * .45; let now = -1;
+    for (let i = 0; i < lines.length; i++) { if (lines[i].getBoundingClientRect().top < y) now = i; else break; }
+    paintWave(head, now); paintWave(stick, now);
+    const top = document.querySelector('.sh-hd')?.getBoundingClientRect().bottom ?? 56;
+    const sec = (lines[0].closest('.lyrics-section') || lines[0].parentElement!).getBoundingClientRect();
+    const show = head.getBoundingClientRect().bottom < top && sec.top < top + 40 && sec.bottom > top + 120 && !document.documentElement.classList.contains('lyr-focus');
+    stick.hidden = !show;
+    if (show) {
+      const c = document.querySelector('[data-song-content]')!.getBoundingClientRect();
+      stick.style.top = top + 'px'; stick.style.left = c.left + 'px'; stick.style.width = c.width + 'px';
+    }
+  }
+  addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(onScroll); }, { passive: true });
+  addEventListener('resize', () => { if (!raf) raf = requestAnimationFrame(onScroll); });
+
+  document.addEventListener('astro:before-swap', () => { close(false); document.querySelector('[data-ll-pop]')?.remove(); document.querySelector('[data-ll-stick]')?.remove(); });
+  document.addEventListener('astro:page-load', mount);
+</script>
+
+<style is:global>
+  /* 每句右邊距: 5 格音量表 (跟左邊抄歌詞的鉛筆對稱); 滑過那句換成 ♪ + 幾支現場 */
+  .ll-mark { position: absolute; right: -30px; top: 50%; translate: 0 -50%; width: 26px; min-height: 34px; display: grid; place-items: center; padding: 0;
+    color: var(--sh-gold); background: none; border: 0; cursor: pointer; font: 10px/1 var(--sh-px); }
+  .ll-mark .vu { display: flex; flex-direction: column-reverse; gap: 2px; }
+  .ll-mark .vu b { width: 8px; height: 4px; background: #2b2249; }
+  .ll-mark[data-lv="1"] .vu b:nth-child(-n+1), .ll-mark[data-lv="2"] .vu b:nth-child(-n+2), .ll-mark[data-lv="3"] .vu b:nth-child(-n+3),
+  .ll-mark[data-lv="4"] .vu b:nth-child(-n+4), .ll-mark[data-lv="5"] .vu b:nth-child(-n+5) { background: rgb(232 201 74 / .7); }
+  .ll-mark[data-lv="4"] .vu b:nth-child(4), .ll-mark[data-lv="5"] .vu b:nth-child(5) { background: var(--sh-gold); }
+  .ll-mark .num { display: none; text-align: center; }
+  .ll-mark .num svg { display: block; width: 10px; height: 12px; margin: 0 auto 3px; fill: currentColor; shape-rendering: crispEdges; }
+  .lyrics-line:hover > .ll-mark .vu, .ll-mark:focus-visible .vu, .ll-mark[aria-expanded="true"] .vu { display: none; }
+  .lyrics-line:hover > .ll-mark .num, .ll-mark:focus-visible .num, .ll-mark[aria-expanded="true"] .num { display: block; }
+  .ll-mark:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: -2px; }
+  @media (max-width: 640px) { .ll-mark { right: -21px; } }
+  /* 選到 / 標亮的句子往左右撐開 14px, 反方向補回來 */
+  .lyrics-line:is(.cp-picked, .cp-pickable, .is-hit) > .ll-mark { right: -16px; }
+  @media (max-width: 640px) { .lyrics-line:is(.cp-picked, .cp-pickable, .is-hit) > .ll-mark { right: -7px; } }
+  :root[data-paper="on"] .ll-mark { color: #8e2c18; }
+  :root[data-paper="on"] .ll-mark .vu b { background: #e6dcc6; }
+  :root[data-paper="on"] .ll-mark[data-lv="1"] .vu b:nth-child(-n+1), :root[data-paper="on"] .ll-mark[data-lv="2"] .vu b:nth-child(-n+2),
+  :root[data-paper="on"] .ll-mark[data-lv="3"] .vu b:nth-child(-n+3), :root[data-paper="on"] .ll-mark[data-lv="4"] .vu b:nth-child(-n+4),
+  :root[data-paper="on"] .ll-mark[data-lv="5"] .vu b:nth-child(-n+5) { background: #c9a227; }
+
+  /* ① 歌詞開頭的聲波 */
+  .wv-head { margin: 0 0 2rem; padding: 14px 16px 12px; border: 2px solid #1f1838; background: rgb(10 10 21 / .45); }
+  .wv-head figcaption { display: flex; justify-content: space-between; gap: 4px 12px; flex-wrap: wrap; margin-bottom: 10px; font: 12px var(--sh-px); color: var(--sh-ink2); }
+  .wv-head figcaption .hint { color: var(--sh-ink3); font-size: 11px; }
+  .wv-head .wv-b { cursor: pointer; }
+  .wv-head .wv-b:disabled { cursor: default; }
+  .wv-head .wv-b:not(:disabled):hover .l, .wv-head .wv-b:focus-visible .l { background: #fff3c4; }
+  .wv-head .wv-b:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 1px; }
+  .wv-key { display: flex; gap: 6px 14px; flex-wrap: wrap; margin-top: 8px; font: 11px var(--sh-px); color: var(--sh-ink3); }
+  .wv-key i { display: inline-block; width: 8px; height: 6px; margin-right: 5px; }
+  .wv-key .k1 { background: var(--sh-gold); }
+  .wv-key .k2 { background: #3b335f; }
+  .wv-key .me { margin-left: auto; color: var(--sh-ink2); }
+  :root[data-paper="on"] .wv-head { background: #fffaf0; border-color: #eadfc6; }
+  :root[data-paper="on"] .wv-head figcaption { color: #6b5d4d; }
+  /* 紙本: 淡金在米色紙上看不到, 壓深; 讀到的那根用朱色 (跟紙本的詞卡、標亮同一個顏色) */
+  :root[data-paper="on"] .wv-head .l { background: rgb(201 162 39 / .5); }
+  :root[data-paper="on"] .wv-head .r { background: rgb(201 162 39 / .18); }
+  :root[data-paper="on"] .wv-head .o { background: #8f86c4; }
+  :root[data-paper="on"] .wv-head .wv-b.read .l { background: #c9a227; }
+  :root[data-paper="on"] .wv-head .wv-b.now .l { background: #8e2c18; }
+  :root[data-paper="on"] .wv-head .wv-b.now .r { background: rgb(142 44 24 / .3); }
+  :root[data-paper="on"] .wv-head .wv-b.now::after { border-bottom-color: #8e2c18; }
+  :root[data-paper="on"] .wv-head .wv-b.none .l { background: #e6dcc6; }
+  :root[data-paper="on"] .wv-key { color: #8a7a66; }
+  :root[data-paper="on"] .wv-key .k2 { background: #8f86c4; }
+  :root[data-paper="on"] .wv-key .me { color: #6b5d4d; }
+
+  /* ② 捲進歌詞後: 導覽列下面一條細的 */
+  .wv-stick { position: fixed; z-index: 45; padding: 6px 10px; background: #0b0b16; border: 2px solid #1f1838; border-top: 0; box-shadow: 0 4px 0 rgb(0 0 0 / .35); pointer-events: auto; }
+  .wv-stick[hidden] { display: none; }
+  .wv-stick .wv { gap: 2px; }
+  .wv-stick .wv-b { cursor: pointer; }
+
+  /* 小卡 */
+  .ll-pop { position: absolute; z-index: 60; width: min(380px, calc(100vw - 24px)); color: var(--sh-ink); background: #0b0b16; border: 2px solid #3b335f;
+    box-shadow: 6px 6px 0 rgb(0 0 0 / .55); font: 12px/1.6 var(--sh-px); }
+  .ll-pop[hidden] { display: none; }
+  .ll-hd { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 2px solid #1f1838; }
+  .ll-hd b { font-weight: 400; color: var(--sh-gold); }
+  .ll-hd .x { font: 12px var(--sh-px); color: var(--sh-ink3); background: none; border: 2px solid #3b335f; padding: 2px 6px; cursor: pointer; }
+  .ll-hd .x:hover, .ll-hd .x:focus-visible { color: var(--sh-gold); border-color: var(--sh-gold); outline: none; }
+  .ll-q { padding: 10px 14px 4px; }
+  .ll-q [lang="ja"] { font: 16px/1.6 'DotGothic16', var(--sh-pxja); color: var(--sh-ink); }
+  .ll-q .zh { font: 13px/1.6 var(--sh-read); color: var(--sh-ink3); }
+  .ll-tabs { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 14px 0; }
+  .ll-tabs button { font: 12px var(--sh-px); color: var(--sh-ink2); background: none; border: 2px solid #2b2249; padding: 3px 8px; cursor: pointer; }
+  .ll-tabs button i { font-style: normal; color: var(--sh-ink3); margin-left: 2px; }
+  .ll-tabs button[aria-pressed="true"] { color: #0a0a15; background: var(--sh-gold); border-color: var(--sh-gold); }
+  .ll-tabs button[aria-pressed="true"] i { color: #0a0a15; }
+  .ll-tabs button:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 2px; }
+  .ll-chain { display: block; width: calc(100% - 28px); margin: 10px 14px 4px; padding: 8px 10px; font: 12px var(--sh-px); color: #0a0a15; background: var(--sh-gold);
+    border: 0; cursor: pointer; text-align: left; box-shadow: 3px 3px 0 rgb(0 0 0 / .5); }
+  .ll-chain:hover, .ll-chain:focus-visible { background: #fff3c4; outline: none; }
+  .ll-list { list-style: none; margin: 6px 0 0; padding: 0 6px; max-height: 248px; overflow-y: auto; border-top: 1px dashed #2b2249; }
+  .ll-list button { display: grid; grid-template-columns: 36px 1fr; grid-template-rows: auto auto; column-gap: 10px; width: 100%; padding: 6px 8px;
+    text-align: left; background: none; border: 0; color: inherit; font: inherit; cursor: pointer; }
+  .ll-list img { grid-row: 1 / 3; width: 36px; height: 48px; object-fit: cover; border: 1px solid #2b2249; }
+  .ll-list .nm { color: var(--sh-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; align-self: end; }
+  .ll-list .mt { color: var(--sh-ink3); font-size: 11px; }
+  .ll-list button:hover, .ll-list button:focus-visible { background: rgb(232 201 74 / .1); outline: none; }
+  .ll-list button:hover .nm, .ll-list button:focus-visible .nm { color: var(--sh-gold); }
+  .ll-ft { padding: 6px 14px 10px; color: var(--sh-ink3); font-size: 11px; border-top: 1px dashed #2b2249; }
+  @media (max-width: 640px) {   /* 手機: 從底部滑出的抽屜 */
+    .ll-pop { position: fixed; left: 0 !important; right: 0; top: auto !important; bottom: 0; width: auto; max-height: 75dvh; overflow-y: auto;
+      border-width: 2px 0 0; box-shadow: 0 -6px 0 rgb(0 0 0 / .4); }
+  }
+
+  /* 連播 */
+  .ll-box { margin: auto; width: min(640px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); overflow-y: auto; padding: 0; color: var(--sh-ink);
+    background: #0b0b16; border: 2px solid #3b335f; box-shadow: 6px 6px 0 rgb(0 0 0 / .5); font: 12px/1.6 var(--sh-px); }
+  .ll-box::backdrop { background: rgb(7 6 15 / .82); }
+  .ll-stage { display: grid; grid-template-columns: 270px 1fr; gap: 16px; padding: 14px; }
+  .ll-vid { width: 270px; aspect-ratio: 9 / 16; background: #000; border: 2px solid #1f1838; }
+  .ll-vid iframe { width: 100%; height: 100%; display: block; }
+  .ll-side { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .ll-side .ll-q { padding: 0; }
+  .ll-side .ll-q [lang="ja"] { font-size: 20px; }
+  .ll-now { color: var(--sh-ink2); min-height: 3.2em; }
+  .ll-now b { color: var(--sh-gold); font-weight: 400; }
+  .ll-now span { color: var(--sh-ink3); }
+  .ll-dots { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .ll-dots li { width: 8px; height: 8px; background: #2b2249; }
+  .ll-dots li.done { background: rgb(232 201 74 / .45); }
+  .ll-dots li.on { background: var(--sh-gold); }
+  .ll-ctl { display: flex; gap: 6px; }
+  .ll-ctl button, .ll-full { font: 12px var(--sh-px); color: var(--sh-ink); background: rgb(10 10 21 / .6); border: 2px solid var(--sh-line); padding: 6px 10px; cursor: pointer; min-height: 32px; }
+  .ll-full { margin-top: auto; text-align: left; color: var(--sh-ink2); }
+  .ll-ctl button:hover, .ll-ctl button:focus-visible, .ll-full:hover, .ll-full:focus-visible { border-color: var(--sh-gold); outline: none; }
+  @media (max-width: 640px) {
+    .ll-stage { grid-template-columns: 1fr; gap: 10px; padding: 10px 14px 14px; }
+    .ll-vid { width: min(170px, 44vw); margin: 0 auto; }
+    .ll-side { gap: 8px; }
+    .ll-side .ll-q [lang="ja"] { font-size: 16px; }
+  }
+</style>
