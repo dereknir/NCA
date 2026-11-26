@@ -19,15 +19,17 @@ const STATIC_PAGES = ['/lyric-universe/', '/kwic/', '/star-map/', '/live/timelin
 // (標籤不吃那條規則; 中間的連結、斜體照樣是 markdown)。md 照常用 ** 寫, 原檔不動。
 // 行內程式碼 `…` 裡的星號、跳脫的 \*\* 不算; 單數多出來的最後一個保持原樣。
 // 注意: 只改這幾個函式的內容, Astro 不會重新渲染沒改過的 md (快取在 node_modules/.astro), 本機要先刪掉那個資料夾再 build
+/** @param {string} src */
 function strongTags(src) {
   let open = false;
   const parts = src.split(/(`+[^`]*`+)/);   // 奇數位置是行內程式碼, 不碰
-  const fixed = parts.map((p, i) => i % 2 ? p : p.replace(/(?<!\\)\*\*(?!\*)/g, () => (open = !open) ? '<strong>' : '</strong>'));
+  const fixed = parts.map((/** @type {string} */ p, /** @type {number} */ i) => i % 2 ? p : p.replace(/(?<!\\)\*\*(?!\*)/g, () => (open = !open) ? '<strong>' : '</strong>'));
   if (!open) return fixed.join('');
   // 單數: 最後一個換錯了, 還原成 **
   const out = fixed.join(''), k = out.lastIndexOf('<strong>');
   return out.slice(0, k) + '**' + out.slice(k + 8);
 }
+/** @param {any} node satteri mdast 節點 @param {any} ctx satteri 外掛 context */
 function fixBold(node, ctx) {
   const p = node.position;
   if (!p) return;
@@ -38,6 +40,7 @@ function fixBold(node, ctx) {
 }
 // 表格的格子不是段落, 不能整格重新解析: 格子裡同一段文字還留著的 **…** 直接補成粗體
 const BOLD = /\*\*(?=\S)([^*]*?\S)\*\*/g;
+/** @param {any} node @param {any} ctx */
 function fixCellText(node, ctx) {
   if (!node.value.includes('**') || ctx.parent(node)?.type !== 'tableCell') return;
   const out = [];

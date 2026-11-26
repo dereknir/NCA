@@ -67,7 +67,7 @@ function formatViews(n: number): string {
         {/* 分類: 單選開關 (aria-pressed), 一次顯示一類 */}
         <div class="ex-tabs" id="extraTabs" role="group" aria-label="花絮分類">
           {orderedCategories.map((cat, i) => (
-            <button type="button" class="tab-btn" aria-pressed={String(i === activeIdx)} data-tab={cat.key}>
+            <button type="button" class="tab-btn" aria-pressed={i === activeIdx ? 'true' : 'false'} data-tab={cat.key}>
               {cat.emoji} {cat.displayName}<small>{cat.count}</small>
             </button>
           ))}
