@@ -9,7 +9,7 @@ type Line = { id: number; song: string; title: string; ja: string; zh?: string }
 type Vocab = { lemma: string; lines: number; forms: Record<string, number>; head?: string; read?: string; pos?: string };
 
 const lines = kwic.lines as Line[];
-const postings = kwic.postings as Record<string, [number, number, number][]>;
+const postings = kwic.postings as unknown as Record<string, [number, number, number][]>;   // JSON 推出來是 number[][], 實際每筆固定 3 個數字
 const vocab = new Map((kwic.vocab as Vocab[]).map(v => [v.lemma, v]));
 
 // 每一行有哪些詞 (位置), 只算一次
