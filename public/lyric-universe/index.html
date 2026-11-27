@@ -298,6 +298,21 @@ document.getElementById('fp-cards').innerHTML = DATA.fingerprints.map(f => `
       + d.refs.map(refHtml).join('');
     pinned = el;
     rove(el);
+    showSide();
+  }
+  // 窄版 (≤760px) 側欄排在圖下面, 點圖下半部的詞時句子常常整個在畫面外。
+  // 側欄沒整個露出來就直接捲到剛好看得到 (瞬間, 不做動畫), 上緣不鑽進頂端的 sticky 標頭
+  const narrow = matchMedia('(max-width:760px)');
+  function showSide() {
+    if (!narrow.matches) return;
+    side.scrollTop = 0;
+    const hd = document.querySelector('[data-sh-header]');
+    const top = (hd ? Math.max(0, hd.getBoundingClientRect().bottom) : 0) + 8;
+    const b = side.getBoundingClientRect();
+    let dy = 0;
+    if (b.bottom > innerHeight - 8) dy = b.bottom - (innerHeight - 8);
+    if (b.top - dy < top) dy = b.top - top;   // 比畫面還高: 對齊上緣
+    if (dy) scrollBy({ top: dy, behavior: 'instant' });
   }
   function unpin() {
     if (!pinned) return;
