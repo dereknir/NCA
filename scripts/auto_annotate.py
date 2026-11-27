@@ -631,7 +631,7 @@ def backfill_all(out_path):
     return hit
 
 # ---------- 單支處理 ----------
-ALGO = 3              # 演算法版本; --redo 會重跑舊版本的結果 (v3: 頭尾延伸 + whisper 時間優先, 每支 anchors 都可能變)
+ALGO = 4              # 演算法版本; --redo 會重跑舊版本的結果 (v3: 頭尾延伸 + whisper 時間優先; v4: 開頭漏句兩種補法 + 非單曲偵測)
 
 def model_label(model_name):
     return QWEN_ASR if ENGINE == 'qwen' else f'{QWEN_ASR}+whisper-{model_name}' if ENGINE == 'hybrid' else model_name
