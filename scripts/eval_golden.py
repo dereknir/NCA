@@ -129,6 +129,7 @@ def summarize(rows):
 
 def evaluate(songs, cache_f, split, verbose, only=None):
     gold = golden(songs)
+    H = json.loads(aa.ANCHORS_F.read_text(encoding='utf-8'))
     cache = json.loads(cache_f.read_text(encoding='utf-8'))
     seen = seen_ids()
     if split == 'fresh':
@@ -142,6 +143,8 @@ def evaluate(songs, cache_f, split, verbose, only=None):
         c = cache.get(v)
         if not c or 'error' in c or not in_split(v, split, seen) or (only and v not in only):
             continue
+        # 同歌先驗只拿同一個 split、而且不含這支自己的人工答案 (留一法)
+        songs[h['songId']]['prior'] = aa.line_prior(H, h['songId'], lambda u: u != v and in_split(u, split, seen))
         out = run_pipeline(c, h['songId'], songs)
         anc = out['anchors']
         r = score_clip(anc, h['anchors'])

@@ -294,6 +294,23 @@ def _extend_edges(lines, hira, chain, est=None):
 TIE_WIN_MARGIN = 3    # 副歌延伸句數也平手時: 整段轉寫 vs 歌詞窗的相似度要贏「取後面那次」這麼多分才改選 (0 = 不用)
 
 
+def line_prior(anchors_h, sid, keep=lambda v: True):
+    """同一首歌其他「從零手標」的 done 片段, 每一句被標到的比例 (看模型改的會偏向模型原本選的那次, 不算)"""
+    cnt, n = {}, 0
+    for v, a in anchors_h.items():
+        if a.get('songId') != sid or a.get('status') != 'done' or a.get('autoGrade') or not a.get('anchors') or not keep(v):
+            continue
+        n += 1
+        for l in {x['line'] for x in a['anchors']}:
+            cnt[l] = cnt.get(l, 0) + 1
+    return {l: k / n for l, k in cnt.items()}
+
+
+def attach_line_prior(songs, anchors_h):
+    for sid, song in songs.items():
+        song['prior'] = line_prior(anchors_h, sid)
+
+
 def _window_ratio(lines, hira, chain):
     """把整段轉寫放到這條鏈在歌詞裡的位置 (對到的句子起點取中位), 跟重疊那段歌詞算 fuzz.ratio"""
     real = [c for c in chain if c[2] != EST_SCORE]
@@ -344,6 +361,12 @@ def align(song, tr, tiebreak=True, prefer=None):
             top_w = max(tied, key=lambda r: w[id(r)])
             if w[id(top_w)] - w[id(best)] >= TIE_WIN_MARGIN:
                 best, flipped = top_w, True
+            elif song.get('prior') and len(set(w.values())) == 1:
+                # 歌詞窗也分不出來 (片段只唱到重複的部分): 看同一首歌其他手標片段多半剪哪一次
+                pr = {id(r): sum(song['prior'].get(c[0], 0) for c in _extend_edges(lines, hira, r[1])) for r in tied}
+                top_p = max(tied, key=lambda r: (pr[id(r)], max(c[0] for c in r[1])))
+                if pr[id(top_p)] > pr[id(best)]:
+                    best, flipped = top_p, True
         elif len(tied) > 1 and prefer:
             # hybrid 的 whisper 那份: Qwen 被歌詞窗改選到前面那次時, whisper 平手也跟著選同一段
             # (不然 whisper 照舊取後面那次, 跟 Qwen 句子對不上, 整段都換不到 whisper 時間)
@@ -368,7 +391,7 @@ def align(song, tr, tiebreak=True, prefer=None):
         qreal = {a['line'] for a in anchors if not a.get('est')}
         aw, _ = align(song, tr['alt'], tiebreak=False, prefer=qreal if flipped else None)
         tw = {a['line']: a['t'] for a in aw if not a.get('est')}
-        we = _whisper_est(anchors, aw, tw) if WHISPER_EST else {}
+        we = _whisper_est(anchors, aw, tw, need=1 if flipped else 2) if WHISPER_EST else {}
         if HYBRID_RETIME:
             anchors = _retime(anchors, {**tw, **we}, low=set(we))
             tw = {}
@@ -391,12 +414,13 @@ def align(song, tr, tiebreak=True, prefer=None):
     return anchors, ambiguous
 
 
-def _whisper_est(anchors, aw, tw):
+def _whisper_est(anchors, aw, tw, need=2):
     """hybrid 估計句的時間: Qwen 這句是估的 (沒對到字), whisper 自己的對齊裡同一句也是估的 → 用 whisper 估的時間。
     whisper 轉寫通常比 Qwen 多轉到幾個字 (Qwen 整句吃掉時 whisper 常有半句), 估出來的位置比較近;
-    dev 從零手標: 估計句 >3s 11 → 8 句, 完美 63 → 70 支。只在 whisper 跟 Qwen 至少兩句都真的對到字 (同一段) 時用。"""
+    dev 從零手標: 估計句 >3s 11 → 8 句, 完美 63 → 70 支。只在 whisper 跟 Qwen 至少兩句都真的對到字 (同一段) 時用;
+    Qwen 是被平手判斷改選的 (whisper 已跟著選同一段) 時 1 句就夠 (need=1), 例: 0-7q5wAxk_Y 第 33 句 +3.8s → 0。"""
     real_q = {a['line'] for a in anchors if not a.get('est')}
-    if len(real_q & tw.keys()) < 2:
+    if len(real_q & tw.keys()) < need:
         return {}
     est_q = {a['line'] for a in anchors if a.get('est')}
     # 不限制跟 Qwen 估的差多少: 要修的就是 Qwen 估到下一句位置 (差 3 秒以上) 的那種; 試過加 HYBRID_WIN 上限, dev 完美 70→66
@@ -928,6 +952,7 @@ def main():
     queue = json.loads(QUEUE_F.read_text(encoding='utf-8'))['queue']
     items = {it['videoId']: dict(it, group=k) for k, g in queue.items() for it in g}
     anchors_h = json.loads(ANCHORS_F.read_text(encoding='utf-8'))
+    attach_line_prior(songs, anchors_h)
     if args.validate:
         return validate(args, songs, items, anchors_h, audio_dir)
     out = json.loads(out_path.read_text(encoding='utf-8')) if out_path.exists() else {'meta': {}, 'items': {}}
