@@ -417,6 +417,11 @@
     }
   }
 
+  // 加到主畫面 + 斷線時看過的頁還打得開 (規則見 /sw.js); 本機 astro dev 不註冊, 免得改了程式還吃到舊快取
+  if ('serviceWorker' in navigator && !/^(localhost|127\.0\.0\.1)$/.test(location.hostname) || window.__swTest) {
+    addEventListener('load', () => navigator.serviceWorker?.register('/sw.js').catch(() => {}));
+  }
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
   document.addEventListener('astro:page-load', init);
