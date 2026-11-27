@@ -166,7 +166,7 @@
         <button class="ly on" id="lyOne" aria-pressed="true"><i style="background:var(--gold)"></i>公演</button>
         <button class="ly on" id="lyApp" aria-pressed="true"><i style="background:var(--accent)"></i>出演</button>
         <span id="cap"></span></div>
-      <div id="map"></div>
+      <div id="map" role="group" aria-label="日本地圖, 方向鍵換縣、Enter 打開"></div>
     </div>
     <div id="side"><div class="ph">← 點一個縣</div></div>
   </div>
@@ -643,7 +643,9 @@ cardModal.onclick = e => {
   if (e.target === cardModal) closeCard();
 };
 // 開著的時候: Esc 關掉, Tab 只在兩顆按鈕之間繞 (不跑到後面被蓋住的頁面)
-cardModal.addEventListener('keydown', e => {
+// 掛在 document: 滑鼠點過卡片 / 空白處焦點會掉到 body, 掛在 modal 上就收不到了
+document.addEventListener('keydown', e => {
+  if (!cardModal.classList.contains('open')) return;
   if (e.key === 'Escape') return closeCard();
   if (e.key !== 'Tab') return;
   const bs = [...cardModal.querySelectorAll('button')];

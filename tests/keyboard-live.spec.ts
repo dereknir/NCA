@@ -116,6 +116,17 @@ test('年表: 今日のにしな 用鍵盤按圓點焦點不掉、焦點在裡�
   expect(errors).toEqual([]);
 });
 
+test('年表: 今日のにしな 用滑鼠 / 手指點過圓點, 自動輪播照樣繼續 (只有鍵盤停在裡面才暫停)', async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-08-28T12:00:00+09:00') });
+  const errors = await open(page, '/live/timeline/');
+  await expect.poll(() => page.locator('#today .dot').count()).toBeGreaterThan(1);
+  await page.locator('#today .dot[data-i="1"]').click();
+  await expect(page.locator('#today .dot.on')).toHaveAttribute('data-i', '1');
+  await page.clock.runFor(8_000);
+  await expect(page.locator('#today .dot.on')).not.toHaveAttribute('data-i', '1');
+  expect(errors).toEqual([]);
+});
+
 test('公演史: 「N 站 ▾」Tab 得到、Enter / Space 展開; SETLIST 選單 Space 開、Esc 關焦點回來、Tab 出去會收', async ({ page }) => {
   const errors = await open(page, '/live/concerts/');
   const card = page.locator('.card', { has: page.locator('[data-tg]') }).first();
@@ -151,6 +162,8 @@ test('公演史: 「N 站 ▾」Tab 得到、Enter / Space 展開; SETLIST 選�
   await page.keyboard.press(' ');
   await expect(menu).toBeVisible();
   await expect(sl).toHaveAttribute('aria-expanded', 'true');
+  // 裡面是一般連結不是 menu: 用 disclosure 的 aria-expanded 就好, 不宣告 haspopup
+  await expect(sl).not.toHaveAttribute('aria-haspopup', /.*/);
   await page.keyboard.press('Tab');
   expect(await page.evaluate(() => !!document.activeElement!.closest('.slmenu'))).toBe(true);
   await page.keyboard.press('Escape');
@@ -181,8 +194,10 @@ test('足跡: 地圖 Tab 得到、方向鍵換縣有焦點框、Enter 打開、�
   const errors = await open(page, '/live/footprint/');
   const tiles = page.locator('#map .tile.hit');
   await expect.poll(() => tiles.count()).toBeGreaterThan(5);
-  // 整張圖只有一個 Tab 停點
+  // 整張圖只有一個 Tab 停點; 外層有名稱告訴讀螢幕怎麼用
   await expect(page.locator('#map [tabindex="0"]')).toHaveCount(1);
+  await expect(page.locator('#map')).toHaveAttribute('role', 'group');
+  await expect(page.locator('#map')).toHaveAttribute('aria-label', /方向鍵/);
   await tabFrom(page, '#lyApp');
   const first = await active(page);
   expect(first.tag).toBe('path');
@@ -285,5 +300,27 @@ test('足跡: 圖層 / 旅程鈕焦點框看得到; 參戰卡 Enter 打開焦點
   await page.keyboard.press('Escape');
   await expect(page.locator('#cardModal')).toBeHidden();
   await expect(page.locator('#mkcard')).toBeFocused();
+  expect(errors).toEqual([]);
+});
+
+test('足跡: 參戰卡開著時滑鼠點過卡片, Esc 照樣關得掉、Shift+Tab 不跑到後面的頁面', async ({ page }) => {
+  const errors = await open(page, '/live/footprint/');
+  const modal = page.locator('#cardModal');
+  await page.locator('#mkcard').focus();
+  await page.keyboard.press('Enter');
+  await expect(modal).toBeVisible();
+  // 點 canvas: 焦點掉到 body
+  await page.locator('#passCv').click();
+  await page.keyboard.press('Escape');
+  await expect(modal).toBeHidden();
+  await expect(page.locator('#mkcard')).toBeFocused();
+
+  await page.keyboard.press('Enter');
+  await expect(modal).toBeVisible();
+  await page.locator('#passCv').click();
+  await page.keyboard.press('Shift+Tab');
+  expect((await active(page)).inModal).toBe(true);
+  await page.keyboard.press('Tab');
+  expect((await active(page)).inModal).toBe(true);
   expect(errors).toEqual([]);
 });

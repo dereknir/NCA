@@ -333,9 +333,9 @@ renderNext();
       if (back) el.querySelector(back)?.focus();
     };
     paint();
-    // 自動輪播: 焦點在卡片裡 (正在用鍵盤看) 的時候先停
+    // 自動輪播: 用鍵盤停在卡片裡的時候先停 (滑鼠 / 手指點過圓點按鈕也會拿到焦點, 那種照輪)
     if (pool.length > 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches)
-      setInterval(() => { if (el.contains(document.activeElement)) return; idx = (idx + 1) % pool.length; paint(); }, 7000);
+      setInterval(() => { if (el.querySelector(':focus-visible')) return; idx = (idx + 1) % pool.length; paint(); }, 7000);
   } else {
     const fut = [...DATA].filter(i => i._k > TODAY && i.class === 'LIVE')
       .sort((a, b) => a._k.localeCompare(b._k))[0];
