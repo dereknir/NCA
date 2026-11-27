@@ -39,3 +39,14 @@ test('#6 手機: 日文詞小卡、這句的現場小卡蓋在左下角 N247i �
   await expect(page.locator('[data-ll-pop]')).toBeVisible();
   expect(await hitInside(page, cx, cy, '[data-ll-pop]')).toBe(true);
 });
+
+test('#7 /gacha 沒有斜線也能載入: 腳本、卡池都用絕對路徑', async ({ page }) => {
+  const bad: string[] = [];
+  page.on('response', (r) => { if (r.url().startsWith('http://127.0.0.1') && r.status() >= 400) bad.push(`${r.status()} ${r.url()}`); });
+  page.on('pageerror', (e) => bad.push(`pageerror: ${e.message}`));
+  const pool = page.waitForResponse((r) => r.url().endsWith('/gacha/pool.json'));
+  await page.goto('/gacha');
+  expect((await pool).ok()).toBe(true);
+  await page.waitForTimeout(500);
+  expect(bad).toEqual([]);
+});
