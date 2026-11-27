@@ -290,6 +290,22 @@ def _extend_edges(lines, hira, chain, est=None):
     return head[::-1] + core + tail
 
 
+TIE_WIN_MARGIN = 3    # 副歌延伸句數也平手時: 整段轉寫 vs 歌詞窗的相似度要贏「取後面那次」這麼多分才改選 (0 = 不用)
+
+
+def _window_ratio(lines, hira, chain):
+    """把整段轉寫放到這條鏈在歌詞裡的位置 (對到的句子起點取中位), 跟重疊那段歌詞算 fuzz.ratio"""
+    real = [c for c in chain if c[2] != EST_SCORE]
+    off, s = {}, ''
+    for idx, _ja, lh in lines:
+        off[idx] = len(s)
+        s += lh
+    ws = sorted(off[i] - p for i, p, _s in real)[len(real) // 2]
+    # 歌詞窗超出歌頭 / 歌尾的部分兩邊都不算 (否則最後一段副歌會因為歌詞「不夠長」吃虧)
+    a, b = max(0, ws), min(len(s), ws + len(hira))
+    return fuzz.ratio(hira[a - ws:b - ws], s[a:b])
+
+
 def align(song, tr):
     hira, ct = tr['hira'], tr['char_time']
     lines = song['lines']
@@ -313,8 +329,18 @@ def align(song, tr):
         # 副歌重複: 先比「往頭尾延伸後涵蓋幾句」— 片段裡副歌前後還有別段時, 只有其中一次重複接得上
         # 一樣多才取「後面那次」(shorts 多剪自最後一段副歌)
         # 只算真的對到字的延伸句 (est=0): 盲猜的句子只代表「歌詞前後還有句子」, 會讓最後一段副歌永遠吃虧
-        best = max([best] + rivals, key=lambda r: (len(_extend_edges(lines, hira, r[1], est=0)) if EXT_CUTOFF else 0,
-                                                   max(c[0] for c in r[1])))
+        key = lambda r: len(_extend_edges(lines, hira, r[1], est=0)) if EXT_CUTOFF else 0
+        top = max(key(r) for r in [best] + rivals)
+        tied = [r for r in [best] + rivals if key(r) == top]
+        best = max(tied, key=lambda r: max(c[0] for c in r[1]))
+        if len(tied) > 1 and TIE_WIN_MARGIN:
+            # 還是平手: 整段轉寫跟「這次副歌所在位置的整段歌詞」比 (不設單句門檻)。
+            # 平手的幾次副歌在片段裡對到的字、時間完全一樣, 能分的只剩副歌前後那些沒過單句門檻的字
+            # (例: 第一次副歌後接 It's OK, 第二次接 そして); 明顯比較像才推翻「取後面那次」
+            w = {id(r): _window_ratio(lines, hira, r[1]) for r in tied}
+            top_w = max(tied, key=lambda r: w[id(r)])
+            if w[id(top_w)] - w[id(best)] >= TIE_WIN_MARGIN:
+                best = top_w
     chain = _extend_edges(lines, hira, best[1]) if EXT_CUTOFF else best[1]
     anchors = []
     for idx, start, score in chain:
