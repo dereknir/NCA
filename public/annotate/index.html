@@ -85,6 +85,9 @@
   #catQuick .label{font-size:12px;color:var(--dim);margin-right:4px}
   #catQuick .c-chip{background:var(--panel);border:1px solid var(--line);color:var(--dim);border-radius:99px;padding:3px 9px;font-size:11px;cursor:pointer;font-family:inherit}
   #catQuick .c-chip.active{background:rgba(57,192,127,.18);color:var(--ok);border-color:var(--ok)}
+  #blindProg{color:var(--text);border:1px solid var(--line);border-radius:99px;padding:3px 10px;min-height:24px;display:inline-flex;align-items:center;font-variant-numeric:tabular-nums}
+  #blindProg[hidden]{display:none}
+  #blindProg.reached{color:var(--ok);border-color:var(--ok)}
   #conflictBtn.on{background:rgba(226,176,58,.22);color:#fff;border-color:var(--warn)}
   .anchor-row .est{color:var(--warn);font-size:11px;margin-left:4px;cursor:help}
   .anchor-row .peer{color:#7fd1a8;font-size:11px;margin-left:4px;cursor:help}
@@ -238,6 +241,7 @@
   <button class="ghost" id="reviewBtn" title="只顯示機器標好、等你審核的 shorts">🤖 待審 <span id="reviewCount">0</span></button>
   <button class="ghost" id="conflictBtn" title="機器認出的歌跟佇列的 hashtag/歌詞配對不同 — 先確認歌對不對">⚠ 先確認歌 <span id="conflictCount">0</span></button>
   <button class="ghost" id="blindBtn" aria-pressed="false" title="盲標: 一半的待審片段 (依影片 ID 固定挑, 不是我挑) 先藏起機器答案, 從零標 — 這些之後可以當「從零手標」的驗收資料">🙈 盲標</button>
+  <span class="stats blind-prog" id="blindProg" aria-live="polite" hidden></span>
   <button class="ghost" id="runnerBtn" title="在這台電腦跑模型: 還沒跑過的 shorts 跑完直接進 🤖 待審 (需要本機助手, 見 scripts/runner/README.md)">🧠 跑模型 <span id="runnerCount"></span></button>
   <span class="stats runner-msg" id="runnerMsg" aria-live="polite"></span>
   <span class="scrape" id="scrapeBox" hidden><span class="stats" id="scrapeMsg"></span><button class="ghost" id="scrapeBtn" hidden>📥 立刻抓</button></span>
@@ -712,6 +716,7 @@ function updateProgress(){
   const rc = document.getElementById('reviewCount'); if(rc) rc.textContent = auto;
   const cc = document.getElementById('conflictCount');
   if(cc) cc.textContent = all.filter(x => S.ann[x.videoId]?.status==='auto' && isSongConflict(x.videoId)).length;
+  renderBlindProg();
 }
 
 /* ---------- 載入一支 short ---------- */
@@ -767,7 +772,40 @@ function releaseUntouchedBlind(except){
 function renderBlindBtn(){
   const b = document.getElementById('blindBtn'); if(!b) return;
   b.classList.toggle('on', S.blind); b.setAttribute('aria-pressed', String(S.blind));
+  renderBlindProg();
 }
+/* 盲標進度: 兩個對齊改進要等「eval 快照之後從零手標」≥ 20 支 (eval_golden.py --split fresh 的從零手標) 才能驗收。
+   條件跟 eval_golden 一樣: done、沒有 autoGrade (盲標會刪掉它; 看模型改的才有)、真歌、≥3 anchors、不在快照裡。
+   快照 = scripts/eval_seen.txt, build 時轉成 eval_seen.json (頁面讀不到 scripts/); 沒抓到就顯示 ?, 不亂猜。
+   不只算 blind:true 的 — 機器沒跑過、我直接從零標完的新片段 eval 也算從零手標。 */
+const BLIND_GOAL = 20;
+S.evalSeen = null;
+function freshScratchCount(){
+  if(!S.evalSeen) return null;
+  let n = 0;
+  for(const [vid, a] of Object.entries(S.ann)){
+    const song = S.songs[a?.songId];
+    if(a?.status !== 'done' || a.autoGrade || S.evalSeen.has(vid)) continue;
+    if(!song || song.instrumental || !(song.lyric_lines || []).length || (a.anchors || []).length < 3) continue;
+    n++;
+  }
+  return n;
+}
+function renderBlindProg(){
+  const el = document.getElementById('blindProg'); if(!el) return;
+  el.hidden = !S.blind;
+  if(!S.blind) return;
+  const n = freshScratchCount();
+  el.textContent = `盲標從零手標 ${n ?? '?'} / ${BLIND_GOAL}`;
+  el.classList.toggle('reached', n !== null && n >= BLIND_GOAL);
+  el.title = n === null ? 'eval 快照清單沒載到, 算不出來'
+    : `eval 快照 (${S.evalSeenLabel || 'eval_seen.txt'}) 之後標完、沒看機器答案的真歌片段 (≥3 anchors) — 到 ${BLIND_GOAL} 支就能驗收對齊改進`;
+}
+fetch('eval_seen.json', { cache:'no-store' }).then(r => r.ok ? r.json() : null).then(j => {
+  if(!j || !Array.isArray(j.ids)) return;
+  S.evalSeen = new Set(j.ids); S.evalSeenLabel = j.label || '';
+  renderBlindProg();
+}).catch(() => {});
 function loadShort(item){
   releaseUntouchedBlind(item.videoId);
   S.cur = item;
