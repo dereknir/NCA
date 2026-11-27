@@ -91,6 +91,9 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <!-- 加到主畫面 (PWA): service worker 由 site-shell.js 註冊, 靜態頁也吃得到 -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 
   <!-- Pixel 主視覺字型 (全站統一: PX12=UI/標題, PX10=內文; 首屏防閃字)
        只先抓中文兩份: 日文那兩份各 100KB 上下, 大部分頁面第一眼用不到, 用到再抓 -->
