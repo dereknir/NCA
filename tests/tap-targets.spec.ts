@@ -21,7 +21,9 @@ test('/galaxy/ 彗星卡 ✕ 與回首頁連結夠大, ✕ 有名稱、按了會
     const r = document.createRange(); r.selectNodeContents(el);
     return Math.max(...[...r.getClientRects()].map((q) => q.right));
   });
-  expect(textRight).toBeLessThanOrEqual(xb.x + 1);
+  // 桌機卡片依內容變寬, ✕ 會跟著移 → 換完標題再量一次
+  const xb2 = (await x.boundingBox())!;
+  expect(textRight).toBeLessThanOrEqual(xb2.x + 1);
   await x.click();
   await expect(card).not.toHaveClass(/show/);
 
