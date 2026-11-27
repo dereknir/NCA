@@ -31,3 +31,25 @@ test('/galaxy/ 彗星卡 ✕ 與回首頁連結夠大, ✕ 有名稱、按了會
   const bb = (await back.boundingBox())!;
   expect(bb.height).toBeGreaterThanOrEqual(24);
 });
+
+// 日記 / 作品集內頁上方的「← 返回」只有 16 高, 而且是單獨一個連結 (不在句子裡), 不適用行內例外
+for (const path of ['/diary/2026-03-23-first-diary/', '/projects/how-nca-works/']) {
+  test(`${path} 「← 返回」連結夠大, 位置不變`, async ({ page }) => {
+    await page.goto(path);
+    const back = page.locator('a.sh-back').first();
+    const bb = (await back.boundingBox())!;
+    expect(bb.height).toBeGreaterThanOrEqual(24);
+    // 加大點擊區不能把下面的內容往下推: 文字本身的位置跟只用行內排版時一樣
+    const shift = await back.evaluate((el) => {
+      const before = (el.nextElementSibling ?? el.parentElement!.nextElementSibling)?.getBoundingClientRect().top ?? 0;
+      const s = (el as HTMLElement).style;
+      s.display = 'inline'; s.padding = '0'; s.margin = '0';
+      const after = (el.nextElementSibling ?? el.parentElement!.nextElementSibling)?.getBoundingClientRect().top ?? 0;
+      s.display = s.padding = s.margin = '';
+      return Math.abs(before - after);
+    });
+    expect(shift).toBeLessThanOrEqual(1);
+    await back.click();
+    await expect(page).toHaveURL(/\/(diary|projects)\/?$/);
+  });
+}
