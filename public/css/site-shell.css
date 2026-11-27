@@ -248,6 +248,8 @@ a.sh-card:hover, a.sh-card:focus-visible { border-color: var(--sh-gold); transla
 .sh-link { color: rgb(var(--sh-accent)); text-decoration: underline dotted; text-underline-offset: 3px; }
 .sh-link:hover, .sh-link:focus-visible { color: var(--sh-gold); text-decoration-style: solid; }
 .sh-back { font: 12px var(--sh-px); letter-spacing: .06em; color: var(--sh-ink2); text-decoration: underline dotted; text-underline-offset: 4px; }
+/* 手機點擊區到 24px 以上 (原本 16 高); 上下 padding 用負 margin 抵掉, 排版位置不變 */
+.sh-back { display: inline-block; padding-block: 6px; margin-block: -6px; }
 .sh-back:hover, .sh-back:focus-visible { color: var(--sh-gold); text-decoration-style: solid; }
 .sh-label { font: 12px var(--sh-px); letter-spacing: .08em; color: var(--sh-ink3); margin: 0 0 8px; font-weight: 400; }
 
