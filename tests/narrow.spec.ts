@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 // 之前頁尾右下的圖示列太寬, 每頁都會多出十幾 px 可以橫滑。
 // 跟 smoke.spec.ts 一樣把外站擋掉, 不吃網路。
 
-const PAGES = ['/', '/translations/', '/translations/nishina-1999/', '/live/', '/live/full/', '/setlists/', '/about/'];
+const PAGES = ['/', '/translations/', '/translations/nishina-1999/', '/translations/nishina-panda-girl/', '/translations/nishina-eden/', '/lyric-universe/', '/live/', '/live/full/', '/setlists/', '/about/'];
 
 test.use({ viewport: { width: 320, height: 640 }, isMobile: true, hasTouch: true });
 
