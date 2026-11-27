@@ -54,12 +54,18 @@ const palette = PLANETS.mars.palette;
 ---
 
 <figure class="lr" data-radar>
+  <!-- mock B: 手機上先收起來, 點了才展開 (桌機看不到這顆按鈕) -->
+  <button type="button" class="lr-toggle" aria-expanded="false" aria-controls="lr-panel">
+    <span class="lr-ico" aria-hidden="true">◎</span> 演出雷達 <i>{blips.length} 場</i><span class="lr-caret" aria-hidden="true">▸</span>
+  </button>
+  <div class="lr-panel" id="lr-panel">
   <div class="lr-box" tabindex="0" role="group"
     aria-label={`演出雷達: ${blips.length} 個場次, 中心是今天, 越外圈越久以前, 方位是場地從岐阜看過去的方向。用左右方向鍵一場一場看, Enter 前往`}>
     <canvas width="120" height="120" aria-hidden="true"></canvas>
     <div class="lr-tip" role="status" hidden></div>
   </div>
   <figcaption>中心＝今天・圈＝7天／1個月／1年<br>方位＝從岐阜看過去・北在上</figcaption>
+  </div>
   <!-- JSON 裡的「<」先換成 unicode 跳脫: 資料裡就算混了結束標籤也跳不出這個 script, JSON.parse 讀回來是一樣的字 -->
   <script type="application/json" data-radar-data set:html={JSON.stringify({ blips, palette }).replace(/</g, '\\u003c')} />
 </figure>
@@ -68,6 +74,7 @@ const palette = PLANETS.mars.palette;
   .lr { position: absolute; right: max(24px, calc((100vw - 1072px) / 2 + 24px)); top: 50%; translate: 0 -50%;
     margin: 0; width: 240px; z-index: 1; }
   .lr-box { position: relative; width: 240px; height: 240px; }
+  .lr-toggle { display: none; }
   .lr-box:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 4px; }
   .lr canvas { width: 100%; height: 100%; image-rendering: pixelated; display: block; cursor: crosshair;
     filter: drop-shadow(0 0 32px rgb(var(--sh-accent) / .25)); }
@@ -85,6 +92,18 @@ const palette = PLANETS.mars.palette;
     :global(.sh-hero:has(.lr) .sh-hero-text) { max-width: none; }
     .lr { position: relative; right: auto; top: auto; translate: none; margin: 0 auto 20px; width: 168px; }   /* 手機: 雷達縮小, 標題區不要佔掉整個畫面 */
     .lr-box { width: 168px; height: 168px; }
+    /* mock B: 收合 — 預設只露一顆按鈕, 展開才畫雷達; 開關是瞬間切換, 不做動畫 */
+    .lr { width: auto; margin: 0 16px 20px; }
+    .lr-toggle { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 44px; padding: 0 14px; box-sizing: border-box;
+      font: 13px var(--sh-px); color: var(--sh-ink2); background: rgb(19 26 46 / .7); border: 2px solid var(--sh-line); cursor: pointer; }
+    .lr-toggle i { font-style: normal; color: var(--sh-ink3); }
+    .lr-toggle:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 2px; }
+    .lr-ico { color: #e2603a; }
+    .lr-caret { margin-left: auto; color: var(--sh-ink3); }
+    .lr[data-open] .lr-caret { rotate: 90deg; }
+    .lr-panel { display: none; }
+    .lr[data-open] .lr-panel { display: block; padding-top: 16px; }
+    .lr[data-open] .lr-box { margin: 0 auto; }
   }
 </style>
 
@@ -102,6 +121,12 @@ const palette = PLANETS.mars.palette;
     const cv = fig.querySelector('canvas')!, g = cv.getContext('2d')!, tip = fig.querySelector<HTMLElement>('.lr-tip')!;
     const img = g.createImageData(N, N);
     const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const toggle = fig.querySelector<HTMLButtonElement>('.lr-toggle');
+    toggle?.addEventListener('click', () => {
+      const open = !fig.hasAttribute('data-open');
+      fig.toggleAttribute('data-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    });
 
     // 今天 (日本時間) 起算的天數; 負 = 過去
     const jst = new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10);
