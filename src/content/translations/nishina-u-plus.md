@@ -4,7 +4,7 @@ artist: "にしな"
 album: "1999"
 albumYear: 2022
 trackNumber: 5
-publishDate: 2026-03-28
+publishDate: 2021-06-23
 tags: ["J-POP", "社會", "自我"]
 originalLang: ja
 coverImage: "/covers/nishina/u-plus.jpg"
