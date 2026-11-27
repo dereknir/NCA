@@ -167,9 +167,18 @@ def test_analyze_repeated_chorus_is_not_grade_a():
     assert 'ambiguous_start' in r['needsReview'] and r['grade'] != 'A'
 
 
-def test_align_repeated_chorus_prefers_repeat_that_connects_to_following_verse():
-    # 歌: 副歌(0,1) → A(2) → 副歌(3,4) → B(5); 片段唱「副歌 + A」→ 只有第一次副歌接得上 A
-    lines = [VERSES[0], VERSES[1], VERSES[2], VERSES[0], VERSES[1], VERSES[3]]
-    song = make_song(lines)
-    anchors, ambiguous = aa.align(song, make_tr(VERSES[0] + VERSES[1] + VERSES[2]))
-    assert [a['line'] for a in anchors][:3] == [0, 1, 2]
+
+def test_align_repeated_chorus_last_repeat_not_penalised_by_song_end():
+    # 歌以副歌結尾: X 副 副' Y 副 副'; 片段 = 副歌 + 講話。最後一次副歌後面沒有歌詞可延伸,
+    # 但「盲猜一句」不能算接得上 → 仍取最後那次
+    lines = [VERSES[2], VERSES[0], VERSES[1], VERSES[3], VERSES[0], VERSES[1]]
+    anchors, ambiguous = aa.align(make_song(lines), make_tr(VERSES[0] + VERSES[1] + 'ありがとうございました'))
+    assert ambiguous
+    assert [a['line'] for a in anchors] == [4, 5]
+
+
+def test_extend_edges_est0_only_adds_text_matched_lines():
+    lines = make_song([VERSES[2], VERSES[0], VERSES[1], VERSES[3]])['lines']
+    hira = VERSES[0] + VERSES[1] + 'ありがとうございました'
+    chain = [(1, 0, 100.0), (2, len(VERSES[0]), 100.0)]
+    assert [c[0] for c in aa._extend_edges(lines, hira, chain, est=0)] == [1, 2]
