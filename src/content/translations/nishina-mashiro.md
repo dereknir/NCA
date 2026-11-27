@@ -7,7 +7,7 @@ album: "odds and ends"
 albumYear: 2021
 trackNumber: 3
 publishDate: 2020-11-11
-tags: ["失去純真", "傷痕", "苦戀"]
+tags: ["成長痛", "暗戀・單戀"]
 originalLang: ja
 coverImage: "/covers/nishina/mashiro.jpg"
 ---

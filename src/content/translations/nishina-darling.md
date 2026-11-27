@@ -7,7 +7,7 @@ album: "odds and ends"
 albumYear: 2021
 trackNumber: 6
 publishDate: 2021-02-17
-tags: ["寧靜的絕望", "溫柔告別", "同居分手"]
+tags: ["黑暗美學", "分手・告別"]
 originalLang: ja
 coverImage: "/covers/nishina/darling.jpg"
 ---

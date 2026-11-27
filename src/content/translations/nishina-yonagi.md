@@ -6,7 +6,7 @@ trackNumber: 5
 publishDate: 2025-01-29
 lyricist: ["川谷繪音"]
 composer: ["川谷繪音"]
-tags: ["J-POP", "feat", "indigo la End", "川谷繪音", "分手", "冬春交替"]
+tags: ["J-POP", "分手・告別", "季節", "feat", "indigo la End", "川谷繪音"]
 originalLang: ja
 coverImage: "/covers/nishina/yonagi.jpg"
 excludeFromLyricAnalysis: true   # 主藝人 indigo la End,詞曲皆川谷繪音 作,にしな feat 演唱

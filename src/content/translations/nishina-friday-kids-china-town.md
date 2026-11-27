@@ -7,7 +7,7 @@ album: "1999"
 albumYear: 2022
 trackNumber: 2
 publishDate: 2022-04-20
-tags: ["迷幻", "怪誕", "百鬼夜行"]
+tags: ["童話・奇幻"]
 originalLang: ja
 coverImage: "/covers/nishina/friday-kids-china-town.jpg"
 ---

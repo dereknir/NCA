@@ -7,7 +7,7 @@ album: "1999"
 albumYear: 2022
 trackNumber: 3
 publishDate: 2021-11-17
-tags: ["女性覺醒", "暗黑童話", "電影主題曲"]
+tags: ["自我", "童話・奇幻", "電影主題曲"]
 originalLang: ja
 coverImage: "/covers/nishina/debbie.jpg"
 ---

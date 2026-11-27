@@ -7,7 +7,7 @@ trackNumber: 1
 publishDate: 2026-03-18
 lyricist: ["にしな"]
 composer: ["にしな"]
-tags: ["Field Recording", "環境音", "專輯開場"]
+tags: ["環境音"]
 originalLang: ja
 coverImage: "/covers/nishina/hibi-sanman.jpg"
 instrumental: true

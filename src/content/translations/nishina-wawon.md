@@ -8,7 +8,7 @@ publishDate: 2024-12-11
 lyricist: ["にしな"]
 composer: ["にしな"]
 arranger: ["GeG"]
-tags: ["J-POP", "文字遊戲", "哲學"]
+tags: ["J-POP", "語言遊戲", "宇宙・存在"]
 originalLang: ja
 coverImage: "/covers/nishina/wawon.jpg"
 ---

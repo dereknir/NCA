@@ -7,7 +7,7 @@ album: "1999"
 albumYear: 2022
 trackNumber: 8
 publishDate: 2022-07-27
-tags: ["搖籃曲", "童話", "脆弱"]
+tags: ["療癒・陪伴", "童話・奇幻", "成長痛"]
 originalLang: ja
 coverImage: "/covers/nishina/1999.jpg"
 ---

@@ -8,7 +8,7 @@ publishDate: 2026-02-18
 lyricist: ["にしな"]
 composer: ["にしな"]
 arranger: ["Yaffle"]
-tags: ["J-POP", "都市", "婀娜"]
+tags: ["J-POP", "都市", "小惡魔"]
 originalLang: ja
 coverImage: "/covers/nishina/hibi-sanman.jpg"
 ---

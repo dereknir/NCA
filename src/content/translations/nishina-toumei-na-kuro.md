@@ -7,7 +7,7 @@ album: "odds and ends"
 albumYear: 2021
 trackNumber: 9
 publishDate: 2021-04-07
-tags: ["墮落美學", "自我救贖", "神仙合作"]
+tags: ["黑暗美學", "自我"]
 originalLang: ja
 coverImage: "/covers/nishina/odds-and-ends.jpg"
 ---

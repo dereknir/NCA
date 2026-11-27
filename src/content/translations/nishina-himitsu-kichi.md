@@ -7,7 +7,7 @@ album: "odds and ends"
 albumYear: 2021
 trackNumber: 1
 publishDate: 2021-04-07
-tags: ["童趣", "避風港", "秘密"]
+tags: ["童話・奇幻", "療癒・陪伴"]
 originalLang: ja
 coverImage: "/covers/nishina/odds-and-ends.jpg"
 ---

@@ -5,7 +5,7 @@ album: "1999"
 albumYear: 2022
 trackNumber: 1
 publishDate: 2026-07-05
-tags: ["J-POP", "戀愛", "文字遊戲"]
+tags: ["J-POP", "戀愛", "語言遊戲"]
 originalLang: ja
 coverImage: "/covers/nishina/1999.jpg"
 ---

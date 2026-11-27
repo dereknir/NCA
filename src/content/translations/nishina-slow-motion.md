@@ -7,7 +7,7 @@ album: "1999"
 albumYear: 2022
 trackNumber: 9
 publishDate: 2022-01-26
-tags: ["破滅美學", "病態依戀", "自毀"]
+tags: ["黑暗美學", "禁忌・依戀"]
 originalLang: ja
 coverImage: "/covers/nishina/slow-motion.jpg"
 ---

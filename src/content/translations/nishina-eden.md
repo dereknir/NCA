@@ -6,7 +6,7 @@ trackNumber: 2
 publishDate: 2023-09-13
 lyricist: ["唾奇", "SNEEEZE"]
 composer: ["GeG", "Kazuki Isogai"]
-tags: ["Jazz Hip-Hop", "feat", "GeG", "唾奇", "都會夜曲", "微醺"]
+tags: ["Jazz Hip-Hop", "夜", "feat", "GeG", "唾奇"]
 originalLang: ja
 coverImage: "/covers/nishina/eden.jpg"
 excludeFromLyricAnalysis: true   # 主藝人 GeG,詞 唾奇/SNEEEZE,にしな feat 演唱

@@ -6,7 +6,7 @@ trackNumber: 2
 publishDate: 2026-06-03
 lyricist: ["にしな"]
 composer: ["にしな"]
-tags: ["J-POP", "動畫主題曲", "モブ子の恋", "治癒"]
+tags: ["J-POP", "療癒・陪伴", "動畫主題曲", "モブ子の恋"]
 originalLang: ja
 coverImage: "/covers/nishina/clover.jpg"
 ---

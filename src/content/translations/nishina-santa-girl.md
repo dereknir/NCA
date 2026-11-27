@@ -6,7 +6,7 @@ trackNumber: 1
 publishDate: 2021-12-01
 lyricist: ["WurtS"]
 composer: ["WurtS"]
-tags: ["J-POP", "feat", "WurtS", "聖誕節", "青春", "校園"]
+tags: ["J-POP", "季節", "青春", "feat", "WurtS"]
 originalLang: ja
 coverImage: "/covers/nishina/santa-girl.jpg"
 excludeFromLyricAnalysis: true   # 詞曲皆 WurtS 作,にしな 僅 feat 客串
