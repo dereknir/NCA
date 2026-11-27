@@ -7,6 +7,8 @@ eval_golden.py — 用「全部人工 done」當 golden set, 離線評估 align(
   2) 評估:                          .venv-qwen/bin/python scripts/eval_golden.py [--split dev|test|all] [-v]
 
 golden = status=done、真歌、≥3 anchors。videoId 雜湊分成 dev (2/3, 調參數用) / test (1/3, 最後驗收用)。
+test 被看過幾次之後就不乾淨了: --split fresh 只評「快照之後才標成 done」的片段 (快照 = eval_seen.txt 裡的 videoId),
+當全新的驗收集用; 用完要換一份時 --snapshot 重寫快照。新片段要先 --dump 轉寫。
 「從零手標」跟「看著模型答案改」(有 autoGrade) 分開統計 — 後者會偏向模型原本的答案。
 歌名一律用人工的 (認歌另外評, 這裡只評句子 + 時間)。
 
@@ -32,6 +34,31 @@ def golden(songs):
     H = json.loads(aa.ANCHORS_F.read_text(encoding='utf-8'))
     return {v: a for v, a in sorted(H.items())
             if a.get('status') == 'done' and a.get('songId') in songs and len(a.get('anchors') or []) >= 3}
+
+
+SEEN_F = Path(__file__).resolve().parent / 'eval_seen.txt'
+
+
+def seen_ids():
+    if not SEEN_F.exists():
+        return set()
+    return {l.strip() for l in SEEN_F.read_text(encoding='utf-8').splitlines() if l.strip() and not l.startswith('#')}
+
+
+def in_split(vid, split, seen=None):
+    if split == 'all':
+        return True
+    if split == 'fresh':
+        return vid not in (seen if seen is not None else seen_ids())
+    return split_of(vid) == split
+
+
+def snapshot(label):
+    H = json.loads(aa.ANCHORS_F.read_text(encoding='utf-8'))
+    ids = sorted(v for v, a in H.items() if a.get('status') == 'done')
+    SEEN_F.write_text(f'# {label}: 這之前標成 done 的片段 ({len(ids)} 支); --split fresh 只評不在這裡的\n'
+                      + '\n'.join(ids) + '\n', encoding='utf-8')
+    print(f'快照 {len(ids)} 支 → {SEEN_F.name}')
 
 
 def split_of(vid):
@@ -97,11 +124,15 @@ def summarize(rows):
 def evaluate(songs, cache_f, split, verbose, only=None):
     gold = golden(songs)
     cache = json.loads(cache_f.read_text(encoding='utf-8'))
+    seen = seen_ids() if split == 'fresh' else None
+    if split == 'fresh':
+        n_new = sum(v not in seen for v in gold)
+        print(f'[fresh] 快照之後新標的 golden {n_new} 支 · 已轉寫 {sum(v not in seen and v in cache for v in gold)} 支')
     rows = {'scratch': [], 'assisted': []}
     detail = []
     for v, h in gold.items():
         c = cache.get(v)
-        if not c or 'error' in c or (split != 'all' and split_of(v) != split) or (only and v not in only):
+        if not c or 'error' in c or not in_split(v, split, seen) or (only and v not in only):
             continue
         out = run_pipeline(c, h['songId'], songs)
         anc = out['anchors']
@@ -128,12 +159,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--dump', action='store_true', help='轉寫所有 golden (可續跑)')
     ap.add_argument('--cache', type=Path, default=CACHE_F)
-    ap.add_argument('--split', choices=['dev', 'test', 'all'], default='dev')
+    ap.add_argument('--split', choices=['dev', 'test', 'all', 'fresh'], default='dev')
+    ap.add_argument('--snapshot', metavar='LABEL', help='把目前所有 done 的片段寫成快照 (之後 --split fresh 只評快照之後新標的)')
     ap.add_argument('--only', nargs='*')
     ap.add_argument('-v', '--verbose', action='store_true')
     args = ap.parse_args()
     songs = aa.load_songs()
-    if args.dump:
+    if args.snapshot:
+        snapshot(args.snapshot)
+    elif args.dump:
         dump(songs, args.cache)
     else:
         evaluate(songs, args.cache, args.split, args.verbose, set(args.only or []))
