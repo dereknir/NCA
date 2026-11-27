@@ -195,7 +195,7 @@ def test_whisper_lead_adds_text_matched_lines_before_qwen_chain():
 
 def test_whisper_lead_skips_when_lead_lines_are_only_estimates():
     qa = _q((3, 10.0, 0), (4, 14.0, 0))
-    aw = _q((1, 2.0, 1), (2, 6.0, 1), (3, 10.0, 0))
+    aw = _q((1, 2.0, 1), (2, 6.0, 1), (3, 10.0, 0), (4, 14.0, 0))
     assert [a['line'] for a in aa._whisper_lead(qa, aw)] == [3, 4]
 
 
@@ -261,3 +261,54 @@ def test_extend_edges_est0_only_adds_text_matched_lines():
     hira = VERSES[0] + VERSES[1] + 'ありがとうございました'
     chain = [(1, 0, 100.0), (2, len(VERSES[0]), 100.0)]
     assert [c[0] for c in aa._extend_edges(lines, hira, chain, est=0)] == [1, 2]
+
+
+def test_whisper_lead_noop_on_empty_or_first_line_zero():
+    assert aa._whisper_lead([], _q((0, 0.0, 0))) == []
+    qa = _q((0, 1.0, 0), (1, 4.0, 0))
+    assert aa._whisper_lead(qa, []) is qa
+    assert [a['line'] for a in aa._whisper_lead(qa, _q((0, 1.0, 0), (1, 4.0, 0)))] == [0, 1]
+
+
+def test_whisper_lead_keeps_leading_estimate_and_does_not_mutate_whisper():
+    qa = _q((3, 10.0, 0), (4, 14.0, 0))
+    aw = _q((1, 0.0, 1), (2, 5.0, 0), (3, 10.0, 0), (4, 14.0, 0))
+    out = aa._whisper_lead(qa, aw)
+    assert [(a['line'], bool(a.get('est'))) for a in out] == [(1, True), (2, False), (3, False), (4, False)]
+    out[0]['t'] = 99
+    assert aw[0]['t'] == 0.0                                      # 補進來的是複本
+
+
+def test_whisper_lead_only_drops_crowded_line_not_whole_lead():
+    # whisper 前一句落在 Qwen 第一句 MIN_GAP 內 → 只丟那句, 更前面的照補 (時間仍遞增、行號不重複)
+    qa = _q((5, 10.0, 0), (6, 14.0, 0))
+    aw = _q((3, 2.0, 0), (4, 9.7, 0), (5, 10.0, 0), (6, 14.0, 0))
+    out = aa._whisper_lead(qa, aw)
+    assert [a['line'] for a in out] == [3, 5, 6]
+    ts = [a['t'] for a in out]
+    assert ts == sorted(ts) and all(b - a >= aa.MIN_GAP for a, b in zip(ts, ts[1:]))
+
+
+def test_whisper_lead_needs_two_shared_real_lines():
+    # 只有 1 句共同實對句: 證據太少 (Qwen 原本會是 C, 補完會變 A 直接進待審) → 不補
+    qa = _q((3, 10.0, 0), (4, 14.0, 1))
+    aw = _q((1, 2.0, 0), (2, 5.0, 0), (3, 10.0, 0), (4, 14.0, 0))
+    assert [a['line'] for a in aa._whisper_lead(qa, aw)] == [3, 4]
+
+
+def test_align_hybrid_wires_whisper_lead(monkeypatch):
+    # Qwen 只轉到第 2 句之後 (10 秒起), whisper 從頭轉到: hybrid 結果要補上 0、1 句; 關掉 WHISPER_LEAD 就不補
+    song = make_song(VERSES)
+    hira = [l[2] for l in song['lines']]
+    ct = []
+    for k, h in enumerate(hira):
+        ct += [k * 5.0 + j * 0.25 for j in range(len(h))]
+    w = dict(hira=''.join(hira), char_time=ct, duration=ct[-1] + 3, segments=[])
+    n = len(hira[0]) + len(hira[1])
+    q = dict(hira=w['hira'][n:], char_time=ct[n:], duration=w['duration'], segments=[], alt=w)
+    monkeypatch.setattr(aa, 'WHISPER_LEAD', False)
+    assert [a['line'] for a in aa.align(song, dict(q))[0]] == [2, 3, 4]
+    monkeypatch.setattr(aa, 'WHISPER_LEAD', True)
+    anchors, _ = aa.align(song, dict(q))
+    assert [a['line'] for a in anchors] == [0, 1, 2, 3, 4]
+    assert [a['t'] for a in anchors] == pytest.approx([0, 5, 10, 15, 20])

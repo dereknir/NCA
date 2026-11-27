@@ -106,9 +106,9 @@ ENGINE = 'whisper'    # --engine qwen: 改用 Qwen3-ASR-1.7B + Qwen3-ForcedAlign
                       # --engine hybrid: Qwen 決定「哪幾句」, whisper (--model) 給「幾秒」— golden 40 支上最好 (見 HANDOFF)
 HYBRID_WIN = 3.0      # hybrid (舊做法, HYBRID_RETIME=False): whisper 同一句的時間跟 Qwen 差在這個秒數內才採用
 HYBRID_RETIME = True  # hybrid: whisper 對到的句子一律用 whisper 時間, 其餘依鄰句的 (whisper − Qwen) 位移校正
-WHISPER_LEAD = True   # hybrid: Qwen 沒轉到開頭幾秒、whisper 有轉到 → 把 whisper 在 Qwen 鏈之前「真的對到字」的句子補進來
                       # golden 233 支實測: 同一句 whisper ≤1s 92% vs Qwen 82%; 兩者差 >3s 時 whisper 對 17/20
                       # whisper 沒對到的句子留 Qwen 時間 (實測: 用鄰句位移校正 73% → 67% 變差; 在 whisper 轉寫局部再找一次無明顯改善)
+WHISPER_LEAD = True   # hybrid: Qwen 沒轉到開頭幾秒、whisper 有轉到 → 把 whisper 在 Qwen 鏈之前「真的對到字」的句子補進來
 MIN_GAP = 0.6         # 相鄰兩句 anchor 至少間隔這麼多秒
 QWEN_ASR = 'Qwen/Qwen3-ASR-1.7B'
 QWEN_ALIGNER = 'Qwen/Qwen3-ForcedAligner-0.6B'
@@ -353,15 +353,16 @@ def align(song, tr):
 def _whisper_lead(anchors, aw):
     """hybrid 補開頭: Qwen 常漏轉影片前幾秒, whisper 卻有轉到。
     whisper 自己的對齊在 Qwen 鏈第一句之前還有句子, 而且:
-      - whisper 跟 Qwen 至少有一句「都真的對到字」的同一句 (確定是同一段, 不是 whisper 選到另一次副歌)
+      - whisper 跟 Qwen 至少有兩句「都真的對到字」的同一句 (確定是同一段, 不是 whisper 選到另一次副歌;
+        只有 1 句共同句時, Qwen 原本會是 C, 補完卻變 A 直接進待審 — 證據太少, 不補)
       - 這些前面的句子裡至少一句是 whisper 真的對到字的 (只有估計句 = 只是歌詞前面還有句子, 不補)
       - 時間都在 Qwen 第一句之前 (至少 MIN_GAP)
-    就把它們 (連同 whisper 在其間的估計句) 補在最前面。"""
+    就把 Qwen 第一句之前 whisper 的句子 (含估計句, 包括第一個實對句之前的) 補在最前面。"""
     if not anchors or not aw:
         return anchors
     real_q = {a['line'] for a in anchors if not a.get('est')}
     real_w = {a['line'] for a in aw if not a.get('est')}
-    if not real_q & real_w:
+    if len(real_q & real_w) < 2:
         return anchors
     first_line = min(a['line'] for a in anchors)
     t0 = min(a['t'] for a in anchors)
