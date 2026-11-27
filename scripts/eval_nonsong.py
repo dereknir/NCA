@@ -5,6 +5,7 @@ eval_nonsong.py — 評估「這不是單曲」偵測 (auto_annotate.nonsong_sig
 兩部分 (都不跑 ASR):
   1) auto_anchors.json 既有結果 × 人工 done 標記: 人工歌名是 __promo / __tour_recap / __live_song… (或空) = 非歌曲。
      「抓到」= 沒配歌或評級 C (merge 不會寫進去); 「誤傷」= 真歌原本 A/B 被降成 C。
+     評級與歌名看 ASR 原本的結果 (r['asr'], 沒有才用外層); 轉寫看存下來的那份 + golden 快取的兩份。
   2) golden 逐字稿 (eval_golden.py 同一份): 跑 hybrid 流程後再套偵測, 看 A 級完美率會不會掉。
 dev/test 切法跟 eval_golden 一樣 (videoId 雜湊)。調參數只看 dev, test 最後看一次。
 
@@ -24,6 +25,17 @@ def is_nonsong(h, songs):
     return not h.get('songId') or str(h['songId']).startswith('__') or h['songId'] not in songs
 
 
+def asr_base(r):
+    """同錄音照抄之前的 ASR 結果 (偵測是套在這份上; 照抄會改歌名 / 升級外層)"""
+    return r.get('asr') or r
+
+
+def stored_transcripts(v, r, cache):
+    """存下來的那份轉寫 + golden 快取裡的 Qwen / whisper 兩份 (process() 是兩份任一命中就算; auto_anchors 只存了選中的那份)"""
+    cc = cache.get(v) or {}
+    return [r.get('transcript'), (cc.get('qwen') or {}).get('segments'), (cc.get('alt') or {}).get('segments')]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--split', choices=['dev', 'test', 'all'], default='dev')
@@ -36,10 +48,12 @@ def main():
     items = json.loads(aa.OUT_F.read_text(encoding='utf-8'))['items']
     inside = lambda v: args.split == 'all' or eg.split_of(v) == args.split
 
-    def detect(r, title):
-        if args.off or not r.get('songId') or r['songId'] not in songs:
+    cache = json.loads(args.cache.read_text(encoding='utf-8')) if args.cache.exists() else {}
+
+    def detect(v, b, r):
+        if args.off or not b.get('songId') or b['songId'] not in songs:
             return []
-        return aa.nonsong_signals(title, [r.get('transcript')], r['songId'], songs)
+        return aa.nonsong_signals(r.get('title'), stored_transcripts(v, r, cache), b['songId'], songs)
 
     def base_grade(r):
         """偵測之前的評級: 已存結果若是新版程式跑的, 先把 not_single_song 拿掉重算 (不然誤傷會被當成本來就是 C)"""
@@ -57,8 +71,9 @@ def main():
         if not h or h.get('status') != 'done' or r.get('error') or not inside(v):
             continue
         ns = is_nonsong(h, songs)
-        g0 = base_grade(r)
-        hit = detect(r, r.get('title')) if g0 in ('A', 'B') else []
+        b = asr_base(r)
+        g0 = base_grade(b)
+        hit = detect(v, b, r) if g0 in ('A', 'B') else []
         g1 = 'C' if hit else g0
         why.update(hit if ns else [])
         if ns:
@@ -76,9 +91,8 @@ def main():
         print('   誤傷', *x)
 
     # 2) golden: A 級完美率
-    if not args.cache.exists():
+    if not cache:
         return
-    cache = json.loads(args.cache.read_text(encoding='utf-8'))
     g = Counter()
     for v, h in eg.golden(songs).items():
         cc = cache.get(v)

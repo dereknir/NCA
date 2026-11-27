@@ -194,15 +194,21 @@ def _songs():
     return {'a': a, 'b': b}
 
 
-@pytest.mark.parametrize('title', ['FES ありがとうございました!', 'tour thank you!!', 'new photo', 'グッズ出ます', 'Your lucky nishina track'])
+@pytest.mark.parametrize('title', ['FES ありがとうございました!', 'tour thank you!!', 'new photo', 'グッズ出ます', 'Your lucky nishina track',
+                                   'WILD BUNCH FEST. 2026 #ライブ', 'きょうもきょうとて #フェス', '#tour2026', 'osanpo2 #にしな',
+                                   'RUSH BALL 2026、ありがとうございました', 'にしなfes', 'Thank you for GLICO LIVE', 'nishina new goods',
+                                   'ツアー初日'])
 def test_nonsong_title_hits_event_words(title):
+    # 活動字樣單獨出現就算; # 只拿掉符號 (#フェス 還是算); 前後是假名 / 數字也要對得到
     songs = _songs()
     assert aa.nonsong_signals(title, [[{'text': ''.join(VERSES)}]], 'a', songs) == ['title']
 
 
-@pytest.mark.parametrize('title', ['new song MV', 'our feeling in someday #newmusic', 'Manifesto live', 'Festival live',
-                                   'thank you for 1M views', 'きょうもきょうとて #フェス', '#live #thankyou'])
+@pytest.mark.parametrize('title', ['new song MV', 'our feeling in someday #newmusic', 'Feeling in Sapporo #live', 'Manifesto live',
+                                   'heavy smoke #nishina #live #shorts', '東京マーブル #ライブ', 'festive mood', 'tourist',
+                                   'lucky girl', 'goodsound', 'thanks', ''])
 def test_nonsong_title_does_not_hit_real_song_titles(title):
+    # live / ライブ 單獨不算; 字界: manifesto / festive / tourist / goodsound 不能中; feeling in 不再算
     songs = _songs()
     assert aa.nonsong_signals(title, [[{'text': ''.join(VERSES)}]], 'a', songs) == []
 
@@ -242,3 +248,110 @@ def test_nonsong_windows_merge_short_tail():
     assert [len(w) for w in aa._windows(segs, 16)] == [16, 19]
     assert [len(w) for w in aa._windows([{'text': 'あ' * 32}], 16)] == [16, 16]
     assert aa._windows([{'text': 'あ' * 5}], 16) == ['あ' * 5]
+
+
+# ---------- 補套偵測 (舊結果不重跑 ASR) ----------
+def _stored(title, grade='A', with_asr=True):
+    r = dict(videoId='x', title=title, songId='a', grade=grade, needsReview=[], anchors=[{'t': 1.0, 'line': 0, 'score': 90}],
+             transcript=[{'text': ''.join(VERSES)}])
+    if with_asr:
+        r['asr'] = dict(songId='a', grade=grade, needsReview=[], anchors=r['anchors'], confidence=90)
+        r['grade'] = 'A'                                       # 照抄升過級的外層
+    return r
+
+
+def test_backfill_flags_asr_base_and_outer():
+    songs = _songs()
+    r = _stored('nishina new photo', grade='B')
+    assert aa.backfill_nonsong(r, songs) is True
+    assert r['grade'] == 'C' and r['asr']['grade'] == 'C' and r['nonSong'] == ['title']
+    assert r['needsReview'] == ['not_single_song'] and r['asr']['needsReview'] == ['not_single_song']
+    assert aa.backfill_nonsong(r, songs) is False            # 跑第二次不重複加
+    assert r['needsReview'] == ['not_single_song']
+
+
+def test_backfill_without_asr_field():
+    songs = _songs()
+    r = _stored('tour thank you', with_asr=False)
+    assert aa.backfill_nonsong(r, songs) is True and r['grade'] == 'C' and 'asr' not in r
+
+
+def test_backfill_leaves_real_songs_errors_and_confirmed_songs():
+    songs = _songs()
+    r = _stored('heavy smoke #live')
+    assert aa.backfill_nonsong(r, songs) is False and r['grade'] == 'A' and 'nonSong' not in r
+    e = {'videoId': 'x', 'title': 'new photo', 'error': 'download: x'}
+    assert aa.backfill_nonsong(e, songs) is False and 'grade' not in e
+    f = _stored('new photo')
+    assert aa.backfill_nonsong(f, songs, force_song='a') is False and f['grade'] == 'A'
+
+
+def test_backfill_all_skips_done(tmp_path, monkeypatch):
+    import json
+    songs = _songs()
+    out = tmp_path / 'auto.json'
+    out.write_text(json.dumps({'meta': {}, 'items': {'p': dict(_stored('new photo'), videoId='p'),
+                                                     'd': dict(_stored('new photo'), videoId='d'),
+                                                     's': dict(_stored('heavy smoke'), videoId='s')}}), encoding='utf-8')
+    anc = tmp_path / 'anchors.json'
+    anc.write_text(json.dumps({'d': {'status': 'done', 'songId': 'a'}}), encoding='utf-8')
+    monkeypatch.setattr(aa, 'ANCHORS_F', anc)
+    monkeypatch.setattr(aa, 'load_songs', lambda: songs)
+    assert aa.backfill_all(out) == 1
+    items = json.loads(out.read_text(encoding='utf-8'))['items']
+    assert items['p']['grade'] == 'C' and items['d']['grade'] == 'A' and items['s']['grade'] == 'A'
+
+
+# ---------- whisper 引擎: 標題命中不觸發大模型重跑 ----------
+def test_needs_retry_skips_title_hits(monkeypatch):
+    monkeypatch.setattr(aa, 'ENGINE', 'whisper')
+    assert aa.needs_retry({'grade': 'C'}, 'medium') is True
+    assert aa.needs_retry({'grade': 'C', 'nonSong': ['title']}, 'medium') is False
+    assert aa.needs_retry({'grade': 'C', 'nonSong': ['title', 'foreign']}, 'medium') is False
+    assert aa.needs_retry({'grade': 'C', 'nonSong': ['foreign']}, 'medium') is True   # 轉寫判的: 換大模型可能不一樣
+    assert aa.needs_retry({'grade': 'B'}, 'medium') is False
+    assert aa.needs_retry({'grade': 'C'}, '') is False
+    assert aa.needs_retry({'grade': 'C', 'error': 'asr: x'}, 'medium') is False
+    monkeypatch.setattr(aa, 'ENGINE', 'hybrid')
+    assert aa.needs_retry({'grade': 'C'}, 'medium') is False
+
+
+# ---------- 同錄音照抄不能把「不是單曲」升回 A/B ----------
+def test_peer_regrade_keeps_not_single_song_c():
+    pytest.importorskip('numpy')
+    import peer_anchors as pa
+    r = {'grade': 'C', 'needsReview': ['not_single_song', 'event_title']}
+    pa.regrade(r, 0.95)
+    assert r == {'grade': 'C', 'needsReview': ['not_single_song', 'event_title']}
+    pa.regrade(r, 0.5)
+    assert r['grade'] == 'C'
+
+
+def test_peer_regrade_still_upgrades_normal_results():
+    pytest.importorskip('numpy')
+    import peer_anchors as pa
+    r = {'grade': 'C', 'needsReview': ['low_align', 'event_title']}
+    pa.regrade(r, 0.95)
+    assert r == {'grade': 'A', 'needsReview': ['event_title']}
+    r = {'grade': 'C', 'needsReview': ['low_align']}
+    pa.regrade(r, 0.5)
+    assert r['grade'] == 'B'
+    r = {'grade': 'A', 'needsReview': []}
+    pa.regrade(r, 0.5)
+    assert r['grade'] == 'A'
+
+
+# ---------- eval_nonsong 第 1 部分: 看 ASR 原本的結果、兩份轉寫 ----------
+def test_eval_nonsong_reads_asr_base_and_both_transcripts():
+    import eval_nonsong as en
+    songs = _songs()
+    r = dict(_stored('', grade='C'), transcript=[{'text': ''.join(VERSES)}])
+    assert en.asr_base(r) is r['asr'] and en.asr_base(r)['grade'] == 'C'      # 外層被照抄升成 A, 要看 ASR 的 C
+    plain = {'grade': 'B'}
+    assert en.asr_base(plain) is plain
+    mix = [{'text': t} for t in VERSES[:2] + OTHER * 2]
+    cache = {'x': {'qwen': {'segments': [{'text': ''.join(VERSES)}]}, 'alt': {'segments': mix}}}
+    trs = en.stored_transcripts('x', r, cache)
+    assert len(trs) == 3 and trs[2] is mix
+    assert aa.nonsong_signals('', trs, 'a', songs) == ['foreign']          # 只有 whisper 那份是拼盤也要抓到
+    assert aa.nonsong_signals('', en.stored_transcripts('y', r, cache), 'a', songs) == []
