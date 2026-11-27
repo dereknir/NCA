@@ -1157,6 +1157,8 @@ function renderCockpit(t) {
       sctx.fillText(b.nameJa + '・' + b.page, p[0], p[1] + s2 / 2 + 16);
     }
   }
+  // 雷達的位置 (左下), 彗星的青點也要用, 所以先宣告 (之前宣告在後面, 有彗星時會丟 TDZ 錯、整個動畫停掉)
+  const RX = 98, RY = VH - 108, RR = 64;
   // 彗星(操縦席):投影 + 尾流 + 雷達青點
   for (const c of COMETS) {
     const cwx = Math.cos(c.a) * c.o * WORLD_R, cwz = Math.sin(c.a) * c.o * WORLD_R;
@@ -1240,7 +1242,6 @@ function renderCockpit(t) {
   sctx.fillStyle = vg;
   sctx.fillRect(0, 0, VW, VH);
   // 雷達 v2(左下):掃描線+餘暉,光點可點擊設定針路
-  const RX = 98, RY = VH - 108, RR = 64;
   RBLIPS = [];
   sctx.fillStyle = 'rgba(12,18,34,.88)';
   sctx.beginPath(); sctx.arc(RX, RY, RR, 0, 6.283); sctx.fill();
