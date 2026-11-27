@@ -243,9 +243,11 @@
     box.setAttribute('aria-label', '指令列');
     // 觸控裝置沒有實體鍵盤, 指令列按鈕換成像素ガラケー N247i (打開直接是 MENU, 左鍵「検索」再回到指令列)
     const coarse = matchMedia('(pointer: coarse)').matches;
+    // aria-label 要把畫面上看得到的字原樣包進去 (用語音控制的人是照著畫面念的, WCAG 2.5.3), 用途補在後面。
+    // span 之間的空白在 flex 裡不佔位置, 只是讓念出來的字跟 label 對得上
     const pillHTML = coarse
-      ? `<button type="button" class="sh-cli-pill sh-cli-pill--phone" aria-label="打開 N247i 選單">${PHONE_ICON}<span>N247i</span><span class="hint">MENU</span></button>`
-      : `<button type="button" class="sh-cli-pill" aria-label="打開指令列"><span>guest@nishina</span><span class="gt">&gt;</span><span class="hint">按 / 搜歌名、歌詞、跳頁</span></button>`;
+      ? `<button type="button" class="sh-cli-pill sh-cli-pill--phone" aria-label="N247i MENU (打開選單)">${PHONE_ICON}<span>N247i</span> <span class="hint">MENU</span></button>`
+      : `<button type="button" class="sh-cli-pill" aria-label="guest@nishina > 按 / 搜歌名、歌詞、跳頁 (打開指令列)"><span>guest@nishina</span> <span class="gt">&gt;</span> <span class="hint">按 / 搜歌名、歌詞、跳頁</span></button>`;
     // 輸入框是 combobox: 下面的結果是它的 listbox, 方向鍵選到哪一個由 aria-activedescendant 告訴讀螢幕
     box.innerHTML = `${pillHTML}
       <div class="sh-cli-panel"><div class="sh-wrap"><div class="sh-cli-out" id="sh-cli-out" role="listbox" aria-label="搜尋結果"></div>

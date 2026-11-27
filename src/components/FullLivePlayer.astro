@@ -88,11 +88,14 @@ const { song } = Astro.props;
   .flp-ln { position: relative; padding: 8px 0 8px 22px; color: var(--sh-ink3); transition: color .3s; cursor: pointer; }
   .flp-ln::before { content: ''; position: absolute; left: 0; top: 10px; bottom: 10px; width: 4px; background: var(--c, var(--sh-line)); opacity: .4; }
   .flp-ln .ja { font: 24px/1.45 var(--sh-pxja); display: block; }
-  .flp-ln .zh { font: 12px/1.7 var(--sh-px); display: block; opacity: .85; }
+  /* 中文行比日文淡一階。原本用 opacity .85, 疊在底色上只剩 4.35:1 不到 AA;
+     改成直接給顏色: 一般行調到 4.7:1 (看起來幾乎一樣), 唱過 / 正在唱的兩種照原本疊出來的顏色寫死 */
+  .flp-ln .zh { font: 12px/1.7 var(--sh-px); display: block; color: #717c99; transition: color .3s; }
   .flp-ln.past { color: #464f6b; }
+  .flp-ln.past .zh { color: #3d455e; }
   .flp-ln.cur { color: #fff; }
   .flp-ln.cur .ja { font-size: 36px; text-shadow: 0 0 22px rgb(var(--glow) / .5); }
-  .flp-ln.cur .zh { color: var(--sh-ink2); }
+  .flp-ln.cur .zh { color: #9ca6c2; }
   .flp-ln.cur::before { opacity: 1; box-shadow: 0 0 14px var(--c); }
   .flp-ln.gap .ja::after { content: ' ── 還沒有人拍到'; font: 12px var(--sh-px); color: var(--sh-ink3); }
   .flp-ln.skip { cursor: default; opacity: .45; }
