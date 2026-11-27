@@ -57,6 +57,8 @@ def main():
 
     def base_grade(r):
         """偵測之前的評級: 已存結果若是新版程式跑的, 先把 not_single_song 拿掉重算 (不然誤傷會被當成本來就是 C)"""
+        if 'gradeBeforeNonsong' in r:
+            return r['gradeBeforeNonsong']
         if not r.get('songId'):
             return 'C'
         nr = [x for x in r.get('needsReview') or [] if x != 'not_single_song']

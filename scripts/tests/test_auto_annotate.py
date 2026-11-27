@@ -327,7 +327,7 @@ def _songs():
 @pytest.mark.parametrize('title', ['FES ありがとうございました!', 'tour thank you!!', 'new photo', 'グッズ出ます', 'Your lucky nishina track',
                                    'WILD BUNCH FEST. 2026 #ライブ', 'きょうもきょうとて #フェス', '#tour2026', 'osanpo2 #にしな',
                                    'RUSH BALL 2026、ありがとうございました', 'にしなfes', 'Thank you for GLICO LIVE', 'nishina new goods',
-                                   'ツアー初日'])
+                                   'ツアー初日', 'ＦＥＳ　ありがとう', 'ＴＯＵＲ ２０２６', 'summer tours', 'THANKYOU!!'])
 def test_nonsong_title_hits_event_words(title):
     # 活動字樣單獨出現就算; # 只拿掉符號 (#フェス 還是算); 前後是假名 / 數字也要對得到
     songs = _songs()
@@ -336,7 +336,7 @@ def test_nonsong_title_hits_event_words(title):
 
 @pytest.mark.parametrize('title', ['new song MV', 'our feeling in someday #newmusic', 'Feeling in Sapporo #live', 'Manifesto live',
                                    'heavy smoke #nishina #live #shorts', '東京マーブル #ライブ', 'festive mood', 'tourist',
-                                   'lucky girl', 'goodsound', 'thanks', ''])
+                                   'lucky girl', 'goodsound', 'thanks', 'ｆｅｓｔｉｖｅ', 'touring', 'thank your', ''])
 def test_nonsong_title_does_not_hit_real_song_titles(title):
     # live / ライブ 單獨不算; 字界: manifesto / festive / tourist / goodsound 不能中; feeling in 不再算
     songs = _songs()
@@ -369,6 +369,7 @@ def test_apply_nonsong_grades_c_and_respects_force_song():
     base = dict(songId='a', grade='A', needsReview=[])
     out = aa.apply_nonsong(dict(base), {'title': 'new photo'}, songs, [{'segments': []}])
     assert out['grade'] == 'C' and 'not_single_song' in out['needsReview'] and out['nonSong'] == ['title']
+    assert out['gradeBeforeNonsong'] == 'A'
     kept = aa.apply_nonsong(dict(base), {'title': 'new photo'}, songs, [{'segments': []}], force_song='a')
     assert kept['grade'] == 'A' and 'nonSong' not in kept
 
@@ -485,3 +486,80 @@ def test_eval_nonsong_reads_asr_base_and_both_transcripts():
     assert len(trs) == 3 and trs[2] is mix
     assert aa.nonsong_signals('', trs, 'a', songs) == ['foreign']          # 只有 whisper 那份是拼盤也要抓到
     assert aa.nonsong_signals('', en.stored_transcripts('y', r, cache), 'a', songs) == []
+
+
+def test_apply_nonsong_title_hit_without_song():
+    # ASR 認不出歌也要記標題命中, 不然同錄音照抄配到歌後會被升成 A
+    songs = _songs()
+    out = aa.apply_nonsong(dict(songId=None, grade='C', needsReview=['no_song']), {'title': 'nishina tour 2026'}, songs, [None])
+    assert out['needsReview'] == ['no_song', 'not_single_song'] and out['nonSong'] == ['title']
+    plain = aa.apply_nonsong(dict(songId=None, grade='C', needsReview=['no_song']), {'title': 'heavy smoke'}, songs, [None])
+    assert plain['needsReview'] == ['no_song'] and 'nonSong' not in plain
+
+
+def test_peer_no_song_title_hit_not_lifted_to_a():
+    pytest.importorskip('numpy')
+    import peer_anchors as pa
+    songs = _songs()
+    r = {'title': 'nishina tour 2026', 'songId': None, 'grade': 'C', 'needsReview': ['no_song'], 'transcript': [],
+         'asr': {'songId': None, 'grade': 'C', 'needsReview': ['no_song'], 'anchors': [], 'confidence': 0}}
+    assert aa.backfill_nonsong(r, songs) is True
+    for k in pa.KEEP:                                        # 照抄每次從 asr 重算
+        r[k] = r['asr'][k]
+    r['songId'] = 'a'                                        # 已審的同錄音片段給了歌名
+    pa.regrade(r, 0.95)
+    assert r['grade'] == 'C' and 'not_single_song' in r['needsReview']
+
+
+def test_backfill_propagates_flag_to_outer_upgraded_by_old_peer():
+    songs = _songs()
+    r = _stored('heavy smoke')                                # 標題不中: 旗子是之前 (例如轉寫那條) 標的
+    r['asr'].update(grade='C', needsReview=['not_single_song'], nonSong=['foreign'])
+    assert r['grade'] == 'A' and r['needsReview'] == []
+    assert aa.backfill_nonsong(r, songs) is True
+    assert r['grade'] == 'C' and r['needsReview'] == ['not_single_song'] and r['nonSong'] == ['foreign']
+    assert aa.backfill_nonsong(r, songs) is False
+
+
+def test_backfill_clears_title_flag_when_rule_no_longer_hits():
+    songs = _songs()
+    r = _stored('new photo', grade='B')
+    aa.backfill_nonsong(r, songs)
+    assert r['asr']['gradeBeforeNonsong'] == 'B'
+    r['title'] = 'heavy smoke'                                # 規則 / 標題改了, 不再命中
+    assert aa.backfill_nonsong(r, songs) is True
+    assert r['asr']['grade'] == 'B' and r['asr']['needsReview'] == [] and 'gradeBeforeNonsong' not in r['asr']
+    assert r['needsReview'] == [] and 'nonSong' not in r
+
+
+def test_backfill_keeps_flags_it_cannot_recheck():
+    songs = _songs()
+    # 轉寫那條命中的 (另一份轉寫沒存) 不還原; 沒有 gradeBeforeNonsong 的舊標記也不還原
+    r = _stored('heavy smoke', grade='B')
+    r['asr'].update(grade='C', needsReview=['not_single_song'], nonSong=['title', 'foreign'], gradeBeforeNonsong='B')
+    r.update(grade='C', needsReview=['not_single_song'])
+    assert aa.backfill_nonsong(r, songs) is False and r['asr']['grade'] == 'C'
+    o = _stored('heavy smoke', grade='B')
+    o['asr'].update(grade='C', needsReview=['not_single_song'], nonSong=['title'])
+    o.update(grade='C', needsReview=['not_single_song'])
+    assert aa.backfill_nonsong(o, songs) is False and o['grade'] == 'C'
+
+
+def test_merge_skips_not_single_song_even_with_include_c(tmp_path, monkeypatch):
+    import json
+    out = tmp_path / 'auto.json'
+    ok = dict(songId='a', grade='A', needsReview=[], anchors=[{'t': 1.0, 'line': 0, 'score': 90}], versionType=None)
+    out.write_text(json.dumps({'meta': {}, 'items': {
+        'ns': dict(ok, needsReview=['not_single_song']),           # 等級被別的路徑弄成 A 也不能寫進去
+        'old': dict(ok, grade='C', needsReview=['not_single_song']),
+        'ok': dict(ok)}}), encoding='utf-8')
+    anc = tmp_path / 'anchors.json'
+    anc.write_text(json.dumps({'old': {'songId': 'a', 'anchors': [{'t': 1, 'line': 0}], 'status': 'auto', 'source': 'auto', 'autoGrade': 'A'}}), encoding='utf-8')
+    monkeypatch.setattr(aa, 'ANCHORS_F', anc)
+    monkeypatch.setattr(aa, 'PUB_F', tmp_path / 'pub.json')
+    monkeypatch.setattr(aa, 'ROOT', tmp_path)
+    for include_c in (False, True):
+        aa.merge(out, include_c=include_c)
+        H = json.loads(anc.read_text(encoding='utf-8'))
+        assert 'ns' not in H and H['ok']['status'] == 'auto'
+        assert H['old']['status'] == 'pending' and H['old']['anchors'] == []   # 舊的機器建議退回手動
