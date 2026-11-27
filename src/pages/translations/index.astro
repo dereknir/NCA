@@ -161,11 +161,21 @@ const albumCount = tabs.filter(t => t.year > 0).length;
           body.dataset.view = b.dataset.v; paint();
           try { localStorage.setItem('tr-view', b.dataset.v); } catch (e) {}
         }));
+        // 篩選記在網址 (?album=…): 點進一首歌再按上一頁, 回來還是同一張專輯 (捲動位置 ClientRouter 本來就會還原)
+        const pick = b => {
+          bar.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+          body.querySelectorAll('[data-tab]').forEach(r => { r.hidden = !!b.dataset.tab && r.dataset.tab !== b.dataset.tab; });
+        };
+        const want = new URLSearchParams(location.search).get('album');
+        const from = want && [...bar.querySelectorAll('button')].find(x => x.dataset.tab === want);
+        if (from) pick(from);
         bar.addEventListener('click', e => {
           const b = e.target.closest('button');
           if (!b) return;
-          bar.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
-          body.querySelectorAll('[data-tab]').forEach(r => { r.hidden = !!b.dataset.tab && r.dataset.tab !== b.dataset.tab; });
+          pick(b);
+          const u = new URL(location.href);
+          if (b.dataset.tab) u.searchParams.set('album', b.dataset.tab); else u.searchParams.delete('album');
+          history.replaceState(history.state, '', u);   // 留著 ClientRouter 的 state (捲動位置靠它)
         });
         const rows = body.querySelectorAll('[data-song-rows] a');
         document.querySelector('a[href="#random"]')?.addEventListener('click', e => {
