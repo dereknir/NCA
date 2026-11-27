@@ -32,7 +32,7 @@
   .name{font-size:18px;padding-right:64px}
   .period{color:var(--gold);font-size:13px;margin-top:6px;font-variant-numeric:tabular-nums}
   .period.todo{color:var(--dim);font-style:italic}
-  .stops{color:var(--dim);font-size:12px;margin-top:8px;line-height:1.8;cursor:pointer}
+  .stops{color:var(--dim);font-size:12px;margin-top:8px;line-height:1.8;cursor:pointer;min-height:24px}
   .stops b{color:var(--text);font-weight:600}
   .stops:hover b{color:var(--gold)}
   .stopsdetail{display:none;margin-top:8px;border-top:1px solid rgba(36,49,84,.6);padding-top:8px}
@@ -100,6 +100,12 @@
   .slmenu a{border-radius:0!important;font-family:'PX-ZH','PX-JA',var(--font);font-size:12px}
   .stx{border-radius:0!important}
   .stops b{font-family:'PX-ZH','PX-JA',var(--font)}
+  /* 鍵盤焦點框: 缺角按鈕的 clip-path 會把畫在外面的框切掉, 畫在裡面 */
+  .links a:focus-visible,.stbtn:focus-visible{outline:2px solid var(--gold);outline-offset:-4px}
+  .stops:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .stops:focus-visible b{color:var(--gold)}
+  /* 頁首黏在上面: Shift+Tab 往回走時焦點不躲在它底下 */
+  html{scroll-padding-top:72px}
   /* ===== hero 著陸場景像素字 (站內適配) ===== */
 </style>
 <link rel="stylesheet" href="/css/site-shell.css">
@@ -140,6 +146,13 @@ try { visited = JSON.parse(localStorage.getItem(LS) || '{}'); } catch (e) {}
 const saveV = () => { try { localStorage.setItem(LS, JSON.stringify(visited)); } catch (e) {} };
 const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const list = document.getElementById('list');
+function closeMenus(keep) {
+  document.querySelectorAll('.slmenu.open').forEach(m => {
+    if (m === keep) return;
+    m.classList.remove('open');
+    m.previousElementSibling.setAttribute('aria-expanded', 'false');
+  });
+}
 function tourStamped(ev, i) {
   return visited['oneman:' + (i + 1)] ||
     (ev.stops || []).some(st => visited['stop:' + ev.tid + ':' + st.date]);
@@ -161,7 +174,7 @@ DATA.oneman.forEach((ev, idx) => {
     <div class="num">${String(n).padStart(2, '0')}</div>
     <div class="name">${esc(ev.name)}</div>
     <div class="period${todo}">${esc(ev.period)}${ev.note ? '(' + esc(ev.note) + ')' : ''}</div>
-    ${ev.stops?.length ? `<div class="stops" data-tg><b>${ev.stops.length} 站</b>:${esc([...new Set(ev.stops.map(s => s.pref))].join('・'))} ▾</div>
+    ${ev.stops?.length ? `<div class="stops" data-tg role="button" tabindex="0" aria-expanded="false"><b>${ev.stops.length} 站</b>:${esc([...new Set(ev.stops.map(s => s.pref))].join('・'))} ▾</div>
     <div class="stopsdetail">${ev.stops.map(st => `
       <div class="stoprow">
         <button class="stx${(visited['stop:' + ev.tid + ':' + st.date] || visited[key]) ? ' on' : ''}"
@@ -175,7 +188,7 @@ DATA.oneman.forEach((ev, idx) => {
     <div class="links">
       ${ev.news.map(nw => `<a href="${esc(nw.url)}" target="_blank" rel="noopener">news: ${esc(nw.title.slice(0, 18))}…</a>`).join('')}
       ${svc && Object.keys(svc).length
-        ? `<span class="slwrap"><a class="setlist" href="#" data-sl>♪ SETLIST</a>
+        ? `<span class="slwrap"><a class="setlist" href="#" data-sl role="button" aria-haspopup="true" aria-expanded="false">♪ SETLIST</a>
              <span class="slmenu">${Object.entries(svc).map(([label, url]) =>
                `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)}</a>`).join('')}</span></span>`
         : `<a class="setlist" href="https://nishina.lnk.to/live_setlist" target="_blank" rel="noopener">♪ SETLIST</a>`}
@@ -195,7 +208,15 @@ DATA.oneman.forEach((ev, idx) => {
   };
   paint();
   const tg = card.querySelector('[data-tg]');
-  if (tg) tg.onclick = () => card.classList.toggle('expanded');
+  if (tg) {
+    tg.onclick = () => tg.setAttribute('aria-expanded', card.classList.toggle('expanded'));
+    // 是 div 不是 button: Enter / Space 自己接
+    tg.onkeydown = e => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      tg.click();
+    };
+  }
   card.querySelectorAll('[data-stop]').forEach(b => b.onclick = () => {
     const k = b.dataset.stop;
     if (visited[k]) delete visited[k]; else visited[k] = Date.now();
@@ -205,17 +226,29 @@ DATA.oneman.forEach((ev, idx) => {
     updateAtt();
   });
   const slBtn = card.querySelector('[data-sl]');
-  if (slBtn) slBtn.onclick = e => {
-    e.preventDefault();
-    const menu = slBtn.nextElementSibling;
-    document.querySelectorAll('.slmenu.open').forEach(m => m !== menu && m.classList.remove('open'));
-    menu.classList.toggle('open');
-  };
+  if (slBtn) {
+    slBtn.onclick = e => {
+      e.preventDefault();
+      const menu = slBtn.nextElementSibling;
+      closeMenus(menu);
+      slBtn.setAttribute('aria-expanded', menu.classList.toggle('open'));
+    };
+    // role=button 的連結: Space 也要能開 (連結預設只吃 Enter)
+    slBtn.onkeydown = e => { if (e.key === ' ') { e.preventDefault(); slBtn.click(); } };
+    const wrap = slBtn.parentElement;
+    // Esc 收起、焦點回 SETLIST; Tab 走出選單也收起 (不然選單一直開著蓋住下面)
+    wrap.addEventListener('keydown', e => {
+      if (e.key !== 'Escape' || !wrap.querySelector('.slmenu.open')) return;
+      closeMenus();
+      slBtn.focus();
+    });
+    // relatedTarget 是空的 (點到頁面空白、Safari 點連結不給焦點) 交給下面的 click 處理
+    wrap.addEventListener('focusout', e => { if (e.relatedTarget && !wrap.contains(e.relatedTarget)) closeMenus(); });
+  }
   list.appendChild(card);
 });
 document.addEventListener('click', e => {
-  if (!e.target.closest('.slwrap'))
-    document.querySelectorAll('.slmenu.open').forEach(m => m.classList.remove('open'));
+  if (!e.target.closest('.slwrap')) closeMenus();
 });
 updateAtt();
 if (location.hash.match(/^#c\d+$/)) {

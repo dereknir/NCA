@@ -32,6 +32,11 @@
   .tile.hit{cursor:pointer}
   .tile.hit:hover{stroke:var(--gold);stroke-width:1.4}
   .tile.sel{stroke:var(--gold);stroke-width:1.8}
+  .tile:focus{outline:none}
+  /* 鍵盤焦點框: 縣面層上面再描一次縣界 (縣本身的框會被鄰縣蓋住, 東京大阪這種小縣看不到; 數字還在它上面) */
+  .fring{fill:none;pointer-events:none;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+  .fring.bk{stroke:#0a0a15;stroke-width:5}
+  .fring.fg{stroke:#fff;stroke-width:2.5}
   .tnum{font-size:13px;fill:var(--text);pointer-events:none;font-weight:700;
         paint-order:stroke;stroke:#0a0a15;stroke-width:3px}
   #side{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;
@@ -126,6 +131,11 @@
   .stx{border-radius:0!important}
   #sideNav button{border-radius:0;border-width:2px}
   .icsb{border-radius:0}
+  /* 鍵盤焦點框: 缺角按鈕的 clip-path 會把畫在外面的框切掉, 畫在裡面 */
+  #play:focus-visible,.ly:focus-visible,#mkcard:focus-visible,#cardBox button:focus-visible{
+    outline:2px solid var(--gold);outline-offset:-4px}
+  /* 頁首黏在上面: Shift+Tab 往回走時焦點不躲在它底下 */
+  html{scroll-padding-top:72px}
   /* ===== hero 著陸場景像素字 (站內適配) ===== */
 </style>
 <link rel="stylesheet" href="/css/site-shell.css">
@@ -146,15 +156,15 @@
 </div>
 <main>
   <div id="mystats" style="display:inline-block"></div><button id="mkcard">🎴 生成參戰卡</button>
-  <div id="cardModal"><div id="cardBox">
+  <div id="cardModal"><div id="cardBox" role="dialog" aria-modal="true" aria-label="參戰卡">
     <canvas id="passCv" width="840" height="630"></canvas>
     <div><button id="passDl">下載 PNG</button> <button id="passClose">關閉</button></div>
   </div></div>
   <div id="wrap">
     <div id="mapcol">
       <div id="mapctl"><button id="play">▶ 足跡の旅</button>
-        <button class="ly on" id="lyOne"><i style="background:var(--gold)"></i>公演</button>
-        <button class="ly on" id="lyApp"><i style="background:var(--accent)"></i>出演</button>
+        <button class="ly on" id="lyOne" aria-pressed="true"><i style="background:var(--gold)"></i>公演</button>
+        <button class="ly on" id="lyApp" aria-pressed="true"><i style="background:var(--accent)"></i>出演</button>
         <span id="cap"></span></div>
       <div id="map"></div>
     </div>
@@ -284,7 +294,9 @@ function renderMap(counts = null, playhl = null, mxOverride = null) {
     const hasApp = evs.some(e => !e.tour);
     const rgbBase = hasApp ? '61,99,255' : '232,201,74';   // 純公演縣=金
     const fill = n ? `rgba(${rgbBase},${heat.toFixed(2)})` : '#141d31';
-    svg += `<path class="tile${n ? ' hit' : ''}${name === selPref ? ' sel' : ''}${name === playhl ? ' playhl' : ''}" data-p="${name}"
+    // 有場次的縣才能按: 鍵盤整張圖只佔一個 Tab 停點 (roving tabindex), 方向鍵換縣
+    const kb = n ? ` role="button" tabindex="-1" aria-pressed="${name === selPref}" aria-label="${name}・${n} 場"` : '';
+    svg += `<path class="tile${n ? ' hit' : ''}${name === selPref ? ' sel' : ''}${name === playhl ? ' playhl' : ''}" data-p="${name}"${kb}
         d="${p.d}" style="fill:${fill}"><title>${name}${n ? `・${n} 場` : ''}</title></path>`;
   }
   // 標記層(最上,不被縣界蓋住)
@@ -298,10 +310,78 @@ function renderMap(counts = null, playhl = null, mxOverride = null) {
       svg += `<circle cx="${p.cx + 12}" cy="${p.cy + 9}" r="4" fill="#e8c94a" stroke="#0a0a15" stroke-width="1"/>`;
   }
   svg += '</svg>';
-  document.getElementById('map').innerHTML = svg;
-  document.querySelectorAll('.tile.hit').forEach(t =>
+  // 整張重畫: 焦點原本在某個縣上的話, 畫完放回同一個縣
+  const had = mapEl.contains(document.activeElement) ? document.activeElement.dataset.p : null;
+  mapEl.innerHTML = svg;
+  mapEl.querySelectorAll('.tile.hit').forEach(t =>
     t.addEventListener('click', () => openPref(t.dataset.p)));
+  const tiles = [...mapEl.querySelectorAll('.tile.hit')];
+  const stop = tiles.find(t => t.dataset.p === (had || mapStop))
+    || tiles.find(t => t.dataset.p === selPref) || tiles[0];
+  if (!stop) return;
+  stop.tabIndex = 0;
+  mapStop = stop.dataset.p;
+  if (had) stop.focus({ preventScroll: true });
 }
+/* 地圖鍵盤: Tab 進來停在上次的縣 (或選中的縣), 方向鍵往那個方向找最近的縣
+   (偏離方向的距離算重一點, 才不會斜著亂跳), Enter / Space 打開, Esc 收起 */
+const mapEl = document.getElementById('map');
+let mapStop = null;
+const DIRS = { ArrowRight: [1, 0], ArrowLeft: [-1, 0], ArrowDown: [0, 1], ArrowUp: [0, -1] };
+function nextPref(from, [dx, dy]) {
+  const a = JAPAN.prefs[from];
+  let best = null, bestS = Infinity;
+  for (const t of mapEl.querySelectorAll('.tile.hit')) {
+    const b = JAPAN.prefs[t.dataset.p];
+    const ax = (b.cx - a.cx) * dx + (b.cy - a.cy) * dy;   // 沿方向
+    if (ax <= 0) continue;
+    const off = Math.abs((b.cx - a.cx) * dy - (b.cy - a.cy) * dx);   // 偏離方向
+    const sc = ax + off * 2.5;
+    if (sc < bestS) { bestS = sc; best = t; }
+  }
+  return best;
+}
+function closePref() {
+  if (!selPref) return;
+  const p = selPref;
+  selPref = null;
+  side.innerHTML = '<div class="ph">← 點一個縣</div>';
+  mapStop = p;
+  renderMap();
+  mapEl.querySelector(`.tile.hit[data-p="${p}"]`)?.focus({ preventScroll: true });
+}
+mapEl.addEventListener('keydown', e => {
+  const t = e.target.closest('.tile.hit');
+  if (!t || e.altKey || e.ctrlKey || e.metaKey) return;   // Alt+← 上一頁之類的留給瀏覽器
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    openPref(t.dataset.p);
+  } else if (DIRS[e.key]) {
+    e.preventDefault();
+    const n = nextPref(t.dataset.p, DIRS[e.key]);
+    if (!n) return;
+    t.tabIndex = -1;
+    n.tabIndex = 0;
+    mapStop = n.dataset.p;
+    n.focus();
+  } else if (e.key === 'Escape') closePref();
+});
+// 焦點框: 用鍵盤停在哪個縣, 就在最上層再描一次它的邊
+mapEl.addEventListener('focusin', e => {
+  const t = e.target.closest('.tile.hit');
+  mapEl.querySelectorAll('.fring').forEach(r => r.remove());
+  if (!t || !t.matches(':focus-visible')) return;
+  const svgEl = mapEl.querySelector('svg');
+  for (const c of ['bk', 'fg']) {
+    const r = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    r.setAttribute('class', 'fring ' + c);
+    r.setAttribute('aria-hidden', 'true');
+    r.setAttribute('d', t.getAttribute('d'));
+    svgEl.insertBefore(r, svgEl.querySelector('.tnum'));   // 在數字底下, 數字照樣看得到
+  }
+});
+mapEl.addEventListener('focusout', () => mapEl.querySelectorAll('.fring').forEach(r => r.remove()));
+side.addEventListener('keydown', e => { if (e.key === 'Escape') closePref(); });
 function updateStats() {
   const nApp = Object.keys(visited).filter(k => !k.startsWith('oneman:') && !k.startsWith('stop:')).length;
   const nStop = new Set(Object.keys(visited).filter(k => k.startsWith('stop:'))).size;
@@ -371,8 +451,15 @@ function renderSidePage() {
         <span class="pg">${sidePage + 1} / ${pages}</span>
         <button id="pgNext" ${sidePage === pages - 1 ? 'disabled' : ''}>›</button></div>` : '');
   const pv = document.getElementById('pgPrev'), nx = document.getElementById('pgNext');
-  if (pv) pv.onclick = () => { sidePage--; renderSidePage(); };
-  if (nx) nx.onclick = () => { sidePage++; renderSidePage(); };
+  // 翻頁會整塊重畫: 焦點放回同一顆 (翻到頭變 disabled 就換另一顆)
+  const flip = (d, id, other) => () => {
+    sidePage += d;
+    renderSidePage();
+    const b = document.getElementById(id);
+    (b && !b.disabled ? b : document.getElementById(other))?.focus();
+  };
+  if (pv) pv.onclick = flip(-1, 'pgPrev', 'pgNext');
+  if (nx) nx.onclick = flip(1, 'pgNext', 'pgPrev');
 }
 side.addEventListener('click', e => {
   const ib = e.target.closest('.icsb');
@@ -395,6 +482,9 @@ side.addEventListener('click', e => {
   renderMap();
   updateStats();
   if (selPref) { const keep = sidePage; openPref(selPref); sidePage = keep; renderSidePage(); }
+  // 側欄重畫過: 焦點放回剛剛按的那顆章 (不然鍵盤蓋完章焦點掉回頁首)
+  const attr = b.dataset.stop ? 'data-stop' : 'data-k';
+  side.querySelector(`.stx[${attr}="${CSS.escape(k)}"]`)?.focus();
 });
 renderMap();
 updateStats();
@@ -405,7 +495,7 @@ const TODAY = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
 for (const [id, key] of [['lyOne', 'one'], ['lyApp', 'app']])
   document.getElementById(id).onclick = function () {
     layers[key] = !layers[key];
-    this.classList.toggle('on');
+    this.setAttribute('aria-pressed', this.classList.toggle('on'));
     if (playing) stopPlay();
     if (selPref) openPref(selPref); else renderMap();
     renderFacts();
@@ -537,15 +627,30 @@ async function renderPassport() {
   ctx.clearRect(0, 0, cv.width, cv.height);
   ctx.drawImage(oc, 0, 0, cv.width, cv.height);
 }
+const cardModal = document.getElementById('cardModal');
+function closeCard() {
+  if (!cardModal.classList.contains('open')) return;
+  cardModal.classList.remove('open');
+  document.getElementById('mkcard').focus();
+}
 document.getElementById('mkcard').onclick = async () => {
   await renderPassport();
-  document.getElementById('cardModal').classList.add('open');
+  cardModal.classList.add('open');
+  document.getElementById('passDl').focus();
 };
-document.getElementById('passClose').onclick = () =>
-  document.getElementById('cardModal').classList.remove('open');
-document.getElementById('cardModal').onclick = e => {
-  if (e.target.id === 'cardModal') e.target.classList.remove('open');
+document.getElementById('passClose').onclick = closeCard;
+cardModal.onclick = e => {
+  if (e.target === cardModal) closeCard();
 };
+// 開著的時候: Esc 關掉, Tab 只在兩顆按鈕之間繞 (不跑到後面被蓋住的頁面)
+cardModal.addEventListener('keydown', e => {
+  if (e.key === 'Escape') return closeCard();
+  if (e.key !== 'Tab') return;
+  const bs = [...cardModal.querySelectorAll('button')];
+  const i = bs.indexOf(document.activeElement);
+  e.preventDefault();
+  bs[(i + (e.shiftKey ? -1 : 1) + bs.length) % bs.length].focus();
+});
 document.getElementById('passDl').onclick = () => {
   const a = document.createElement('a');
   a.download = `nishina-sansen-${new Date().toISOString().slice(0, 10)}.png`;
