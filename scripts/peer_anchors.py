@@ -185,6 +185,16 @@ def load_feats(vids):
     return F, mean
 
 
+def regrade(r, cov):
+    """照抄後升級: 涵蓋 ≥90% → A, 不然 C 升 B。判成不是單曲的不升 (anchors 照抄, 評級留 C 給人工, 不然 merge 會寫進去)"""
+    if 'not_single_song' in (r.get('needsReview') or []):
+        return
+    if cov >= 0.9:
+        r['grade'], r['needsReview'] = 'A', [x for x in r.get('needsReview') or [] if x == 'event_title']
+    elif r.get('grade') == 'C':
+        r['grade'] = 'B'
+
+
 def apply(out_path=aa.OUT_F, ids=None):
     """auto_anchors.json 裡未審的每一支: 找同錄音的已審 shorts, 照抄; 結果寫回"""
     data = json.loads(out_path.read_text(encoding='utf-8'))
@@ -206,6 +216,9 @@ def apply(out_path=aa.OUT_F, ids=None):
         if k % 100 == 0:
             print(f'[peer] {k}/{len(todo)} · 目前 {n_peer} 支找到同錄音 · {time.time() - t0:.0f}s', flush=True)
         r = items[v]
+        h = H.get(v, {})
+        # 舊版跑出來的結果補套「不是單曲」偵測 (標在 r['asr'], 下面每次重算都會帶著)
+        aa.backfill_nonsong(r, songs, h.get('songId') if h.get('songConfirmed') and h.get('songId') in songs else None)
         if 'asr' not in r:
             r['asr'] = {k: r.get(k) for k in KEEP}           # ASR 原本的結果; 之後重算都從這份出發
         base = r['asr']
@@ -239,10 +252,7 @@ def apply(out_path=aa.OUT_F, ids=None):
         r['songId'] = sid
         r['peer'] = {'from': [{'videoId': u, 'offset': round(o, 2), 'sim': round(s, 3)} for u, o, s in partners if H[u]['songId'] == sid],
                      'coverage': round(cov, 2), 'songChanged': base['songId'] != sid}
-        if cov >= 0.9:
-            r['grade'], r['needsReview'] = 'A', [x for x in r['needsReview'] if x == 'event_title']
-        elif r['grade'] == 'C':
-            r['grade'] = 'B'
+        regrade(r, cov)
         n_peer += 1; n_song += base['songId'] != sid
     data['meta']['peer'] = {'updated': time.strftime('%Y-%m-%d %H:%M'), 'count': n_peer, 'done_refs': len(done)}
     aa.write_out(out_path, data)

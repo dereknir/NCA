@@ -25,6 +25,7 @@ auto_annotate.py — 本地 ASR (faster-whisper, CPU) 幫 shorts 自動打「歌
   python scripts/auto_annotate.py --redo --model medium  # 全量重標: 所有非 done/skip 的都重跑 (舊結果作廢)
   python scripts/auto_annotate.py --ids VID1 VID2        # 指定幾支 (強制重跑)
   python scripts/auto_annotate.py --merge                # 寫入 shorts_anchors.json (status=auto; done/skip/人工進行中不動)
+  python scripts/auto_annotate.py --nonsong              # 舊結果補套「不是單曲」偵測 (不重跑 ASR; 同錄音照抄時也會自動補)
   python scripts/eval_align.py                           # 不跑 ASR, 用既有逐字稿離線評估對齊 (改演算法用)
 """
 import argparse, json, os, random, re, shutil, sys, time, unicodedata
@@ -494,11 +495,14 @@ def decide_song(top, guess, method):
 # (試過第三條「轉寫很長但對到的句子只佔影片時間一小段」: 驗收組會把真歌誤降, 拿掉了)
 # 命中任一條 → needsReview 加 not_single_song、評級降成 C (merge 不會寫進去, 留給人工)
 # 判定放在 process() 選完 Qwen / whisper 之後 (兩份轉寫任一命中就算), 不然 C 會觸發 whisper 重跑把標記洗掉
-# 標題先去掉 hashtag (單曲的 fes 現場片段常帶 #フェス); 「謝謝」只在跟活動字樣一起出現時才算
-NONSONG_EVENT = r'(\bfes(tival)?\b|フェス|ライブ|\blive\b|\btour\b|ツアー)'
-NONSONG_THANKS = r'(ありがとうございました|thank you)'
-NONSONG_TITLE = re.compile(rf'{NONSONG_EVENT}.*{NONSONG_THANKS}|{NONSONG_THANKS}.*{NONSONG_EVENT}|'
-                           r'\bgoods\b|グッズ|\bnew ?photos?\b|\blucky\b.*\btrack\b|\bosanpo\b', re.I)
+# 標題只拿掉 # 符號 (不整個刪 tag: #フェス 這類就是活動字樣本身); 活動字樣單獨出現就算
+# 英文字界用 ASCII lookaround, 不用 \b (\b 把假名漢字也當字元, 「にしなfes」會對不到); fes 不會中 manifest
+# live / ライブ 不算: dev 裡真歌的 live 片段幾乎都帶 #live (200 支), 非歌曲只有 5 支
+# (「feeling in ○○」拿掉了: 真歌標題也會用)
+_A = r'(?<![a-z])'
+_Z = r'(?![a-z])'
+NONSONG_TITLE = re.compile(rf'{_A}(fes(t|tival)?|tour|thank you|goods|new ?photos?|osanpo){_Z}|{_A}lucky{_Z}.*{_A}track{_Z}|'
+                           r'フェス|ツアー|グッズ|ありがとうございました', re.I)
 NONSONG_FOREIGN = (16, 70, 15, 0.2, 60, 2)   # 視窗假名數, 別首歌分數下限, 領先本曲分數, 文字比例門檻, 最少總假名數, 最少命中視窗
 NONSONG_CHECK = True
 
@@ -534,8 +538,7 @@ def _foreign_ratio(segments, sid, songs):
 def nonsong_signals(title, segment_lists, sid, songs):
     """回傳命中的訊號名稱 list (空 = 看起來是單曲)。segment_lists: 一或多份轉寫的 segments, 任一份命中就算"""
     hit = []
-    clean = re.sub(r'#\S+', ' ', title or '')
-    if NONSONG_TITLE.search(clean):
+    if NONSONG_TITLE.search((title or '').replace('#', ' ')):
         hit.append('title')
     if sid in songs and any(_foreign_ratio(segs, sid, songs) >= NONSONG_FOREIGN[3] for segs in segment_lists if segs):
         hit.append('foreign')
@@ -554,6 +557,46 @@ def apply_nonsong(out, item, songs, transcripts, force_song=None):
         out['grade'] = 'C'
     return out
 
+
+def backfill_nonsong(r, songs, force_song=None):
+    """已存的結果補套偵測 (不重跑 ASR, 只有存下來的那份轉寫)。
+    同錄音照抄每次都從 r['asr'] 重算, 所以 r['asr'] 跟外層都要套; 已經有標記的不重複加。回傳有沒有新標"""
+    if r.get('error') or 'not_single_song' in (r.get('needsReview') or []):
+        return False
+    base = r.get('asr') or r
+    if 'not_single_song' in (base.get('needsReview') or []):
+        return False
+    rec = apply_nonsong(dict(base), {'title': r.get('title')}, songs, [{'segments': r.get('transcript')}], force_song)
+    if not rec.get('nonSong'):
+        return False
+    for tgt in ([base, r] if base is not r else [r]):
+        tgt['needsReview'] = list(tgt.get('needsReview') or []) + ['not_single_song']
+        tgt['grade'] = 'C'
+    r['nonSong'] = rec['nonSong']
+    return True
+
+
+def backfill_all(out_path):
+    """--nonsong: 整份 auto_anchors.json 補套偵測; 人工已審 (done/skip) 的不動、確認過歌名的不套 (跟 process 的 force_song 一樣)"""
+    data = json.loads(out_path.read_text(encoding='utf-8'))
+    H = json.loads(ANCHORS_F.read_text(encoding='utf-8'))
+    songs = load_songs()
+    n = hit = 0
+    why = {}
+    for v, r in data['items'].items():
+        h = H.get(v, {})
+        if h.get('status') in ('done', 'skip') or r.get('error'):
+            continue
+        n += 1
+        forced = h.get('songId') if h.get('songConfirmed') and h.get('songId') in songs else None
+        if backfill_nonsong(r, songs, forced):
+            hit += 1
+            for k in r['nonSong']:
+                why[k] = why.get(k, 0) + 1
+    data.setdefault('meta', {})['nonsong'] = {'updated': time.strftime('%Y-%m-%d %H:%M'), 'flagged': hit}
+    write_out(out_path, data)
+    print(f'[nonsong] 未審 {n} 支補套「不是單曲」偵測 (不重跑 ASR): 新標 {hit} 支 → C {why}')
+    return hit
 
 # ---------- 單支處理 ----------
 ALGO = 3              # 演算法版本; --redo 會重跑舊版本的結果 (v3: 頭尾延伸 + whisper 時間優先, 每支 anchors 都可能變)
@@ -583,6 +626,12 @@ def process(vid, item, songs, model_name, audio_dir, two_pass=False, force_song=
             out = alt
             out['fallback'] = 'whisper'
     return apply_nonsong(out, item, songs, [tr, tr.get('alt')], force_song)
+
+
+def needs_retry(rec, retry_model):
+    """whisper 引擎: C 級要不要用大模型再跑一次。標題判成不是單曲的不重跑 (換大模型標題還是一樣, 一定還是 C)"""
+    return (ENGINE == 'whisper' and bool(retry_model) and rec.get('grade') == 'C' and not rec.get('error')
+            and 'title' not in (rec.get('nonSong') or []))
 
 
 def _rank(r):
@@ -757,6 +806,7 @@ def main():
     ap.add_argument('--combine', nargs='*', help='把多個 shard 的 out 檔合併進 --out 後結束')
     ap.add_argument('--peer', action='store_true', help='只重算「同錄音照抄」(scripts/peer_anchors.py), 不跑 ASR; 審了一批之後重跑會更準')
     ap.add_argument('--no-peer', action='store_true', help='ASR 跑完後不做同錄音照抄')
+    ap.add_argument('--nonsong', action='store_true', help='只把「不是單曲」偵測補套到已存的結果 (不跑 ASR; 舊版跑出來的結果用)')
     ap.add_argument('--include-c', action='store_true', help='--merge 時連 C 級 / 認不出歌的也放進 🤖 待審 (徽章顯示 C; 認不出歌的歌名留空)')
     args = ap.parse_args()
     global CPU_THREADS, VAD, ENGINE
@@ -775,6 +825,8 @@ def main():
         return
     if args.merge:
         return merge(out_path, include_c=args.include_c)
+    if args.nonsong:
+        return backfill_all(out_path)
     if args.peer:
         import peer_anchors
         return peer_anchors.apply(out_path)
@@ -840,7 +892,7 @@ def main():
                     forced = h.get('songId') if h.get('songConfirmed') and h.get('songId') in songs else None
                     rec = process(v, items.get(v, {'videoId': v}), songs, args.model, audio_dir,
                                   two_pass=args.prompt_pass, force_song=forced)
-                    if ENGINE == 'whisper' and args.retry_model and rec.get('grade') == 'C' and not rec.get('error'):
+                    if needs_retry(rec, args.retry_model):
                         # C 級 (聽不清/對不上) 用較大的模型再試一次, 取較好的
                         rec2 = process(v, items.get(v, {'videoId': v}), songs, args.retry_model, audio_dir,
                                        two_pass=args.prompt_pass, force_song=forced)
