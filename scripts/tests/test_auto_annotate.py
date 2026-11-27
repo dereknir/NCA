@@ -680,3 +680,20 @@ def test_merge_dropped_by_merge_can_come_back(tmp_path, monkeypatch):
         anc.write_text(json.dumps({'x': dict({'songId': 'a', 'anchors': [], 'status': 'pending', 'source': 'manual', 'autoDropped': True}, **extra)}), encoding='utf-8')
         aa.merge(out)
         assert json.loads(anc.read_text(encoding='utf-8'))['x']['status'] == 'pending'
+
+
+def test_merge_dropped_but_touched_by_human_is_kept(tmp_path, monkeypatch):
+    # autoDropped 留著但看得出人工動過 (舊版頁面沒清旗標): 歸到 __others / 清空歌名 / 盲標中 → merge 不覆蓋
+    import json
+    ok = dict(songId='a', grade='A', needsReview=[], anchors=[{'t': 1.0, 'line': 0, 'score': 90}], versionType=None)
+    monkeypatch.setattr(aa, 'PUB_F', tmp_path / 'pub.json')
+    monkeypatch.setattr(aa, 'ROOT', tmp_path)
+    out = tmp_path / 'auto.json'
+    out.write_text(json.dumps({'meta': {}, 'items': {'x': dict(ok)}}), encoding='utf-8')
+    anc = tmp_path / 'anchors.json'
+    monkeypatch.setattr(aa, 'ANCHORS_F', anc)
+    base = {'songId': 'a', 'anchors': [], 'status': 'pending', 'source': 'manual', 'autoDropped': True}
+    for extra in ({'songId': '__others'}, {'songId': None}, {'blind': True}, {'blindAborted': True}, {'source': 'auto'}):
+        anc.write_text(json.dumps({'x': dict(base, **extra)}), encoding='utf-8')
+        aa.merge(out)
+        assert json.loads(anc.read_text(encoding='utf-8'))['x']['status'] == 'pending', extra

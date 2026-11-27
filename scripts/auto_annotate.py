@@ -780,7 +780,10 @@ def merge(out_path, include_c=False):
         cur = anchors.get(vid)
         if cur and cur.get('status') in ('done', 'skip'):
             continue
-        machine_dropped = cur and cur.get('autoDropped') and not cur.get('anchors') and not cur.get('songConfirmed')
+        # 前端人工一動 (改歌 / 套用建議 / 退回手動 / 盲標) 就會刪 autoDropped; 這裡再多擋幾種人工痕跡 (舊版頁面存的資料)
+        machine_dropped = (cur and cur.get('autoDropped') and cur.get('source') == 'manual' and not cur.get('anchors')
+                           and not cur.get('songConfirmed') and not cur.get('blind') and not cur.get('blindAborted')
+                           and cur.get('songId') and not str(cur['songId']).startswith('__'))
         if (cur and cur.get('status') == 'pending' and not machine_dropped
                 and (cur.get('anchors') or cur.get('songConfirmed') or cur.get('source') in ('auto', 'manual'))):
             # 人工動過的 pending 不覆蓋: 已開始打 anchors / 審核時改了歌 (機器建議作廢) / 按了「建議不對, 退回手動」
