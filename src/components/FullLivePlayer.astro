@@ -123,7 +123,8 @@ const { song } = Astro.props;
   .flp-track-h { display: flex; justify-content: flex-end; margin: 32px 0 8px; font: 12px var(--sh-px); color: var(--sh-ink2); }
   .flp-track-h b { color: var(--sh-gold); font-weight: 400; }
   .flp-track { position: relative; display: flex; gap: 3px; height: 48px; }
-  .flp-seg { position: relative; flex: var(--w) 1 0; min-width: 18px; background: #111 center / cover no-repeat; cursor: pointer; overflow: hidden; border: 0; padding: 0; }
+  /* 最窄 24px: 手機上短的段落 (MC、轉場) 也點得到 */
+  .flp-seg { position: relative; flex: var(--w) 1 0; min-width: 24px; background: #111 center / cover no-repeat; cursor: pointer; overflow: hidden; border: 0; padding: 0; }
   .flp-seg::after { content: attr(data-n); position: absolute; left: 6px; top: 4px; font: 12px var(--sh-px); color: #fff; text-shadow: 1px 1px 0 #000; }
   .flp-seg > .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: var(--c); z-index: 1; }
   .flp-seg.gap { background: repeating-linear-gradient(45deg, #1a1f33 0 4px, #0d1020 4px 8px); }

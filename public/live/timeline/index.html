@@ -59,9 +59,11 @@
   #today .go{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:5px 13px;
         color:var(--dim);text-decoration:none;cursor:pointer;background:transparent;font-family:inherit}
   #today .go:hover{border-color:var(--accent);color:var(--accent)}
-  #today .dots{display:flex;gap:6px}
-  #today .dot{width:7px;height:7px;border-radius:50%;background:var(--line);cursor:pointer;border:none;padding:0}
-  #today .dot.on{background:var(--gold)}
+  /* 圓點看起來 7px, 按鈕本身 24px (手機點得到); 點畫在正中間 */
+  #today .dots{display:flex;gap:0}
+  #today .dot{width:24px;height:24px;border-radius:50%;cursor:pointer;border:none;padding:0;
+        background:linear-gradient(var(--line),var(--line)) center/7px 7px no-repeat}
+  #today .dot.on{background-image:linear-gradient(var(--gold),var(--gold))}
   .chip.mine{border-color:#d65555!important}
   .chip.mine i{background:#d65555}
   .chip.mine.on{color:#d65555}
@@ -303,7 +305,7 @@ renderNext();
         + `<div class="row">
              <button class="go" data-y="${e.date.slice(0, 4)}">在年表看這一年 →</button>
              ${pool.length > 1 ? `<span class="dots">${pool.map((_, j) =>
-               `<button class="dot${j === idx ? ' on' : ''}" data-i="${j}"></button>`).join('')}</span>` : ''}
+               `<button class="dot${j === idx ? ' on' : ''}" data-i="${j}" aria-label="第 ${j + 1} 則"></button>`).join('')}</span>` : ''}
            </div>`;
       el.querySelector('.go').onclick = ev =>
         document.getElementById('y' + ev.target.dataset.y)?.scrollIntoView({ block: 'start' });

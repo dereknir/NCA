@@ -105,3 +105,53 @@ test('#10 /star-map/ 頁首 logo、選單跟其他靜態頁同一個位置', asy
   const star = await boxes('/star-map/');
   expect(star).toEqual(ref);
 });
+
+test.describe('#11 手機點擊區至少 24px', () => {
+  test.skip(({ isMobile }) => !isMobile, '只看手機');
+
+  test('timeline「今日のにしな」的切換圓點', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-11-27T12:00:00+09:00'));   // 這天有兩則, 會出現圓點
+    await page.goto('/live/timeline/');
+    const dots = page.locator('#today .dot');
+    await expect(dots.first()).toBeVisible();
+    expect(await dots.count()).toBeGreaterThan(1);
+    for (const b of await dots.all()) {
+      const r = (await b.boundingBox())!;
+      expect(r.width).toBeGreaterThanOrEqual(24);
+      expect(r.height).toBeGreaterThanOrEqual(24);
+    }
+    await dots.nth(1).click();
+    await expect(dots.nth(1)).toHaveClass(/\bon\b/);
+  });
+
+  test('完整 Live 的段落', async ({ page }) => {
+    await page.goto('/live/full/nishina-bugs/');   // 段落最多、最窄的一場
+    const segs = page.locator('.flp-seg');
+    await expect(segs.first()).toBeVisible();
+    const sizes = await segs.evaluateAll((es) => es.map((e) => { const r = e.getBoundingClientRect(); return Math.min(r.width, r.height); }));
+    expect(Math.min(...sizes)).toBeGreaterThanOrEqual(24);
+    // 段落沒有擠出軌道
+    const over = await page.evaluate(() => { const t = document.querySelector('[data-track]')!; return t.scrollWidth - t.clientWidth; });
+    expect(over).toBeLessThanOrEqual(0);
+  });
+
+  test('現場熱度條: 點在兩根之間也算點到最近那根', async ({ page }) => {
+    await page.goto(SONG);
+    const gap = await page.evaluate(() => {
+      const bs = [...document.querySelectorAll<HTMLButtonElement>('[data-ll-head] .wv-b')];
+      for (let i = 0; i + 1 < bs.length; i++) {
+        if (bs[i].disabled || bs[i + 1].disabled) continue;
+        const a = bs[i].getBoundingClientRect(), b = bs[i + 1].getBoundingClientRect();
+        if (b.left - a.right < 1) continue;
+        bs[i].scrollIntoView({ block: 'center' });
+        const a2 = bs[i].getBoundingClientRect(), b2 = bs[i + 1].getBoundingClientRect();
+        return { x: (a2.right + b2.left) / 2, y: a2.top + a2.height / 2, h: a2.height };
+      }
+      return null;
+    });
+    expect(gap).not.toBeNull();
+    expect(gap!.h).toBeGreaterThanOrEqual(24);
+    await page.mouse.click(gap!.x, gap!.y);
+    await expect(page.locator('[data-ll-pop]')).toBeVisible();
+  });
+});
