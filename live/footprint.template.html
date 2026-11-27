@@ -562,11 +562,12 @@ function renderFacts() {
   const topYear = Object.entries(yc).sort((a, b) => b[1] - a[1])[0];
   const topS = (SERIES?.series || []).filter(s => s.count >= 2)[0];
   const nStops = TOURS.tours.reduce((n, t) => n + t.stops.length, 0);
+  // 公演、出演兩層都關掉: 地圖上一縣都沒有, 跟縣有關的兩條不顯示
   const F = [
     `出演<b>${DATA.appearance.length}</b>場・巡演<b>${nStops}</b>站・<b>${prefs.length}</b>縣`,
-    `最常出沒 <b>${topPref}</b> ${ec[topPref].length}場`,
+    topPref ? `最常出沒 <b>${topPref}</b> ${ec[topPref].length}場` : '',
     topS ? `<b>${topS.series.slice(0, 20)}</b> ${topS.count}年皆勤` : '',
-    `最北 <b>${north}</b>・最南 <b>${south}</b>`,
+    prefs.length ? `最北 <b>${north}</b>・最南 <b>${south}</b>` : '',
     topYear ? `最忙碌 <b>${topYear[0]}</b>年 ${topYear[1]}場` : '',
   ].filter(Boolean);
   document.getElementById('facts').innerHTML = F.map(f => `<div class="fact">${f}</div>`).join('');
