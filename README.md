@@ -1,11 +1,69 @@
 # NCA — にしな 歌詞翻譯與資料站
 
-Derek 的個人網站,主體是日本歌手 **にしな (nishina)** 的粉絲資料站:
-日文歌詞的繁中翻譯、歌詞分析視覺化、巡演 setlist、公演史與出演足跡、YouTube shorts 花絮、
-歌詞卡扭蛋……外加日記與作品集。純靜態 Astro 站, 部署在 Vercel; 資料由 Python 管線與
-GitHub Actions 定期更新。
+**把日本歌手にしな的 YouTube shorts 對上歌詞: 影片唱到哪一句, 中文翻譯就亮到哪一句。**
 
-## 站點地圖
+正式站: **https://nca-red.vercel.app** · 這個站怎麼運作 (數字每次 build 自動更新): [/projects/how-nca-works/](https://nca-red.vercel.app/projects/how-nca-works/)
+
+| | |
+|---|---|
+| ![首頁: 像素風的屋頂房間](docs/img/home.png) | ![歌詞頁: 日文 / 拼音 / 中文對照](docs/img/song.png) |
+| ![宇宙 hub: 每顆行星是一個區塊](docs/img/galaxy.png) | ![出演足跡: 按都道府縣畫在日本地圖上](docs/img/footprint.png) |
+
+## 這是什麼
+
+我是にしな的歌迷。一開始只是想把她的歌翻成中文, 後來發現官方頻道有上千支演唱會的 shorts,
+就想: 如果歌詞頁可以直接放現場影片, 而且跟著唱到的那一句走, 聽歌的時候就能同時看到現場跟歌詞。
+
+現在這個站有 50 首歌的日 / 羅馬拼音 / 中文對照翻譯、上千支對好時間點的現場片段、
+可以從頭到尾「接」成一首的完整 Live、歷年巡演 setlist、出演足跡地圖、歌詞的詞彙與意象分析,
+外面包一層像素風的宇宙世界觀。
+
+## 架構
+
+```mermaid
+flowchart LR
+  YT[YouTube shorts] -->|yt-dlp 每天排程| RAW[nishina_shorts.json]
+  RAW -->|ASR 逐字稿 + 模糊比對| AUTO[模型初稿<br/>哪一句 · 第幾秒]
+  AUTO -->|/annotate/ 人工審| GOLD[shorts_anchors.json<br/>人工定稿]
+  GOLD -.->|dev / test 當考卷| AUTO
+  GOLD -->|sync-derived 30 秒內| DER[歌詞頁用的衍生資料]
+  MD[翻譯 Markdown] --> DER
+  DER --> ASTRO[Astro 靜態建置<br/>astro check · Playwright]
+  ASTRO --> V[Vercel<br/>分支預覽 · 正式站]
+```
+
+- **資料**: Python 管線 + GitHub Actions 定期抓、算, 結果以 JSON commit 回 repo
+- **人工審核**: 自己寫的標注器 (`/annotate/`), 看著模型的初稿改, 存檔直接 commit 回 repo, 手機也能審
+- **網站**: Astro 7 純靜態輸出, 所有數字在 build 時從 JSON 算; Vercel 部署, 每個分支都有預覽網址
+- **品質**: CI 跑型別檢查、建置、鏡像檔一致性檢查, 加上 Playwright 每頁桌機 / 手機冒煙測試
+
+## 為什麼這樣選
+
+- **純靜態, 不要後端**: 資料量不大 (幾 MB 的 JSON), 更新頻率是「每天一次」等級。靜態站沒有伺服器要顧,
+  每一次資料變動都有 git 紀錄, 出錯可以直接回到上一版。
+- **Astro**: 頁面大多是內容, 只有少數互動 (播放器、地圖、扭蛋)。Astro 預設不送 JS, 需要互動的地方才加,
+  content collection 的 schema 也幫我擋掉翻譯檔的格式錯誤。
+- **模型打草稿、人來審**: 演唱會音訊很難辨識, 模型的初稿目前大約一半可以直接用。與其追求全自動,
+  不如讓模型把「從零開始標」變成「看一眼、改幾格」; 我審完的定稿再分成 dev / test 回頭評估模型。
+- **GitHub Actions 當排程器**: 抓資料、重算衍生檔都是幾分鐘的批次工作, 用 Actions 免費又跟 repo 綁在一起;
+  每支 workflow 只 commit 明確列出的檔案, 也不 push 自己的觸發路徑, 不會互相觸發成迴圈。
+- **像素風**: 一方面是喜歡, 一方面是字型子集化之後很輕 — 全站中日文像素字只收用得到的幾千字。
+
+## 怎麼跑起來
+
+```bash
+git clone https://github.com/dereknir/NCA.git && cd NCA
+npm install
+npm run dev        # http://localhost:4321
+```
+
+需要 Node 22。資料都已經在 repo 裡, 不用跑 Python 也能開站; 要重算資料再看下面的「資料管線」。
+
+---
+
+## 開發者資訊
+
+### 站點地圖
 
 | 路徑 | 內容 | 來源 |
 |---|---|---|
@@ -22,14 +80,14 @@ GitHub Actions 定期更新。
 | `/admin/` | **內部工具**: 透過 GitHub API 編輯內容的靜態後台 | `src/pages/admin/` |
 | `/diary/` `/projects/` `/about` | 日記、作品集、關於 | `src/content/` |
 
-## 技術
+### 技術
 
 - **Astro 7** (static output) + **Tailwind CSS 4** + MDX; Node 22; `astro check` 做型別檢查
 - 像素字型: fusion-pixel (12/10/8px) 與 jf open 粉圓, 依全站字集子集化成 woff2 (`scripts/build_pixel_fonts.py`)
 - Python 3.11 資料管線 (`requirements.txt`; 重型 ML 另見 `requirements-ml.txt`)
 - 部署: Vercel 讀 `develop` 分支, `vercel.json` 指定 framework preset (astro)、build/dev 指令與輸出目錄
 
-## 本地開發
+### 本地開發
 
 ```bash
 npm install
@@ -42,7 +100,7 @@ pip install -r requirements.txt      # 資料管線用
 python scripts/check_sync.py         # 驗證 public/annotate/ 鏡像與來源一致 (CI 也跑)
 ```
 
-## 目錄結構
+### 目錄結構
 
 ```
 src/
@@ -62,9 +120,9 @@ docs/                         設計討論與規格 (STAGE-SPEC.md 等)
 .github/workflows/            六支 Actions (見下)
 ```
 
-## 資料管線
+### 資料管線
 
-### 歌詞 (md → 衍生資料)
+#### 歌詞 (md → 衍生資料)
 ```
 src/content/translations/*.md
   └─ scripts/export_lyrics_json.py  → data/lyrics.json (+ 鏡像 public/annotate/lyrics.json)
@@ -75,7 +133,7 @@ scripts/build_site_charset.py → data/site_charset.txt → scripts/build_pixel_
 ```
 一鍵: `python scripts/refresh_data.py` (export → analyze → kwic)。
 
-### Shorts (YouTube → 標注 → 歌詞頁)
+#### Shorts (YouTube → 標注 → 歌詞頁)
 ```
 yt-dlp (@nishina__official/shorts) → data/nishina_shorts_raw.jsonl (gitignored)
   └─ scripts/clean_shorts.py       → data/nishina_shorts.json
@@ -88,12 +146,12 @@ annotator (/annotate/) 人工或 scripts/auto_annotate.py (ASR, 本機跑; scrip
        └─ scripts/build_gacha_live_pool.py → public/gacha/live_pool.json
 ```
 
-### Live 資料
+#### Live 資料
 `live/data/*.json` (news / events / tours / setlists 連結 / 出演系列 / 日本地圖) → `live/inject.py`
 → `public/live/{timeline,concerts,footprint}/index.html` + `public/live/events.json` + `public/annotate/appearances.json`。
 更新政策與各資料源的抓取頻率見 `live/DATA-REFRESH-POLICY.md`。
 
-## GitHub Actions
+### GitHub Actions
 
 | Workflow | 觸發 | 做什麼 |
 |---|---|---|
@@ -106,7 +164,7 @@ annotator (/annotate/) 人工或 scripts/auto_annotate.py (ASR, 本機跑; scrip
 
 資料 workflow 都只 commit 明確列出的衍生檔, 且從不 push 自己的觸發路徑, 不會互相迴圈。
 
-## 相關文件
+### 相關文件
 
 - `annotation/HANDOFF.md` — shorts 標注系統的背景、格式與操作
 - `live/DATA-REFRESH-POLICY.md` — 外部資料源的抓取原則 (robots、頻率、停手條件)
@@ -114,7 +172,7 @@ annotator (/annotate/) 人工或 scripts/auto_annotate.py (ASR, 本機跑; scrip
 - `docs/STAGE-SPEC.md` — 歌詞頁 Live Stage 的實作規格
 - `public/gacha/README.md` — 扭蛋原型說明
 
-## 素材與致謝
+### 素材與致謝
 
 行星 shader 改編自 Deep-Fold「PixelPlanets」(MIT) 的 Unity 移植版 hmcGit/UniPixelPlanet (MIT);
 像素字型 fusion-pixel-font (OFL-1.1); 內文字型 jf open 粉圓 (OFL-1.1) 與 DotGothic16 (OFL-1.1);
