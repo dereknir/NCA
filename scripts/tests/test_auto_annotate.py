@@ -790,3 +790,16 @@ def test_retime_whisper_estimate_yields_to_real_whisper_line():
     out = aa._retime(a, {1: 1.1, 2: 7.8, 3: 8.1, 4: 12.1}, low={2})
     assert out[2]['t'] == 8.1 and out[0]['t'] == 1.1 and out[3]['t'] == 12.1
     assert 1.1 < out[1]['t'] < 8.1
+
+
+def test_hybrid_whisper_follows_qwen_when_qwen_tie_flipped():
+    # Qwen、whisper 都平手, Qwen 被歌詞窗改選第一次副歌; whisper 要跟著選同一段, 時間才換得到 whisper 的
+    lines = [VERSES[2], VERSES[0], VERSES[1], 'そして', VERSES[3], VERSES[0], VERSES[1], 'もうね', VERSES[4]]
+    song = make_song(lines)
+    text = VERSES[0] + VERSES[1] + 'そして'
+    q = make_tr(text)
+    q['alt'] = make_tr(text, t0=0.5)
+    anchors, _ = aa.align(song, q)
+    real = [a for a in anchors if not a.get('est')]
+    assert [a['line'] for a in real] == [1, 2]
+    assert real[0]['t'] == pytest.approx(0.5) and real[1]['t'] == pytest.approx(0.5 + len(VERSES[0]) / 4.0)
