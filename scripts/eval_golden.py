@@ -17,6 +17,7 @@ test 被看過幾次之後就不乾淨了: --split fresh 只評「快照之後�
   ≤1s        共同句裡時間差 ≤1 秒的比例
   >3s        共同句裡時間差 >3 秒的句數 (大錯)
   完美       句子集合完全一樣且每句 ≤1s (≈ 審核時不用改)
+  選錯段     共同句不到人工的一半 (多半是副歌選到另一次; 這種 >3s 反而算 0, 所以要另外看)
 """
 import argparse, hashlib, json, statistics, sys, time
 from collections import Counter
@@ -45,17 +46,21 @@ def seen_ids():
     return {l.strip() for l in SEEN_F.read_text(encoding='utf-8').splitlines() if l.strip() and not l.startswith('#')}
 
 
-def in_split(vid, split, seen=None):
-    if split == 'all':
-        return True
+def in_split(vid, split, seen):
+    """有快照時 dev / test / all 只評快照裡的片段, 新標的只進 fresh (不然調 dev 等於在 fresh 上調)"""
     if split == 'fresh':
-        return vid not in (seen if seen is not None else seen_ids())
-    return split_of(vid) == split
+        return vid not in seen
+    if seen and vid not in seen:
+        return False
+    return split == 'all' or split_of(vid) == split
 
 
-def snapshot(label):
+def snapshot(label, force=False):
     H = json.loads(aa.ANCHORS_F.read_text(encoding='utf-8'))
     ids = sorted(v for v, a in H.items() if a.get('status') == 'done')
+    old = seen_ids()
+    if old and not force:
+        sys.exit(f'已有快照 ({len(old)} 支, 現在 done {len(ids)} 支); 重拍會把 fresh 的 {len(set(ids) - old)} 支吸進去, 確定要就加 --force')
     SEEN_F.write_text(f'# {label}: 這之前標成 done 的片段 ({len(ids)} 支); --split fresh 只評不在這裡的\n'
                       + '\n'.join(ids) + '\n', encoding='utf-8')
     print(f'快照 {len(ids)} 支 → {SEEN_F.name}')
@@ -104,6 +109,7 @@ def score_clip(anc, human):
                 n_t=len(d), ok1=sum(x <= 1 for x in d), big=sum(x > 3 for x in d),
                 perfect=bool(A) and A.keys() == Hm.keys() and all(x <= 1 for x in d),
                 lead_miss=bool(A) and min(Hm) < min(A), trail_miss=bool(A) and max(Hm) > max(A),
+                wrong_sec=bool(A) and len(common) < 0.5 * len(Hm),
                 empty=not A)
 
 
@@ -118,16 +124,18 @@ def summarize(rows):
     sd = [x for r in rows for x in r['signed']]
     bias = f' | 機器-人工 中位 {statistics.median(sd):+.2f}s' if sd else ''
     return (f'{n:4d} 支 | 完美 {s["perfect"]:3d} ({s["perfect"] / n:4.0%}) | 句 P {p:4.0%} R {rc:4.0%} | '
-            f'≤1s {s["ok1"] / max(s["n_t"], 1):4.0%} | >3s {s["big"]:3d} 句 | 開頭漏 {s["lead_miss"]:3d} 結尾漏 {s["trail_miss"]:3d} | 空 {s["empty"]}{bias}')
+            f'≤1s {s["ok1"] / max(s["n_t"], 1):4.0%} | >3s {s["big"]:3d} 句 | 選錯段 {s["wrong_sec"]:3d} | 開頭漏 {s["lead_miss"]:3d} 結尾漏 {s["trail_miss"]:3d} | 空 {s["empty"]}{bias}')
 
 
 def evaluate(songs, cache_f, split, verbose, only=None):
     gold = golden(songs)
     cache = json.loads(cache_f.read_text(encoding='utf-8'))
-    seen = seen_ids() if split == 'fresh' else None
+    seen = seen_ids()
     if split == 'fresh':
-        n_new = sum(v not in seen for v in gold)
-        print(f'[fresh] 快照之後新標的 golden {n_new} 支 · 已轉寫 {sum(v not in seen and v in cache for v in gold)} 支')
+        if not seen:
+            sys.exit(f'缺 {SEEN_F.name}, 先 --snapshot <日期>')
+        new = [v for v in gold if v not in seen]
+        print(f'[fresh] 快照之後新標的 golden {len(new)} 支 · 已轉寫 {sum(v in cache and "error" not in cache[v] for v in new)} 支')
     rows = {'scratch': [], 'assisted': []}
     detail = []
     for v, h in gold.items():
@@ -161,12 +169,13 @@ def main():
     ap.add_argument('--cache', type=Path, default=CACHE_F)
     ap.add_argument('--split', choices=['dev', 'test', 'all', 'fresh'], default='dev')
     ap.add_argument('--snapshot', metavar='LABEL', help='把目前所有 done 的片段寫成快照 (之後 --split fresh 只評快照之後新標的)')
+    ap.add_argument('--force', action='store_true', help='--snapshot 覆蓋既有快照')
     ap.add_argument('--only', nargs='*')
     ap.add_argument('-v', '--verbose', action='store_true')
     args = ap.parse_args()
     songs = aa.load_songs()
     if args.snapshot:
-        snapshot(args.snapshot)
+        snapshot(args.snapshot, args.force)
     elif args.dump:
         dump(songs, args.cache)
     else:
