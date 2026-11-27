@@ -143,6 +143,38 @@ def test_retime_resolves_backwards_time_by_interpolating():
     assert ts == sorted(ts)
 
 
+def test_retime_head_line_follows_next_whisper_shift():
+    # 開頭那句 whisper 沒對到、Qwen 時間又太晚 → 換完跟後一句擠在 MIN_GAP 內;
+    # 要跟著後一句的 (whisper − Qwen) 位移往前移, 不能留在原地被 enforce_gap 丟掉
+    a = [{'t': 0.96, 'line': 0, 'score': 62}, {'t': 2.16, 'line': 1, 'score': 80}, {'t': 8.2, 'line': 2, 'score': 100}]
+    out = aa.enforce_gap(aa._retime(a, {1: 1.12, 2: 8.36}))
+    assert [x['line'] for x in out] == [0, 1, 2]
+    assert [x['t'] for x in out] == pytest.approx([0.0, 1.12, 8.36])
+
+
+def test_retime_tail_line_keeps_qwen_time():
+    a = [{'t': 1.0, 'line': 0}, {'t': 2.0, 'line': 1}]
+    out = aa._retime(a, {0: 1.8})
+    assert [x['t'] for x in out] == pytest.approx([1.8, 2.0])      # 結尾那句不跟著移 (交給 enforce_gap)
+
+
+# ---------- _extend_edges 往前延伸 ----------
+def test_extend_edges_bridges_two_garbled_lines_when_earlier_line_matches():
+    lines = make_song(VERSES)['lines']
+    hira = VERSES[0] + 'ぬ' * len(VERSES[1]) + 'ぬ' * len(VERSES[2]) + VERSES[3] + VERSES[4]
+    p3 = len(VERSES[0]) + len(VERSES[1]) + len(VERSES[2])
+    chain = [(3, p3, 100.0), (4, p3 + len(VERSES[3]), 100.0)]
+    assert [c[0] for c in aa._extend_edges(lines, hira, chain)] == [0, 1, 2, 3, 4]
+
+
+def test_extend_edges_stops_guessing_when_nothing_earlier_matches():
+    lines = make_song(VERSES)['lines']
+    pre = 'ぬ' * (len(VERSES[0]) + len(VERSES[1]) + len(VERSES[2]))
+    hira = pre + VERSES[3] + VERSES[4]
+    chain = [(3, len(pre), 100.0), (4, len(pre) + len(VERSES[3]), 100.0)]
+    assert [c[0] for c in aa._extend_edges(lines, hira, chain)] == [2, 3, 4]   # 只盲猜 EXT_EST 句
+
+
 # ---------- analyze 評級 ----------
 def _analyze(song, text):
     return aa.analyze({}, make_tr(text), {}, {'t': song}, 'small', None, False, 't')
