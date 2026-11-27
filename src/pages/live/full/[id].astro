@@ -16,9 +16,9 @@ export function getStaticPaths() {
 
 const { song } = Astro.props as { song: FLSong };
 const sum = summary(song);
-// 分享圖: scripts/og-pages.mjs full 畫的完整 Live 卡; 新上架還沒跑腳本就先用預設圖
-const ogCard = `/og/live-full/${song.id}.png`;
-const image = existsSync(`public${ogCard}`) ? ogCard : SITE_CONFIG.defaultOGImage;
+// 分享圖: scripts/og-pages.mjs full 畫的完整 Live 卡 → 新上架還沒跑腳本就先用歌曲卡 → 都沒有才用預設圖
+const image = [`/og/live-full/${song.id}.png`, `/og/song/${song.id}.png`].find(p => existsSync(`public${p}`))
+  ?? SITE_CONFIG.defaultOGImage;
 const desc = `帶你聽完一整首 Live：從 ${sum.liveShorts} 支演唱會 shorts 挑出 ${sum.segs} 段，一句接一句唱到最後。`;
 ---
 
