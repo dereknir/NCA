@@ -98,6 +98,13 @@ const pos = (o: { x: number; y: number; w: number; h: number }) => `--x:${o.x};-
     };
     const { s, k } = room.now();
     room.paint(s, room.lamp(s), k);
+    // 倍率先在這裡算 (跟 room.js 的 fit() 同一套), 不然機器一忙, 房間會先用 room.css 預設的 2 倍畫出來、room.js 到了才放大 → 整間跳一下 (CLS)。
+    // .rm 是滿版 100svh, 所以用畫面大小估; 估不準 room.js 的 fit() 會再校正。
+    {
+      const dpr = devicePixelRatio || 1, cw = h.clientWidth, ch = Math.max(320, innerHeight);
+      const f = cw < ch ? ch / 270 : Math.min(cw / 480, ch / 270);
+      h.style.setProperty('--rm-s', String(Math.max(1, Math.floor(f * dpr)) / dpr));
+    }
     try { if (!sessionStorage.getItem('rm-intro') && !q.has('n2')) h.classList.add('rm-intro'); } catch (e) {}
     // 第一眼看到的那兩張先抓 (CSS 背景圖要等樣式算完瀏覽器才知道要載, 這裡先講):
     // 開場是窗外 + 窗外的天, 不然是房間 + 天空

@@ -8,7 +8,7 @@
 :root[data-rm-set="d"] .rm { background: #8f8270; }
 .rm-pan { position: absolute; inset: 0; display: flex; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; overscroll-behavior-x: contain; }
 .rm-pan::-webkit-scrollbar { display: none; }
-.rm-stage { --s: 2; position: relative; flex: none; margin: auto; width: calc(480px * var(--s)); height: calc(270px * var(--s)); }
+.rm-stage { --s: var(--rm-s, 2); position: relative; flex: none; margin: auto; width: calc(480px * var(--s)); height: calc(270px * var(--s)); }
 .rm-bg, .rm-shippo { position: absolute; inset: 0; background: var(--rm-room, url(/img/room/room.png)) 0 0 / 100% 100% no-repeat; image-rendering: pixelated; }
 .rm-bg { background-image: var(--rm-room, url(/img/room/room.png)), var(--rm-sky, url(/img/room/sky/a0.png)); }   /* 窗的玻璃是透明的, 天空疊在後面 */
 .rm-shippo { background-image: var(--rm-shippo, url(/img/room/shippo.png)); }
