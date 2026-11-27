@@ -71,3 +71,22 @@ test('#8 歌詞列表: 選了專輯點進一首歌, 按上一頁回來篩選還�
   await page.reload();
   await expect(page.locator(`[data-song-tabs] button[data-tab="${name}"]`)).toHaveAttribute('aria-pressed', 'true');
 });
+
+test('#9 指令列: 打 / 指令不重複, /live/full 打得開', async ({ page }) => {
+  await page.goto('/about/');
+  await page.waitForFunction(() => !!(window as any).__shellCli);
+  await page.keyboard.press('/');
+  const input = page.locator('.sh-cli input');
+  await expect(input).toBeFocused();
+  await input.fill('/');
+  const keys = await page.$$eval('#sh-cli-out a > span:first-child', (s) => s.map((x) => x.textContent!.trim()));
+  expect(keys.length).toBeGreaterThan(5);
+  expect(keys.filter((k, i) => keys.indexOf(k) !== i)).toEqual([]);
+  expect(keys).toContain('/live');
+  expect(keys).toContain('/live/full');
+
+  await input.fill('/live/full');
+  await expect(page.locator('#sh-cli-out a').first()).toContainText('/live/full');
+  await input.press('Enter');
+  await expect(page).toHaveURL(/\/live\/full\/$/);
+});

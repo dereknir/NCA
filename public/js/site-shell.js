@@ -256,8 +256,10 @@
     const signal = fresh('cli');
 
     const items = allItems(idx);
+    // 頁面指令就是整段路徑 (/live、/live/full 各一個); 同一個路徑只留第一個
+    const seen = new Set();
     const cmds = [
-      ...items.map(it => ({ k: '/' + norm(it.href).slice(1).split('/')[0], t: it.name, href: it.href })),
+      ...items.map(it => ({ k: norm(it.href), t: it.name, href: it.href })).filter(c => !seen.has(c.k) && seen.add(c.k)),
       { k: '/random', t: '隨機一首歌', run: () => { const s = idx.songs[Math.random() * idx.songs.length | 0]; location.href = '/translations/' + s.id; } },
       { k: '/home', t: '首頁', href: '/' },
       { k: '/top', t: '回到頁首', run: () => { close(); scrollTo({ top: 0, behavior: still ? 'auto' : 'smooth' }); } },
