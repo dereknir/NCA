@@ -405,7 +405,8 @@ def align(song, tr, tiebreak=True, prefer=None):
         qreal = {a['line'] for a in anchors if not a.get('est')}
         aw, _ = align(song, tr['alt'], tiebreak=False, prefer=qreal if flipped else None)
         tw = {a['line']: a['t'] for a in aw if not a.get('est')}
-        we = _whisper_est(anchors, aw, tw, need=1 if flipped else 2) if WHISPER_EST else {}
+        same = flipped and _same_segment(anchors, tw)
+        we = _whisper_est(anchors, aw, tw, need=1 if same else 2) if WHISPER_EST else {}
         if HYBRID_RETIME:
             anchors = _retime(anchors, {**tw, **we}, low=set(we))
             tw = {}
@@ -426,6 +427,15 @@ def align(song, tr, tiebreak=True, prefer=None):
     for a in anchors:
         a['t'] = round(a['t'], 2)
     return anchors, ambiguous
+
+
+def _same_segment(anchors, tw):
+    """whisper 對到的句子全落在 Qwen 這段的句子範圍內 = 跟到同一段。
+    whisper 自己沒平手、選了別段又剛好共用 1 句時, 不能放寬成 1 句就拿別段的估計時間"""
+    if not anchors or not tw:
+        return False
+    q = [a['line'] for a in anchors]
+    return min(q) <= min(tw) and max(tw) <= max(q)
 
 
 def _whisper_est(anchors, aw, tw, need=2):
