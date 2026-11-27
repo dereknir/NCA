@@ -173,6 +173,9 @@ const names = Object.fromEntries(shorts.map(s => [s.videoId, (ann[s.videoId]?.ap
     if (m && m.closest('[data-song-content]')) { m === cur ? close() : open(m); return; }
     const bar = t.closest<HTMLElement>('[data-ll-head] .wv-b, [data-ll-stick] .wv-b');
     if (bar) { jump(+bar.dataset.i!); return; }
+    // 一根只有幾 px 寬, 手機很難剛好點中: 點在整條聲波 (根與根之間、上下留白) 都算最近那根
+    const strip = t.closest<HTMLElement>('[data-ll-head] .wv, [data-ll-stick]');
+    if (strip) { const near = nearestBar(strip, e.clientX); if (near) jump(+near.dataset.i!); return; }
     if (pop && !pop.hidden && pop.contains(t)) {
       const tab = t.closest<HTMLElement>('[data-tab]');
       if (tab) { curTab = tab.dataset.tab!; render(curLine); place(); pop.querySelector<HTMLElement>(`[data-tab="${curTab}"]`)?.focus(); return; }
@@ -186,6 +189,15 @@ const names = Object.fromEntries(shorts.map(s => [s.videoId, (ann[s.videoId]?.ap
     if (cur && pop && !pop.contains(t)) close(false);
   });
   addEventListener('resize', place);
+
+  function nearestBar(strip: HTMLElement, x: number) {
+    let best: HTMLElement | null = null, d = Infinity;
+    strip.querySelectorAll<HTMLElement>('.wv-b:not(.none)').forEach(b => {
+      const r = b.getBoundingClientRect(), dx = Math.abs(r.left + r.width / 2 - x);
+      if (dx < d) { d = dx; best = b; }
+    });
+    return best as HTMLElement | null;
+  }
 
   // 聲波點一根: 捲到那句, 打開那句的小卡
   function jump(i: number) {
