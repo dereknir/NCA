@@ -110,6 +110,7 @@ HYBRID_RETIME = True  # hybrid: whisper 對到的句子一律用 whisper 時間,
                       # golden 233 支實測: 同一句 whisper ≤1s 92% vs Qwen 82%; 兩者差 >3s 時 whisper 對 17/20
                       # whisper 沒對到的句子留 Qwen 時間 (實測: 用鄰句位移校正 73% → 67% 變差; 在 whisper 轉寫局部再找一次無明顯改善)
 WHISPER_LEAD = True   # hybrid: Qwen 沒轉到開頭幾秒、whisper 有轉到 → 把 whisper 在 Qwen 鏈之前「真的對到字」的句子補進來
+WHISPER_EST = True    # hybrid: Qwen 的估計句, whisper 同一句也是估的 → 用 whisper 估的時間 (見 _whisper_est)
 MIN_GAP = 0.6         # 相鄰兩句 anchor 至少間隔這麼多秒
 QWEN_ASR = 'Qwen/Qwen3-ASR-1.7B'
 QWEN_ALIGNER = 'Qwen/Qwen3-ForcedAligner-0.6B'
@@ -358,6 +359,8 @@ def align(song, tr, tiebreak=True):
         # 讓它去改 whisper 的選段, 會在 Qwen 選段沒變時把原本對不上 (= 保留 Qwen 時間) 的句子換成 whisper 時間
         aw, _ = align(song, tr['alt'], tiebreak=False)
         tw = {a['line']: a['t'] for a in aw if not a.get('est')}
+        if WHISPER_EST:
+            tw.update(_whisper_est(anchors, aw, tw))
         if HYBRID_RETIME:
             anchors = _retime(anchors, tw)
             tw = {}
@@ -378,6 +381,17 @@ def align(song, tr, tiebreak=True):
     for a in anchors:
         a['t'] = round(a['t'], 2)
     return anchors, ambiguous
+
+
+def _whisper_est(anchors, aw, tw):
+    """hybrid 估計句的時間: Qwen 這句是估的 (沒對到字), whisper 自己的對齊裡同一句也是估的 → 用 whisper 估的時間。
+    whisper 轉寫通常比 Qwen 多轉到幾個字 (Qwen 整句吃掉時 whisper 常有半句), 估出來的位置比較近;
+    dev 從零手標: 估計句 >3s 11 → 8 句, 完美 63 → 70 支。只在 whisper 跟 Qwen 至少兩句都真的對到字 (同一段) 時用。"""
+    real_q = {a['line'] for a in anchors if not a.get('est')}
+    if len(real_q & tw.keys()) < 2:
+        return {}
+    est_q = {a['line'] for a in anchors if a.get('est')}
+    return {a['line']: a['t'] for a in aw if a.get('est') and a['line'] in est_q and a['line'] not in tw}
 
 
 def _whisper_lead(anchors, aw):
