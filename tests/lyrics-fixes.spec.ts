@@ -37,13 +37,12 @@ test('#1 寬螢幕記住打開的目錄側欄: 點得到側欄的連結與關閉
   await page.goto(SONG);
   const drawer = page.locator('#toc-drawer');
   await expect(drawer).toHaveAttribute('open', '');
-  // 側欄不蓋住歌詞行的開頭
-  const overlap = await page.evaluate(() => {
+  // 側欄不蓋住歌詞行的開頭。側欄是滑進來的 (.24s), 機器忙的時候量到半路的位置會誤判, 所以等它停好再比
+  await expect.poll(() => page.evaluate(() => {
     const d = document.querySelector('#toc-drawer')!.getBoundingClientRect();
     const l = document.querySelector('.lyrics-line')!.getBoundingClientRect();
     return d.right - l.left;
-  });
-  expect(overlap).toBeLessThanOrEqual(0);
+  }), { timeout: 3000 }).toBeLessThanOrEqual(0);
   // 捲進歌詞中段 (頁首底下的波形條會黏出來), 側欄底下就是歌詞
   await page.evaluate(() => { const el = document.querySelector('#L5') ?? document.querySelector('.lyrics-line')!; scrollTo(0, el.getBoundingClientRect().top + scrollY - 300); });
   await page.waitForTimeout(400);
