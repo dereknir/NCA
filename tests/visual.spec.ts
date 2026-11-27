@@ -25,9 +25,12 @@ const PAGES: [string, string][] = [
 const HIDE: Record<string, string> = {
   live: '.sh-row:has([data-next-date]) { display: none !important; }',
 };
+// 星圖自己的字 (計數、星座名、圖例、搜尋框、側欄說明) 用的是系統字型 ("Noto Sans TC", system-ui), 不是站上自己放的字型;
+// CI 的 ubuntu 跟本機裝的 CJK 字型不一樣, 手機那張光字的反鋸齒就差 3% → 遮掉, 只比星點、星座殼、版面
 const MASK: Record<string, string[]> = {
   live: ['.sh-facts', '.lr-box', '.hub-num'],
   about: ['.ab-term ul'],
+  'star-map': ['#meta', '#filter', '#sky text.cl', '#legend span', 'aside .ph'],
 };
 
 // 固定時間 (首頁房間的今日の一曲 / 月曆 / 鬧鐘看日期畫) + 固定亂數 (星星位置)
