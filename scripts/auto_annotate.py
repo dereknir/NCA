@@ -308,7 +308,7 @@ def _window_ratio(lines, hira, chain):
     return fuzz.ratio(hira[:b - ws], ' ' * max(0, -ws) + s[max(0, ws):b])
 
 
-def align(song, tr, tiebreak=True):
+def align(song, tr, tiebreak=True, prefer=None):
     hira, ct = tr['hira'], tr['char_time']
     lines = song['lines']
     # 每個起始句一條鏈; 以「真正對到的句子集合」去重 (起點提早一句會得到完全相同的鏈)
@@ -327,6 +327,7 @@ def align(song, tr, tiebreak=True):
     # 副歌重複: 不同句集合但總分幾乎相同 → 有歧義; 若 queue 給了標題句 (lineHint) 就用它挑
     rivals = [r for r in ranked[1:] if r[0] >= best[0] * 0.97]
     ambiguous = bool(rivals)
+    flipped = False
     if rivals:
         # 副歌重複: 先比「往頭尾延伸後涵蓋幾句」— 片段裡副歌前後還有別段時, 只有其中一次重複接得上
         # 一樣多才取「後面那次」(shorts 多剪自最後一段副歌)
@@ -342,7 +343,13 @@ def align(song, tr, tiebreak=True):
             w = {id(r): _window_ratio(lines, hira, r[1]) for r in tied}
             top_w = max(tied, key=lambda r: w[id(r)])
             if w[id(top_w)] - w[id(best)] >= TIE_WIN_MARGIN:
-                best = top_w
+                best, flipped = top_w, True
+        elif len(tied) > 1 and prefer:
+            # hybrid 的 whisper 那份: Qwen 被歌詞窗改選到前面那次時, whisper 平手也跟著選同一段
+            # (不然 whisper 照舊取後面那次, 跟 Qwen 句子對不上, 整段都換不到 whisper 時間)
+            same = max(tied, key=lambda r: len(prefer & {c[0] for c in r[1] if c[2] != EST_SCORE}))
+            if len(prefer & {c[0] for c in same[1] if c[2] != EST_SCORE}) > len(prefer & {c[0] for c in best[1] if c[2] != EST_SCORE}):
+                best = same
     chain = _extend_edges(lines, hira, best[1]) if EXT_CUTOFF else best[1]
     anchors = []
     for idx, start, score in chain:
@@ -357,7 +364,9 @@ def align(song, tr, tiebreak=True):
         # hybrid: 句子用這份 (Qwen) 對齊的結果, 時間改用 whisper 對到同一句的 word timestamp (比 ForcedAligner 準)
         # whisper 這份只拿來換時間: 不做歌詞窗平手判斷, 選段維持原本規則。平手判斷只該改「選哪段」;
         # 讓它去改 whisper 的選段, 會在 Qwen 選段沒變時把原本對不上 (= 保留 Qwen 時間) 的句子換成 whisper 時間
-        aw, _ = align(song, tr['alt'], tiebreak=False)
+        # 例外: Qwen 自己是被歌詞窗改選的 (flipped), whisper 平手時跟著 Qwen 選同一段
+        qreal = {a['line'] for a in anchors if not a.get('est')}
+        aw, _ = align(song, tr['alt'], tiebreak=False, prefer=qreal if flipped else None)
         tw = {a['line']: a['t'] for a in aw if not a.get('est')}
         we = _whisper_est(anchors, aw, tw) if WHISPER_EST else {}
         if HYBRID_RETIME:
