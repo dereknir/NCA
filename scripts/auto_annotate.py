@@ -581,15 +581,16 @@ def backfill_nonsong(r, songs, force_song=None):
     同錄音照抄每次都從 r['asr'] 重算, 所以 r['asr'] 跟外層都要套:
       - ASR 那份沒標 → 重新判定, 命中就兩邊都標
       - ASR 那份已標、外層沒標 (舊版照抄升回 A/B 的) → 外層補標
-      - 只靠標題標的、現在標題規則不中了 (或歌名已確認) → 還原成標之前的評級; 轉寫那條只有存一份轉寫, 不動"""
+      - 只靠標題標的、現在標題規則不中了 → 還原成標之前的評級; 轉寫那條只有存一份轉寫, 不動
+      - 歌名已人工確認 (force_song) → 不管哪條命中都還原 (process 對確認過歌名的本來就不套; 不然 foreign 舊旗會一直卡 C)"""
     if r.get('error'):
         return False
     base = r.get('asr') or r
     tgts = [base, r] if base is not r else [r]
     if 'not_single_song' in (base.get('needsReview') or []):
         ns = base.get('nonSong') or r.get('nonSong') or []
-        if ('gradeBeforeNonsong' in base and set(ns) <= {'title'}
-                and (force_song or not NONSONG_CHECK or not title_is_nonsong(r.get('title')))):
+        if 'gradeBeforeNonsong' in base and (
+                force_song or (set(ns) <= {'title'} and (not NONSONG_CHECK or not title_is_nonsong(r.get('title'))))):
             g = base['gradeBeforeNonsong']
             for t in tgts:
                 _unflag(t, g)                    # 外層之後照抄會從 asr 重算
@@ -779,8 +780,11 @@ def merge(out_path, include_c=False):
         cur = anchors.get(vid)
         if cur and cur.get('status') in ('done', 'skip'):
             continue
-        if cur and cur.get('status') == 'pending' and (cur.get('anchors') or cur.get('songConfirmed') or cur.get('source') in ('auto', 'manual')):
+        machine_dropped = cur and cur.get('autoDropped') and not cur.get('anchors') and not cur.get('songConfirmed')
+        if (cur and cur.get('status') == 'pending' and not machine_dropped
+                and (cur.get('anchors') or cur.get('songConfirmed') or cur.get('source') in ('auto', 'manual'))):
             # 人工動過的 pending 不覆蓋: 已開始打 anchors / 審核時改了歌 (機器建議作廢) / 按了「建議不對, 退回手動」
+            # (merge 自己退回手動的 (autoDropped) 不算: 之後規則放寬、評級還原了要能回到待審)
             skipped += 1; continue
         if cur and cur.get('songConfirmed') and r.get('songId') != cur.get('songId'):
             if not include_c:
@@ -790,7 +794,7 @@ def merge(out_path, include_c=False):
         if nonsong or ((not r.get('songId') or not r.get('anchors') or r.get('grade') == 'C') and not include_c):
             if cur and cur.get('status') == 'auto':
                 # 舊引擎的建議, 新結果卻沒把握 (C / 認不出歌) → 退回手動, 不讓過時的 anchors 留在待審清單
-                cur.update(anchors=[], status='pending', source='manual')
+                cur.update(anchors=[], status='pending', source='manual', autoDropped=True)
                 cur.pop('autoGrade', None)
                 dropped += 1
             continue
@@ -806,7 +810,7 @@ def merge(out_path, include_c=False):
         if cur:
             # 人工填過的欄位 (版本 / 巡演 / 場次…) 不要被機器的空值洗掉 (之前整筆覆蓋, 洗掉過 5 支的 mv/acoustic)
             for k, val in cur.items():
-                if k not in ('songId', 'anchors', 'status', 'source', 'autoGrade') and val not in (None, '', False) and new.get(k) in (None, '', False):
+                if k not in ('songId', 'anchors', 'status', 'source', 'autoGrade', 'autoDropped') and val not in (None, '', False) and new.get(k) in (None, '', False):
                     new[k] = val
         anchors[vid] = new
         n += 1
