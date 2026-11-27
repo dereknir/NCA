@@ -319,7 +319,12 @@
       try {
         var art = document.querySelector('article');
         var room = art ? art.getBoundingClientRect().left : 0;
-        if (localStorage.getItem('nca-toc-open') === '1' && room >= 300 + 16) open(false);   // 300 = .toc-drawer 的 width (關著時量不到)
+        if (localStorage.getItem('nca-toc-open') === '1' && room >= 300 + 16) {   // 300 = .toc-drawer 的 width (關著時量不到)
+          // 側欄在 <main class="fade-in"> 裡面: 進場動畫有 transform, 那半秒 fixed 會相對 main 定位, 側欄會從內文位置跳到左邊。等動畫跑完再開
+          var main = drawer.closest('main');
+          var anims = main && main.getAnimations ? main.getAnimations() : [];
+          Promise.all(anims.map(function (a) { return a.finished.catch(function () {}); })).then(function () { if (!drawer.open) open(false); });
+        }
       } catch (e) {}
     }
 
