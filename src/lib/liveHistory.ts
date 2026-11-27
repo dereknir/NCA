@@ -68,6 +68,9 @@ function slotOf(rows: TourRow[]): string | undefined {
 
 /** released: 歌的發行日 (YYYY-MM-DD); 巡演結束前還沒發行的不算「沒唱」 */
 export function liveHistory(songId: string, released?: string): LiveHistory {
+  // 有的歌發行前就先在巡演唱了, 也有發行日寫晚了的: 實際「出現」= 發行日與第一次進 setlist 取早的
+  const firstLive = ROWS_BASE.find(x => x.t.tracks.some(tr => tr.matched_song_id === songId))?.start;
+  if (released && firstLive && firstLive < released) released = firstLive;
   const rows: TourRow[] = ROWS_BASE.map(({ t, year, end }) => {
     const hit = t.tracks.find(tr => tr.matched_song_id === songId);
     return {
