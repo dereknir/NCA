@@ -83,7 +83,7 @@
   .toc-drawer {
     position: fixed;
     inset: 0 auto 0 0;
-    z-index: 40;   /* 非 modal 側欄 (桌機還原) 不在 top layer: 要壓過文章 (歌詞行是 positioned), 在頁首 (50) 底下 */
+    z-index: 46;   /* 非 modal 側欄 (桌機還原) 不在 top layer: 要壓過文章 (歌詞行是 positioned) 與黏在頁首下的波形條 (45), 在頁首 (50) 底下 */
     width: 300px;
     max-width: 85vw;
     height: 100dvh;
@@ -314,8 +314,13 @@
       }, { rootMargin: '-64px 0px -55% 0px', threshold: [0, 0.1, 0.5, 1] });
       items.forEach(function (it) { spy.observe(it.el); });
 
-      // 桌機上次開著: 用非 modal 的側欄還原 (不鎖捲動、不搶焦點); 手機一律收著
-      try { if (localStorage.getItem('nca-toc-open') === '1' && innerWidth >= 900) open(false); } catch (e) {}
+      // 桌機上次開著: 用非 modal 的側欄還原 (不鎖捲動、不搶焦點)。
+      // 只在左邊空白放得下側欄時還原, 不然會蓋住每一行歌詞的開頭; 放不下就收著, 要看再按目錄鈕
+      try {
+        var art = document.querySelector('article');
+        var room = art ? art.getBoundingClientRect().left : 0;
+        if (localStorage.getItem('nca-toc-open') === '1' && room >= 300 + 16) open(false);   // 300 = .toc-drawer 的 width (關著時量不到)
+      } catch (e) {}
     }
 
     // ShortsShelf 是頁面上的 script 搬進文章的, 等它搬完 (下一兩個 frame) 再掃

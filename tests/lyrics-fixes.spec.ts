@@ -18,15 +18,34 @@ async function stubExternal(page: Page) {
 
 test.beforeEach(async ({ page }) => { await stubExternal(page); });
 
-test('#1 寬 900~1280 記住打開的目錄側欄: 點得到側欄的連結, 不會點到歌詞', async ({ page, isMobile }) => {
+test('#1a 寬 900~1440 記住打開的目錄側欄: 左邊放不下就不還原, 不蓋住歌詞', async ({ page, isMobile }) => {
   test.skip(isMobile, '側欄只在寬螢幕還原');
   await page.setViewportSize({ width: 1100, height: 800 });
   await page.addInitScript(() => { try { localStorage.setItem('nca-toc-open', '1'); } catch (e) {} });
   await page.goto(SONG);
+  await page.waitForTimeout(300);
+  await expect(page.locator('#toc-drawer')).not.toHaveAttribute('open', '');
+  // 目錄鈕還是按得到, 按了用 modal 打開
+  await page.locator('.toc-btn').click();
+  await expect(page.locator('#toc-drawer')).toHaveAttribute('open', '');
+});
+
+test('#1 寬螢幕記住打開的目錄側欄: 點得到側欄的連結與關閉鈕, 不會點到歌詞或波形條', async ({ page, isMobile }) => {
+  test.skip(isMobile, '側欄只在寬螢幕還原');
+  await page.setViewportSize({ width: 1600, height: 800 });
+  await page.addInitScript(() => { try { localStorage.setItem('nca-toc-open', '1'); } catch (e) {} });
+  await page.goto(SONG);
   const drawer = page.locator('#toc-drawer');
   await expect(drawer).toHaveAttribute('open', '');
-  // 捲到歌詞那一段, 側欄底下就是歌詞
-  await page.locator('#L1').scrollIntoViewIfNeeded();
+  // 側欄不蓋住歌詞行的開頭
+  const overlap = await page.evaluate(() => {
+    const d = document.querySelector('#toc-drawer')!.getBoundingClientRect();
+    const l = document.querySelector('.lyrics-line')!.getBoundingClientRect();
+    return d.right - l.left;
+  });
+  expect(overlap).toBeLessThanOrEqual(0);
+  // 捲進歌詞中段 (頁首底下的波形條會黏出來), 側欄底下就是歌詞
+  await page.evaluate(() => { const el = document.querySelector('#L5') ?? document.querySelector('.lyrics-line')!; scrollTo(0, el.getBoundingClientRect().top + scrollY - 300); });
   await page.waitForTimeout(400);
   const blocked = await page.evaluate(() => {
     const out: string[] = [];
