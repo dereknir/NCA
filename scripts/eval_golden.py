@@ -127,6 +127,11 @@ def summarize(rows):
             f'≤1s {s["ok1"] / max(s["n_t"], 1):4.0%} | >3s {s["big"]:3d} 句 | 選錯段 {s["wrong_sec"]:3d} | 開頭漏 {s["lead_miss"]:3d} 結尾漏 {s["trail_miss"]:3d} | 空 {s["empty"]}{bias}')
 
 
+def eval_prior(H, sid, v, split, seen):
+    """評估用的同歌先驗: 只拿同一個 split 的、而且不含這支自己的人工答案 (留一法), 不然 dev 會偷看到答案、fresh 會吃到 dev"""
+    return aa.line_prior(H, sid, lambda u: u != v and in_split(u, split, seen))
+
+
 def evaluate(songs, cache_f, split, verbose, only=None):
     gold = golden(songs)
     H = json.loads(aa.ANCHORS_F.read_text(encoding='utf-8'))
@@ -143,8 +148,7 @@ def evaluate(songs, cache_f, split, verbose, only=None):
         c = cache.get(v)
         if not c or 'error' in c or not in_split(v, split, seen) or (only and v not in only):
             continue
-        # 同歌先驗只拿同一個 split、而且不含這支自己的人工答案 (留一法)
-        songs[h['songId']]['prior'] = aa.line_prior(H, h['songId'], lambda u: u != v and in_split(u, split, seen))
+        songs[h['songId']]['prior'] = eval_prior(H, h['songId'], v, split, seen)
         out = run_pipeline(c, h['songId'], songs)
         anc = out['anchors']
         r = score_clip(anc, h['anchors'])
