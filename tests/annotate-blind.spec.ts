@@ -190,3 +190,39 @@ test('把機器答案放回來的片段會記 blindAborted', async ({ page }) =>
   await page.locator('#unblindBtn').click();
   expect((await ann(page, picked)).blindAborted).toBe(true);
 });
+
+test('盲標進度「盲標從零手標 n / 20」: 關著不顯示, 開著顯示, 盲標完一支 +1', async ({ page }) => {
+  await page.goto('/annotate/');
+  await page.waitForFunction(() => (window as any).eval('typeof S !== "undefined" && S.queue && Object.keys(S.queue).length > 0 && S.evalSeen && S.evalSeen.size > 0'));
+  await page.waitForLoadState('networkidle');
+  // 挑一支不在 eval 快照裡、被盲標挑中的真歌片段
+  const vid = await page.evaluate(() => {
+    const g = window as any, S = g.eval('S'), blindPick = g.eval('blindPick');
+    const it = (Object.values(S.queue).flat() as any[]).find((x) =>
+      x.songId && S.songs[x.songId]?.lyric_lines?.length && !S.evalSeen.has(x.videoId) && blindPick(x.videoId));
+    const anchors = [{ t: 1.5, line: 1 }, { t: 4.2, line: 2 }, { t: 7.9, line: 3 }];
+    S.ann[it.videoId] = { songId: it.songId, anchors: anchors.map((a) => ({ ...a })), status: 'auto', source: 'auto', autoGrade: 'A', versionType: null, instrumental: false };
+    S.auto[it.videoId] = { songId: it.songId, anchors, grade: 'A', confidence: 0.9 };
+    return it.videoId as string;
+  });
+  const prog = page.locator('#blindProg');
+  await expect(prog).toBeHidden();
+  await page.locator('#blindBtn').click();
+  await expect(prog).toBeVisible();
+  const before = Number((await prog.textContent())!.match(/(\d+) \/ 20/)![1]);
+  await expect(prog).toHaveText(`盲標從零手標 ${before} / 20`);
+  const box = await prog.boundingBox();
+  expect(box!.height).toBeGreaterThanOrEqual(24);
+
+  await load(page, vid);
+  await page.evaluate(() => {
+    const g = window as any, S = g.eval('S');
+    S.ann[S.cur.videoId].anchors = [{ t: 2.0, line: 1 }, { t: 5.0, line: 2 }, { t: 8.0, line: 3 }];
+    g.eval('finishCurrent')('done');
+  });
+  expect((await ann(page, vid)).autoGrade).toBeUndefined();
+  await expect(prog).toHaveText(`盲標從零手標 ${before + 1} / 20`);
+
+  await page.locator('#blindBtn').click();
+  await expect(prog).toBeHidden();
+});
