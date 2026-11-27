@@ -67,6 +67,12 @@ export default defineConfig({
   compressHTML: true,
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      // 元件的 <script> 一律輸出成外部檔, 不內嵌: ClientRouter 換頁時如果最後一支 module script 是內嵌的,
+      // 會自己補一支 <script type="module" src="data:..."> 來等它跑完, 被 CSP (script-src 沒有 data:) 擋下。
+      // 只管 .js; CSS、圖片照預設 (4KB 以下內嵌)
+      assetsInlineLimit: (/** @type {string} */ file) => (file.endsWith('.js') ? false : undefined),
+    },
   },
   integrations: [
     mdx(),
