@@ -409,10 +409,6 @@ for (const [id, key] of [['lyOne', 'one'], ['lyApp', 'app']])
     if (playing) stopPlay();
     if (selPref) openPref(selPref); else renderMap();
     renderFacts();
-{
-  const pp = new URLSearchParams(location.search).get('pref');
-  if (pp && (effCounts()[pp] || []).length) openPref(pp);
-}
   };
 
 const ORDERED = [
@@ -450,6 +446,12 @@ playBtn.onclick = () => {
   }, 430);
 };
 if (matchMedia('(prefers-reduced-motion: reduce)').matches) playBtn.style.display = 'none';
+// 從公演史頁點縣名過來 (?pref=東京): 一進來就打開那個縣 (只在載入時讀一次, 之後切圖層不會被網址拉回去)
+// 要放在 playing 宣告之後: openPref 一開始會讀 playing
+{
+  const pp = new URLSearchParams(location.search).get('pref');
+  if (pp && (effCounts()[pp] || []).length) openPref(pp);
+}
 
 /* ⑥ 參戰履歷像素卡(吃蓋章資料;字型走像素管線同款,載不到時 monospace 降級) */
 const FONT_BASE = '/fonts/pixel/';   // 全站共用的像素字型子集 (scripts/build_pixel_fonts.py), gacha 也用同一份
