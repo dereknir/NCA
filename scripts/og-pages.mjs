@@ -173,7 +173,7 @@ async function fullLive() {
     const stat = `${sum.segs} 段 / ${lines} 句`;
     if (top) {
       texts.push(t(await fit(`${top[1]} @ ${top[2]}`, 12, 'JP12', WIDE), 14, y, 12, 'JP12', P.text));
-      texts.push(t(`${top[3]}${shows.size > 1 ? ` 等 ${shows.size} 場` : ''}  ${stat}`, 14, y + 15, 12, 'TC12', P.dim));
+      texts.push(t(`${top[3]}${shows.size > 1 ? ` 等 ${shows.size} 場` : ''} · ${stat}`, 14, y + 15, 12, 'TC12', P.dim));
     } else {
       texts.push(t(`${sum.liveShorts} 支現場 shorts 接成一首`, 14, y, 12, 'TC12', P.text));
       texts.push(t(stat, 14, y + 15, 12, 'TC12', P.dim));
