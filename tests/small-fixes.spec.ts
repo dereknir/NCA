@@ -90,3 +90,18 @@ test('#9 指令列: 打 / 指令不重複, /live/full 打得開', async ({ page 
   await input.press('Enter');
   await expect(page).toHaveURL(/\/live\/full\/$/);
 });
+
+test('#10 /star-map/ 頁首 logo、選單跟其他靜態頁同一個位置', async ({ page }) => {
+  const boxes = async (url: string) => {
+    await page.goto(url);
+    await expect(page.locator('.sh-hd .sh-logo')).toBeVisible();
+    return page.evaluate(() => {
+      const r = (s: string) => { const b = document.querySelector(s)!.getBoundingClientRect(); return [b.x, b.y, b.width, b.height].map(Math.round); };
+      const nav = getComputedStyle(document.querySelector('.sh-burger')!).display === 'none' ? '.sh-nav' : '.sh-burger';
+      return { hd: r('.sh-hd'), logo: r('.sh-logo'), nav: r(nav) };
+    });
+  };
+  const ref = await boxes('/kwic/');
+  const star = await boxes('/star-map/');
+  expect(star).toEqual(ref);
+});

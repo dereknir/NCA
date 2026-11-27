@@ -27,7 +27,8 @@
   .site-topbar a{color:var(--text);font-size:20px;font-weight:700;text-decoration:none;transition:color .15s}
   .site-topbar a:hover{color:var(--accent)}
   #star-main{flex:1;display:flex;flex-direction:column;min-height:0}   /* 主要內容 (工具列 + 星圖), 跟 body 一樣直向撐滿 */
-  header{display:flex;align-items:center;gap:14px;padding:10px 24px;flex-wrap:wrap}
+  /* 只管星圖自己的工具列; 寫成 header{} 會連全站頁首 .sh-hd 一起吃到 padding, logo、選單被往內推 */
+  #star-main>header{display:flex;align-items:center;gap:14px;padding:10px 24px;flex-wrap:wrap}
   h1{font-size:20px;letter-spacing:.08em}
   .meta{color:var(--dim);font-size:12px}
   .spacer{flex:1}
