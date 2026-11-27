@@ -1,0 +1,60 @@
+name: Nightly develop check
+
+# 每天的資料排程 (scrape-shorts 02:17 台北, 以及它觸發的 rebuild-live / sync-derived) 用 bot 身分
+# 直接 push develop, 這種 push 不會觸發 CI / E2E — 年表圓點被重產蓋回 7px 就是這樣沒人發現。
+# 這支每晚 03:30 (台北) 在排程跑完之後, 對 develop 最新的 commit 把 CI + E2E 整套跑一次;
+# 紅了 GitHub 會寄信 (Actions 失敗通知), 不用另外設通知。只讀, 不 commit 任何東西。
+on:
+  schedule:
+    - cron: '30 19 * * *'   # UTC 19:30 = 台北 03:30
+  workflow_dispatch: {}
+
+concurrency:
+  group: nightly-develop
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Python 語法
+        run: python3 -m py_compile scripts/*.py
+
+      - name: 衍生資料 / 範本一致
+        run: python3 scripts/check_sync.py
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck (astro check)
+        run: npm run check
+
+      - name: Build
+        run: npm run build
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: E2E
+        run: npx playwright test
+
+      - name: Upload report (失敗時)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-playwright-report
+          path: playwright-report/
+          retention-days: 7
