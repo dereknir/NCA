@@ -41,8 +41,9 @@ export const BUDGETS: Record<string, Budget> = {
   about: budget('/about/',                        { js: 15,  font: 720,  total: 770,  cls: 0.05 }), // 10.5 / 636 / 681 / 0
   // 作品集已經超過 target (N10 基準時 596 / 742): 頁面字變多 → 要載的 oh-* 字型分包跟著變多。字型瘦身後拉回來。
   projects: budget('/projects/',                     { js: 15,  font: 810,  total: 970,  cls: 0.05 }), // 10.5 / 715 / 861 / 0
-  // 桌機 CLS 0.079: 太陽那顆 .body-cv canvas 在 ~0.5 秒時被重新定位 (手機 0)。修好改回 0.05。
-  galaxy: budget('/galaxy/',                       { js: 5,   font: 460,  total: 500,  cls: 0.1 }),  // 0 / 409 / 439 / 0.079
+  // CLS 以前桌機 0.079: 天體 canvas 的 left/top 要等第一個 rAF frame() 才設, 在那之前先被排版在 (0,0)。
+  // 現在 script 結尾先 placeBodies() 一次, 第一次排版就在定位上。剩下的是行星每幀公轉 (left/top) 的零頭。
+  galaxy: budget('/galaxy/',                       { js: 5,   font: 460,  total: 500,  cls: 0.05 }), // 0 / 409 / 439 / 0.001
   kwic: budget('/kwic/',                         { js: 15,  font: 420,  total: 590,  cls: 0.05 }), // 10.5 / 370 / 524 / 0
   // d3 整包 92 KB, 其中 ~71 KB 沒用到; 自訂 build 之後可以收到 ~40
   'lyric-universe': budget('/lyric-universe/',               { js: 110, font: 420,  total: 590,  cls: 0.05 }, { ...TARGET_OTHER, js: 110 }), // 102 / 370 / 516 / 0
