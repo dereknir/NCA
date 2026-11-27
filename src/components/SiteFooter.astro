@@ -159,8 +159,11 @@ const year = new Date().getFullYear();
     .sf-inner { grid-template-columns: 1fr; gap: 24px; padding: 28px 16px; }
     .sf-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }
   }
-  @media (max-width: 360px) {   /* 太窄的手機, 正中間會疊到左邊膠囊或右邊圖示: 改成放在兩者中間 */
-    .sf-copy { position: static; translate: none; margin: 0 auto; }
-    .sf-ico { margin-left: 0; }
+  @media (max-width: 360px) {
+    /* 320 這種小手機: 膠囊 + 版權字 + 圖示一排塞不下 (之前會撐出 18px 讓整頁可以左右滑)。
+       版權字自己搬到上面一行、置中整條; 下面那排維持膠囊在左、圖示靠右, 高度跟原本一樣 */
+    .sf-line { flex-wrap: wrap; padding-top: 12px; }
+    .sf-copy { position: static; translate: none; order: -1; flex: 0 0 calc(100% + var(--sf-cli, 0px)); margin-left: calc(-1 * var(--sf-cli, 0px)); text-align: center; }
+    .sf-ico { height: 52px; }
   }
 </style>
