@@ -731,7 +731,7 @@ function maybeBlind(vid){
   const a = S.ann[vid];
   if(!S.blind || S.reviewOnly || !a || a.status !== 'auto' || !blindPick(vid)) return false;
   a.anchors = []; a.status = 'pending'; a.source = 'manual'; a.blind = true;
-  delete a.autoGrade;
+  delete a.autoGrade; delete a.autoDropped;
   persist([vid]);
   return true;
 }
@@ -948,6 +948,7 @@ function assignSong(value){
   const wasUnmatched = !TRUSTED.has(S.cur.matchMethod);
   const prevSid = ann.songId;
   ann.songId = value || null;
+  delete ann.autoDropped;            // 人工動過 = 不再是「merge 自己退回的」, merge 不能再蓋回去
   // 手動選了真的歌 = 人工確認歌名 (機器重標時不會再改它); 選類別 / 清空則取消
   if(value && S.songs[value]) ann.songConfirmed = true; else delete ann.songConfirmed;
   // 非歌曲類別 (__ad/__mc/__cover/__tv…) 沒 anchor 要打 → 直接 status='done'
@@ -1203,6 +1204,7 @@ function renderAutoPanel(){
   if(rj) rj.onclick = () => {
     const a = S.ann[S.cur.videoId];
     a.anchors = []; a.status = 'pending'; a.source = 'manual';
+    delete a.autoDropped;
     persist(); renderLyrics(); renderAnchors(); renderQueue(); updateProgress(); renderAutoPanel();
   };
   const ab = el.querySelector('#autoApply');
@@ -1215,6 +1217,7 @@ function renderAutoPanel(){
     if(!a.versionType && r.versionType) a.versionType = r.versionType;
     if(a.status === 'pending') a.status = 'auto';
     a.source = 'auto'; a.autoGrade = r.grade;
+    delete a.autoDropped;
     persist(); renderLyrics(); renderAnchors(); renderVersionPicker(); renderCatQuick(); renderQueue(); updateProgress(); renderAutoPanel();
   };
 }
