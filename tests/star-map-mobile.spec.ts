@@ -106,3 +106,43 @@ test('手機: 點星後把圖拖走, 按 × 收起時鏡頭不跳回那顆星', 
   expect(after).toBe(moved);
   expect(errors).toEqual([]);
 });
+
+test('手機: 星圖夠高, 圖例只佔一排 (390×844 ≥ 400px; 375×667、橫放也看得到圖)', async ({ page }, info) => {
+  test.skip(info.project.name !== 'mobile', '只測窄版');
+  const errors = await open(page);
+  for (const [w, h, min] of [[390, 844, 400], [375, 667, 320], [740, 360, 300]] as const) {
+    await page.setViewportSize({ width: w, height: h });
+    await page.reload();
+    await expect(page.locator('#sky circle[data-name]').first()).toBeAttached();
+    const sky = (await page.locator('#sky').boundingBox())!;
+    expect(sky.height, `${w}×${h} 星圖高度`).toBeGreaterThanOrEqual(min);
+    const lg = (await page.locator('#legend').boundingBox())!;
+    expect(lg.height, `${w}×${h} 圖例高度`).toBeLessThan(60);
+    // 頁面不能左右滑 (圖例自己橫滑)
+    expect(await page.evaluate(() => document.scrollingElement!.scrollWidth)).toBeLessThanOrEqual(w);
+  }
+  expect(errors).toEqual([]);
+});
+
+test('手機: 點靠近底部的星, 那顆星不會被卡片蓋住', async ({ page }, info) => {
+  test.skip(info.project.name !== 'mobile', '只測窄版');
+  const errors = await open(page);
+  // 找可見範圍最下面、點得到的星
+  const pt = await page.evaluate(() => {
+    const sky = document.getElementById('sky')!.getBoundingClientRect();
+    let best: { x: number; y: number } | null = null;
+    for (const c of document.querySelectorAll('#sky circle[data-name]')) {
+      const r = c.getBoundingClientRect();
+      const x = r.x + r.width / 2, y = r.y + r.height / 2;
+      if (y < sky.bottom - 10 && y < innerHeight - 10 && x > sky.left + 10 && x < sky.right - 10 && document.elementFromPoint(x, y) === c && (!best || y > best.y)) best = { x, y };
+    }
+    return best!;
+  });
+  await page.touchscreen.tap(pt.x, pt.y);
+  const side = page.locator('#side');
+  await expect(side).toBeVisible();
+  const card = (await side.boundingBox())!;
+  const star = (await page.locator('#sky circle[aria-pressed="true"]').boundingBox())!;
+  expect(star.y + star.height).toBeLessThanOrEqual(card.y);
+  expect(errors).toEqual([]);
+});

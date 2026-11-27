@@ -72,7 +72,12 @@
   .pin .x{display:none}
   /* 窄版: 側欄放不下, 平常收起; 釘選一顆星時改成貼在畫面底部的卡片 (地圖不動、不用捲頁), × 或 Esc 收起 */
   @media(max-width:820px){
-    #stage{grid-template-columns:1fr}
+    /* 手機: 頁面本身可以捲, 星圖至少 320px / 六成畫面高 (以前圖例擠掉, 390×844 只剩 251px、橫放 0) */
+    body{height:auto;min-height:100vh;overflow:visible}
+    #stage{grid-template-columns:1fr;min-height:max(320px,60vh)}
+    /* 圖例改一排橫滑 (原本折成 6~7 行, 吃掉 240px) */
+    #legend{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+    #legend span{flex:none}
     aside{display:none;position:fixed;left:8px;right:8px;bottom:8px;max-height:45vh;z-index:8;
       border:1px solid var(--line);border-radius:12px;background:rgba(12,18,34,.97);padding:14px 16px}
     aside.has-pin{display:block}
@@ -271,6 +276,16 @@ function pin(el, p) {
   side.classList.add('has-pin');
   pinned = el;
   rove(el);
+  clearOfCard(el, p);
+}
+// 窄版的卡片貼在畫面底部: 釘選的星如果被卡片蓋住, 鏡頭直接移到讓星在卡片上方 (跟方向鍵出界一樣不做過場)
+function clearOfCard(el, p) {
+  if (getComputedStyle(side).position !== 'fixed') return;
+  const c = side.getBoundingClientRect(), b = el.getBoundingClientRect(), v = skyEl.getBoundingClientRect();
+  if (b.bottom < c.top - 8) return;
+  const k = W / v.width;   // 螢幕 px → viewBox 單位
+  const y = Math.max(16, Math.min(c.top, v.bottom) - v.top - 40);
+  svg.call(zoom.translateTo, sx(p.x), sy(p.y), [(b.left + b.width / 2 - v.left) * k, y * k]);
 }
 let noJump = false;   // 用手指按 × 收起時, 焦點還給星但鏡頭不跳回去 (使用者可能已經把圖拖走了)
 function unpin(byPointer) {
