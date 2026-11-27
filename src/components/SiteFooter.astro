@@ -129,8 +129,21 @@ const year = new Date().getFullYear();
       if (open) more.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     });
     // 左下角的指令列膠囊疊在狀態列左邊: 版權字讓開它的寬度
-    const fit = () => { const c = document.querySelector('.sh-cli'); f.style.setProperty('--sf-cli', (c ? c.getBoundingClientRect().right : 0) + 'px'); };
+    // 指令列打開時整條變全寬, 這時候量會把 --sf-cli 寫成整個視窗寬 (之後頁尾就能左右滑): 開著先不量, 關掉再量一次
+    const line = f.querySelector('.sf-line'), copy = f.querySelector('.sf-copy'), ico = f.querySelector('.sf-ico');
+    const fit = () => {
+      const c = document.querySelector('.sh-cli');
+      if (c?.classList.contains('open')) return;
+      const right = c ? (c.querySelector('.sh-cli-pill') || c).getBoundingClientRect().right : 0;
+      f.style.setProperty('--sf-cli', right + 'px');
+      // 版權字放不下 (碰到膠囊或右邊圖示, 例如有了 RSS 多一顆) 就搬到上面一行; 不寫死寬度, 照實際位置判斷
+      line.classList.remove('sf-stack');
+      const a = copy.getBoundingClientRect(), b = ico.getBoundingClientRect();
+      if (a.left < right + 8 || a.right > b.left - 8) line.classList.add('sf-stack');
+    };
     fit(); addEventListener('resize', fit); setTimeout(fit, 800);
+    const cli = document.querySelector('.sh-cli');
+    if (cli) new MutationObserver(fit).observe(cli, { attributes: true, attributeFilter: ['class'] });
   })();
 </script>
 
@@ -159,9 +172,12 @@ const year = new Date().getFullYear();
     .sf-inner { grid-template-columns: 1fr; gap: 24px; padding: 28px 16px; }
     .sf-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }
   }
+  /* 膠囊 + 版權字 + 圖示一排塞不下 (320 小手機; 有網域多一顆 RSS 時 390 也會): 版權字搬到上面一行、置中整條;
+     下面那排維持膠囊在左、圖示靠右, 高度跟原本一樣。sf-stack 是上面 script 量了真的會碰到才加的, 360 以下沒 JS 也照樣換行 */
+  .sf-line.sf-stack { flex-wrap: wrap; padding-top: 12px; }
+  .sf-stack .sf-copy { position: static; translate: none; order: -1; flex: 0 0 calc(100% + var(--sf-cli, 0px)); margin-left: calc(-1 * var(--sf-cli, 0px)); text-align: center; }
+  .sf-stack .sf-ico { height: 52px; }
   @media (max-width: 360px) {
-    /* 320 這種小手機: 膠囊 + 版權字 + 圖示一排塞不下 (之前會撐出 18px 讓整頁可以左右滑)。
-       版權字自己搬到上面一行、置中整條; 下面那排維持膠囊在左、圖示靠右, 高度跟原本一樣 */
     .sf-line { flex-wrap: wrap; padding-top: 12px; }
     .sf-copy { position: static; translate: none; order: -1; flex: 0 0 calc(100% + var(--sf-cli, 0px)); margin-left: calc(-1 * var(--sf-cli, 0px)); text-align: center; }
     .sf-ico { height: 52px; }
