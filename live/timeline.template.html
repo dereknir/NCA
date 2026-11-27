@@ -95,6 +95,9 @@
           4px 100%,4px calc(100% - 4px),0 calc(100% - 4px));
         filter:drop-shadow(3px 3px 0 rgba(0,0,0,.5))}
   .chip:active{transform:translate(3px,3px);filter:none}
+  /* 鍵盤焦點框: clip-path 會把畫在外面的框切掉, 畫在裡面 */
+  .chip:focus-visible{outline:2px solid var(--gold);outline-offset:-4px}
+  .yr:focus{outline:none}
   a.badge{display:inline-block;min-height:24px;line-height:22px;padding:0 6px}
   .badge,.sbadge,.ics{border-radius:0;font-family:'PX-ZH','PX-JA',var(--font)}
   #next,#today{border-radius:0;border-width:2px;
@@ -213,6 +216,7 @@ function render() {
       const h = document.createElement('div');
       h.className = 'yr';
       h.id = `y${y}`;
+      h.tabIndex = -1;   // 「在年表看這一年」把焦點帶過來, 下一個 Tab 從這一年接著走
       h.innerHTML = `${y === '0000' ? '日期不明' : y}<small id="yc-${y}"></small>`;
       tl.appendChild(h);
       yearWrap = document.createElement('div');
@@ -246,15 +250,21 @@ const chips = document.getElementById('chips');
 for (const [k, label] of Object.entries(CLS)) {
   const b = document.createElement('button');
   b.className = 'chip on';
+  b.setAttribute('aria-pressed', 'true');
   b.innerHTML = `<i style="background:var(--c-${k})"></i>${label}`;
-  b.onclick = () => { on.has(k) ? on.delete(k) : on.add(k); b.classList.toggle('on'); render(); };
+  b.onclick = () => {
+    on.has(k) ? on.delete(k) : on.add(k);
+    b.setAttribute('aria-pressed', b.classList.toggle('on'));
+    render();
+  };
   chips.appendChild(b);
 }
 {
   const b = document.createElement('button');
   b.className = 'chip mine';
+  b.setAttribute('aria-pressed', 'false');
   b.innerHTML = `<i></i>参戦した場次`;
-  b.onclick = () => { mineOnly = !mineOnly; b.classList.toggle('on'); render(); };
+  b.onclick = () => { mineOnly = !mineOnly; b.setAttribute('aria-pressed', b.classList.toggle('on')); render(); };
   chips.appendChild(b);
 }
 document.getElementById('tl').addEventListener('click', e => {
@@ -274,6 +284,12 @@ qEl.addEventListener('input', () => {
 });
 render();
 renderNext();
+// 頁首跟篩選列都黏在上面: Shift+Tab 往回走時焦點會躲在它們底下, 捲動預留它們的高度 (篩選列手機會折行, 跟著量)
+{
+  const pad = () => document.documentElement.style.scrollPaddingTop = `${chips.getBoundingClientRect().height + 57 + 8}px`;
+  pad();
+  new ResizeObserver(pad).observe(chips);
+}
 
 /* ④ 今日のにしな:同月日回顧,無事件日回退成下一場倒數 */
 (function today() {
@@ -293,6 +309,9 @@ renderNext();
   if (pool.length) {
     let idx = 0;
     const paint = () => {
+      // 整塊重畫: 焦點原本在裡面的話, 畫完放回同一顆按鈕 (不然鍵盤按圓點焦點會掉回頁首)
+      const had = document.activeElement;
+      const back = el.contains(had) ? (had.classList.contains('dot') ? `.dot[data-i="${idx}"]` : '.go') : null;
       const e = pool[idx];
       const yrs = now.getFullYear() - +e.date.slice(0, 4);
       el.innerHTML = hd
@@ -304,13 +323,19 @@ renderNext();
              ${pool.length > 1 ? `<span class="dots">${pool.map((_, j) =>
                `<button class="dot${j === idx ? ' on' : ''}" data-i="${j}" aria-label="第 ${j + 1} 則"></button>`).join('')}</span>` : ''}
            </div>`;
-      el.querySelector('.go').onclick = ev =>
-        document.getElementById('y' + ev.target.dataset.y)?.scrollIntoView({ block: 'start' });
+      el.querySelector('.go').onclick = ev => {
+        const h = document.getElementById('y' + ev.target.dataset.y);
+        if (!h) return;
+        h.scrollIntoView({ block: 'start' });
+        h.focus({ preventScroll: true });
+      };
       el.querySelectorAll('.dot').forEach(d => d.onclick = () => { idx = +d.dataset.i; paint(); });
+      if (back) el.querySelector(back)?.focus();
     };
     paint();
+    // 自動輪播: 焦點在卡片裡 (正在用鍵盤看) 的時候先停
     if (pool.length > 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches)
-      setInterval(() => { idx = (idx + 1) % pool.length; paint(); }, 7000);
+      setInterval(() => { if (el.contains(document.activeElement)) return; idx = (idx + 1) % pool.length; paint(); }, 7000);
   } else {
     const fut = [...DATA].filter(i => i._k > TODAY && i.class === 'LIVE')
       .sort((a, b) => a._k.localeCompare(b._k))[0];
