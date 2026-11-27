@@ -4,9 +4,10 @@ import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { satteri } from '@astrojs/markdown-satteri';
+import siteUrl from './src/integrations/site-url.mjs';
 
 // 正式網域還沒定: 買好之後填在這裡 (例 'https://example.com'), 或在 Vercel 設環境變數 SITE_URL,
-// sitemap、canonical、og:image 絕對網址、RSS 會一起打開。留空時這些都不輸出。
+// sitemap、canonical、og:image 絕對網址、RSS、robots.txt 的 Sitemap 會一起打開。留空時這些都不輸出。
 const SITE = process.env.SITE_URL || undefined;
 
 // public/ 下不經 Astro 路由的靜態子站, sitemap 掃不到, 手動列 (與 NAVIGATION 對齊)
@@ -75,6 +76,8 @@ export default defineConfig({
       filter: (page) => !page.includes('/admin'),
       customPages: STATIC_PAGES.map(p => new URL(p, SITE).href),
     })] : []),
+    // 靜態子站的 og:image / canonical、robots.txt 的 Sitemap (沒網域時不動)
+    siteUrl({ site: SITE, staticPages: STATIC_PAGES }),
   ],
   markdown: {
     processor: satteri({ mdastPlugins: [cjkBold] }),
