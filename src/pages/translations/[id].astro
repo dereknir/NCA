@@ -164,7 +164,7 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
       </div>
     )}
 
-    <SongLiveHistory songId={translation.id} />
+    <SongLiveHistory songId={translation.id} released={new Date(publishDate)} />
 
     <ArticleEnd shareText={`${artist}「${title}」中文歌詞翻譯`} translated={translatedAt} updated={songDates?.updated}
       source={`src/content/translations/${translation.id}.md`} />

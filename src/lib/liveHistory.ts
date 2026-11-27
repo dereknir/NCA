@@ -14,13 +14,16 @@ export type TourRow = {
   stops: number | null;  // 這個巡演幾場 (對不到 tour_stops 時是 null)
   pos: number | null;    // 這首在 setlist 第幾首; 沒唱 = null
   total: number;         // setlist 總曲數
+  before: boolean;       // 巡演結束時這首還沒發行 (不算進分母)
 };
 
 export type LiveHistory = {
   rows: TourRow[];       // 舊 → 新, 只含有 setlist 的巡演
+  eligible: number;      // 發行之後的巡演數 (分母)
   sung: number;          // 唱過幾次巡演
+  missing: number;       // 有巡演但抓不到 setlist 的 (tracks 空), 不在 rows 裡
   shows: number;         // 約幾場 (只算對得到場次的巡演)
-  first?: TourRow;
+  first?: TourRow;       // 最早出現在 setlist 的巡演 (抓不到 setlist 的巡演可能更早)
   latest?: TourRow;
   slot?: string;         // 通常排在哪: 開場 / 前段 / 中段 / 後段 / 最後一首
 };
@@ -34,10 +37,24 @@ const norm = (s: string) => s
 
 const stopsByName = new Map(tourStops.tours.map(t => [norm(t.name), t.stops.length]));
 
-const ROWS_BASE = (setlists.tours as SLTour[])
-  .filter(t => t.tracks.length > 0)
-  .map(t => ({ t, year: (t.date.match(/20\d\d/) ?? [''])[0] }))
-  .reverse();   // setlists.json 是新 → 舊 (日期是「2024.11.10」這種文字, 不能直接字串排序)
+// 「2024.11.10 - 2024.11.29」「2022.4.2 - 4.17」「2021.6.25」→ 開始 / 結束日 (結束沒寫年份就用開始那年)
+function range(date: string): { start: string; end: string } {
+  const [a, b] = date.split('-').map(x => x.trim());
+  const m = a.match(/(\d{4})\.(\d+)\.(\d+)/);
+  if (!m) return { start: '', end: '' };
+  const iso = (y: string, mo: string, d: string) => `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
+  const start = iso(m[1], m[2], m[3]);
+  const e = b?.match(/(?:(\d{4})\.)?(\d+)\.(\d+)/);
+  return { start, end: e ? iso(e[1] ?? m[1], e[2], e[3]) : start };
+}
+
+const ALL = (setlists.tours as SLTour[]).map(t => ({ t, ...range(t.date) }));
+// 不靠 setlists.json 的排列順序 (那是外部頁面的順序), 自己照開始日排
+const ROWS_BASE = ALL
+  .filter(x => x.t.tracks.length > 0)
+  .map(x => ({ ...x, year: x.start.slice(0, 4) }))
+  .sort((a, b) => a.start.localeCompare(b.start));
+const MISSING = ALL.filter(x => x.t.tracks.length === 0);
 
 function slotOf(rows: TourRow[]): string | undefined {
   const sung = rows.filter(r => r.pos !== null);
@@ -49,19 +66,23 @@ function slotOf(rows: TourRow[]): string | undefined {
   return mid < 1 / 3 ? '前段' : mid < 2 / 3 ? '中段' : '後段';
 }
 
-export function liveHistory(songId: string): LiveHistory {
-  const rows: TourRow[] = ROWS_BASE.map(({ t, year }) => {
+/** released: 歌的發行日 (YYYY-MM-DD); 巡演結束前還沒發行的不算「沒唱」 */
+export function liveHistory(songId: string, released?: string): LiveHistory {
+  const rows: TourRow[] = ROWS_BASE.map(({ t, year, end }) => {
     const hit = t.tracks.find(tr => tr.matched_song_id === songId);
     return {
       title: t.title, date: t.date, year,
       stops: stopsByName.get(norm(t.title)) ?? null,
       pos: hit ? hit.index : null,
       total: t.tracks.length,
+      before: !hit && !!released && end < released,
     };
   });
   const sungRows = rows.filter(r => r.pos !== null);
   return {
     rows,
+    eligible: rows.filter(r => !r.before).length,
+    missing: MISSING.filter(x => !released || x.end >= released).length,
     sung: sungRows.length,
     shows: sungRows.reduce((n, r) => n + (r.stops ?? 0), 0),
     first: sungRows[0],
