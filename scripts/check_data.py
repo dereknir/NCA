@@ -7,9 +7,9 @@ check_data.py — 主要資料檔的結構檢查 (不加任何依賴, CI 經由 
 這裡只檢查「一定要成立」的結構, 不檢查內容好不好; 只讀不寫。
 
 檢查:
-  data/lyrics.json              歌 id 唯一、跟 src/content/translations/*.md 一一對應、歌詞行 index 連續
+  data/lyrics.json              歌 id 唯一、歌詞行 index 連續 (跟 translations/*.md 對不上只警告)
   data/nishina_shorts.json      shorts id 是 YouTube id、不重複
-  src/data/setlists.json        meta 的巡演數 / 曲數對得上、曲序連續、對到的歌 id 存在
+  src/data/setlists.json        meta 的巡演數 / 曲數對得上、曲序連續、對到的歌 id 存在 (date 只檢查是字串)
   src/data/full_live.json       歌 id 存在、有歌詞行
   src/data/shorts_by_song.json  歌 id 存在、videoId 合法
   annotation/shorts_anchors.json  status 合法、songId 存在 (或 __ 開頭的花絮分類)、
@@ -31,6 +31,7 @@ STATUSES = {'done', 'auto', 'pending', 'skip'}
 class Report:
     def __init__(self):
         self.errors: list[str] = []
+        self.warnings: list[str] = []   # 印出來但不讓 CI 失敗
 
     def check(self, ok: bool, msg: str) -> bool:
         if not ok:
@@ -62,11 +63,12 @@ def check_lyrics(r: Report) -> dict[str, int]:
         r.check(idx == list(range(len(ll))), f'{f}: {sid} 的歌詞行 index 不是 0..{len(ll) - 1} 連續')
         r.check(all(isinstance(x.get('ja'), str) for x in ll), f'{f}: {sid} 有歌詞行缺 ja')
         lines[sid] = len(ll)
-    md = {p.stem for p in (ROOT / 'src/content/translations').glob('*.md*')}
+    # 只 push md 時, lyrics.json 由 refresh-lyric-data 排程隨後重產 → 這裡只提醒, 不擋
+    md = {p.stem for p in (ROOT / 'src/content/translations').glob('*.md')}
     for sid in sorted(md - set(lines)):
-        r.check(False, f'{f}: 少了 {sid} (有 md 但沒匯出) → 重跑 scripts/export_lyrics_json.py')
+        r.warnings.append(f'{f}: 少了 {sid} (有 md 但還沒匯出; 排程會補, 或本機跑 scripts/export_lyrics_json.py)')
     for sid in sorted(set(lines) - md):
-        r.check(False, f'{f}: 多了 {sid} (md 已經不在) → 重跑 scripts/export_lyrics_json.py')
+        r.warnings.append(f'{f}: 多了 {sid} (md 已經不在; 排程會補, 或本機跑 scripts/export_lyrics_json.py)')
     return lines
 
 
@@ -97,7 +99,7 @@ def check_setlists(r: Report, songs: dict[str, int]):
     r.check(meta.get('total_tracks') == total, f'{f}: meta.total_tracks={meta.get("total_tracks")} 但實際 {total} 首')
     for t in tours:
         name = t.get('title', '?')
-        r.check(isinstance(t.get('date'), str) and bool(re.match(r'^20\d\d\.', t.get('date', ''))), f'{f}: {name} 的 date 格式不對')
+        r.check(isinstance(t.get('date'), str), f'{f}: {name} 的 date 不是字串')   # 內容照官方頁, 可能是空的, 不檢查格式
         tracks = t.get('tracks', [])
         r.check([x.get('index') for x in tracks] == list(range(1, len(tracks) + 1)), f'{f}: {name} 的曲序不是 1..{len(tracks)} 連續')
         for x in tracks:
@@ -158,6 +160,8 @@ def main() -> int:
     check_full_live(r, songs)
     check_shorts_by_song(r, songs)
     check_anchors(r, songs)
+    for w in r.warnings:
+        print(f'⚠ {w}')
     if r.errors:
         shown = r.errors[:50]
         for e in shown:
