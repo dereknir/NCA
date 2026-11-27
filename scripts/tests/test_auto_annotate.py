@@ -709,3 +709,33 @@ def test_chain_score_span_split_lines_do_not_score_more(monkeypatch):
     assert aa._chain_score(lines, hira, split) == aa._chain_score(lines, hira, whole) == 20.0
     monkeypatch.setattr(aa, 'CHAIN_SCORE', 'sum')
     assert aa._chain_score(lines, hira, split) == 200.0
+
+
+def test_align_split_lines_no_longer_win_outright_under_span(monkeypatch):
+    # 同一段文字在歌詞裡出現兩次: 一次拆成兩句 (0、1), 一次是一整句 (3)
+    # 'sum' 拆開那段分數多一倍, 直接贏、不算平手; 'span' 兩段一樣長 → 平手, 交給平手規則
+    lines = [VERSES[0], VERSES[1], VERSES[2], VERSES[0] + VERSES[1]]
+    tr = make_tr(VERSES[0] + VERSES[1])
+    monkeypatch.setattr(aa, 'CHAIN_SCORE', 'sum')
+    assert aa.align(make_song(lines), tr)[1] is False
+    monkeypatch.setattr(aa, 'CHAIN_SCORE', 'span')
+    assert aa.align(make_song(lines), tr)[1] is True
+
+
+def test_chain_score_span_edges(monkeypatch):
+    monkeypatch.setattr(aa, 'CHAIN_SCORE', 'span')
+    lines = [(0, 'a', 'あいうえお'), (1, 'b', 'かきくけこ')]
+    # 全是估計句 → 0
+    assert aa._chain_score(lines, 'あいうえお', (50.0, [(0, 0, aa.EST_SCORE)])) == 0.0
+    # 最後一句只唱到 2 個字 (轉寫在那裡結束) → 以 2 字計
+    assert aa._chain_score(lines, 'あいうえおかき', (200.0, [(0, 0, 100.0), (1, 5, 100.0)])) == (5 * 100 + 2 * 100) / 100
+    # 中間夾估計句: 前一句的跨度算到下一個真句
+    lines3 = lines + [(2, 'c', 'かきくけこ')]
+    chain = [(0, 0, 100.0), (1, 2, aa.EST_SCORE), (2, 5, 100.0)]
+    assert aa._chain_score(lines3, 'あいうえおかきくけこ', (0, chain)) == 10.0
+    # 轉寫是空的也不會出錯
+    assert aa._chain_score(lines, '', (100.0, [(0, 0, 100.0)])) == 1.0
+    monkeypatch.setattr(aa, 'CHAIN_SCORE', 'bogus')
+    import pytest
+    with pytest.raises(ValueError):
+        aa._chain_score(lines, 'あ', (1.0, [(0, 0, 100.0)]))

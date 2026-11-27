@@ -317,8 +317,7 @@ def align(song, tr):
         r = _chain_from(lines, hira, j0)
         if not r:
             continue
-        if CHAIN_SCORE != 'sum':
-            r = (_chain_score(lines, hira, r), r[1], r[0])
+        r = (_chain_score(lines, hira, r), r[1], r[0])   # (排名分數, 鏈, 原本相加的分數); 'sum' 時前後兩個一樣
         key = frozenset(c[0] for c in r[1] if c[2] != EST_SCORE)
         if key and (key not in by_key or r[0] > by_key[key][0]):
             by_key[key] = r
