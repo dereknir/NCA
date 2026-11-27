@@ -79,3 +79,30 @@ test('桌機: 側欄照舊在右邊, 沒有 × 鈕', async ({ page }, info) => {
   expect(sb.x).toBeGreaterThanOrEqual(sky.x + sky.width - 1);
   expect(errors).toEqual([]);
 });
+
+test('手機: 點星後把圖拖走, 按 × 收起時鏡頭不跳回那顆星', async ({ page }, info) => {
+  test.skip(info.project.name !== 'mobile', '只測窄版');
+  const errors = await open(page);
+  const s = await visibleStar(page);
+  await page.touchscreen.tap(s.x, s.y);
+  await expect(page.locator('#side')).toBeVisible();
+  // 在離那顆星遠的角落放大, 把它推出畫面 (等同手指把圖拖走)
+  const sky = (await page.locator('#sky').boundingBox())!;
+  const cx = s.x < sky.x + sky.width / 2 ? sky.x + sky.width - 15 : sky.x + 15;
+  const cy = s.y < sky.y + sky.height / 2 ? sky.y + sky.height - 15 : sky.y + 15;
+  await page.mouse.move(cx, cy);
+  for (let i = 0; i < 6; i++) { await page.mouse.wheel(0, -400); await page.waitForTimeout(80); }
+  const out = await page.evaluate(() => {
+    const el = document.querySelector('#sky circle[aria-pressed="true"]')!.getBoundingClientRect();
+    const v = document.getElementById('sky')!.getBoundingClientRect();
+    return el.right < v.left || el.left > v.right || el.bottom < v.top || el.top > v.bottom;
+  });
+  expect(out).toBe(true);   // 前提: 釘選的星真的跑出畫面了
+  const moved = await page.evaluate(() => document.querySelector('#sky > g')!.getAttribute('transform'));
+  expect(moved).not.toBeNull();
+  await page.locator('#side .x').tap();
+  await expect(page.locator('#side')).toBeHidden();
+  const after = await page.evaluate(() => document.querySelector('#sky > g')!.getAttribute('transform'));
+  expect(after).toBe(moved);
+  expect(errors).toEqual([]);
+});

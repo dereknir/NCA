@@ -272,13 +272,16 @@ function pin(el, p) {
   pinned = el;
   rove(el);
 }
-function unpin() {
+let noJump = false;   // 用手指按 × 收起時, 焦點還給星但鏡頭不跳回去 (使用者可能已經把圖拖走了)
+function unpin(byPointer) {
   if (!pinned) return;
   side.innerHTML = sidePH;
   side.classList.remove('has-pin');
   pinned.setAttribute('aria-pressed', 'false');
   live.textContent = '已收起';
-  pinned.focus();
+  noJump = !!byPointer;
+  pinned.focus({ preventScroll: true });
+  noJump = false;
   pinned = null;
 }
 
@@ -302,7 +305,7 @@ function keepInView(el, p) {
 }
 star.on('focus', function (e, p) {
   rove(this);
-  keepInView(this, p);
+  if (!noJump) keepInView(this, p);
   if (!this.matches(':focus-visible')) return;   // 滑鼠點的不畫框
   const h = Math.ceil(R(p)) + 4;
   ring.style('display', null).selectAll('rect')
@@ -341,7 +344,7 @@ star.on('keydown', function (e, p) {
 // Esc: 在星圖或側欄裡按都收起來, 焦點回到剛剛那顆星
 document.getElementById('sky').addEventListener('keydown', e => { if (e.key === 'Escape') unpin(); });
 side.addEventListener('keydown', e => { if (e.key === 'Escape') unpin(); });
-side.addEventListener('click', e => { if (e.target.closest('.x')) unpin(); });
+side.addEventListener('click', e => { if (e.target.closest('.x')) unpin(e.detail > 0); });   // detail 0 = 鍵盤按的
 
 // 文字過濾點亮
 document.getElementById('filter').addEventListener('input', e => {
