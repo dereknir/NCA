@@ -13,6 +13,18 @@ test('setlist 巡演封面與作品集封面用 WebP 縮圖且載得到', async 
   }
 });
 
+test('setlist 頁不再直接載原圖, 縮圖寬度不超過 224', async ({ page, request }) => {
+  await page.goto('/setlists/');
+  await expect(page.locator('img[src^="/setlists/covers/"]')).toHaveCount(0);
+  const src = await page.locator('img[src^="/img/setlists/covers/"]').first().getAttribute('src');
+  const res = await request.get(src!);
+  expect(res.headers()['content-type']).toContain('image/webp');
+  const img = page.locator(`img[src="${src}"]`).first();
+  await img.scrollIntoViewIfNeeded();
+  await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.naturalWidth)).toBeGreaterThan(0);
+  expect(await img.evaluate((el: HTMLImageElement) => el.naturalWidth)).toBeLessThanOrEqual(224);
+});
+
 test('作品集分享圖維持原本的 jpg (社群平台不一定吃 WebP)', async ({ page }) => {
   await page.goto('/projects/rpu-system/');
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /rpu-cover\.jpg$/);
