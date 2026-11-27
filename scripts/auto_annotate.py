@@ -106,6 +106,7 @@ ENGINE = 'whisper'    # --engine qwen: 改用 Qwen3-ASR-1.7B + Qwen3-ForcedAlign
                       # --engine hybrid: Qwen 決定「哪幾句」, whisper (--model) 給「幾秒」— golden 40 支上最好 (見 HANDOFF)
 HYBRID_WIN = 3.0      # hybrid (舊做法, HYBRID_RETIME=False): whisper 同一句的時間跟 Qwen 差在這個秒數內才採用
 HYBRID_RETIME = True  # hybrid: whisper 對到的句子一律用 whisper 時間, 其餘依鄰句的 (whisper − Qwen) 位移校正
+WHISPER_LEAD = True   # hybrid: Qwen 沒轉到開頭幾秒、whisper 有轉到 → 把 whisper 在 Qwen 鏈之前「真的對到字」的句子補進來
                       # golden 233 支實測: 同一句 whisper ≤1s 92% vs Qwen 82%; 兩者差 >3s 時 whisper 對 17/20
                       # whisper 沒對到的句子留 Qwen 時間 (實測: 用鄰句位移校正 73% → 67% 變差; 在 whisper 轉寫局部再找一次無明顯改善)
 MIN_GAP = 0.6         # 相鄰兩句 anchor 至少間隔這麼多秒
@@ -330,6 +331,8 @@ def align(song, tr):
         if HYBRID_RETIME:
             anchors = _retime(anchors, tw)
             tw = {}
+        if WHISPER_LEAD:
+            anchors = _whisper_lead(anchors, aw)
         # (舊做法) 逐句換時間, 但換完必須仍然「時間遞增、相鄰間隔 ≥ MIN_GAP」, 否則保留 Qwen 的時間
         # (以前換完再排序, 936 支裡有 22 支句號倒退、93 支兩句擠在 0.6 秒內)
         orig = [a['t'] for a in anchors]
@@ -345,6 +348,27 @@ def align(song, tr):
     for a in anchors:
         a['t'] = round(a['t'], 2)
     return anchors, ambiguous
+
+
+def _whisper_lead(anchors, aw):
+    """hybrid 補開頭: Qwen 常漏轉影片前幾秒, whisper 卻有轉到。
+    whisper 自己的對齊在 Qwen 鏈第一句之前還有句子, 而且:
+      - whisper 跟 Qwen 至少有一句「都真的對到字」的同一句 (確定是同一段, 不是 whisper 選到另一次副歌)
+      - 這些前面的句子裡至少一句是 whisper 真的對到字的 (只有估計句 = 只是歌詞前面還有句子, 不補)
+      - 時間都在 Qwen 第一句之前 (至少 MIN_GAP)
+    就把它們 (連同 whisper 在其間的估計句) 補在最前面。"""
+    if not anchors or not aw:
+        return anchors
+    real_q = {a['line'] for a in anchors if not a.get('est')}
+    real_w = {a['line'] for a in aw if not a.get('est')}
+    if not real_q & real_w:
+        return anchors
+    first_line = min(a['line'] for a in anchors)
+    t0 = min(a['t'] for a in anchors)
+    lead = [a for a in aw if a['line'] < first_line and a['t'] <= t0 - MIN_GAP]
+    if not any(not a.get('est') for a in lead):
+        return anchors
+    return sorted([dict(a) for a in lead], key=lambda a: (a['t'], a['line'])) + anchors
 
 
 def _retime(anchors, tw):
