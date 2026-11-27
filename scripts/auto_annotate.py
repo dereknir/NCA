@@ -301,9 +301,10 @@ def _window_ratio(lines, hira, chain):
         off[idx] = len(s)
         s += lh
     ws = sorted(off[i] - p for i, p, _s in real)[len(real) // 2]
-    # 歌詞窗超出歌頭 / 歌尾的部分兩邊都不算 (否則最後一段副歌會因為歌詞「不夠長」吃虧)
-    a, b = max(0, ws), min(len(s), ws + len(hira))
-    return fuzz.ratio(hira[a - ws:b - ws], s[a:b])
+    # 超出歌尾的轉寫不算 (否則最後一段副歌會因為歌詞「不夠長」吃虧);
+    # 超出歌頭的不能也裁掉: 片段開頭有歡呼 / 掌聲被轉成假名時, 頭サビ會因為那段不計分而拿 100 → 歌頭前面補空白去比
+    b = min(len(s), ws + len(hira))
+    return fuzz.ratio(hira[:b - ws], ' ' * max(0, -ws) + s[max(0, ws):b])
 
 
 def align(song, tr, tiebreak=True):
