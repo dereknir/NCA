@@ -450,7 +450,9 @@ if (matchMedia('(prefers-reduced-motion: reduce)').matches) playBtn.style.displa
 // 要放在 playing 宣告之後: openPref 一開始會讀 playing
 {
   const pp = new URLSearchParams(location.search).get('pref');
-  if (pp && (effCounts()[pp] || []).length) openPref(pp);
+  // 用 hasOwn: ?pref=constructor 這種原型上的名字不能當成縣 (不然 openPref 丟錯, 後面整段 script 都不跑)
+  const c = effCounts();
+  if (pp && Object.hasOwn(c, pp) && Array.isArray(c[pp]) && c[pp].length) openPref(pp);
 }
 
 /* ⑥ 參戰履歷像素卡(吃蓋章資料;字型走像素管線同款,載不到時 monospace 降級) */
