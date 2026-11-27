@@ -2,6 +2,8 @@
 """
 inject.py — live 三頁重建腳本(資料更新後跑這支,不需要 fable 在場)
 用法: python3 inject.py   (data/ 內五份 JSON → ../public/live/{timeline,concerts,footprint}/index.html)
+      python3 inject.py --check   只比對、不寫檔; 產出跟 repo 裡的不一樣就 exit 1 (check_sync.py 會跑)
+      → 手改 public/live/ 產出檔、沒改範本的修正, 下次排程重產就會被蓋掉, 這裡先擋
 """
 import json, re, sys
 from pathlib import Path
@@ -10,6 +12,20 @@ sys.stdout.reconfigure(encoding='utf-8')
 HERE = Path(__file__).parent
 PUB = HERE.parent / 'public' / 'live'
 D = HERE / 'data'
+CHECK = '--check' in sys.argv
+_stale = []
+
+
+def emit(out, text):
+    """寫一個產出檔; --check 時只比對, 不一樣就記下來"""
+    if CHECK:
+        if not out.exists() or out.read_text(encoding='utf-8') != text:
+            _stale.append(out.relative_to(HERE.parent))
+        return
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(text, encoding='utf-8')
+
+
 def load(n): return json.dumps(json.load(open(D / n, encoding='utf-8')), ensure_ascii=False)
 
 news = load('nishina_news_classified.json')
@@ -39,8 +55,7 @@ for tpl, page, blobs in JOBS:
         html = html.replace(ph, data)
     assert '/*__' not in html, f'{page} 有未注入的佔位符!'
     out = PUB / page / 'index.html'
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(html, encoding='utf-8')
+    emit(out, html)
     print(f'✓ {out.relative_to(HERE.parent)}({len(html)//1024}KB)')
 
 # galaxy 的太陽閃焰「N 年前的今天」吃這份輕量池 (fetch /live/events.json 前端計算;
@@ -56,7 +71,7 @@ for t in tours_obj['tours']:
         pool.append({'d': st['date'], 'n': t['name'], 's': f"{st['venue']}({st['pref']})"})
 pool.sort(key=lambda x: x['d'])
 ev_out = PUB / 'events.json'
-ev_out.write_text(json.dumps(pool, ensure_ascii=False), encoding='utf-8')
+emit(ev_out, json.dumps(pool, ensure_ascii=False))
 print(f'✓ {ev_out.relative_to(HERE.parent)}({len(pool)} 筆事件池)')
 
 # 順手同步「出演場次清單」給 annotator (__live_song 出演演唱的場次 dropdown)
@@ -91,5 +106,14 @@ ann_apps = {
     'appearances': ann_list,
 }
 ann_out = HERE.parent / 'public' / 'annotate' / 'appearances.json'
-ann_out.write_text(json.dumps(ann_apps, ensure_ascii=False, indent=2), encoding='utf-8')
+emit(ann_out, json.dumps(ann_apps, ensure_ascii=False, indent=2))
 print(f'✓ {ann_out.relative_to(HERE.parent)}({len(ann_list)} 場, 其中 news 未登記 {n_news} 場)')
+
+if CHECK:
+    if _stale:
+        print('\n✗ 這些產出檔跟範本 + 資料重產的結果不一樣 (手改了產出檔? 修正要改在 live/*.template.html):')
+        for p in _stale:
+            print(f'  {p}')
+        print('  → 改好範本後跑 python3 live/inject.py 重產')
+        sys.exit(1)
+    print('\n✓ live 產出檔都跟範本一致')

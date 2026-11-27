@@ -7,11 +7,13 @@ check_sync.py — 驗證「有鏡像副本」的衍生資料檔兩邊一致 (CI 
 只檢查每一對是否 byte-for-byte 相同 — 有人手動只改了一邊、或新增了鏡像卻忘了接
 腳本, 在這裡會立刻炸, 而不是等標注工具安靜地讀到舊資料。
 
-最後順便跑 check_data.py (主要資料檔的結構檢查), CI 只要跑這一支就兩個都檢查到。
+最後順便跑 check_data.py (主要資料檔的結構檢查), 以及 live/inject.py --check
+(live 三頁是範本 + 資料產生的, 手改產出檔的修正會被排程重產蓋掉), CI 只要跑這一支就都檢查到。
 
 用法: python scripts/check_sync.py      (exit 0 = 全部一致且資料結構正確)
 """
 import filecmp
+import subprocess
 import sys
 from pathlib import Path
 
@@ -44,6 +46,15 @@ def main() -> int:
         print(f'\n{bad} 對鏡像有問題', file=sys.stderr)
     else:
         print('\n全部鏡像一致')
+
+    # live 三頁: 範本 + 資料重產要跟 repo 裡的產出一模一樣
+    live = subprocess.run([sys.executable, str(ROOT / 'live' / 'inject.py'), '--check'],
+                          capture_output=True, text=True, encoding='utf-8')
+    if live.returncode:
+        print(live.stdout + live.stderr)
+        bad += 1
+    else:
+        print('✓ live 產出檔都跟範本一致')
 
     sys.path.insert(0, str(ROOT / 'scripts'))
     import check_data
