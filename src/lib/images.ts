@@ -11,6 +11,6 @@ export const IMAGE_DIRS = {
 export function webpOf(src: string | undefined | null): string | undefined {
   if (!src) return undefined;
   const m = src.match(/^\/(.+)\/([^/]+)\.(jpe?g|png)$/i);
-  if (!m || !(m[1] in IMAGE_DIRS)) return src;
+  if (!m || !Object.hasOwn(IMAGE_DIRS, m[1])) return src;
   return `/img/${m[1]}/${m[2]}.webp`;
 }
