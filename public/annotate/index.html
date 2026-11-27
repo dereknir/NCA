@@ -51,6 +51,9 @@
   #autoPanel .seg{display:flex;gap:8px;padding:2px 0;border-top:1px dashed var(--line)}
   #autoPanel .seg .st{color:var(--accent);font-variant-numeric:tabular-nums;cursor:pointer;flex-shrink:0;width:48px}
   #autoPanel .abtn{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+  /* 評級 C 的原因提示: 黃字深底, 左邊實線框 (像素風), 對比 ≥ 4.5 */
+  #autoPanel .why{margin:4px 0;padding:3px 8px;border-left:3px solid var(--warn);background:rgba(226,176,58,.10);color:var(--warn);min-height:24px;line-height:1.6}
+  #autoPanel .why b{color:var(--text)}
 
   /* ── 播放器欄 ── */
   #playerPanel{border-right:1px solid var(--line);display:flex;flex-direction:column;padding:14px;gap:10px;overflow-y:auto}
@@ -1071,6 +1074,20 @@ function findNextUnmatched(){
 }
 
 /* ---------- 🤖 機器建議面板 (auto_anchors.json, 由 scripts/auto_annotate.py 產生) ---------- */
+/* 評級為什麼是 C / 要特別看哪裡: 只看 auto_anchors.json 裡現成的欄位
+   not_single_song + nonSong (auto_annotate.py 的非單曲偵測: title = 標題像活動 / 宣傳, foreign = 轉寫大半像別首歌)
+   ambiguous_start (副歌重複, 起點對到哪一次不確定) */
+const NONSONG_WHY = { title: '標題像活動 / 宣傳', foreign: '轉寫大半像另一首歌 (拼盤 / 回顧?)' };
+function autoWhy(r){
+  const needs = r.needsReview || [], out = [];
+  if(needs.includes('not_single_song')){
+    const why = (r.nonSong || []).map(k => NONSONG_WHY[k] || k).join('、');
+    out.push(`⚠ <b>可能不是單曲</b>${why ? `: ${escapeHtml(why)}` : ''} — 先聽是不是一首歌的表演, 不是就分類到 __promo / __tour_recap 等`);
+  }
+  if(needs.includes('ambiguous_start'))
+    out.push('↻ <b>副歌重複, 可能選到另一次</b> — 對一下 anchors 是不是落在這支實際唱的那一段');
+  return out;
+}
 function renderAutoPanel(){
   const el = document.getElementById('autoPanel'); if(!el) return;
   const r = S.cur && S.auto[S.cur.videoId];
@@ -1092,6 +1109,7 @@ function renderAutoPanel(){
           : `<span style="color:#9fb6ff">${ann.songConfirmed ? '歌名已確認 ✓ · ' : ''}anchors 已套用 — 聽一遍沒問題就按 Enter (= 審核通過, 會上線)</span>`) : ''}
       ${(r.needsReview||[]).filter(x => x !== 'event_title').length ? `<span style="color:var(--warn)">${r.needsReview.filter(x => x !== 'event_title').join(', ')}</span>` : ''}
     </div>
+    ${autoWhy(r).map(t => `<div class="why">${t}</div>`).join('')}
     ${(r.needsReview||[]).includes('event_title') ? `<div style="color:var(--warn)">⚠ 標題像音樂祭 / 巡演回顧 — 先確認是不是單曲表演 (已審的這類片段多半標成 __live_song / __tour_recap / __promo)</div>` : ''}
     ${(h => !h ? '' : `<div style="color:#ffb08a">🧩 完整 Live: 這支拍到 ${escapeHtml(h.title)} 第 ${lineRange(h.hit)} 句，${
         h.kind === 'complete' ? '剛好是這首還缺的部分，確認是現場版審完，這首就能從頭聽到尾'
@@ -1482,7 +1500,10 @@ function peerSuggest(vid){
   const asr = r.asr || {};
   let grade = asr.grade ?? r.grade, needs = asr.needsReview || [];
   if((r.needsReview || []).includes('event_title') && !needs.includes('event_title')) needs = needs.concat(['event_title']);
-  if(cov >= 0.9){ grade = 'A'; needs = needs.filter(x => x === 'event_title'); } else if(grade === 'C') grade = 'B';
+  if((r.needsReview || []).includes('not_single_song') && !needs.includes('not_single_song')) needs = needs.concat(['not_single_song']);
+  // 判成不是單曲的不升級 (同 peer_anchors.regrade): 評級留 C、標記留著給人工看
+  if(needs.includes('not_single_song')) grade = 'C';
+  else if(cov >= 0.9){ grade = 'A'; needs = needs.filter(x => x === 'event_title'); } else if(grade === 'C') grade = 'B';
   return { songId: res.sid, grade, needsReview: needs, anchors: peerCombine(res.anchors, res.spans, base, S.songs[res.sid]),
            peer: { from: res.used.map(p => ({ videoId: p.v, offset: round2(p.off), sim: p.sim })), coverage: cov,
                    songChanged: asr.songId !== res.sid, live: true } };
