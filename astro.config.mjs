@@ -5,6 +5,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { satteri } from '@astrojs/markdown-satteri';
 import siteUrl from './src/integrations/site-url.mjs';
+import pageFonts from './src/integrations/page-fonts.mjs';
 
 // 正式網域還沒定: 買好之後填在這裡 (例 'https://example.com'), 或在 Vercel 設環境變數 SITE_URL,
 // sitemap、canonical、og:image 絕對網址、RSS、robots.txt 的 Sitemap 會一起打開。留空時這些都不輸出。
@@ -84,6 +85,8 @@ export default defineConfig({
     })] : []),
     // 靜態子站的 og:image / canonical、robots.txt 的 Sitemap (沒網域時不動)
     siteUrl({ site: SITE, staticPages: STATIC_PAGES }),
+    // 年度回顧只抓自己用到的粉圓字 (build 時從共用切片切, 資料每天更新也跟得上)
+    pageFonts({ pages: ['year'] }),
   ],
   markdown: {
     processor: satteri({ mdastPlugins: [cjkBold] }),
