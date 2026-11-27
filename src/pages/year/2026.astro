@@ -121,7 +121,7 @@ const maxBar = Math.max(...byMonth, 1);
   .yr-n { font: 48px/1 var(--sh-px); color: var(--sh-gold); margin: 0 0 12px; }
   .yr-n span { font-size: 16px; color: var(--sh-ink2); margin-left: 6px; }
   .yr-d { font: .95rem/1.7 var(--sh-read); color: var(--sh-ink2); margin: 0 0 6px; }
-  .yr-d a { color: rgb(var(--sh-accent)); }
+  .yr-d a { color: rgb(var(--sh-accent)); text-decoration: underline dotted; text-underline-offset: 4px; }   /* 不能只靠顏色跟旁邊的字分開 */
   .yr-list { margin: 0; padding: 0; list-style: none; font: .9rem/1.8 var(--sh-read); color: var(--sh-ink); }
   .yr-list li::before { content: '■ '; color: var(--sh-ink3); font-size: .6em; vertical-align: middle; }
   .yr-rank { margin: 8px 0; padding: 0; list-style: none; counter-reset: r; }

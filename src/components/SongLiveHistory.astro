@@ -55,7 +55,9 @@ const tourLabel = (r: { year: string; title: string }) => `${r.year} ${r.title}`
   .lh-box { display: grid; place-items: center; width: 28px; height: 28px; box-sizing: border-box;
     border: 2px dashed var(--sh-line); font: 12px var(--sh-px); color: #0a0a15; }
   .lh-cell.on .lh-box { border: 2px solid var(--sh-gold); background: var(--sh-gold); }
-  .lh-cell.pre { opacity: .35; }
+  /* 還沒發行的巡演: 只把格子調淡; 年份字還是要看得清楚 (整格 opacity 會讓字只剩 1.7:1) */
+  .lh-cell.pre .lh-box { opacity: .35; }
+  .lh-cell.pre .lh-yr { color: #717c99; }
   .lh-cell.pre .lh-box { border-style: dotted; }
   .lh-yr { font: 10px var(--sh-px10); color: var(--sh-ink3); }
   .lh-more { margin-top: 8px; }
@@ -66,5 +68,5 @@ const tourLabel = (r: { year: string; title: string }) => `${r.year} ${r.title}`
   .lh-list li.off { color: var(--sh-ink3); }
   .lh-p { font-family: var(--sh-px); font-size: 12px; white-space: nowrap; }
   .lh-note { margin: 12px 0 0; font: .8rem/1.7 var(--sh-read); color: var(--sh-ink3); }
-  .lh-note a { color: rgb(var(--sh-accent)); }
+  .lh-note a { color: rgb(var(--sh-accent)); text-decoration: underline dotted; text-underline-offset: 4px; }   /* 不能只靠顏色跟旁邊的字分開 */
 </style>
