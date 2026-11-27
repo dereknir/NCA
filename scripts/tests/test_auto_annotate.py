@@ -867,3 +867,24 @@ def test_same_segment_requires_whisper_inside_qwen_span():
     assert not aa._same_segment(q, {31: 1.0, 52: 2.0})   # 共用 1 句, 但 whisper 另外對到別段
     assert not aa._same_segment(q, {})
     assert not aa._same_segment([], {29: 1.0})
+
+
+def test_hybrid_prior_flip_whisper_follows_and_one_shared_line_enough(monkeypatch):
+    # 整條路: 歌詞窗也平手 → 同歌先驗改選前面那次 → whisper 跟著選同一段 → 只共用 1 句實對句也拿 whisper 估的時間
+    lines = [VERSES[0], VERSES[1], VERSES[2], VERSES[3], VERSES[0], VERSES[1], VERSES[4]]
+    text = aa.to_hira(VERSES[0]) + 'らららららららら'          # 第二句沒轉到 → 估計句
+    est_q, est_w = len(VERSES[0]) / 4.0, 0.5 + len(VERSES[0]) / 3.0
+
+    def run(prior):
+        song = make_song(lines)
+        if prior:
+            song['prior'] = prior
+        q = make_tr(text)
+        q['alt'] = make_tr(text, t0=0.5, cps=3.0)          # whisper 的估計位置跟 Qwen 不同
+        return [(a['line'], a['t'], bool(a.get('est'))) for a in aa.align(song, q)[0]]
+
+    assert run(None) == [(4, 0.5, False), (5, pytest.approx(est_q), True)]   # 沒先驗: 後面那次, 估計句照舊用 Qwen 的
+    prior = {0: 0.9, 1: 0.9, 4: 0.1, 5: 0.1}
+    assert run(prior) == [(0, 0.5, False), (1, pytest.approx(est_w), True)]  # 改選前面那次, 估計句換成 whisper 的
+    monkeypatch.setattr(aa, '_same_segment', lambda *a: False)               # 不放寬成 1 句 → 拿不到 whisper 估的
+    assert run(prior)[1] == (1, pytest.approx(est_q), True)
