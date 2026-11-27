@@ -42,7 +42,10 @@ const sideInView = (page: Page) =>
   page.evaluate(() => {
     const s = document.getElementById('netside')!.getBoundingClientRect();
     const hd = document.querySelector('[data-sh-header]')!.getBoundingClientRect();
-    return { top: s.top, bottom: s.bottom, hd: hd.bottom, ih: innerHeight };
+    // 左下角浮動的 N247i 鈕也不能蓋到側欄
+    const cli = document.querySelector('.sh-cli')?.getBoundingClientRect();
+    const floor = cli && cli.height ? Math.min(innerHeight, cli.top) : innerHeight;
+    return { top: s.top, bottom: s.bottom, hd: hd.bottom, ih: floor };
   });
 
 test('歌詞宇宙手機: 點詞 → 側欄整個捲進畫面、看得到那個詞的句子', async ({ page }, info) => {
@@ -90,5 +93,35 @@ test('歌詞宇宙桌機: 側欄照舊在圖右邊, 點詞不捲頁面', async (
   expect(await page.evaluate(() => scrollY)).toBe(y0);
   const sb = (await page.locator('#netside').boundingBox())!, net = (await page.locator('#net').boundingBox())!;
   expect(sb.x).toBeGreaterThanOrEqual(net.x + net.width - 1);
+  expect(errors).toEqual([]);
+});
+
+test('歌詞宇宙手機: 點圖上方的詞再按 Esc, 那個詞捲回畫面內 (不在標頭底下)', async ({ page }, info) => {
+  test.skip(info.project.name !== 'mobile', '只測窄版');
+  const errors = await open(page);
+  await graphAtBottom(page);
+  // 圖上看得到的詞裡最上面那個: 點完頁面往下捲到側欄, 它最容易跑出畫面
+  const name = await page.evaluate(() => {
+    const hd = document.querySelector('[data-sh-header]')!.getBoundingClientRect().bottom;
+    let best: Element | null = null, bestY = Infinity;
+    for (const c of document.querySelectorAll('#net circle[data-name]')) {
+      const r = c.getBoundingClientRect();
+      if (r.top > hd + 4 && r.bottom < innerHeight && r.top < bestY) { best = c; bestY = r.top; }
+    }
+    return best!.getAttribute('data-name');
+  });
+  const node = page.locator(`#net circle[data-name="${name}"]`);
+  await node.focus({ preventScroll: true } as never);
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#netside b').first()).toHaveText(name!);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#netside')).toContainText('點一個詞');
+  expect(await page.evaluate(() => document.activeElement?.getAttribute('data-name'))).toBe(name);
+  const r = await node.evaluate((el) => {
+    const b = el.getBoundingClientRect();
+    return { top: b.top, bottom: b.bottom, hd: document.querySelector('[data-sh-header]')!.getBoundingClientRect().bottom, ih: innerHeight };
+  });
+  expect(r.top).toBeGreaterThanOrEqual(r.hd);
+  expect(r.bottom).toBeLessThanOrEqual(r.ih);
   expect(errors).toEqual([]);
 });
