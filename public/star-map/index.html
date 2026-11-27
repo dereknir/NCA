@@ -255,8 +255,39 @@ star.on('pointerover', (e, p) => {
 }).on('pointermove', e => {
   tip.style.left = Math.min(e.clientX + 14, innerWidth - 360) + 'px';
   tip.style.top = (e.clientY + 14) + 'px';
-}).on('pointerout', () => tip.style.display = 'none')
-  .on('click', function (e, p) { pin(this, p); });
+}).on('pointerout', () => tip.style.display = 'none');
+
+// 點星: 星只有幾 px, 手指點不準 → 點一下 (不是拖) 時取手指 22px (螢幕像素, 跟縮放無關) 內最近的星。
+// 距離量到星的外緣, 直接點在星上就是 0; 兩顆都點在上面 (疊在一起) 再比到中心的距離。
+// 位置用按下那一刻的 (pointerdown), 不用 click 的 — 手機瀏覽器會把 click 的位置「吸」到它覺得想點的元素上。
+const TAP_SLOP = 22, DRAG_PX = 6;
+let down = null;   // { id, x, y, moved }
+svg.node().addEventListener('pointerdown', e => {
+  down = e.isPrimary ? { id: e.pointerId, x: e.clientX, y: e.clientY, moved: false } : null;
+}, true);
+svg.node().addEventListener('pointermove', e => {
+  if (down && e.pointerId === down.id && Math.hypot(e.clientX - down.x, e.clientY - down.y) > DRAG_PX) down.moved = true;
+}, true);
+function nearestStar(x, y) {
+  const m = root.node().getScreenCTM();   // 圖的座標 → 螢幕 (含縮放、捲動)
+  const k = Math.hypot(m.a, m.b);
+  let best = null, bd = Infinity, bc = Infinity;
+  for (const p of DATA.points) {
+    const px = sx(p.x), py = sy(p.y);
+    const c = Math.hypot(m.a * px + m.c * py + m.e - x, m.b * px + m.d * py + m.f - y);
+    const d = Math.max(0, c - R(p) * k);
+    if (d < bd || (d === bd && c < bc)) { best = p; bd = d; bc = c; }
+  }
+  return bd <= TAP_SLOP ? best : null;
+}
+svg.on('click', e => {
+  const t = down;
+  down = null;
+  if (t && t.moved) return;   // 拖曳放手不算點
+  // 沒有按下的位置 (讀螢幕軟體直接對星送 click): 就是那顆星
+  const p = t ? nearestStar(t.x, t.y) : e.target.__data__ && starEl.get(e.target.__data__) === e.target ? e.target.__data__ : nearestStar(e.clientX, e.clientY);
+  if (p) pin(starEl.get(p), p);
+});
 
 const sidePH = side.innerHTML;
 // 讀螢幕只念一句短的, 不要整個側欄當 live region (不然 Enter 會整段重念、Esc 念說明文字)
