@@ -799,3 +799,11 @@ def test_prior_without_excludes_the_clip_itself_and_restores():
     with aa.prior_without(songs, H, 'unknown'):            # 標注檔沒有這支 / 歌不在歌詞檔: 不動
         pass
     assert json.dumps(H, sort_keys=True) == snap and H['m']['status'] == 'auto'
+
+
+def test_same_segment_requires_whisper_inside_qwen_span():
+    q = [{'line': l, 't': float(l)} for l in (28, 29, 30, 31)]
+    assert aa._same_segment(q, {29: 1.0, 31: 2.0})
+    assert not aa._same_segment(q, {31: 1.0, 52: 2.0})   # 共用 1 句, 但 whisper 另外對到別段
+    assert not aa._same_segment(q, {})
+    assert not aa._same_segment([], {29: 1.0})
