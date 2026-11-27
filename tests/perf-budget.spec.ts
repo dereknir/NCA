@@ -115,7 +115,9 @@ for (const [name, b] of Object.entries(BUDGETS)) {
       reqs.set(e.requestId, r);
     });
 
-    await page.goto(b.path, { waitUntil: 'load' });
+    const resp = await page.goto(b.path, { waitUntil: 'load' });
+    // 網址被改名 / 刪掉時會拿到 404 頁, 量的是 404 頁照樣過 → 預算等於失效; 先擋下來
+    expect(resp?.status(), `${name} ${b.path} 打不開 (改名或刪掉了? 改 BUDGETS 的路徑)`).toBe(200);
     await page.waitForLoadState('networkidle').catch(() => {});
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(1000);
