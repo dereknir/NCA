@@ -743,3 +743,39 @@ def test_hybrid_whisper_follows_qwen_when_qwen_tie_flipped():
     real = [a for a in anchors if not a.get('est')]
     assert [a['line'] for a in real] == [1, 2]
     assert real[0]['t'] == pytest.approx(0.5) and real[1]['t'] == pytest.approx(0.5 + len(VERSES[0]) / 4.0)
+
+
+# ---------- 同歌先驗 (歌詞窗也完全平手時) ----------
+def test_line_prior_counts_only_scratch_done_clips_of_same_song():
+    H = {'a': dict(songId='s', status='done', anchors=[{'line': 0, 't': 0}, {'line': 1, 't': 2}]),
+         'b': dict(songId='s', status='done', anchors=[{'line': 1, 't': 0}]),
+         'c': dict(songId='s', status='done', autoGrade='A', anchors=[{'line': 4, 't': 0}]),   # 看模型改的不算
+         'd': dict(songId='x', status='done', anchors=[{'line': 4, 't': 0}]),
+         'e': dict(songId='s', status='todo', anchors=[{'line': 4, 't': 0}])}
+    assert aa.line_prior(H, 's') == {0: 0.5, 1: 1.0}
+    assert aa.line_prior(H, 's', keep=lambda v: v != 'a') == {1: 1.0}       # 留一法
+    assert aa.line_prior(H, 'none') == {}
+
+
+def test_align_full_tie_uses_song_prior():
+    lines = ['あおいそらのしたで', 'かぜがふいていたね', 'きみのこえがきこえる', 'ほしをかぞえながら',
+             'あおいそらのしたで', 'かぜがふいていたね', 'よるのまちをあるいた']
+    text = aa.to_hira(lines[0] + lines[1])          # 兩次副歌文字、歌詞窗都分不出來
+    real = lambda song: {a['line'] for a in aa.align(song, make_tr(text))[0] if not a.get('est')}
+    song = make_song(lines)
+    assert real(song) == {4, 5}                                             # 沒先驗: 照舊取後面那次
+    song['prior'] = {0: 0.8, 1: 0.8, 4: 0.2, 5: 0.2}
+    assert real(song) == {0, 1}                                             # 同歌多半剪前面那次
+    song['prior'] = {0: 0.5, 1: 0.5, 4: 0.5, 5: 0.5}
+    assert real(song) == {4, 5}                                             # 先驗也平手: 照舊
+    song['prior'] = {0: 0.9, 1: 0.9, 4: 0.1, 5: 0.1}
+    assert {a['line'] for a in aa.align(song, make_tr(text), tiebreak=False)[0] if not a.get('est')} == {4, 5}
+
+
+def test_whisper_est_one_shared_line_enough_when_qwen_flipped():
+    # Qwen 被改選到前面那次、whisper 跟著選同一段時, 只有 1 句共同實對句也確定是同一段
+    qa = _q((29, 0.3, 0), (31, 5.6, 0), (32, 9.3, 1), (33, 14.3, 1))
+    aw = _q((31, 5.7, 0), (32, 8.7, 1), (33, 10.5, 1))
+    tw = {a['line']: a['t'] for a in aw if not a.get('est')}
+    assert aa._whisper_est(qa, aw, tw) == {}
+    assert aa._whisper_est(qa, aw, tw, need=1) == {32: 8.7, 33: 10.5}
