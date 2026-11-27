@@ -720,7 +720,9 @@ S.blind = (() => { try{ return localStorage.getItem(LS_BLIND_KEY) === '1'; }catc
 function blindPick(vid){
   let h = 2166136261;                                   // FNV-1a, 固定且跟順序無關
   for(let i = 0; i < vid.length; i++){ h ^= vid.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
-  return h % 2 === 0;
+  // 最後再攪一次 (murmur3 fmix32): FNV 的最低位只等於「奇數字元個數的奇偶」, 最高位遇到只差尾巴的 ID 又很偏
+  h ^= h >>> 16; h = Math.imul(h, 0x85ebca6b); h ^= h >>> 13; h = Math.imul(h, 0xc2b2ae35); h ^= h >>> 16;
+  return (h & 1) === 0;
 }
 function maybeBlind(vid){
   const a = S.ann[vid];
@@ -735,6 +737,7 @@ function unblind(vid){
   const a = S.ann[vid], r = S.auto[vid];
   if(!a?.blind) return;
   delete a.blind;
+  a.blindAborted = true;                                // 記下來: 之後可以量「退出盲標的是不是都是難的」
   if(r && (r.anchors||[]).length && r.songId){
     if(a.anchors.length && !confirm('會覆蓋目前的 anchors,確定?')){ a.blind = true; return; }
     a.songId = r.songId; a.anchors = r.anchors.map(x => ({ t: x.t, line: x.line }));
@@ -742,11 +745,28 @@ function unblind(vid){
   }
   persist([vid]); renderLyrics(); renderAnchors(); renderQueue(); updateProgress(); renderAutoPanel();
 }
+/* 盲標了但完全沒動 (沒打點、沒改歌) 就離開 → 把機器答案放回去, 不然它會永遠卡在 pending (merge 看到 source=manual 就跳過),
+   從 🤖 待審 消失。之後再點開會依同一個 ID 重新盲標。 */
+function releaseUntouchedBlind(except){
+  const back = [];
+  for(const [vid, a] of Object.entries(S.ann)){
+    const r = S.auto && S.auto[vid];
+    if(vid === except || !a?.blind || a.status !== 'pending' || a.anchors.length || a.songConfirmed) continue;
+    if(!r || r.error || !(r.anchors||[]).length || !r.songId || a.songId !== r.songId) continue;
+    delete a.blind;
+    a.anchors = r.anchors.map(x => ({ t: x.t, line: x.line }));
+    a.status = 'auto'; a.source = 'auto'; a.autoGrade = r.grade;
+    back.push(vid);
+  }
+  if(back.length) persist(back);
+  return back;
+}
 function renderBlindBtn(){
   const b = document.getElementById('blindBtn'); if(!b) return;
   b.classList.toggle('on', S.blind); b.setAttribute('aria-pressed', String(S.blind));
 }
 function loadShort(item){
+  releaseUntouchedBlind(item.videoId);
   S.cur = item;
   if(!S.ann[item.videoId]) S.ann[item.videoId] = { songId:item.songId, anchors:[], status:'pending', versionType:null, instrumental:false };
   // 舊資料相容:沒有欄位就補上
@@ -1009,6 +1029,8 @@ function renderDoneBtn(){
 /* 目前待審篩選下, 這支算不算「待審」 */
 function isReviewItem(vid){
   if(S.ann[vid]?.status !== 'auto') return false;
+  // 盲標開著時, 被挑中的那一半不在 🤖 待審出現 (不然高信心的會先在待審被我看著答案審掉, 留給盲標的只剩難的 → 有偏差)
+  if(S.blind && S.reviewOnly !== 'conflict' && blindPick(vid)) return false;
   return S.reviewOnly === 'conflict' ? isSongConflict(vid) : true;
 }
 
@@ -1194,7 +1216,9 @@ document.getElementById('blindBtn').onclick = () => {
   S.blind = !S.blind;
   try{ localStorage.setItem(LS_BLIND_KEY, S.blind ? '1' : '0'); }catch(_){}
   renderBlindBtn();
-  if(S.blind && S.cur && maybeBlind(S.cur.videoId)){ renderLyrics(); renderAnchors(); renderQueue(); updateProgress(); renderAutoPanel(); }
+  const changed = S.blind ? (S.cur && maybeBlind(S.cur.videoId)) : releaseUntouchedBlind(null).length;
+  if(changed && S.cur){ renderLyrics(); renderAnchors(); renderAutoPanel(); }
+  renderQueue(); updateProgress();                     // 🤖 待審 的數字也會變 (被挑中的一半不在待審)
 };
 renderBlindBtn();
 document.getElementById('conflictBtn').onclick = () => setReviewMode('conflict');
@@ -1202,6 +1226,8 @@ document.getElementById('conflictBtn').onclick = () => setReviewMode('conflict')
 fetch('auto_anchors.json', { cache:'no-store' }).then(r => r.ok ? r.json() : null).then(j => {
   S.auto = (j && j.items) || {};
   applyPeerLive();
+  releaseUntouchedBlind(S.cur?.videoId);   // 上次盲標了沒動就關掉頁面的, 放回 🤖 待審
+  if(S.queue) updateProgress();
   if(S.cur) renderAutoPanel();
   renderQueue();
 }).catch(() => {});
@@ -1224,7 +1250,8 @@ function flpHint(vid, queueSid){
   if(!info) return null;
   const want = new Set([...info.missing, ...info.mv]);
   if(!want.size) return null;
-  const lines = ((a?.anchors?.length ? a.anchors : r?.anchors) || []).map(x => x.line);
+  // 盲標中: 不能拿機器 anchors 算 (佇列的 🧩 徽章 title 會寫出機器標到第幾句)
+  const lines = ((a?.anchors?.length || a?.blind ? a.anchors : r?.anchors) || []).map(x => x.line);
   const hit = [...new Set(lines.filter(l => want.has(l)))].sort((x, y) => x - y);
   if(!hit.length) return null;
   const fillsMissing = hit.filter(l => info.missing.includes(l));

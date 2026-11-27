@@ -112,3 +112,81 @@ test('盲標標完 = 沒有 autoGrade 的 done, 開關重新整理後還在', as
   await page.reload();
   await expect(page.locator('#blindBtn')).toHaveAttribute('aria-pressed', 'true');
 });
+
+test('盲標了沒動就離開: 機器答案放回去 (留在 🤖 待審); 打過點的維持盲標', async ({ page }) => {
+  const { picked, other } = await seed(page);
+  await page.locator('#blindBtn').click();
+  await load(page, picked);
+  expect((await ann(page, picked)).status).toBe('pending');
+  await load(page, other);
+  const a = await ann(page, picked);
+  expect(a.status).toBe('auto');
+  expect(a.anchors).toHaveLength(3);
+  expect(a.autoGrade).toBe('A');
+  expect(a.blind).toBeUndefined();
+
+  // 再點開 = 同一個 ID 重新盲標; 這次打了點才離開 → 不放回去
+  await load(page, picked);
+  await page.evaluate(() => { const S = (window as any).eval('S'); S.ann[S.cur.videoId].anchors.push({ t: 2.0, line: 1 }); });
+  await load(page, other);
+  const b = await ann(page, picked);
+  expect(b.status).toBe('pending');
+  expect(b.blind).toBe(true);
+  expect(b.anchors).toEqual([{ t: 2.0, line: 1 }]);
+});
+
+test('關掉盲標: 正在看、還沒動的那支也放回去', async ({ page }) => {
+  const { picked } = await seed(page);
+  const btn = page.locator('#blindBtn');
+  await btn.click();
+  await load(page, picked);
+  await btn.click();
+  const a = await ann(page, picked);
+  expect(a.status).toBe('auto');
+  expect(a.anchors).toHaveLength(3);
+  await expect(page.locator('#autoPanel')).toContainText('機器建議');
+});
+
+test('盲標中的片段: 🧩 完整 Live 提示不拿機器 anchors 算 (不洩漏機器標到第幾句)', async ({ page }) => {
+  const { picked } = await seed(page);
+  await page.locator('#blindBtn').click();
+  await load(page, picked);
+  const hint = await page.evaluate((v) => {
+    const g = window as any, S = g.eval('S');
+    const sid = S.ann[v].songId;
+    S.flp = { [sid]: { title: 'x', missing: [1, 2, 3], mv: [], complete: false } };
+    return g.eval('flpHint')(v, sid);
+  }, picked);
+  expect(hint).toBeNull();
+});
+
+test('blindPick 固定且大約一半', async ({ page }) => {
+  await page.goto('/annotate/');
+  const r = await page.evaluate(() => {
+    const blindPick = (window as any).eval('blindPick');
+    const ids = Array.from({ length: 2000 }, (_, i) => 'v' + i.toString(36).padStart(10, 'x'));
+    return { n: ids.filter(blindPick).length, stable: ids.every((v) => blindPick(v) === blindPick(v)) };
+  });
+  expect(r.stable).toBe(true);
+  expect(r.n).toBeGreaterThan(900);
+  expect(r.n).toBeLessThan(1100);
+});
+
+test('盲標開著: 被挑中的不出現在 🤖 待審 (避免高信心的先被看著答案審掉), 關掉就回來', async ({ page }) => {
+  const { picked, other } = await seed(page);
+  const inReview = (v: string) => page.evaluate((x) => (window as any).eval('isReviewItem')(x), v);
+  expect(await inReview(picked)).toBe(true);
+  await page.locator('#blindBtn').click();
+  expect(await inReview(picked)).toBe(false);
+  expect(await inReview(other)).toBe(true);
+  await page.locator('#blindBtn').click();
+  expect(await inReview(picked)).toBe(true);
+});
+
+test('把機器答案放回來的片段會記 blindAborted', async ({ page }) => {
+  const { picked } = await seed(page);
+  await page.locator('#blindBtn').click();
+  await load(page, picked);
+  await page.locator('#unblindBtn').click();
+  expect((await ann(page, picked)).blindAborted).toBe(true);
+});
