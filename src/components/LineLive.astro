@@ -317,7 +317,7 @@ const names = Object.fromEntries(shorts.map(s => [s.videoId, (ann[s.videoId]?.ap
   .wv-head figcaption { display: flex; justify-content: space-between; gap: 4px 12px; flex-wrap: wrap; margin-bottom: 10px; font: 12px var(--sh-px); color: var(--sh-ink2); }
   .wv-head figcaption .hint { color: var(--sh-ink3); font-size: 11px; }
   .wv-head .wv-b { cursor: pointer; }
-  .wv-head .wv-b:disabled { cursor: default; }
+  .wv-head .wv-b:disabled { cursor: default; pointer-events: none; }   /* 沒有短片的根: 點下去交給整條聲波, 算最近那根 (disabled 按鈕瀏覽器不派發 click, 不然會變死區) */
   .wv-head .wv-b:not(:disabled):hover .l, .wv-head .wv-b:focus-visible .l { background: #fff3c4; }
   .wv-head .wv-b:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 1px; }
   .wv-key { display: flex; gap: 6px 14px; flex-wrap: wrap; margin-top: 8px; font: 11px var(--sh-px); color: var(--sh-ink3); }
@@ -347,7 +347,7 @@ const names = Object.fromEntries(shorts.map(s => [s.videoId, (ann[s.videoId]?.ap
   .wv-stick .wv-b { cursor: pointer; }
 
   /* 小卡 (z-index 70: 手機是底部抽屜, 要蓋過左下角的 N247i 鈕) */
-  .ll-pop { position: absolute; z-index: 70; width: min(380px, calc(100vw - 24px)); color: var(--sh-ink); background: #0b0b16; border: 2px solid #3b335f;
+  .ll-pop { position: absolute; z-index: 65; width: min(380px, calc(100vw - 24px)); color: var(--sh-ink); background: #0b0b16; border: 2px solid #3b335f;
     box-shadow: 6px 6px 0 rgb(0 0 0 / .55); font: 12px/1.6 var(--sh-px); }
   .ll-pop[hidden] { display: none; }
   .ll-hd { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 2px solid #1f1838; }

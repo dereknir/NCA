@@ -40,6 +40,20 @@ test('#6 手機: 日文詞小卡、這句的現場小卡蓋在左下角 N247i �
   expect(await hitInside(page, cx, cy, '[data-ll-pop]')).toBe(true);
 });
 
+test('#6 手機: 從列表站內換頁進歌頁, 小卡一樣蓋在 N247i 按鈕上面', async ({ page, isMobile }) => {
+  test.skip(!isMobile, '手機才是底部抽屜');
+  await page.goto('/translations/');
+  await page.locator('a[href="/translations/nishina-wawon"]:visible').first().click();
+  await expect(page).toHaveURL(/nishina-wawon/);
+  const pill = page.locator('.sh-cli-pill');
+  await expect(pill).toBeVisible();
+  const p = (await pill.boundingBox())!;
+  const cx = p.x + p.width / 2, cy = p.y + p.height / 2;
+  await page.locator('[data-song-content] .ll-mark').first().click();
+  await expect(page.locator('[data-ll-pop]')).toBeVisible();
+  expect(await hitInside(page, cx, cy, '[data-ll-pop]')).toBe(true);
+});
+
 test('#7 /gacha 沒有斜線也能載入: 腳本、卡池都用絕對路徑', async ({ page }) => {
   const bad: string[] = [];
   page.on('response', (r) => { if (r.url().startsWith('http://127.0.0.1') && r.status() >= 400) bad.push(`${r.status()} ${r.url()}`); });
@@ -133,6 +147,29 @@ test.describe('#11 手機點擊區至少 24px', () => {
     // 段落沒有擠出軌道
     const over = await page.evaluate(() => { const t = document.querySelector('[data-track]')!; return t.scrollWidth - t.clientWidth; });
     expect(over).toBeLessThanOrEqual(0);
+  });
+
+  test('完整 Live 的段落: 320 寬也不擠出軌道', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 800 });
+    await page.goto('/live/full/nishina-bugs/');
+    await expect(page.locator('.flp-seg').first()).toBeVisible();
+    const over = await page.evaluate(() => { const t = document.querySelector('[data-track]')!; return t.scrollWidth - t.clientWidth; });
+    expect(over).toBeLessThanOrEqual(0);
+  });
+
+  test('現場熱度條: 點在沒有短片的那根上, 也跳到最近有短片的那根', async ({ page }) => {
+    await page.goto(SONG);
+    const pt = await page.evaluate(() => {
+      const bs = [...document.querySelectorAll<HTMLButtonElement>('[data-ll-head] .wv-b')];
+      const d = bs.find((b) => b.disabled);
+      if (!d) return null;
+      d.scrollIntoView({ block: 'center' });
+      const r = d.getBoundingClientRect();
+      return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    });
+    test.skip(!pt, '這首沒有空的根');
+    await page.mouse.click(pt!.x, pt!.y);
+    await expect(page.locator('[data-ll-pop]')).toBeVisible();
   });
 
   test('現場熱度條: 點在兩根之間也算點到最近那根', async ({ page }) => {
