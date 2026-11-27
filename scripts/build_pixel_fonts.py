@@ -200,18 +200,36 @@ DG_BASE = f"https://raw.githubusercontent.com/google/fonts/{DG_COMMIT}/ofl/dotgo
 DG_DIR = ROOT / "public" / "fonts" / "dotgothic16"
 
 
+def _fetch(url: str, dest: Path):
+    """先寫 .part, 抓完整才換名 — 中途斷線不會留下半個檔, 下次當成快取讀"""
+    part = dest.with_name(dest.name + ".part")
+    try:
+        urllib.request.urlretrieve(url, part)
+        part.replace(dest)
+    finally:
+        part.unlink(missing_ok=True)
+
+
 def subset_dotgothic():
     from fontTools import subset as fts
     from fontTools.ttLib import TTFont
     src = SRC_DIR / "DotGothic16-Regular.ttf"
-    if not src.exists():
-        SRC_DIR.mkdir(exist_ok=True)
-        print("↓ 下載 DotGothic16 (~2MB, 只需一次) …")
-        urllib.request.urlretrieve(f"{DG_BASE}/DotGothic16-Regular.ttf", src)
+    out = DG_DIR / "dg16-site.woff2"
     DG_DIR.mkdir(parents=True, exist_ok=True)
     lic = DG_DIR / "OFL.txt"
-    if not lic.exists():
-        urllib.request.urlretrieve(f"{DG_BASE}/OFL.txt", lic)
+    try:
+        if not src.exists():
+            SRC_DIR.mkdir(exist_ok=True)
+            print("↓ 下載 DotGothic16 (~2MB, 只需一次) …")
+            _fetch(f"{DG_BASE}/DotGothic16-Regular.ttf", src)
+        if not lic.exists():
+            _fetch(f"{DG_BASE}/OFL.txt", lic)
+    except OSError as e:
+        # 抓不到源檔但 repo 裡已經有一份子集: 這輪先沿用舊的, 別讓同一輪的歌詞資料跟著推不出去
+        if out.exists():
+            print(f"⚠ DotGothic16 下載失敗 ({e}), 沿用現有的 {out.relative_to(ROOT)}, 這輪不重切", file=sys.stderr)
+            return
+        raise
 
     have = set(TTFont(src)["cmap"].getBestCmap())
     text = CHARSET.read_text(encoding="utf-8")
@@ -221,7 +239,6 @@ def subset_dotgothic():
     text += "".join(chr(c) for c in range(0xFF01, 0xFF5F))   # 全形英數符號 (＆＠ 之類), 便宜的保險
     # site_charset 把空白濾掉了; 半形/不換行空白不收的話, 羅馬拼音行的空格會掉到 monospace 去, 字距跟著變
     chars = sorted({c for c in text + " \u00a0\u3000" if ord(c) in have and (c.isprintable() or c.isspace())})
-    out = DG_DIR / "dg16-site.woff2"
     txt = DG_DIR / ".charset.txt"
     txt.write_text("".join(chars), encoding="utf-8")
     fts.main([str(src), f"--text-file={txt}", "--flavor=woff2", f"--output-file={out}"])
