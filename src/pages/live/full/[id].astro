@@ -7,6 +7,8 @@ import PageHero from '../../../components/PageHero.astro';
 import FullLivePlayer from '../../../components/FullLivePlayer.astro';
 import data from '../../../data/full_live.json';
 import { summary, type FLSong } from '../../../lib/fullLive';
+import { existsSync } from 'node:fs';
+import { SITE_CONFIG } from '../../../config';
 
 export function getStaticPaths() {
   return (data.songs as FLSong[]).filter(s => summary(s).complete).map(song => ({ params: { id: song.id }, props: { song } }));
@@ -14,10 +16,13 @@ export function getStaticPaths() {
 
 const { song } = Astro.props as { song: FLSong };
 const sum = summary(song);
+// 分享圖: scripts/og-pages.mjs full 畫的完整 Live 卡; 新上架還沒跑腳本就先用預設圖
+const ogCard = `/og/live-full/${song.id}.png`;
+const image = existsSync(`public${ogCard}`) ? ogCard : SITE_CONFIG.defaultOGImage;
 const desc = `帶你聽完一整首 Live：從 ${sum.liveShorts} 支演唱會 shorts 挑出 ${sum.segs} 段，一句接一句唱到最後。`;
 ---
 
-<BaseLayout title={`${song.title} 完整 Live`} description={desc} image={`/og/song/${song.id}.png`} width="stage" jaTitle>
+<BaseLayout title={`${song.title} 完整 Live`} description={desc} image={image} width="stage" jaTitle>
   <PageHero slot="hero" planet="deimos" width="stage" compact title={song.title} titleLang="ja"
     cmd={`./play --full "${song.title}"`} desc={desc}
     chips={[...(sum.nonLive ? [[String(sum.nonLiveLines), '句用非 live 版本補'] as [string, string]] : []),
