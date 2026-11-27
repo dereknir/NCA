@@ -30,7 +30,9 @@ const HIDE: Record<string, string> = {
 const MASK: Record<string, string[]> = {
   live: ['.sh-facts', '.lr-box', '.hub-num'],
   about: ['.ab-term ul'],
-  'star-map': ['#meta', '#filter', '#sky text.cl', '#legend span', 'aside .ph'],
+  // 星圖自己的字是系統字型 (CI 跟本機裝的不同): 計數、搜尋框、星座名、圖例、按鈕遮掉; 側欄整塊遮 (寬高固定, 內容改了不用重產)
+  // 星點是 embed_star_map.py 手動重算的 (UMAP), 重算後要 --update-snapshots 重產這兩張
+  'star-map': ['#meta', '#filter', '#sky text.cl', '#legend span', '.seg button', '#reset', 'aside#side'],
 };
 
 // 固定時間 (首頁房間的今日の一曲 / 月曆 / 鬧鐘看日期畫) + 固定亂數 (星星位置)
