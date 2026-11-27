@@ -1,0 +1,64 @@
+---
+/**
+ * 一個主題 (或曲風) 的歌單。主題的第一個標籤排前面 (那首歌主要就是在講這個), 再照發行順序
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Stamp from '../../../components/SongStamp.astro';
+import { getCollection } from 'astro:content';
+import { coverAt } from '../../../lib/covers';
+import { PAGED, THEMES, splitTags, tagHref, type TagDef } from '../../../lib/songTags';
+
+export function getStaticPaths() {
+  return PAGED.map(tag => ({ params: { slug: tag.slug }, props: { tag } }));
+}
+
+const { tag } = Astro.props;
+const isTheme = tag.group === 'theme';
+const all = (await getCollection('translations')).map(t => ({ t, ...splitTags(t.data.tags) }));
+const rank = (list: TagDef[]) => list.findIndex(x => x.slug === tag.slug);
+const songs = all
+  .filter(s => rank(isTheme ? s.themes : s.genres) >= 0)
+  .sort((a, b) => (isTheme ? rank(a.themes) - rank(b.themes) : 0) ||
+    new Date(a.t.data.publishDate).valueOf() - new Date(b.t.data.publishDate).valueOf());
+const label = isTheme ? `#${tag.name}` : tag.name;
+const others = THEMES.filter(t => t.slug !== tag.slug);
+---
+
+<BaseLayout title={`${label} - 歌曲標籤`} description={`${isTheme ? '主題' : '曲風'}「${tag.name}」的日文歌翻譯, 共 ${songs.length} 首。${tag.desc ?? ''}`} viewTransitions={true} width="wide">
+  <PageHero slot="hero" planet="earth" title={label} path={`~/earth/translations/tags/${tag.slug}`} cmd={`ls tags/${tag.slug}`}
+    desc={tag.desc}
+    chips={[[String(songs.length), '首'], [isTheme ? '主題' : '曲風']]}
+    actions={[{ label: '所有標籤', href: '/translations/tags/' }]} />
+
+  <div class="sh-tbl tg-list" data-tag-songs>
+    {songs.map(({ t, themes }) => (
+      <a href={`/translations/${t.id}`}>
+        {t.data.coverImage
+          ? <img src={coverAt(t.data.coverImage, 80)} alt="" width="40" height="40" loading="lazy" decoding="async"
+                 style={`view-transition-name:cover-${t.id}`} />
+          : <span></span>}
+        <span class="c-t" lang="ja" title={t.data.title}>{t.data.title}</span>
+        <span class="c-a">{themes.filter(x => x.slug !== tag.slug).map(x => `#${x.name}`).join(' ') || (t.data.album ?? '單曲')}</span>
+        <span class="c-s"><Stamp t={t} /></span>
+      </a>
+    ))}
+  </div>
+
+  <nav class="tg-more" aria-label="其他主題">
+    <p class="sh-label">其他主題</p>
+    <ul>
+      {others.map(t => <li><a class="sh-tag" href={tagHref(t)}>#{t.name}</a></li>)}
+    </ul>
+  </nav>
+</BaseLayout>
+
+<style is:global>
+  .tg-list.sh-tbl a { grid-template-columns: 40px minmax(0, 1fr) 220px 20px; }
+  .tg-list .c-a { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  @media (max-width: 640px) { .tg-list.sh-tbl a { grid-template-columns: 40px minmax(0, 1fr) 20px; } }
+  .tg-more { margin: 40px 0 0; }
+  .tg-more ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tg-more a { text-decoration: none; }
+  .tg-more a:hover, .tg-more a:focus-visible { color: var(--sh-gold); border-color: var(--sh-gold); outline: none; }
+</style>
