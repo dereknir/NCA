@@ -1,0 +1,83 @@
+---
+// 資料流程圖: 像素風 SVG, 數字由 getPipelineStats() 在 build 時帶入
+import { getPipelineStats, pct, fmt } from '../lib/pipelineStats';
+
+const s = await getPipelineStats();
+
+const STEPS: Array<{ title: string; sub: string; stat: string }> = [
+  { title: '抓影片', sub: 'yt-dlp · 每天 03:00 排程', stat: `${fmt(s.shorts)} 支 shorts` },
+  { title: '聽寫', sub: 'ASR 逐字稿 (含逐字時間)', stat: `${fmt(s.autoDrafts)} 支跑過初稿` },
+  { title: '對歌詞', sub: '模糊比對 → 哪一句 · 第幾秒', stat: `初稿免改 ${pct(s.autoPerfect, s.compared)}` },
+  { title: '人工審', sub: '/annotate/ 標注器, 手機也能審', stat: `已審 ${fmt(s.reviewed)} 支` },
+  { title: '衍生資料', sub: 'sync-derived · check_sync', stat: `${s.songsWithShorts} 首歌有現場影片` },
+  { title: 'Astro 建置', sub: 'astro check · Playwright', stat: `${s.translated} 首翻譯 · ${s.fullLive} 首完整 Live` },
+  { title: 'Vercel', sub: 'develop → 預覽 · main → 正式站', stat: `${s.workflows} 支 Actions 在顧` },
+];
+
+const W = 360, BOX_W = 316, BOX_H = 64, GAP = 28, TOP = 8;
+const y = (i: number) => TOP + i * (BOX_H + GAP);
+const H = y(STEPS.length - 1) + BOX_H + 16;
+// 回饋線: 人工審 (index 3) 的定稿回頭當「對歌詞」(index 2) 的考卷
+const loopX = BOX_W + 22;
+const loopTop = y(2) + BOX_H / 2, loopBot = y(3) + BOX_H / 2;
+---
+
+<figure class="pd">
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" shape-rendering="crispEdges"
+    aria-labelledby="pd-title pd-desc">
+    <title id="pd-title">NCA 資料流程</title>
+    <desc id="pd-desc">{STEPS.map((st, i) => `${i + 1}. ${st.title}: ${st.sub}, ${st.stat}`).join('; ')}</desc>
+
+    {STEPS.map((st, i) => (
+      <g transform={`translate(8 ${y(i)})`}>
+        {/* 像素陰影: 往右下偏 4px 的實心塊, 不用模糊 */}
+        <rect x="4" y="4" width={BOX_W} height={BOX_H} class="pd-shadow" />
+        <rect x="0" y="0" width={BOX_W} height={BOX_H} class="pd-box" />
+        <rect x="10" y="12" width="40" height="40" class="pd-num" />
+        <text x="30" y="38" text-anchor="middle" class="pd-n">{i + 1}</text>
+        <text x="62" y="25" class="pd-t">{st.title}</text>
+        <text x="62" y="41" class="pd-s">{st.sub}</text>
+        <text x="62" y="56" class="pd-v">{st.stat}</text>
+      </g>
+    ))}
+
+    {/* 往下的箭頭: 一格一格的像素方塊 */}
+    {STEPS.slice(0, -1).map((_, i) => {
+      const cx = 8 + 30, top = y(i) + BOX_H + 4;
+      return (
+        <g class="pd-arrow">
+          <rect x={cx - 2} y={top} width="4" height="12" />
+          <rect x={cx - 6} y={top + 12} width="12" height="4" />
+          <rect x={cx - 2} y={top + 16} width="4" height="4" />
+        </g>
+      );
+    })}
+
+    {/* 回饋: 定稿 → 模型的考卷 */}
+    <g class="pd-loop">
+      <rect x={BOX_W + 12} y={loopBot - 2} width={loopX - BOX_W - 8} height="4" />
+      <rect x={loopX} y={loopTop} width="4" height={loopBot - loopTop + 2} />
+      <rect x={BOX_W + 16} y={loopTop - 2} width={loopX - BOX_W - 12} height="4" />
+      <rect x={BOX_W + 12} y={loopTop - 6} width="4" height="12" />
+    </g>
+  </svg>
+  <figcaption class="pd-cap">
+    右邊那條線: 我審完的定稿, 回頭當模型的考卷。數字是這次 build 時從 repo 裡的資料算的
+    {s.scrapedAt && <>(shorts 最近一次抓在 {s.scrapedAt})</>}。
+  </figcaption>
+</figure>
+
+<style>
+  .pd { margin: 24px auto 32px; max-width: 520px; }
+  .pd svg { display: block; width: 100%; height: auto; }
+  .pd-box { fill: var(--sh-bg2); stroke: var(--sh-line); stroke-width: 2; }
+  .pd-shadow { fill: rgb(0 0 0 / .5); }
+  .pd-num { fill: var(--sh-card); stroke: var(--sh-gold); stroke-width: 2; }
+  .pd-n { font: 16px var(--sh-px); fill: var(--sh-gold); }
+  .pd-t { font: 14px var(--sh-px); fill: var(--sh-ink); }
+  .pd-s { font: 10px var(--sh-px10); fill: var(--sh-ink3); }
+  .pd-v { font: 11px var(--sh-px); fill: rgb(var(--sh-accent)); }
+  .pd-arrow rect { fill: var(--sh-ink3); }
+  .pd-loop rect { fill: var(--sh-gold); }
+  .pd-cap { margin-top: 12px; font: .875rem/1.7 var(--sh-read); color: var(--sh-ink3); text-align: center; }
+</style>
