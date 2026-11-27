@@ -15,7 +15,6 @@ check_sync.py — 驗證「有鏡像副本」的衍生資料檔兩邊一致 (CI 
 """
 import filecmp
 import json
-import re
 import subprocess
 import sys
 from pathlib import Path
@@ -54,8 +53,10 @@ def check_templated(out, tpl):
     if not (got.startswith(head) and got.endswith(tail) and len(got) >= len(head) + len(tail)):
         return '範本以外的部分跟範本不一樣 (手改了產出檔? 或改了範本沒重產)'
     data = got[len(head):len(got) - len(tail)]
+    if '</' in data:   # 產生腳本會把 </ 寫成 <\/; 出現沒跳脫的 </script> 頁面會提早斷掉
+        return '注入的資料裡有沒跳脫的 </ (會把 script 提早關掉)'
     try:
-        json.loads(data.replace('<\\/', '</'))
+        json.loads(data)
     except ValueError:
         return '注入的資料不是合法 JSON'
     return None
