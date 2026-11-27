@@ -24,8 +24,9 @@ for (const id of SONGS) {
 
     expect(got).toContain(`/fonts/openhuninn/doc/${id}.woff2`);
     // 共用切片應該只剩第 0 片。多抓好幾片 = 這首歌的小檔漏收了頁面上的字 (build_pixel_fonts.py 的 OH_SONG_PAGE)。
-    // 留 1 片的空間: 巡演 setlist 自己更新 (不會重切字型) 時, 新巡演名的字可能暫時落在別片, 下次重切就回來
-    expect(got.filter((p) => /\/oh-\d+\.woff2$/.test(p) && !p.endsWith('/oh-00.woff2')).length).toBeLessThanOrEqual(1);
+    // 留 3 片的空間: scrape-shorts 每天更新 setlists.json 但不重切字型, 新巡演名的字可能暫時散在別的 2~3 片,
+    // 下次推歌詞重切就回來。真的漏收 (以前的狀況) 會抓 10 片以上, 3 片還是擋得住。
+    expect(got.filter((p) => /\/oh-\d+\.woff2$/.test(p) && !p.endsWith('/oh-00.woff2')).length).toBeLessThanOrEqual(3);
   });
 }
 
