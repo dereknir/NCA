@@ -234,6 +234,16 @@ test('足跡: 從公演史頁點縣名 (?pref=) 進來, 直接打開那個縣', 
   expect(errors).toEqual([]);
 });
 
+test('足跡: ?pref= 是奇怪的值 (原型上的名字、不存在的縣) 不丟錯, 頁面照常畫完', async ({ page }) => {
+  for (const bad of ['constructor', 'hasOwnProperty', '__proto__', '不存在縣']) {
+    const errors = watchPageErrors(page);
+    await page.goto(`/live/footprint/?pref=${encodeURIComponent(bad)}`);
+    await expect(page.locator('#facts .fact').first()).toBeVisible();
+    await expect(page.locator('#map .tile.sel')).toHaveCount(0);
+    expect(errors, bad).toEqual([]);
+  }
+});
+
 /* ---------- 日文詞小卡 ---------- */
 // 找一個有讀音的詞 (資料在頁面裡的 JSON), 回傳它在所有 .w 裡的序號
 async function wordWithReading(page: Page) {
