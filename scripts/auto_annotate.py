@@ -43,7 +43,8 @@ PUB_F = ROOT / 'public' / 'annotate' / 'auto_anchors.json'   # annotator 🤖 �
 DEFAULT_AUDIO = Path(os.environ.get('LOCALAPPDATA') or Path.home()) / 'nca-audio-cache'
 TRUSTED_METHODS = {'hashtag', 'lyric_match'}
 MIN_LINE = 4          # 假名長度不足的歌詞句不參與對齊 (太短會亂配)
-LINE_CUTOFF = 55      # 單句對齊最低分
+LINE_CUTOFF = 40      # 單句對齊最低分 (55 → 40, golden dev: 完美 39% → 41%, >3s 大錯 50 → 35 句; 55 時 live 唱錯 / ASR 聽錯的句子會讓鏈斷掉, 改從別段對起)
+LOW_ALIGN = 58        # 實對到句子的平均分低於這個 → low_align (C 級)。跟著 LINE_CUTOFF 從 65 下修: 門檻放寬後分數本來就會偏低, 58 讓 C 級數量維持原本水準
 EST_SCORE = 50        # 回填/前導/結尾估計句的名目分數
 TRAIL_MIN = 40        # 結尾估計句: 剩餘轉寫文字跟下一句的最低相似度 (低於此 = 間奏幻聽, 不補)
 EXT_CUTOFF = 40       # 頭尾延伸: 鏈外的句子用較寬的門檻再對一次 (live 常唱錯字 / ASR 聽錯字, 例: 信じ止まない ↔ 信じてやまない)
@@ -525,7 +526,7 @@ def analyze(rec, tr, item, songs, model_name, path, two_pass=False, force_song=N
     mean = sum(a['score'] for a in real) / len(real) if real else 0
     reasons = []
     if len(real) < 2: reasons.append('anchors<2')
-    if mean < 65: reasons.append('low_align')
+    if mean < LOW_ALIGN: reasons.append('low_align')
     if s1 < 50 and len(real) < 3: reasons.append('low_song_score')
     if conflict: reasons.append('song_conflict')
     if ambiguous: reasons.append('ambiguous_start')
