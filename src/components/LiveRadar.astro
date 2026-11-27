@@ -83,8 +83,11 @@ const palette = PLANETS.mars.palette;
   :global(.sh-hero:has(.lr) .sh-hero-text) { max-width: calc(100% - 290px); }
   @media (max-width: 760px) {
     :global(.sh-hero:has(.lr) .sh-hero-text) { max-width: none; }
-    .lr { position: relative; right: auto; top: auto; translate: none; margin: 0 auto 20px; width: 168px; }   /* 手機: 雷達縮小, 標題區不要佔掉整個畫面 */
-    .lr-box { width: 168px; height: 168px; }
+    /* mock A: 手機上雷達改成標題下面的一條橫列 — 左邊小雷達、右邊說明, 標題區只多一百多 px */
+    .lr { position: relative; right: auto; top: auto; translate: none; display: flex; align-items: center; gap: 16px;
+      width: auto; margin: 4px 16px 20px; padding-top: 16px; border-top: 1px solid rgb(255 255 255 / .08); }
+    .lr-box { width: 120px; height: 120px; flex: none; }
+    .lr figcaption { text-align: left; margin-top: 0; }
   }
 </style>
 
