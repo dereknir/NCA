@@ -47,6 +47,8 @@
   .alb-head{display:grid;grid-template-columns:110px repeat(var(--nalb),1fr) 60px;gap:8px;
             padding:0 8px 6px;color:var(--dim);font-size:11.5px;text-align:center}
   .alb-head div:first-child,.alb-head div:last-child{text-align:left}
+  /* 320 寬小手機: 110px 標籤欄 + 60px 總計欄 + 專輯欄的字/圓點最小寬, 加起來比畫面寬; 390 以下欄位收窄、專輯欄可以縮 */
+  @media(max-width:389px){.row,.alb-head{grid-template-columns:84px repeat(var(--nalb),minmax(0,1fr)) 40px;gap:4px}.alb-head{font-size:10px}}
   .refs{display:none;padding:8px 16px 18px;border-left:2px solid var(--line);margin:0 0 8px 14px}
   .refs.open{display:block}
   .refline{margin-top:10px;font-size:14px}
@@ -86,6 +88,8 @@
   #netside{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;
             font-size:13.5px;max-height:520px;overflow-y:auto}
   #netside .ph{color:var(--dim)}
+  #net-wrap>*{min-width:0}
+  #net{max-width:100%}  /* svg 沒寫寬度時預設 300px, 320 寬的格子欄只有 272px 還是會被撐出畫面 */
   @media(max-width:760px){#net-wrap{grid-template-columns:1fr}}
   /* 詞彙羈絆榜 */
   .bonds{margin-top:22px}
