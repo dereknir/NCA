@@ -14,6 +14,8 @@ check_data.py — 主要資料檔的結構檢查 (不加任何依賴, CI 經由 
   src/data/shorts_by_song.json  歌 id 存在、videoId 合法
   annotation/shorts_anchors.json  status 合法、songId 存在 (或 __ 開頭的花絮分類)、
                                   時間點 ≥0 且指到存在的歌詞行
+  src/content/translations/*.md 的 tags  只用 src/data/song_tags.json 列的詞 (曲風 / 主題 / 合作與出處);
+                                  主題每首 1~3 個 (純音樂可以沒有)、每個主題至少 2 首
 
 用法: python scripts/check_data.py      (exit 0 = 全部通過)
 """
@@ -152,6 +154,39 @@ def check_anchors(r: Report, songs: dict[str, int]):
                 r.check(line < n, f'{f}: {vid} 指到第 {line} 行, 但 {sid} 只有 {n} 行')
 
 
+TAGS_LINE = re.compile(r'^tags:\s*(\[.*\])\s*$', re.M)
+INSTRUMENTAL = re.compile(r'^instrumental:\s*true\s*$', re.M)
+
+
+def check_song_tags(r: Report) -> dict[str, list[str]]:
+    """回傳 {主題: [歌 id]}; 標籤寫在 md frontmatter 的一行 JSON 陣列"""
+    f = 'src/data/song_tags.json'
+    tax = load(f)
+    themes = [t['name'] for t in tax['themes']]
+    known = {g['name'] for g in tax['genres']} | set(themes) | set(tax['credits'])
+    r.check(len(themes) == 18 and len(set(themes)) == 18, f'{f}: 主題要剛好 18 個不重複, 現在 {len(themes)} 個')
+    slugs = [t['slug'] for t in tax['themes']] + [g['slug'] for g in tax['genres']]
+    r.check(len(slugs) == len(set(slugs)) and all(SONG_ID.match(x) for x in slugs), f'{f}: slug 重複或格式不對')
+    by_theme: dict[str, list[str]] = {t: [] for t in themes}
+    for p in sorted((ROOT / 'src/content/translations').glob('*.md')):
+        head = p.read_text(encoding='utf-8').split('---', 2)[1]
+        m = TAGS_LINE.search(head)
+        if not r.check(bool(m), f'{p.name}: 找不到一行的 tags: [...]'):
+            continue
+        tags = json.loads(m.group(1))
+        for t in tags:
+            r.check(t in known, f'{p.name}: 標籤「{t}」不在 {f} 裡 (新的合作對象請先加進 credits)')
+        r.check(len(tags) == len(set(tags)), f'{p.name}: 標籤重複')
+        mine = [t for t in tags if t in by_theme]
+        lo = 0 if INSTRUMENTAL.search(head) else 1
+        r.check(lo <= len(mine) <= 3, f'{p.name}: 主題要 {lo}~3 個, 現在 {len(mine)} 個 {mine}')
+        for t in mine:
+            by_theme[t].append(p.stem)
+    for t, ids in by_theme.items():
+        r.check(len(ids) >= 2, f'{f}: 主題「{t}」只有 {len(ids)} 首, 至少要 2 首')
+    return by_theme
+
+
 def main() -> int:
     r = Report()
     songs = check_lyrics(r)
@@ -160,6 +195,7 @@ def main() -> int:
     check_full_live(r, songs)
     check_shorts_by_song(r, songs)
     check_anchors(r, songs)
+    themes = check_song_tags(r)
     for w in r.warnings:
         print(f'⚠ {w}')
     if r.errors:
@@ -170,7 +206,7 @@ def main() -> int:
             print(f'… 還有 {len(r.errors) - len(shown)} 個')
         print(f'\n資料檢查: {len(r.errors)} 個問題', file=sys.stderr)
         return 1
-    print(f'✓ 資料結構檢查通過 ({len(songs)} 首歌、{len(shorts)} 支 shorts)')
+    print(f'✓ 資料結構檢查通過 ({len(songs)} 首歌、{len(shorts)} 支 shorts、{len(themes)} 個主題標籤)')
     return 0
 
 

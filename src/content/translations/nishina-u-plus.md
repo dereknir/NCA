@@ -5,7 +5,7 @@ album: "1999"
 albumYear: 2022
 trackNumber: 5
 publishDate: 2026-03-28
-tags: ["J-POP", "社會議題", "Identity"]
+tags: ["J-POP", "社會", "自我"]
 originalLang: ja
 coverImage: "/covers/nishina/u-plus.jpg"
 ---

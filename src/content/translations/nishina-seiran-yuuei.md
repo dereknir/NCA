@@ -7,7 +7,7 @@ album: "1999"
 albumYear: 2022
 trackNumber: 10
 publishDate: 2022-06-15
-tags: ["青春告別", "畢業", "夏夜"]
+tags: ["青春", "夜", "季節"]
 originalLang: ja
 coverImage: "/covers/nishina/1999.jpg"
 ---

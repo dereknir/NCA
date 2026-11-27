@@ -7,7 +7,7 @@ album: "odds and ends"
 albumYear: 2021
 trackNumber: 7
 publishDate: 2021-03-10
-tags: ["都市迷惘", "成長痛", "深夜"]
+tags: ["成長痛", "都市", "夜"]
 originalLang: ja
 coverImage: "/covers/nishina/centi.jpg"
 ---

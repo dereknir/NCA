@@ -7,7 +7,7 @@ album: "odds and ends"
 albumYear: 2021
 trackNumber: 5
 publishDate: 2021-01-20
-tags: ["暗黑童話", "自我擁抱", "野獸國"]
+tags: ["童話・奇幻", "自我"]
 originalLang: ja
 coverImage: "/covers/nishina/kedamono-no-friends.jpg"
 ---

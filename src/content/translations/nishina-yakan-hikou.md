@@ -7,7 +7,7 @@ album: "odds and ends"
 albumYear: 2021
 trackNumber: 4
 publishDate: 2020-12-16
-tags: ["戀愛焦慮", "微毒甜美", "夜"]
+tags: ["戀愛", "小惡魔", "夜"]
 originalLang: ja
 coverImage: "/covers/nishina/yakan-hikou.jpg"
 ---

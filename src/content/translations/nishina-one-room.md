@@ -7,7 +7,7 @@ album: "1999"
 albumYear: 2022
 trackNumber: 7
 publishDate: 2022-07-27
-tags: ["同居分手", "日常", "遺憾"]
+tags: ["分手・告別", "日常"]
 originalLang: ja
 coverImage: "/covers/nishina/1999.jpg"
 ---

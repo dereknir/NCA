@@ -8,7 +8,7 @@ publishDate: 2026-03-18
 lyricist: ["にしな"]
 composer: ["にしな"]
 arranger: ["トオミヨウ"]
-tags: ["J-POP", "反戰", "情歌"]
+tags: ["J-POP", "社會", "戀愛"]
 originalLang: ja
 coverImage: "/covers/nishina/hibi-sanman.jpg"
 ---

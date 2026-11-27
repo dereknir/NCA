@@ -6,7 +6,7 @@ trackNumber: 6
 publishDate: 2025-08-04
 lyricist: ["唾奇", "にしな"]
 composer: ["唾奇", "にしな", "hokuto"]
-tags: ["Jazz Hip-Hop", "feat", "唾奇", "hokuto", "Camellia", "自省", "文語"]
+tags: ["Jazz Hip-Hop", "自我", "語言遊戲", "feat", "唾奇", "hokuto", "Camellia"]
 originalLang: ja
 coverImage: "/covers/nishina/inaho.jpg"
 excludeFromLyricAnalysis: true   # 主藝人 唾奇 (Camellia Track 12),にしな 掛名共同作詞但主導為唾奇

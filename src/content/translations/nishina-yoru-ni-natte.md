@@ -7,7 +7,7 @@ album: "1999"
 albumYear: 2022
 trackNumber: 6
 publishDate: 2021-10-13
-tags: ["禁忌之戀", "同性之愛", "反抗"]
+tags: ["禁忌・依戀", "社會"]
 originalLang: ja
 coverImage: "/covers/nishina/yoru-ni-natte.jpg"
 ---

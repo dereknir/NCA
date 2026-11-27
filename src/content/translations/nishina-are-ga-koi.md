@@ -7,7 +7,7 @@ publishDate: 2024-07-17
 lyricist: ["くじら"]
 composer: ["くじら"]
 arranger: ["Naoki Itai"]
-tags: ["J-POP", "feat", "くじら", "動畫主題曲", "先輩はおとこのこ", "回憶", "分手"]
+tags: ["J-POP", "青春", "分手・告別", "feat", "くじら", "動畫主題曲", "先輩はおとこのこ"]
 originalLang: ja
 coverImage: "/covers/nishina/are-ga-koi.jpg"
 excludeFromLyricAnalysis: true   # 主藝人 くじら,詞曲皆くじら 作,にしな feat 演唱

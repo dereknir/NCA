@@ -8,7 +8,7 @@ publishDate: 2026-03-18
 lyricist: ["にしな"]
 composer: ["にしな"]
 arranger: ["横山裕章"]
-tags: ["J-POP", "分手", "自愛"]
+tags: ["J-POP", "分手・告別", "自我"]
 originalLang: ja
 coverImage: "/covers/nishina/hibi-sanman.jpg"
 ---

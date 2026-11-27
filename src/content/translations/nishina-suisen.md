@@ -6,7 +6,7 @@ trackNumber: 3
 publishDate: 2024-01-03
 lyricist: ["唾奇", "にしな"]
 composer: ["唾奇", "にしな", "GeG"]
-tags: ["Jazz Hip-Hop", "feat", "唾奇", "GeG", "自戀", "無法交集"]
+tags: ["Jazz Hip-Hop", "自我", "暗戀・單戀", "feat", "唾奇", "GeG"]
 originalLang: ja
 coverImage: "/covers/nishina/suisen.jpg"
 excludeFromLyricAnalysis: true   # 主藝人 唾奇,にしな 掛名共同作詞但主導為唾奇

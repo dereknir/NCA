@@ -7,7 +7,7 @@ album: "1999"
 albumYear: 2022
 trackNumber: 11
 publishDate: 2022-07-27
-tags: ["末日", "浪漫", "同名主打"]
+tags: ["宇宙・存在"]
 originalLang: ja
 coverImage: "/covers/nishina/1999.jpg"
 ---

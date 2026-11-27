@@ -7,7 +7,7 @@ album: "odds and ends"
 albumYear: 2021
 trackNumber: 10
 publishDate: 2021-04-07
-tags: ["成長痛", "夏之終", "雨夜", "母親的魔法"]
+tags: ["成長痛", "季節", "夜"]
 originalLang: ja
 coverImage: "/covers/nishina/odds-and-ends.jpg"
 ---

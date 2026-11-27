@@ -7,7 +7,7 @@ trackNumber: 6
 publishDate: 2026-03-18
 lyricist: ["にしな"]
 composer: ["にしな"]
-tags: ["J-POP", "曖昧", "水"]
+tags: ["J-POP", "戀愛"]
 originalLang: ja
 coverImage: "/covers/nishina/hibi-sanman.jpg"
 ---

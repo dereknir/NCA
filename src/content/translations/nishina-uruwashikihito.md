@@ -6,7 +6,7 @@ trackNumber: 1
 publishDate: 2026-03-11
 lyricist: ["水野良樹"]
 composer: ["水野良樹"]
-tags: ["J-POP", "翻唱", "純愛", "生きものがかり"]
+tags: ["J-POP", "戀愛", "翻唱", "生きものがかり"]
 originalLang: ja
 coverImage: "/covers/nishina/uruwashikihito.jpg"
 excludeFromLyricAnalysis: true   # 翻唱曲,詞曲皆水野良樹 (生きものがかり) 作

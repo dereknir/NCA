@@ -5,7 +5,7 @@ album: "1999"
 albumYear: 2022
 trackNumber: 4
 publishDate: 2026-04-08
-tags: ["J-POP", "都市", "夏夜"]
+tags: ["J-POP", "都市", "夜", "季節"]
 originalLang: ja
 coverImage: "/covers/nishina/tokyo-marble.jpg"
 ---
