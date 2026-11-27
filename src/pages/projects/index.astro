@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import { getCollection } from 'astro:content';
+import { webpOf } from '../../lib/images';
 
 const allProjects = (await getCollection('projects'))
   .sort((a, b) => new Date(b.data.publishDate).valueOf() - new Date(a.data.publishDate).valueOf());
@@ -20,7 +21,7 @@ const allProjects = (await getCollection('projects'))
       {allProjects.map(project => (
         <a href={`/projects/${project.id}`} class="sh-card overflow-hidden">
           {project.data.coverImage && (
-            <img src={project.data.coverImage} alt="" class="w-full h-48 object-cover" style="border-bottom: 2px solid var(--sh-line)" />
+            <img src={webpOf(project.data.coverImage)} alt="" class="w-full h-48 object-cover" style="border-bottom: 2px solid var(--sh-line)" />
           )}
           <div class="p-6">
             <div class="flex items-center gap-2 mb-2">
