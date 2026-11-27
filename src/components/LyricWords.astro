@@ -109,8 +109,8 @@ const data = lyricWordsFor(Astro.props.songId);
   :root[data-paper="on"] .lyrics-line .ja .w:hover, :root[data-paper="on"] .lyrics-line .ja .w:focus-visible,
   :root[data-paper="on"] .lyrics-line .ja .w[aria-expanded="true"] { color: #8e2c18; background: rgb(255 208 80 / .35); }
 
-  /* 小卡: 終端機風的像素卡 */
-  .wcard { position: absolute; z-index: 60; width: min(360px, calc(100vw - 24px)); color: var(--sh-ink); background: #0b0b16;
+  /* 小卡: 終端機風的像素卡。z-index 70: 壓過左下角的指令列 / N247i 鈕 (60), 但在 N247i 打開的畫面 (80) 底下 */
+  .wcard { position: absolute; z-index: 70; width: min(360px, calc(100vw - 24px)); color: var(--sh-ink); background: #0b0b16;
     border: 2px solid #3b335f; box-shadow: 6px 6px 0 rgb(0 0 0 / .55); font: 12px/1.7 var(--sh-px); }
   .wcard[hidden] { display: none; }
   .wcard-hd { display: flex; align-items: baseline; gap: 10px; padding: 12px 14px 8px; border-bottom: 2px solid #1f1838; }
