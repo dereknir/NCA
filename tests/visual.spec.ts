@@ -14,6 +14,11 @@ const PAGES: [string, string][] = [
   ['about', '/about/'],
 ];
 
+// /live/ 的數字、下一場、雷達點是排程自動抓的資料, 每天都可能變 → 遮掉, 只看版面
+const MASK: Record<string, string[]> = {
+  live: ['.sh-chip', '.lr-box', '.hub-num'],
+};
+
 // 固定時間 (首頁房間的今日の一曲 / 月曆 / 鬧鐘看日期畫) + 固定亂數 (星星位置)
 const FIXED_TIME = new Date('2026-11-20T21:30:00+08:00');
 
@@ -40,6 +45,7 @@ for (const [name, path] of PAGES) {
       animations: 'disabled',
       caret: 'hide',
       maxDiffPixelRatio: 0.01,
+      mask: (MASK[name] ?? []).map((sel) => page.locator(sel)),
     });
   });
 }
