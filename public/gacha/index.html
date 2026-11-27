@@ -182,9 +182,10 @@
 <footer>測試版:不限次數・reduced-motion 使用者自動跳過演出。<br>抽卡紀錄存於本機瀏覽器,圖鑑進度即時同步。</footer>
 
 <script type="module">
-import * as E from './engine.js';
-import { drawMachine, drawCapsule, MACHINE_W, MPAL } from './machine.js';
-import { createBackpack } from './backpack.js';
+// 一律絕對路徑: 從 /gacha (沒斜線) 進來時, 相對路徑會變成 /engine.js、/pool.json 而整台壞掉
+import * as E from '/gacha/engine.js';
+import { drawMachine, drawCapsule, MACHINE_W, MPAL } from '/gacha/machine.js';
+import { createBackpack } from '/gacha/backpack.js';
 
 /* ===== 站長策展區 ===== */
 const songUrl = id => `/translations/${id}`;
@@ -567,12 +568,12 @@ const FONTS = [
     await Promise.all(FONTS.map(async ([n, u]) => {
       const f = new FontFace(n, `url(${u})`); await f.load(); document.fonts.add(f);
     }));
-    POOL = await fetch('pool.json').then(r => r.json());
+    POOL = await fetch('/gacha/pool.json').then(r => r.json());
     log = loadLog();
 
     // 自動注入 LIVE 池 (從 annotation anchors 生的)
     try {
-      const auto = await fetch('live_pool.json').then(r => r.ok ? r.json() : []);
+      const auto = await fetch('/gacha/live_pool.json').then(r => r.ok ? r.json() : []);
       if (Array.isArray(auto) && auto.length) {
         const seen = new Set(CURATED.LIVE);
         for (const id of auto) if (!seen.has(id)) { CURATED.LIVE.push(id); seen.add(id); }
