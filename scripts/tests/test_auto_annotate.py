@@ -165,3 +165,11 @@ def test_analyze_repeated_chorus_is_not_grade_a():
     song = make_song(lines)
     r = _analyze(song, aa.to_hira(lines[0] + lines[1]))
     assert 'ambiguous_start' in r['needsReview'] and r['grade'] != 'A'
+
+
+def test_align_repeated_chorus_prefers_repeat_that_connects_to_following_verse():
+    # 歌: 副歌(0,1) → A(2) → 副歌(3,4) → B(5); 片段唱「副歌 + A」→ 只有第一次副歌接得上 A
+    lines = [VERSES[0], VERSES[1], VERSES[2], VERSES[0], VERSES[1], VERSES[3]]
+    song = make_song(lines)
+    anchors, ambiguous = aa.align(song, make_tr(VERSES[0] + VERSES[1] + VERSES[2]))
+    assert [a['line'] for a in anchors][:3] == [0, 1, 2]
