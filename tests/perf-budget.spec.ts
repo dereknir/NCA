@@ -5,32 +5,45 @@ import { test, expect } from '@playwright/test';
 // 量法跟 N10 基準一樣: CDP Network.loadingFinished 的 encodedDataLength (實際上線的 bytes)。
 // 不用 Lighthouse, 純 Playwright, 跑在既有 E2E 裡。
 //
-// 預算 = 現況再留一點餘裕, 但不超過 N10 報告訂的上限。
-// 修好一項就收緊一項 (例如字型瘦身完, 把 font 的數字降到新的現況 + 一點點)。
+// 兩層:
+//   hard   = CI 硬上限, 超過就紅。字型 / 總量 = 現況 × ~1.12 (進位到 10)。
+//            為什麼不直接用報告的數字: 歌詞 md 一推, refresh-lyric-data 就重切字型子集,
+//            新歌多幾十個漢字字型就 +40 KB 左右 (試過 60 個新漢字: わをん 1007 → 1047)。
+//            上限貼著現況的話 develop 很快就紅, 而那不是退化。12% 吃得下正常的字集成長, 真的退化 (多載一整包字型、多一支大 JS) 還是會擋。
+//   target = N10 報告訂的目標值。超過只在 log + test annotations 提醒, 不擋 CI。
+// JS 不會因為內容變多而長, hard 直接用現況 + ~5 KB。CLS 是頁面本身的問題, hard 就是目標。
+// 修好一項就收緊一項 (字型瘦身完把 font / total 的 hard 降到新的現況 × 1.12; 降到 target 以下就可以把 hard 改成 target)。
+//
+// 註: playwright.config 的 mobile project 只模擬 viewport 390 + touch, UA 還是桌機 Chrome;
+// 站上如果之後依 UA 分流 (例如給手機不同的字型), 這裡量不到。
 
-type Budget = { path: string; js: number; font: number; total: number; cls: number };
+type Limits = { js: number; font: number; total: number; cls: number };
+type Budget = { path: string; hard: Limits; target: Limits };
 
-// 單位 KB (CLS 沒單位)。桌機 / 手機取比較大的那個量, 再留 ~5 KB JS、~40~60 KB 字型/總量的餘裕。
-// N10 報告的上限: JS ≤35 (歌詞宇宙 110)、字型 ≤1050 歌詞頁 / 680 其他、總量 ≤1200 歌詞頁 / 800 其他、CLS ≤0.05。
-// 修好一項就收緊一項。
-//                                                         現況 (2026-11, js / font / total)
+// N10 報告: JS ≤35 (歌詞宇宙 110)、字型 ≤1050 歌詞頁 / 680 其他、總量 ≤1200 歌詞頁 / 800 其他、CLS ≤0.05
+const TARGET_OTHER: Limits = { js: 35, font: 680, total: 800, cls: 0.05 };
+const TARGET_LYRIC: Limits = { js: 35, font: 1050, total: 1200, cls: 0.05 };
+
+const budget = (path: string, hard: Limits, target = TARGET_OTHER): Budget => ({ path, hard, target });
+
+// 單位 KB。行尾 = 2026-11 現況 (桌機 / 手機取大的): js / font / total / cls
 export const BUDGETS: Record<string, Budget> = {
-  home:             { path: '/',                             js: 28,  font: 330,  total: 580,  cls: 0.05 }, // 23.6 / 298 / 438~516 (手機會多載房間圖, 量到會浮動)
-  translations:     { path: '/translations/',                js: 21,  font: 600,  total: 740,  cls: 0.05 }, // 16.3 / 557 / 683
-  'song-wawon':     { path: '/translations/nishina-wawon/',  js: 35,  font: 1050, total: 1200, cls: 0.05 }, // 30.5 / 1007 / 1141
-  'song-mashiro':   { path: '/translations/nishina-mashiro/', js: 35, font: 1000, total: 1150, cls: 0.05 }, // 30.5 / 935 / 1068
-  live:             { path: '/live/',                        js: 18,  font: 600,  total: 670,  cls: 0.05 }, // 13.1 / 557 / 610
-  'live-full':      { path: '/live/full/nishina-1999/',      js: 24,  font: 640,  total: 720,  cls: 0.05 }, // 19.1 / 591 / 651
-  setlists:         { path: '/setlists/',                    js: 15,  font: 600,  total: 780,  cls: 0.05 }, // 10.5 / 557 / 722
-  about:            { path: '/about/',                       js: 15,  font: 680,  total: 740,  cls: 0.05 }, // 10.5 / 636 / 681
-  // 作品集比 N10 基準 (596 / 742) 胖了一截, 已經超過 680 / 800 的上限: 頁面字變多 → 要載的 oh-* 字型分包跟著變多。
-  // 先放行在現況, 字型瘦身後拉回 680 / 800 以下。
-  projects:         { path: '/projects/',                    js: 15,  font: 750,  total: 900,  cls: 0.05 }, // 10.5 / 715 / 861
+  // CLS 見下面 HOME_CLS 的說明
+  home: budget('/',                              { js: 28,  font: 340,  total: 580,  cls: 0.05 }), // 23.6 / 298 / 438~516 / 0
+  translations: budget('/translations/',                 { js: 21,  font: 630,  total: 770,  cls: 0.05 }), // 16.3 / 557 / 683 / 0
+  'song-wawon': budget('/translations/nishina-wawon/',   { js: 35,  font: 1130, total: 1280, cls: 0.05 }, TARGET_LYRIC), // 30.5 / 1007 / 1141 / 0
+  'song-mashiro': budget('/translations/nishina-mashiro/', { js: 35,  font: 1050, total: 1200, cls: 0.05 }, TARGET_LYRIC), // 30.5 / 935 / 1068 / 0
+  live: budget('/live/',                         { js: 18,  font: 630,  total: 690,  cls: 0.05 }), // 13.1 / 557 / 610 / 0
+  'live-full': budget('/live/full/nishina-1999/',       { js: 24,  font: 670,  total: 730,  cls: 0.05 }), // 19.1 / 591 / 651 / 0
+  setlists: budget('/setlists/',                     { js: 15,  font: 630,  total: 810,  cls: 0.05 }), // 10.5 / 557 / 722 / 0
+  about: budget('/about/',                        { js: 15,  font: 720,  total: 770,  cls: 0.05 }), // 10.5 / 636 / 681 / 0
+  // 作品集已經超過 target (N10 基準時 596 / 742): 頁面字變多 → 要載的 oh-* 字型分包跟著變多。字型瘦身後拉回來。
+  projects: budget('/projects/',                     { js: 15,  font: 810,  total: 970,  cls: 0.05 }), // 10.5 / 715 / 861 / 0
   // 桌機 CLS 0.079: 太陽那顆 .body-cv canvas 在 ~0.5 秒時被重新定位 (手機 0)。修好改回 0.05。
-  galaxy:           { path: '/galaxy/',                      js: 5,   font: 450,  total: 490,  cls: 0.1 },  // 0 / 409 / 439
-  kwic:             { path: '/kwic/',                        js: 15,  font: 410,  total: 580,  cls: 0.05 }, // 10.5 / 370 / 524
+  galaxy: budget('/galaxy/',                       { js: 5,   font: 460,  total: 500,  cls: 0.1 }),  // 0 / 409 / 439 / 0.079
+  kwic: budget('/kwic/',                         { js: 15,  font: 420,  total: 590,  cls: 0.05 }), // 10.5 / 370 / 524 / 0
   // d3 整包 92 KB, 其中 ~71 KB 沒用到; 自訂 build 之後可以收到 ~40
-  'lyric-universe': { path: '/lyric-universe/',              js: 110, font: 410,  total: 580,  cls: 0.05 }, // 102 / 370 / 516
+  'lyric-universe': budget('/lyric-universe/',               { js: 110, font: 420,  total: 590,  cls: 0.05 }, { ...TARGET_OTHER, js: 110 }), // 102 / 370 / 516 / 0
 };
 
 function kindOf(url: string, type: string, mime: string): 'js' | 'font' | 'other' {
@@ -46,10 +59,28 @@ for (const [name, b] of Object.entries(BUDGETS)) {
     await context.route('**/*', (route) =>
       route.request().url().startsWith(origin) ? route.continue() : route.abort('blockedbyclient'),
     );
+    // CLS 照 web-vitals 的定義: layout-shift 分 session window (跟前一筆間隔 <1s、整個視窗 ≤5s), 取最大的那個視窗。
+    // 每筆順便記下是哪些元素動了, 超標時印出來。
     await page.addInitScript(() => {
-      (window as any).__cls = 0;
+      const w = window as any;
+      w.__clsMax = { value: 0, entries: [] };
+      let cur = { value: 0, entries: [] as any[] };
+      let first = 0, last = 0;
+      const sel = (n: any) => {
+        if (!n || !n.nodeName) return '?';
+        const cls = typeof n.className === 'string' && n.className.trim() ? '.' + n.className.trim().split(/\s+/).slice(0, 2).join('.') : '';
+        return n.nodeName.toLowerCase() + (n.id ? '#' + n.id : '') + cls;
+      };
       new PerformanceObserver((list) => {
-        for (const e of list.getEntries() as any[]) if (!e.hadRecentInput) (window as any).__cls += e.value;
+        for (const e of list.getEntries() as any[]) {
+          if (e.hadRecentInput) continue;
+          if (cur.entries.length && (e.startTime - last >= 1000 || e.startTime - first >= 5000)) cur = { value: 0, entries: [] };
+          if (!cur.entries.length) first = e.startTime;
+          last = e.startTime;
+          cur.value += e.value;
+          cur.entries.push({ t: Math.round(e.startTime), v: +e.value.toFixed(4), src: (e.sources || []).map((x: any) => sel(x.node)) });
+          if (cur.value > w.__clsMax.value) w.__clsMax = { value: cur.value, entries: cur.entries.slice() };
+        }
       }).observe({ type: 'layout-shift', buffered: true });
     });
 
@@ -71,23 +102,47 @@ for (const [name, b] of Object.entries(BUDGETS)) {
     await page.waitForLoadState('networkidle').catch(() => {});
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(1000);
-    const cls: number = await page.evaluate(() => (window as any).__cls);
+    const clsWin: { value: number; entries: { t: number; v: number; src: string[] }[] } = await page.evaluate(
+      () => (window as any).__clsMax,
+    );
+    const cls = clsWin.value;
 
     const kb = { js: 0, font: 0, total: 0 };
+    const own: { url: string; bytes: number }[] = [];
     for (const r of reqs.values()) {
       if (r.bytes == null || !r.url?.startsWith(origin)) continue;
       const k = kindOf(r.url, r.type ?? '', r.mime ?? '');
       if (k !== 'other') kb[k] += r.bytes / 1024;
       kb.total += r.bytes / 1024;
+      own.push({ url: r.url.slice(origin.length), bytes: r.bytes });
     }
 
     const got = { js: +kb.js.toFixed(1), font: +kb.font.toFixed(1), total: +kb.total.toFixed(1), cls: +cls.toFixed(3) };
     testInfo.annotations.push({ type: 'perf', description: JSON.stringify(got) });
     console.log(`[perf] ${testInfo.project.name} ${name} js=${got.js}KB font=${got.font}KB total=${got.total}KB cls=${got.cls}`);
 
-    const over = (['js', 'font', 'total', 'cls'] as const)
-      .filter((k) => got[k] > b[k])
-      .map((k) => `${name} ${b.path} ${k} ${got[k]}${k === 'cls' ? '' : ' KB'} / 上限 ${b[k]}${k === 'cls' ? '' : ' KB'}`);
-    expect(over, `超出效能預算:\n${over.join('\n')}`).toEqual([]);
+    const unit = (k: keyof Limits) => (k === 'cls' ? '' : ' KB');
+    const keys = ['js', 'font', 'total', 'cls'] as const;
+
+    // 超過 target: 只提醒
+    const soft = keys.filter((k) => got[k] > b.target[k] && got[k] <= b.hard[k]);
+    for (const k of soft) {
+      const msg = `${name} ${b.path} ${k} ${got[k]}${unit(k)} 超過目標 ${b.target[k]}${unit(k)} (硬上限 ${b.hard[k]}${unit(k)})`;
+      testInfo.annotations.push({ type: 'perf-target', description: msg });
+      console.warn(`[perf] ⚠ ${testInfo.project.name} ${msg}`);
+    }
+
+    // 超過 hard: 紅, 附上最大的請求 / CLS 來源
+    const over = keys.filter((k) => got[k] > b.hard[k]);
+    const lines = over.map((k) => `${name} ${b.path} ${k} ${got[k]}${unit(k)} / 上限 ${b.hard[k]}${unit(k)} (目標 ${b.target[k]}${unit(k)})`);
+    if (over.some((k) => k !== 'cls')) {
+      lines.push('最大的 5 個請求:');
+      for (const r of own.sort((x, y) => y.bytes - x.bytes).slice(0, 5)) lines.push(`  ${(r.bytes / 1024).toFixed(1)} KB  ${r.url}`);
+    }
+    if (over.includes('cls')) {
+      lines.push('CLS 最大視窗裡的 layout-shift (時間 ms / 值 / 元素):');
+      for (const e of clsWin.entries.slice(0, 10)) lines.push(`  ${e.t}ms  ${e.v}  ${e.src.join(', ')}`);
+    }
+    expect(over, `超出效能預算:\n${lines.join('\n')}`).toEqual([]);
   });
 }
