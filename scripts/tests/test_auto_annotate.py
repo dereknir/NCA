@@ -180,6 +180,39 @@ def test_retime_several_head_lines_stay_ordered():
     assert [x['t'] for x in out] == pytest.approx([0.5, 1.2, 1.9])
 
 
+# ---------- _whisper_lead (hybrid: Qwen 漏轉開頭、whisper 有轉到) ----------
+def _q(*rows):
+    return [dict(line=l, t=t, score=80, **({'est': True} if e else {})) for l, t, e in rows]
+
+
+def test_whisper_lead_adds_text_matched_lines_before_qwen_chain():
+    qa = _q((3, 15.2, 0), (4, 19.9, 0), (5, 26.4, 0))
+    aw = _q((0, 0.0, 0), (1, 4.1, 1), (2, 11.4, 0), (3, 15.2, 0), (4, 19.9, 0))
+    out = aa._whisper_lead(qa, aw)
+    assert [(a['line'], a['t']) for a in out] == [(0, 0.0), (1, 4.1), (2, 11.4), (3, 15.2), (4, 19.9), (5, 26.4)]
+    assert out[1].get('est')                                       # whisper 的估計句照樣標 est
+
+
+def test_whisper_lead_skips_when_lead_lines_are_only_estimates():
+    qa = _q((3, 10.0, 0), (4, 14.0, 0))
+    aw = _q((1, 2.0, 1), (2, 6.0, 1), (3, 10.0, 0))
+    assert [a['line'] for a in aa._whisper_lead(qa, aw)] == [3, 4]
+
+
+def test_whisper_lead_skips_when_whisper_chose_another_section():
+    # whisper 對到的是另一段 (跟 Qwen 沒有共同的實對句): 不補, 免得兩段混在一起
+    qa = _q((20, 0.2, 0), (21, 7.5, 0), (22, 15.7, 0))
+    aw = _q((8, 0.0, 0), (9, 6.1, 0), (10, 13.8, 1))
+    assert [a['line'] for a in aa._whisper_lead(qa, aw)] == [20, 21, 22]
+
+
+def test_whisper_lead_skips_lines_not_earlier_in_time():
+    # whisper 前面的句子時間不在 Qwen 第一句之前 (MIN_GAP 內 / 之後) → 不補
+    qa = _q((3, 1.0, 0), (4, 5.0, 0))
+    aw = _q((2, 0.6, 0), (3, 1.0, 0), (4, 5.0, 0))
+    assert [a['line'] for a in aa._whisper_lead(qa, aw)] == [3, 4]
+
+
 # ---------- _extend_edges 往前延伸 ----------
 def test_extend_edges_stops_guessing_when_nothing_earlier_matches():
     lines = make_song(VERSES)['lines']
