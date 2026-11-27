@@ -2,28 +2,29 @@
 // 現場履歷: 這首歌在歷年巡演 setlist 裡的位置。資料在 build 時算 (src/lib/liveHistory.ts)
 import { liveHistory } from '../lib/liveHistory';
 
-interface Props { songId: string }
-const h = liveHistory(Astro.props.songId);
+interface Props { songId: string; released?: Date }
+const { songId, released } = Astro.props;
+const h = liveHistory(songId, released ? released.toISOString().slice(0, 10) : undefined);
 const tourLabel = (r: { year: string; title: string }) => `${r.year} ${r.title}`;
 ---
 {h.sung > 0 && (
   <section class="lh" aria-labelledby="lh-title">
     <h2 id="lh-title" class="lh-h">現場履歷</h2>
     <p class="lh-sum">
-      {h.rows.length} 次有 setlist 的巡演裡唱了 <b>{h.sung}</b> 次{h.shows > 0 && <>, 約 <b>{h.shows}</b> 場</>}
+      發行後 {h.eligible} 次有 setlist 的巡演裡唱了 <b>{h.sung}</b> 次{h.shows > 0 && <>, 約 <b>{h.shows}</b> 場</>}
       {h.slot && <> · 通常排在<b>{h.slot}</b></>}
     </p>
     <p class="lh-sum lh-sub">
-      第一次: {h.first && tourLabel(h.first)}{h.latest && h.latest !== h.first && <> · 最近: {tourLabel(h.latest)}</>}
+      最早出現在 setlist: {h.first && tourLabel(h.first)}{h.latest && h.latest !== h.first && <> · 最近: {tourLabel(h.latest)}</>}
     </p>
 
     {/* 一格一個巡演, 舊 → 新; 有唱 = 實心 + 第幾首, 沒唱 = 虛線空格 */}
     <ol class="lh-strip">
       {h.rows.map(r => (
-        <li class:list={['lh-cell', { on: r.pos !== null }]}>
+        <li class:list={['lh-cell', { on: r.pos !== null, pre: r.before }]} title={`${tourLabel(r)}: ${r.pos !== null ? `第 ${r.pos} 首` : r.before ? '還沒發行' : '沒有唱'}`}>
           <span class="lh-box" aria-hidden="true">{r.pos ?? ''}</span>
           <span class="lh-yr" aria-hidden="true">{r.year.slice(2)}</span>
-          <span class="sr-only">{tourLabel(r)}: {r.pos !== null ? `第 ${r.pos} 首 (共 ${r.total} 首)` : '沒有唱'}</span>
+          <span class="sr-only">{tourLabel(r)}: {r.pos !== null ? `第 ${r.pos} 首 (共 ${r.total} 首)` : r.before ? '還沒發行' : '沒有唱'}</span>
         </li>
       ))}
     </ol>
@@ -34,12 +35,12 @@ const tourLabel = (r: { year: string; title: string }) => `${r.year} ${r.title}`
         {[...h.rows].reverse().map(r => (
           <li class:list={{ off: r.pos === null }}>
             <span class="lh-t">{tourLabel(r)}</span>
-            <span class="lh-p">{r.pos !== null ? `第 ${r.pos} / ${r.total} 首` : '—'}{r.stops ? ` · ${r.stops} 場` : ''}</span>
+            <span class="lh-p">{r.pos !== null ? `第 ${r.pos} / ${r.total} 首` : r.before ? '還沒發行' : '—'}{r.stops ? ` · ${r.stops} 場` : ''}</span>
           </li>
         ))}
       </ul>
     </details>
-    <p class="lh-note">依官方每個巡演的 setlist; 同一個巡演每場大致相同, 場數是巡演的總場數。<a href="/setlists/">看全部 setlist →</a></p>
+    <p class="lh-note">依官方每個巡演的 setlist; 同一個巡演每場大致相同, 場數是巡演的總場數。{h.missing > 0 && <>另有 {h.missing} 次巡演抓不到 setlist, 沒算進來。</>}<a href="/setlists/">看全部 setlist →</a></p>
   </section>
 )}
 
@@ -54,6 +55,8 @@ const tourLabel = (r: { year: string; title: string }) => `${r.year} ${r.title}`
   .lh-box { display: grid; place-items: center; width: 28px; height: 28px; box-sizing: border-box;
     border: 2px dashed var(--sh-line); font: 12px var(--sh-px); color: #0a0a15; }
   .lh-cell.on .lh-box { border: 2px solid var(--sh-gold); background: var(--sh-gold); }
+  .lh-cell.pre { opacity: .35; }
+  .lh-cell.pre .lh-box { border-style: dotted; }
   .lh-yr { font: 10px var(--sh-px10); color: var(--sh-ink3); }
   .lh-more { margin-top: 8px; }
   .lh-more summary { cursor: pointer; font: 12px var(--sh-px); color: var(--sh-ink3); padding: 6px 0; min-height: 24px; }
