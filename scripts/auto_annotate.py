@@ -359,10 +359,9 @@ def align(song, tr, tiebreak=True):
         # 讓它去改 whisper 的選段, 會在 Qwen 選段沒變時把原本對不上 (= 保留 Qwen 時間) 的句子換成 whisper 時間
         aw, _ = align(song, tr['alt'], tiebreak=False)
         tw = {a['line']: a['t'] for a in aw if not a.get('est')}
-        if WHISPER_EST:
-            tw.update(_whisper_est(anchors, aw, tw))
+        we = _whisper_est(anchors, aw, tw) if WHISPER_EST else {}
         if HYBRID_RETIME:
-            anchors = _retime(anchors, tw)
+            anchors = _retime(anchors, {**tw, **we}, low=set(we))
             tw = {}
         if WHISPER_LEAD:
             anchors = _whisper_lead(anchors, aw)
@@ -391,6 +390,7 @@ def _whisper_est(anchors, aw, tw):
     if len(real_q & tw.keys()) < 2:
         return {}
     est_q = {a['line'] for a in anchors if a.get('est')}
+    # 不限制跟 Qwen 估的差多少: 要修的就是 Qwen 估到下一句位置 (差 3 秒以上) 的那種; 試過加 HYBRID_WIN 上限, dev 完美 70→66
     return {a['line']: a['t'] for a in aw if a.get('est') and a['line'] in est_q and a['line'] not in tw}
 
 
@@ -416,17 +416,19 @@ def _whisper_lead(anchors, aw):
     return sorted([dict(a) for a in lead], key=lambda a: (a['t'], a['line'])) + anchors
 
 
-def _retime(anchors, tw):
+def _retime(anchors, tw, low=()):
     """hybrid 換時間: whisper 對到同一句 → 用 whisper 的, 沒對到 → 留 Qwen 的。
-    換完若時間倒退 / 擠在 MIN_GAP 內, 非 whisper 的那句讓位 (改成前後兩句之間內插), 都是 whisper 的則後一句讓位。"""
+    換完若時間倒退 / 擠在 MIN_GAP 內, 可信度低的那句讓位 (改成前後兩句之間內插), 一樣可信則後一句讓位。
+    可信度: whisper 真的對到字 > whisper 估的 (low) > Qwen 原時間 — 不能拿估的去擠掉真的對到的"""
     n = len(anchors)
-    src = ['w' if a['line'] in tw else 'q' for a in anchors]
-    if 'w' not in src:
+    src = [('e' if a['line'] in low else 'w') if a['line'] in tw else 'q' for a in anchors]
+    pr = {'w': 2, 'e': 1, 'q': 0}
+    if 'w' not in src and 'e' not in src:
         return anchors                                          # whisper 一句都沒對到同樣的句子: 不換
     t = [tw.get(a['line'], a['t']) for a in anchors]
     for k in range(1, n):
         if t[k] is not None and t[k - 1] is not None and t[k] < t[k - 1] + MIN_GAP:
-            if src[k] == 'w' and src[k - 1] != 'w':
+            if pr[src[k]] > pr[src[k - 1]]:
                 t[k - 1] = None
             else:
                 t[k] = None
