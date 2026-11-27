@@ -32,7 +32,8 @@
   .name{font-size:18px;padding-right:64px}
   .period{color:var(--gold);font-size:13px;margin-top:6px;font-variant-numeric:tabular-nums}
   .period.todo{color:var(--dim);font-style:italic}
-  .stops{color:var(--dim);font-size:12px;margin-top:8px;line-height:1.8;cursor:pointer;min-height:24px}
+  /* 上下各多 2px 好點 (24px 以上), margin 扣回來, 排版跟原本一樣 */
+  .stops{color:var(--dim);font-size:12px;margin:6px 0 -2px;padding:2px 0;line-height:1.8;cursor:pointer}
   .stops b{color:var(--text);font-weight:600}
   .stops:hover b{color:var(--gold)}
   .stopsdetail{display:none;margin-top:8px;border-top:1px solid rgba(36,49,84,.6);padding-top:8px}
@@ -188,7 +189,7 @@ DATA.oneman.forEach((ev, idx) => {
     <div class="links">
       ${ev.news.map(nw => `<a href="${esc(nw.url)}" target="_blank" rel="noopener">news: ${esc(nw.title.slice(0, 18))}…</a>`).join('')}
       ${svc && Object.keys(svc).length
-        ? `<span class="slwrap"><a class="setlist" href="#" data-sl role="button" aria-haspopup="true" aria-expanded="false">♪ SETLIST</a>
+        ? `<span class="slwrap"><a class="setlist" href="#" data-sl role="button" aria-expanded="false">♪ SETLIST</a>
              <span class="slmenu">${Object.entries(svc).map(([label, url]) =>
                `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)}</a>`).join('')}</span></span>`
         : `<a class="setlist" href="https://nishina.lnk.to/live_setlist" target="_blank" rel="noopener">♪ SETLIST</a>`}
