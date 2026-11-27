@@ -14,6 +14,7 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 
 import path from 'node:path';
 import sharp from 'sharp';
 import { ROOT, W, H, P, baseBuffer, t, compose, measure, fit, drawOrb } from './og-lib.mjs';
+import { parseShow } from './og-show.mjs';
 
 const nav = JSON.parse(readFileSync(path.join(ROOT, 'src/data/site-nav.json'), 'utf-8'));
 const outDir = path.join(ROOT, 'public/og');
@@ -134,15 +135,19 @@ async function fullLive() {
   for (const song of readJson('src/data/full_live.json').songs) {
     const sum = summary(song);
     if (!sum.complete) continue;
-    // 場次: 只有官方 shorts 標題寫成「hatsu @Zepp Tokyo 2021.6.25」的才知道是哪一場, 其他的不硬猜
+    // 場次: 只有官方 shorts 標題寫成「hatsu @Zepp Tokyo 2021.6.25」的才知道是哪一場, 其他的不硬猜。
+    // 每一段 live 都抓得到而且是同一場 (場地 + 日期) 才說「整首都是這場」, 不然只寫「含 … 等」
+    const live = plan(song).filter(seg => !seg.gap && seg.live);
     const shows = new Map();
-    for (const seg of plan(song)) {
-      const m = !seg.gap && seg.live && seg.title.match(/^(.+?)\s*@\s*(.+?)\s+(\d{4}\.\d{1,2}\.\d{1,2})$/);
-      if (m) shows.set(m[0], (shows.get(m[0]) ?? 0) + 1);
+    let unknown = 0;
+    for (const seg of live) {
+      const sh = parseShow(seg.title);
+      if (!sh) { unknown++; continue; }
+      const k = `${sh.venue}|${sh.date}`;
+      shows.set(k, { ...sh, n: (shows.get(k)?.n ?? 0) + 1 });
     }
-    const top = [...shows].sort((a, b) => b[1] - a[1])[0]?.[0]
-      .match(/^(.+?)\s*@\s*(.+?)\s+(\d{4}\.\d{1,2}\.\d{1,2})$/);
-    const lines = song.lines.length - sum.skipped.length;
+    const top = [...shows.values()].sort((a, b) => b.n - a.n)[0];
+    const whole = !!top && unknown === 0 && shows.size === 1;
     const { buf, px, rect } = baseBuffer(seedOf(`full-${song.id}`), planet.palette[2]);
     // 文字底下的星星清掉: 行星右邊那塊留著, 行星下面 (y ≥ 60) 字可以寫到右框
     rect(6, 8, 170, 52, P.bg);
@@ -167,18 +172,22 @@ async function fullLive() {
       else { rows = [await fit(song.title, 12, 'JP12', TW)]; size = 12; }
     }
     const texts = [t('にしな  完整 Live', 14, 12, 12, 'TC12', P.dim)];
-    let y = 28;
+    let y = 26;
     for (const r of rows) { texts.push(t(r, 14, y, size, 'JP12', P.gold)); y += size === 24 ? 24 : 16; }
-    y = Math.max(y + 6, 62);
-    const stat = `${sum.segs} 段 / ${lines} 句`;
+    y = Math.max(y + (rows.length > 1 ? 2 : 6), 62);
+    // 圖不會跟著每天更新的 full_live.json 重畫, 所以不放 shorts 總數這種天天變的數字; 段數、句數很少變
+    const info = [[`從 shorts 挑出 ${sum.segs} 段 · 全曲 ${song.lines.length} 句`, 'TC12', P.text]];
     if (top) {
-      texts.push(t(await fit(`${top[1]} @ ${top[2]}`, 12, 'JP12', WIDE), 14, y, 12, 'JP12', P.text));
-      texts.push(t(`${top[3]}${shows.size > 1 ? ` 等 ${shows.size} 場` : ''} · ${stat}`, 14, y + 15, 12, 'TC12', P.dim));
-    } else {
-      texts.push(t(`${sum.liveShorts} 支現場 shorts 接成一首`, 14, y, 12, 'TC12', P.text));
-      texts.push(t(stat, 14, y + 15, 12, 'TC12', P.dim));
+      // 太長先拿掉日期, 再截場地; 「等」一定留著, 不然看起來又像整首都是那場
+      const [pre, post] = whole ? ['全部來自 ', ''] : ['含 ', ' 等'];
+      let show = `${pre}${top.name} @ ${top.venue} ${top.date}${post}`;
+      if (await measure(show, 12) > WIDE) show = `${pre}${top.name} @ ${top.venue}${post}`;
+      if (await measure(show, 12) > WIDE) show = (await fit(`${pre}${top.name} @ ${top.venue}`, 12, 'JP12', WIDE - await measure(post || ' ', 12))) + post;
+      info.push([show, 'JP12', P.dim]);
     }
-    if (y + 15 + 12 <= 98) texts.push(t('./play --full', 14, 102, 12, 'JP12', P.light));
+    if (sum.nonLive) info.push(['* 有幾段用 MV 等非 live 版本補', 'TC12', P.light]);
+    for (const [str, fam, c] of info) { texts.push(t(str, 14, y, 12, fam, c)); y += 14; }
+    if (y <= 98) texts.push(t('./play --full', 14, 102, 12, 'JP12', P.light));
     save(`live-full/${song.id}.png`, await compose(buf, texts));
   }
 }
