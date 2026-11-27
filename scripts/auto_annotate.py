@@ -241,6 +241,18 @@ def _chain_from(lines, hira, j0):
             chain.append((last_idx + 1, pos, EST_SCORE))
     return total, chain
 
+def _bridge(lines, hira, k, P):
+    """往前延伸時第 k 句對不到字: 再前一句 (k-1) 在「兩句長度」的文字窗內對得到, 就把第 k 句當成 ASR 聽爛的那句補上"""
+    if k == 0:
+        return False
+    lh, ph = lines[k][2], lines[k - 1][2]
+    if len(ph) < MIN_LINE:
+        return False
+    lo = max(0, P - len(lh) - int(len(ph) * EXT_WIN) - 2)
+    hi = max(0, P - len(lh))
+    return hi - lo >= 3 and fuzz.partial_ratio_alignment(ph, hira[lo:hi], score_cutoff=EXT_CUTOFF) is not None
+
+
 def _extend_edges(lines, hira, chain, est=None):
     """鏈的頭尾往外延伸: 人工審核補的句子 90% 在片段頭尾 (鏈只在外面各多猜一句, 而且開頭那句的時間固定放在 0 秒)。
     逐句往外: 先在相鄰文字窗內用 EXT_CUTOFF 對字; 對不到就依剩餘文字長度估 (最多連續 EXT_EST 句); 文字用完就停。
@@ -261,7 +273,7 @@ def _extend_edges(lines, hira, chain, est=None):
         al = fuzz.partial_ratio_alignment(lh, hira[lo:P], score_cutoff=EXT_CUTOFF) if len(lh) >= MIN_LINE else None
         if al:
             start, guess = lo + al.dest_start, 0
-        elif guess < (EXT_EST if est is None else est):
+        elif guess < (EXT_EST if est is None else est) or (est is None and _bridge(lines, hira, k, P)):
             start, guess = max(0, P - len(lh)), guess + 1
         else:
             break
@@ -367,8 +379,12 @@ def _retime(anchors, tw):
             lo = max((j for j in known if j < k), default=None); hi = min((j for j in known if j > k), default=None)
             if lo is not None and hi is not None:
                 t[k] = t[lo] + (t[hi] - t[lo]) * (k - lo) / (hi - lo)
+            elif hi is not None:
+                # 開頭那幾句前面沒有鄰居可內插: 跟著後面那句 whisper 的位移一起移
+                # (留 Qwen 原時間會跟後一句擠在 MIN_GAP 內, 被 enforce_gap 丟掉 → 開頭漏句)
+                t[k] = anchors[k]['t'] + (t[hi] - anchors[hi]['t'])
             else:
-                t[k] = anchors[k]['t']                        # 頭尾沒有可內插的鄰居: 留 Qwen 原時間, 交給 enforce_gap
+                t[k] = anchors[k]['t']
     for a, x in zip(anchors, t):
         a['t'] = max(0.0, x)
     return anchors
