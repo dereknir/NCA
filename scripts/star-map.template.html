@@ -27,7 +27,8 @@
   .site-topbar a{color:var(--text);font-size:20px;font-weight:700;text-decoration:none;transition:color .15s}
   .site-topbar a:hover{color:var(--accent)}
   #star-main{flex:1;display:flex;flex-direction:column;min-height:0}   /* 主要內容 (工具列 + 星圖), 跟 body 一樣直向撐滿 */
-  header{display:flex;align-items:center;gap:14px;padding:10px 24px;flex-wrap:wrap}
+  /* 只管星圖自己的工具列; 寫成 header{} 會連全站頁首 .sh-hd 一起吃到 padding, logo、選單被往內推 */
+  #star-main>header{display:flex;align-items:center;gap:14px;padding:10px 24px;flex-wrap:wrap}
   h1{font-size:20px;letter-spacing:.08em}
   .meta{color:var(--dim);font-size:12px}
   .spacer{flex:1}
@@ -47,6 +48,12 @@
     paint-order:stroke;stroke:rgba(10,10,21,.9);stroke-width:5px;pointer-events:none}
   #sky path.hull{fill-opacity:.07;stroke-opacity:.35;stroke-width:1.2;pointer-events:none}
   #sky line.leader{stroke:rgba(255,255,255,.18);stroke-width:.8;pointer-events:none}
+  /* 鍵盤焦點: 星星本身不畫 outline (Chrome 會框成整個 bbox), 改畫一個方框跟著走, 金色同全站 focus */
+  #sky circle:focus{outline:none}
+  #sky .ring rect{fill:none;shape-rendering:crispEdges;vector-effect:non-scaling-stroke;pointer-events:none}
+  #sky .ring .bk{stroke:#0a0a15;stroke-width:4}
+  #sky .ring .fg{stroke:#e8c94a;stroke-width:2}
+  .kbd-hint{color:var(--dim);font-size:12px;margin-top:10px}
   aside{border-left:1px solid var(--line);padding:16px;overflow-y:auto;background:rgba(10,15,28,.5)}
   aside .ph{color:var(--dim);font-size:13px}
   .pin .ja{font-size:16px;line-height:1.7}
@@ -92,8 +99,8 @@
 </header>
 
 <div id="stage">
-  <svg id="sky"></svg>
-  <aside id="side"><div class="ph">每顆星是一句歌詞。滾輪縮放、拖曳漫遊;<br>hover 讀句子,點擊釘選。<br><br>亮度較高的星 = 副歌反覆吟唱的句子。</div></aside>
+  <svg id="sky" role="group" aria-label="歌詞星圖: Tab 進來後用方向鍵在星星之間移動, Enter 看句子, Esc 收起"></svg>
+  <aside id="side" aria-live="polite"><div class="ph">每顆星是一句歌詞。滾輪縮放、拖曳漫遊;<br>hover 讀句子,點擊釘選。<br><br>亮度較高的星 = 副歌反覆吟唱的句子。<div class="kbd-hint">鍵盤: Tab 到星圖, 方向鍵移動, Enter 釘選, Esc 收起。</div></div></aside>
 </div>
 <div id="legend"></div>
 <div id="tip"></div>
@@ -157,14 +164,18 @@ const hullPath = hullG.selectAll('path').data(hulls).join('path')
   .attr('stroke', h => CL_COLORS[h.c.id % CL_COLORS.length]);
 
 // 星暈 + 星核 (副歌反覆越多的星更亮更大)
-const halo = root.append('g').selectAll('circle').data(DATA.points).join('circle')
+const halo = root.append('g').attr('aria-hidden', 'true').selectAll('circle').data(DATA.points).join('circle')
   .attr('cx', p => sx(p.x)).attr('cy', p => sy(p.y))
   .attr('r', p => R(p) * 2.4).attr('opacity', HALO_OP);
 const star = root.append('g').selectAll('circle').data(DATA.points).join('circle')
   .attr('cx', p => sx(p.x)).attr('cy', p => sy(p.y))
   .attr('r', R).attr('opacity', CORE_OP)
   .attr('stroke', 'rgba(255,255,255,.4)').attr('stroke-width', .5)
-  .style('cursor', 'pointer');
+  .style('cursor', 'pointer')
+  // 鍵盤: 整張圖只佔一個 Tab 停點 (roving tabindex), 進來後方向鍵在星星之間跳
+  .attr('role', 'button')
+  .attr('tabindex', (p, i) => i === 0 ? 0 : -1)
+  .attr('aria-label', p => `${p.ja} — ${p.title}`);
 
 // 星座標籤(以質心為錨, 用 d3-force 反擁擠推開)
 const cent = DATA.clusters.map(c => {
@@ -182,7 +193,7 @@ const labelSim = d3.forceSimulation(cent)
 for (let i = 0; i < 140; i++) labelSim.tick();
 
 // 標籤偏移超過閾值時, 畫細引線回原質心
-const leaderG = root.append('g');
+const leaderG = root.append('g').attr('aria-hidden', 'true');
 const leader = leaderG.selectAll('line').data(cent).join('line')
   .attr('class', 'leader')
   .attr('x1', d => d.x0).attr('y1', d => d.y0)
@@ -190,7 +201,7 @@ const leader = leaderG.selectAll('line').data(cent).join('line')
   .attr('visibility', d =>
     Math.hypot(d.x - d.x0, d.y - d.y0) > 12 ? 'visible' : 'hidden');
 
-const clabel = root.append('g').selectAll('text').data(cent).join('text')
+const clabel = root.append('g').attr('aria-hidden', 'true').selectAll('text').data(cent).join('text')
   .attr('class', 'cl').attr('text-anchor', 'middle')
   .attr('x', d => d.x).attr('y', d => d.y)
   .text(d => cName(d.c));
@@ -225,19 +236,80 @@ star.on('pointerover', (e, p) => {
   tip.style.left = Math.min(e.clientX + 14, innerWidth - 360) + 'px';
   tip.style.top = (e.clientY + 14) + 'px';
 }).on('pointerout', () => tip.style.display = 'none')
-  .on('click', (e, p) => {
-    const cl = DATA.clusters.find(c => c.id === p.c);
-    side.innerHTML = `<div class="pin">
-      <div class="ja">${esc(p.ja)}</div>
-      <div class="zh">${esc(p.zh || '')}</div>
-      <div class="src"><a href="${songUrl(p.song)}">${esc(p.title)} →</a>${p.n > 1 ? ` · 副歌 ×${p.n}` : ''}</div>
-      <div class="cst">所屬星座:${esc(cName(cl))}(${cl.size} 句)</div></div>`;
-  });
+  .on('click', function (e, p) { pin(this, p); });
+
+const sidePH = side.innerHTML;
+let pinned = null;   // 目前釘選的那顆星 (Esc 時焦點還給它)
+function pin(el, p) {
+  const cl = DATA.clusters.find(c => c.id === p.c);
+  side.innerHTML = `<div class="pin">
+    <div class="ja">${esc(p.ja)}</div>
+    <div class="zh">${esc(p.zh || '')}</div>
+    <div class="src"><a href="${songUrl(p.song)}">${esc(p.title)} →</a>${p.n > 1 ? ` · 副歌 ×${p.n}` : ''}</div>
+    <div class="cst">所屬星座:${esc(cName(cl))}(${cl.size} 句)</div></div>`;
+  pinned = el;
+  rove(el);
+}
+function unpin() {
+  if (!pinned) return;
+  side.innerHTML = sidePH;
+  pinned.focus();
+  pinned = null;
+}
+
+// 焦點框: 一個方框疊在最上層, 跟著有焦點的星
+const ring = root.append('g').attr('class', 'ring').attr('aria-hidden', 'true').style('display', 'none');
+ring.append('rect').attr('class', 'bk');
+ring.append('rect').attr('class', 'fg');
+function rove(el) {
+  star.attr('tabindex', -1);
+  el.setAttribute('tabindex', 0);
+}
+star.on('focus', function (e, p) {
+  rove(this);
+  if (!this.matches(':focus-visible')) return;   // 滑鼠點的不畫框
+  const h = Math.ceil(R(p)) + 4;
+  ring.style('display', null).selectAll('rect')
+    .attr('x', sx(p.x) - h).attr('y', sy(p.y) - h).attr('width', h * 2).attr('height', h * 2);
+}).on('blur', () => ring.style('display', 'none'));
+
+// 方向鍵: 往那個方向找最近的星 (偏離方向的距離算重一點, 才不會斜著亂跳);
+// 有輸入過濾字的時候只在亮著的星之間跳
+const DIRS = { ArrowRight: [1, 0], ArrowLeft: [-1, 0], ArrowDown: [0, 1], ArrowUp: [0, -1] };
+let lit = () => true;
+function next(p, [dx, dy]) {
+  let best = null, bestS = Infinity;
+  for (const q of DATA.points) {
+    if (q === p || !lit(q)) continue;
+    const ax = (q.x - p.x) * dx + (q.y - p.y) * dy;        // 沿方向
+    if (ax <= 0) continue;
+    const off = Math.abs((q.x - p.x) * dy - (q.y - p.y) * dx);   // 偏離方向
+    const s = ax + off * 2.5;
+    if (s < bestS) { bestS = s; best = q; }
+  }
+  return best;
+}
+const starEl = new Map();
+star.each(function (p) { starEl.set(p, this); });
+star.on('keydown', function (e, p) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    pin(this, p);
+  } else if (DIRS[e.key]) {
+    e.preventDefault();
+    const q = next(p, DIRS[e.key]);
+    if (q) starEl.get(q).focus();
+  }
+});
+// Esc: 在星圖或側欄裡按都收起來, 焦點回到剛剛那顆星
+document.getElementById('sky').addEventListener('keydown', e => { if (e.key === 'Escape') unpin(); });
+side.addEventListener('keydown', e => { if (e.key === 'Escape') unpin(); });
 
 // 文字過濾點亮
 document.getElementById('filter').addEventListener('input', e => {
   const q = e.target.value.trim();
   const hit = p => !q || p.ja.includes(q) || (p.zh && p.zh.includes(q));
+  lit = hit;
   star.attr('opacity', p => hit(p) ? 1 : .12);
   halo.attr('opacity', p => hit(p) ? .13 : .02);
 });
