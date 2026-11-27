@@ -16,6 +16,7 @@ import { existsSync } from 'node:fs';
 import fullLive from '../../data/full_live.json';
 import { summary, type FLSong } from '../../lib/fullLive';
 import translationDates from '../../data/translation_dates.json';
+import { splitTags, tagHref } from '../../lib/songTags';
 
 export async function getStaticPaths() {
   const translations = await getCollection('translations');
@@ -61,7 +62,9 @@ const nextSong = trackNumber
   ? albumSiblings.find(t => t.data.trackNumber === trackNumber + 1)
   : undefined;
 
-const description = `${artist} 的「${title}」日文歌曲翻譯。${tags?.slice(0, 3).join('、') ?? ''}`;
+// 標籤三組: 曲風、主題 (# 開頭, 連到主題頁)、合作與出處
+const tagGroups = splitTags(tags);
+const description = `${artist} 的「${title}」日文歌曲翻譯。${tagGroups.themes.map(t => t.name).join('、')}`;
 // 分享圖: scripts/og-pages.mjs 畫的 1200×630 歌曲卡優先, 新歌還沒跑腳本就先退回封面
 const ogCard = `/og/song/${translation.id}.png`;
 const image = existsSync(`public${ogCard}`) ? ogCard
@@ -90,7 +93,9 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
     cover={coverImage} coverAlt={`${title} 封面`} coverTransition={`cover-${translation.id}`}
     chips={[
       ...(album ? [[album, albumYear ? `· ${albumYear}${trackNumber ? ` · Track ${trackNumber}` : ''}` : (trackNumber ? `· Track ${trackNumber}` : '')] as [string, string]] : []),
-      ...tags.map(tag => [tag] as [string]),
+      ...tagGroups.genres.map(t => [t.name] as [string]),
+      ...tagGroups.themes.map(t => ['#', t.name, tagHref(t)] as [string, string, string]),
+      ...tagGroups.credits.map(tag => [tag] as [string]),
       ...(instrumental ? [['Instrumental'] as [string]] : []),
       ...(!isTranslated ? [['翻譯中'] as [string]] : []),
     ]}

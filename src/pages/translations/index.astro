@@ -53,7 +53,7 @@ const albumCount = tabs.filter(t => t.year > 0).length;
   <PageHero slot="hero" planet="earth" title="日文歌翻譯" cmd="ls -l"
     desc="收錄我喜愛的日文歌曲翻譯，包含原文與中文對照。"
     chips={[[`${totalTranslated}/${totalSongs}`, '已翻譯'], [String(albumCount), '張專輯']]}
-    actions={[{ label: '隨機一首', href: '#random', primary: true }, { label: '歌詞索引', href: '/kwic/' }]} />
+    actions={[{ label: '隨機一首', href: '#random', primary: true }, { label: '主題標籤', href: '/translations/tags/' }, { label: '歌詞索引', href: '/kwic/' }]} />
 
   {allTranslations.length === 0 && (
     <p class="text-gray-500 text-center py-12">還沒有翻譯文章，敬請期待！</p>

@@ -1,0 +1,99 @@
+---
+/**
+ * 標籤總覽: 翻譯歌曲的標籤分三組列出來
+ *   主題 (固定 18 個) 跟曲風各有一頁歌單; 合作與出處不算主題, 直接把歌列在後面
+ * 詞彙表 src/data/song_tags.json, 分組 src/lib/songTags.ts
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import { getCollection } from 'astro:content';
+import { THEMES, GENRES, CREDITS, splitTags, tagHref } from '../../../lib/songTags';
+
+const songs = (await getCollection('translations'))
+  .map(t => ({ t, ...splitTags(t.data.tags) }))
+  .sort((a, b) => new Date(a.t.data.publishDate).valueOf() - new Date(b.t.data.publishDate).valueOf());
+
+const themes = THEMES.map(def => ({ def, songs: songs.filter(s => s.themes.some(x => x.slug === def.slug)) }));
+const genres = GENRES.map(def => ({ def, n: songs.filter(s => s.genres.some(x => x.slug === def.slug)).length }));
+const credits = CREDITS
+  .map(name => ({ name, songs: songs.filter(s => s.credits.includes(name)) }))
+  .filter(c => c.songs.length > 0);
+---
+
+<BaseLayout title="歌曲標籤" description="日文歌翻譯的標籤: 18 個主題、曲風、合作與出處。" viewTransitions={true} width="wide">
+  <PageHero slot="hero" planet="earth" title="歌曲標籤" path="~/earth/translations/tags" cmd="ls tags/"
+    desc="每首歌挑 1~3 個主題，點進去就是同一種心情的歌單。"
+    chips={[[String(THEMES.length), '個主題'], [String(GENRES.length), '種曲風'], [String(songs.length), '首歌']]}
+    actions={[{ label: '全部歌曲', href: '/translations/' }]} />
+
+  <section class="tg-sec" aria-labelledby="tg-theme">
+    <div class="tg-hd"><h2 id="tg-theme">主題</h2><span>{THEMES.length} 個</span></div>
+    <ul class="tg-themes">
+      {themes.map(({ def, songs: list }) => (
+        <li><a class="sh-card tg-theme" href={tagHref(def)}>
+          <span class="nm"><b>#</b>{def.name}</span>
+          <span class="n">{list.length} 首</span>
+          {def.desc && <span class="d">{def.desc}</span>}
+          <span class="s" lang="ja">{list.slice(0, 3).map(s => s.t.data.title).join(' / ')}{list.length > 3 ? ' …' : ''}</span>
+        </a></li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="tg-sec" aria-labelledby="tg-genre">
+    <div class="tg-hd"><h2 id="tg-genre">曲風</h2><span>{GENRES.length} 種</span></div>
+    <ul class="tg-chips">
+      {genres.map(({ def, n }) => (
+        <li><a class="sh-tag tg-chip" href={tagHref(def)}>{def.name}<small>{n}</small></a></li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="tg-sec" aria-labelledby="tg-credit">
+    <div class="tg-hd"><h2 id="tg-credit">合作與出處</h2><span>{credits.length} 個</span></div>
+    <dl class="tg-credits">
+      {credits.map(c => (
+        <div>
+          <dt>{c.name}</dt>
+          <dd>{c.songs.map((s, i) => <>{i > 0 && <i aria-hidden="true">·</i>}<a class="sh-link" lang="ja" href={`/translations/${s.t.id}`}>{s.t.data.title}</a></>)}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  /* 段落標題: 跟翻譯頁封面牆的專輯標題同一個樣子 (字 + 數量 + 虛線) */
+  .tg-sec { margin: 0 0 40px; }
+  .tg-hd { display: flex; align-items: baseline; gap: 12px; margin: 28px 0 14px; font: 12px var(--sh-px); color: var(--sh-ink3); letter-spacing: .06em; }
+  .tg-hd h2 { margin: 0; font: 400 24px/32px var(--sh-pxja); color: #fff; letter-spacing: .04em; }
+  .tg-hd::after { content: ''; flex: 1; align-self: center; height: 2px; background: repeating-linear-gradient(90deg, var(--sh-line) 0 4px, transparent 4px 8px); }
+
+  .tg-themes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+  .tg-theme { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 8px; height: 100%; box-sizing: border-box; padding: 12px 14px; }
+  .tg-theme .nm { font: 20px/28px var(--sh-px10); color: #fff; }
+  .tg-theme .nm b { font-weight: 400; color: rgb(var(--sh-accent)); margin-right: 4px; }
+  .tg-theme .n { align-self: center; font: 12px var(--sh-px); color: rgb(var(--sh-accent)); letter-spacing: .06em; }
+  .tg-theme .d { grid-column: 1 / -1; font: 12px/1.6 var(--sh-px); color: var(--sh-ink2); letter-spacing: .04em; }
+  .tg-theme .s { grid-column: 1 / -1; font: 12px/1.6 'PX10-JA', var(--sh-px10); color: var(--sh-ink3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tg-theme:hover .nm, .tg-theme:focus-visible .nm { color: var(--sh-gold); }
+
+  .tg-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .tg-chip { text-decoration: none; }
+  .tg-chip small { margin-left: 8px; font-size: 12px; color: rgb(var(--sh-accent)); }
+  .tg-chip:hover, .tg-chip:focus-visible { color: var(--sh-gold); border-color: var(--sh-gold); outline: none; }
+
+  .tg-credits { margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px 28px; }
+  .tg-credits > div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px; padding: 6px 0; border-bottom: 1px solid rgb(255 255 255 / .04); }
+  .tg-credits dt { font: 12px/24px var(--sh-px); color: var(--sh-ink3); letter-spacing: .06em; overflow-wrap: anywhere; }
+  .tg-credits dd { margin: 0; font: 16px/24px 'PX10-JA', var(--sh-px10); }
+  .tg-credits dd i { font-style: normal; color: var(--sh-ink3); margin: 0 .5em; }
+  @media (max-width: 640px) {
+    .tg-themes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .tg-theme { padding: 10px; }
+    .tg-theme .nm { font-size: 16px; line-height: 24px; }
+    .tg-theme .d { display: none; }
+    .tg-credits { grid-template-columns: minmax(0, 1fr); }
+    .tg-credits > div { grid-template-columns: 96px minmax(0, 1fr); }
+  }
+</style>

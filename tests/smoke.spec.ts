@@ -6,7 +6,7 @@ import { readdirSync, existsSync } from 'node:fs';
 // 測試不吃網路、也不會因為外站慢或掛掉而紅。
 
 const STATIC_PAGES = [
-  '/', '/about/', '/diary/', '/projects/', '/translations/', '/extras/', '/setlists/',
+  '/', '/about/', '/diary/', '/projects/', '/translations/', '/translations/tags/', '/extras/', '/setlists/',
   '/live/', '/live/full/', '/live/timeline/', '/live/concerts/', '/live/footprint/',
   '/lyric-universe/', '/kwic/', '/star-map/', '/gacha/', '/galaxy/',
   '/annotate/', '/admin/',
@@ -17,7 +17,8 @@ function sample(route: string): string[] {
   const dir = `dist${route}`;
   if (!existsSync(dir)) return [];
   const ids = readdirSync(dir, { withFileTypes: true })
-    .filter((d) => d.isDirectory() && existsSync(`${dir}${d.name}/index.html`))
+    // /translations/tags/ 是標籤頁, 不是一首歌 (上面 STATIC_PAGES 已經有)
+    .filter((d) => d.isDirectory() && d.name !== 'tags' && existsSync(`${dir}${d.name}/index.html`))
     .map((d) => d.name)
     .sort();
   const picked = process.env.E2E_ALL ? ids : [...new Set([ids[0], ids[Math.floor(ids.length / 2)], ids[ids.length - 1]])];
