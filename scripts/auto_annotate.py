@@ -455,6 +455,53 @@ def decide_song(top, guess, method):
         return t1
     return None
 
+# ---------- 「這不是單曲」偵測: 宣傳 / 巡演回顧 / 拼盤 live 會被硬配一首歌 ----------
+# 人工標成 __promo / __tour_recap / __live_song… 的 90 支裡 76 支被配到歌、51 支還是 A 級。
+# 很多支的聲音其實就是某首歌的一段 (光聽分不出來), 只抓得到「明顯不是一首歌」的:
+#   title   標題是活動 / 宣傳字樣 (fes 感謝文、週邊、新照片、每週幸運曲、旅行 vlog…)
+#   foreign 轉寫有 ≥20% 的文字明顯是「另一首歌」(拼盤 / 回顧)
+# (試過第三條「轉寫很長但對到的句子只佔影片時間一小段」: 驗收組會把真歌誤降, 拿掉了)
+# 命中任一條 → needsReview 加 not_single_song、評級降成 C (merge 不會寫進去, 留給人工)
+NONSONG_TITLE = re.compile(r'fest|フェス|ありがとうございました|thank you|goods|グッズ|new ?photo|'
+                           r'lucky .*track|feeling in|osanpo', re.I)
+NONSONG_FOREIGN = (16, 70, 15, 0.2)   # 視窗假名數, 別首歌分數下限, 領先本曲分數, 文字比例門檻
+NONSONG_CHECK = True
+
+
+def _foreign_ratio(segments, sid, songs):
+    """轉寫切成 ~16 假名的視窗, 明顯比較像別首歌 (≥70 分且領先本曲 ≥15) 的文字比例"""
+    W, lo, lead, _ = NONSONG_FOREIGN
+    wins, cur = [], ''
+    for s in segments or []:
+        cur += to_hira(s.get('text') or '')
+        if len(cur) >= W:
+            wins.append(cur); cur = ''
+    if len(cur) >= 8:
+        wins.append(cur)
+    tot = sum(len(w) for w in wins)
+    if not tot:
+        return 0.0
+    own_full = songs[sid]['full']
+    others = [s['full'] for k, s in songs.items() if k != sid]
+    bad = 0
+    for w in wins:
+        own = fuzz.partial_ratio(w, own_full)
+        oth = max((fuzz.partial_ratio(w, f) for f in others), default=0)
+        if oth >= lo and oth - own >= lead:
+            bad += len(w)
+    return bad / tot
+
+
+def nonsong_signals(title, segments, anchors, duration, sid, songs):
+    """回傳命中的訊號名稱 list (空 = 看起來是單曲)"""
+    hit = []
+    if title and NONSONG_TITLE.search(title):
+        hit.append('title')
+    if sid in songs and _foreign_ratio(segments, sid, songs) >= NONSONG_FOREIGN[3]:
+        hit.append('foreign')
+    return hit
+
+
 # ---------- 單支處理 ----------
 ALGO = 3              # 演算法版本; --redo 會重跑舊版本的結果 (v3: 頭尾延伸 + whisper 時間優先, 每支 anchors 都可能變)
 
@@ -532,8 +579,13 @@ def analyze(rec, tr, item, songs, model_name, path, two_pass=False, force_song=N
     if s1 < 50 and len(real) < 3: reasons.append('low_song_score')
     if conflict: reasons.append('song_conflict')
     if ambiguous: reasons.append('ambiguous_start')
+    if NONSONG_CHECK and not force_song:
+        ns = nonsong_signals(item.get('title'), tr.get('segments'), anchors, tr.get('duration'), sid, songs)
+        if ns:
+            reasons.append('not_single_song'); rec['nonSong'] = ns
     grade = ('A' if not reasons else
-             'C' if ('anchors<2' in reasons or 'low_align' in reasons or len(reasons) >= 3) else 'B')
+             'C' if ('anchors<2' in reasons or 'low_align' in reasons or 'not_single_song' in reasons
+                     or len(reasons) >= 3) else 'B')
     rec.update(anchors=anchors, confidence=round(mean, 1), needsReview=reasons, grade=grade)
     return rec
 

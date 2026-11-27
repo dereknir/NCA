@@ -182,3 +182,34 @@ def test_extend_edges_est0_only_adds_text_matched_lines():
     hira = VERSES[0] + VERSES[1] + 'ありがとうございました'
     chain = [(1, 0, 100.0), (2, len(VERSES[0]), 100.0)]
     assert [c[0] for c in aa._extend_edges(lines, hira, chain, est=0)] == [1, 2]
+
+
+# ---------- 「這不是單曲」偵測 ----------
+OTHER = ['あめのにおいがした', 'とおくのでんしゃのおと', 'ねむれないよるに', 'しろいいきをはいた', 'まどのそとはゆき']
+
+
+def _songs():
+    a = make_song(VERSES); a['id'] = 'a'
+    b = make_song(OTHER); b['id'] = 'b'
+    return {'a': a, 'b': b}
+
+
+def test_nonsong_title_hits_event_words():
+    songs = _songs()
+    segs = [{'text': ''.join(VERSES)}]
+    assert aa.nonsong_signals('FES ありがとうございました!', segs, [], 30, 'a', songs) == ['title']
+    assert aa.nonsong_signals('new song MV', segs, [], 30, 'a', songs) == []
+
+
+def test_nonsong_foreign_text_from_other_song():
+    songs = _songs()
+    segs = [{'text': t} for t in VERSES[:2] + OTHER]   # 大半是另一首歌的詞 → 拼盤 / 回顧
+    assert 'foreign' in aa.nonsong_signals('', segs, [], 60, 'a', songs)
+
+
+def test_nonsong_long_talk_with_short_match_is_not_flagged():
+    # 轉寫很長、對到的句子只佔一小段 — 這種以前會被降級, 但會誤傷真歌, 現在不算
+    songs = _songs()
+    segs = [{'text': VERSES[0]}, {'text': 'えーとですねきょうはみなさんほんとうにありがとうございますそれではきいてください' * 3}]
+    anchors = [{'t': 1.0}, {'t': 3.0}]
+    assert aa.nonsong_signals('', segs, anchors, 120, 'a', songs) == []
