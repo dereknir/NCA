@@ -1,0 +1,72 @@
+---
+title: "這個站怎麼運作"
+description: "從 YouTube shorts 到歌詞頁上一句一句跟著唱: 抓影片、語音辨識、對齊歌詞、人工審核、衍生資料、Astro 建置、Vercel 上線的整條資料流程。"
+publishDate: 2026-11-27
+githubUrl: "https://github.com/dereknir/NCA"
+techStack: ["Astro", "TypeScript", "Python", "yt-dlp", "ASR", "GitHub Actions", "Vercel", "Playwright"]
+featured: true
+---
+import PipelineDiagram from '../../components/PipelineDiagram.astro';
+import Stat from '../../components/PipelineStat.astro';
+
+這個站最核心的功能, 是在歌詞頁上放にしな的現場影片, 而且影片唱到哪一句, 歌詞就亮到哪一句。
+官方頻道已經有 <Stat k="shorts" /> 支 shorts, 大部分是演唱會的片段, 每支十幾秒到一分鐘。
+要讓它們「對上」歌詞, 我得知道每一支是哪首歌、從第幾句唱到第幾句、每一句在第幾秒。
+
+一支一支手標太慢, 全部交給模型又不夠準, 所以我做了一條「模型先打草稿、我來審」的流程:
+
+<PipelineDiagram />
+
+## 1. 抓影片
+
+GitHub Actions 每天凌晨 3 點用 yt-dlp 掃一次頻道, 新的 shorts 進 `data/nishina_shorts.json`,
+順便分類 (演唱會 / 花絮)、排進標注佇列, 有新東西就寄日報給我。
+整條排程只 commit 明確列出的衍生檔, 也不會 push 到自己的觸發路徑, 幾支 workflow 之間不會互相觸發成迴圈。
+
+## 2. 聽寫 + 3. 對歌詞
+
+語音辨識在我自己的電腦上跑, 拿到帶時間的逐字稿之後, 跟 50 首歌的歌詞做模糊比對:
+先認是哪一首, 再找每一句歌詞落在第幾秒。演唱會的音質很難 — 觀眾聲、樂器、即興改詞都有,
+所以每支初稿都會附信心分數, 讓我知道哪些要特別看。
+
+目前有 <Stat k="autoDrafts" /> 支跑過初稿。拿已經審完的 <Stat k="compared" /> 支來比,
+**初稿完全不用改的有 <Stat k="autoPerfectPct" />** (同一首歌、同樣幾句、每句時間差在 1 秒內),
+兩邊都有標的句子裡 <Stat k="autoLineOkPct" /> 的時間差在 1 秒內。
+剩下的大多是開頭或結尾少抓一句, 或是時間差了幾秒。
+
+## 4. 人工審
+
+[/annotate/](/annotate/) 是我給自己做的標注器: 邊看影片邊按, 記下每一句的時間點,
+也可以直接看著模型的初稿改。存檔時直接 commit 回 repo, 手機上也能審。
+到現在審過 <Stat k="reviewed" /> 支, 還有 <Stat k="waiting" /> 支在等。
+
+審完的定稿也是模型的考卷: 我把它們分成 dev / test 兩份, 改演算法只看 dev,
+test 留到最後驗收才看一次, 這樣比較不會騙自己。
+
+## 5. 衍生資料
+
+標注檔一更新, `sync-derived` 這支 workflow 30 秒內就會重算歌詞頁要用的資料:
+哪首歌有哪些現場片段、按版本分好 (Live / MV / THE FIRST TAKE)、扭蛋卡池。
+現在有 <Stat k="songsWithShorts" /> 首歌找得到現場影片, 其中 <Stat k="fullLive" /> 首每一句都湊得到有人在現場唱,
+可以從頭到尾「接」成一首完整 Live。
+
+`check_sync.py` 負責檢查各處的鏡像檔跟來源一致, CI 每次都跑, 不一致就擋下來。
+
+## 6. Astro 建置
+
+整個站是純靜態的 Astro: 翻譯是 Markdown (frontmatter 有 schema 檢查), 數字都在 build 的時候從 JSON 算
+— 包括這一頁的每一個數字。push 之後 CI 會跑 `astro check` (型別)、`astro build`,
+還有 Playwright 冒煙測試: 每一頁用桌機 1440 與手機 390 各開一次, 看有沒有 console error、橫向捲動、主要區塊不見。
+
+## 7. Vercel
+
+`develop` 的每個分支都會有自己的預覽網址, 我在手機上點開確認; 沒問題才合進 `main`, 由 Vercel 建置成正式站。
+總共有 <Stat k="workflows" /> 支 GitHub Actions 在顧這些事。
+
+## 為什麼這樣做
+
+- **純靜態**: 沒有後端要維護, 資料都在 repo 裡, 每一次改動都有 git 紀錄可以追。
+- **模型打草稿、人來審**: 模型的完美率還到不了可以直接上線, 但它把「從零開始標」變成「看一眼、改幾格」, 我只要把力氣花在它不確定的地方。
+- **數字不寫死**: 這頁跟[關於我](/about/)上的數字都是 build 時算的, 資料一更新就跟著變, 不會有過期的說明。
+
+原始碼都在 [GitHub](https://github.com/dereknir/NCA)。

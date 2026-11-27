@@ -1,0 +1,15 @@
+---
+// 在 MDX 內文裡塞一個 build 時算的數字: <Stat k="reviewed" />
+import { getPipelineStats, pct, fmt, type PipelineStats } from '../lib/pipelineStats';
+
+interface Props { k: keyof PipelineStats | 'autoPerfectPct' | 'autoLineOkPct' }
+const { k } = Astro.props;
+const s = await getPipelineStats();
+
+const out =
+  k === 'autoPerfectPct' ? pct(s.autoPerfect, s.compared) :
+  k === 'autoLineOkPct' ? `${Math.round(s.autoLineOk * 100)}%` :
+  typeof s[k] === 'number' ? fmt(s[k] as number) : String(s[k]);
+---
+<strong class="ps">{out}</strong>
+<style>.ps { color: var(--sh-gold); font-weight: 400; font-family: var(--sh-px); }</style>
