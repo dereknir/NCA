@@ -194,22 +194,51 @@ def _songs():
     return {'a': a, 'b': b}
 
 
-def test_nonsong_title_hits_event_words():
+@pytest.mark.parametrize('title', ['FES ありがとうございました!', 'tour thank you!!', 'new photo', 'グッズ出ます', 'Your lucky nishina track'])
+def test_nonsong_title_hits_event_words(title):
     songs = _songs()
-    segs = [{'text': ''.join(VERSES)}]
-    assert aa.nonsong_signals('FES ありがとうございました!', segs, [], 30, 'a', songs) == ['title']
-    assert aa.nonsong_signals('new song MV', segs, [], 30, 'a', songs) == []
+    assert aa.nonsong_signals(title, [[{'text': ''.join(VERSES)}]], 'a', songs) == ['title']
+
+
+@pytest.mark.parametrize('title', ['new song MV', 'our feeling in someday #newmusic', 'Manifesto live', 'Festival live',
+                                   'thank you for 1M views', 'きょうもきょうとて #フェス', '#live #thankyou'])
+def test_nonsong_title_does_not_hit_real_song_titles(title):
+    songs = _songs()
+    assert aa.nonsong_signals(title, [[{'text': ''.join(VERSES)}]], 'a', songs) == []
 
 
 def test_nonsong_foreign_text_from_other_song():
     songs = _songs()
-    segs = [{'text': t} for t in VERSES[:2] + OTHER]   # 大半是另一首歌的詞 → 拼盤 / 回顧
-    assert 'foreign' in aa.nonsong_signals('', segs, [], 60, 'a', songs)
+    segs = [{'text': t} for t in VERSES[:2] + OTHER * 2]   # 大半是另一首歌的詞 → 拼盤 / 回顧
+    assert aa.nonsong_signals('', [segs], 'a', songs) == ['foreign']
+    assert aa.nonsong_signals('', [None, segs], 'a', songs) == ['foreign']   # 任一份轉寫命中就算
 
 
-def test_nonsong_long_talk_with_short_match_is_not_flagged():
-    # 轉寫很長、對到的句子只佔一小段 — 這種以前會被降級, 但會誤傷真歌, 現在不算
+def test_nonsong_short_clip_with_misheard_tail_is_not_flagged():
+    # 短片段: 本曲的詞 + 尾巴一小段剛好像別首歌 → 不能只靠一個短尾巴就判成「不是單曲」
     songs = _songs()
-    segs = [{'text': VERSES[0]}, {'text': 'えーとですねきょうはみなさんほんとうにありがとうございますそれではきいてください' * 3}]
-    anchors = [{'t': 1.0}, {'t': 3.0}]
-    assert aa.nonsong_signals('', segs, anchors, 120, 'a', songs) == []
+    segs = [{'text': t} for t in VERSES[:3]] + [{'text': OTHER[0]}]
+    assert aa.nonsong_signals('', [segs], 'a', songs) == []
+
+
+def test_nonsong_edge_inputs():
+    songs = _songs()
+    assert aa.nonsong_signals(None, [None], 'a', songs) == []
+    assert aa.nonsong_signals('', [[{'text': None}, None]], 'a', songs) == []
+    assert aa.nonsong_signals('', [[{'text': ''.join(OTHER) * 3}]], 'zz', songs) == []
+
+
+def test_apply_nonsong_grades_c_and_respects_force_song():
+    songs = _songs()
+    base = dict(songId='a', grade='A', needsReview=[])
+    out = aa.apply_nonsong(dict(base), {'title': 'new photo'}, songs, [{'segments': []}])
+    assert out['grade'] == 'C' and 'not_single_song' in out['needsReview'] and out['nonSong'] == ['title']
+    kept = aa.apply_nonsong(dict(base), {'title': 'new photo'}, songs, [{'segments': []}], force_song='a')
+    assert kept['grade'] == 'A' and 'nonSong' not in kept
+
+
+def test_nonsong_windows_merge_short_tail():
+    segs = [{'text': 'あ' * 20}, {'text': 'い' * 15}]
+    assert [len(w) for w in aa._windows(segs, 16)] == [16, 19]
+    assert [len(w) for w in aa._windows([{'text': 'あ' * 32}], 16)] == [16, 16]
+    assert aa._windows([{'text': 'あ' * 5}], 16) == ['あ' * 5]
