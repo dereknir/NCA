@@ -839,3 +839,23 @@ def test_whisper_est_one_shared_line_enough_when_qwen_flipped():
     tw = {a['line']: a['t'] for a in aw if not a.get('est')}
     assert aa._whisper_est(qa, aw, tw) == {}
     assert aa._whisper_est(qa, aw, tw, need=1) == {32: 8.7, 33: 10.5}
+
+
+def test_prior_without_excludes_the_clip_itself_and_restores():
+    # --validate / --ids 重跑已手標的片段: 先驗不能含它自己的人工答案; 機器的 (status=auto) 永遠不算; 標注資料不動
+    H = {'a': dict(songId='s', status='done', anchors=[{'line': 0, 't': 0}]),
+         'b': dict(songId='s', status='done', anchors=[{'line': 4, 't': 0}]),
+         'm': dict(songId='s', status='auto', source='auto', anchors=[{'line': 9, 't': 0}])}
+    import json
+    snap = json.dumps(H, sort_keys=True)
+    songs = {'s': make_song(['あおいそらのしたで'] * 10)}
+    aa.attach_line_prior(songs, H)
+    assert songs['s']['prior'] == {0: 0.5, 4: 0.5}
+    with aa.prior_without(songs, H, 'a'):
+        assert songs['s']['prior'] == {4: 1.0}
+    assert songs['s']['prior'] == {0: 0.5, 4: 0.5}
+    with aa.prior_without(songs, H, 'm'):                  # 不是手標的: 先驗不變
+        assert songs['s']['prior'] == {0: 0.5, 4: 0.5}
+    with aa.prior_without(songs, H, 'unknown'):            # 標注檔沒有這支 / 歌不在歌詞檔: 不動
+        pass
+    assert json.dumps(H, sort_keys=True) == snap and H['m']['status'] == 'auto'
