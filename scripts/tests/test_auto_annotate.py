@@ -637,3 +637,46 @@ def test_peer_apply_keeps_not_single_song_c(tmp_path, monkeypatch):
     pa.apply(out)
     ns = json.loads(out.read_text(encoding='utf-8'))['items']['ns']
     assert ns['grade'] == 'C' and 'not_single_song' in ns['needsReview']
+
+
+def test_backfill_confirmed_song_clears_foreign_flag():
+    # 歌名已人工確認: process 本來就不套非單曲偵測, 舊的 foreign 旗也要還原 (不然一直卡 C)
+    songs = _songs()
+    r = _stored('heavy smoke', grade='B')
+    r['asr'].update(grade='C', needsReview=['not_single_song'], nonSong=['foreign'], gradeBeforeNonsong='B')
+    r.update(grade='C', needsReview=['not_single_song'], nonSong=['foreign'])
+    assert aa.backfill_nonsong(r, songs, force_song='a') is True
+    assert r['asr']['grade'] == 'B' and r['grade'] == 'B' and r['needsReview'] == [] and 'nonSong' not in r
+    # 沒確認歌名時照舊不動 (轉寫那條只存一份轉寫, 沒辦法重判)
+    o = _stored('heavy smoke', grade='B')
+    o['asr'].update(grade='C', needsReview=['not_single_song'], nonSong=['foreign'], gradeBeforeNonsong='B')
+    o.update(grade='C', needsReview=['not_single_song'])
+    assert aa.backfill_nonsong(o, songs) is False and o['grade'] == 'C'
+
+
+def test_merge_dropped_by_merge_can_come_back(tmp_path, monkeypatch):
+    # merge 因為非單曲把舊建議退回手動 → 之後規則放寬、評級還原, 下一次 merge 要能再放回待審;
+    # 人工按「退回手動」的 (沒有 autoDropped) 照舊不動
+    import json
+    ok = dict(songId='a', grade='A', needsReview=[], anchors=[{'t': 1.0, 'line': 0, 'score': 90}], versionType=None)
+    old = {'songId': 'a', 'anchors': [{'t': 1, 'line': 0}], 'status': 'auto', 'source': 'auto', 'autoGrade': 'A', 'tour': 't1'}
+    anc = tmp_path / 'anchors.json'
+    anc.write_text(json.dumps({'x': dict(old), 'h': {'songId': 'a', 'anchors': [], 'status': 'pending', 'source': 'manual'}}), encoding='utf-8')
+    monkeypatch.setattr(aa, 'ANCHORS_F', anc)
+    monkeypatch.setattr(aa, 'PUB_F', tmp_path / 'pub.json')
+    monkeypatch.setattr(aa, 'ROOT', tmp_path)
+    out = tmp_path / 'auto.json'
+    out.write_text(json.dumps({'meta': {}, 'items': {'x': dict(ok, grade='C', needsReview=['not_single_song']), 'h': dict(ok)}}), encoding='utf-8')
+    aa.merge(out)
+    H = json.loads(anc.read_text(encoding='utf-8'))
+    assert H['x']['status'] == 'pending' and H['x']['autoDropped'] is True and H['h']['status'] == 'pending'
+    out.write_text(json.dumps({'meta': {}, 'items': {'x': dict(ok), 'h': dict(ok)}}), encoding='utf-8')
+    aa.merge(out)
+    H = json.loads(anc.read_text(encoding='utf-8'))
+    assert H['x']['status'] == 'auto' and H['x']['autoGrade'] == 'A' and 'autoDropped' not in H['x'] and H['x']['tour'] == 't1'
+    assert H['h']['status'] == 'pending' and H['h']['source'] == 'manual'          # 人工退回的不覆蓋
+    # 退回之後人工已經開始打點 / 確認歌名 → 不覆蓋
+    for extra in ({'anchors': [{'t': 2, 'line': 1}]}, {'songConfirmed': True}):
+        anc.write_text(json.dumps({'x': dict({'songId': 'a', 'anchors': [], 'status': 'pending', 'source': 'manual', 'autoDropped': True}, **extra)}), encoding='utf-8')
+        aa.merge(out)
+        assert json.loads(anc.read_text(encoding='utf-8'))['x']['status'] == 'pending'
