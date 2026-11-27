@@ -96,8 +96,9 @@
   }
   @media (max-width: 760px) { .lyr-modes button[data-k="layout"] { display: none; } }   /* 手機放不下兩欄 */
 
-  /* 只看歌詞: 文章裡其他段落、上面的影片都收起來 */
-  .lyr-focus [data-lyr-other], .lyr-focus article > .aspect-video { display: none !important; }
+  /* 只看歌詞: 文章裡其他段落、上面的影片都收起來
+     shorts 架是頁面上另一段 script 搬進文章的, 比 mount() 晚, 標不到 data-lyr-other, 直接點名 */
+  .lyr-focus [data-lyr-other], .lyr-focus article > .aspect-video, .lyr-focus article .shelf { display: none !important; }
 
   /* ===== 紙本: 文章那一塊像攤開一張紙放在星空上; 頁首、標題區、目錄還是宇宙 ===== */
   :root[data-paper="on"] main article {
