@@ -4,7 +4,7 @@ artist: "にしな"
 album: "odds and ends"
 albumYear: 2021
 trackNumber: 8
-publishDate: 2026-07-05
+publishDate: 2021-03-31
 tags: ["J-POP", "暗戀・單戀", "夜"]
 originalLang: ja
 coverImage: "/covers/nishina/heavy-smoke.jpg"
