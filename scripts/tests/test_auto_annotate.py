@@ -193,6 +193,32 @@ def test_whisper_lead_adds_text_matched_lines_before_qwen_chain():
     assert out[1].get('est')                                       # whisper 的估計句照樣標 est
 
 
+# ---------- _whisper_est (hybrid: Qwen 的估計句改用 whisper 估的時間) ----------
+def test_whisper_est_uses_whisper_estimate_for_qwen_estimate_line():
+    # Qwen 整句吃掉第 33 句, 估計句擠到下一句的位置; whisper 同一句也是估的, 但位置對
+    qa = _q((31, 5.5, 0), (32, 9.3, 0), (33, 13.9, 1), (34, 14.3, 0))
+    aw = _q((31, 5.4, 0), (32, 9.2, 0), (33, 10.6, 1), (34, 13.9, 0))
+    tw = {a['line']: a['t'] for a in aw if not a.get('est')}
+    assert aa._whisper_est(qa, aw, tw) == {33: 10.6}
+    out = aa._retime(qa, {**tw, **aa._whisper_est(qa, aw, tw)})
+    assert [a['t'] for a in out] == [5.4, 9.2, 10.6, 13.9]
+    assert out[2].get('est')                                       # 還是估計句, 審核時照樣提醒
+
+
+def test_whisper_est_needs_two_shared_real_lines():
+    qa = _q((31, 5.5, 0), (32, 9.3, 1), (33, 13.9, 0))
+    aw = _q((31, 5.4, 0), (32, 7.0, 1), (33, 20.0, 1))
+    tw = {a['line']: a['t'] for a in aw if not a.get('est')}
+    assert aa._whisper_est(qa, aw, tw) == {}                       # 只有 1 句共同實對句: 可能是另一段, 不用
+
+
+def test_whisper_est_never_overrides_qwen_real_line():
+    qa = _q((1, 1.0, 0), (2, 4.0, 0), (3, 8.0, 0))
+    aw = _q((1, 1.1, 0), (2, 4.1, 0), (3, 6.0, 1))
+    tw = {a['line']: a['t'] for a in aw if not a.get('est')}
+    assert aa._whisper_est(qa, aw, tw) == {}
+
+
 def test_whisper_lead_skips_when_lead_lines_are_only_estimates():
     qa = _q((3, 10.0, 0), (4, 14.0, 0))
     aw = _q((1, 2.0, 1), (2, 6.0, 1), (3, 10.0, 0), (4, 14.0, 0))
