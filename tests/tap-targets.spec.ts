@@ -32,21 +32,28 @@ test('/galaxy/ 彗星卡 ✕ 與回首頁連結夠大, ✕ 有名稱、按了會
   expect(bb.height).toBeGreaterThanOrEqual(24);
 });
 
-// 日記 / 作品集內頁上方的「← 返回」只有 16 高, 而且是單獨一個連結 (不在句子裡), 不適用行內例外
+// 日記 / 作品集內頁文章最底下的「← 返回」只有 16 高, 而且是單獨一個連結 (不在句子裡), 不適用行內例外
 for (const path of ['/diary/2026-03-23-first-diary/', '/projects/how-nca-works/']) {
   test(`${path} 「← 返回」連結夠大, 位置不變`, async ({ page }) => {
     await page.goto(path);
     const back = page.locator('a.sh-back').first();
     const bb = (await back.boundingBox())!;
     expect(bb.height).toBeGreaterThanOrEqual(24);
-    // 加大點擊區不能把下面的內容往下推: 文字本身的位置跟只用行內排版時一樣
+    // 加大點擊區不能讓連結文字或下面的內容移動: 比較只用行內排版時, 文字本身與整篇文章的位置 / 高度
     const shift = await back.evaluate((el) => {
-      const before = (el.nextElementSibling ?? el.parentElement!.nextElementSibling)?.getBoundingClientRect().top ?? 0;
+      const art = el.closest('article') ?? document.body;
+      const measure = () => {
+        const r = document.createRange(); r.selectNodeContents(el);
+        const t = r.getClientRects()[0];
+        const a = art.getBoundingClientRect();
+        return [t.top, t.left, a.height];
+      };
+      const before = measure();
       const s = (el as HTMLElement).style;
       s.display = 'inline'; s.padding = '0'; s.margin = '0';
-      const after = (el.nextElementSibling ?? el.parentElement!.nextElementSibling)?.getBoundingClientRect().top ?? 0;
+      const after = measure();
       s.display = s.padding = s.margin = '';
-      return Math.abs(before - after);
+      return Math.max(...before.map((v, i) => Math.abs(v - after[i])));
     });
     expect(shift).toBeLessThanOrEqual(1);
     await back.click();
