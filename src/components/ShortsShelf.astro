@@ -382,6 +382,8 @@ const componentId = `shelf-${Math.random().toString(36).slice(2, 9)}`;
     row.addEventListener('scroll', updateArrows, { passive: true });
     window.addEventListener('resize', updateArrows);
     updateArrows();
+    // 一開始在 hidden 的 mount 裡量不到寬度 (0), 搬進文章、顯示出來之後要再量一次
+    if ('ResizeObserver' in window) new ResizeObserver(updateArrows).observe(row);
 
     // 卡片點擊 → dispatch 事件 (Phase 2 的 LiveStage 監聽) → fallback 開 YouTube
     cards.forEach(card => {
