@@ -309,8 +309,12 @@ document.getElementById('fp-cards').innerHTML = DATA.fingerprints.map(f => `
     const hd = document.querySelector('[data-sh-header]');
     const top = (hd ? Math.max(0, hd.getBoundingClientRect().bottom) : 0) + 8;
     const b = side.getBoundingClientRect();
+    // 左下角浮動的 N247i 鈕會蓋住最後一行 → 底線抬到它上面
+    const cli = document.querySelector('.sh-cli');
+    const cb = cli && cli.getBoundingClientRect();
+    const floor = cb && cb.height ? Math.min(innerHeight, cb.top) - 8 : innerHeight - 8;
     let dy = 0;
-    if (b.bottom > innerHeight - 8) dy = b.bottom - (innerHeight - 8);
+    if (b.bottom > floor) dy = b.bottom - floor;
     if (b.top - dy < top) dy = b.top - top;   // 比畫面還高: 對齊上緣
     if (dy) scrollBy({ top: dy, behavior: 'instant' });
   }
@@ -320,6 +324,14 @@ document.getElementById('fp-cards').innerHTML = DATA.fingerprints.map(f => `
     pinned.setAttribute('aria-pressed', 'false');
     live.textContent = '已收起';
     pinned.focus();
+    // 窄版點詞時頁面捲到側欄, 那個詞可能已經在畫面外 (或鑽進標頭底下); 已有焦點的元素 focus() 不會捲 → 自己帶回來
+    if (narrow.matches) {
+      const hd = document.querySelector('[data-sh-header]');
+      const top = (hd ? Math.max(0, hd.getBoundingClientRect().bottom) : 0) + 8;
+      const r = pinned.getBoundingClientRect();
+      if (r.top < top) scrollBy({ top: r.top - top, behavior: 'instant' });
+      else if (r.bottom > innerHeight - 8) scrollBy({ top: r.bottom - (innerHeight - 8), behavior: 'instant' });
+    }
     pinned = null;
   }
   let stop = node.node();   // 目前的 Tab 停點
