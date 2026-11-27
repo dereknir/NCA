@@ -1,6 +1,6 @@
 ---
 /**
- * LiveRadar — Live 頁 hero 右側的像素雷達 (取代行星)
+ * LiveRadar — Live 頁 hero 右側的像素雷達 (取代行星); 手機上改成標題下面的一條橫列
  *
  * 中心 = 今天; 離中心越遠 = 離今天越久 (對數刻度, 圈線是 7 天 / 1 個月 / 1 年);
  * 方位 = 場地所在縣從岐阜 (日本的正中間) 看過去的方向, 北在上。
@@ -59,7 +59,7 @@ const palette = PLANETS.mars.palette;
     <canvas width="120" height="120" aria-hidden="true"></canvas>
     <div class="lr-tip" role="status" hidden></div>
   </div>
-  <figcaption>中心＝今天・圈＝7天／1個月／1年<br>方位＝從岐阜看過去・北在上</figcaption>
+  <figcaption><span class="lr-ln">中心＝今天・</span><span class="lr-ln">圈＝7天／1個月／1年</span><br><span class="lr-ln">方位＝從岐阜看過去・</span><span class="lr-ln">北在上</span></figcaption>
   <!-- JSON 裡的「<」先換成 unicode 跳脫: 資料裡就算混了結束標籤也跳不出這個 script, JSON.parse 讀回來是一樣的字 -->
   <script type="application/json" data-radar-data set:html={JSON.stringify({ blips, palette }).replace(/</g, '\\u003c')} />
 </figure>
@@ -72,6 +72,7 @@ const palette = PLANETS.mars.palette;
   .lr canvas { width: 100%; height: 100%; image-rendering: pixelated; display: block; cursor: crosshair;
     filter: drop-shadow(0 0 32px rgb(var(--sh-accent) / .25)); }
   .lr figcaption { font: 12px/18px var(--sh-px); color: var(--sh-ink3); text-align: center; margin-top: 6px; letter-spacing: .04em; }
+  .lr-ln { display: inline-block; }   /* 說明欄變窄 (手機橫列) 時只在「・」後面換行, 不會把「1年」單獨擠到下一行 */
   .lr-tip { position: absolute; z-index: 2; width: max-content; max-width: 220px; pointer-events: none;
     font: 12px/18px var(--sh-px); color: var(--sh-ink); background: rgb(10 10 21 / .92);
     border: 2px solid rgb(var(--sh-accent)); padding: 6px 8px; translate: -50% calc(-100% - 10px); }
@@ -83,9 +84,14 @@ const palette = PLANETS.mars.palette;
   :global(.sh-hero:has(.lr) .sh-hero-text) { max-width: calc(100% - 290px); }
   @media (max-width: 760px) {
     :global(.sh-hero:has(.lr) .sh-hero-text) { max-width: none; }
-    .lr { position: relative; right: auto; top: auto; translate: none; margin: 0 auto 20px; width: 168px; }   /* 手機: 雷達縮小, 標題區不要佔掉整個畫面 */
-    .lr-box { width: 168px; height: 168px; }
+    /* 手機: 雷達改成標題下面的一條橫列 (左邊小雷達、右邊說明), 標題區從約 72% 降到約 61% 的第一屏,
+       雷達還是一打開就看得到。左右邊距跟 .sh-wrap 一樣, 雷達左緣對齊標題 */
+    .lr { position: relative; right: auto; top: auto; translate: none; display: flex; align-items: center; gap: 16px;
+      width: auto; margin: 4px 24px 20px; padding-top: 16px; border-top: 1px solid rgb(255 255 255 / .08); }
+    .lr-box { width: 120px; height: 120px; flex: none; }   /* 120 = canvas 原生解析度, 一個像素對一個像素 */
+    .lr figcaption { text-align: left; margin-top: 0; min-width: 0; }
   }
+  @media (max-width: 640px) { .lr { margin-inline: 16px; } }
 </style>
 
 <script>
@@ -195,7 +201,8 @@ const palette = PLANETS.mars.palette;
     const esc = (s: string) => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
     const pick = (e: PointerEvent) => {
       const rc = cv.getBoundingClientRect(), mx = (e.clientX - rc.left) * N / rc.width, my = (e.clientY - rc.top) * N / rc.height;
-      let best = null, bd = 25;
+      // 判定半徑至少 12 CSS px (點擊目標直徑 ≥ 24px); 手機上雷達只有 120px, 一格 canvas 像素就是 1px
+      let best = null, bd = Math.max(5, 12 * N / rc.width) ** 2;
       for (const p of pts) {   // 未來場次點比較大, 判定範圍放寬一點
         const d = ((p.x + .5 - mx) ** 2 + (p.y + .5 - my) ** 2) / (p.future ? 1.6 : 1);
         if (d < bd) { bd = d; best = p; }
@@ -208,7 +215,12 @@ const palette = PLANETS.mars.palette;
       tip.innerHTML = `<b>${esc(p.d.replaceAll('-', '.'))}・${fmt(p)}</b>${esc(p.n)}<br><i>${esc(p.v ? p.v + '・' : '')}${esc(p.p)}</i>`;
       tip.style.left = (p.x + .5) / N * 100 + '%';
       tip.style.top = p.y / N * 100 + '%';
+      tip.style.translate = '';
       tip.hidden = false;
+      // 手機上雷達貼著左邊, 置中的提示框會跑出畫面: 量一下, 推回畫面裡 (左右各留 8px)
+      const r = tip.getBoundingClientRect(), vw = document.documentElement.clientWidth;
+      const dx = r.left < 8 ? 8 - r.left : r.right > vw - 8 ? vw - 8 - r.right : 0;
+      if (dx) tip.style.translate = `calc(-50% + ${Math.round(dx)}px) calc(-100% - 10px)`;
     };
     cv.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') show(pick(e)); });
     cv.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') show(null); });
