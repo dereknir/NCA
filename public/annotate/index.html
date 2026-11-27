@@ -691,7 +691,7 @@ function renderQueue(){
         </div>
         ${a?.status==='done' ? '<span class="badge done">完成</span>' :
           a?.status==='skip' ? '<span class="badge skip">略過</span>' :
-          a?.status==='auto' ? `<span class="badge auto" title="機器標注, 待審核${a.songConfirmed?' · 歌名已人工確認':''}">${S.auto[it.videoId]?.peer?'🎧':'🤖'} ${a.autoGrade||''}${a.songConfirmed?' ✓歌名':''}</span>` : ''}`;
+          a?.status==='auto' ? `<span class="badge auto" title="機器標注, 待審核${a.songConfirmed?' · 歌名已人工確認':''}">${S.auto[it.videoId]?.peer?'🎧':'🤖'} ${a.autoGrade||''}${(l => l ? ` · ${l}` : '')(S.auto[it.videoId]?.peer ? '' : confLevel(it.videoId))}${a.songConfirmed?' ✓歌名':''}</span>` : ''}`;
       row.onclick = ()=> loadShort(it);
       g.appendChild(row);
     }
@@ -1086,7 +1086,7 @@ function renderAutoPanel(){
   el.innerHTML = `
     <div class="ah"><b>🤖 機器建議</b>
       <span class="grade ${r.grade||''}">${r.grade||'-'}</span>
-      <span>對齊信心 ${r.confidence ?? '-'}</span>
+      <span>對齊信心 ${r.confidence ?? '-'}${(l => l ? ` · 待審信心 <b title="分數 ${autoConf(S.cur.videoId).toFixed(2)}; 高 ≈ 六成五完全不用改, 低 ≈ 兩成">${l}</b>` : '')(r.peer ? '' : confLevel(S.cur.videoId))}</span>
       ${ann.status==='auto' ? (S.reviewOnly === 'conflict'
           ? '<span style="color:var(--warn)">先確認歌模式: Enter 只確認歌名, anchors 之後在 🤖 待審 再審</span>'
           : `<span style="color:#9fb6ff">${ann.songConfirmed ? '歌名已確認 ✓ · ' : ''}anchors 已套用 — 聽一遍沒問題就按 Enter (= 審核通過, 會上線)</span>`) : ''}
@@ -1102,6 +1102,7 @@ function renderAutoPanel(){
     ${conflict ? `<div style="color:var(--warn)">⚠ 佇列 (${escapeHtml(METHOD_LABEL[r.matchMethod]||r.matchMethod||'')}) 說是「${escapeHtml(S.songs[r.queueSongId]?.title||r.queueSongId||'?')}」, ASR 聽起來是「${escapeHtml(S.songs[r.songId]?.title||r.songId||'?')}」— 先確認歌再審 anchors</div>` : ''}
     <div class="abtn">
       ${hasSug && ann.status!=='auto' ? `<button id="autoApply">套用建議 anchors (${r.anchors.length})</button>` : ''}
+      ${ann.status==='auto' && S.reviewOnly !== 'conflict' && !r.peer && confLevel(S.cur.videoId) === '高' ? `<button id="autoOk" title="聽過沒問題才按 — 跟 Enter 一樣 (審核通過, 會上線)">✓ 聽過了, 確認</button>` : ''}
       ${ann.status==='auto' ? `<button id="autoReject" title="清掉機器 anchors, 退回手動標注 (歌名保留)">建議不對, 退回手動</button>` : ''}
       <button id="autoToggleTx">逐字稿 ${r.transcript?.length||0} 段</button>
     </div>
@@ -1112,6 +1113,8 @@ function renderAutoPanel(){
   });
   el.querySelectorAll('.seg .st').forEach(x => x.onclick = () => { if(S.ready) S.player.seekTo(Number(x.dataset.t), true); });
   el.querySelector('#autoToggleTx').onclick = () => { const x = el.querySelector('#autoTx'); x.hidden = !x.hidden; };
+  const ok = el.querySelector('#autoOk');
+  if(ok) ok.onclick = () => finishCurrent('done');
   const rj = el.querySelector('#autoReject');
   if(rj) rj.onclick = () => {
     const a = S.ann[S.cur.videoId];
@@ -1347,10 +1350,25 @@ function setRate(r){
   if(S.ready && S.player.setPlaybackRate) S.player.setPlaybackRate(r);
   const el = document.getElementById('rateBtn'); if(el){ el.classList.toggle('on', r !== 1); el.innerHTML = `${r}× <kbd>s</kbd>`; }
 }
-/* 待審排序: 🎧照抄 → A → B → 其他; 同級照佇列順序 (從目前這支往後) */
+/* 待審信心: 只用 auto_anchors.json 裡現成的欄位算 (不用重跑模型)
+   分數 = (實對到句子的平均分 − 70) / 10 − 6 × 估計句比例 − (副歌重複有歧義 ? 1 : 0)
+   用 golden 調 (dev 306 支調, test 151 支驗): 分數排序分得出「完全不用改」的能力 AUC 0.74 / 0.75, 只看 A/B 級是 0.60 / 0.65。
+   ≥ 0.1 = 高 (test 約 65% 完全不用改), 其餘 = 低 (約 24%)。 */
+const CONF_HIGH = 0.1;
+function autoConf(vid){
+  const r = S.auto[vid]; if(!r || !(r.anchors||[]).length) return null;
+  const real = r.anchors.filter(a => !a.est); if(!real.length) return null;
+  const mean = real.reduce((s, a) => s + (a.score || 0), 0) / real.length;
+  const estFrac = (r.anchors.length - real.length) / r.anchors.length;
+  return (mean - 70) / 10 - 6 * estFrac - ((r.needsReview||[]).includes('ambiguous_start') ? 1 : 0);
+}
+const confLevel = vid => { const c = autoConf(vid); return c === null ? '' : c >= CONF_HIGH ? '高' : '低'; };
+/* 待審排序: 🎧照抄 → 信心高 → 信心低 (同一層分數高的先); 同分照佇列順序 (從目前這支往後) */
 function reviewRank(vid){
   const r = S.auto[vid] || {};
-  return r.peer ? 0 : ({ A:1, B:2 }[S.ann[vid]?.autoGrade] ?? 3);
+  if(r.peer) return 0;
+  const c = autoConf(vid);
+  return c === null ? 8 : 4 - Math.max(-3, Math.min(3, c));   // 1 (最有把握) ~ 7
 }
 function nextReview(){
   const all = Object.values(S.queue).flat();
