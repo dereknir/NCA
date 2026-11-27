@@ -241,7 +241,7 @@ def _chain_from(lines, hira, j0):
             chain.append((last_idx + 1, pos, EST_SCORE))
     return total, chain
 
-def _extend_edges(lines, hira, chain):
+def _extend_edges(lines, hira, chain, est=None):
     """鏈的頭尾往外延伸: 人工審核補的句子 90% 在片段頭尾 (鏈只在外面各多猜一句, 而且開頭那句的時間固定放在 0 秒)。
     逐句往外: 先在相鄰文字窗內用 EXT_CUTOFF 對字; 對不到就依剩餘文字長度估 (最多連續 EXT_EST 句); 文字用完就停。
     延伸出來的句子一律標 est (審核時多留意)。"""
@@ -261,7 +261,7 @@ def _extend_edges(lines, hira, chain):
         al = fuzz.partial_ratio_alignment(lh, hira[lo:P], score_cutoff=EXT_CUTOFF) if len(lh) >= MIN_LINE else None
         if al:
             start, guess = lo + al.dest_start, 0
-        elif guess < EXT_EST:
+        elif guess < (EXT_EST if est is None else est):
             start, guess = max(0, P - len(lh)), guess + 1
         else:
             break
@@ -278,7 +278,7 @@ def _extend_edges(lines, hira, chain):
         al = fuzz.partial_ratio_alignment(lh, hira[Q:hi], score_cutoff=EXT_CUTOFF) if len(lh) >= MIN_LINE else None
         if al:
             start, end, guess = Q + al.dest_start, Q + al.dest_end, 0
-        elif guess < EXT_EST:
+        elif guess < (EXT_EST if est is None else est):
             start, end, guess = Q, Q + len(lh), guess + 1
         else:
             break
@@ -309,8 +309,10 @@ def align(song, tr):
     ambiguous = bool(rivals)
     if rivals:
         # 副歌重複: 先比「往頭尾延伸後涵蓋幾句」— 片段裡副歌前後還有別段時, 只有其中一次重複接得上
-        # (從零手標的 dev: >3s 大錯 27 → 24 句); 一樣多才取「後面那次」(shorts 多剪自最後一段副歌)
-        best = max([best] + rivals, key=lambda r: (len(_extend_edges(lines, hira, r[1])), max(c[0] for c in r[1])))
+        # 一樣多才取「後面那次」(shorts 多剪自最後一段副歌)
+        # 只算真的對到字的延伸句 (est=0): 盲猜的句子只代表「歌詞前後還有句子」, 會讓最後一段副歌永遠吃虧
+        best = max([best] + rivals, key=lambda r: (len(_extend_edges(lines, hira, r[1], est=0)) if EXT_CUTOFF else 0,
+                                                   max(c[0] for c in r[1])))
     chain = _extend_edges(lines, hira, best[1]) if EXT_CUTOFF else best[1]
     anchors = []
     for idx, start, score in chain:
