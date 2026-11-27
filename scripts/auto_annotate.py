@@ -28,7 +28,7 @@ auto_annotate.py — 本地 ASR (faster-whisper, CPU) 幫 shorts 自動打「歌
   python scripts/auto_annotate.py --nonsong              # 舊結果補套「不是單曲」偵測 (不重跑 ASR; 同錄音照抄時也會自動補)
   python scripts/eval_align.py                           # 不跑 ASR, 用既有逐字稿離線評估對齊 (改演算法用)
 """
-import argparse, json, os, random, re, shutil, sys, time, unicodedata
+import argparse, contextlib, json, os, random, re, shutil, sys, time, unicodedata
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -309,6 +309,20 @@ def line_prior(anchors_h, sid, keep=lambda v: True):
 def attach_line_prior(songs, anchors_h):
     for sid, song in songs.items():
         song['prior'] = line_prior(anchors_h, sid)
+
+
+@contextlib.contextmanager
+def prior_without(songs, anchors_h, vid):
+    """跑的這支自己就是手標 done 時 (--validate、--ids 指定已標的), 它那首歌的先驗不能含它自己的答案; 跑完還原"""
+    sid = (anchors_h.get(vid) or {}).get('songId')
+    if sid not in songs:
+        yield
+        return
+    songs[sid]['prior'] = line_prior(anchors_h, sid, lambda u: u != vid)
+    try:
+        yield
+    finally:
+        songs[sid]['prior'] = line_prior(anchors_h, sid)
 
 
 def _window_ratio(lines, hira, chain):
@@ -807,18 +821,19 @@ def validate(args, songs, items, anchors_h, audio_dir):
         it = dict(items.get(vid) or {'videoId': vid, 'title': ''})
         if it.get('matchMethod') not in TRUSTED_METHODS:
             it['songId'] = None                        # 模擬 unmatched: 不給 ASR 提示
-        r = process(vid, it, songs, args.model, audio_dir, two_pass=args.prompt_pass)
-        if r.get('error'):
-            print(f'  {vid} ERROR {r["error"]}', flush=True); continue
+        with prior_without(songs, anchors_h, vid):      # 驗證的就是這支的人工答案, 先驗不能含它
+            r = process(vid, it, songs, args.model, audio_dir, two_pass=args.prompt_pass)
+            if r.get('error'):
+                print(f'  {vid} ERROR {r["error"]}', flush=True); continue
+            if r.get('songId') != h['songId']:             # 對齊品質用人工歌 id 重算, 與辨識錯誤隔離
+                r2 = process(vid, it, songs, args.model, audio_dir, two_pass=args.prompt_pass, force_song=h['songId'])
+                auto = r2.get('anchors', [])
+            else:
+                auto = r.get('anchors', [])
         agg['n'] += 1
         top1 = (r.get('songCandidates') or [{}])[0].get('songId')
         agg['song_top1'] += top1 == h['songId']
         agg['song_decided'] += r.get('songId') == h['songId']
-        if r.get('songId') != h['songId']:             # 對齊品質用人工歌 id 重算, 與辨識錯誤隔離
-            r2 = process(vid, it, songs, args.model, audio_dir, two_pass=args.prompt_pass, force_song=h['songId'])
-            auto = r2.get('anchors', [])
-        else:
-            auto = r.get('anchors', [])
         H = {a['line']: a['t'] for a in h['anchors']}
         A = {a['line']: a['t'] for a in auto}
         hit = [l for l in A if l in H]
@@ -1002,12 +1017,15 @@ def main():
                 else:
                     h = anchors_h.get(v, {})
                     forced = h.get('songId') if h.get('songConfirmed') and h.get('songId') in songs else None
-                    rec = process(v, items.get(v, {'videoId': v}), songs, args.model, audio_dir,
-                                  two_pass=args.prompt_pass, force_song=forced)
-                    if needs_retry(rec, args.retry_model):
-                        # C 級 (聽不清/對不上) 用較大的模型再試一次, 取較好的
-                        rec2 = process(v, items.get(v, {'videoId': v}), songs, args.retry_model, audio_dir,
-                                       two_pass=args.prompt_pass, force_song=forced)
+                    with prior_without(songs, anchors_h, v):
+                        rec = process(v, items.get(v, {'videoId': v}), songs, args.model, audio_dir,
+                                      two_pass=args.prompt_pass, force_song=forced)
+                        rec2 = None
+                        if needs_retry(rec, args.retry_model):
+                            # C 級 (聽不清/對不上) 用較大的模型再試一次, 取較好的
+                            rec2 = process(v, items.get(v, {'videoId': v}), songs, args.retry_model, audio_dir,
+                                           two_pass=args.prompt_pass, force_song=forced)
+                    if rec2 is not None:
                         sc = lambda r: (bool(r.get('songId')), sum(a['score'] for a in (r.get('anchors') or []) if not a.get('est')))
                         if not rec2.get('error') and sc(rec2) > sc(rec):
                             rec = rec2
