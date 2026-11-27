@@ -1379,6 +1379,31 @@ for (const b of BODIES) {
 }
 
 /* ---------- 主迴圈 ---------- */
+/* 天體 / 標籤定位。載入時先叫一次: 不然第一個 rAF 之前 canvas 沒有 left/top, 桌機會先被排在 (0,0) 再跳過去 (CLS 0.079) */
+function placeBodies() {
+  for (const b of BODIES) {
+    let x, y, depth = 0;
+    if (!b.orbit) { x = SUNX; y = SUNY; }
+    else if (vertical) {
+      x = SUNX + Math.sin(b.angle) * 54;
+      y = SUNY + b.orbit * ORBMAX;
+    } else {
+      [x, y, depth] = orbitPos(b);
+    }
+    const dscale = 1 + depth * .22;
+    b.el.style.left = x + 'px';
+    b.el.style.top = y + 'px';
+    b.el.style.width = (b.base * b.scale * dscale) + 'px';
+    b.el.style.zIndex = b.id === 'sun' ? 4 : (depth >= 0 ? 5 : 3);
+    if (b.id !== 'sun')
+      b.el.style.filter = 'brightness(' + (1 + depth * .18).toFixed(2) + ')';
+    b.lbl.style.left = x + 'px';
+    b.lbl.style.top = (y + b.base * b.scale * dscale / 2 + 6) + 'px';
+    b.lbl.style.zIndex = b.el.style.zIndex;
+    b.lbl.innerHTML = '<div class="n">' + b.nameJa + '</div><div class="p">' + b.page + '</div>'
+      + (explored[b.id] ? '<div class="v">▲ 探索済</div>' : '');
+  }
+}
 let lastPaint = 0;
 function frame(t) {
   const repaint = t - lastPaint > 110;
@@ -1405,28 +1430,7 @@ function frame(t) {
     return;
   }
   drawSpace(t);
-  for (const b of BODIES) {
-    let x, y, depth = 0;
-    if (!b.orbit) { x = SUNX; y = SUNY; }
-    else if (vertical) {
-      x = SUNX + Math.sin(b.angle) * 54;
-      y = SUNY + b.orbit * ORBMAX;
-    } else {
-      [x, y, depth] = orbitPos(b);
-    }
-    const dscale = 1 + depth * .22;
-    b.el.style.left = x + 'px';
-    b.el.style.top = y + 'px';
-    b.el.style.width = (b.base * b.scale * dscale) + 'px';
-    b.el.style.zIndex = b.id === 'sun' ? 4 : (depth >= 0 ? 5 : 3);
-    if (b.id !== 'sun')
-      b.el.style.filter = 'brightness(' + (1 + depth * .18).toFixed(2) + ')';
-    b.lbl.style.left = x + 'px';
-    b.lbl.style.top = (y + b.base * b.scale * dscale / 2 + 6) + 'px';
-    b.lbl.style.zIndex = b.el.style.zIndex;
-    b.lbl.innerHTML = '<div class="n">' + b.nameJa + '</div><div class="p">' + b.page + '</div>'
-      + (explored[b.id] ? '<div class="v">▲ 探索済</div>' : '');
-  }
+  placeBodies();
   drawShip(t);
   requestAnimationFrame(frame);
 }
@@ -1478,6 +1482,7 @@ fetch('/live/events.json')
   .catch(() => {});
 layout(); placeFlare(); updateHud();
 setMode(MODE);
+placeBodies();
 ship.x = SUNX + 120; ship.y = SUNY;
 addEventListener('resize', () => { layout(); placeFlare(); });
 BODIES[0].el.addEventListener('mouseenter', () => flareShow(0));
