@@ -124,25 +124,56 @@ test('手機: 星圖夠高, 圖例只佔一排 (390×844 ≥ 400px; 375×667、�
   expect(errors).toEqual([]);
 });
 
-test('手機: 點靠近底部的星, 那顆星不會被卡片蓋住', async ({ page }, info) => {
-  test.skip(info.project.name !== 'mobile', '只測窄版');
-  const errors = await open(page);
-  // 找可見範圍最下面、點得到的星
-  const pt = await page.evaluate(() => {
+// 可見範圍 (星圖 ∩ 畫面) 最下面、點得到的星
+const lowestStar = (page: Page) =>
+  page.evaluate(() => {
     const sky = document.getElementById('sky')!.getBoundingClientRect();
     let best: { x: number; y: number } | null = null;
     for (const c of document.querySelectorAll('#sky circle[data-name]')) {
       const r = c.getBoundingClientRect();
       const x = r.x + r.width / 2, y = r.y + r.height / 2;
-      if (y < sky.bottom - 10 && y < innerHeight - 10 && x > sky.left + 10 && x < sky.right - 10 && document.elementFromPoint(x, y) === c && (!best || y > best.y)) best = { x, y };
+      if (y > Math.max(sky.top, 0) + 10 && y < Math.min(sky.bottom, innerHeight) - 10 && x > sky.left + 10 && x < sky.right - 10 &&
+          document.elementFromPoint(x, y) === c && (!best || y > best.y)) best = { x, y };
     }
     return best!;
   });
-  await page.touchscreen.tap(pt.x, pt.y);
+
+const pinnedClearOfCard = async (page: Page, what: string) => {
   const side = page.locator('#side');
   await expect(side).toBeVisible();
   const card = (await side.boundingBox())!;
   const star = (await page.locator('#sky circle[aria-pressed="true"]').boundingBox())!;
-  expect(star.y + star.height).toBeLessThanOrEqual(card.y);
+  expect(star.y + star.height, `${what}: 星的下緣要在卡片上方`).toBeLessThanOrEqual(card.y);
+  expect(star.y, `${what}: 星要在畫面內`).toBeGreaterThanOrEqual(0);
+};
+
+for (const [w, h] of [[390, 844], [740, 360]] as const) {
+  test(`手機 ${w}×${h}: 點靠近底部的星, 那顆星不會被卡片蓋住 (還沒往下捲)`, async ({ page }, info) => {
+    test.skip(info.project.name !== 'mobile', '只測窄版');
+    await page.setViewportSize({ width: w, height: h });
+    const errors = await open(page);
+    const pt = await lowestStar(page);
+    await page.touchscreen.tap(pt.x, pt.y);
+    await pinnedClearOfCard(page, `${w}×${h}`);
+    expect(errors).toEqual([]);
+  });
+}
+
+test('手機: 轉方向後 (橫 → 直) 圖不比畫面高, 點底部的星一樣不被蓋住', async ({ page }, info) => {
+  test.skip(info.project.name !== 'mobile', '只測窄版');
+  await page.setViewportSize({ width: 740, height: 360 });
+  const errors = await open(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForTimeout(200);
+  const pt = await lowestStar(page);
+  await page.touchscreen.tap(pt.x, pt.y);
+  await pinnedClearOfCard(page, '橫轉直');
+  // 直 → 橫: 圖高度跟著畫面, 不會被 (直的時候定好的) viewBox 比例撐到好幾倍
+  await page.reload();
+  await expect(page.locator('#sky circle[data-name]').first()).toBeAttached();
+  await page.setViewportSize({ width: 667, height: 375 });
+  await page.waitForTimeout(200);
+  const sky = (await page.locator('#sky').boundingBox())!;
+  expect(sky.height).toBeLessThanOrEqual(Math.max(320, 375 * 0.6) + 1);
   expect(errors).toEqual([]);
 });
