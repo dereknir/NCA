@@ -226,3 +226,57 @@ test('盲標進度「盲標從零手標 n / 20」: 關著不顯示, 開著顯示
   await page.locator('#blindBtn').click();
   await expect(prog).toBeHidden();
 });
+
+test('盲標進度: 完成後刪 anchor 掉到 < 3 支, 數字跟著少 (不用等下一次 updateProgress)', async ({ page }) => {
+  await page.goto('/annotate/');
+  await page.waitForFunction(() => (window as any).eval('typeof S !== "undefined" && S.queue && Object.keys(S.queue).length > 0 && S.evalSeen && S.evalSeen.size > 0'));
+  await page.waitForLoadState('networkidle');
+  const vid = await page.evaluate(() => {
+    const g = window as any, S = g.eval('S');
+    const it = (Object.values(S.queue).flat() as any[]).find((x) =>
+      x.songId && S.songs[x.songId]?.lyric_lines?.length && !S.songs[x.songId].instrumental && !S.evalSeen.has(x.videoId));
+    S.ann[it.videoId] = { songId: it.songId, anchors: [{ t: 1, line: 1 }, { t: 3, line: 2 }, { t: 5, line: 3 }], status: 'done', source: 'manual', versionType: null, instrumental: false };
+    return it.videoId as string;
+  });
+  const prog = page.locator('#blindProg');
+  await page.locator('#blindBtn').click();
+  const before = Number((await prog.textContent())!.match(/(\d+) \/ 20/)![1]);
+  await load(page, vid);
+  await page.locator('#anchorList .anchor-row .del').first().click();
+  expect((await ann(page, vid)).anchors.length).toBe(2);
+  await expect(prog).toHaveText(`盲標從零手標 ${before - 1} / 20`);
+});
+
+test('盲標進度: GitHub baseline 晚到換掉 S.ann 之後要重算', async ({ page }) => {
+  // 用 baseline 帶進一支快照之後、從零手標完的真歌片段 (本機 localStorage 是空的)
+  const fresh = await (await page.request.get('/annotate/annotation_queue.json')).json();
+  const lyrics = await (await page.request.get('/annotate/lyrics.json')).json();
+  const seen = new Set((await (await page.request.get('/annotate/eval_seen.json')).json()).ids);
+  const real = new Set(lyrics.songs.filter((s: any) => !s.instrumental && s.lyric_lines?.length).map((s: any) => s.id));
+  const it = (Object.values(fresh.queue).flat() as any[]).find((x) => real.has(x.songId) && !seen.has(x.videoId));
+  const baseline = { [it.videoId]: { songId: it.songId, anchors: [{ t: 1, line: 1 }, { t: 3, line: 2 }, { t: 5, line: 3 }], status: 'done', source: 'manual' } };
+  await page.route(/^https:\/\/api\.github\.com\/repos\/.*\/contents\//, async (route) => {
+    await new Promise((r) => setTimeout(r, 1500));                    // 確定 eval_seen.json 先到、先畫過一次
+    await route.fulfill({ status: 200, contentType: 'application/json',
+      body: JSON.stringify({ sha: 'x', content: Buffer.from(JSON.stringify(baseline)).toString('base64') }) });
+  });
+  await page.addInitScript(() => {
+    localStorage.setItem('nishina-annotator-gh-token', 'test-token');
+    localStorage.setItem('nishina-annotator-blind', '1');
+  });
+  await page.goto('/annotate/');
+  const prog = page.locator('#blindProg');
+  await expect(prog).toHaveText('盲標從零手標 0 / 20');
+  await expect(prog).toHaveText('盲標從零手標 1 / 20', { timeout: 5000 });
+});
+
+test('盲標進度: eval_seen.json 讀不到就顯示 ?, 頁面不報錯', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.route('**/annotate/eval_seen.json', (route) => route.fulfill({ status: 404, body: 'nope' }));
+  await page.addInitScript(() => localStorage.setItem('nishina-annotator-blind', '1'));
+  await page.goto('/annotate/');
+  await page.waitForLoadState('networkidle');
+  await expect(page.locator('#blindProg')).toHaveText('盲標從零手標 ? / 20');
+  expect(errors).toEqual([]);
+});

@@ -388,6 +388,7 @@ function persist(dirtyKeys){
     localStorage.setItem(LS_DIRTY_KEY, JSON.stringify([...S.dirty]));
   }catch(e){}
   updateSyncStatus();
+  renderBlindProg();                                    // 刪/加 anchor、改歌都會動到「從零手標」的條件, 不一定會走 updateProgress
 }
 function restore(){
   try{
@@ -462,6 +463,7 @@ async function fetchBaseline(){
   }
   try{ localStorage.setItem(LS_KEY, JSON.stringify(S.ann)); }catch(e){}
   updateSyncStatus();
+  renderBlindProg();                                    // baseline 換掉 S.ann 之後要重算, 不然一直顯示本機舊的數字
 }
 
 async function saveToGitHub(){
@@ -796,7 +798,8 @@ function renderBlindProg(){
   el.hidden = !S.blind;
   if(!S.blind) return;
   const n = freshScratchCount();
-  el.textContent = `盲標從零手標 ${n ?? '?'} / ${BLIND_GOAL}`;
+  const text = `盲標從零手標 ${n ?? '?'} / ${BLIND_GOAL}`;
+  if(el.textContent !== text) el.textContent = text;   // 數字沒變就不動, aria-live 才不會每次存檔都唸一次
   el.classList.toggle('reached', n !== null && n >= BLIND_GOAL);
   el.title = n === null ? 'eval 快照清單沒載到, 算不出來'
     : `eval 快照 (${S.evalSeenLabel || 'eval_seen.txt'}) 之後標完、沒看機器答案的真歌片段 (≥3 anchors) — 到 ${BLIND_GOAL} 支就能驗收對齊改進`;
