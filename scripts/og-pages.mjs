@@ -114,7 +114,7 @@ async function year(Y) {
   save(`year-${Y}.png`, await compose(buf, [
     t('にしな', 14, 12, 12, 'JP12', P.dim),
     t(`${Y} 年度回顧`, 14, 30, 24, 'TC12', P.gold),
-    t(`巡演 ${stops.length} 站 · 音樂祭 ${fests.length} 場`, 14, 62, 12, 'TC12', P.text),
+    t(`巡演 ${stops.length} 站 · 音樂祭/活動 ${fests.length} 場`, 14, 62, 12, 'TC12', P.text),
     t(`setlist ${songs.size} 首 · 翻好 ${translated} 首`, 14, 78, 12, 'TC12', P.dim),
     t(`cat ${Y}.log`, 14, 102, 12, 'JP12', P.light),
   ]));

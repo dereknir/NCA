@@ -24,7 +24,8 @@ const prefs = new Set([...stops.map(s => s.pref)]);
 type Tour = { title: string; date: string; tracks: Array<{ title: string; matched_song_id?: string | null }> };
 const tours = (setlists.tours as Tour[]).filter(t => t.tracks.length > 0);
 const thisYear = tours.filter(t => t.date.startsWith(YEAR));
-const before = tours.filter(t => !t.date.startsWith(YEAR));
+// 只跟更早的巡演比: 以後加了明年的 setlist, 今年的「第一次唱」也不會跟著變
+const before = tours.filter(t => t.date.slice(0, 4) < YEAR);
 const sid = (tr: Tour['tracks'][number]) => tr.matched_song_id ?? `title:${tr.title}`;
 const name = (id: string) => titleOf.get(id) ?? id.replace(/^title:/, '');
 const playedBefore = new Set(before.flatMap(t => t.tracks.map(sid)));
@@ -46,11 +47,12 @@ const byMonth = Array.from({ length: 12 }, (_, m) =>
   Object.values(dates).filter(d => (d.translated ?? '').startsWith(`${YEAR}-${String(m + 1).padStart(2, '0')}`)).length);
 const busiest = byMonth.indexOf(Math.max(...byMonth));
 const st = await getPipelineStats();
-const tourShorts = (shortsTours.by_tour as Record<string, unknown[]>)[thisYear[0]?.title ?? ''] ?? [];
+const byTour = shortsTours.by_tour as Record<string, unknown[]>;
+const tourShorts = thisYear.reduce((n, t) => n + (byTour[t.title]?.length ?? 0), 0);
 const maxBar = Math.max(...byMonth, 1);
 ---
 
-<BaseLayout title={`${YEAR} 年度回顧`} description={`にしな的 ${YEAR}: ${stops.length} 場巡演、${fests.length} 場音樂祭; 這個站的 ${YEAR}: 翻好 ${translatedThisYear} 首, 累計審過 ${fmt(st.reviewed)} 支現場影片。`} width="wide" image={`/og/year-${YEAR}.png`}>
+<BaseLayout title={`${YEAR} 年度回顧`} description={`にしな的 ${YEAR}: ${stops.length} 場巡演、${fests.length} 場音樂祭 / 活動; 這個站的 ${YEAR}: 翻好 ${translatedThisYear} 首, 累計審過 ${fmt(st.reviewed)} 支現場影片。`} width="wide" image={`/og/year-${YEAR}.png`}>
   <PageHero slot="hero" planet="neptune" title={`${YEAR} 年度回顧`} cmd={`cat ${YEAR}.log`}
     desc="這一年にしな唱了哪些地方、哪些歌, 還有這個站長大了多少。數字都是 build 時從資料算的。"
     chips={[[String(stops.length + fests.length), '場演出'], [String(translatedThisYear), '首翻好']]} />
@@ -60,7 +62,7 @@ const maxBar = Math.max(...byMonth, 1);
     <section class="yr-card">
       <p class="yr-k">巡演</p>
       <p class="yr-n">{stops.length}<span>站</span></p>
-      <p class="yr-d">{thisYear[0]?.title ?? ''} · {thisYear[0]?.date ?? ''}<br>走過 {prefs.size} 個都道府縣</p>
+      <p class="yr-d">{thisYear.map(t => <>{t.title} · {t.date}<br></>)}走過 {prefs.size} 個都道府縣</p>
     </section>
     <section class="yr-card">
       <p class="yr-k">音樂祭 / 活動</p>
@@ -70,7 +72,7 @@ const maxBar = Math.max(...byMonth, 1);
     <section class="yr-card">
       <p class="yr-k">巡演 setlist</p>
       <p class="yr-n">{thisYearSongs.length}<span>首</span></p>
-      <p class="yr-d">其中第一次進巡演 setlist 的:</p>
+      <p class="yr-d">其中第一次進巡演 setlist 的 (只跟有 setlist 的巡演比):</p>
       <ul class="yr-list">{debut.map(id => <li>{name(id)}</li>)}</ul>
     </section>
     <section class="yr-card">
@@ -81,8 +83,10 @@ const maxBar = Math.max(...byMonth, 1);
     </section>
     <section class="yr-card">
       <p class="yr-k">開場 · 最後一首</p>
-      <p class="yr-d">開場: {[...new Set(openers)].join('、')}</p>
-      <p class="yr-d">最後: {[...new Set(closers)].join('、')}</p>
+      {openers.length > 0 ? <>
+        <p class="yr-d">開場: {[...new Set(openers)].join('、')}</p>
+        <p class="yr-d">最後: {[...new Set(closers)].join('、')}</p>
+      </> : <p class="yr-d">今年的巡演還沒有 setlist</p>}
     </section>
   </div>
 
@@ -94,12 +98,12 @@ const maxBar = Math.max(...byMonth, 1);
       <div class="yr-bars" role="img" aria-label={byMonth.map((n, m) => `${m + 1} 月 ${n} 首`).join(', ')}>
         {byMonth.map((n, m) => <div class="yr-bar" style={`--h:${(n / maxBar) * 100}%`} data-on={n > 0 ? '1' : undefined}><i></i><span>{m + 1}</span></div>)}
       </div>
-      <p class="yr-d">最拚的是 {busiest + 1} 月: {byMonth[busiest]} 首</p>
+      {byMonth[busiest] > 0 && <p class="yr-d">最拚的是 {busiest + 1} 月: {byMonth[busiest]} 首</p>}
     </section>
     <section class="yr-card">
       <p class="yr-k">審過的現場影片 (累計)</p>
       <p class="yr-n">{fmt(st.reviewed)}<span>支</span></p>
-      <p class="yr-d">模型先打草稿, 我一支一支看過。{thisYear[0] && <>今年巡演的片段有 {tourShorts.length} 支。</>}</p>
+      <p class="yr-d">每一支我都看過。{thisYear.length > 0 && <>今年巡演的片段有 {tourShorts} 支。</>}</p>
     </section>
     <section class="yr-card">
       <p class="yr-k">完整 Live</p>
