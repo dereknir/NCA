@@ -41,6 +41,8 @@ export const BUDGETS: Record<string, Budget> = {
   about: budget('/about/',                        { js: 15,  font: 720,  total: 770,  cls: 0.05 }), // 10.5 / 636 / 681 / 0
   // 作品集已經超過 target (N10 基準時 596 / 742): 頁面字變多 → 要載的 oh-* 字型分包跟著變多。字型瘦身後拉回來。
   projects: budget('/projects/',                     { js: 15,  font: 810,  total: 970,  cls: 0.05 }), // 10.5 / 715 / 861 / 0
+  // 星圖: HTML 原檔 ~300 KB (星點資料直接內嵌)。d3 只留用到部分之後 JS 102 → 41、總量 424 → 363 (N27)。
+  'star-map': budget('/star-map/',                   { js: 46,  font: 250,  total: 410,  cls: 0.05 }), // 41 / 222 / 363 / 0.003
   // CLS 以前桌機 0.079: 天體 canvas 的 left/top 要等第一個 rAF frame() 才設, 在那之前先被排版在 (0,0)。
   // 現在 script 結尾先 placeBodies() 一次, 第一次排版就在定位上。剩下的是行星每幀公轉 (left/top) 的零頭。
   galaxy: budget('/galaxy/',                       { js: 5,   font: 460,  total: 500,  cls: 0.05 }), // 0 / 409 / 439 / 0.001
