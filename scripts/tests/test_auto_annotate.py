@@ -177,6 +177,35 @@ def test_align_repeated_chorus_last_repeat_not_penalised_by_song_end():
     assert [a['line'] for a in anchors] == [4, 5]
 
 
+def test_align_tied_chorus_uses_short_lines_around_it():
+    # 副 副' 後面接的短句 (< MIN_LINE, 不參與對齊) 兩次不一樣: 第一次接 そして, 第二次接 もうね。
+    # 延伸句數平手, 但整段轉寫明顯比較像第一次 → 改選第一次 (不再固定取後面那次)
+    lines = [VERSES[2], VERSES[0], VERSES[1], 'そして', VERSES[3], VERSES[0], VERSES[1], 'もうね', VERSES[4]]
+    song = make_song(lines)
+    text = VERSES[0] + VERSES[1] + 'そして'
+    anchors, ambiguous = aa.align(song, make_tr(text))
+    assert ambiguous
+    assert {a['line'] for a in anchors if not a.get('est')} == {1, 2}
+    # 不用這條規則時是取後面那次
+    old = aa.TIE_WIN_MARGIN
+    try:
+        aa.TIE_WIN_MARGIN = 0
+        anchors0, _ = aa.align(song, make_tr(text))
+    finally:
+        aa.TIE_WIN_MARGIN = old
+    assert {a['line'] for a in anchors0 if not a.get('est')} == {5, 6}
+
+
+def test_window_ratio_ignores_text_past_song_end():
+    # 最後一次副歌之後歌詞沒了: 超出歌尾的轉寫不算, 不能因此比前一次低
+    lines = make_song([VERSES[2], VERSES[0], VERSES[1], VERSES[3], VERSES[0], VERSES[1]])['lines']
+    hira = VERSES[0] + VERSES[1] + 'ありがとう'
+    first = [(1, 0, 100.0), (2, len(VERSES[0]), 100.0)]
+    last = [(4, 0, 100.0), (5, len(VERSES[0]), 100.0)]
+    assert aa._window_ratio(lines, hira, last) == 100
+    assert aa._window_ratio(lines, hira, first) < 100
+
+
 def test_extend_edges_est0_only_adds_text_matched_lines():
     lines = make_song([VERSES[2], VERSES[0], VERSES[1], VERSES[3]])['lines']
     hira = VERSES[0] + VERSES[1] + 'ありがとうございました'
