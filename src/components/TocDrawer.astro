@@ -83,6 +83,7 @@
   .toc-drawer {
     position: fixed;
     inset: 0 auto 0 0;
+    z-index: 40;   /* 非 modal 側欄 (桌機還原) 不在 top layer: 要壓過文章 (歌詞行是 positioned), 在頁首 (50) 底下 */
     width: 300px;
     max-width: 85vw;
     height: 100dvh;
@@ -100,6 +101,8 @@
     transition: translate .24s cubic-bezier(.4, 0, .2, 1), overlay .24s allow-discrete, display .24s allow-discrete;
   }
   .toc-drawer[open] { display: flex; translate: 0 0; }
+  /* 非 modal 側欄從頁首 (56px, sticky) 底下開始, 不然關閉鈕被頁首蓋住、側欄就關不掉了 */
+  .toc-drawer:not(:modal) { top: 56px; height: calc(100dvh - 56px); }
   @starting-style { .toc-drawer[open] { translate: -100% 0; } }
   .toc-drawer::backdrop { background: rgb(0 0 0 / 0); overflow: hidden; overscroll-behavior: contain;
     transition: background .22s, overlay .22s allow-discrete, display .22s allow-discrete; }
@@ -300,7 +303,8 @@
             if (t < bestTop && t < innerHeight * 0.4) { bestTop = t; best = it.el; }
           });
           list.querySelectorAll('a').forEach(function (a) {
-            if (best && a.hash === '#' + best.id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+            // 不能比 a.hash: 中文 id 在 hash 裡是 URL 編碼過的, 永遠對不上
+            if (best && a.getAttribute('href') === '#' + best.id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
           });
         });
       }
