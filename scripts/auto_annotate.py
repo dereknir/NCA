@@ -464,13 +464,13 @@ def decide_song(top, guess, method):
 # (試過第三條「轉寫很長但對到的句子只佔影片時間一小段」: 驗收組會把真歌誤降, 拿掉了)
 # 命中任一條 → needsReview 加 not_single_song、評級降成 C (merge 不會寫進去, 留給人工)
 # 判定放在 process() 選完 Qwen / whisper 之後 (兩份轉寫任一命中就算), 不然 C 會觸發 whisper 重跑把標記洗掉
-# 標題只拿掉 # 符號 (不整個刪 tag: #フェス 這類就是活動字樣本身); 活動字樣單獨出現就算
+# 標題只拿掉 # 符號 (不整個刪 tag: #フェス 這類就是活動字樣本身); 活動字樣單獨出現就算; 先 NFKC (全形 ＦＥＳ / 全形空白)
 # 英文字界用 ASCII lookaround, 不用 \b (\b 把假名漢字也當字元, 「にしなfes」會對不到); fes 不會中 manifest
 # live / ライブ 不算: dev 裡真歌的 live 片段幾乎都帶 #live (200 支), 非歌曲只有 5 支
 # (「feeling in ○○」拿掉了: 真歌標題也會用)
 _A = r'(?<![a-z])'
 _Z = r'(?![a-z])'
-NONSONG_TITLE = re.compile(rf'{_A}(fes(t|tival)?|tour|thank you|goods|new ?photos?|osanpo){_Z}|{_A}lucky{_Z}.*{_A}track{_Z}|'
+NONSONG_TITLE = re.compile(rf'{_A}(fes(t|tival)?|tours?|thank ?you|goods|new ?photos?|osanpo){_Z}|{_A}lucky{_Z}.*{_A}track{_Z}|'
                            r'フェス|ツアー|グッズ|ありがとうございました', re.I)
 NONSONG_FOREIGN = (16, 70, 15, 0.2, 60, 2)   # 視窗假名數, 別首歌分數下限, 領先本曲分數, 文字比例門檻, 最少總假名數, 最少命中視窗
 NONSONG_CHECK = True
@@ -504,44 +504,76 @@ def _foreign_ratio(segments, sid, songs):
     return bad / tot if n_bad >= min_bad else 0.0
 
 
+def title_is_nonsong(title):
+    return bool(NONSONG_TITLE.search(unicodedata.normalize('NFKC', title or '').replace('#', ' ')))
+
+
 def nonsong_signals(title, segment_lists, sid, songs):
-    """回傳命中的訊號名稱 list (空 = 看起來是單曲)。segment_lists: 一或多份轉寫的 segments, 任一份命中就算"""
+    """回傳命中的訊號名稱 list (空 = 看起來是單曲)。segment_lists: 一或多份轉寫的 segments, 任一份命中就算
+    標題那條不看歌名 (ASR 認不出歌的也要標, 不然同錄音照抄配到歌後會被升成 A)"""
     hit = []
-    if NONSONG_TITLE.search((title or '').replace('#', ' ')):
+    if title_is_nonsong(title):
         hit.append('title')
     if sid in songs and any(_foreign_ratio(segs, sid, songs) >= NONSONG_FOREIGN[3] for segs in segment_lists if segs):
         hit.append('foreign')
     return hit
 
 
+def _flag(rec, ns):
+    """標 not_single_song: 原本的評級記在 gradeBeforeNonsong, 規則改了不再命中時可以還原"""
+    if 'not_single_song' not in (rec.get('needsReview') or []):
+        rec['gradeBeforeNonsong'] = rec.get('grade')
+        rec['needsReview'] = list(rec.get('needsReview') or []) + ['not_single_song']
+    rec['nonSong'] = list(ns)
+    rec['grade'] = 'C'
+
+
+def _unflag(rec, grade):
+    rec['needsReview'] = [x for x in rec.get('needsReview') or [] if x != 'not_single_song']
+    rec['grade'] = grade
+    rec.pop('nonSong', None)
+    rec.pop('gradeBeforeNonsong', None)
+
+
 def apply_nonsong(out, item, songs, transcripts, force_song=None):
     """最終結果套上「不是單曲」偵測: 命中 → needsReview 加 not_single_song、評級 C"""
-    sid = out.get('songId')
-    if not NONSONG_CHECK or force_song or not sid:
+    if not NONSONG_CHECK or force_song:
         return out
-    ns = nonsong_signals(item.get('title'), [t.get('segments') for t in transcripts if t], sid, songs)
+    ns = nonsong_signals(item.get('title'), [t.get('segments') for t in transcripts if t], out.get('songId'), songs)
     if ns:
-        out['needsReview'] = list(out.get('needsReview') or []) + ['not_single_song']
-        out['nonSong'] = ns
-        out['grade'] = 'C'
+        _flag(out, ns)
     return out
 
 
 def backfill_nonsong(r, songs, force_song=None):
-    """已存的結果補套偵測 (不重跑 ASR, 只有存下來的那份轉寫)。
-    同錄音照抄每次都從 r['asr'] 重算, 所以 r['asr'] 跟外層都要套; 已經有標記的不重複加。回傳有沒有新標"""
-    if r.get('error') or 'not_single_song' in (r.get('needsReview') or []):
+    """已存的結果補套偵測 (不重跑 ASR, 只有存下來的那份轉寫)。回傳有沒有改到。
+    同錄音照抄每次都從 r['asr'] 重算, 所以 r['asr'] 跟外層都要套:
+      - ASR 那份沒標 → 重新判定, 命中就兩邊都標
+      - ASR 那份已標、外層沒標 (舊版照抄升回 A/B 的) → 外層補標
+      - 只靠標題標的、現在標題規則不中了 (或歌名已確認) → 還原成標之前的評級; 轉寫那條只有存一份轉寫, 不動"""
+    if r.get('error'):
         return False
     base = r.get('asr') or r
+    tgts = [base, r] if base is not r else [r]
     if 'not_single_song' in (base.get('needsReview') or []):
-        return False
+        ns = base.get('nonSong') or r.get('nonSong') or []
+        if ('gradeBeforeNonsong' in base and set(ns) <= {'title'}
+                and (force_song or not NONSONG_CHECK or not title_is_nonsong(r.get('title')))):
+            g = base['gradeBeforeNonsong']
+            for t in tgts:
+                _unflag(t, g)                    # 外層之後照抄會從 asr 重算
+            return True
+        if 'not_single_song' in (r.get('needsReview') or []):
+            return False
+        r['needsReview'] = list(r.get('needsReview') or []) + ['not_single_song']
+        r['grade'] = 'C'
+        r['nonSong'] = list(ns)
+        return True
     rec = apply_nonsong(dict(base), {'title': r.get('title')}, songs, [{'segments': r.get('transcript')}], force_song)
     if not rec.get('nonSong'):
         return False
-    for tgt in ([base, r] if base is not r else [r]):
-        tgt['needsReview'] = list(tgt.get('needsReview') or []) + ['not_single_song']
-        tgt['grade'] = 'C'
-    r['nonSong'] = rec['nonSong']
+    for t in tgts:
+        _flag(t, rec['nonSong'])
     return True
 
 
@@ -560,11 +592,11 @@ def backfill_all(out_path):
         forced = h.get('songId') if h.get('songConfirmed') and h.get('songId') in songs else None
         if backfill_nonsong(r, songs, forced):
             hit += 1
-            for k in r['nonSong']:
+            for k in r.get('nonSong') or ['cleared']:
                 why[k] = why.get(k, 0) + 1
-    data.setdefault('meta', {})['nonsong'] = {'updated': time.strftime('%Y-%m-%d %H:%M'), 'flagged': hit}
+    data.setdefault('meta', {})['nonsong'] = {'updated': time.strftime('%Y-%m-%d %H:%M'), 'changed': hit}
     write_out(out_path, data)
-    print(f'[nonsong] 未審 {n} 支補套「不是單曲」偵測 (不重跑 ASR): 新標 {hit} 支 → C {why}')
+    print(f'[nonsong] 未審 {n} 支補套「不是單曲」偵測 (不重跑 ASR): 改到 {hit} 支 {why}')
     return hit
 
 # ---------- 單支處理 ----------
@@ -723,7 +755,8 @@ def merge(out_path, include_c=False):
             if not include_c:
                 mismatch.append(vid); continue           # 人工確認的歌名優先; 這份結果是別首歌 → 不套用
             r = dict(r, songId=cur['songId'], anchors=[], grade='C')   # --include-c: 歌名照人工, anchors 交給人工
-        if (not r.get('songId') or not r.get('anchors') or r.get('grade') == 'C') and not include_c:
+        nonsong = 'not_single_song' in (r.get('needsReview') or [])   # 不是單曲: 連 --include-c 也不放進待審 (留給人工從頭標)
+        if nonsong or ((not r.get('songId') or not r.get('anchors') or r.get('grade') == 'C') and not include_c):
             if cur and cur.get('status') == 'auto':
                 # 舊引擎的建議, 新結果卻沒把握 (C / 認不出歌) → 退回手動, 不讓過時的 anchors 留在待審清單
                 cur.update(anchors=[], status='pending', source='manual')
