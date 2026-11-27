@@ -44,8 +44,8 @@ export const BUDGETS: Record<string, Budget> = {
   // 桌機 CLS 0.079: 太陽那顆 .body-cv canvas 在 ~0.5 秒時被重新定位 (手機 0)。修好改回 0.05。
   galaxy: budget('/galaxy/',                       { js: 5,   font: 460,  total: 500,  cls: 0.1 }),  // 0 / 409 / 439 / 0.079
   kwic: budget('/kwic/',                         { js: 15,  font: 420,  total: 590,  cls: 0.05 }), // 10.5 / 370 / 524 / 0
-  // d3 整包 92 KB, 其中 ~71 KB 沒用到; 自訂 build 之後可以收到 ~40
-  'lyric-universe': budget('/lyric-universe/',               { js: 110, font: 420,  total: 590,  cls: 0.05 }, { ...TARGET_OTHER, js: 110 }), // 102 / 370 / 516 / 0
+  // d3 只留這頁用到的部分 (力導向 + 拖曳 + select + max): JS 102 → 23 KB
+  'lyric-universe': budget('/lyric-universe/',               { js: 28,  font: 420,  total: 490,  cls: 0.05 }), // 22.9 / 370 / 437 / 0
 };
 
 function kindOf(url: string, type: string, mime: string): 'js' | 'font' | 'other' {
