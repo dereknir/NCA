@@ -110,6 +110,10 @@ HYBRID_RETIME = True  # hybrid: whisper 對到的句子一律用 whisper 時間,
                       # golden 233 支實測: 同一句 whisper ≤1s 92% vs Qwen 82%; 兩者差 >3s 時 whisper 對 17/20
                       # whisper 沒對到的句子留 Qwen 時間 (實測: 用鄰句位移校正 73% → 67% 變差; 在 whisper 轉寫局部再找一次無明顯改善)
 WHISPER_LEAD = True   # hybrid: Qwen 沒轉到開頭幾秒、whisper 有轉到 → 把 whisper 在 Qwen 鏈之前「真的對到字」的句子補進來
+CHAIN_SCORE = 'span'  # 候選鏈排名用的分數: 'sum' = 各句分數相加 (斷句細的段落會多拿分, 同一段拆兩句就多一倍)
+                      # 'span' = 各句分數 × 該句在轉寫裡實際佔到的假名數 (到下一句起點 / 轉寫結尾, 以句長為上限)
+                      #   dev 從零手標 178 支: 選錯段 21 → 19、>3s 24 → 23、完美 63 不變
+                      #   試過沒用: 整句字數 (adaada 被拉到頭サビ)、平均分 × 涵蓋率 (完美 -2~3)
 MIN_GAP = 0.6         # 相鄰兩句 anchor 至少間隔這麼多秒
 QWEN_ASR = 'Qwen/Qwen3-ASR-1.7B'
 QWEN_ALIGNER = 'Qwen/Qwen3-ForcedAligner-0.6B'
@@ -290,6 +294,20 @@ def _extend_edges(lines, hira, chain, est=None):
     return head[::-1] + core + tail
 
 
+def _chain_score(lines, hira, r):
+    """候選鏈排名分數 (見 CHAIN_SCORE); r = _chain_from() 的 (total, chain)"""
+    if CHAIN_SCORE == 'sum':
+        return r[0]
+    if CHAIN_SCORE != 'span':
+        raise ValueError(CHAIN_SCORE)
+    ln = {idx: len(lh) for idx, _ja, lh in lines}
+    rc = sorted((c for c in r[1] if c[2] != EST_SCORE), key=lambda c: c[1])
+    if not rc:
+        return 0.0
+    nxt = [c[1] for c in rc[1:]] + [len(hira)]
+    return sum(max(1, min(ln[c[0]], q - c[1])) * c[2] for c, q in zip(rc, nxt)) / 100
+
+
 def align(song, tr):
     hira, ct = tr['hira'], tr['char_time']
     lines = song['lines']
@@ -299,6 +317,8 @@ def align(song, tr):
         r = _chain_from(lines, hira, j0)
         if not r:
             continue
+        if CHAIN_SCORE != 'sum':
+            r = (_chain_score(lines, hira, r), r[1], r[0])
         key = frozenset(c[0] for c in r[1] if c[2] != EST_SCORE)
         if key and (key not in by_key or r[0] > by_key[key][0]):
             by_key[key] = r

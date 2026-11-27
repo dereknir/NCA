@@ -697,3 +697,15 @@ def test_merge_dropped_but_touched_by_human_is_kept(tmp_path, monkeypatch):
         anc.write_text(json.dumps({'x': dict(base, **extra)}), encoding='utf-8')
         aa.merge(out)
         assert json.loads(anc.read_text(encoding='utf-8'))['x']['status'] == 'pending', extra
+
+
+def test_chain_score_span_split_lines_do_not_score_more(monkeypatch):
+    # 同一段文字: 拆兩句 (相加 200) vs 一句 (100); 'span' 依實佔字數, 兩者一樣
+    lines = [(0, 'a', 'あいうえおかきくけこ'), (1, 'b', 'さしすせそたちつてと'), (2, 'c', 'あいうえおかきくけこさしすせそたちつてと')]
+    hira = 'あいうえおかきくけこさしすせそたちつてと'
+    split = (200.0, [(0, 0, 100.0), (1, 10, 100.0)])
+    whole = (100.0, [(2, 0, 100.0)])
+    monkeypatch.setattr(aa, 'CHAIN_SCORE', 'span')
+    assert aa._chain_score(lines, hira, split) == aa._chain_score(lines, hira, whole) == 20.0
+    monkeypatch.setattr(aa, 'CHAIN_SCORE', 'sum')
+    assert aa._chain_score(lines, hira, split) == 200.0
