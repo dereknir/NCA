@@ -114,19 +114,19 @@ const fullTitle = title === SITE_CONFIG.title ? title : `${title} | ${SITE_CONFI
     }],
   })} />}
 
-  <!-- 字體預連接與預載入（性能優化） -->
+  <!-- 字體預連接與預載入（性能優化）; DotGothic16 已改自己放 (site-shell.css), 這裡只剩 Noto Sans JP -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- 先用 media="print" 載 (不擋畫面), site-shell.js 再換回 all; 不寫 onload, 之後開 CSP 也不會被擋 -->
   <link
-    href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap"
     rel="stylesheet"
     media="print"
     data-async-css
   >
   <!-- Fallback for browsers that don't support media attribute manipulation -->
   <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
   </noscript>
 
   <!-- 舊 theme 設定清理 (dark-only, 不再讀取) -->
