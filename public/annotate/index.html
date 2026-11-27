@@ -234,6 +234,7 @@
   <span class="stats sync" id="syncStatus" data-state="idle">—</span>
   <button class="ghost" id="reviewBtn" title="只顯示機器標好、等你審核的 shorts">🤖 待審 <span id="reviewCount">0</span></button>
   <button class="ghost" id="conflictBtn" title="機器認出的歌跟佇列的 hashtag/歌詞配對不同 — 先確認歌對不對">⚠ 先確認歌 <span id="conflictCount">0</span></button>
+  <button class="ghost" id="blindBtn" aria-pressed="false" title="盲標: 一半的待審片段 (依影片 ID 固定挑, 不是我挑) 先藏起機器答案, 從零標 — 這些之後可以當「從零手標」的驗收資料">🙈 盲標</button>
   <button class="ghost" id="runnerBtn" title="在這台電腦跑模型: 還沒跑過的 shorts 跑完直接進 🤖 待審 (需要本機助手, 見 scripts/runner/README.md)">🧠 跑模型 <span id="runnerCount"></span></button>
   <span class="stats runner-msg" id="runnerMsg" aria-live="polite"></span>
   <span class="scrape" id="scrapeBox" hidden><span class="stats" id="scrapeMsg"></span><button class="ghost" id="scrapeBtn" hidden>📥 立刻抓</button></span>
@@ -366,6 +367,7 @@ const VERSION_TYPES = [
 const LS_KEY = 'nishina-annotator-v1';
 const LS_DIRTY_KEY = 'nishina-annotator-dirty-v1';
 const LS_TOKEN_KEY = 'nishina-annotator-gh-token';
+const LS_BLIND_KEY = 'nishina-annotator-blind';
 S.dirty = new Set();       // videoIds 有未存到 GitHub 的變更
 
 function persist(dirtyKeys){
@@ -710,12 +712,47 @@ function updateProgress(){
 }
 
 /* ---------- 載入一支 short ---------- */
+/* ---------- 🙈 盲標 ----------
+   新片段每天會先被機器標好 (status=auto + autoGrade), 我看著答案改的只能算「看模型改」, 不能拿來驗收對齊模型。
+   盲標開著時, 依影片 ID 固定挑一半 (不是我挑, 避免只盲標簡單的) 的待審片段: 藏起機器 anchors 與 🤖 面板,
+   改成手動從零標; 標完 = 沒有 autoGrade 的 done (eval_golden 算「從零手標」), 另記 blind:true 方便之後查。 */
+S.blind = (() => { try{ return localStorage.getItem(LS_BLIND_KEY) === '1'; }catch(_){ return false; } })();
+function blindPick(vid){
+  let h = 2166136261;                                   // FNV-1a, 固定且跟順序無關
+  for(let i = 0; i < vid.length; i++){ h ^= vid.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+  return h % 2 === 0;
+}
+function maybeBlind(vid){
+  const a = S.ann[vid];
+  if(!S.blind || S.reviewOnly || !a || a.status !== 'auto' || !blindPick(vid)) return false;
+  a.anchors = []; a.status = 'pending'; a.source = 'manual'; a.blind = true;
+  delete a.autoGrade;
+  persist([vid]);
+  return true;
+}
+const isBlind = vid => !!S.ann[vid]?.blind && S.ann[vid].status !== 'done';
+function unblind(vid){
+  const a = S.ann[vid], r = S.auto[vid];
+  if(!a?.blind) return;
+  delete a.blind;
+  if(r && (r.anchors||[]).length && r.songId){
+    if(a.anchors.length && !confirm('會覆蓋目前的 anchors,確定?')){ a.blind = true; return; }
+    a.songId = r.songId; a.anchors = r.anchors.map(x => ({ t: x.t, line: x.line }));
+    a.status = 'auto'; a.source = 'auto'; a.autoGrade = r.grade;
+  }
+  persist([vid]); renderLyrics(); renderAnchors(); renderQueue(); updateProgress(); renderAutoPanel();
+}
+function renderBlindBtn(){
+  const b = document.getElementById('blindBtn'); if(!b) return;
+  b.classList.toggle('on', S.blind); b.setAttribute('aria-pressed', String(S.blind));
+}
 function loadShort(item){
   S.cur = item;
   if(!S.ann[item.videoId]) S.ann[item.videoId] = { songId:item.songId, anchors:[], status:'pending', versionType:null, instrumental:false };
   // 舊資料相容:沒有欄位就補上
   if(S.ann[item.videoId].versionType === undefined) S.ann[item.videoId].versionType = null;
   if(S.ann[item.videoId].instrumental === undefined) S.ann[item.videoId].instrumental = false;
+  maybeBlind(item.videoId);
   document.getElementById('playerError').textContent = '';
   if(S.ready){
     S.player.loadVideoById(item.videoId);
@@ -1074,6 +1111,13 @@ function findNextUnmatched(){
 function renderAutoPanel(){
   const el = document.getElementById('autoPanel'); if(!el) return;
   const r = S.cur && S.auto[S.cur.videoId];
+  if(S.cur && isBlind(S.cur.videoId)){
+    el.className = 'on';
+    el.innerHTML = `<div class="ah"><b>🙈 盲標</b><span>這支的機器答案先藏起來了 — 從零標完按 Enter (會算「從零手標」)</span>
+      <button class="ghost" id="unblindBtn" title="不盲標這支, 把機器答案放回來 (會變回看模型改)">顯示機器答案</button></div>`;
+    el.querySelector('#unblindBtn').onclick = () => unblind(S.cur.videoId);
+    return;
+  }
   if(!r || r.error){ el.className=''; el.innerHTML=''; return; }
   const ann = S.ann[S.cur.videoId] || {};
   const cands = (r.songCandidates||[]).map(c =>
@@ -1146,6 +1190,13 @@ function setReviewMode(mode){
   }
 }
 document.getElementById('reviewBtn').onclick = () => setReviewMode('all');
+document.getElementById('blindBtn').onclick = () => {
+  S.blind = !S.blind;
+  try{ localStorage.setItem(LS_BLIND_KEY, S.blind ? '1' : '0'); }catch(_){}
+  renderBlindBtn();
+  if(S.blind && S.cur && maybeBlind(S.cur.videoId)){ renderLyrics(); renderAnchors(); renderQueue(); updateProgress(); renderAutoPanel(); }
+};
+renderBlindBtn();
 document.getElementById('conflictBtn').onclick = () => setReviewMode('conflict');
 // 機器建議檔 (沒有也沒關係, 面板就不顯示)
 fetch('auto_anchors.json', { cache:'no-store' }).then(r => r.ok ? r.json() : null).then(j => {
