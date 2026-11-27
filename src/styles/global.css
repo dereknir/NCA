@@ -391,6 +391,12 @@ body {
   letter-spacing: .08em;
   color: #e8ecf6;
 }
+/* 320 寬小手機: 三欄表格 (パンダガール 的亂馬對照) 左右各 1rem 留白就把表撐出畫面 8px;
+   390 以下留白減半、td 字收一級, 最右欄才不會一行只擠得下兩個字 */
+@media (max-width: 389px) {
+  .prose th, .prose td { padding-left: .5rem; padding-right: .5rem; }
+  .prose td { font-size: 1rem; }
+}
 .prose h2 {
   font-family: 'PX-ZH', 'PX-JA', var(--font-sans);
   font-size: 24px;
