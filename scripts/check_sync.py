@@ -42,19 +42,19 @@ def main() -> int:
         else:
             print(f'✗ 不一致: {src} ≠ {mirror}  → 重跑 {owner} (它會同時寫兩份)')
             bad += 1
-    if bad:
-        print(f'\n{bad} 對鏡像有問題', file=sys.stderr)
-    else:
-        print('\n全部鏡像一致')
-
     # live 三頁: 範本 + 資料重產要跟 repo 裡的產出一模一樣
     live = subprocess.run([sys.executable, str(ROOT / 'live' / 'inject.py'), '--check'],
-                          capture_output=True, text=True, encoding='utf-8')
+                          capture_output=True, text=True, encoding='utf-8', errors='replace')
     if live.returncode:
         print(live.stdout + live.stderr)
         bad += 1
     else:
         print('✓ live 產出檔都跟範本一致')
+
+    if bad:
+        print(f'\n{bad} 項有問題', file=sys.stderr)
+    else:
+        print('\n全部一致')
 
     sys.path.insert(0, str(ROOT / 'scripts'))
     import check_data

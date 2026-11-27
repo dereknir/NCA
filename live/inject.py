@@ -2,8 +2,10 @@
 """
 inject.py — live 三頁重建腳本(資料更新後跑這支,不需要 fable 在場)
 用法: python3 inject.py   (data/ 內五份 JSON → ../public/live/{timeline,concerts,footprint}/index.html)
-      python3 inject.py --check   只比對、不寫檔; 產出跟 repo 裡的不一樣就 exit 1 (check_sync.py 會跑)
-      → 手改 public/live/ 產出檔、沒改範本的修正, 下次排程重產就會被蓋掉, 這裡先擋
+      python3 inject.py --check   不寫檔, 只檢查三頁「範本那部分」跟 repo 裡的產出一樣 (check_sync.py 會跑)
+      → 手改 public/live/ 產出檔、沒改範本的修正, 下次排程重產就會被蓋掉, 這裡先擋。
+        注入的資料不比: 照 DATA-REFRESH-POLICY 只改 data/*.json 就 push、讓排程重產是正常流程, 不能因此紅。
+        改了範本就要自己跑一次 inject.py 一起 commit。
 """
 import json, re, sys
 from pathlib import Path
@@ -17,13 +19,21 @@ _stale = []
 
 
 def emit(out, text):
-    """寫一個產出檔; --check 時只比對, 不一樣就記下來"""
+    """寫一個產出檔 (--check 時不寫)"""
     if CHECK:
-        if not out.exists() or out.read_text(encoding='utf-8') != text:
-            _stale.append(out.relative_to(HERE.parent))
         return
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(text, encoding='utf-8')
+
+
+def check_shell(tpl_html, phs, out):
+    """--check: 產出檔去掉注入的資料後, 剩下的要跟範本逐字一樣 (資料部分隨便)"""
+    pat = '|'.join(re.escape(ph) for ph in phs)
+    parts = re.split(pat, tpl_html)
+    rx = re.compile('(.*?)'.join(re.escape(x) for x in parts), re.S)
+    got = out.read_bytes().decode('utf-8') if out.exists() else None
+    if got is None or not rx.fullmatch(got):
+        _stale.append(out.relative_to(HERE.parent))
 
 
 def load(n): return json.dumps(json.load(open(D / n, encoding='utf-8')), ensure_ascii=False)
@@ -50,11 +60,14 @@ JOBS = [
 ]
 for tpl, page, blobs in JOBS:
     html = open(HERE / tpl, encoding='utf-8').read()
+    out = PUB / page / 'index.html'
+    if CHECK:
+        check_shell(html, [ph for ph, _ in blobs], out)
+        continue
     for ph, data in blobs:
         assert ph in html, f'{tpl} 缺佔位符 {ph}'
         html = html.replace(ph, data)
     assert '/*__' not in html, f'{page} 有未注入的佔位符!'
-    out = PUB / page / 'index.html'
     emit(out, html)
     print(f'✓ {out.relative_to(HERE.parent)}({len(html)//1024}KB)')
 
@@ -72,7 +85,7 @@ for t in tours_obj['tours']:
 pool.sort(key=lambda x: x['d'])
 ev_out = PUB / 'events.json'
 emit(ev_out, json.dumps(pool, ensure_ascii=False))
-print(f'✓ {ev_out.relative_to(HERE.parent)}({len(pool)} 筆事件池)')
+if not CHECK: print(f'✓ {ev_out.relative_to(HERE.parent)}({len(pool)} 筆事件池)')
 
 # 順手同步「出演場次清單」給 annotator (__live_song 出演演唱的場次 dropdown)
 # 這樣 live 資料更新時, annotator 的場次選單自動跟上, 不會漏。
@@ -107,11 +120,11 @@ ann_apps = {
 }
 ann_out = HERE.parent / 'public' / 'annotate' / 'appearances.json'
 emit(ann_out, json.dumps(ann_apps, ensure_ascii=False, indent=2))
-print(f'✓ {ann_out.relative_to(HERE.parent)}({len(ann_list)} 場, 其中 news 未登記 {n_news} 場)')
+if not CHECK: print(f'✓ {ann_out.relative_to(HERE.parent)}({len(ann_list)} 場, 其中 news 未登記 {n_news} 場)')
 
 if CHECK:
     if _stale:
-        print('\n✗ 這些產出檔跟範本 + 資料重產的結果不一樣 (手改了產出檔? 修正要改在 live/*.template.html):')
+        print('\n✗ 這些產出檔跟範本對不上 (手改了產出檔? 修正要改在 live/*.template.html; 改了範本要重產):')
         for p in _stale:
             print(f'  {p}')
         print('  → 改好範本後跑 python3 live/inject.py 重產')

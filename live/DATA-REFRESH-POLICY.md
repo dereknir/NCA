@@ -27,7 +27,7 @@
 ```
 更新 data/ 內對應 JSON → push → rebuild-live.yml 自動跑 inject.py → 三頁重建 → Vercel deploy
 ```
-inject.py 有佔位符斷言,注錯會炸,放心跑。哨兵(scrape-shorts 內)的自動變更同 run 內自帶 inject。
+inject.py 有佔位符斷言,注錯會炸,放心跑。只改資料直接 push 即可;**改了範本 (live/*.template.html) 要自己先跑一次 inject.py 一起 commit** —— CI 的 check_sync.py 會跑 `inject.py --check`, 產出檔跟範本對不上 (或手改了產出檔) 就紅。哨兵(scrape-shorts 內)的自動變更同 run 內自帶 inject。
 每日收穫(shorts/news/eplus)整合成一封日報信,不再分散通知。
 
 ## 人工收割 SOP(站長用,約 5 分鐘/次)
