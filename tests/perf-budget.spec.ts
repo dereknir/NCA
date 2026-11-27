@@ -49,6 +49,18 @@ export const BUDGETS: Record<string, Budget> = {
   kwic: budget('/kwic/',                         { js: 15,  font: 420,  total: 590,  cls: 0.05 }), // 10.5 / 370 / 524 / 0
   // d3 只留這頁用到的部分 (力導向 + 拖曳 + select + max): JS 102 → 23 KB
   'lyric-universe': budget('/lyric-universe/',               { js: 28,  font: 420,  total: 490,  cls: 0.05 }), // 22.9 / 370 / 437 / 0
+  // N43: 公演史 (排程會重產)、扭蛋、年度回顧、日記、標籤頁、番外。量法同上, 2026-11-27 develop (三次一樣)。
+  // 年度回顧字型 849 已經超過 target 680 (一頁把整年的歌名 / 歌詞摘句都放上去, 要載的字型分包多), 先只擋再變胖。
+  timeline: budget('/live/timeline/',              { js: 16,  font: 610,  total: 660,  cls: 0.05 }), // 10.9 / 539 / 588 / 0.002
+  concerts: budget('/live/concerts/',              { js: 16,  font: 610,  total: 660,  cls: 0.05 }), // 10.9 / 539 / 581 / 0.014
+  footprint: budget('/live/footprint/',            { js: 16,  font: 610,  total: 680,  cls: 0.05 }), // 10.9 / 539 / 602 / 0.001
+  gacha: budget('/gacha/',                         { js: 27,  font: 780,  total: 890,  cls: 0.05 }), // 21.8 / 689 / 789 / 0
+  year: budget('/year/2026/',                      { js: 16,  font: 960,  total: 1010, cls: 0.05 }), // 10.9 / 849 / 895 / 0
+  diary: budget('/diary/',                         { js: 16,  font: 630,  total: 680,  cls: 0.05 }), // 10.9 / 557 / 602 / 0
+  'diary-post': budget('/diary/2026-03-23-first-diary/', { js: 16, font: 680, total: 730, cls: 0.05 }), // 10.9 / 603 / 650 / 0
+  tags: budget('/translations/tags/',              { js: 22,  font: 630,  total: 690,  cls: 0.05 }), // 16.8 / 557 / 611 / 0
+  'tag-city': budget('/translations/tags/city/',   { js: 22,  font: 710,  total: 770,  cls: 0.05 }), // 16.8 / 627 / 683 / 0
+  extras: budget('/extras/',                       { js: 16,  font: 520,  total: 590,  cls: 0.05 }), // 10.9 / 464 / 520 / 0
 };
 
 function kindOf(url: string, type: string, mime: string): 'js' | 'font' | 'other' {
