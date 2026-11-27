@@ -563,3 +563,77 @@ def test_merge_skips_not_single_song_even_with_include_c(tmp_path, monkeypatch):
         H = json.loads(anc.read_text(encoding='utf-8'))
         assert 'ns' not in H and H['ok']['status'] == 'auto'
         assert H['old']['status'] == 'pending' and H['old']['anchors'] == []   # 舊的機器建議退回手動
+
+
+# ---------- process() 整條: 補開頭之後才判非單曲 ----------
+def test_process_hybrid_lead_then_nonsong_keeps_grade_after_lead(tmp_path, monkeypatch):
+    # Qwen 只轉到第 3、4 句, 前後夾雜訊 (認歌分數 <50 → 只有 2 句時是 B), whisper 從頭轉到 → 補開頭變 A;
+    # 標題是巡演字樣 → 最後 C, gradeBeforeNonsong 要記補開頭之後的 A (不是 Qwen 自己的 B)
+    songs = _songs()
+    hira = [l[2] for l in songs['a']['lines']]
+    ct = []
+    for k, h in enumerate(hira):
+        ct += [k * 5.0 + j * 0.25 for j in range(len(h))]
+    w = dict(hira=''.join(hira), char_time=ct, duration=40.0, segments=[{'t': 0.0, 'text': ''.join(VERSES)}])
+    n = len(hira[0]) + len(hira[1]) + len(hira[2])
+    junk = 'ぬ' * 30
+    q = dict(hira=junk + w['hira'][n:] + junk,
+             char_time=[j * 0.4 for j in range(len(junk))] + ct[n:] + [25.0 + j * 0.2 for j in range(len(junk))],
+             duration=40.0, segments=[{'t': 15.0, 'text': ''.join(VERSES[3:])}])
+    calls = []
+    monkeypatch.setattr(aa, 'ENGINE', 'hybrid')
+    monkeypatch.setattr(aa, 'download', lambda vid, d: calls.append(vid) or tmp_path / f'{vid}.m4a')
+    monkeypatch.setattr(aa, 'transcribe', lambda path, m, prompt=None: dict(q, alt=dict(w)))
+    item = {'title': 'nishina tour 2026', 'songId': 'a', 'matchMethod': 'hashtag'}
+    monkeypatch.setattr(aa, 'NONSONG_CHECK', False)
+    plain = aa.process('x', item, songs, 'small', tmp_path)
+    assert [a['line'] for a in plain['anchors']][:3] == [0, 1, 2] and plain['grade'] == 'A'
+    monkeypatch.setattr(aa, 'WHISPER_LEAD', False)
+    assert aa.process('x', item, songs, 'small', tmp_path)['grade'] == 'B'   # 沒補開頭是 B (確認這支真的靠補開頭升級)
+    monkeypatch.setattr(aa, 'WHISPER_LEAD', True)
+    monkeypatch.setattr(aa, 'NONSONG_CHECK', True)
+    r = aa.process('x', item, songs, 'small', tmp_path)
+    assert calls == ['x'] * 3 and not r.get('error')
+    assert r['grade'] == 'C' and 'not_single_song' in r['needsReview'] and r['nonSong'] == ['title']
+    assert r['gradeBeforeNonsong'] == 'A'
+    assert r['anchors'] == plain['anchors']                                  # 只降級, anchors 不動
+    # 歌名已確認 (force_song) 不套
+    assert 'not_single_song' not in aa.process('x', item, songs, 'small', tmp_path, force_song='a')['needsReview']
+
+
+# ---------- peer_anchors.apply 整條: 照抄不把 not_single_song 升回 A/B ----------
+def test_peer_apply_keeps_not_single_song_c(tmp_path, monkeypatch):
+    np = pytest.importorskip('numpy')
+    import json
+    import peer_anchors as pa
+    songs = _songs()
+    anchors = [{'t': 1.0 + 2.5 * k, 'line': k, 'score': 80} for k in range(5)]
+    rec = dict(songId='a', duration=12.8, transcript=[{'text': ''.join(VERSES)}], anchors=[dict(a) for a in anchors[:2]],
+               confidence=60, versionType=None)
+    out = tmp_path / 'auto.json'
+    out.write_text(json.dumps({'meta': {}, 'items': {
+        # 轉寫那條判的 (標題不中, 補套偵測不會再標一次) — 只剩 regrade 擋著
+        'ns': dict(rec, title='heavy smoke', grade='C', needsReview=['not_single_song'], nonSong=['foreign'], gradeBeforeNonsong='B'),
+        'ok': dict(rec, title='heavy smoke', grade='C', needsReview=['low_align'])}}), encoding='utf-8')
+    anc = tmp_path / 'anchors.json'
+    anc.write_text(json.dumps({'ref': {'songId': 'a', 'status': 'done', 'anchors': [{'t': a['t'], 'line': a['line']} for a in anchors]}}),
+                   encoding='utf-8')
+    # 三支是同一段錄音 (chroma 一模一樣, 12.8 秒)
+    c = np.random.default_rng(0).random((12, 400)).astype(np.float32)
+    c /= np.linalg.norm(c, axis=0, keepdims=True)
+    m = c.mean(1) / np.linalg.norm(c.mean(1))
+    monkeypatch.setattr(pa, 'load_feats', lambda vids: ({v: c for v in vids}, {v: m for v in vids}))
+    monkeypatch.setattr(aa, 'ANCHORS_F', anc)
+    monkeypatch.setattr(aa, 'load_songs', lambda: songs)
+    assert pa.apply(out) == 2
+    items = json.loads(out.read_text(encoding='utf-8'))['items']
+    assert items['ok']['grade'] == 'A' and items['ok']['peer']['coverage'] >= 0.9     # 一般的照樣升級
+    ns = items['ns']
+    assert ns['peer'] and len(ns['anchors']) > 2                                        # anchors 照抄了
+    assert ns['grade'] == 'C' and 'not_single_song' in ns['needsReview']
+    assert ns['asr']['grade'] == 'C' and 'not_single_song' in ns['asr']['needsReview']
+    assert ns['asr']['gradeBeforeNonsong'] == 'B'
+    # 再跑一次 (從 asr 重算) 也一樣
+    pa.apply(out)
+    ns = json.loads(out.read_text(encoding='utf-8'))['items']['ns']
+    assert ns['grade'] == 'C' and 'not_single_song' in ns['needsReview']
