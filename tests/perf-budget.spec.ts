@@ -31,8 +31,10 @@ export const BUDGETS: Record<string, Budget> = {
   // CLS 見下面 HOME_CLS 的說明
   home: budget('/',                              { js: 28,  font: 340,  total: 580,  cls: 0.05 }), // 23.6 / 298 / 438~516 / 0
   translations: budget('/translations/',                 { js: 21,  font: 630,  total: 770,  cls: 0.05 }), // 16.3 / 557 / 683 / 0
-  'song-wawon': budget('/translations/nishina-wawon/',   { js: 35,  font: 1130, total: 1280, cls: 0.05 }, TARGET_LYRIC), // 30.5 / 1007 / 1141 / 0
-  'song-mashiro': budget('/translations/nishina-mashiro/', { js: 35,  font: 1050, total: 1200, cls: 0.05 }, TARGET_LYRIC), // 30.5 / 935 / 1068 / 0
+  // 歌詞頁 font / total 比 N10 基準多 ~168 KB: DotGothic16 改自己放 (N25) 之前是從 Google Fonts 載, 外部請求這裡擋掉不算;
+  // 自己放之後才算進來。實際上線的量反而少了 (Google 那邊 36 個請求約 199 KB → 1 個 168 KB), 所以上限一起加 170, 不是退化。
+  'song-wawon': budget('/translations/nishina-wawon/',   { js: 35,  font: 1300, total: 1450, cls: 0.05 }, TARGET_LYRIC), // 30.8 / 1175 / 1310 / 0
+  'song-mashiro': budget('/translations/nishina-mashiro/', { js: 35,  font: 1220, total: 1370, cls: 0.05 }, TARGET_LYRIC), // 30.8 / 1103 / 1238 / 0
   live: budget('/live/',                         { js: 18,  font: 630,  total: 690,  cls: 0.05 }), // 13.1 / 557 / 610 / 0
   'live-full': budget('/live/full/nishina-1999/',       { js: 24,  font: 670,  total: 730,  cls: 0.05 }), // 19.1 / 591 / 651 / 0
   setlists: budget('/setlists/',                     { js: 15,  font: 630,  total: 810,  cls: 0.05 }), // 10.5 / 557 / 722 / 0
