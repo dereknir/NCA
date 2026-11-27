@@ -12,7 +12,7 @@ import LineLive from '../../components/LineLive.astro';
 import SongLiveHistory from '../../components/SongLiveHistory.astro';
 import shortsData from '../../data/shorts_by_song.json';
 import { getCollection, render } from 'astro:content';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import fullLive from '../../data/full_live.json';
 import { summary, type FLSong } from '../../lib/fullLive';
 import translationDates from '../../data/translation_dates.json';
@@ -74,6 +74,30 @@ const image = existsSync(`public${ogCard}`) ? ogCard
 const flSong = (fullLive.songs as FLSong[]).find(s => s.id === translation.id);
 const hasFullLive = !!flSong && summary(flSong).complete;
 
+// 這首歌自己的粉圓小檔 (scripts/build_pixel_fonts.py 產生): 第 0 片以外、這首歌用到的字。
+// 跟 site-shell.css 同一個 'openhuninn', 宣告在它後面 → 這些字先用這個檔; 沒收到的字照舊從共用切片補。
+// 新歌還沒跑腳本 / 字全在第 0 片 → 沒有這一項, 照舊用共用切片。
+const DOC_FONTS = 'public/fonts/openhuninn/doc/index.json';
+const docKey = translation.filePath?.replace(/^.*?src\/content\/translations\//, '').replace(/\.mdx?$/, '');
+const docFont = docKey && existsSync(DOC_FONTS)
+  ? (JSON.parse(readFileSync(DOC_FONTS, 'utf-8')) as Record<string, { f: string; c: string }>)[docKey]
+  : undefined;
+const unicodeRange = (chars: string) => {
+  const cps = [...new Set([...chars].map(c => c.codePointAt(0)!))].sort((a, b) => a - b);
+  const out: string[] = [];
+  for (let i = 0; i < cps.length; i++) {
+    let j = i;
+    while (j + 1 < cps.length && cps[j + 1] === cps[j] + 1) j++;
+    const hex = (n: number) => n.toString(16).toUpperCase();
+    out.push(i === j ? `U+${hex(cps[i])}` : `U+${hex(cps[i])}-${hex(cps[j])}`);
+    i = j;
+  }
+  return out.join(', ');
+};
+const docFontCss = docFont && docFont.c
+  ? `@font-face { font-family: 'openhuninn'; src: url('/fonts/openhuninn/doc/${encodeURIComponent(docFont.f)}') format('woff2'); font-display: swap; unicode-range: ${unicodeRange(docFont.c)}; }`
+  : '';
+
 // 抓當前歌曲已標註的 shorts (由 scripts/import_anchors.py 產出)
 const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation.id] ?? [];
 ---
@@ -88,6 +112,7 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
   width="read"
   jaTitle
 >
+  {docFontCss && <style is:inline set:html={docFontCss} />}
   <PageHero slot="hero" variant="song" width="read" planet="earth" title={title} titleLang="ja"
     path={`~/earth/translations/${translation.id.replace(/^nishina-/, '')}`} cmd="cat lyrics.txt"
     cover={coverImage} coverAlt={`${title} 封面`} coverTransition={`cover-${translation.id}`}

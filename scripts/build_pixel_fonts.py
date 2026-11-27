@@ -5,6 +5,7 @@ build_pixel_fonts.py — 站台像素字型子集管線
 data/site_charset.txt (build_site_charset.py 產出)
   → public/fonts/pixel/fp{12,10,8}-site-{zh_hant,ja}.woff2
   → public/fonts/openhuninn/oh-NN.woff2 (粉圓切片) + public/css/site-shell.css 裡的 @font-face
+  → public/fonts/openhuninn/doc/<歌>.woff2 + doc/index.json (每首歌自己的粉圓字, 歌詞頁 inline 宣告)
   → public/fonts/dotgothic16/dg16-site.woff2 (日文歌詞行的 DotGothic16, 原本從 Google Fonts 載)
 
 來源字型 fusion-pixel 12px proportional (OFL-1.1), 版本 pin 在下方 RELEASE。
@@ -189,6 +190,68 @@ def subset_openhuninn():
     a, b = css.index(OH_MARK[0]), css.index(OH_MARK[1])
     OH_CSS.write_text(css[:a] + OH_MARK[0] + "\n" + "\n".join(faces) + "\n" + css[b:], encoding="utf-8")
     print(f"✓ {OH_CSS.relative_to(ROOT)} 的 @font-face 已更新")
+
+    subset_openhuninn_songs(src, head_set, set(charset))
+
+
+# 每首歌一個小檔 (N17, 2026-11): 歌詞頁的罕見字散在十幾片裡, 一頁要抓 ~525KB。
+# 改成每首歌多一個自己的檔 = 這首歌用到、但第 0 片沒有的字。歌詞頁 inline 宣告它 (同一個 'openhuninn',
+# 宣告在 site-shell.css 後面 → 這些字先用這個檔); 沒收到的字照舊從共用切片補, 不會缺字。
+#   public/fonts/openhuninn/doc/<歌>.woff2
+#   public/fonts/openhuninn/doc/index.json  {"<md 檔名>": {"f": "<歌>.woff2", "c": "這個檔收的字"}}
+# 新增一首歌只多一個 woff2 (index.json 是改, 不是新增)。第 0 片的字變了每首都要重切, 一起重產生。
+OH_DOC_DIR = OH_DIR / "doc"
+# 每首歌頁都有、但不在 md 裡的粉圓字: 現場履歷 (SongLiveHistory) 的固定文案 + 巡演名稱。
+# 量過 50 首, 不收的話每頁還會為了這幾個字多抓 1~3 片共用切片。
+OH_SONG_PAGE = [ROOT / "src" / "components" / "SongLiveHistory.astro"]
+OH_SONG_TOURS = ROOT / "src" / "data" / "setlists.json"
+# 日文行 / 羅馬拼音行是 DotGothic16 (global.css .lyrics-line .ja / .romaji), 不會用到粉圓 → 不收
+OH_NOT_READ = re.compile(r'<div class="(?:ja|romaji)">[\s\S]*?</div>')
+
+
+def _doc_file(key: str) -> str:
+    """md 檔名 → 檔名; 只有英數 ._- 的照用, 其他字 (空白、中日文…) 換掉再加短 hash 避免撞名"""
+    import hashlib
+    safe = re.sub(r"[^A-Za-z0-9._-]+", "-", key).strip("-.") or "song"
+    if safe != key:
+        safe += "-" + hashlib.sha1(key.encode("utf-8")).hexdigest()[:8]
+    return safe + ".woff2"
+
+
+def subset_openhuninn_songs(src: Path, head_set: set, sliced: set):
+    """只收共用切片裡有的字 (= 站台字集 ∩ 粉圓): 切片沒有的字 (例如空白) 本來就走後備字型, 收進來畫面會變"""
+    import json
+    from fontTools import subset as fts
+    base = ROOT / "src" / "content" / "translations"
+    OH_DOC_DIR.mkdir(parents=True, exist_ok=True)
+    # md 轉 HTML 時 smartypants 會把 ' " -- ... 換成彎引號、破折號、刪節號 (md 原文裡看不到)
+    page = "‘’“”–—…" + "".join(_plain(p.read_text(encoding="utf-8")) for p in OH_SONG_PAGE if p.exists())
+    if OH_SONG_TOURS.exists():
+        page += " ".join(t.get("title", "") for t in json.loads(OH_SONG_TOURS.read_text(encoding="utf-8")).get("tours", []))
+    index, total = {}, 0
+    for p in sorted(base.rglob("*.md*")):
+        if p.suffix not in (".md", ".mdx"):
+            continue
+        key = p.relative_to(base).with_suffix("").as_posix()
+        text = OH_NOT_READ.sub(" ", p.read_text(encoding="utf-8"))
+        chars = sorted({c for c in _plain(text) + page if c in sliced and c not in head_set})
+        if not chars:   # 全部都在第 0 片 (例如只有英數的頁) → 不用自己的檔
+            continue
+        name = _doc_file(key)
+        out = OH_DOC_DIR / name
+        txt = OH_DOC_DIR / ".doc.txt"
+        txt.write_text("".join(chars), encoding="utf-8")
+        fts.main([str(src), f"--text-file={txt}", "--flavor=woff2", f"--output-file={out}"])
+        txt.unlink()
+        total += out.stat().st_size
+        index[key] = {"f": name, "c": "".join(chars)}
+    keep = {v["f"] for v in index.values()}
+    for old in OH_DOC_DIR.glob("*.woff2"):   # 歌刪掉 / 改名 → 舊檔一起清
+        if old.name not in keep:
+            old.unlink()
+    (OH_DOC_DIR / "index.json").write_text(
+        json.dumps(index, ensure_ascii=False, indent=0, sort_keys=True) + "\n", encoding="utf-8")
+    print(f"✓ public/fonts/openhuninn/doc/ {len(index)} 首, 平均 {total // max(len(index), 1) // 1024}KB, 全部 {total // 1024}KB")
 
 
 # DotGothic16 (Fontworks, OFL-1.1) — 日文歌詞行 / Live 三頁 / 指令列歌詞結果用的點陣字。
