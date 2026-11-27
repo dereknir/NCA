@@ -5,6 +5,8 @@
  *   → public/og/song/<id>.png   左上封面馬賽克 + 歌名 + 專輯 / 年份 + 第一句歌詞 (日 / 中)
  *   → public/og/<page>.png      歌詞宇宙 / 星圖 / ガチャ / 索引, 右側畫該頁的像素行星
  *   → public/og/year-<年>.png   年度回顧 (數字跟 /year/<年>/ 同一份資料算)
+ *   → public/og/live-full/<id>.png  完整 Live: 歌名 + 場次 (shorts 標題有寫才有) + 段數 / 句數
+ *     只重畫完整 Live:  node scripts/og-pages.mjs full   (full_live.json 重產之後跑這個就好)
  * 新增歌曲、改歌名或第一句歌詞後重跑; 不帶參數就全部重畫。
  * 歌曲頁 (translations/[id].astro) 有圖就用, 沒有就退回封面。
  */
@@ -121,7 +123,68 @@ async function year(Y) {
 }
 const YEARS = ['2026'];
 
+// ---------- 完整 Live ----------
+// 段數 / 句數跟 /live/full/<id>/ 一樣用 src/lib/fullLive.ts 的 plan() / summary() 算 (Node 22 直接吃 .ts)
+async function fullLive() {
+  const { plan, summary } = await import('../src/lib/fullLive.ts');
+  const { loadDefaultJapaneseParser } = await import('budoux');
+  const ja = loadDefaultJapaneseParser();
+  mkdirSync(path.join(outDir, 'live-full'), { recursive: true });
+  const planet = nav.planets.deimos;                       // 跟完整 Live 頁 hero 同一顆
+  for (const song of readJson('src/data/full_live.json').songs) {
+    const sum = summary(song);
+    if (!sum.complete) continue;
+    // 場次: 只有官方 shorts 標題寫成「hatsu @Zepp Tokyo 2021.6.25」的才知道是哪一場, 其他的不硬猜
+    const shows = new Map();
+    for (const seg of plan(song)) {
+      const m = !seg.gap && seg.live && seg.title.match(/^(.+?)\s*@\s*(.+?)\s+(\d{4}\.\d{1,2}\.\d{1,2})$/);
+      if (m) shows.set(m[0], (shows.get(m[0]) ?? 0) + 1);
+    }
+    const top = [...shows].sort((a, b) => b[1] - a[1])[0]?.[0]
+      .match(/^(.+?)\s*@\s*(.+?)\s+(\d{4}\.\d{1,2}\.\d{1,2})$/);
+    const lines = song.lines.length - sum.skipped.length;
+    const { buf, px, rect } = baseBuffer(seedOf(`full-${song.id}`), planet.palette[2]);
+    // 文字底下的星星清掉: 行星右邊那塊留著, 行星下面 (y ≥ 60) 字可以寫到右框
+    rect(6, 8, 170, 52, P.bg);
+    rect(6, 58, 226, 60, P.bg);
+    drawOrb(px, 180, 10, planet);
+    // 歌名: 24px 一行 → 24px 斷成兩行 (日文照 BudouX 的詞組, 英文照空白) → 12px 一行 (截斷)
+    const TW = 162, WIDE = 212;
+    let rows = [song.title], size = 24;
+    if (await measure(song.title, 24) > TW) {
+      const cuts = new Set();
+      let at = 0;
+      for (const c of ja.parse(song.title)) cuts.add(at += c.length);
+      for (const m of song.title.matchAll(/ /g)) cuts.add(m.index);
+      let best = null;
+      for (const i of cuts) {
+        if (i <= 0 || i >= song.title.length) continue;
+        const a = song.title.slice(0, i).trimEnd(), b = song.title.slice(i).trimStart();
+        const wa = await measure(a, 24), wb = await measure(b, 24);
+        if (wa <= TW && wb <= TW && (!best || Math.max(wa, wb) < best[0])) best = [Math.max(wa, wb), a, b];
+      }
+      if (best) rows = [best[1], best[2]];
+      else { rows = [await fit(song.title, 12, 'JP12', TW)]; size = 12; }
+    }
+    const texts = [t('にしな  完整 Live', 14, 12, 12, 'TC12', P.dim)];
+    let y = 28;
+    for (const r of rows) { texts.push(t(r, 14, y, size, 'JP12', P.gold)); y += size === 24 ? 24 : 16; }
+    y = Math.max(y + 6, 62);
+    const stat = `${sum.segs} 段 / ${lines} 句`;
+    if (top) {
+      texts.push(t(await fit(`${top[1]} @ ${top[2]}`, 12, 'JP12', WIDE), 14, y, 12, 'JP12', P.text));
+      texts.push(t(`${top[3]}${shows.size > 1 ? ` 等 ${shows.size} 場` : ''}  ${stat}`, 14, y + 15, 12, 'TC12', P.dim));
+    } else {
+      texts.push(t(`${sum.liveShorts} 支現場 shorts 接成一首`, 14, y, 12, 'TC12', P.text));
+      texts.push(t(stat, 14, y + 15, 12, 'TC12', P.dim));
+    }
+    if (y + 15 + 12 <= 98) texts.push(t('./play --full', 14, 102, 12, 'JP12', P.light));
+    save(`live-full/${song.id}.png`, await compose(buf, texts));
+  }
+}
+
 const args = process.argv.slice(2);
+if (args.length === 1 && args[0] === 'full') { await fullLive(); process.exit(0); }
 // year-2026 這種參數只重畫那一年的圖卡
 for (const a of args.filter(a => /^year-\d{4}$/.test(a))) await year(a.slice(5));
 const only = args.filter(a => !/^year-\d{4}$/.test(a));
@@ -131,3 +194,4 @@ const ids = only.length ? only : readdirSync(path.join(ROOT, 'src/content/transl
 for (const id of ids) await song(id);
 if (!only.length) for (const name of Object.keys(PAGES)) await page(name);
 if (!only.length) for (const Y of YEARS) await year(Y);
+if (!only.length) await fullLive();
