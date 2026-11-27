@@ -5,6 +5,7 @@ build_pixel_fonts.py — 站台像素字型子集管線
 data/site_charset.txt (build_site_charset.py 產出)
   → public/fonts/pixel/fp{12,10,8}-site-{zh_hant,ja}.woff2
   → public/fonts/openhuninn/oh-NN.woff2 (粉圓切片) + public/css/site-shell.css 裡的 @font-face
+  → public/fonts/dotgothic16/dg16-site.woff2 (日文歌詞行的 DotGothic16, 原本從 Google Fonts 載)
 
 來源字型 fusion-pixel 12px proportional (OFL-1.1), 版本 pin 在下方 RELEASE。
 完整 TTF (~7MB×2) 不進 repo — 本腳本第一次跑會下載到 fonts_src/ (gitignored),
@@ -12,6 +13,7 @@ data/site_charset.txt (build_site_charset.py 產出)
 
     python scripts/build_site_charset.py && python scripts/build_pixel_fonts.py
     python scripts/build_pixel_fonts.py openhuninn     # 只重切粉圓 (像素字不動)
+    python scripts/build_pixel_fonts.py dotgothic      # 只重切 DotGothic16
 
 依賴: pip install fonttools brotli
 """
@@ -189,6 +191,52 @@ def subset_openhuninn():
     print(f"✓ {OH_CSS.relative_to(ROOT)} 的 @font-face 已更新")
 
 
+# DotGothic16 (Fontworks, OFL-1.1) — 日文歌詞行 / Live 三頁 / 指令列歌詞結果用的點陣字。
+# 以前從 Google Fonts 載, 一頁要抓 ~36 個 unicode-range 小檔; 改成自己放一份子集:
+# 字集 = site_charset (全部歌詞/日記/作品全文 + 頁面 UI + 假名全表 + ASCII + 常用標點) ∩ 字型本身有的字。
+# 整份 ~170KB 一個檔, 換頁吃快取。來源 pin 在 google/fonts 的某個 commit, 升版改 DG_COMMIT。
+DG_COMMIT = "5026800714d07231937d92eb4cceabf06e05d74e"
+DG_BASE = f"https://raw.githubusercontent.com/google/fonts/{DG_COMMIT}/ofl/dotgothic16"
+DG_DIR = ROOT / "public" / "fonts" / "dotgothic16"
+
+
+def subset_dotgothic():
+    from fontTools import subset as fts
+    from fontTools.ttLib import TTFont
+    src = SRC_DIR / "DotGothic16-Regular.ttf"
+    if not src.exists():
+        SRC_DIR.mkdir(exist_ok=True)
+        print("↓ 下載 DotGothic16 (~2MB, 只需一次) …")
+        urllib.request.urlretrieve(f"{DG_BASE}/DotGothic16-Regular.ttf", src)
+    DG_DIR.mkdir(parents=True, exist_ok=True)
+    lic = DG_DIR / "OFL.txt"
+    if not lic.exists():
+        urllib.request.urlretrieve(f"{DG_BASE}/OFL.txt", lic)
+
+    have = set(TTFont(src)["cmap"].getBestCmap())
+    text = CHARSET.read_text(encoding="utf-8")
+    # Live 三頁整頁都是 DotGothic16, 資料 (場次/場地/新聞標題) 比 site_charset 收得多 → 整份資料跟頁面一起收
+    for p in list((ROOT / "live").glob("**/*.json")) + list((ROOT / "public" / "live").glob("*/index.html")):
+        text += p.read_text(encoding="utf-8")
+    text += "".join(chr(c) for c in range(0xFF01, 0xFF5F))   # 全形英數符號 (＆＠ 之類), 便宜的保險
+    # site_charset 把空白濾掉了; 半形/不換行空白不收的話, 羅馬拼音行的空格會掉到 monospace 去, 字距跟著變
+    chars = sorted({c for c in text + " \u00a0\u3000" if ord(c) in have and (c.isprintable() or c.isspace())})
+    out = DG_DIR / "dg16-site.woff2"
+    txt = DG_DIR / ".charset.txt"
+    txt.write_text("".join(chars), encoding="utf-8")
+    fts.main([str(src), f"--text-file={txt}", "--flavor=woff2", f"--output-file={out}"])
+    txt.unlink()
+
+    # 字型本身有、子集卻沒收到的字 = 管線壞了, 直接報錯
+    got = set(TTFont(out)["cmap"].getBestCmap())
+    lost = [c for c in chars if ord(c) not in got]
+    if lost:
+        print(f"✗ dg16 子集漏了 {len(lost)} 字: {''.join(lost[:40])}", file=sys.stderr)
+        sys.exit(1)
+    # 字型本身就沒有的 (多半是繁中專用字) 照舊 fallback 到 PX10, 跟以前從 Google 載一樣
+    print(f"✓ {out.relative_to(ROOT)} ({out.stat().st_size // 1024}KB, {len(chars)} 字)")
+
+
 def main():
     if not CHARSET.exists():
         print("先跑 scripts/build_site_charset.py", file=sys.stderr)
@@ -196,11 +244,15 @@ def main():
     if sys.argv[1:] == ["openhuninn"]:
         subset_openhuninn()
         return
+    if sys.argv[1:] == ["dotgothic"]:
+        subset_dotgothic()
+        return
     for size in SIZES:
         ensure_sources(size)
         for lang in LANGS:
             subset(size, lang)
     subset_openhuninn()
+    subset_dotgothic()
     verify_coverage()
 
 
