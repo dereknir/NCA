@@ -31,10 +31,10 @@ export const BUDGETS: Record<string, Budget> = {
   // CLS 見下面 HOME_CLS 的說明
   home: budget('/',                              { js: 28,  font: 340,  total: 580,  cls: 0.05 }), // 23.6 / 298 / 438~516 / 0
   translations: budget('/translations/',                 { js: 21,  font: 630,  total: 770,  cls: 0.05 }), // 16.3 / 557 / 683 / 0
-  // 歌詞頁 font / total 比 N10 基準多 ~168 KB: DotGothic16 改自己放 (N25) 之前是從 Google Fonts 載, 外部請求這裡擋掉不算;
-  // 自己放之後才算進來。實際上線的量反而少了 (Google 那邊 36 個請求約 199 KB → 1 個 168 KB), 所以上限一起加 170, 不是退化。
-  'song-wawon': budget('/translations/nishina-wawon/',   { js: 35,  font: 1300, total: 1450, cls: 0.05 }, TARGET_LYRIC), // 30.8 / 1175 / 1310 / 0
-  'song-mashiro': budget('/translations/nishina-mashiro/', { js: 35,  font: 1220, total: 1370, cls: 0.05 }, TARGET_LYRIC), // 30.8 / 1103 / 1238 / 0
+  // 歌詞頁字型含自己放的 DotGothic16 (N25, 168 KB; 以前從 Google Fonts 載, 外部請求這裡擋掉不算)。
+  // 粉圓改成「第 0 片 + 每首歌自己的小檔」(N17) 之後: わをん 1175 → 758、真白 1103 → 755, 上限照 × 1.12 收緊。
+  'song-wawon': budget('/translations/nishina-wawon/',   { js: 35,  font: 850,  total: 1000, cls: 0.05 }, TARGET_LYRIC), // 30.8 / 758 / 894 / 0
+  'song-mashiro': budget('/translations/nishina-mashiro/', { js: 35,  font: 850,  total: 1000, cls: 0.05 }, TARGET_LYRIC), // 30.8 / 755 / 890 / 0
   live: budget('/live/',                         { js: 18,  font: 630,  total: 690,  cls: 0.05 }), // 13.1 / 557 / 610 / 0
   'live-full': budget('/live/full/nishina-1999/',       { js: 24,  font: 670,  total: 730,  cls: 0.05 }), // 19.1 / 591 / 651 / 0
   setlists: budget('/setlists/',                     { js: 15,  font: 630,  total: 810,  cls: 0.05 }), // 10.5 / 557 / 722 / 0
@@ -145,6 +145,14 @@ for (const [name, b] of Object.entries(BUDGETS)) {
       lines.push('CLS 最大視窗裡的 layout-shift (時間 ms / 值 / 元素):');
       for (const e of clsWin.entries.slice(0, 10)) lines.push(`  ${e.t}ms  ${e.v}  ${e.src.join(', ')}`);
     }
+
+    // 同一個字型檔不該抓兩次 (例如兩組 @font-face 指到同一檔、preload 跟 @font-face 的 crossorigin 對不上)
+    const fontUrls = [...reqs.values()]
+      .filter((r) => r.bytes != null && r.url?.startsWith(origin) && kindOf(r.url, r.type ?? '', r.mime ?? '') === 'font')
+      .map((r) => r.url!.slice(origin.length));
+    const dup = fontUrls.filter((u, i) => fontUrls.indexOf(u) !== i);
+    expect.soft(dup, `${name} ${b.path} 字型重複下載: ${[...new Set(dup)].join(', ')}`).toEqual([]);
+
     expect(over, `超出效能預算:\n${lines.join('\n')}`).toEqual([]);
   });
 }
