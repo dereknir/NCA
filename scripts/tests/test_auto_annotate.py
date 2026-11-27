@@ -666,3 +666,18 @@ def test_peer_apply_keeps_not_single_song_c(tmp_path, monkeypatch):
     pa.apply(out)
     ns = json.loads(out.read_text(encoding='utf-8'))['items']['ns']
     assert ns['grade'] == 'C' and 'not_single_song' in ns['needsReview']
+
+
+def test_hybrid_whisper_tie_does_not_change_timing():
+    # Qwen 沒有歧義 (片段從副歌前一句唱起, 只接得上第一次); whisper 只聽到副歌, 平手。
+    # 歌詞窗判斷只該改「選哪段」: 不能讓 whisper 那份改選到同一段, 進而把 Qwen 的時間換成 whisper 的
+    lines = [VERSES[2], VERSES[0], VERSES[1], 'そして', VERSES[3], VERSES[0], VERSES[1], 'もうね', VERSES[4]]
+    song = make_song(lines)
+    q = make_tr(VERSES[2] + VERSES[0] + VERSES[1] + 'そして')
+    w = make_tr(VERSES[0] + VERSES[1] + 'そして', t0=5.0)
+    alone, _ = aa.align(song, dict(q))
+    anchors, ambiguous = aa.align(song, dict(q, alt=w))
+    assert not ambiguous
+    assert [(a['line'], a['t']) for a in anchors] == [(a['line'], a['t']) for a in alone]
+    # whisper 自己當主轉寫時 (Qwen 是 C 改用 whisper) 照樣用歌詞窗判斷
+    assert {a['line'] for a in aa.align(song, dict(w))[0] if not a.get('est')} == {1, 2}
