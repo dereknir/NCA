@@ -7,7 +7,9 @@ check_sync.py — 驗證「有鏡像副本」的衍生資料檔兩邊一致 (CI 
 只檢查每一對是否 byte-for-byte 相同 — 有人手動只改了一邊、或新增了鏡像卻忘了接
 腳本, 在這裡會立刻炸, 而不是等標注工具安靜地讀到舊資料。
 
-用法: python scripts/check_sync.py      (exit 0 = 全部一致)
+最後順便跑 check_data.py (主要資料檔的結構檢查), CI 只要跑這一支就兩個都檢查到。
+
+用法: python scripts/check_sync.py      (exit 0 = 全部一致且資料結構正確)
 """
 import filecmp
 import sys
@@ -40,9 +42,13 @@ def main() -> int:
             bad += 1
     if bad:
         print(f'\n{bad} 對鏡像有問題', file=sys.stderr)
-        return 1
-    print('\n全部鏡像一致')
-    return 0
+    else:
+        print('\n全部鏡像一致')
+
+    sys.path.insert(0, str(ROOT / 'scripts'))
+    import check_data
+    data_rc = check_data.main()
+    return 1 if bad or data_rc else 0
 
 
 if __name__ == '__main__':
