@@ -18,6 +18,8 @@
  * - onError 禁止嵌入 → fallback UI
  * - 本體是瀏覽器內建的 <dialog> (showModal): Esc、背景 inert、焦點回原處都不用自己寫
  */
+import { coverAt } from '../lib/covers';
+
 interface Anchor { t: number; line: number }
 interface Short {
   videoId: string;
@@ -42,7 +44,7 @@ if (!shorts || shorts.length === 0) return null;
   class="stage"
   aria-label="LIVE 播放模式"
   data-song-title={songTitle}
-  data-cover-image={coverImage || ''}
+  data-cover-image={coverAt(coverImage, 448) || ''}
   data-shorts={JSON.stringify(shorts)}
 >
   <div class="stage-backdrop"></div>

@@ -10,6 +10,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import setlists from '../../data/setlists.json';
 import tourRecaps from '../../data/shorts_tours.json';
+import { webpOf } from '../../lib/images';
 
 interface Track {
   index: number;
@@ -67,7 +68,7 @@ function formatViews(n: number): string {
           {/* 上面: 封面 + 巡演名、日期、開歌單的按鈕 */}
           <header class="sl-hd">
             {tour.cover && (
-              <img src={tour.cover} alt={`${tour.title} 巡演封面`} width="112" height="112" loading="lazy" class="sh-img sl-cover" />
+              <img src={webpOf(tour.cover)} alt={`${tour.title} 巡演封面`} width="112" height="112" loading="lazy" class="sh-img sl-cover" />
             )}
             <div class="sl-hd-t">
               <h2 lang="ja">{tour.title}</h2>
