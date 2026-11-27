@@ -36,6 +36,7 @@ npm install
 npm run dev        # http://localhost:4321
 npm run build      # 靜態輸出到 dist/
 npm run check      # astro check (TS / content schema)
+npm run test:e2e   # build + Playwright 冒煙測試 (每頁 1440 / 390 各開一次; E2E_ALL=1 跑全部歌)
 
 pip install -r requirements.txt      # 資料管線用
 python scripts/check_sync.py         # 驗證 public/annotate/ 鏡像與來源一致 (CI 也跑)
@@ -58,7 +59,7 @@ scripts/                      Python 管線 + 注入用 HTML 模板
 annotation/                   shorts 標注工作區 (HANDOFF.md 有完整背景)
 live/                         live 三頁的模板、資料、inject.py、eplus 哨兵 (DATA-REFRESH-POLICY.md)
 docs/                         設計討論與規格 (STAGE-SPEC.md 等)
-.github/workflows/            五支 Actions (見下)
+.github/workflows/            六支 Actions (見下)
 ```
 
 ## 資料管線
@@ -97,6 +98,7 @@ annotator (/annotate/) 人工或 scripts/auto_annotate.py (ASR, 本機跑; scrip
 | Workflow | 觸發 | 做什麼 |
 |---|---|---|
 | `ci.yml` | 每次 push / PR | `check_sync.py` → `npm ci` → `astro check` → `astro build` (唯讀) |
+| `e2e.yml` | 每次 push / PR | build → Playwright 冒煙測試 (console error / 橫向捲動 / 主要區塊; 外部請求擋掉, 唯讀) |
 | `scrape-shorts.yml` | 每日 03:00 台北 / 手動 | yt-dlp 抓 shorts → 全部衍生檔 → eplus / 官方 news 哨兵 → live 重建 → commit → 日報 email |
 | `sync-derived.yml` | push `annotation/shorts_anchors.json` | annotator 存檔後 30 秒內重生 shorts_by_song / extras / gacha live pool |
 | `refresh-lyric-data.yml` | push `src/content/translations/**.md` | lyrics.json → 歌詞宇宙 / KWIC → 字型子集重生 |

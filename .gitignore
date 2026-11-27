@@ -42,3 +42,7 @@ fonts_src/
 live/live-pages.zip
 # Python venvs (.venv = requirements-ml.txt, .venv-qwen = requirements-qwen.txt)
 .venv*/
+
+# Playwright
+test-results/
+playwright-report/

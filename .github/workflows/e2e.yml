@@ -1,0 +1,50 @@
+name: E2E (Playwright smoke)
+
+# 每頁在桌機 1440 / 手機 390 各開一次: 沒有 console error、沒有橫向捲動、主要區塊有出現。
+# 外部請求 (YouTube / GitHub API / Google Fonts) 在測試裡擋掉, 不吃網路。
+# 只讀, 不 commit 任何東西。
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+  workflow_dispatch: {}
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build (astro build → dist/)
+        run: npm run build
+
+      - name: Smoke test
+        run: npx playwright test
+
+      - name: Upload report (失敗時)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

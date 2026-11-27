@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "test:e2e": "npm run build && playwright test"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.10",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
+    "@playwright/test": "^1.63.0",
     "typescript": "^5.9.3"
   },
   "overrides": {
