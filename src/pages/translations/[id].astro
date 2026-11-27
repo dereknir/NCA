@@ -9,6 +9,7 @@ import ArticleEnd from '../../components/ArticleEnd.astro';
 import LyricWords from '../../components/LyricWords.astro';
 import CopyLyrics from '../../components/CopyLyrics.astro';
 import LineLive from '../../components/LineLive.astro';
+import SongLiveHistory from '../../components/SongLiveHistory.astro';
 import shortsData from '../../data/shorts_by_song.json';
 import { getCollection, render } from 'astro:content';
 import { existsSync } from 'node:fs';
@@ -162,6 +163,8 @@ const songShorts = (shortsData.by_song as Record<string, unknown[]>)[translation
         )}
       </div>
     )}
+
+    <SongLiveHistory songId={translation.id} />
 
     <ArticleEnd shareText={`${artist}「${title}」中文歌詞翻譯`} translated={translatedAt} updated={songDates?.updated}
       source={`src/content/translations/${translation.id}.md`} />
