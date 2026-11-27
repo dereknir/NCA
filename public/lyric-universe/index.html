@@ -79,6 +79,7 @@
   #net circle{cursor:grab}
   /* 鍵盤焦點: 節點不畫 outline (Chrome 會框成 bbox), 改畫方框跟著節點走, 金色同全站 focus */
   #net circle:focus{outline:none}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
   #net .ring rect{fill:none;shape-rendering:crispEdges;pointer-events:none}
   #net .ring .bk{stroke:#0a0a15;stroke-width:4}
   #net .ring .fg{stroke:#e8c94a;stroke-width:2}
@@ -150,7 +151,8 @@
     <p class="sub">同行或鄰行一起出現 ≥3 次的詞。節點大小 = 出現行數,可拖曳;點節點看它活著的句子。同曲副歌反覆的行已去重,不會灌水計數。鍵盤: Tab 到圖上, 方向鍵換詞, Enter 看句子, Esc 收起。</p>
     <div id="net-wrap">
       <svg id="net" role="group" aria-label="詞彙共現網絡: 方向鍵在詞之間移動, Enter 看句子, Esc 收起"></svg>
-      <div id="netside" aria-live="polite"><div class="ph">← 點一個詞</div></div>
+      <div id="netside"><div class="ph">← 點一個詞</div></div>
+      <div id="net-live" class="sr-only" aria-live="polite"></div>
     </div>
 
     <div class="bonds">
@@ -276,14 +278,21 @@ document.getElementById('fp-cards').innerHTML = DATA.fingerprints.map(f => `
     // 鍵盤: 整張圖只佔一個 Tab 停點 (roving tabindex), 進來後方向鍵換詞
     .attr('role', 'button')
     .attr('tabindex', (d, i) => i === 0 ? 0 : -1)
+    .attr('aria-pressed', 'false')
+    .attr('data-name', d => d.id)
     .attr('aria-label', d => `${d.id}, 出現 ${d.count} 行`)
     .on('click', function (e, d) { pin(this, d); });
   const label = svg.append('g').attr('aria-hidden', 'true').selectAll('text').data(nodes).join('text')
     .text(d => d.id).attr('text-anchor', 'middle');
 
   const sidePH = side.innerHTML;
+  // 讀螢幕只念一句短的, 不要整個側欄當 live region (不然 Enter 會整段重念、Esc 念說明文字)
+  const live = document.getElementById('net-live');
   let pinned = null;   // 目前打開的那個詞 (Esc 時焦點還給它)
   function pin(el, d) {
+    if (pinned) pinned.setAttribute('aria-pressed', 'false');
+    el.setAttribute('aria-pressed', 'true');
+    live.textContent = `已打開: ${d.id}`;
     side.innerHTML = `<b style="font-size:16px">${esc(d.id)}</b>
       <span style="color:var(--dim);font-size:12px"> 出現 ${d.count} 行</span>`
       + d.refs.map(refHtml).join('');
@@ -293,12 +302,17 @@ document.getElementById('fp-cards').innerHTML = DATA.fingerprints.map(f => `
   function unpin() {
     if (!pinned) return;
     side.innerHTML = sidePH;
+    pinned.setAttribute('aria-pressed', 'false');
+    live.textContent = '已收起';
     pinned.focus();
     pinned = null;
   }
+  let stop = node.node();   // 目前的 Tab 停點
   function rove(el) {
-    node.attr('tabindex', -1);
+    if (el === stop) return;
+    stop.setAttribute('tabindex', -1);
     el.setAttribute('tabindex', 0);
+    stop = el;
   }
 
   // 焦點框: 節點會一直被力學推著飄, 所以 tick 裡也要跟著更新
@@ -324,6 +338,7 @@ document.getElementById('fp-cards').innerHTML = DATA.fingerprints.map(f => `
   const nodeEl = new Map();
   node.each(function (d) { nodeEl.set(d, this); });
   node.on('keydown', function (e, d) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;   // Alt+← 上一頁之類的留給瀏覽器
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       pin(this, d);
@@ -337,7 +352,12 @@ document.getElementById('fp-cards').innerHTML = DATA.fingerprints.map(f => `
         const s = ax + Math.abs((q.x - d.x) * dy - (q.y - d.y) * dx) * 2.5;
         if (s < bestS) { bestS = s; best = q; }
       }
-      if (best) nodeEl.get(best).focus();
+      if (!best) return;
+      // 不讓瀏覽器自己捲頁面; 只有新節點真的跑出視窗才捲最少的距離
+      const el = nodeEl.get(best);
+      el.focus({ preventScroll: true });
+      const b = el.getBoundingClientRect();
+      if (b.top < 0 || b.bottom > innerHeight) el.scrollIntoView({ block: 'nearest' });
     }
   });
   // Esc: 在圖上或側欄裡按都收起來, 焦點回到剛剛那個詞
