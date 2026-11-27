@@ -741,3 +741,18 @@ def test_hybrid_whisper_tie_does_not_change_timing():
     assert [(a['line'], a['t']) for a in anchors] == [(a['line'], a['t']) for a in alone]
     # whisper 自己當主轉寫時 (Qwen 是 C 改用 whisper) 照樣用歌詞窗判斷
     assert {a['line'] for a in aa.align(song, dict(w))[0] if not a.get('est')} == {1, 2}
+
+
+@pytest.mark.parametrize('lines', [
+    [VERSES[0], VERSES[1], VERSES[2], VERSES[3], VERSES[0], VERSES[1]],      # 頭サビ + 最後一次副歌
+    [VERSES[0], VERSES[1], VERSES[2], VERSES[0], VERSES[1], VERSES[3]],      # 頭サビ + 中段副歌
+])
+def test_window_ratio_noise_before_head_chorus_does_not_favor_it(lines):
+    # 片段前面有歡呼被轉成假名: 超出歌頭的那段不能不計分, 不然頭サビ會拿 100 被改選
+    ls = make_song(lines)['lines']
+    second = lines.index(VERSES[0], 1)
+    hira = 'わーきゃー' + VERSES[0] + VERSES[1]
+    first = [(0, 5, 100.0), (1, 5 + len(VERSES[0]), 100.0)]
+    later = [(second, 5, 100.0), (second + 1, 5 + len(VERSES[0]), 100.0)]
+    assert aa._window_ratio(ls, hira, first) < 100
+    assert aa._window_ratio(ls, hira, first) <= aa._window_ratio(ls, hira, later)
