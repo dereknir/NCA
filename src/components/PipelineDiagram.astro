@@ -5,13 +5,13 @@ import { getPipelineStats, pct, fmt } from '../lib/pipelineStats';
 const s = await getPipelineStats();
 
 const STEPS: Array<{ title: string; sub: string; stat: string }> = [
-  { title: '抓影片', sub: 'yt-dlp · 每天 03:00 排程', stat: `${fmt(s.shorts)} 支 shorts` },
+  { title: '抓影片', sub: 'yt-dlp · 每天凌晨排程', stat: `${fmt(s.shorts)} 支 shorts` },
   { title: '聽寫', sub: 'ASR 逐字稿 (含逐字時間)', stat: `${fmt(s.autoDrafts)} 支跑過初稿` },
-  { title: '對歌詞', sub: '模糊比對 → 哪一句 · 第幾秒', stat: `初稿免改 ${pct(s.autoPerfect, s.compared)}` },
+  { title: '對歌詞', sub: '模糊比對 → 哪一句 · 第幾秒', stat: `審核時直接採用 ${pct(s.autoPerfect, s.compared)}` },
   { title: '人工審', sub: '/annotate/ 標注器, 手機也能審', stat: `已審 ${fmt(s.reviewed)} 支` },
   { title: '衍生資料', sub: 'sync-derived · check_sync', stat: `${s.songsWithShorts} 首歌有現場影片` },
   { title: 'Astro 建置', sub: 'astro check · Playwright', stat: `${s.translated} 首翻譯 · ${s.fullLive} 首完整 Live` },
-  { title: 'Vercel', sub: 'develop → 預覽 · main → 正式站', stat: `${s.workflows} 支 Actions 在顧` },
+  { title: 'Vercel', sub: '每個分支都有預覽網址', stat: `${s.workflows} 支 Actions 在顧` },
 ];
 
 const W = 360, BOX_W = 316, BOX_H = 64, GAP = 28, TOP = 8;
