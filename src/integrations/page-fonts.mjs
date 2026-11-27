@@ -10,6 +10,7 @@
 // 沒收到的字 (例如 JS 之後才塞進來的) 照舊從共用切片補, 不會掉到後備字型。
 // 一片切一個檔而不是合成一個: harfbuzz 只能切不能合併, 每個小檔 1~3KB, 多幾個請求換掉 ~380KB。
 // 檔名是內容的 hash, 資料一變字就跟著變, 快取不會吃到舊檔。dev server 不經過這裡 → 照舊用共用切片。
+// 這只是省流量: 讀不到 CSS、切字失敗都只 warn, 那頁留著共用切片照樣能看, 不擋整個 build / 部署。
 import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
@@ -65,7 +66,8 @@ export default function pageFonts({ pages }) {
     hooks: {
       'astro:build:done': async ({ dir, logger }) => {
         const root = fileURLToPath(dir);
-        const css = await readFile(CSS, 'utf-8');
+        let css;
+        try { css = await readFile(CSS, 'utf-8'); } catch (e) { logger.warn(`讀不到 ${CSS}, 跳過 (${e})`); return; }
         const slices = [...css.matchAll(FACE)].map(m => ({ url: m[1], cps: parseRange(m[2]) }));
         if (!slices.length) { logger.warn(`${CSS} 裡找不到粉圓切片, 跳過`); return; }
         const head = slices.find(s => s.url.endsWith('/oh-00.woff2'));
@@ -80,7 +82,7 @@ export default function pageFonts({ pages }) {
             files = (await readdir(join(root, sub), { recursive: true }))
               .filter(f => f === 'index.html' || f.endsWith('/index.html')).map(f => join(root, sub, f));
           } catch { continue; }
-          for (const file of files) {
+          for (const file of files) try {
             const html = await readFile(file, 'utf-8');
             const cps = new Set([...pageText(html)].map(c => c.codePointAt(0)));
             const faces = [];
@@ -101,6 +103,9 @@ export default function pageFonts({ pages }) {
             if (!faces.length) continue;
             await writeFile(file, html.replace('</head>', `<style>${faces.join('\n')}</style></head>`));
             logger.info(`${file.slice(root.length)}: 粉圓 ${faces.length} 片 ${Math.round(before / 1024)}KB → 自己的小檔 ${Math.round(bytes / 1024)}KB`);
+          } catch (e) {
+            // 這頁的 HTML 沒動 → 照舊用共用切片
+            logger.warn(`${file.slice(root.length)}: 切粉圓小檔失敗, 這頁照舊用共用切片 (${e})`);
           }
         }
       },

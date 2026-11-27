@@ -28,3 +28,49 @@ test('年度回顧只抓第 0 片粉圓 + 自己的小檔', async ({ page, conte
   const kb = fonts.reduce((n, r) => n + r.bytes!, 0) / 1024;
   expect(kb, `字型總量 ${kb.toFixed(1)} KB`).toBeLessThan(FONT_KB);
 });
+
+// 切小檔只是省流量: 字型檔壞掉 / 讀不到 site-shell.css 時只 warn, 那頁照舊用共用切片, 不能把整個 build 擋下來
+test.describe('page-fonts 出錯時降級, 不擋 build', () => {
+  const PAGE = '<html><head><title>t</title></head><body><p>海</p></body></html>';
+  const FACES = "@font-face { font-family: 'openhuninn'; src: url('/fonts/openhuninn/oh-00.woff2') format('woff2'); font-display: swap; unicode-range: U+21-7E; }\n"
+    + "@font-face { font-family: 'openhuninn'; src: url('/fonts/openhuninn/oh-01.woff2') format('woff2'); font-display: swap; unicode-range: U+6D77; }\n";
+
+  async function run(setup: (tmp: string) => Promise<void>) {
+    const { mkdtemp, mkdir, writeFile, readFile } = await import('node:fs/promises');
+    const { tmpdir } = await import('node:os');
+    const { join } = await import('node:path');
+    const { pathToFileURL } = await import('node:url');
+    const { default: pageFonts } = await import('../src/integrations/page-fonts.mjs');
+    const tmp = await mkdtemp(join(tmpdir(), 'page-fonts-'));
+    await mkdir(join(tmp, 'dist/year/2026'), { recursive: true });
+    await writeFile(join(tmp, 'dist/year/2026/index.html'), PAGE);
+    await setup(tmp);
+    const warns: string[] = [];
+    const logger = { warn: (m: string) => warns.push(m), info: () => {} };
+    const cwd = process.cwd();
+    process.chdir(tmp);
+    try {
+      await pageFonts({ pages: ['year'] }).hooks['astro:build:done']({ dir: pathToFileURL(join(tmp, 'dist') + '/'), logger } as never);
+    } finally { process.chdir(cwd); }
+    return { warns, html: await readFile(join(tmp, 'dist/year/2026/index.html'), 'utf-8') };
+  }
+
+  test('切片字型壞掉: 不丟錯、HTML 不動', async () => {
+    const { mkdir, writeFile } = await import('node:fs/promises');
+    const { join } = await import('node:path');
+    const { warns, html } = await run(async (tmp) => {
+      await mkdir(join(tmp, 'public/css'), { recursive: true });
+      await mkdir(join(tmp, 'public/fonts/openhuninn'), { recursive: true });
+      await writeFile(join(tmp, 'public/css/site-shell.css'), FACES);
+      await writeFile(join(tmp, 'public/fonts/openhuninn/oh-01.woff2'), 'not a font');
+    });
+    expect(html).toBe(PAGE);
+    expect(warns.join('\n')).toContain('共用切片');
+  });
+
+  test('讀不到 site-shell.css: 不丟錯、HTML 不動', async () => {
+    const { warns, html } = await run(async () => {});
+    expect(html).toBe(PAGE);
+    expect(warns.length).toBeGreaterThan(0);
+  });
+});
