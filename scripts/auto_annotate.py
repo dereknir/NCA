@@ -306,7 +306,7 @@ def _window_ratio(lines, hira, chain):
     return fuzz.ratio(hira[a - ws:b - ws], s[a:b])
 
 
-def align(song, tr):
+def align(song, tr, tiebreak=True):
     hira, ct = tr['hira'], tr['char_time']
     lines = song['lines']
     # 每個起始句一條鏈; 以「真正對到的句子集合」去重 (起點提早一句會得到完全相同的鏈)
@@ -333,7 +333,7 @@ def align(song, tr):
         top = max(key(r) for r in [best] + rivals)
         tied = [r for r in [best] + rivals if key(r) == top]
         best = max(tied, key=lambda r: max(c[0] for c in r[1]))
-        if len(tied) > 1 and TIE_WIN_MARGIN:
+        if len(tied) > 1 and TIE_WIN_MARGIN and tiebreak:
             # 還是平手: 整段轉寫跟「這次副歌所在位置的整段歌詞」比 (不設單句門檻)。
             # 平手的幾次副歌在片段裡對到的字、時間完全一樣, 能分的只剩副歌前後那些沒過單句門檻的字
             # (例: 第一次副歌後接 It's OK, 第二次接 そして); 明顯比較像才推翻「取後面那次」
@@ -353,7 +353,9 @@ def align(song, tr):
     anchors = _fix_times(anchors, float(tr.get('duration') or 0))
     if tr.get('alt'):
         # hybrid: 句子用這份 (Qwen) 對齊的結果, 時間改用 whisper 對到同一句的 word timestamp (比 ForcedAligner 準)
-        aw, _ = align(song, tr['alt'])
+        # whisper 這份只拿來換時間: 不做歌詞窗平手判斷, 選段維持原本規則。平手判斷只該改「選哪段」;
+        # 讓它去改 whisper 的選段, 會在 Qwen 選段沒變時把原本對不上 (= 保留 Qwen 時間) 的句子換成 whisper 時間
+        aw, _ = align(song, tr['alt'], tiebreak=False)
         tw = {a['line']: a['t'] for a in aw if not a.get('est')}
         if HYBRID_RETIME:
             anchors = _retime(anchors, tw)
