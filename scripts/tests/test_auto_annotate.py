@@ -722,3 +722,11 @@ def test_window_ratio_noise_before_head_chorus_does_not_favor_it(lines):
     later = [(second, 5, 100.0), (second + 1, 5 + len(VERSES[0]), 100.0)]
     assert aa._window_ratio(ls, hira, first) < 100
     assert aa._window_ratio(ls, hira, first) <= aa._window_ratio(ls, hira, later)
+
+
+def test_retime_whisper_estimate_yields_to_real_whisper_line():
+    # whisper 估的句子擠到下一句真的對到字的時間: 讓位的是估的那句, 不能把真的對到的 8.1 改成內插
+    a = _q((1, 1.0, 0), (2, 4.0, 1), (3, 8.0, 0), (4, 12.0, 0))
+    out = aa._retime(a, {1: 1.1, 2: 7.8, 3: 8.1, 4: 12.1}, low={2})
+    assert out[2]['t'] == 8.1 and out[0]['t'] == 1.1 and out[3]['t'] == 12.1
+    assert 1.1 < out[1]['t'] < 8.1
