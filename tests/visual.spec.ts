@@ -16,6 +16,7 @@ const PAGES: [string, string][] = [
   ['song-wawon', '/translations/nishina-wawon/'],
   ['live', '/live/'],
   ['about', '/about/'],
+  ['star-map', '/star-map/'],
 ];
 
 // /live/ 的數字、下一場、雷達點是排程自動抓的資料, 每天都可能變 → 遮掉, 只看版面

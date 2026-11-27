@@ -41,6 +41,9 @@ export const BUDGETS: Record<string, Budget> = {
   about: budget('/about/',                        { js: 15,  font: 720,  total: 770,  cls: 0.05 }), // 10.5 / 636 / 681 / 0
   // 作品集已經超過 target (N10 基準時 596 / 742): 頁面字變多 → 要載的 oh-* 字型分包跟著變多。字型瘦身後拉回來。
   projects: budget('/projects/',                     { js: 15,  font: 810,  total: 970,  cls: 0.05 }), // 10.5 / 715 / 861 / 0
+  // 星圖: HTML 原檔 ~300 KB (星點資料直接內嵌) + 整包 d3。d3 換成只留用到部分的 build 之後 JS 102 → 41、總量 424 → 363,
+  // 到時候 hard 收成 js 46 / total 410。target 的 js 先訂在換完的量。
+  'star-map': budget('/star-map/',                   { js: 108, font: 250,  total: 480,  cls: 0.05 }, { ...TARGET_OTHER, js: 45 }), // 102.4 / 222 / 424 / 0.003
   // 桌機 CLS 0.079: 太陽那顆 .body-cv canvas 在 ~0.5 秒時被重新定位 (手機 0)。修好改回 0.05。
   galaxy: budget('/galaxy/',                       { js: 5,   font: 460,  total: 500,  cls: 0.1 }),  // 0 / 409 / 439 / 0.079
   kwic: budget('/kwic/',                         { js: 15,  font: 420,  total: 590,  cls: 0.05 }), // 10.5 / 370 / 524 / 0
