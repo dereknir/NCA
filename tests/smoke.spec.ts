@@ -9,7 +9,7 @@ const STATIC_PAGES = [
   '/', '/about/', '/diary/', '/projects/', '/translations/', '/extras/', '/setlists/',
   '/live/', '/live/full/', '/live/timeline/', '/live/concerts/', '/live/footprint/',
   '/lyric-universe/', '/kwic/', '/star-map/', '/gacha/', '/galaxy/',
-  '/annotate/', '/admin/',
+  '/annotate/', '/admin/', '/year/2026/',
 ];
 
 // 動態路由: 從 dist/ 抽頭、中、尾三個 (E2E_ALL=1 時全部跑)

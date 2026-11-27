@@ -4,6 +4,7 @@
  * 用法 (repo root):  node scripts/og-pages.mjs [歌曲 id …]
  *   → public/og/song/<id>.png   左上封面馬賽克 + 歌名 + 專輯 / 年份 + 第一句歌詞 (日 / 中)
  *   → public/og/<page>.png      歌詞宇宙 / 星圖 / ガチャ / 索引, 右側畫該頁的像素行星
+ *   → public/og/year-<年>.png   年度回顧 (數字跟 /year/<年>/ 同一份資料算)
  * 新增歌曲、改歌名或第一句歌詞後重跑; 不帶參數就全部重畫。
  * 歌曲頁 (translations/[id].astro) 有圖就用, 沒有就退回封面。
  */
@@ -95,8 +96,38 @@ async function page(name) {
   ]));
 }
 
-const only = process.argv.slice(2);
+// ---------- 年度回顧 ----------
+// 跟 src/pages/year/<年>.astro 用同一份資料、同一種算法, 圖卡上的數字才會跟頁面一致
+const readJson = rel => JSON.parse(readFileSync(path.join(ROOT, rel), 'utf-8'));
+async function year(Y) {
+  const stops = readJson('live/data/tour_stops.json').tours.flatMap(t => t.stops).filter(s => s.date.startsWith(Y));
+  const fests = readJson('live/data/nishina_live_events.json').appearance.filter(a => (a.event_date ?? '').startsWith(Y));
+  const sid = tr => tr.matched_song_id ?? `title:${tr.title}`;
+  const songs = new Set(readJson('src/data/setlists.json').tours
+    .filter(t => t.tracks.length > 0 && t.date.startsWith(Y)).flatMap(t => t.tracks.map(sid)));
+  const translated = Object.values(readJson('src/data/translation_dates.json'))
+    .filter(d => (d.translated ?? '').startsWith(Y)).length;
+  const planet = nav.planets.neptune;
+  const { buf, px, rect } = baseBuffer(seedOf(`year-${Y}`), planet.palette[1]);
+  rect(12, 10, 164, 106, P.bg);
+  drawOrb(px, 178, 8, planet);
+  save(`year-${Y}.png`, await compose(buf, [
+    t('にしな', 14, 12, 12, 'JP12', P.dim),
+    t(`${Y} 年度回顧`, 14, 30, 24, 'TC12', P.gold),
+    t(`巡演 ${stops.length} 站 · 音樂祭 ${fests.length} 場`, 14, 62, 12, 'TC12', P.text),
+    t(`setlist ${songs.size} 首 · 翻好 ${translated} 首`, 14, 78, 12, 'TC12', P.dim),
+    t(`cat ${Y}.log`, 14, 102, 12, 'JP12', P.light),
+  ]));
+}
+const YEARS = ['2026'];
+
+const args = process.argv.slice(2);
+// year-2026 這種參數只重畫那一年的圖卡
+for (const a of args.filter(a => /^year-\d{4}$/.test(a))) await year(a.slice(5));
+const only = args.filter(a => !/^year-\d{4}$/.test(a));
+if (args.length && !only.length) process.exit(0);
 const ids = only.length ? only : readdirSync(path.join(ROOT, 'src/content/translations'))
   .filter(f => /\.mdx?$/.test(f)).map(f => f.replace(/\.mdx?$/, ''));
 for (const id of ids) await song(id);
 if (!only.length) for (const name of Object.keys(PAGES)) await page(name);
+if (!only.length) for (const Y of YEARS) await year(Y);

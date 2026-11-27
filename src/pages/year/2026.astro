@@ -1,0 +1,132 @@
+---
+// 2026 年度回顧: 數字都在 build 時從 repo 資料算
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getCollection } from 'astro:content';
+import setlists from '../../data/setlists.json';
+import fullLive from '../../data/full_live.json';
+import shortsTours from '../../data/shorts_tours.json';
+import translationDates from '../../data/translation_dates.json';
+import tourStops from '../../../live/data/tour_stops.json';
+import liveEvents from '../../../live/data/nishina_live_events.json';
+import { getPipelineStats, fmt } from '../../lib/pipelineStats';
+
+const YEAR = '2026';
+const songs = await getCollection('translations');
+const titleOf = new Map(songs.map(s => [s.id, s.data.title]));
+
+// ── にしな的 2026 ──
+const stops = tourStops.tours.flatMap(t => t.stops.map(s => ({ ...s, tour: t.name }))).filter(s => s.date.startsWith(YEAR));
+const fests = liveEvents.appearance.filter(a => (a.event_date ?? '').startsWith(YEAR));
+const prefs = new Set([...stops.map(s => s.pref)]);
+
+// 今年巡演的 setlist 跟過去比: 第一次進 setlist 的歌、每一次巡演都有唱的歌
+type Tour = { title: string; date: string; tracks: Array<{ title: string; matched_song_id?: string | null }> };
+const tours = (setlists.tours as Tour[]).filter(t => t.tracks.length > 0);
+const thisYear = tours.filter(t => t.date.startsWith(YEAR));
+const before = tours.filter(t => !t.date.startsWith(YEAR));
+const sid = (tr: Tour['tracks'][number]) => tr.matched_song_id ?? `title:${tr.title}`;
+const name = (id: string) => titleOf.get(id) ?? id.replace(/^title:/, '');
+const playedBefore = new Set(before.flatMap(t => t.tracks.map(sid)));
+const thisYearSongs = [...new Set(thisYear.flatMap(t => t.tracks.map(sid)))];
+const debut = thisYearSongs.filter(id => !playedBefore.has(id));
+const tourCount = new Map<string, number>();
+for (const t of tours) for (const id of new Set(t.tracks.map(sid))) tourCount.set(id, (tourCount.get(id) ?? 0) + 1);
+const always = thisYearSongs.filter(id => tourCount.get(id) === tours.length);
+const veterans = thisYearSongs
+  .map(id => ({ id, n: tourCount.get(id) ?? 0 }))
+  .sort((a, b) => b.n - a.n).slice(0, 5);
+const openers = thisYear.map(t => t.tracks[0]).filter(Boolean).map(tr => name(sid(tr)));
+const closers = thisYear.map(t => t.tracks.at(-1)).filter(Boolean).map(tr => name(sid(tr!)));
+
+// ── 這個站的 2026 ──
+const dates = translationDates as Record<string, { translated: string | null }>;
+const translatedThisYear = Object.values(dates).filter(d => (d.translated ?? '').startsWith(YEAR)).length;
+const byMonth = Array.from({ length: 12 }, (_, m) =>
+  Object.values(dates).filter(d => (d.translated ?? '').startsWith(`${YEAR}-${String(m + 1).padStart(2, '0')}`)).length);
+const busiest = byMonth.indexOf(Math.max(...byMonth));
+const st = await getPipelineStats();
+const tourShorts = (shortsTours.by_tour as Record<string, unknown[]>)[thisYear[0]?.title ?? ''] ?? [];
+const maxBar = Math.max(...byMonth, 1);
+---
+
+<BaseLayout title={`${YEAR} 年度回顧`} description={`にしな的 ${YEAR}: ${stops.length} 場巡演、${fests.length} 場音樂祭; 這個站的 ${YEAR}: 翻好 ${translatedThisYear} 首, 累計審過 ${fmt(st.reviewed)} 支現場影片。`} width="wide" image={`/og/year-${YEAR}.png`}>
+  <PageHero slot="hero" planet="neptune" title={`${YEAR} 年度回顧`} cmd={`cat ${YEAR}.log`}
+    desc="這一年にしな唱了哪些地方、哪些歌, 還有這個站長大了多少。數字都是 build 時從資料算的。"
+    chips={[[String(stops.length + fests.length), '場演出'], [String(translatedThisYear), '首翻好']]} />
+
+  <h2 class="yr-sec">にしな的 {YEAR}</h2>
+  <div class="yr-grid">
+    <section class="yr-card">
+      <p class="yr-k">巡演</p>
+      <p class="yr-n">{stops.length}<span>站</span></p>
+      <p class="yr-d">{thisYear[0]?.title ?? ''} · {thisYear[0]?.date ?? ''}<br>走過 {prefs.size} 個都道府縣</p>
+    </section>
+    <section class="yr-card">
+      <p class="yr-k">音樂祭 / 活動</p>
+      <p class="yr-n">{fests.length}<span>場</span></p>
+      <ul class="yr-list">{fests.map(f => <li>{f.name}</li>)}</ul>
+    </section>
+    <section class="yr-card">
+      <p class="yr-k">巡演 setlist</p>
+      <p class="yr-n">{thisYearSongs.length}<span>首</span></p>
+      <p class="yr-d">其中第一次進巡演 setlist 的:</p>
+      <ul class="yr-list">{debut.map(id => <li>{name(id)}</li>)}</ul>
+    </section>
+    <section class="yr-card">
+      <p class="yr-k">老朋友</p>
+      <p class="yr-d">{tours.length} 次有 setlist 的巡演裡, 唱過最多次的</p>
+      <ol class="yr-rank">{veterans.map(v => <li><span>{name(v.id)}</span><b>{v.n}/{tours.length}</b></li>)}</ol>
+      {always.length > 0 && <p class="yr-d">每一次都有唱: {always.map(name).join('、')}</p>}
+    </section>
+    <section class="yr-card">
+      <p class="yr-k">開場 · 最後一首</p>
+      <p class="yr-d">開場: {[...new Set(openers)].join('、')}</p>
+      <p class="yr-d">最後: {[...new Set(closers)].join('、')}</p>
+    </section>
+  </div>
+
+  <h2 class="yr-sec">這個站的 {YEAR}</h2>
+  <div class="yr-grid">
+    <section class="yr-card">
+      <p class="yr-k">翻好的歌</p>
+      <p class="yr-n">{translatedThisYear}<span>首</span></p>
+      <div class="yr-bars" role="img" aria-label={byMonth.map((n, m) => `${m + 1} 月 ${n} 首`).join(', ')}>
+        {byMonth.map((n, m) => <div class="yr-bar" style={`--h:${(n / maxBar) * 100}%`} data-on={n > 0 ? '1' : undefined}><i></i><span>{m + 1}</span></div>)}
+      </div>
+      <p class="yr-d">最拚的是 {busiest + 1} 月: {byMonth[busiest]} 首</p>
+    </section>
+    <section class="yr-card">
+      <p class="yr-k">審過的現場影片 (累計)</p>
+      <p class="yr-n">{fmt(st.reviewed)}<span>支</span></p>
+      <p class="yr-d">模型先打草稿, 我一支一支看過。{thisYear[0] && <>今年巡演的片段有 {tourShorts.length} 支。</>}</p>
+    </section>
+    <section class="yr-card">
+      <p class="yr-k">完整 Live</p>
+      <p class="yr-n">{fullLive.songs.length}<span>首</span></p>
+      <p class="yr-d">每一句都湊得到有人在現場唱, 從頭接到尾。<a href="/live/full/">去聽 →</a></p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .yr-sec { font: 20px var(--sh-px); color: var(--sh-ink); margin: 32px 0 16px; }
+  .yr-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .yr-card { background: var(--sh-bg2); border: 2px solid var(--sh-line); padding: 20px; box-shadow: 4px 4px 0 rgb(0 0 0 / .5); }
+  .yr-k { font: 12px var(--sh-px); letter-spacing: .08em; color: var(--sh-ink3); margin: 0 0 8px; }
+  .yr-n { font: 48px/1 var(--sh-px); color: var(--sh-gold); margin: 0 0 12px; }
+  .yr-n span { font-size: 16px; color: var(--sh-ink2); margin-left: 6px; }
+  .yr-d { font: .95rem/1.7 var(--sh-read); color: var(--sh-ink2); margin: 0 0 6px; }
+  .yr-d a { color: rgb(var(--sh-accent)); }
+  .yr-list { margin: 0; padding: 0; list-style: none; font: .9rem/1.8 var(--sh-read); color: var(--sh-ink); }
+  .yr-list li::before { content: '■ '; color: var(--sh-ink3); font-size: .6em; vertical-align: middle; }
+  .yr-rank { margin: 8px 0; padding: 0; list-style: none; counter-reset: r; }
+  .yr-rank li { display: flex; justify-content: space-between; gap: 8px; font: .95rem/2 var(--sh-read); color: var(--sh-ink); counter-increment: r; }
+  .yr-rank li span::before { content: counter(r) '. '; font-family: var(--sh-px); color: var(--sh-gold); }
+  .yr-rank b { font: 12px var(--sh-px); color: var(--sh-ink3); font-weight: 400; }
+  .yr-bars { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; height: 80px; align-items: end; margin: 8px 0 12px; }
+  .yr-bar { position: relative; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+  .yr-bar i { display: block; width: 100%; height: var(--h); min-height: 2px; background: var(--sh-line); }
+  .yr-bar[data-on] i { background: var(--sh-gold); }
+  .yr-bar span { font: 10px var(--sh-px10); color: var(--sh-ink3); margin-top: 4px; }
+</style>
