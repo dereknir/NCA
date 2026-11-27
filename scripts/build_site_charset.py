@@ -12,7 +12,6 @@ build_site_charset.py — 掃出「像素字型會渲染到」的全站字集 �
   src/layouts/*.astro, src/components/**/*.astro (元件連 client script 一起掃), src/lib/*.ts
   src/content/translations/*.md     只取 frontmatter title/artist/album
   live/*.template.html              live 三頁的靜態 UI 文字
-  public/pixel-lab/index.html       提案頁自身
   public/gacha/*                    ガチャ卡面 (canvas, fp12/10/8) + UI + pool.json
   public/js/site-shell.js 等         全站外殼 (頁首選單 / 指令列 / 靜態頁 hero / 首頁房間)
 外加保險:
@@ -102,10 +101,6 @@ def main():
     if upcoming.exists():
         for e in _json.loads(upcoming.read_text(encoding="utf-8"))["events"]:
             chars |= set(e["name"] + (e.get("venue") or "") + (e.get("pref") or ""))
-
-    lab = ROOT / "public" / "pixel-lab" / "index.html"
-    if lab.exists():
-        chars |= set(strip_markup(lab.read_text(encoding="utf-8")))
 
     # ガチャ (public/gacha): 卡面文字在 canvas 上用 fp12/fp10/fp8 畫, UI 字串藏在 JS 裡;
     # 卡池 pool.json 的歌詞行來自 md (已收), 但 songTitle/album/註解等欄位也一起掃, 過收無害。
