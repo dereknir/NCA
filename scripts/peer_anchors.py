@@ -221,6 +221,9 @@ def apply(out_path=aa.OUT_F, ids=None):
         aa.backfill_nonsong(r, songs, h.get('songId') if h.get('songConfirmed') and h.get('songId') in songs else None)
         if 'asr' not in r:
             r['asr'] = {k: r.get(k) for k in KEEP}           # ASR 原本的結果; 之後重算都從這份出發
+            for k in ('nonSong', 'gradeBeforeNonsong'):      # 「不是單曲」的標記跟著存 (補套偵測要還原時用)
+                if k in r:
+                    r['asr'][k] = r[k]
         base = r['asr']
         for k in KEEP:
             r[k] = base[k]
