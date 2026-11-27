@@ -1,0 +1,67 @@
+---
+// 現場履歷: 這首歌在歷年巡演 setlist 裡的位置。資料在 build 時算 (src/lib/liveHistory.ts)
+import { liveHistory } from '../lib/liveHistory';
+
+interface Props { songId: string }
+const h = liveHistory(Astro.props.songId);
+const tourLabel = (r: { year: string; title: string }) => `${r.year} ${r.title}`;
+---
+{h.sung > 0 && (
+  <section class="lh" aria-labelledby="lh-title">
+    <h2 id="lh-title" class="lh-h">現場履歷</h2>
+    <p class="lh-sum">
+      {h.rows.length} 次有 setlist 的巡演裡唱了 <b>{h.sung}</b> 次{h.shows > 0 && <>, 約 <b>{h.shows}</b> 場</>}
+      {h.slot && <> · 通常排在<b>{h.slot}</b></>}
+    </p>
+    <p class="lh-sum lh-sub">
+      第一次: {h.first && tourLabel(h.first)}{h.latest && h.latest !== h.first && <> · 最近: {tourLabel(h.latest)}</>}
+    </p>
+
+    {/* 一格一個巡演, 舊 → 新; 有唱 = 實心 + 第幾首, 沒唱 = 虛線空格 */}
+    <ol class="lh-strip">
+      {h.rows.map(r => (
+        <li class:list={['lh-cell', { on: r.pos !== null }]}>
+          <span class="lh-box" aria-hidden="true">{r.pos ?? ''}</span>
+          <span class="lh-yr" aria-hidden="true">{r.year.slice(2)}</span>
+          <span class="sr-only">{tourLabel(r)}: {r.pos !== null ? `第 ${r.pos} 首 (共 ${r.total} 首)` : '沒有唱'}</span>
+        </li>
+      ))}
+    </ol>
+
+    <details class="lh-more">
+      <summary>每次巡演的位置</summary>
+      <ul class="lh-list">
+        {[...h.rows].reverse().map(r => (
+          <li class:list={{ off: r.pos === null }}>
+            <span class="lh-t">{tourLabel(r)}</span>
+            <span class="lh-p">{r.pos !== null ? `第 ${r.pos} / ${r.total} 首` : '—'}{r.stops ? ` · ${r.stops} 場` : ''}</span>
+          </li>
+        ))}
+      </ul>
+    </details>
+    <p class="lh-note">依官方每個巡演的 setlist; 同一個巡演每場大致相同, 場數是巡演的總場數。<a href="/setlists/">看全部 setlist →</a></p>
+  </section>
+)}
+
+<style>
+  .lh { margin: 48px 0 0; padding: 20px; background: var(--sh-bg2); border: 2px solid var(--sh-line); box-shadow: 4px 4px 0 rgb(0 0 0 / .5); }
+  .lh-h { font: 18px var(--sh-px); color: var(--sh-ink); margin: 0 0 12px; }
+  .lh-sum { font: 1rem/1.8 var(--sh-read); color: var(--sh-ink2); margin: 0; }
+  .lh-sum b { font-family: var(--sh-px); font-weight: 400; color: var(--sh-gold); margin: 0 2px; }
+  .lh-sub { font-size: .9rem; color: var(--sh-ink3); }
+  .lh-strip { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 8px; padding: 0; list-style: none; }
+  .lh-cell { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .lh-box { display: grid; place-items: center; width: 28px; height: 28px; box-sizing: border-box;
+    border: 2px dashed var(--sh-line); font: 12px var(--sh-px); color: #0a0a15; }
+  .lh-cell.on .lh-box { border: 2px solid var(--sh-gold); background: var(--sh-gold); }
+  .lh-yr { font: 10px var(--sh-px10); color: var(--sh-ink3); }
+  .lh-more { margin-top: 8px; }
+  .lh-more summary { cursor: pointer; font: 12px var(--sh-px); color: var(--sh-ink3); padding: 6px 0; min-height: 24px; }
+  .lh-more summary:focus-visible { outline: 2px solid var(--sh-gold); outline-offset: 2px; }
+  .lh-list { margin: 8px 0 0; padding: 0; list-style: none; }
+  .lh-list li { display: flex; justify-content: space-between; gap: 12px; font: .9rem/2 var(--sh-read); color: var(--sh-ink); border-bottom: 1px solid rgb(255 255 255 / .06); }
+  .lh-list li.off { color: var(--sh-ink3); }
+  .lh-p { font-family: var(--sh-px); font-size: 12px; white-space: nowrap; }
+  .lh-note { margin: 12px 0 0; font: .8rem/1.7 var(--sh-read); color: var(--sh-ink3); }
+  .lh-note a { color: rgb(var(--sh-accent)); }
+</style>
