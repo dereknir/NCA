@@ -50,3 +50,24 @@ test('#7 /gacha 沒有斜線也能載入: 腳本、卡池都用絕對路徑', as
   await page.waitForTimeout(500);
   expect(bad).toEqual([]);
 });
+
+test('#8 歌詞列表: 選了專輯點進一首歌, 按上一頁回來篩選還在', async ({ page }) => {
+  await page.goto('/translations/');
+  const tab = page.locator('[data-song-tabs] button[data-tab]:not([data-tab=""])').nth(1);
+  const name = (await tab.getAttribute('data-tab'))!;
+  await tab.click();
+  await expect(tab).toHaveAttribute('aria-pressed', 'true');
+  const row = page.locator(`[data-song-rows] a[data-tab="${name}"]`).first();
+  const href = (await row.getAttribute('href'))!;
+  await row.click();
+  await expect(page).toHaveURL(new RegExp(href + '/?$'));
+  await page.goBack();
+  await expect(page.locator('[data-song-tabs]')).toBeVisible();
+  await expect(page.locator(`[data-song-tabs] button[data-tab="${name}"]`)).toHaveAttribute('aria-pressed', 'true');
+  // 別張專輯的歌是藏起來的
+  const shown = await page.$$eval('[data-song-rows] a', (as) => [...new Set(as.filter((a) => !(a as HTMLElement).hidden).map((a) => (a as HTMLElement).dataset.tab))]);
+  expect(shown).toEqual([name]);
+  // 重新整理也還在 (網址帶著)
+  await page.reload();
+  await expect(page.locator(`[data-song-tabs] button[data-tab="${name}"]`)).toHaveAttribute('aria-pressed', 'true');
+});
