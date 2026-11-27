@@ -308,8 +308,9 @@ def align(song, tr):
     rivals = [r for r in ranked[1:] if r[0] >= best[0] * 0.97]
     ambiguous = bool(rivals)
     if rivals:
-        # 副歌重複: 驗證集裡人工 4/4 都選「後面那次」(shorts 多剪自最後一段副歌) → 取句號最大的鏈
-        best = max([best] + rivals, key=lambda r: max(c[0] for c in r[1]))
+        # 副歌重複: 先比「往頭尾延伸後涵蓋幾句」— 片段裡副歌前後還有別段時, 只有其中一次重複接得上
+        # (從零手標的 dev: >3s 大錯 27 → 24 句); 一樣多才取「後面那次」(shorts 多剪自最後一段副歌)
+        best = max([best] + rivals, key=lambda r: (len(_extend_edges(lines, hira, r[1])), max(c[0] for c in r[1])))
     chain = _extend_edges(lines, hira, best[1]) if EXT_CUTOFF else best[1]
     anchors = []
     for idx, start, score in chain:
