@@ -55,7 +55,7 @@ export const BUDGETS: Record<string, Budget> = {
   concerts: budget('/live/concerts/',              { js: 16,  font: 610,  total: 660,  cls: 0.05 }), // 10.9 / 539 / 581 / 0.014
   footprint: budget('/live/footprint/',            { js: 16,  font: 610,  total: 680,  cls: 0.05 }), // 10.9 / 539 / 602 / 0.001
   gacha: budget('/gacha/',                         { js: 27,  font: 780,  total: 890,  cls: 0.05 }), // 21.8 / 689 / 789 / 0
-  year: budget('/year/2026/',                      { js: 16,  font: 960,  total: 1010, cls: 0.05 }), // 10.9 / 849 / 895 / 0
+  year: budget('/year/2026/',                      { js: 16,  font: 550,  total: 600,  cls: 0.05 }), // 10.9 / 484 / 530 / 0 (N49 粉圓只抓這頁用到的字)
   diary: budget('/diary/',                         { js: 16,  font: 630,  total: 680,  cls: 0.05 }), // 10.9 / 557 / 602 / 0
   'diary-post': budget('/diary/2026-03-23-first-diary/', { js: 16, font: 680, total: 730, cls: 0.05 }), // 10.9 / 603 / 650 / 0
   tags: budget('/translations/tags/',              { js: 22,  font: 630,  total: 690,  cls: 0.05 }), // 16.8 / 557 / 611 / 0
