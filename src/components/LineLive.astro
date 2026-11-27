@@ -345,6 +345,8 @@ const names = Object.fromEntries(shorts.map(s => [s.videoId, (ann[s.videoId]?.ap
   .wv-stick[hidden] { display: none; }
   .wv-stick .wv { gap: 2px; }
   .wv-stick .wv-b { cursor: pointer; }
+  /* 320 寬小手機: 句子多的歌 (エデン 74 句) 每根最少 2px + 間隔 2px 會擠出框外, 整頁跟著左右晃; 390 以下間隔縮成 1px */
+  @media (max-width: 389px) { .wv-head .wv, .wv-stick .wv { gap: 1px; } }
 
   /* 小卡 (z-index 70: 手機是底部抽屜, 要蓋過左下角的 N247i 鈕) */
   .ll-pop { position: absolute; z-index: 65; width: min(380px, calc(100vw - 24px)); color: var(--sh-ink); background: #0b0b16; border: 2px solid #3b335f;
