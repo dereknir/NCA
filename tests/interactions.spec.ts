@@ -216,6 +216,24 @@ test('足跡: 兩層都關掉, 清單空掉、0縣; 再打開一層就回來', a
   expect(errors).toEqual([]);
 });
 
+test('足跡: 從公演史頁點縣名 (?pref=) 進來, 直接打開那個縣', async ({ page }) => {
+  const errors = watchPageErrors(page);
+  await page.goto('/live/concerts/');
+  const a = page.locator('a[href*="footprint"][href*="?pref="]').first();
+  await expect(a).toBeAttached();
+  const pref = decodeURIComponent(/\?pref=([^&]+)/.exec((await a.getAttribute('href'))!)![1]);
+  await page.goto((await a.getAttribute('href'))!);
+  await expect(page.locator('#side h3')).toContainText(pref);
+  await expect(page.locator(`#map .tile.sel[data-p="${pref}"]`)).toHaveCount(1);
+  // 切圖層不會又被網址拉回那個縣 (之前讀 ?pref 的程式碼誤放在圖層按鈕的 handler 裡)
+  const other = await page.locator('#map .tile.hit').evaluateAll((ts, p) => ts.map((t) => (t as HTMLElement).dataset.p).find((x) => x !== p), pref);
+  await page.locator(`#map .tile.hit[data-p="${other}"]`).click();
+  await expect(page.locator('#side h3')).toContainText(other!);
+  await page.locator('#lyOne').click();
+  await expect(page.locator('#side h3')).toContainText(other!);
+  expect(errors).toEqual([]);
+});
+
 /* ---------- 日文詞小卡 ---------- */
 // 找一個有讀音的詞 (資料在頁面裡的 JSON), 回傳它在所有 .w 裡的序號
 async function wordWithReading(page: Page) {
