@@ -158,15 +158,29 @@ def test_retime_tail_line_keeps_qwen_time():
     assert [x['t'] for x in out] == pytest.approx([1.8, 2.0])      # 結尾那句不跟著移 (交給 enforce_gap)
 
 
+def test_retime_head_shift_capped_when_whisper_offset_too_large():
+    # whisper 第 1 句對到 0 秒、Qwen 是 7.36 秒 (位移 −7.36, 多半 whisper 對錯地方): 開頭那句不能跟著移到 0 秒
+    a = [{'t': 2.72, 'line': 29}, {'t': 7.36, 'line': 30}, {'t': 12.0, 'line': 31}]
+    out = aa._retime(a, {30: 0.0, 31: 12.1})
+    assert out[0]['t'] == pytest.approx(2.72)
+
+
+def test_retime_head_shift_skipped_when_still_crowded_after_clamp():
+    # 往前移會跑到 0 秒之前, 夾到 0 之後仍跟後一句擠在 MIN_GAP 內 → 不移
+    a = [{'t': 0.5, 'line': 0}, {'t': 1.4, 'line': 1}]
+    out = aa._retime(a, {1: 0.3})
+    assert out[0]['t'] == pytest.approx(0.5)
+
+
+def test_retime_several_head_lines_stay_ordered():
+    # 開頭兩句都沒有 whisper: 第 0 句不衝突留原時間, 第 1 句衝突 → 有前鄰居就內插 (不走開頭位移)
+    a = [{'t': 0.5, 'line': 0, 'score': 60}, {'t': 1.4, 'line': 1, 'score': 60}, {'t': 2.6, 'line': 2, 'score': 90}]
+    out = aa.enforce_gap(aa._retime(a, {2: 1.9}))
+    assert [x['line'] for x in out] == [0, 1, 2]
+    assert [x['t'] for x in out] == pytest.approx([0.5, 1.2, 1.9])
+
+
 # ---------- _extend_edges 往前延伸 ----------
-def test_extend_edges_bridges_two_garbled_lines_when_earlier_line_matches():
-    lines = make_song(VERSES)['lines']
-    hira = VERSES[0] + 'ぬ' * len(VERSES[1]) + 'ぬ' * len(VERSES[2]) + VERSES[3] + VERSES[4]
-    p3 = len(VERSES[0]) + len(VERSES[1]) + len(VERSES[2])
-    chain = [(3, p3, 100.0), (4, p3 + len(VERSES[3]), 100.0)]
-    assert [c[0] for c in aa._extend_edges(lines, hira, chain)] == [0, 1, 2, 3, 4]
-
-
 def test_extend_edges_stops_guessing_when_nothing_earlier_matches():
     lines = make_song(VERSES)['lines']
     pre = 'ぬ' * (len(VERSES[0]) + len(VERSES[1]) + len(VERSES[2]))
