@@ -95,6 +95,7 @@ npm run dev        # http://localhost:4321
 npm run build      # 靜態輸出到 dist/
 npm run check      # astro check (TS / content schema)
 npm run test:e2e   # build + Playwright 冒煙測試 (每頁 1440 / 390 各開一次; E2E_ALL=1 跑全部歌)
+PW_PORT=4331 npx playwright test   # 已經 build 過、4321 被佔走時換一個埠跑
 
 pip install -r requirements.txt      # 資料管線用
 python scripts/check_sync.py         # 驗證 public/annotate/ 鏡像與來源一致 (CI 也跑)

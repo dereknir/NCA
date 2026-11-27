@@ -2,7 +2,8 @@ import { defineConfig, devices } from '@playwright/test';
 
 // 冒煙測試: 對 build 好的 dist/ 起 astro preview, 每頁在桌機 1440 / 手機 390 各開一次。
 // 跑法: npm run test:e2e (會先 build)。已經 build 過可以直接 npx playwright test。
-const PORT = 4321;
+// 埠可以用 PW_PORT 換 (同一台機器同時跑好幾份測試時各用各的, 不會打到別人的 preview)。不設就是 4321。
+const PORT = Number(process.env.PW_PORT) || 4321;
 
 export default defineConfig({
   testDir: 'tests',
